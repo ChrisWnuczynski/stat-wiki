@@ -269,6 +269,121 @@ def fallback_for(template: str, page: Path) -> str:
     return mark_current(rewrite_hrefs(template, page), page)
 
 
+def _class_tokens(tag: str) -> set[str]:
+    match = re.search(r'class="([^"]*)"', tag)
+    return set(match.group(1).split()) if match else set()
+
+
+def _set_class(tag: str, token: str, present: bool) -> str:
+    match = re.search(r'class="([^"]*)"', tag)
+    if not match:
+        if not present:
+            return tag
+        return tag[:-1] + f' class="{token}">'
+    tokens = [part for part in match.group(1).split() if part != token]
+    if present:
+        tokens.append(token)
+    return tag[: match.start(1)] + " ".join(tokens) + tag[match.end(1) :]
+
+
+def section_open_state(html: str) -> dict[str, bool]:
+    """Which sidebar sections Quarto left open on this page."""
+    state: dict[str, bool] = {}
+    for match in re.finditer(r"<ul\b[^>]*>", html):
+        tag = match.group(0)
+        id_match = re.search(r'\bid="([^"]+)"', tag)
+        if not id_match:
+            continue
+        state[id_match.group(1)] = "show" in _class_tokens(tag)
+    return state
+
+
+def apply_open_state(menu: str, state: dict[str, bool]) -> str:
+    """Keep the current section open in the short menu, so its hub link is visible without JavaScript."""
+
+    def ul_repl(match: re.Match[str]) -> str:
+        tag = match.group(0)
+        id_match = re.search(r'\bid="([^"]+)"', tag)
+        if not id_match or id_match.group(1) not in state:
+            return tag
+        return _set_class(tag, "show", state[id_match.group(1)])
+
+    def a_repl(match: re.Match[str]) -> str:
+        tag = match.group(0)
+        target = re.search(r'data-bs-target="#([^"]+)"', tag)
+        if not target or target.group(1) not in state:
+            return tag
+        open_ = state[target.group(1)]
+        tag = _set_class(tag, "collapsed", not open_)
+        expanded = "true" if open_ else "false"
+        if "aria-expanded" in tag:
+            return re.sub(r'aria-expanded="(?:true|false)"', f'aria-expanded="{expanded}"', tag, count=1)
+        return tag[:-1] + f' aria-expanded="{expanded}">'
+
+    menu = re.sub(r"<ul\b[^>]*>", ul_repl, menu)
+    return re.sub(r"<a\b[^>]*>", a_repl, menu)
+
+
+def absolutise_hrefs(html: str, page: Path, site: Path) -> str:
+    """Rewrite menu links as paths from the site root, wherever the page sits."""
+
+    def repl(match: re.Match[str]) -> str:
+        href = match.group(1)
+        if re.match(r"^[a-z][a-z0-9+.-]*:", href, re.I) or href.startswith(("#", "/")):
+            return match.group(0)
+        path, sep, frag = href.partition("#")
+        target = (page.parent / path).resolve()
+        try:
+            rel = target.relative_to(site.resolve()).as_posix()
+        except ValueError:
+            return match.group(0)
+        new = f"{rel}#{frag}" if sep else rel
+        return f'href="{new}"'
+
+    return re.sub(r'href="([^"]*)"', repl, html)
+
+
+def stored_sidebar_html(site: Path) -> str | None:
+    path = site / "sidebar-nav.js"
+    if not path.is_file():
+        return None
+    text = path.read_text(encoding="utf-8")
+    marker = "window.__STATWIKI_SIDEBAR = "
+    if marker not in text:
+        return None
+    payload = text.split(marker, 1)[1].strip()
+    if payload.endswith(";"):
+        payload = payload[:-1].rstrip()
+    try:
+        data = json.loads(payload)
+    except json.JSONDecodeError:
+        return None
+    html = data.get("html") if isinstance(data, dict) else None
+    if not isinstance(html, str) or "articles/" not in html:
+        return None
+    return html
+
+
+def menu_with_articles(site: Path, index_inner: str) -> str:
+    """The full menu, from this render or from the menu already stored beside the site."""
+    if "articles/" in index_inner:
+        return strip_active(index_inner)
+    stored = stored_sidebar_html(site)
+    if stored:
+        return strip_active(stored)
+    for path in sorted(site.rglob("*.html")):
+        if "site_libs" in path.parts:
+            continue
+        text = path.read_text(encoding="utf-8")
+        bounds = sidebar_list(text)
+        if not bounds:
+            continue
+        inner = text[bounds[1] : bounds[2]]
+        if "articles/" in inner:
+            return strip_active(absolutise_hrefs(inner, path, site))
+    raise SystemExit("The sidebar menu has no article links to share")
+
+
 def measure(site: Path) -> tuple[int, int, int]:
     sizes: list[int] = []
     total = 0
@@ -295,9 +410,7 @@ def main() -> None:
     if not found:
         raise SystemExit("index.html has no sidebar menu")
     _ul, inner_start, inner_end = found
-    full = strip_active(source[inner_start:inner_end])
-    if "articles/" not in full:
-        raise SystemExit("The sidebar menu has no article links to share")
+    full = menu_with_articles(SITE_DIR, source[inner_start:inner_end])
     payload = json.dumps({"html": full}, ensure_ascii=False, separators=(",", ":"))
     (SITE_DIR / "sidebar-nav.js").write_text(
         "window.__STATWIKI_SIDEBAR = " + payload + ";\n",
@@ -315,7 +428,7 @@ def main() -> None:
         if not bounds:
             continue
         _ul, start, end = bounds
-        menu = fallback_for(template, path)
+        menu = apply_open_state(fallback_for(template, path), section_open_state(text[start:end]))
         updated = text[:start] + menu + text[end:]
         updated = strip_bucket_crumbs(updated)
         updated = insert_loader(updated, path)

@@ -1,5 +1,6 @@
 """Unit checks for the shared sidebar and the breadcrumb cleanup."""
 
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -84,6 +85,114 @@ class SidebarShareTests(unittest.TestCase):
         self.assertLess(updated.find("sidebar-nav.js"), updated.find("function sidebarRoot"))
         self.assertIn('src="../sidebar-nav.js"', updated)
         self.assertEqual(sidebar_share.insert_loader(updated, page), updated)
+
+
+FULL_MENU = """<!DOCTYPE html><html><body>
+<nav id="quarto-sidebar"><div class="sidebar-menu-container">
+<ul class="list-unstyled mt-1">
+<li class="sidebar-item sidebar-item-section">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link text-start{collapsed}" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="{expanded}"><span class="menu-text">Probability distributions</span></a>
+</div>
+<ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1{show}">
+<li class="sidebar-item"><div class="sidebar-item-container">
+<a href="{notes}" class="sidebar-item-text sidebar-link"><span class="menu-text">Overview</span></a>
+</div></li>
+<li class="sidebar-item"><div class="sidebar-item-container">
+<a href="{article}" class="sidebar-item-text sidebar-link"><span class="menu-text">Beta distribution</span></a>
+</div></li>
+</ul></li>
+<li class="sidebar-item sidebar-item-section">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false"><span class="menu-text">Applications</span></a>
+</div>
+<ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1">
+<li class="sidebar-item"><div class="sidebar-item-container">
+<a href="{apps}" class="sidebar-item-text sidebar-link"><span class="menu-text">Overview</span></a>
+</div></li>
+</ul></li>
+</ul></div></nav>
+<script>
+function sidebarRoot() {{ return null; }}
+</script>
+</body></html>
+"""
+
+
+def _menu(open_section: bool, *, nested: bool) -> str:
+    prefix = "../" if nested else ""
+    return FULL_MENU.format(
+        collapsed="" if open_section else " collapsed",
+        expanded="true" if open_section else "false",
+        show=" show" if open_section else "",
+        notes=f"{prefix}notes/probability-distributions.qmd",
+        article=f"{prefix}articles/beta-distribution.qmd",
+        apps=f"{prefix}notes/applications.qmd",
+    )
+
+
+class SidebarSecondPassTests(unittest.TestCase):
+    def test_two_passes_keep_the_menu_and_the_open_section(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            site = Path(tmp)
+            (site / "articles").mkdir()
+            (site / "index.html").write_text(_menu(False, nested=False), encoding="utf-8")
+            article = site / "articles" / "beta-distribution.html"
+            article.write_text(_menu(True, nested=True), encoding="utf-8")
+            previous = sidebar_share.SITE_DIR
+            sidebar_share.SITE_DIR = site
+            try:
+                sidebar_share.main()
+                stored = (site / "sidebar-nav.js").read_text(encoding="utf-8")
+                self.assertIn("articles/beta-distribution.qmd", stored)
+                first_index = (site / "index.html").read_text(encoding="utf-8")
+                first_article = article.read_text(encoding="utf-8")
+                self.assertNotIn("articles/", first_index)
+                self.assertNotIn("articles/", first_article)
+                self.assertIn("Overview", first_article)
+                self.assertIn('id="quarto-sidebar-section-1"', first_article)
+                self.assertIn("show", first_article)
+                self.assertIn('aria-expanded="true"', first_article)
+                self.assertNotIn("show", first_index.split("quarto-sidebar-section-1", 1)[1][:180])
+
+                # A single-file render puts the full menu back on one article only.
+                article.write_text(_menu(True, nested=True), encoding="utf-8")
+                sidebar_share.main()
+                second_article = article.read_text(encoding="utf-8")
+                second_index = (site / "index.html").read_text(encoding="utf-8")
+                self.assertNotIn("articles/", second_article)
+                self.assertIn("notes/probability-distributions.qmd", second_article)
+                self.assertIn("show", second_article)
+                self.assertIn('aria-expanded="true"', second_article)
+                self.assertEqual(second_index, first_index)
+                sidebar_share.main()
+                self.assertEqual(article.read_text(encoding="utf-8"), second_article)
+                self.assertEqual((site / "index.html").read_text(encoding="utf-8"), second_index)
+                self.assertIn("articles/", (site / "sidebar-nav.js").read_text(encoding="utf-8"))
+            finally:
+                sidebar_share.SITE_DIR = previous
+
+    def test_a_rerendered_article_supplies_the_menu_if_the_store_is_gone(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            site = Path(tmp)
+            (site / "articles").mkdir()
+            (site / "index.html").write_text(_menu(False, nested=False), encoding="utf-8")
+            article = site / "articles" / "beta-distribution.html"
+            article.write_text(_menu(True, nested=True), encoding="utf-8")
+            previous = sidebar_share.SITE_DIR
+            sidebar_share.SITE_DIR = site
+            try:
+                sidebar_share.main()
+                (site / "sidebar-nav.js").unlink()
+                article.write_text(_menu(True, nested=True), encoding="utf-8")
+                sidebar_share.main()
+                text = article.read_text(encoding="utf-8")
+                self.assertNotIn("articles/", text)
+                self.assertIn("../notes/probability-distributions.qmd", text)
+                self.assertIn("show", text)
+                self.assertIn("articles/", (site / "sidebar-nav.js").read_text(encoding="utf-8"))
+            finally:
+                sidebar_share.SITE_DIR = previous
 
 
 if __name__ == "__main__":

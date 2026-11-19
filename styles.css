@@ -594,6 +594,11 @@ html.infobox-compact .infobox:not(.is-open) {
   overflow: hidden;
 }
 
+/* A clipped link would still take Tab focus while the summary is closed. */
+html.infobox-compact .infobox:not(.is-open) > :not(.infobox-title) {
+  visibility: hidden;
+}
+
 html.infobox-compact .infobox.is-open {
   max-height: none;
   overflow-x: auto;

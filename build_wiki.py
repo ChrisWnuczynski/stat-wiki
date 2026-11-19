@@ -4666,6 +4666,13 @@ def article_lead(article: dict) -> str:
     return f"In {info['field']}, {subject}**{info['term']}** {info['verb']} {info['description'].strip(' .')}."
 
 
+def glossary_keep_case(term: str) -> str:
+    """Keep a leading k- name in its written case (k-anonymity, k-means)."""
+    if re.match(r"^[Kk]-(?:anonymity|means)\b", term):
+        return "k" + term[1:]
+    return term
+
+
 def glossary_plain_lead(article: dict) -> str:
     """One definitional sentence for a glossary cell, without the field wrapper."""
     info = ARTICLE_LEADS[article["slug"]]
@@ -4676,8 +4683,11 @@ def glossary_plain_lead(article: dict) -> str:
     term = str(info["term"]).strip()
     verb = str(info["verb"]).strip()
     description = str(info["description"]).strip().rstrip(".")
+    term = glossary_keep_case(term)
     if article_word:
         subject = article_word[:1].upper() + article_word[1:] + " " + term
+    elif re.match(r"^k-", term):
+        subject = term
     else:
         subject = term[:1].upper() + term[1:]
     return f"{subject} {verb} {description}."
@@ -7825,32 +7835,38 @@ SIDEBAR_JS = """
     return window.matchMedia("(min-width: 900px) and (max-width: 1200px)").matches;
   }
   function syncCompact() {
-    document.documentElement.classList.toggle("infobox-compact", compactRange());
+    var compact = compactRange();
+    document.documentElement.classList.toggle("infobox-compact", compact);
+    document.querySelectorAll(".infobox").forEach(function (box) {
+      var title = box.querySelector(".infobox-title");
+      if (!title) return;
+      if (!compact) {
+        title.removeAttribute("role");
+        title.removeAttribute("tabindex");
+        title.removeAttribute("aria-expanded");
+        return;
+      }
+      title.setAttribute("role", "button");
+      title.setAttribute("tabindex", "0");
+      title.setAttribute("aria-expanded", box.classList.contains("is-open") ? "true" : "false");
+    });
   }
   function armInfoboxes() {
     document.querySelectorAll(".infobox").forEach(function (box) {
       var title = box.querySelector(".infobox-title");
       if (!title || title.getAttribute("data-armed") === "true") return;
       title.setAttribute("data-armed", "true");
-      title.setAttribute("role", "button");
-      function toggle() {
+      title.addEventListener("click", function () {
         if (!document.documentElement.classList.contains("infobox-compact")) return;
         var open = !box.classList.contains("is-open");
         box.classList.toggle("is-open", open);
         title.setAttribute("aria-expanded", open ? "true" : "false");
-      }
-      title.addEventListener("click", toggle);
+      });
       title.addEventListener("keydown", function (event) {
         if (event.key !== "Enter" && event.key !== " ") return;
         event.preventDefault();
-        toggle();
+        title.click();
       });
-    });
-    document.querySelectorAll(".infobox-title").forEach(function (title) {
-      var box = title.closest(".infobox");
-      if (!box) return;
-      var open = box.classList.contains("is-open");
-      title.setAttribute("aria-expanded", open ? "true" : "false");
     });
   }
   function applySidebar(payload) {
@@ -7868,14 +7884,23 @@ SIDEBAR_JS = """
     ul.setAttribute("data-hydrated", "true");
     return true;
   }
+  function normalisePath(value) {
+    var path = String(value || "").replace(/\\\\/g, "/");
+    var cut = path.search(/[?#]/);
+    if (cut >= 0) path = path.slice(0, cut);
+    path = path.replace(/\\/index\\.html$/, "/");
+    path = path.replace(/\\.html$/, "");
+    if (path.length > 1 && path.charAt(path.length - 1) === "/") path = path.slice(0, -1);
+    return path;
+  }
   function markCurrent() {
     var root = sidebarRoot();
     if (!root) return;
-    var path = location.pathname.replace(/\\\\/g, "/");
+    var path = normalisePath(location.pathname);
     var links = root.querySelectorAll("a.sidebar-link");
     var best = null;
     for (var i = 0; i < links.length; i++) {
-      if (links[i].pathname.replace(/\\\\/g, "/") === path) { best = links[i]; break; }
+      if (normalisePath(links[i].pathname) === path) { best = links[i]; break; }
     }
     if (!best) return;
     root.querySelectorAll("a.sidebar-link.active").forEach(function (link) {

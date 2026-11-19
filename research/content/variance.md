@@ -33,7 +33,7 @@ Suppose a delivery is early by two minutes with probability $1/4$, on time with 
 The mean is $(1+3+5)/3=3$ dollars. The squared deviations are $4$, $0$, and $4$, so the variance is $(4+0+4)/3=8/3$ square dollars.
 :::
 
-Recovering a second moment from a mean and variance, and the variance of a normal law, use the identities already stated.{{cite:grinstead_snell1997}} (Ch. 6, §§6.2–6.3)
+A random variable with expectation $2$ and variance $1$ has second moment $\mathbb{E}X^2$ to be recovered from those two numbers. If $X$ is standard normal, $\operatorname{Var}(X)=1$ is to be shown by integration by parts, and then $Y\sim\operatorname{N}(\mu,\sigma^2)$ has variance $\sigma^2$.{{cite:grinstead_snell1997}} (Ch. 6, §§6.2–6.3)
 
 ::: {.callout-tip collapse="true" title="Answers"}
 In the first question, $\mathbb{E}X^2=\operatorname{Var}(X)+(\mathbb{E}X)^2=1+2^2=5$. In the second, integration by parts gives variance $1$ for a standard normal; the affine scaling identity then gives $\operatorname{Var}(\mu+\sigma X)=\sigma^2$.{{cite:grinstead_snell1997}} (Ch. 6, §§6.2–6.3)

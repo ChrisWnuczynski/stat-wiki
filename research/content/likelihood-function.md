@@ -33,7 +33,7 @@ Three independent shifts produce $1$, $3$, and $2$ defects. Suppose each shift c
 The counts total $3$, so $L(\lambda)\propto e^{-3\lambda}\lambda^3$ and the derivative of its log is $3/\lambda-3$. Hence $\widehat\lambda=1$. The ratio is $L(1)/L(2)=e^3/8\approx2.511$.
 :::
 
-A Poisson mean and an exponential rate are estimated by the same likelihood comparison, including the median that invariance carries along.
+For a random sample from $\operatorname{Poisson}(\theta)$, the maximum likelihood estimator of $\theta$ is to be found, together with its unbiasedness, its mean squared error, and its consistency. For a random sample from the exponential density $\lambda e^{-\lambda x}$ on $x>0$, the same comparison yields the maximum likelihood estimator of the rate $\lambda$, the method-of-moments estimator of that rate, and, by invariance, the maximum likelihood estimator of the median lifetime $(\log 2)/\lambda$.
 
 ::: {.callout-tip collapse="true" title="Answers"}
 For the Poisson sample, $\widehat\lambda=\overline X$; it is unbiased, has mean squared error $\lambda/n$, and is consistent. For independent exponential lifetimes with rate $\lambda$, $\widehat\lambda=1/\overline X$ and the fitted median is $\overline X\log 2$.{{cite:fisher1922}} (pp. 323–327)

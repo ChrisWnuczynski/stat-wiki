@@ -43,6 +43,8 @@ a_n-\frac23=0.4^n\left(a_0-\frac23\right).
 $$
 Starting wet means $a_0=0$, so $a_2=0.56$ and $a_5=2062/3125=0.65984$. The total variation distance after five steps is $|a_5-2/3|=64/9375\approx0.006827$.
 
+The factor $0.4$ is this chain's second eigenvalue, and it equals $P_{11}-P_{21}$. Each further day multiplies the distance from the stationary dry-day probability $2/3$ by $0.4$, which is why five steps from a wet start leave a gap of only $64/9375$. The same closed form with a dry start, $a_0=1$, approaches $2/3$ from above. Either state can be reached from the other in one step, and each state can stay put, so the chain is irreducible and aperiodic. Convergence of a finite chain asks only that some power of $P$ have every entry positive, so that this factor lies strictly inside the unit interval.{{cite:grinstead_snell1997}} (§11.4, finite-chain convergence proof)
+
 **Your turn.** If the chain starts dry instead, find the dry probability after five transitions.
 
 ::: {.callout-tip collapse="true" title="Answer"}
@@ -54,5 +56,3 @@ Use $a_0=1$, giving $a_5=2/3+(1/3)(0.4)^5=0.67008$. Both starts approach the sam
 ::: {.callout-tip collapse="true" title="Answer"}
 The balance equation $\pi_1=(1/2)\pi_1+(1/5)\pi_2$ with $\pi_2=1-\pi_1$ gives $(7/10)\pi_1=1/5$, so $\pi=(2/7,5/7)$.
 :::
-
-The same balance equation can be checked one state at a time. State 1 sends half its mass to itself and half to state 2, while state 2 sends one fifth of its mass to state 1 and keeps four fifths. Substituting the candidate $(2/7,5/7)$ into the update for state 1 gives $(1/2)(2/7)+(1/5)(5/7)=1/7+1/7=2/7$, and the complementary state then receives $5/7$. The row is unchanged, so the candidate is stationary. A second check uses two transitions from state 2. After one step the chain is in state 1 with probability $1/5$ and in state 2 with probability $4/5$. After two steps the probability of state 1 is $(4/5)(1/5)+(1/5)(1/2)=4/25+1/10=13/50=0.26$. The stationary value $2/7\approx0.2857$ is already nearby. The weather chain above has larger diagonal entries, so its second eigenvalue $0.4$ keeps a visible gap after a few steps; here the chance of leaving state 1 at the next step is one half, and the gap closes faster. The statement of convergence still needs both states to communicate and the chain to be aperiodic. Both hold: each state can reach the other in one step, and each state has a positive chance of staying put, so the period is one. The unique stationary row is therefore the limiting distribution from either start.{{cite:durrett2019}} (§5.5, stationary measures and positive recurrence)

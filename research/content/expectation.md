@@ -37,7 +37,7 @@ A fair die game costs 2 dollars to enter and pays 8 dollars only when a six is t
 The net gain is $4.50$ with probability $1/3$ and $-1.50$ with probability $2/3$. Thus $\mathbb{E}X=4.50(1/3)-1.50(2/3)=0.50$ dollar.
 :::
 
-A geometric wait for double six, and a spike that keeps its mean while converging to zero in probability, use the definitions above.
+Two fair dice are thrown until both faces are six; the expected number of throws is the mean of that geometric wait. For the spike $X_n=n\mathbf1_{\{U\leq1/n\}}$ with $U$ uniform on $(0,1)$, the probability $\mathrm{P}(X_n>\varepsilon)$, the expectation $\mathbb{E}X_n$, and the second moment $\mathbb{E}X_n^2$ decide which modes of convergence to $0$ hold.
 
 ::: {.callout-tip collapse="true" title="Answers"}
 The chance of double six on each independent throw is $1/36$, so the geometric waiting time has expectation $36$ throws. For the spike $X_n=n\mathbf1_{\{U\leq1/n\}}$ with uniform $U$, $\mathbb{E}X_n=n(1/n)=1$ although $X_n$ converges to zero in probability and almost surely; moreover $\mathbb{E}X_n^2=n$. Thus neither $L^1$ nor $L^2$ convergence holds.{{cite:grinstead_snell1997}} (Ch. 6, §6.1)
