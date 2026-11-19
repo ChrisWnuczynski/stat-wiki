@@ -64,7 +64,7 @@ If every draw is equal, `bw.nrd0` has no spread to scale and falls back to a wid
 ## On the theory page
 
 - [Bias and variance in one bandwidth](../notes/sl-07-linkage-and-density.qmd#s-bias-and-variance-in-one-bandwidth), [Choosing the bandwidth](../notes/sl-07-linkage-and-density.qmd#s-choosing-the-bandwidth), and the [kernel density estimator](../notes/sl-07-linkage-and-density.qmd#def-sl-07-kernel-density).
-- Worked questions: [Kernel density by hand](../questions/ex-sl-07-3.qmd), [A tempting wrong turn](../questions/ex-sl-07-5.qmd), and [Clustering and smoothing choices](../questions/ex-sl-07-6.qmd).
+- Worked questions: [Kernel density by hand](../questions/ex-sl-07-3.qmd), [The training likelihood drives the kernel bandwidth to zero](../questions/ex-sl-07-5.qmd), and [Clustering and smoothing choices](../questions/ex-sl-07-6.qmd).
 
 ## References {#references}
 

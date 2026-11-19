@@ -36,7 +36,7 @@ The inclusion probabilities are $1-0.8^5=0.67232$ and $1-0.95^{20}=0.641514$. Th
 :::
 
 ### Evaluate the whole tuning procedure {#self-check-ex-sl-09-6}
-[A tempting wrong turn](../questions/ex-sl-09-6.qmd) asks why the winning tuning score is optimistic.
+[The winning cross-validation score is optimistic](../questions/ex-sl-09-6.qmd) asks why the winning tuning score is optimistic.
 
 ::: {.callout-tip collapse="true" title="Answer"}
 Selecting the smallest score also selects favourable evaluation noise. An outer held-out fold must be excluded from fitting and tuning. Repeat the inner selection within each outer training set, then evaluate the resulting procedure on the outer fold.
