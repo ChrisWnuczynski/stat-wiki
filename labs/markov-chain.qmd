@@ -97,7 +97,7 @@ The distances are exact for the distribution and are one path for the occupation
   <div class="cite-body">
     <div class="cite-entry">
       <span class="cite-format">Plain text</span>
-      <pre class="cite-code"><code>StatWiki (2026). &quot;Markov chain laboratory.&quot; StatWiki. Last updated 13 November 2026. https://www.statwiki.io/labs/markov-chain.html</code></pre>
+      <pre class="cite-code"><code>StatWiki (2026). &quot;Markov chain laboratory.&quot; StatWiki. Last updated 19 November 2026. https://www.statwiki.io/labs/markov-chain.html</code></pre>
     </div>
     <div class="cite-entry">
       <span class="cite-format">BibTeX</span>
@@ -106,8 +106,8 @@ The distances are exact for the distribution and are one path for the occupation
   title = {{Markov chain laboratory}},
   year = {2026},
   url = {https://www.statwiki.io/labs/markov-chain.html},
-  urldate = {2026-11-13},
-  note = {StatWiki, last updated 13 November 2026}
+  urldate = {2026-11-19},
+  note = {StatWiki, last updated 19 November 2026}
 }</code></pre>
     </div>
   </div>

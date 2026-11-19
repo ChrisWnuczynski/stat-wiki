@@ -151,8 +151,9 @@ export class Cloudflare {
   }
 
   async deleteVectors(ids: string[]): Promise<void> {
-    for (let i = 0; i < ids.length; i += 1000) {
-      const slice = ids.slice(i, i + 1000)
+    // Vectorize v2 delete_by_ids allows at most 100 ids per request.
+    for (let i = 0; i < ids.length; i += 100) {
+      const slice = ids.slice(i, i + 100)
       if (slice.length === 0) continue
       await this.call("POST", `/vectorize/v2/indexes/${VECTORIZE_INDEX}/delete_by_ids`, { ids: slice })
     }
