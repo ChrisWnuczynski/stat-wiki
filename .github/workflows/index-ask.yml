@@ -1,0 +1,116 @@
+# Rebuild the Ask StatWiki index after the site is published.
+#
+# "Build and publish" is the workflow name in publish.yml. workflow_run
+# matches that name, not the file name. Renaming "Build and publish" stops
+# this workflow from running, and nothing in GitHub reports the mismatch.
+# Do not name this workflow "Check parallel render": that name is a stale
+# registration whose file is already gone.
+#
+# workflow_run only runs a workflow file that is on the default branch, so
+# this pull request cannot exercise it. workflow_dispatch is the way to run
+# the first catch-up, and the way to try the job before it has ever fired
+# from main.
+#
+# The concurrency group is shared with the Worker deploy workflow. A re-index
+# and a deploy both write Cloudflare state for Ask, so they must not overlap.
+# Keep the group name `statwiki-ask-cloudflare` in both workflows.
+name: Index Ask StatWiki
+
+on:
+  workflow_run:
+    workflows: ["Build and publish"]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: statwiki-ask-cloudflare
+  cancel-in-progress: false
+
+jobs:
+  index:
+    # Pull-request runs of "Build and publish" succeed without deploying.
+    # Index only after a push or a manual publish on this repo's main branch,
+    # or when someone starts this workflow by hand.
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (
+        github.event.workflow_run.conclusion == 'success' &&
+        github.event.workflow_run.head_branch == 'main' &&
+        (github.event.workflow_run.event == 'push' || github.event.workflow_run.event == 'workflow_dispatch') &&
+        github.event.workflow_run.head_repository.full_name == github.repository
+      )
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    env:
+      WIKI_URL: https://www.statwiki.io/wiki.json
+      PUBLISH_STARTED: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.run_started_at || '' }}
+    steps:
+      - name: Require a manual run to use main
+        if: github.event_name == 'workflow_dispatch' && github.ref != 'refs/heads/main'
+        run: |
+          echo "::error::Run Index Ask StatWiki from main. It indexes the published site at https://www.statwiki.io/wiki.json, so the indexer has to be the one on main."
+          exit 1
+
+      - name: Require Cloudflare credentials
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          set -euo pipefail
+          missing=()
+          if [[ -z "${CLOUDFLARE_ACCOUNT_ID}" ]]; then
+            missing+=(CLOUDFLARE_ACCOUNT_ID)
+          fi
+          if [[ -z "${CLOUDFLARE_API_TOKEN}" ]]; then
+            missing+=(CLOUDFLARE_API_TOKEN)
+          fi
+          if ((${#missing[@]} > 0)); then
+            echo "::error::Missing GitHub Actions secret(s): ${missing[*]}. Add them under Settings → Secrets and variables → Actions. CLOUDFLARE_ACCOUNT_ID is the Cloudflare account id. CLOUDFLARE_API_TOKEN needs Workers AI (Read), Vectorize (Edit), and Workers KV Storage (Edit) on that account. The indexer reads these two names and no others."
+            exit 1
+          fi
+          echo "CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN are set."
+
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+          persist-credentials: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: ask/package-lock.json
+
+      - name: Install the indexer
+        working-directory: ask
+        run: npm ci
+
+      - name: Wait until the published wiki.json is being served
+        env:
+          WIKI_FILE: ${{ runner.temp }}/wiki.json
+        run: bash .github/scripts/wait-for-wiki.sh
+
+      # Incremental: unchanged pages stay, removed pages are deleted.
+      # No XAI_API_KEY is set, and the retrieval, answer, and misuse
+      # harnesses are not run.
+      - name: Index the published wiki
+        working-directory: ask
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          WIKI_FILE: ${{ runner.temp }}/wiki.json
+        run: npm run index -- --wiki "$WIKI_FILE"
+
+      - name: Leave the git checkout unchanged
+        run: |
+          set -euo pipefail
+          status="$(git status --porcelain)"
+          if [[ -n "$status" ]]; then
+            echo "::error::The indexer changed the checkout. Index logs stay in the ignored ask/harness/runs/ directory and are not committed."
+            printf '%s\n' "$status"
+            exit 1
+          fi
