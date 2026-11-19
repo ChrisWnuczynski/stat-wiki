@@ -1,9 +1,14 @@
 """Arithmetic checks for the sigma-algebra article."""
 
+import sys
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from tools.shown import shown
+
 
 root = Path(__file__).resolve().parents[1]
 prose = (root / "research/content/sigma-algebra.md").read_text(encoding="utf-8")
+prose = shown(prose, "sigma-algebra")
 article = root / "articles/sigma-algebra.qmd"
 built = article.read_text(encoding="utf-8") if article.is_file() else ""
 page = built if "Your turn" in built else prose

@@ -24,23 +24,3 @@ No. Both sums multiply the respective averages by the same positive validation s
 
 ## Connections — Log score and relative entropy
 When the true density is $f$, expected log score equals $\int f\log f-D(f\Vert\widehat f)$. The first term is independent of the candidate, so choosing a higher expected score chooses a smaller divergence. A finite validation sample estimates that expectation with sampling variation; it does not identify the true density exactly.{{cite:goodfellow_bengio_courville2016}} (§3.13, eqs. 3.50–3.51, pp. 72–73) Selection among many noisy scores can magnify that variation.{{cite:cawley_talbot2010}} (§2, pp. 2081–2084)
-
-## Check yourself
-
-Use the definitions and calculations above to work through these questions.
-
-### Why log score chooses a close density {#self-check-ex-sl-06-4}
-
-[Why log score chooses a close density](../questions/ex-sl-06-4.qmd). Rearrange the definition of divergence.
-
-::: {.callout-tip collapse="true" title="Answer"}
-$D(f\Vert\widehat f)=\int f\log f-\int f\log\widehat f$. The first term does not depend on the fitted candidate, leaving the negative expected log score as the comparison.
-:::
-
-### Why training likelihood favours complexity {#self-check-ex-sl-06-5}
-
-[Why training likelihood favours complexity](../questions/ex-sl-06-5.qmd). Identify the missing separation between fitting and assessment.
-
-::: {.callout-tip collapse="true" title="Answer"}
-A larger mixture can reproduce a smaller one, so maximised training likelihood cannot penalise its extra flexibility. Fit on training observations and score held-out observations; an information criterion is another comparison with a complexity penalty.
-:::

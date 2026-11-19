@@ -1,5 +1,9 @@
 """Independent calculations and generated-output checks for this article."""
+
+import sys
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from tools.shown import shown
 import re
 ROOT=Path(__file__).resolve().parents[1]
 import numpy as np
@@ -15,6 +19,7 @@ powers=[norm.sf(z-(mu-10)/.4) for mu in np.linspace(8,12,81)]
 assert all(a<=b for a,b in zip(powers,powers[1:]))
 
 source=(ROOT/"research/content/uniformly-most-powerful-test.md").read_text()
+source = shown(source, "uniformly-most-powerful-test")
 article=(ROOT/"articles/uniformly-most-powerful-test.qmd").read_text().split("## See also",1)[0]
 for needle in ['0.803765', '0.705418', '0.638760', '0.516005']:
     assert needle in source and needle in article, needle

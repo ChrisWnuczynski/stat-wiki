@@ -24,23 +24,3 @@ Divide the rate-one location and scale by two. The approximate median is $2.4858
 
 []{#property-normal-gumbel-limit}
 The formula above uses the exact exponential tail. A normal maximum also has a Gumbel limit, but needs different centring and scaling; its leading centring is of order $\sqrt{2\log n}$. A power-law maximum instead grows at a power rate. These comparisons require the tail assumptions of each case.{{cite:durrett2019}} (§3.2, Exs. 3.2.2–3.2.3, pp. 123–124)
-
-## Check yourself
-
-Use the definitions and calculations above to work through these questions.
-
-### Scale an exponential maximum {#self-check-ex-sp-gumbel-scale}
-
-[Scale an exponential maximum](../questions/ex-sp-gumbel-scale.qmd). Give the requested rate-two sequences.
-
-::: {.callout-tip collapse="true" title="Answer"}
-Use $b_n=(\log n)/2$ and $a_n=1/2$. Then $2b_n=\log n$ and $2a_n=1$, leaving the exceedance probability $e^{-x}/n$.
-:::
-
-### Build the exact distribution {#self-check-ex-prob-cdf-of-maximum}
-
-[Build the exact distribution](../questions/ex-prob-cdf-of-maximum.qmd). Use the event that every observation is below the threshold.
-
-::: {.callout-tip collapse="true" title="Answer"}
-Independence gives $\Pr(M\le u)=\prod_{i=1}^n F_i(u)$. With a common distribution this is $F(u)^n$.
-:::

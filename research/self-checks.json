@@ -847,7 +847,6 @@
     "depth-underdispersion-conditional"
   ],
   "weak-stationarity": [
-    "c-43",
     "depth-weak-stationarity-ar",
     "depth-weak-not-strict"
   ],
@@ -942,8 +941,8 @@
     "ex-inf-degrees-of-freedom"
   ],
   "geometric-distribution": [
-    "ex-prob-generate-exp",
-    "q-29"
+    "depth-geometric-mean-trials",
+    "depth-geometric-memoryless-wait"
   ],
   "inverse-gaussian-distribution": [
     "depth-mgf-domain",
@@ -954,8 +953,8 @@
     "depth-weak-not-strict"
   ],
   "conway-maxwell-poisson-distribution": [
-    "depth-underdispersion-binomial",
-    "ex-prob-clt-binomial-tail"
+    "depth-cmp-poisson-case",
+    "depth-cmp-underdispersion"
   ],
   "multinomial-distribution": [
     "depth-dirichlet-marginal",
@@ -982,8 +981,8 @@
     "ex-prob-name-the-laws"
   ],
   "hammersley-clifford": [
-    "depth-hierarchy-shared-rate",
-    "depth-marginal-bernoulli-bound"
+    "depth-hammersley-path-conditional",
+    "depth-hammersley-positivity"
   ],
   "multivariate-central-limit-theorem": [
     "ex-prob-clt-binomial-band",
@@ -1046,7 +1045,7 @@
     "exr-completeness-restricted"
   ],
   "wold-decomposition": [
-    "c-43",
+    "depth-wold-deterministic-piece",
     "c-44"
   ],
   "law-of-total-probability": [
@@ -5055,5 +5054,1025 @@
       "prompt": "For the nonnegative-mean boundary example, the limiting law of D is half a point mass at zero and half a chi-squared law with one degree of freedom. What is $P(D=0)$?",
       "answer": "One half. The other half of the probability lies on the positive chi-squared component."
     }
+  ],
+  "behrens-fisher-problem": [
+    "depth-behrens-pooled-t",
+    "depth-behrens-welch-se"
+  ],
+  "a-hypothesis-region-is-not-a-separate-model": [
+    "depth-a-hypothesis-region-is-not-a-separate-model-q1",
+    "depth-a-hypothesis-region-is-not-a-separate-model-q2"
+  ],
+  "adaboost": [
+    "depth-adaboost-q1",
+    "depth-adaboost-q2"
+  ],
+  "addiction-data": [
+    "depth-addiction-data-q1",
+    "depth-addiction-data-q2"
+  ],
+  "adjusted-rand-index": [
+    "depth-adjusted-rand-index-q1",
+    "depth-adjusted-rand-index-q2"
+  ],
+  "agglomerative-and-divisive-clustering": [
+    "depth-agglomerative-and-divisive-clustering-q1",
+    "depth-agglomerative-and-divisive-clustering-q2"
+  ],
+  "alon-colon-cancer-data": [
+    "depth-alon-colon-cancer-data-q1",
+    "depth-alon-colon-cancer-data-q2"
+  ],
+  "ancillary-statistic": [
+    "depth-ancillary-statistic-q1",
+    "depth-ancillary-statistic-q2"
+  ],
+  "arch-and-garch-models": [
+    "depth-arch-and-garch-models-q1",
+    "depth-arch-and-garch-models-q2"
+  ],
+  "arima-model": [
+    "depth-arima-model-q1",
+    "depth-arima-model-q2"
+  ],
+  "asymptotic-relative-efficiency": [
+    "depth-asymptotic-relative-efficiency-q1",
+    "depth-asymptotic-relative-efficiency-q2"
+  ],
+  "atom-of-a-distribution": [
+    "depth-atom-of-a-distribution-q1",
+    "depth-atom-of-a-distribution-q2"
+  ],
+  "average-linkage": [
+    "depth-average-linkage-q1",
+    "depth-average-linkage-q2"
+  ],
+  "backpropagation-batch-form": [
+    "depth-backpropagation-batch-form-q1",
+    "depth-backpropagation-batch-form-q2"
+  ],
+  "bagging": [
+    "depth-bagging-q1",
+    "depth-bagging-q2"
+  ],
+  "baseline-category-logit-model": [
+    "depth-baseline-category-logit-model-q1",
+    "depth-baseline-category-logit-model-q2",
+    "depth-baseline-category-logit-model-q3"
+  ],
+  "basic-gradient-descent-learning": [
+    "depth-basic-gradient-descent-learning-q1",
+    "depth-basic-gradient-descent-learning-q2"
+  ],
+  "benjamini-hochberg": [
+    "depth-benjamini-hochberg-q1",
+    "depth-benjamini-hochberg-q2"
+  ],
+  "bias-of-an-estimator": [
+    "depth-bias-of-an-estimator-q1",
+    "depth-bias-of-an-estimator-q2"
+  ],
+  "bids-for-a-bankrupt-firm": [
+    "depth-bids-for-a-bankrupt-firm-q1",
+    "depth-bids-for-a-bankrupt-firm-q2"
+  ],
+  "binomial-test": [
+    "depth-binomial-test-q1",
+    "depth-binomial-test-q2"
+  ],
+  "birth-death-balance": [
+    "depth-birth-death-balance-q1",
+    "depth-birth-death-balance-q2"
+  ],
+  "blocking-probability": [
+    "depth-blocking-probability-q1",
+    "depth-blocking-probability-q2"
+  ],
+  "blocks-in-analysis-of-variance": [
+    "depth-blocks-in-analysis-of-variance-q1",
+    "depth-blocks-in-analysis-of-variance-q2"
+  ],
+  "bonferroni-correction": [
+    "depth-bonferroni-correction-q1",
+    "depth-bonferroni-correction-q2",
+    "depth-bonferroni-correction-q3"
+  ],
+  "boosting": [
+    "depth-boosting-q1",
+    "depth-boosting-q2"
+  ],
+  "bootstrap-error-and-the-correction": [
+    "depth-bootstrap-error-and-the-correction-q1",
+    "depth-bootstrap-error-and-the-correction-q2"
+  ],
+  "box-muller-method": [
+    "depth-box-muller-method-q1",
+    "depth-box-muller-method-q2"
+  ],
+  "bradley-terry-model": [
+    "depth-bradley-terry-model-q1",
+    "depth-bradley-terry-model-q2"
+  ],
+  "brier-score": [
+    "depth-brier-score-q1",
+    "depth-brier-score-q2"
+  ],
+  "cauchy-schwarz-inequality": [
+    "depth-cauchy-schwarz-inequality-q1",
+    "depth-cauchy-schwarz-inequality-q2"
+  ],
+  "chapman-kolmogorov-equations": [
+    "depth-chapman-kolmogorov-equations-q1",
+    "depth-chapman-kolmogorov-equations-q2"
+  ],
+  "characteristic-functions": [
+    "depth-characteristic-functions-q1",
+    "depth-characteristic-functions-q2"
+  ],
+  "chi-squared-test-of-independence": [
+    "depth-chi-squared-test-of-independence-q1",
+    "depth-chi-squared-test-of-independence-q2"
+  ],
+  "cholesky-decomposition": [
+    "depth-cholesky-decomposition-q1",
+    "depth-cholesky-decomposition-q2"
+  ],
+  "choosing-k-the-gap-statistic": [
+    "depth-choosing-k-the-gap-statistic-q1",
+    "depth-choosing-k-the-gap-statistic-q2"
+  ],
+  "clique": [
+    "depth-clique-q1",
+    "depth-clique-q2"
+  ],
+  "clotting-time-data": [
+    "depth-clotting-time-data-q1",
+    "depth-clotting-time-data-q2"
+  ],
+  "coefficient-of-determination": [
+    "depth-coefficient-of-determination-q1",
+    "depth-coefficient-of-determination-q2"
+  ],
+  "communicating-classes": [
+    "depth-communicating-classes-q1",
+    "depth-communicating-classes-q2",
+    "depth-communicating-classes-q3"
+  ],
+  "complete-data-likelihood": [
+    "depth-complete-data-likelihood-q1",
+    "depth-complete-data-likelihood-q2"
+  ],
+  "complete-linkage": [
+    "depth-complete-linkage-q1",
+    "depth-complete-linkage-q2",
+    "depth-complete-linkage-q3"
+  ],
+  "complete-separation": [
+    "depth-complete-separation-q1",
+    "depth-complete-separation-q2"
+  ],
+  "confidence-region-for-a-normal-mean-vector": [
+    "depth-confidence-region-for-a-normal-mean-vector-q1",
+    "depth-confidence-region-for-a-normal-mean-vector-q2"
+  ],
+  "confounding-variable": [
+    "depth-confounding-variable-q1",
+    "depth-confounding-variable-q2"
+  ],
+  "confusion-matrix": [
+    "depth-confusion-matrix-q1",
+    "depth-confusion-matrix-q2"
+  ],
+  "consistent-estimator": [
+    "depth-consistent-estimator-q1",
+    "depth-consistent-estimator-q2"
+  ],
+  "convolution": [
+    "depth-convolution-q1",
+    "depth-convolution-q2"
+  ],
+  "cost-complexity-pruning": [
+    "depth-cost-complexity-pruning-q1",
+    "depth-cost-complexity-pruning-q2"
+  ],
+  "count-models-beyond-the-poisson": [
+    "depth-count-models-beyond-the-poisson-q1",
+    "depth-count-models-beyond-the-poisson-q2"
+  ],
+  "count-responses": [
+    "depth-count-responses-q1",
+    "depth-count-responses-q2"
+  ],
+  "countable-additivity": [
+    "depth-countable-additivity-q1",
+    "depth-countable-additivity-q2"
+  ],
+  "cover-hart-bound": [
+    "depth-cover-hart-bound-q1",
+    "depth-cover-hart-bound-q2"
+  ],
+  "cramer-rao-lower-bound": [
+    "depth-cramer-rao-lower-bound-q1",
+    "depth-cramer-rao-lower-bound-q2"
+  ],
+  "cross-validation-of-the-likelihood": [
+    "depth-cross-validation-of-the-likelihood-q1",
+    "depth-cross-validation-of-the-likelihood-q2"
+  ],
+  "cubic-smoothing-spline": [
+    "depth-cubic-smoothing-spline-q1",
+    "depth-cubic-smoothing-spline-q2"
+  ],
+  "cycle": [
+    "depth-cycle-q1",
+    "depth-cycle-q2"
+  ],
+  "decision-stump": [
+    "depth-decision-stump-q1",
+    "depth-decision-stump-q2"
+  ],
+  "delta-rule": [
+    "depth-delta-rule-q1",
+    "depth-delta-rule-q2"
+  ],
+  "dendrogram": [
+    "depth-dendrogram-q1",
+    "depth-dendrogram-q2"
+  ],
+  "designed-experiment": [
+    "depth-designed-experiment-q1",
+    "depth-designed-experiment-q2"
+  ],
+  "detailed-balance": [
+    "depth-detailed-balance-q1",
+    "depth-detailed-balance-q2"
+  ],
+  "deviance-residual": [
+    "depth-deviance-residual-q1",
+    "depth-deviance-residual-q2"
+  ],
+  "discrete-time-markov-chain": [
+    "depth-discrete-time-markov-chain-q1",
+    "depth-discrete-time-markov-chain-q2"
+  ],
+  "distance-to-a-hyperplane": [
+    "depth-distance-to-a-hyperplane-q1",
+    "depth-distance-to-a-hyperplane-q2"
+  ],
+  "distribution-of-a-function-or-a-sum": [
+    "depth-distribution-of-a-function-or-a-sum-q1",
+    "depth-distribution-of-a-function-or-a-sum-q2"
+  ],
+  "doubly-stochastic-matrix": [
+    "depth-doubly-stochastic-matrix-q1",
+    "depth-doubly-stochastic-matrix-q2"
+  ],
+  "dual-problem": [
+    "depth-dual-problem-q1",
+    "depth-dual-problem-q2"
+  ],
+  "dummy-variable-coding": [
+    "depth-dummy-variable-coding-q1",
+    "depth-dummy-variable-coding-q2"
+  ],
+  "early-stopping": [
+    "depth-early-stopping-q1",
+    "depth-early-stopping-q2"
+  ],
+  "effective-sample-size": [
+    "depth-effective-sample-size-q1",
+    "depth-effective-sample-size-q2"
+  ],
+  "em-for-a-normal-mixture": [
+    "depth-em-for-a-normal-mixture-q1",
+    "depth-em-for-a-normal-mixture-q2"
+  ],
+  "empirical-bayes": [
+    "depth-empirical-bayes-q1",
+    "depth-empirical-bayes-q2"
+  ],
+  "epanechnikov-kernel": [
+    "depth-epanechnikov-kernel-q1",
+    "depth-epanechnikov-kernel-q2"
+  ],
+  "epoch": [
+    "depth-epoch-q1",
+    "depth-epoch-q2"
+  ],
+  "exchangeable-correlation": [
+    "depth-exchangeable-correlation-q1",
+    "depth-exchangeable-correlation-q2"
+  ],
+  "expected-duration-of-a-random-walk": [
+    "depth-expected-duration-of-a-random-walk-q1",
+    "depth-expected-duration-of-a-random-walk-q2"
+  ],
+  "exponential-loss": [
+    "depth-exponential-loss-q1",
+    "depth-exponential-loss-q2"
+  ],
+  "exponential-tails-and-the-gumbel-law": [
+    "depth-exponential-tails-and-the-gumbel-law-q1",
+    "depth-exponential-tails-and-the-gumbel-law-q2"
+  ],
+  "extinction-probability": [
+    "depth-extinction-probability-q1",
+    "depth-extinction-probability-q2"
+  ],
+  "extreme-value-classification": [
+    "depth-extreme-value-classification-q1",
+    "depth-extreme-value-classification-q2"
+  ],
+  "f-test-for-equal-variances": [
+    "depth-f-test-for-equal-variances-q1",
+    "depth-f-test-for-equal-variances-q2"
+  ],
+  "factor-analysis": [
+    "depth-factor-analysis-q1",
+    "depth-factor-analysis-q2"
+  ],
+  "false-discovery-rate": [
+    "depth-false-discovery-rate-q1",
+    "depth-false-discovery-rate-q2"
+  ],
+  "first-passage-time": [
+    "depth-first-passage-time-q1",
+    "depth-first-passage-time-q2"
+  ],
+  "fisher-s-exact-test": [
+    "depth-fisher-s-exact-test-q1",
+    "depth-fisher-s-exact-test-q2"
+  ],
+  "fisher-s-linear-discriminant-analysis": [
+    "depth-fisher-s-linear-discriminant-analysis-q1",
+    "depth-fisher-s-linear-discriminant-analysis-q2"
+  ],
+  "five-number-summary-and-boxplot": [
+    "depth-five-number-summary-and-boxplot-q1",
+    "depth-five-number-summary-and-boxplot-q2"
+  ],
+  "fold-cross-validation": [
+    "depth-fold-cross-validation-q1",
+    "depth-fold-cross-validation-q2"
+  ],
+  "galton-watson-process": [
+    "depth-galton-watson-process-q1",
+    "depth-galton-watson-process-q2"
+  ],
+  "gamma-regression": [
+    "depth-gamma-regression-q1",
+    "depth-gamma-regression-q2"
+  ],
+  "gaussian-graphical-models": [
+    "depth-gaussian-graphical-models-q1",
+    "depth-gaussian-graphical-models-q2"
+  ],
+  "gaussian-linear-model": [
+    "depth-gaussian-linear-model-q1",
+    "depth-gaussian-linear-model-q2"
+  ],
+  "gaussian-process": [
+    "depth-gaussian-process-q1",
+    "depth-gaussian-process-q2"
+  ],
+  "generalised-likelihood-ratio-test": [
+    "depth-generalised-likelihood-ratio-test-q1",
+    "depth-generalised-likelihood-ratio-test-q2"
+  ],
+  "generalised-linear-mixed-model": [
+    "depth-generalised-linear-mixed-model-q1",
+    "depth-generalised-linear-mixed-model-q2"
+  ],
+  "generator": [
+    "depth-generator-q1",
+    "depth-generator-q2",
+    "depth-generator-q3"
+  ],
+  "gibbs-inequality": [
+    "depth-gibbs-inequality-q1",
+    "depth-gibbs-inequality-q2"
+  ],
+  "gini-index": [
+    "depth-gini-index-q1",
+    "depth-gini-index-q2"
+  ],
+  "global-balance-and-detailed-balance": [
+    "depth-global-balance-and-detailed-balance-q1",
+    "depth-global-balance-and-detailed-balance-q2"
+  ],
+  "gradient-boosting": [
+    "depth-gradient-boosting-q1",
+    "depth-gradient-boosting-q2"
+  ],
+  "gram-matrix": [
+    "depth-gram-matrix-q1",
+    "depth-gram-matrix-q2"
+  ],
+  "graphical-lasso": [
+    "depth-graphical-lasso-q1",
+    "depth-graphical-lasso-q2"
+  ],
+  "grid-monte-carlo-approximation": [
+    "depth-grid-monte-carlo-approximation-q1",
+    "depth-grid-monte-carlo-approximation-q2"
+  ],
+  "hard-margin-dual": [
+    "depth-hard-margin-dual-q1",
+    "depth-hard-margin-dual-q2"
+  ],
+  "hastings-correction": [
+    "depth-hastings-correction-q1",
+    "depth-hastings-correction-q2"
+  ],
+  "hazard-rate": [
+    "depth-hazard-rate-q1",
+    "depth-hazard-rate-q2"
+  ],
+  "hierarchical-clustering": [
+    "depth-hierarchical-clustering-q1",
+    "depth-hierarchical-clustering-q2",
+    "depth-hierarchical-clustering-q3"
+  ],
+  "hinge-loss": [
+    "depth-hinge-loss-q1",
+    "depth-hinge-loss-q2"
+  ],
+  "hitting-probabilities": [
+    "depth-hitting-probabilities-q1",
+    "depth-hitting-probabilities-q2"
+  ],
+  "holding-time": [
+    "depth-holding-time-q1",
+    "depth-holding-time-q2"
+  ],
+  "hotelling-s-t2-test": [
+    "depth-hotelling-s-t2-test-q1",
+    "depth-hotelling-s-t2-test-q2",
+    "depth-hotelling-s-t2-test-q3"
+  ],
+  "identity-link": [
+    "depth-identity-link-q1",
+    "depth-identity-link-q2"
+  ],
+  "independent-random-variables": [
+    "depth-independent-random-variables-q1",
+    "depth-independent-random-variables-q2"
+  ],
+  "intensity-function": [
+    "depth-intensity-function-q1",
+    "depth-intensity-function-q2"
+  ],
+  "interarrival-time": [
+    "depth-interarrival-time-q1",
+    "depth-interarrival-time-q2"
+  ],
+  "interquartile-range": [
+    "depth-interquartile-range-q1",
+    "depth-interquartile-range-q2"
+  ],
+  "intraclass-correlation": [
+    "depth-intraclass-correlation-q1",
+    "depth-intraclass-correlation-q2"
+  ],
+  "inverse-transform-method": [
+    "depth-inverse-transform-method-q1",
+    "depth-inverse-transform-method-q2"
+  ],
+  "ising-model": [
+    "depth-ising-model-q1",
+    "depth-ising-model-q2"
+  ],
+  "iteratively-reweighted-least-squares": [
+    "depth-iteratively-reweighted-least-squares-q1",
+    "depth-iteratively-reweighted-least-squares-q2"
+  ],
+  "jackknife": [
+    "depth-jackknife-q1",
+    "depth-jackknife-q2"
+  ],
+  "joint-probability-mass-function": [
+    "depth-joint-probability-mass-function-q1",
+    "depth-joint-probability-mass-function-q2"
+  ],
+  "jump-chain": [
+    "depth-jump-chain-q1",
+    "depth-jump-chain-q2"
+  ],
+  "kernel-trick": [
+    "depth-kernel-trick-q1",
+    "depth-kernel-trick-q2"
+  ],
+  "kolmogorov-extension-theorem": [
+    "depth-kolmogorov-extension-theorem-q1",
+    "depth-kolmogorov-extension-theorem-q2"
+  ],
+  "kolmogorov-forward-and-backward-equations": [
+    "depth-kolmogorov-forward-and-backward-equations-q1",
+    "depth-kolmogorov-forward-and-backward-equations-q2"
+  ],
+  "kullback-leibler-divergence": [
+    "depth-kullback-leibler-divergence-q1",
+    "depth-kullback-leibler-divergence-q2",
+    "depth-kullback-leibler-divergence-q3"
+  ],
+  "kyphosis-data": [
+    "depth-kyphosis-data-q1",
+    "depth-kyphosis-data-q2"
+  ],
+  "label-switching": [
+    "depth-label-switching-q1",
+    "depth-label-switching-q2"
+  ],
+  "laplace-approximation": [
+    "depth-laplace-approximation-q1",
+    "depth-laplace-approximation-q2"
+  ],
+  "learning-rate": [
+    "depth-learning-rate-q1",
+    "depth-learning-rate-q2",
+    "depth-learning-rate-q3"
+  ],
+  "least-squares-line": [
+    "depth-least-squares-line-q1",
+    "depth-least-squares-line-q2",
+    "depth-least-squares-line-q3"
+  ],
+  "leave-one-out-cross-validation": [
+    "depth-leave-one-out-cross-validation-q1",
+    "depth-leave-one-out-cross-validation-q2",
+    "depth-leave-one-out-cross-validation-q3"
+  ],
+  "lehmann-scheffe-theorem": [
+    "depth-lehmann-scheffe-theorem-q1",
+    "depth-lehmann-scheffe-theorem-q2"
+  ],
+  "limit-theorems": [
+    "depth-limit-theorems-q1",
+    "depth-limit-theorems-q2",
+    "depth-limit-theorems-q3"
+  ],
+  "linear-congruential-generator": [
+    "depth-linear-congruential-generator-q1",
+    "depth-linear-congruential-generator-q2"
+  ],
+  "link-function": [
+    "depth-link-function-q1",
+    "depth-link-function-q2"
+  ],
+  "little-s-law": [
+    "depth-little-s-law-q1",
+    "depth-little-s-law-q2"
+  ],
+  "lloyd-s-k-means-algorithm": [
+    "depth-lloyd-s-k-means-algorithm-q1",
+    "depth-lloyd-s-k-means-algorithm-q2"
+  ],
+  "loadings": [
+    "depth-loadings-q1",
+    "depth-loadings-q2"
+  ],
+  "local-balance": [
+    "depth-local-balance-q1",
+    "depth-local-balance-q2"
+  ],
+  "logit-probit-and-complementary-log-log-links": [
+    "depth-logit-probit-and-complementary-log-log-links-q1",
+    "depth-logit-probit-and-complementary-log-log-links-q2"
+  ],
+  "m-m-1-queue": [
+    "depth-m-m-1-queue-q1",
+    "depth-m-m-1-queue-q2"
+  ],
+  "m-m-queue": [
+    "depth-m-m-queue-q1",
+    "depth-m-m-queue-q2"
+  ],
+  "margin-of-error": [
+    "depth-margin-of-error-q1",
+    "depth-margin-of-error-q2"
+  ],
+  "marginal-and-conditional-effects": [
+    "depth-marginal-and-conditional-effects-q1",
+    "depth-marginal-and-conditional-effects-q2"
+  ],
+  "markov-properties-and-factorisation": [
+    "depth-markov-properties-and-factorisation-q1",
+    "depth-markov-properties-and-factorisation-q2"
+  ],
+  "markov-random-field": [
+    "depth-markov-random-field-q1",
+    "depth-markov-random-field-q2"
+  ],
+  "markov-s-inequality": [
+    "depth-markov-s-inequality-q1",
+    "depth-markov-s-inequality-q2",
+    "depth-markov-s-inequality-q3"
+  ],
+  "maximum-likelihood-in-a-glm": [
+    "depth-maximum-likelihood-in-a-glm-q1",
+    "depth-maximum-likelihood-in-a-glm-q2"
+  ],
+  "measurement-error": [
+    "depth-measurement-error-q1",
+    "depth-measurement-error-q2"
+  ],
+  "metropolis-algorithm": [
+    "depth-metropolis-algorithm-q1",
+    "depth-metropolis-algorithm-q2"
+  ],
+  "mini-batch": [
+    "depth-mini-batch-q1",
+    "depth-mini-batch-q2"
+  ],
+  "minimal-sufficiency": [
+    "depth-minimal-sufficiency-q1",
+    "depth-minimal-sufficiency-q2",
+    "depth-minimal-sufficiency-q3"
+  ],
+  "missing-data": [
+    "depth-missing-data-q1",
+    "depth-missing-data-q2"
+  ],
+  "multicollinearity": [
+    "depth-multicollinearity-q1",
+    "depth-multicollinearity-q2",
+    "depth-multicollinearity-q3"
+  ],
+  "multiple-testing": [
+    "depth-multiple-testing-q1",
+    "depth-multiple-testing-q2"
+  ],
+  "natural-exponential-family": [
+    "depth-natural-exponential-family-q1",
+    "depth-natural-exponential-family-q2"
+  ],
+  "negative-predictive-value": [
+    "depth-negative-predictive-value-q1",
+    "depth-negative-predictive-value-q2"
+  ],
+  "nested-cross-validation": [
+    "depth-nested-cross-validation-q1",
+    "depth-nested-cross-validation-q2"
+  ],
+  "nettalk": [
+    "depth-nettalk-q1",
+    "depth-nettalk-q2"
+  ],
+  "newton-raphson-method": [
+    "depth-newton-raphson-method-q1",
+    "depth-newton-raphson-method-q2"
+  ],
+  "neyman-pearson-approach": [
+    "depth-neyman-pearson-approach-q1",
+    "depth-neyman-pearson-approach-q2"
+  ],
+  "neyman-pearson-lemma": [
+    "depth-neyman-pearson-lemma-q1",
+    "depth-neyman-pearson-lemma-q2"
+  ],
+  "nominal-responses": [
+    "depth-nominal-responses-q1",
+    "depth-nominal-responses-q2"
+  ],
+  "nonhomogeneous-poisson-process": [
+    "depth-nonhomogeneous-poisson-process-q1",
+    "depth-nonhomogeneous-poisson-process-q2"
+  ],
+  "normal-quantile-plot": [
+    "depth-normal-quantile-plot-q1",
+    "depth-normal-quantile-plot-q2"
+  ],
+  "null-deviance": [
+    "depth-null-deviance-q1",
+    "depth-null-deviance-q2"
+  ],
+  "offspring-probability-generating-function": [
+    "depth-offspring-probability-generating-function-q1",
+    "depth-offspring-probability-generating-function-q2"
+  ],
+  "one-hot-encoding": [
+    "depth-one-hot-encoding-q1",
+    "depth-one-hot-encoding-q2"
+  ],
+  "ordinal-responses": [
+    "depth-ordinal-responses-q1",
+    "depth-ordinal-responses-q2"
+  ],
+  "out-of-bag-estimation-and-variable-importance": [
+    "depth-out-of-bag-estimation-and-variable-importance-q1",
+    "depth-out-of-bag-estimation-and-variable-importance-q2"
+  ],
+  "output-coding-softmax-and-cross-entropy": [
+    "depth-output-coding-softmax-and-cross-entropy-q1",
+    "depth-output-coding-softmax-and-cross-entropy-q2",
+    "depth-output-coding-softmax-and-cross-entropy-q3"
+  ],
+  "paired-comparison": [
+    "depth-paired-comparison-q1",
+    "depth-paired-comparison-q2"
+  ],
+  "partial-autocorrelation": [
+    "depth-partial-autocorrelation-q1",
+    "depth-partial-autocorrelation-q2"
+  ],
+  "partial-correlation": [
+    "depth-partial-correlation-q1",
+    "depth-partial-correlation-q2"
+  ],
+  "partially-linear-model": [
+    "depth-partially-linear-model-q1",
+    "depth-partially-linear-model-q2"
+  ],
+  "pearson-residual": [
+    "depth-pearson-residual-q1",
+    "depth-pearson-residual-q2"
+  ],
+  "perceptron-learning-rule": [
+    "depth-perceptron-learning-rule-q1",
+    "depth-perceptron-learning-rule-q2"
+  ],
+  "perceptron": [
+    "depth-perceptron-q1",
+    "depth-perceptron-q2"
+  ],
+  "poisson-regression": [
+    "depth-poisson-regression-q1",
+    "depth-poisson-regression-q2",
+    "depth-poisson-regression-q3"
+  ],
+  "polynomial-kernel": [
+    "depth-polynomial-kernel-q1",
+    "depth-polynomial-kernel-q2"
+  ],
+  "pooled-variance": [
+    "depth-pooled-variance-q1",
+    "depth-pooled-variance-q2"
+  ],
+  "positive-continuous-responses": [
+    "depth-positive-continuous-responses-q1",
+    "depth-positive-continuous-responses-q2"
+  ],
+  "positive-predictive-value": [
+    "depth-positive-predictive-value-q1",
+    "depth-positive-predictive-value-q2"
+  ],
+  "posterior-hypothesis-probability": [
+    "depth-posterior-hypothesis-probability-q1",
+    "depth-posterior-hypothesis-probability-q2"
+  ],
+  "posterior-membership": [
+    "depth-posterior-membership-q1",
+    "depth-posterior-membership-q2",
+    "depth-posterior-membership-q3"
+  ],
+  "power-law-tails-and-the-frechet-law": [
+    "depth-power-law-tails-and-the-frechet-law-q1",
+    "depth-power-law-tails-and-the-frechet-law-q2"
+  ],
+  "precision-weighting": [
+    "depth-precision-weighting-q1",
+    "depth-precision-weighting-q2"
+  ],
+  "prediction-interval": [
+    "depth-prediction-interval-q1",
+    "depth-prediction-interval-q2"
+  ],
+  "principal-component-directions-and-scores": [
+    "depth-principal-component-directions-and-scores-q1",
+    "depth-principal-component-directions-and-scores-q2"
+  ],
+  "probability-generating-function": [
+    "depth-probability-generating-function-q1",
+    "depth-probability-generating-function-q2"
+  ],
+  "probability-space": [
+    "depth-probability-space-q1",
+    "depth-probability-space-q2",
+    "depth-probability-space-q3"
+  ],
+  "proper-prior-and-proper-posterior": [
+    "depth-proper-prior-and-proper-posterior-q1",
+    "depth-proper-prior-and-proper-posterior-q2"
+  ],
+  "proportional-hazards-model": [
+    "depth-proportional-hazards-model-q1",
+    "depth-proportional-hazards-model-q2"
+  ],
+  "proportional-odds-model": [
+    "depth-proportional-odds-model-q1",
+    "depth-proportional-odds-model-q2"
+  ],
+  "quadratic-discriminant-analysis": [
+    "depth-quadratic-discriminant-analysis-q1",
+    "depth-quadratic-discriminant-analysis-q2"
+  ],
+  "random-forest": [
+    "depth-random-forest-q1",
+    "depth-random-forest-q2"
+  ],
+  "random-slopes": [
+    "depth-random-slopes-q1",
+    "depth-random-slopes-q2",
+    "depth-random-slopes-q3"
+  ],
+  "randomised-block-design": [
+    "depth-randomised-block-design-q1",
+    "depth-randomised-block-design-q2"
+  ],
+  "randomised-controlled-trial": [
+    "depth-randomised-controlled-trial-q1",
+    "depth-randomised-controlled-trial-q2"
+  ],
+  "rao-blackwell-theorem": [
+    "depth-rao-blackwell-theorem-q1",
+    "depth-rao-blackwell-theorem-q2"
+  ],
+  "recurrence-and-period": [
+    "depth-recurrence-and-period-q1",
+    "depth-recurrence-and-period-q2"
+  ],
+  "regression-effect": [
+    "depth-regression-effect-q1",
+    "depth-regression-effect-q2"
+  ],
+  "regression-slope": [
+    "depth-regression-slope-q1",
+    "depth-regression-slope-q2"
+  ],
+  "response-variable": [
+    "depth-response-variable-q1",
+    "depth-response-variable-q2"
+  ],
+  "restricted-maximum-likelihood": [
+    "depth-restricted-maximum-likelihood-q1",
+    "depth-restricted-maximum-likelihood-q2"
+  ],
+  "roughness-penalty": [
+    "depth-roughness-penalty-q1",
+    "depth-roughness-penalty-q2",
+    "depth-roughness-penalty-q3"
+  ],
+  "sample-variance-and-standard-deviation": [
+    "depth-sample-variance-and-standard-deviation-q1",
+    "depth-sample-variance-and-standard-deviation-q2"
+  ],
+  "sampling-bias": [
+    "depth-sampling-bias-q1",
+    "depth-sampling-bias-q2"
+  ],
+  "scaled-deviance": [
+    "depth-scaled-deviance-q1",
+    "depth-scaled-deviance-q2"
+  ],
+  "seasonality": [
+    "depth-seasonality-q1",
+    "depth-seasonality-q2"
+  ],
+  "separating-set": [
+    "depth-separating-set-q1",
+    "depth-separating-set-q2"
+  ],
+  "sigma-algebra": [
+    "depth-sigma-algebra-q1",
+    "depth-sigma-algebra-q2"
+  ],
+  "significance-level": [
+    "depth-significance-level-q1",
+    "depth-significance-level-q2"
+  ],
+  "simple-linear-regression": [
+    "depth-simple-linear-regression-q1",
+    "depth-simple-linear-regression-q2",
+    "depth-simple-linear-regression-q3"
+  ],
+  "single-complete-and-average-linkage": [
+    "depth-single-complete-and-average-linkage-q1",
+    "depth-single-complete-and-average-linkage-q2",
+    "depth-single-complete-and-average-linkage-q3"
+  ],
+  "single-linkage": [
+    "depth-single-linkage-q1",
+    "depth-single-linkage-q2"
+  ],
+  "soft-margin-primal": [
+    "depth-soft-margin-primal-q1",
+    "depth-soft-margin-primal-q2"
+  ],
+  "soft-margin-slack-variables": [
+    "depth-soft-margin-slack-variables-q1",
+    "depth-soft-margin-slack-variables-q2"
+  ],
+  "soft-thresholding-for-orthonormal-predictors": [
+    "depth-soft-thresholding-for-orthonormal-predictors-q1",
+    "depth-soft-thresholding-for-orthonormal-predictors-q2"
+  ],
+  "sparsity": [
+    "depth-sparsity-q1",
+    "depth-sparsity-q2"
+  ],
+  "stationary-and-independent-increments": [
+    "depth-stationary-and-independent-increments-q1",
+    "depth-stationary-and-independent-increments-q2"
+  ],
+  "stochastic-gradient-descent": [
+    "depth-stochastic-gradient-descent-q1",
+    "depth-stochastic-gradient-descent-q2"
+  ],
+  "stochastic-process": [
+    "depth-stochastic-process-q1",
+    "depth-stochastic-process-q2"
+  ],
+  "strict-stationarity": [
+    "c-43",
+    "depth-stationarity-changing-laws"
+  ],
+  "structure-function": [
+    "depth-structure-function-q1",
+    "depth-structure-function-q2"
+  ],
+  "subset-selection-and-shrinkage": [
+    "depth-subset-selection-and-shrinkage-q1",
+    "depth-subset-selection-and-shrinkage-q2"
+  ],
+  "sums-of-smooth-functions": [
+    "depth-sums-of-smooth-functions-q1",
+    "depth-sums-of-smooth-functions-q2",
+    "depth-sums-of-smooth-functions-q3"
+  ],
+  "superposition-and-thinning": [
+    "depth-superposition-and-thinning-q1",
+    "depth-superposition-and-thinning-q2"
+  ],
+  "sylvester-s-criterion": [
+    "depth-sylvester-s-criterion-q1",
+    "depth-sylvester-s-criterion-q2"
+  ],
+  "thinning-a-markov-chain": [
+    "depth-thinning-a-markov-chain-q1",
+    "depth-thinning-a-markov-chain-q2"
+  ],
+  "throughput": [
+    "depth-throughput-q1",
+    "depth-throughput-q2"
+  ],
+  "time-series": [
+    "depth-time-series-q1",
+    "depth-time-series-q2",
+    "depth-time-series-q3"
+  ],
+  "trace-plot": [
+    "depth-trace-plot-q1",
+    "depth-trace-plot-q2",
+    "depth-trace-plot-q3"
+  ],
+  "trend": [
+    "depth-trend-q1",
+    "depth-trend-q2"
+  ],
+  "tukey-intervals": [
+    "depth-tukey-intervals-q1",
+    "depth-tukey-intervals-q2"
+  ],
+  "undirected-graph": [
+    "depth-undirected-graph-q1",
+    "depth-undirected-graph-q2",
+    "depth-undirected-graph-q3"
+  ],
+  "uniform-integrability": [
+    "depth-uniform-integrability-q1",
+    "depth-uniform-integrability-q2"
+  ],
+  "uniformly-minimum-variance-unbiased-estimator": [
+    "depth-uniformly-minimum-variance-unbiased-estimator-q1",
+    "depth-uniformly-minimum-variance-unbiased-estimator-q2"
+  ],
+  "uniformly-most-powerful-test": [
+    "depth-uniformly-most-powerful-test-q1",
+    "depth-uniformly-most-powerful-test-q2"
+  ],
+  "voronoi-tessellation": [
+    "depth-voronoi-tessellation-q1",
+    "depth-voronoi-tessellation-q2"
+  ],
+  "wald-interval": [
+    "depth-wald-interval-q1",
+    "depth-wald-interval-q2"
+  ],
+  "wald-test": [
+    "depth-wald-test-q1",
+    "depth-wald-test-q2"
+  ],
+  "weight-initialisation": [
+    "depth-weight-initialisation-q1",
+    "depth-weight-initialisation-q2"
+  ],
+  "welch-interval": [
+    "depth-welch-interval-q1",
+    "depth-welch-interval-q2"
+  ],
+  "white-noise": [
+    "depth-white-noise-q1",
+    "depth-white-noise-q2",
+    "depth-white-noise-q3"
   ]
 }

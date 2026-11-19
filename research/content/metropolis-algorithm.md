@@ -42,25 +42,3 @@ If the repeated states are discarded, the chain observed only at accepted moves 
 ::: {.callout-tip collapse="true" title="Answer"}
 The probability is $1/3$. Since that proposal is selected with probability $1/2$, its total transition probability is $1/6$.
 :::
-
-## Check yourself
-
-### A proposal cancellation {#self-check-c-14}
-
-[Practice question](../questions/c-14.qmd)
-
-Why can Metropolis--Hastings use an unnormalised target? When do its proposal-density terms cancel?
-
-::: {.callout-tip collapse="true" title="Answer"}
-**Definitions/notation.** Let $\pi(z)=k(z)/Z$ be the target and $q(y\mid x)$ the proposal density from current state $x$ to candidate $y$. The acceptance probability is $\min\{1,k(y)q(x\mid y)/[k(x)q(y\mid x)]\}$ because $Z$ cancels; the proposal terms cancel only when $q(y\mid x)=q(x\mid y)$, as for a fixed-scale symmetric random walk.
-:::
-
-### Markov transitions and invariance {#self-check-c-12}
-
-[Practice question](../questions/c-12.qmd)
-
-What is the Markov property? What does it mean for a distribution to be invariant for a chain?
-
-::: {.callout-tip collapse="true" title="Answer"}
-**Definitions/notation.** The Markov property says that the conditional distribution of the next state, given the whole past, depends only on the current state. A distribution $\pi$ is invariant if one transition preserves it: $X^{(t)}\sim\pi$ implies $X^{(t+1)}\sim\pi$; this alone does not establish convergence from every initial state.
-:::

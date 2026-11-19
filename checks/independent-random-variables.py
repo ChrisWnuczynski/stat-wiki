@@ -1,8 +1,13 @@
 """Arithmetic checks for independent random variables."""
+
+import sys
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from tools.shown import shown
 
 root = Path(__file__).resolve().parents[1]
 text = (root / "research/content/independent-random-variables.md").read_text()
+text = shown(text, "independent-random-variables")
 body = (root / "articles/independent-random-variables.qmd").read_text().split("## See also", 1)[0]
 assert abs(0.4 * 0.5 - 0.2) < 1e-12
 joints = {(0, 0): 0.2, (0, 1): 0.3, (1, 0): 0.1, (1, 1): 0.4}

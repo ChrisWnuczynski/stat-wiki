@@ -29,7 +29,7 @@ assert "5" in body and "10" in body
 assert body.count('title="Proof"') == 1
 assert "**Your turn.**" in body and "## Check yourself" in body
 assert body.count('title="Answer"') >= 3
-for qid in ("ex-prob-sign-covariance", "ex-inf-poisson-information"):
+for qid in ("depth-cauchy-schwarz-inequality-q1", "depth-cauchy-schwarz-inequality-q2"):
     assert f"../questions/{qid}.qmd" in page
 for key in ("durrett2019", "dodge2008"):
     assert f'data-cite-key="{key}"' in body

@@ -19,7 +19,7 @@ for printed in ("1/3", "0.7143", "0.2857", "5/7", "2/7"):
 assert body.count('title="Proof"') == 1
 assert "**Your turn.**" in body and "## Check yourself" in body
 assert body.count('title="Answer"') >= 3
-for qid in ("ex-sp-deterministic-cycle", "ex-sp-doubly-stochastic"):
+for qid in ("depth-global-balance-and-detailed-balance-q1", "depth-global-balance-and-detailed-balance-q2"):
     assert f"../questions/{qid}.qmd" in page
 for key in ("durrett2019",):
     assert f'data-cite-key="{key}"' in body

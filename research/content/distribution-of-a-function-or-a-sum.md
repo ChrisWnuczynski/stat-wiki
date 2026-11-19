@@ -36,18 +36,3 @@ Integrating gives $P(S\le0.5)=0.125$ and $P(S\le1.5)=0.875$, so $P(0.5<S<1.5)=0.
 For two independent exponentials of common rate $\lambda$, convolution yields $f_S(s)=\lambda^2s e^{-\lambda s}$ for $s>0$. A sum asks how long successive tasks take. A minimum asks when the first component fails and is more easily found from survival probabilities: for independent $T_i\sim\operatorname{Exp}(\lambda_i)$,
 $$P(\min_iT_i>t)=\prod_i e^{-\lambda_i t}=e^{-t\sum_i\lambda_i}.$$
 Five independent lifetimes of mean $1000$ therefore have a minimum with mean $1000/5=200$, while their sum has mean $5000$.{{cite:grinstead_snell1997}} (§7.2, pp.292–293, Ex.7.4; p.303, Ex.10)
-
-
-## Check yourself
-
-### [An affine exponential transformation](../questions/ex-prob-affine-exponential.qmd) {#self-check-ex-prob-affine-exponential}
-
-::: {.callout-tip collapse="true" title="Answer"}
-For $X\sim\operatorname{Exp}(1/2)$ and $Y=1+2X$, substitute $x=(y-1)/2$ and multiply by $1/2$. The result is $e^{-(y-1)/4}/4$ on $[1,\infty)$.
-:::
-
-### [Two independent exponentials](../questions/ex-prob-independent-exponentials.qmd) {#self-check-ex-prob-independent-exponentials}
-
-::: {.callout-tip collapse="true" title="Answer"}
-The density $2e^{-x-2y}$ on the positive quadrant factors into exponential densities with rates one and two. Independence gives $E(XY)=1/2$. Also $\operatorname{Cov}(X+Y,X-Y)=\operatorname{Var}(X)-\operatorname{Var}(Y)=1-1/4=3/4$.
-:::

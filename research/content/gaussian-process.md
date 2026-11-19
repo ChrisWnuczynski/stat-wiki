@@ -31,23 +31,3 @@ Add the observation-noise variance to the latent variance: $0.705696+0.25=0.9556
 
 ## Connections — Gaussian does not mean smooth or stationary
 Brownian motion is a Gaussian process with covariance $k(s,t)=\min(s,t)$ for nonnegative times. Its increments can be stationary even though its levels have variance $t$ and hence are not stationary. A smooth covariance and Brownian covariance therefore encode quite different path behaviour; Gaussian finite laws alone do not choose one.{{cite:durrett2019}} (§7.1, Gaussian-process characterisation, p. 355)
-
-## Check yourself
-
-Use the definitions and calculations above to work through these questions.
-
-### Check a proposed covariance {#self-check-ex-sl-01-1}
-
-[Check a proposed covariance](../questions/ex-sl-01-1.qmd). Apply the nonnegative-variance condition.
-
-::: {.callout-tip collapse="true" title="Answer"}
-For any coefficient vector $a$, $a^\top\Sigma a$ is a variance. The displayed candidate correlation matrix has determinant $-2.888$, so it cannot be a covariance matrix.
-:::
-
-### Uncorrelated coordinates need a joint assumption {#self-check-ex-sl-01-3}
-
-[Uncorrelated coordinates need a joint assumption](../questions/ex-sl-01-3.qmd). Explain the dependence in the example.
-
-::: {.callout-tip collapse="true" title="Answer"}
-For a centred standard normal $X$, $\operatorname{Cov}(X,X^2)=\mathbb E(X^3)=0$, but the second coordinate is determined by the first. This vector is not jointly Gaussian.
-:::

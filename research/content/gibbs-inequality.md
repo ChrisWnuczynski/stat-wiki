@@ -28,23 +28,3 @@ Only the first coordinate contributes, giving $D(p\Vert q)=\log2$. The zero prob
 
 ## Connections — Why an EM entropy term has the right sign
 For each observation in a mixture, the current membership probabilities form a probability vector. Applying the inequality to that vector and a candidate membership vector bounds the cross-entropy part of the likelihood decomposition. The nonnegative KL gap is what supplements the rise in the expected complete-data criterion. This algebra concerns likelihood improvement, not convergence to a particular global optimum.{{cite:goodfellow_bengio_courville2016}} (§3.13, pp. 72–73)
-
-## Check yourself
-
-Use the definitions and calculations above to work through these questions.
-
-### Prove the density version {#self-check-ex-sl-06-4}
-
-[Prove the density version](../questions/ex-sl-06-4.qmd). Apply the logarithm inequality under the true distribution.
-
-::: {.callout-tip collapse="true" title="Answer"}
-Integrating $-\log(\widehat f/f)\ge1-\widehat f/f$ against $f$ gives a nonnegative divergence. Equality requires agreement almost everywhere; the expected log-score identity follows by expanding the logarithm.
-:::
-
-### Distinguish fitted and future likelihood {#self-check-ex-sl-06-5}
-
-[Distinguish fitted and future likelihood](../questions/ex-sl-06-5.qmd). Identify why a more flexible training fit does not settle prediction.
-
-::: {.callout-tip collapse="true" title="Answer"}
-Nested models can reproduce the smaller fit, making maximum training likelihood nondecreasing with flexibility. Prediction requires an assessment that accounts for fitting, such as held-out likelihood or an appropriate complexity penalty.
-:::

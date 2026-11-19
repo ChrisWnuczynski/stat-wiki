@@ -33,21 +33,3 @@ Change the height to $Y_n=\sqrt n1_{\{U\le1/n\}}$. Now $EY_n=1/\sqrt n$, and the
 ::: {.callout-tip collapse="true" title="Answer"}
 Yes: $0\le Z_n\le1$, so every tail expectation is zero once $K\ge1$. Also $EZ_n=1/(n+1)\to0$, agreeing with its almost-sure limit zero.
 :::
-
-## Check yourself
-
-### [Minimum and average of uniform draws](../questions/ex-prob-min-and-mean.qmd) {#self-check-ex-prob-min-and-mean}
-
-Why does the family of these sample averages have uniform tail control?
-
-::: {.callout-tip collapse="true" title="Answer"}
-Every average lies in $[0,1]$, so its tail expectation is zero for cutoffs at least one. Its expectation is $1/2$, and its variance is $1/(12n)$.
-:::
-
-### [Square of a uniform variable](../questions/ex-prob-square-uniform.qmd) {#self-check-ex-prob-square-uniform}
-
-If $Y=U^2$, is it integrable, and what bounds its tail expectation?
-
-::: {.callout-tip collapse="true" title="Answer"}
-$0\le Y\le1$ and $EY=\int_0^1u^2du=1/3$. Its tail expectation is zero for $K\ge1$; the same bound works for any family bounded by one.
-:::

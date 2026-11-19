@@ -36,21 +36,3 @@ It is $e^{-3.5}\approx0.030197$. Using $e^{-2.5}$ would use the integrated inten
 ## Connections — Independent increments and changing rates
 
 The rate here is deterministic. Independent increments do not require equal expected counts in equal-length intervals. Conversely, observing a varying expected count does not establish independent increments: that is a separate modelling assumption in the definition. Counts on overlapping intervals are dependent through their shared events even under the nonhomogeneous Poisson model.{{cite:pishro_nik2014}} (§11.1.4, definition)
-
-## Check yourself
-
-### [Counts and a first wait](../questions/ex-sp-poisson-half-hour.qmd) {#self-check-ex-sp-poisson-half-hour}
-
-For a constant rate of three per hour, find two events in half an hour and no event in the first third of an hour.
-
-::: {.callout-tip collapse="true" title="Answer"}
-The count probability is $e^{-1.5}1.5^2/2\approx0.251021$. The first-wait survival probability is $e^{-1}\approx0.367879$.
-:::
-
-### [Three events in two hours](../questions/ex-sp-conditional-times.qmd) {#self-check-ex-sp-conditional-times}
-
-Under a homogeneous process, conditional on three events in two hours, what is the probability all occurred in the first hour?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The three unordered event locations are independent uniforms on the two-hour interval, so the probability is $(1/2)^3=1/8$. For a time-varying rate it becomes $[\Lambda(1)/\Lambda(2)]^3$.
-:::

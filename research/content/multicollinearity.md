@@ -19,7 +19,6 @@ $$
 \begin{pmatrix}S_{1y}\\ S_{2y}\end{pmatrix}.
 $$
 
-
 The determinant is $S_{11}S_{22}(1-r^2)$. It is zero when $|r|=1$, and the slopes are then not unique. When $|r|<1$ the variance of $b_1$, under uncorrelated errors of variance $\sigma^2$, is $\sigma^2/(S_{11}(1-r^2))$. The ratio of that variance to the simple-regression variance $\sigma^2/S_{11}$ is the variance inflation factor $1/(1-r^2)$.{{cite:dodge2008}} (p. 96, considerable variance of the estimators)
 
 ## Interpretation
@@ -40,7 +39,6 @@ $$
 \operatorname{Var}(b_1)=\sigma^2\frac{S_{22}}{S_{11}S_{22}(1-r^2)}=\frac{\sigma^2}{S_{11}(1-r^2)}
 $$
 
-
 when the errors are uncorrelated with variance $\sigma^2$. Dividing by the simple-regression variance $\sigma^2/S_{11}$ leaves $1/(1-r^2)$. The same algebra with the indices swapped gives the factor for $b_2$. When $r^2=1$ the determinant is zero and the normal equations do not have a unique solution.{{cite:dodge2008}} (p. 96, linear combination and approximate linear combination)
 :::
 :::
@@ -56,7 +54,6 @@ For $x_1=(1,2,3,4,5)$ and $x_2=(2,4,5,8,11)$, the means are $3$ and $6$, $S_{11}
 $$
 r^2=\frac{22^2}{10\times 50}=\frac{484}{500}=0.968,\qquad r=\frac{22}{\sqrt{500}}\approx 0.9839,
 $$
-
 
 and the inflation factor is $1/0.032=31.25$. With responses $y=(1,2,1,3,4)$, the simple slope of $y$ on $x_1$ is $7/10=0.7$. The multiple-regression slopes are $b_1=-1.5$ and $b_2=1$. The partial slope on $x_1$ has the opposite sign from the simple slope, because $x_2$ has absorbed the shared rise and the residual contrast points the other way. The determinant of the slope matrix is $500-484=16$, so a unique solution exists. Replace $x_2$ by the exact copy $(2,4,6,8,10)$. Then $S_{12}=20$, $S_{22}=40$ and the determinant is $10\times 40-20^2=0$. No unique least-squares pair $(b_1,b_2)$ exists.{{cite:dodge2008}} (pp. 96, 362)
 
@@ -75,26 +72,6 @@ A finite inflation factor is not a unique substantive decomposition. The fit wit
 
 ## Connections
 [Simple linear regression](simple-linear-regression.qmd) is the one-predictor case, where there is no second column to be collinear with and the inflation factor is $1$. The [least-squares line](least-squares-line.qmd) is that fit. Exact collinearity is the singular end of the same normal equations. A penalty that shrinks slopes, such as a ridge penalty, changes the estimator; it is not the least-squares solution whose variance the factor describes.{{cite:dodge2008}} (p. 96, least squares under collinearity)
-
-## Check yourself
-
-1. For the worked predictors, what is $1-r^2$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-$1-0.968=0.032$. The inflation factor is $1/0.032=31.25$.
-:::
-
-2. What happens to the least-squares slopes if $x_2=(2,4,6,8,10)$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-$x_2=2x_1$ exactly, the determinant is $0$, and there is no unique slope pair. Any coefficient on $x_1$ can be traded against the coefficient on $x_2$ without changing fitted means.
-:::
-
-3. Is the simple slope $0.7$ the partial slope of $x_1$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-No. The partial slope is $-1.5$. The value $0.7$ is $S_{1y}/S_{11}=7/10$ from the regression that ignores $x_2$.
-:::
 
 ## History
 Mathematical collinearity is an exact linear combination, statistical collinearity is an approximate one, and multicollinearity is the name for the strong-correlation case in a regression. The exact case leaves least-squares estimators undefined as a unique solution. The approximate case leaves them defined and able to show considerable variance. A separate entry repeats the approximate definition: a variable almost equal to a linear combination of the others, sometimes met when explanatory variables are strongly correlated.{{cite:dodge2008}} (pp. 96, 362)

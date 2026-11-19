@@ -36,21 +36,3 @@ Multiplication gives $K\Sigma=I$. All three marginal correlations are positive, 
 ::: {.callout-tip collapse="true" title="Answer"}
 They are $X_2/2=1$ and $3/4$. The value of $X_3$ has no further effect after $X_2$ is fixed.
 :::
-
-## Check yourself
-
-### [Precision to graph](../questions/ex-sl-19-2.qmd) {#self-check-ex-sl-19-2}
-
-For $K=\left(\begin{smallmatrix}2&-1&0\\-1&3&-1\\0&-1&2\end{smallmatrix}\right)$, identify the graph and the partial correlation on each edge.
-
-::: {.callout-tip collapse="true" title="Answer"}
-The graph is $1-2-3$ and both edge partial correlations equal $1/\sqrt6$. Its inverse is $\frac18\left(\begin{smallmatrix}5&2&1\\2&4&2\\1&2&5\end{smallmatrix}\right)$, whose $(1,3)$ entry is nonzero.
-:::
-
-### [A three-variable chain](../questions/ex-sl-19-3.qmd) {#self-check-ex-sl-19-3}
-
-What is the covariance between the endpoints when the two transition coefficients are $0.8$ and each coordinate has variance one?
-
-::: {.callout-tip collapse="true" title="Answer"}
-It is $0.8^2=0.64$. Conditioning on the middle coordinate removes that endpoint association; the precision entry $k_{13}$ is zero.
-:::

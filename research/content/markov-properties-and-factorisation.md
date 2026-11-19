@@ -45,25 +45,3 @@ $$
 K=\begin{pmatrix}2&-1&0\\-1&3&-1\\0&-1&2\end{pmatrix}
 $$
 has $k_{13}=0$, so $X_1\perp X_3\mid X_2$, while the marginal correlation is $1/5=0.2$.{{cite:evans2025_graphical}} (§4.2, Def. 4.3)
-
-## Check yourself
-
-### Precision to graph {#self-check-ex-sl-19-2}
-
-For the precision matrix above, what is $\Sigma=K^{-1}$, and what are the partial correlations?
-
-::: {.callout-tip collapse="true" title="Answer"}
-$\det K=8$ and
-$$
-\Sigma=\frac18\begin{pmatrix}5&2&1\\2&4&2\\1&2&5\end{pmatrix}.
-$$
-The partial correlations are $1/\sqrt{6}\approx 0.408$ for the two edges and $0$ for the missing edge. The marginal correlation of $X_1$ and $X_3$ is $0.2$.
-:::
-
-### Cliques and separators {#self-check-ex-sl-19-1}
-
-On the graph with edges $12,13,23,24,34,45,46,56$, what is the boundary of $\{1,2\}$, and is $\{2\}$ a separator of $1$ and $4$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The boundary of $\{1,2\}$ is $\{3,4\}$. The set $\{2\}$ does not separate $1$ from $4$, because the path $1-3-4$ avoids $2$. One global statement is $X_{\{1,2,3\}}\perp X_{\{5,6\}}\mid X_4$.
-:::

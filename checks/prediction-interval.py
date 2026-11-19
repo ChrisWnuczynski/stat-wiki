@@ -1,10 +1,15 @@
 """Arithmetic checks for the prediction interval article."""
-import math
+
+import sys
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from tools.shown import shown
+import math
 from scipy.stats import t
 
 root = Path(__file__).resolve().parents[1]
 text = (root / "research/content/prediction-interval.md").read_text()
+text = shown(text, "prediction-interval")
 page = (root / "articles/prediction-interval.qmd").read_text()
 body = page.split("## See also", 1)[0]
 

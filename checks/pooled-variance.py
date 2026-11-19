@@ -50,7 +50,7 @@ assert body.count('title="Proof"') == 1
 assert "## Motivating example" in body and "## Worked example" in body
 assert "**Your turn.**" in body and "## Check yourself" in body
 assert body.count('title="Answer"') >= 3
-for qid in ("ex-inf-safety-interval", "ex-inf-variance-ratio-interval"):
+for qid in ("ex-inf-safety-interval", "depth-pooled-variance-q1", "depth-pooled-variance-q2"):
     assert f"../questions/{qid}.qmd" in page
 for key in ("dodge2008", "siegrist2022_normals", "nist_mean_limits2002"):
     assert f'data-cite-key="{key}"' in body

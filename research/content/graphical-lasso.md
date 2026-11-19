@@ -45,20 +45,3 @@ The equal positive diagonal entries cancel in the denominator, leaving $(5/16)/(
 
 ## Properties — Covariance updates and precision recovery
 The coordinate algorithm partitions the covariance estimate around one variable, solves a lasso-type subproblem, and updates the corresponding row and column. Repeating over variables solves a joint matrix problem; independently fitting neighbourhood regressions is a related approximation and need not give the same penalised likelihood solution. Recovering precision entries requires the block-inverse relation as well as the regression coefficients.{{cite:friedman_glasso2008}} (§2);{{cite:banerjee_elghaoui_daspremont2008}} (§3)
-
-## Check yourself
-Distinguish a marginal association from a conditional association.
-
-### Thresholding correlations {#self-check-ex-sl-19-6}
-[A tempting wrong turn](../questions/ex-sl-19-6.qmd): why does thresholding a correlation matrix fail to estimate Gaussian conditional independences directly?
-
-::: {.callout-tip collapse="true" title="Answer"}
-Marginal correlations belong to the covariance matrix, whereas Gaussian conditional independences correspond to zeros of the precision matrix. A sparse precision model estimates the latter pattern while respecting positive definiteness.
-:::
-
-### Reading the precision matrix {#self-check-ex-sl-19-8}
-[Conditional association and sparsity](../questions/ex-sl-19-8.qmd): interpret the zeros and calculate its two partial correlations.
-
-::: {.callout-tip collapse="true" title="Answer"}
-The graph has edges $1$–$2$ and $2$–$3$. Coordinates $1$ and $3$ are conditionally independent given coordinate $2$. With diagonal entries one, the two partial correlations are $0.2$ and $-0.3$. Marginal association between coordinates $1$ and $3$ can still arise through coordinate $2$.
-:::

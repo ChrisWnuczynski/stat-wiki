@@ -23,18 +23,3 @@ The hidden delta is $0.5(1-0.5)(1)(-0.192)=-0.048$. If the input to this hidden 
 ::: {.callout-tip collapse="true" title="Answer"}
 All deltas and gradients halve. Each update is $+0.0048$. Doubling the learning rate would reproduce the squared-error updates.
 :::
-
-## Check yourself
-### Rewrite the hidden update {#self-check-ex-sl-15-5}
-[Delta form](../questions/ex-sl-15-5.qmd) asks for the factored derivative.
-
-::: {.callout-tip collapse="true" title="Answer"}
-Substitute $2(y-o)o(1-o)=-\delta^{(o)}$ into the hidden-weight update. The remaining sum multiplied by $h(1-h)$ is $\delta^{(h)}$, giving $\Delta w_{ab}=-\varepsilon\sum_i\delta_{ib}^{(h)}x_{ia}$.
-:::
-
-### Check all factors in a scalar derivative {#self-check-ex-sl-15-2}
-[A gradient by hand](../questions/ex-sl-15-2.qmd) gives a numerical comparison.
-
-::: {.callout-tip collapse="true" title="Answer"}
-For $x=2,y=0,w_0=0,w_1=1$, $o=g(2)=0.880797$ and $\partial E/\partial w_1=4o^2(1-o)=0.369912$. A central difference with step $0.001$ agrees to the stated rounding. Omitting $e^{-z}$ in the exponential form gives approximately $2.7333$ instead.
-:::

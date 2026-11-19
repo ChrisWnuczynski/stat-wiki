@@ -20,5 +20,5 @@ body=(root/"articles/deviance-residual.qmd").read_text().split("## See also",1)[
 for text in ["1.108256","3.108256","-2.828427","Your turn","## Check yourself {#check-yourself}"]:
     assert text in body,text
 assert len(re.findall('class="cite-ref"',body))>=5
-for q in ["c-29","ex-sl-10-6"]:assert f"../questions/{q}.qmd" in body
+for q in ["depth-deviance-residual-q1", "depth-deviance-residual-q2"]:assert f"../questions/{q}.qmd" in body
 print("deviance-residual: likelihood contributions, local series and article checks passed")

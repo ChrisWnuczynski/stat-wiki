@@ -1,8 +1,13 @@
 """Arithmetic checks for the Hastings correction article."""
+
+import sys
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from tools.shown import shown
 
 root = Path(__file__).resolve().parents[1]
 text = (root / "research/content/hastings-correction.md").read_text()
+text = shown(text, "hastings-correction")
 body = (root / "articles/hastings-correction.qmd").read_text().split("## See also", 1)[0]
 
 def ratio(p_star, p, j_back, j_fwd):

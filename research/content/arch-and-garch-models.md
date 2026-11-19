@@ -34,25 +34,3 @@ The tenth-day forecast is $0.626890$. The excess over $0.4$ halves after $\log(1
 ::: {.callout-tip collapse="true" title="Answer"}
 The stationary variance is $0.02/(1-0.9)=0.2$. The next variance is $0.02+0.1(4)+0.8(0.2)=0.58$.
 :::
-
-## Check yourself
-
-### Which part of a series changes? {#self-check-c-50}
-
-[Practice question](../questions/c-50.qmd)
-
-What do ARCH and GARCH model, and what does the GARCH term add?
-
-::: {.callout-tip collapse="true" title="Answer"}
-They model changing conditional variance. ARCH uses past squared shocks, while GARCH also uses past conditional variances, allowing a shock to affect uncertainty through a persistent recursion.
-:::
-
-### Compare a mean recursion {#self-check-depth-weak-stationarity-ar}
-
-[Practice question](../questions/depth-weak-stationarity-ar.qmd)
-
-For an AR(1) coefficient $0.4$ and innovation variance nine, compute its stationary variance, lag-one covariance and lag-two correlation.
-
-::: {.callout-tip collapse="true" title="Answer"}
-They are $9/(1-0.4^2)=75/7$, $(0.4)(75/7)=30/7$, and $0.4^2=0.16$. This recursion governs linear dependence in the series level; the GARCH recursion instead governs its conditional variance.
-:::

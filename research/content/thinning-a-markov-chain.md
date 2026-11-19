@@ -27,19 +27,3 @@ All nonzero-lag correlations are zero. Reducing the count from $N$ to $N/5$ mult
 
 ## Statistical use — Paying for transitions and for summaries
 If one transition costs one unit and evaluating $g$ costs $\theta$ units, a budget $B$ allows about $B/(k+\theta)$ saved evaluations at spacing $k$. This differs from discarding values after all their summaries have already been computed. With sufficiently costly evaluations and slowly decaying positive correlations, spacing evaluations can improve precision per unit cost. The decision depends on the evaluation cost and covariance pattern.{{cite:owen2017_thinning}} (§§2–3)
-
-## Check yourself
-
-### Correlated Monte Carlo error {#self-check-q-25}
-[Gibbs, Metropolis–Hastings, and Monte Carlo error](../questions/q-25.qmd): why is the number of saved values insufficient to quantify precision?
-
-::: {.callout-tip collapse="true" title="Answer"}
-Serial covariances contribute to the variance of a Monte Carlo average. An effective sample size or an estimated Monte Carlo standard error accounts for those covariances; the saved-value count alone does not.
-:::
-
-### A stationary process {#self-check-c-43}
-[Two stationarity definitions](../questions/c-43.qmd): does stationarity imply independence?
-
-::: {.callout-tip collapse="true" title="Answer"}
-No. Strict stationarity requires time-shift-invariant joint distributions; weak stationarity requires finite second moments, constant mean and lag-dependent covariance. Neither requires zero serial dependence.
-:::

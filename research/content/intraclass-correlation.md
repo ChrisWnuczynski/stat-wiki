@@ -26,23 +26,3 @@ It tends to $\sigma_A^2=3$. Averaging suppresses the individual errors but leave
 
 ## Connections — Correlation is conditional on the model
 Adding fixed covariates changes the residual variance components whose ratio is being interpreted. A random slope can also make the correlation depend on both observations' covariate values. Reporting one ICC therefore requires specifying the response model, its grouping unit and any conditioning covariates.{{cite:laird_ware1982}} (§2, pp. 964–965)
-
-## Check yourself
-
-Use the definitions and calculations above to work through these questions.
-
-### Shared intercepts and slopes {#self-check-c-35}
-
-[Shared intercepts and slopes](../questions/c-35.qmd). Explain where each random effect enters.
-
-::: {.callout-tip collapse="true" title="Answer"}
-A random intercept shifts a group’s baseline; a random slope changes its covariate effect. In a GLMM both enter the conditional linear predictor. Their covariance can make marginal dependence vary with the covariates.
-:::
-
-### A proposed negative correlation {#self-check-ex-ur-exchangeable-bound}
-
-[A proposed negative correlation](../questions/ex-ur-exchangeable-bound.qmd). Check the all-ones direction for four visits.
-
-::: {.callout-tip collapse="true" title="Answer"}
-The exchangeable matrix has all-ones eigenvalue $1+3\rho$. At $\rho=-0.5$ this is $-0.5$, so the matrix cannot be a correlation matrix. The lower permissible bound is $-1/3$.
-:::

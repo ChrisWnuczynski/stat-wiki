@@ -32,27 +32,5 @@ For the full-period example, the average of the scaled outputs over one cycle is
 The updated states are $1,6,15$, so the scaled values are $0.0625,0.375,0.9375$.
 :::
 
-## Check yourself
-
-### Transforming a uniform input {#self-check-ex-prob-generate-uniform}
-
-[Practice question](../questions/ex-prob-generate-uniform.qmd)
-
-Explain how to generate a draw from the uniform distribution on $[10,15]$, starting from a uniform draw on $[0,1]$.
-
-::: {.callout-tip collapse="true" title="Answer"}
-Draw $U\sim\operatorname{U}[0,1]$ and return $X=10+5U$.
-:::
-
-### Transforming to a waiting time {#self-check-ex-prob-generate-exp}
-
-[Practice question](../questions/ex-prob-generate-exp.qmd)
-
-Explain how to generate a draw from the exponential distribution with rate $10$, starting from a uniform draw on $[0,1]$.
-
-::: {.callout-tip collapse="true" title="Answer"}
-Draw $U\sim\operatorname{U}[0,1]$ and return $X=-\log(U)/10$. This is the inverse-transform method: the distribution function $1-e^{-10x}$ inverts to $-\log(1-u)/10$, and $1-U$ has the same distribution as $U$.
-:::
-
 ## History
 Computer generation distinguishes random numbers from pseudorandom sequences, whose marginal frequencies and successive dependence require separate scrutiny.{{cite:dodge2008}} (p. 446)

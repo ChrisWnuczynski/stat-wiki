@@ -51,7 +51,7 @@ if __name__ == "__main__":
     assert r"\mathbf X_i" not in body.split("## Check yourself", 1)[0]
     assert "{{cite:" not in body
     assert not re.search(r"!\[[^\]]*\]\(", page)
-    assert len(set(re.findall(r"\.\./questions/([^.)]+)", body))) == 7
+    assert len(set(re.findall(r"\.\./questions/([^.)]+)", body))) == 8
     keys = set(re.findall(r'data-cite-key="([^"]+)"', body))
     assert keys <= {
         "nelder_wedderburn1972", "diaconis_ylvisaker1979",

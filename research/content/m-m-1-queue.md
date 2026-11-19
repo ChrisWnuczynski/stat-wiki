@@ -43,21 +43,3 @@ $\rho=1/4$, so $\pi_0=3/4$, $L=(1/4)/(3/4)=1/3$, and $W=1/(4-1)=1/3$.
 
 ## Connections — Birth–death queues
 The same cut balance is [local balance](local-balance.qmd) on a birth–death chain. {{cite:durrett2019}} (p. 301, birth–death chains) [Little’s law](little-s-law.qmd) converts $L$ into $W$ once the arrival rate is the rate that actually enters. An [M/M queue](m-m-queue.qmd) with infinitely many servers has no stability threshold, because every arrival starts service at once and the stationary count is Poisson. A finite waiting room restores a stationary distribution at every load by turning arrivals away.
-
-## Check yourself
-
-### An M/M/1 queue {#self-check-ex-sp-mm1-numbers}
-
-Arrivals are $2$ per hour and service is $3$ per hour. Find $\pi_0$, $\Pr(N\ge 3)$, $L$, and $W$.
-
-::: {.callout-tip collapse="true" title="Answer"}
-$\rho=2/3$, so $\pi_0=1/3$ and $\Pr(N\ge 3)=(2/3)^3=8/27$. Then $L=2$ and $W=1$ hour.
-:::
-
-### An M/M/∞ system {#self-check-ex-sp-mminf-numbers}
-
-Arrivals are $6$ per hour and each service rate is $2$ per hour, with infinitely many servers. Find the stationary mean and the probability that the system is empty.
-
-::: {.callout-tip collapse="true" title="Answer"}
-The mean is $\lambda/\mu=3$. The empty-system probability is the Poisson probability $e^{-3}$. There is no requirement that $\lambda<\mu$.
-:::

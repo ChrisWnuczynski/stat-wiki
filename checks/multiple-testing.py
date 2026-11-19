@@ -1,8 +1,13 @@
 """Arithmetic checks for the multiple-testing article."""
+
+import sys
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from tools.shown import shown
 
 root = Path(__file__).resolve().parents[1]
 text = (root / "research/content/multiple-testing.md").read_text()
+text = shown(text, "multiple-testing")
 body = (root / "articles/multiple-testing.qmd").read_text().split("## See also", 1)[0]
 assert round(1 - 0.95 ** 20, 4) == 0.6415
 assert round(0.95 ** 5, 5) == 0.77378

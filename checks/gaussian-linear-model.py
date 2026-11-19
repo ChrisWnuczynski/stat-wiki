@@ -54,7 +54,7 @@ for printed in (
 assert body.count('title="Proof"') == 1
 assert "**Your turn.**" in body and "## Check yourself" in body
 assert body.count('title="Answer"') >= 3
-for qid in ("ex-inf-normal-equations", "ex-reg-nichisq"):
+for qid in ("depth-gaussian-linear-model-q1", "depth-gaussian-linear-model-q2"):
     assert f"../questions/{qid}.qmd" in page
 assert 'data-cite-key="hastie_esl2009"' in body
 print("gaussian linear model checks passed")

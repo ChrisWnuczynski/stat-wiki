@@ -28,25 +28,3 @@ The scalar condition outside zero is $2(\beta-b)+2\operatorname{sign}(\beta)+2\b
 
 ## Connections — Coordinate descent beyond orthogonality
 When predictors are correlated, $X^\top y$ cannot be thresholded once to obtain the joint lasso solution. Coordinate descent instead forms the partial residual after accounting for all other coefficients, applies a scalar soft threshold, and cycles through coordinates. A coordinate changes the residual seen by the next one. Elastic-net updates combine the threshold with a further multiplicative shrinkage.{{cite:friedman_glmnet2010}} (§2, eqs. 5–6){{cite:parikh_boyd2014_proximal}} (§6.5.3, p. 189)
-
-## Check yourself
-
-### Compare raw-loss conventions {#self-check-ex-sl-18-5}
-
-[Practice question](../questions/ex-sl-18-5.qmd)
-
-Compute ridge and lasso for the displayed $b$ and $\lambda=2$.
-
-::: {.callout-tip collapse="true" title="Answer"}
-Ridge divides all coordinates by three. Lasso soft-thresholds at one, leaving only $1.4$ in the first coordinate. Using threshold two would correspond to a different residual-loss normalisation.
-:::
-
-### Correlated columns change the calculation {#self-check-ex-sl-18-2}
-
-[Practice question](../questions/ex-sl-18-2.qmd)
-
-Two identical predictor columns both equal $(1,1)^\top$. For $y=(1,3)^\top$ and ridge penalty one, find the coefficients.
-
-::: {.callout-tip collapse="true" title="Answer"}
-$X^\top X$ has eigenvalues zero and four. Symmetry gives equal coefficients; solving $(X^\top X+I)\beta=X^\top y$ gives $(0.8,0.8)$. Unpenalised least squares only fixes their sum at two.
-:::

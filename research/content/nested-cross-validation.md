@@ -60,22 +60,5 @@ A screen that ranks predictors on every label, and only then starts the outer lo
 ## Connections
 [Cross-validation](cross-validation.qmd) estimates the error of a rule whose form is already fixed. [Leave-one-out cross-validation](leave-one-out-cross-validation.qmd) is the inner or the outer split in which each fold holds out one row; the nesting is the separation of the two jobs, not the fold size. A [held-out test set](a-held-out-test-set.qmd) is the single-split version of the outer loop. The [Akaike information criterion](akaike-information-criterion.qmd) is a different correction for fitting, aimed at a penalty linear in the number of parameters, and it is not a substitute for rerunning a search inside each outer fold.{{cite:cawley_talbot2010}} (§1, pp. 2079–2080){{cite:hastie_esl2009}} (Ch. 7, §7.10, pp. 241–246)
 
-## Check yourself
-### Which number is the nested one? {#self-check-nested-which}
-
-On the responses $0$, $1$, $0$ and $8$, the best full-sample mean squared error among the constants $0$, $1$ and $4$ is $12.75$, and the average of the outer squared errors is $26.25$. Which number assesses the selection procedure?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The nested average $26.25$. The value $12.75$ is the minimum of three scores on the same four responses, so it both chose a constant and graded that choice.
-:::
-
-### One outer fold {#self-check-nested-fold}
-
-The response $8$ is held out. On $0$, $1$ and $0$, the mean squared errors of the constants $0$, $1$ and $4$ are $1/3$, $2/3$ and $41/3$. Which constant is chosen, and what squared error does it incur on $8$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The smallest inner score is $1/3$, from the constant $0$. The squared error on $8$ is $(8-0)^{2}=64$.
-:::
-
 ## History
 Stone’s cross-validatory framework already distinguished choosing a predictor from assessing the choice, and later writers called the two-loop version a double cross or nested cross-validation. Cawley and Talbot’s 2010 study showed that overfitting the selection criterion can be as large as typical gaps between learning algorithms, and that the bias is avoided only when selection is rerun inside every assessment sample. The wrong-way screen in Hastie, Tibshirani and Friedman is the same separation applied to variable ranking rather than to a numerical penalty.{{cite:cawley_talbot2010}} (§1, pp. 2079–2080){{cite:hastie_esl2009}} (Ch. 7, §7.10.2, pp. 245–246)

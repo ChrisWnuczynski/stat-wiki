@@ -30,18 +30,3 @@ All labelled margins equal one. The weighted labelled points sum to $(1,0)$ and 
 ## Assumptions and limits
 
 Separation is essential to the hard-margin primal. Two observations at the same feature vector with opposite labels demand both $w^Tx+b\ge1$ and $w^Tx+b\le-1$. For this conflicting pair, setting both dual multipliers to $t$ satisfies the equality constraint, cancels the quadratic term and gives objective $2t\to\infty$. A soft margin changes the constraints and objective to allow violations.{{cite:burges1998}} (§§3.1–3.2; §3.5)
-
-
-## Check yourself
-
-### [Interpreting multipliers](../questions/ex-sl-17-6.qmd) {#self-check-ex-sl-17-6}
-
-::: {.callout-tip collapse="true" title="Answer"}
-For soft-margin $C=2$, a zero multiplier implies zero slack and margin at least one. A multiplier $1.3$ lies strictly between zero and $C$, hence has margin one and zero slack and can determine the intercept. A multiplier equal to $C$ has margin at most one and slack $1-yf$, possibly zero; its multiplier alone does not determine the slack.
-:::
-
-### [Kernel as an inner product](../questions/ex-sl-17-4.qmd) {#self-check-ex-sl-17-4}
-
-::: {.callout-tip collapse="true" title="Answer"}
-With $\phi(x)=(1,\sqrt2x,x^2)$, the inner product is $1+2xx'+x^2x'^2=(1+xx')^2$. Middle observations with $|x|\le0.9$ have squared coordinate at most $0.81$; tails with $|x|\ge1.5$ have squared coordinate at least $2.25$. A threshold $1.53$ in that coordinate separates them with equal coordinate gaps $0.72$.
-:::

@@ -23,6 +23,6 @@ for printed in (
 assert body.count('title="Proof"') == 1
 assert body.count('title="Answer"') >= 1
 questions = set(re.findall(r"\.\./questions/([^.)#]+)\.qmd", page))
-assert len(questions) == 15, f"Expected 15 question links, got {len(questions)}"
+assert len(questions) == 29, f"Expected 29 question links, got {len(questions)}"
 assert 'data-cite-key="strimmer2025_mva"' in body
 print("eigenvalues-and-eigenvectors arithmetic, proof, and links passed")

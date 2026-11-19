@@ -1,5 +1,9 @@
 """Independent calculations and generated-output checks for this article."""
+
+import sys
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from tools.shown import shown
 import re
 ROOT=Path(__file__).resolve().parents[1]
 import math
@@ -29,6 +33,7 @@ for z in [.01,.2,.5,.8,.99]:
     qc=2+3*math.tan(math.pi*(z-.5))
     assert abs(.5+math.atan((qc-2)/3)/math.pi-z)<1e-14
 source=(ROOT/"research/content/inverse-transform-method.md").read_text()
+source = shown(source, "inverse-transform-method")
 article=(ROOT/"articles/inverse-transform-method.qmd").read_text().split("## See also",1)[0]
 for needle in ['0.804719', '0.346574', '19/64']:
     assert needle in source and needle in article, needle

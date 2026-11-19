@@ -29,20 +29,3 @@ The expected count is $2000(0.05)=100$. Linearity of expectation gives this resu
 An evaluation split must contain the entire analysis learned from its training portion: preprocessing, feature or component selection, tuning and final fitting. A test label used to rank genes has already influenced the model, even if the classifier's last optimisation step did not use that label. Nested resampling separates tuning from evaluation when no independent final test sample is available.{{cite:ambroise_mclachlan2002}} (§Correction for Bias Selection and §Discussion, pp. 6563–6566)
 
 A gene can be useful for prediction without having a direct causal role in tumour development. Gene–gene correlation can make several predictors interchangeable, and tissue composition can contribute broad expression patterns. The study's clustering analysis examines coordinated expression and tissue structure, rather than identifying a causal effect of changing one gene.{{cite:alon1999}} (§Discussion, pp. 6748–6750)
-
-## Check yourself
-Use the sample dimension and the evaluation target explicitly.
-
-### Rank in a small example {#self-check-ex-sl-18-1}
-[Rank](../questions/ex-sl-18-1.qmd): for four observations in six dimensions, bound the sample covariance rank and count the necessarily zero eigenvalues.
-
-::: {.callout-tip collapse="true" title="Answer"}
-Centring leaves rank at most $\min(4-1,6)=3$, so at least three eigenvalues are zero. There are at most three positive-variance principal components. For four observations in three dimensions, rank three is possible.
-:::
-
-### Selection and prediction {#self-check-ex-sl-18-9}
-[Selection in many dimensions](../questions/ex-sl-18-9.qmd): why can a lasso predict well without identifying exactly the nonzero generating coefficients?
-
-::: {.callout-tip collapse="true" title="Answer"}
-Prediction and exact support recovery are different targets. Correlated variables may substitute for one another, finite-sample noise can change a selected set, and shrinkage changes estimated coefficients. Marginal significance also tests a different association from a conditional regression coefficient.
-:::

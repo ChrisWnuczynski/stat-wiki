@@ -28,19 +28,3 @@ whereas fitting $x$ on $y$ gives $\widehat x=1/2+(3/2)y$. The slopes have produc
 ::: {.callout-tip collapse="true" title="Answer"}
 Transform the fitted values: $\widehat y^*=10+2(-1/6+x/2)=29/3+x$. The new slope is $1$, and the intercept is $29/3$.
 :::
-
-## Check yourself
-
-### Birth weight as the response {#self-check-ex-da-birth-weight}
-[Birth weight and mother's age](../questions/ex-da-birth-weight.qmd): use the fitted line to predict at the two ages and assess the slope.
-
-::: {.callout-tip collapse="true" title="Answer"}
-The predictions are $3204.23-18.84(15)=2921.63$ grams and $3204.23-18.84(35)=2544.83$ grams. The stated slope p-value, $0.1102$, exceeds $0.05$, so the data do not distinguish the slope from zero at that level.
-:::
-
-### A count response {#self-check-q-30}
-[Poisson regression model statement](../questions/q-30.qmd): identify the response, covariates and independence assumption.
-
-::: {.callout-tip collapse="true" title="Answer"}
-For lake $i$, the response $Y_i$ is its species count. Given distance $d_i$ and positive area $A_i$, the model is independent $Y_i\sim\operatorname{Poisson}(\mu_i)$ with $\log\mu_i=\beta_0+\beta_1d_i+\beta_2\log A_i$. Independence applies across lakes conditional on their covariates; the means may differ.
-:::

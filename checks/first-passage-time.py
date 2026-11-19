@@ -1,10 +1,15 @@
 """Arithmetic checks for the first-passage-time article."""
 
-from fractions import Fraction as F
+import sys
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from tools.shown import shown
+
+from fractions import Fraction as F
 
 root = Path(__file__).resolve().parents[1]
 prose = (root / "research/content/first-passage-time.md").read_text(encoding="utf-8")
+prose = shown(prose, "first-passage-time")
 article = root / "articles/first-passage-time.qmd"
 page = article.read_text(encoding="utf-8") if article.is_file() else prose
 

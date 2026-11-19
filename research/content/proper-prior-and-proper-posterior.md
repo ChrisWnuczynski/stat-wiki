@@ -41,20 +41,3 @@ Counting failure as the Bernoulli success gives $x=1$ and $n=5$. The uniform pri
 
 ## Connections — Probability statements require the normalised law
 Posterior means, quantiles, and credible probabilities are computed from a proper posterior distribution. A kernel alone identifies relative weights; its integral decides whether those weights can be converted into probabilities. This distinction also explains why multiplying an improper prior by a constant is harmless for a proper posterior within one model but does not supply a uniquely scaled prior predictive density for comparisons between models.{{cite:pishro_nik2014}} (§9.1.0);{{cite:taraldsen2022_improper}} (§2, arbitrary prior constants)
-
-## Check yourself
-Work through the normalisation step before naming the distribution.
-
-### A normal sample {#self-check-ex-improper-normal}
-[Improper prior for a normal sample](../questions/ex-improper-normal.qmd): what conditions make the marginal variance posterior proper?
-
-::: {.callout-tip collapse="true" title="Answer"}
-With $n\geq2$ and $S=\sum_i(x_i-\bar x)^2>0$, integrating out the mean gives an inverse-gamma kernel with shape $(n-1)/2>0$ and scale $S/2>0$. If $S=0$, the exponential factor no longer controls the integral at zero, and the posterior is improper.
-:::
-
-### Integration versus substitution {#self-check-q-43}
-[Conditional versus marginal](../questions/q-43.qmd): why does integrating out the normal mean change the variance shape?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The Gaussian integral over the mean contributes a factor $v^{1/2}$. Multiplying it by the joint kernel changes the inverse-gamma shape from $n/2$ to $(n-1)/2$. Setting the mean equal to the sample mean does not contribute that factor and therefore gives a different distribution.
-:::

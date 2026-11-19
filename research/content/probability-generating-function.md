@@ -34,31 +34,3 @@ The same method explains Poisson thinning. If a Poisson$(2)$ number of items are
 ::: {.callout-tip collapse="true" title="Answer"}
 It is $G_N(0)^3=0.2^3=0.008$. A nonnegative sum is zero only when every summand is zero.
 :::
-
-## Check yourself
-
-### A Bernoulli total {#self-check-depth-mgf-bernoulli-sum}
-
-[Practice question](../questions/depth-mgf-bernoulli-sum.qmd)
-
-Let $X$ and $Y$ be independent Bernoulli variables with success probability $0.4$. Find the MGF of $S=X+Y$, its mean and variance, and $P(S=2)$. What part fails if $X=Y$ instead?
-
-::: {.callout-tip collapse="true" title="Answer"}
-One MGF is $0.6+0.4e^{t}$, so independence gives $M_S(t)=(0.6+0.4e^{t})^{2}$. The mean is $0.8$, variance $2(0.4)(0.6)=0.48$, and $P(S=2)=0.4^{2}=0.16$. If $X=Y$, the sum's MGF is $0.6+0.4e^{2t}$; the product rule and binomial law do not apply.
-:::
-
-### An offspring generating function {#self-check-ex-sp-critical-extinction}
-
-[Practice question](../questions/ex-sp-critical-extinction.qmd)
-
-For the offspring law $\mathbb{P}(\xi=0)=2/5$, $\mathbb{P}(\xi=1)=1/5$, $\mathbb{P}(\xi=2)=2/5$, find the mean, the probability generating function, and the extinction probability. Explain the result.
-
-::: {.callout-tip collapse="true" title="Answer"}
-The mean is
-
-$$
-m=0\cdot\frac{2}{5}+1\cdot\frac{1}{5}+2\cdot\frac{2}{5}=1.
-$$
-
-The probability generating function is $f(s)=2/5+s/5+2s^2/5$. The equation $f(s)=s$ is $2s^2-4s+2=0$, or $(s-1)^2=0$. The only root in $[0,1]$ is $1$, so the extinction probability is $1$. The offspring law is non-degenerate and $p_0=2/5>0$, so the critical case of the extinction criterion applies.
-:::

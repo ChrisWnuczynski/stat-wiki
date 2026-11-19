@@ -40,21 +40,3 @@ The variance stays nine for every ensemble size. With perfectly correlated equal
 ## Statistical use — Out-of-bag assessment
 
 For a particular training case, predictions can be formed from only those bootstrap models whose samples omitted that case. This out-of-bag prediction uses the case as an assessment point for those models. Reusing the same assessment repeatedly to choose tuning settings can make the selected error optimistic; independent assessment still has a role after extensive model selection.{{cite:breiman2001_rf}} (§3.1, p. 11)
-
-## Check yourself
-
-### [Variance of an average](../questions/ex-sl-13-2.qmd) {#self-check-ex-sl-13-2}
-
-Which part of the common-correlation variance formula vanishes as the number of members grows?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The term $(1-\rho)\sigma^2/B$ vanishes. The term $\rho\sigma^2$ remains, assuming the common-correlation model continues to describe the ensemble.
-:::
-
-### [How members differ](../questions/depth-ensemble-mechanism.qmd) {#self-check-depth-ensemble-mechanism}
-
-How do bagging, random forests and AdaBoost create different fitted members?
-
-::: {.callout-tip collapse="true" title="Answer"}
-Bagging resamples rows. A random forest also restricts candidate variables at splits. AdaBoost changes observation weights using the performance of the current ensemble. Those are different sources of diversity.
-:::

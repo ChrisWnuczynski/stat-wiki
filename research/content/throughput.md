@@ -35,21 +35,3 @@ The three stationary weights are equal, so $\pi_2=1/3$ and throughput is $2(1-1/
 ## Connections — State-dependent service
 
 With $c$ identical servers, the departure intensity in state $n$ is $\mu\min(n,c)$. Thus the average completion rate is $\sum_n\pi_n\mu\min(n,c)$, bounded by $c\mu$. That average, rather than the service rate of a permanently busy server, is the quantity that must balance admissions.{{cite:siegrist_queuing2022}} (§ “Infinitesimal Generator”)
-
-## Check yourself
-
-### [An M/M/1 queue](../questions/ex-sp-mm1-numbers.qmd) {#self-check-ex-sp-mm1-numbers}
-
-For offered rate two and service rate three per hour, what are throughput and mean sojourn when capacity is unlimited?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The stable queue admits every arrival, so throughput is two per hour. Its mean occupancy is $2/(3-2)=2$, giving mean sojourn one hour.
-:::
-
-### [An M/M/∞ system](../questions/ex-sp-mminf-numbers.qmd) {#self-check-ex-sp-mminf-numbers}
-
-For offered rate six and per-customer service rate two per hour, what is the mean occupancy and average departure rate?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The stationary mean occupancy is three. Every present customer has departure rate two, so the average departure rate is six per hour, matching admissions.
-:::

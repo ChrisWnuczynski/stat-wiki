@@ -50,27 +50,5 @@ Detailed balance is not the same statement as $\pi P=\pi$. The cycle is a counte
 ## Connections
 [Global balance](global-balance-and-detailed-balance.qmd) is the summed form. [Stationarity](stationarity-and-detailed-balance.qmd) is $\pi P=\pi$. A [Metropolis–Hastings update](metropolis-hastings-algorithm.qmd) is one construction that enforces the pairwise identity. The cycle $1\to 2\to 3\to 1$ is a stationary chain that fails the pairwise identity.{{cite:durrett2019}} (pp. 300–301)
 
-## Check yourself
-
-### Birth–death stationary weights {#self-check-ex-sp-birth-death-pi}
-
-A birth–death chain on $\{0,1,2\}$ has $p_0=1$, $q_1=1/3$, $p_1=2/3$ and $q_2=1$. Using $\pi_i p_i=\pi_{i+1} q_{i+1}$, find $\pi$.
-
-[Exercise](../questions/ex-sp-birth-death-pi.qmd)
-
-::: {.callout-tip collapse="true" title="Answer"}
-$\pi_0\cdot 1=\pi_1\cdot(1/3)$, so $\pi_1=3\pi_0$. Then $\pi_1\cdot(2/3)=\pi_2\cdot 1$, so $\pi_2=(2/3)\cdot 3\pi_0=2\pi_0$. The sum is $\pi_0(1+3+2)=6\pi_0=1$, hence $\pi=(1/6,\ 1/2,\ 1/3)$. Each edge flow matches by construction.
-:::
-
-### A path graph {#self-check-ex-sp-path-graph}
-
-Why does the deterministic three-cycle fail detailed balance even though $(1/3,1/3,1/3)$ is stationary?
-
-[Exercise](../questions/ex-sp-path-graph.qmd)
-
-::: {.callout-tip collapse="true" title="Answer"}
-The forward edge has probability 1 and the reverse edge has probability 0, so the products $(1/3)\cdot 1$ and $(1/3)\cdot 0$ differ. Stationarity only asks that the total mass into each state equal $1/3$. It does not ask the mass to return along the same edge.
-:::
-
 ## History
 Durrett introduces detailed balance as the condition stronger than stationarity, with the Ehrenfest chain and birth–death chains as the cases where the pairwise equations are easy to solve, and he then explains reversibility by running the stationary chain backwards. The same implication holds in integral notation, and the symmetry is the practical way to build a Markov chain with a prescribed stationary distribution.{{cite:durrett2019}} (pp. 300–301, reversible measures)

@@ -78,27 +78,5 @@ Lindeberg's theorem extends the normal limit to summands that are not identicall
 ## Connections
 The [strong law](strong-law.qmd) is the pathwise average. [Markov's inequality](markov-s-inequality.qmd) and Chebyshev's inequality are the moment bounds behind the weak law. The [normal distribution](normal-distribution.qmd) is the limit shape. A [binomial distribution](binomial-distribution.qmd) is a sum of Bernoulli trials, which is why the coin calculation is a limit theorem rather than a separate approximation.{{cite:durrett2019}} (Thm. 3.4.1){{cite:dodge2008}} (p. 66)
 
-## Check yourself
-### The hundred tosses
-For $100$ fair tosses, what are the exact probability $\mathrm{P}(S\ge 60)$, the plain normal approximation, and the continuity-corrected approximation, to four decimals?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The exact value is $0.0284$. The plain approximation is $0.0228$. The continuity correction is $0.0287$.
-:::
-
-### Chebyshev against the normal tail
-The Chebyshev bound on $\mathrm{P}(|S/100-1/2|\ge 0.1)$ is $0.25$. Why is that not a contradiction of the normal tail near $0.023$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-Chebyshev's inequality is an upper bound that uses only the variance. The normal approximation estimates the probability. An upper bound of $0.25$ is compatible with a probability near $0.046$ for the two tails.
-:::
-
-### Twenty tosses
-For $S\sim\mathrm{Bin}(20,1/2)$, the exact $\mathrm{P}(S\le 8)$ is $0.2517$ and the plain normal value is $0.186$. What does the continuity correction do?
-
-::: {.callout-tip collapse="true" title="Answer"}
-It reads the normal distribution at $8.5$ rather than at $8$, and the value is about $0.251$, close to $0.2517$. The plain reading at $8$ is the one that sits low.
-:::
-
 ## History
 The central limit theorem runs from de Moivre's binomial argument, through Laplace and Poisson, to Chebyshev's demonstration and Liapunov's characteristic-function form, and Pólya supplied the word "central" in 1920.{{cite:dodge2008}} (p. 66) The strong law, the probability-one limit of the average, is a different statement from the weak law.{{cite:dodge2008}} (pp. 298–299) The identical-summand normal limit used here is Durrett's statement for a finite positive variance, proved by convergence of characteristic functions to $e^{-t^2/2}$.{{cite:durrett2019}} (Thm. 3.4.1, p. 144)

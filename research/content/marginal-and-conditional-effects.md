@@ -55,27 +55,5 @@ The marginal probability averages over the distribution of the latent intercept 
 ## Connections
 A [generalised linear mixed model](generalised-linear-mixed-model.qmd) is the usual home of the conditional coefficient. [Generalised estimating equations](generalised-estimating-equations.qmd) target the marginal mean. The [logit link](logit-link.qmd) is the curved map that makes averaging and transforming fail to commute. A [random intercept](random-intercept-model.qmd) is the latent term being held fixed or averaged. The [sandwich estimator](sandwich-estimator.qmd) is the variance used when the working association may be wrong.
 
-## Check yourself
-
-### Conditional versus marginal effects {#self-check-c-37}
-
-In one sentence each, say what a logistic random-intercept coefficient and a population-average coefficient describe, and why they need not match.
-
-[Exercise](../questions/c-37.qmd)
-
-::: {.callout-tip collapse="true" title="Answer"}
-The logistic random-intercept coefficient is a log-odds change at a fixed random intercept. The population-average coefficient describes the marginal mean after the random intercept has been averaged out. Because the inverse logit is nonlinear, the average of the conditional probabilities is not the conditional probability at the average intercept, so the two coefficients describe different contrasts. In the two-point example those contrasts are a log-odds change of 1 and a probability change of 0.1904.
-:::
-
-### Generalised estimating equations {#self-check-c-38}
-
-What does a generalised estimating equation estimate, and what does it not require?
-
-[Exercise](../questions/c-38.qmd)
-
-::: {.callout-tip collapse="true" title="Answer"}
-It estimates the coefficients of a marginal mean for correlated responses, using the derivative of that mean and a working within-cluster covariance. It does not require a full joint distribution of the responses inside a cluster. Consistency of the coefficient, under the usual regularity conditions, needs a correct marginal mean and independent clusters. It does not need the working covariance to be the true one. A sandwich variance is the corresponding uncertainty statement.
-:::
-
 ## History
 The split between a curve for one person and a curve for the population is the reason the same study can be analysed twice and produce two slopes. Marginal models were developed so that the population curve could be estimated without building a full probability model for the dependence inside each cluster. The numerical gap in the logistic example is not a defect in either slope. It is the difference between holding a latent intercept fixed and averaging it.

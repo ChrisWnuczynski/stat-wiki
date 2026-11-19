@@ -45,18 +45,3 @@ Under these new weights the threshold $4.5$ with the reverse orientation, predic
 ::: {.callout-tip collapse="true" title="Answer"}
 $\alpha=\tfrac12\log3\approx0.549306$ and $Z=2\sqrt{(1/4)(3/4)}=\sqrt3/2\approx0.866025$.
 :::
-
-## Check yourself
-### Updating five weights {#self-check-ex-sl-13-4}
-[One round of AdaBoost](../questions/ex-sl-13-4.qmd): calculate the new error of the same stump.
-
-::: {.callout-tip collapse="true" title="Answer"}
-Only the fifth observation is wrong. Its initial weight is $0.2$, giving $\alpha=\tfrac12\log4$. Multipliers are $1/2$ on correct points and $2$ on the error; after division by $0.8$, the weights are $(1/8,1/8,1/8,1/8,1/2)$. The same stump therefore has new error $1/2$.
-:::
-
-### Identical classifiers {#self-check-ex-sl-13-6}
-[A tempting wrong turn](../questions/ex-sl-13-6.qmd): explain why replicating one deterministic rule does not improve its prediction.
-
-::: {.callout-tip collapse="true" title="Answer"}
-All member predictions coincide, so their average is the same prediction. Their diversity is zero and their pairwise correlation is one whenever the variance is positive. Random forests vary samples and candidate predictors; AdaBoost changes weights across rounds. Each approach changes the fitted members rather than merely repeating one rule.
-:::

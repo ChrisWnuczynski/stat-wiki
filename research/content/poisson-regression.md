@@ -20,7 +20,6 @@ $$
 \frac{(-1.2)^2}{5.2}+\frac{1.2^2}{7.8}=\frac{6}{13}\approx 0.4615.
 $$
 
-
 With one parameter and two observations the residual degrees of freedom are $1$. The statistic is not large, but it is not zero: the pooled rate does not reproduce both counts. Omitting the offset and fitting a common mean to the raw counts gives mean $6.5$ and Pearson statistic $25/13\approx 1.9231$, and it answers a question about counts rather than rates.{{cite:nelder_wedderburn1972}} (§§1.3, 3.3–3.4, pp. 372, 378–380)
 
 ::: {.callout-note collapse="true" title="Proof"}
@@ -58,26 +57,6 @@ Prior weights are not the exposure. Prior weights are rarely the way to encode P
 
 ## Connections
 [Fisher scoring](fisher-scoring.qmd) is the iteration that solves the score when the linear predictor is not saturated. The [log link](log-link.qmd) is the map from the coefficient vector to a positive mean. A [baseline-category logit](baseline-category-logit-model.qmd) is a different likelihood: one category out of several, not an unbounded count.{{cite:nelder_wedderburn1972}} (§§1.3, 3.3–3.4, pp. 372, 378–380)
-
-## Check yourself
-
-1. What is the pooled infection rate for counts $4$ and $9$ over $2$ and $3$ years?
-
-::: {.callout-tip collapse="true" title="Answer"}
-$13/5=2.6$ per year. The fitted means are $5.2$ and $7.8$.
-:::
-
-2. What is $\log(3/2)$ to four decimals, and what rate ratio does it represent?
-
-::: {.callout-tip collapse="true" title="Answer"}
-$\log(1.5)\approx 0.4055$. It is the log of the rate ratio $3/2=1.5$, not the log of the count ratio $9/4=2.25$.
-:::
-
-3. Is the Pearson statistic $6/13$ equal to zero?
-
-::: {.callout-tip collapse="true" title="Answer"}
-No. It is about $0.4615$. It is zero only for the saturated rates $2$ and $3$, whose fitted means are the counts.
-:::
 
 ## History
 `glm` fits this mean by iteratively reweighted least squares, fixes the Poisson dispersion at one, and provides an offset for a term whose coefficient is not estimated. Exposure enters the wards' model as that offset. The saturated two-group fit and the pooled-rate fit are then the zeros of the same score, with and without a group coefficient.

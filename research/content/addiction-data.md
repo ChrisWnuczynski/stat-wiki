@@ -47,20 +47,3 @@ All unnormalised weights equal one. Dividing by their sum gives $(1/3,1/3,1/3)$.
 Choosing disease as the reference gives scores $\log(p_0/p_1)=-\eta_1$ and $\log(p_2/p_1)=\eta_2-\eta_1$. The coefficients and their verbal comparisons change, while the fitted probabilities do not. This follows directly by dividing every softmax weight by $e^{\eta_1}$.{{cite:zhang_d2l2023}} (§4.1.1.2, normalisation)
 
 Missing responses and predictors also affect which records contribute to a fit. The full data frame and the complete cases used by a particular fitting formula need not have the same size. The numerical comparisons here use the stated fitted model and coding, so a different reference category or record selection must be accounted for when reproducing them.
-
-## Check yourself
-Translate between a log odds, its odds multiplier and a probability.
-
-### A ten-year odds ratio {#self-check-ex-sl-10-2}
-[Interpreting the age coefficient](../questions/ex-sl-10-2.qmd): with age coefficient $0.04618$ and profile interval $(0.02484,0.06851)$, find the ten-year odds ratio and interval. Use intercept $-3.70568$ and high-blood-pressure indicator zero for predicted probabilities at ages sixty and seventy.
-
-::: {.callout-tip collapse="true" title="Answer"}
-The ten-year odds ratio is $e^{0.4618}=1.586928$, with interval $(e^{0.2484},e^{0.6851})\approx(1.281973,1.983970)$. The two scores are $-0.93488$ and $-0.47308$, giving probabilities about $0.281936$ and $0.383887$. The probability ratio differs from the odds ratio.
-:::
-
-### A logistic decision boundary {#self-check-ex-sl-10-7}
-[A logistic model](../questions/ex-sl-10-7.qmd): for $\eta=-3+0.8x_1-0.4x_2$, find the probability at $(4,2)$ and interpret the $x_1$ coefficient.
-
-::: {.callout-tip collapse="true" title="Answer"}
-The score is $-0.6$, giving probability $0.354344$ and class zero at threshold $0.5$. The boundary is $-3+0.8x_1-0.4x_2=0$. With $x_2$ fixed, increasing $x_1$ by one multiplies odds by $e^{0.8}=2.225541$. Logistic regression specifies class probabilities directly; ordinary linear discriminant analysis derives them from Gaussian class-conditional laws with a shared covariance.
-:::

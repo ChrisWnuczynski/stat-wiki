@@ -79,27 +79,5 @@ Neither population has variance 9.250. Using $\sqrt{9.250/100}=0.304$ as the sta
 ## Connections
 The [two-sample t pivot](two-sample-t-pivot.qmd) is the studentised difference that uses $s_p$. The [F test for equal variances](f-test-for-equal-variances.qmd) is the check on the common-variance assumption, using the ratio of the unpooled sample variances. [Welch's interval](welch-interval.qmd) keeps a separate variance in each group. The [sample variance](sample-variance-and-standard-deviation.qmd) of one group is the ingredient; the [chi-squared distribution](chi-squared-distribution.qmd) is the reference law of the scaled residual sum.{{cite:siegrist2022_normals}} (§6.08, variance ratio and the $T$ variable)
 
-## Check yourself
-
-### Lost hours after a safety programme {#self-check-ex-inf-safety-interval}
-
-Two independent normal samples of size 50 have standard deviations 14.1 and 14.3. Compute the pooled variance and the pooled standard deviation.
-
-[Exercise](../questions/ex-inf-safety-interval.qmd)
-
-::: {.callout-tip collapse="true" title="Answer"}
-The residual sums of squares are $49\times14.1^2=9741.69$ and $49\times14.3^2=10020.01$. Their total is 19761.70, and dividing by 98 gives $s_p^2=201.65$. The pooled standard deviation is $\sqrt{201.65}=14.200$.
-:::
-
-### Checking equal variances {#self-check-ex-inf-variance-ratio-interval}
-
-With the same two standard deviations and $F_{49,49;0.975}=1.762$, form the 95% interval for $\sigma_1^2/\sigma_2^2$ based on $s_1^2/s_2^2$ and say whether it contains 1.
-
-[Exercise](../questions/ex-inf-variance-ratio-interval.qmd)
-
-::: {.callout-tip collapse="true" title="Answer"}
-The point estimate is $14.1^2/14.3^2=198.81/204.49=0.97222$. Dividing and multiplying by 1.762 gives $(0.55177,\ 1.71306)$, which rounds to $(0.5518,\ 1.7131)$. The interval contains 1, so these samples do not by themselves rule out a common variance. The interval is wide: ratios from about 0.55 to 1.71 are still compatible with the $F$ calculation.
-:::
-
 ## History
 The pooled variance is the estimate used when several populations have unknown variances that can be treated as equal, in both the sums-of-squares form and the degrees-of-freedom weighted form. The computer-brand calculation is the numerical pattern above: two samples, sums of squares 95000 and 70000, and pooled value 13750. The exact $t$ and chi-squared laws that justify using that number in a mean comparison are normal-sample theorems, set out for the two-sample model by Siegrist.{{cite:dodge2008}} (pp. 427–428, Pooled Variance){{cite:siegrist2022_normals}} (§6.08, “The Two Sample Model”)

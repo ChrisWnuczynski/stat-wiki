@@ -14,13 +14,11 @@ $$
 \log\frac{p_k}{p_0}=\eta_k=\beta_{0k}+\mathbf{x}^\top\boldsymbol{\beta}_k,\qquad k=1,\ldots,K-1.
 $$
 
-
 The reference linear predictor is $\eta_0=0$. Solving for the probabilities gives
 
 $$
 p_k=\frac{e^{\eta_k}}{\sum_{j=0}^{K-1}e^{\eta_j}},\qquad k=0,\ldots,K-1.
 $$
-
 
 The log-odds of category $k$ against category $m$ are $\eta_k-\eta_m$, with $\eta_0=0$. Software that fits this model by setting the coefficient vector of the first class to zero is using one choice of reference; any other class can be the reference if its score is the one set to zero.
 
@@ -50,7 +48,6 @@ p_1=\frac{1.6487}{5.3670}\approx 0.3072,\qquad
 p_2=\frac{2.7183}{5.3670}\approx 0.5065.
 $$
 
-
 They sum to $1$. The odds of category $2$ against the reference are $e^{1}\approx 2.7183$. The odds of category $2$ against category $1$ are $e^{1-0.5}=e^{0.5}\approx 1.6487$, which is $0.5065/0.3072$. Adding $1$ to every score leaves these three probabilities unchanged, because every exponential would be multiplied by $e$.{{cite:hastie_esl2009}} (§11.3–11.4, eqs. 11.6 and 11.10, pp. 393–395)
 
 **Your turn.** Set the two free scores to $0$ and $\log 3$, with the reference score still $0$. Find the three probabilities.
@@ -71,23 +68,3 @@ The scores are linear in the covariates. A curved effect of age, forced into one
 
 ## Connections
 A binary [logit link](logit-link.qmd) is this model with two categories. The [softmax](softmax-is-multinomial-logistic-regression.qmd) map is the passage from scores to probabilities written above. [Poisson regression](poisson-regression.qmd) is a different likelihood: counts on an unbounded integer, not a single category out of $K$. The software convention that the first class has coefficient zero is one baseline; the probabilities do not prefer that class.
-
-## Check yourself
-
-1. If every score increases by $\log 2$, do the probabilities change?
-
-::: {.callout-tip collapse="true" title="Answer"}
-No. Every exponential is multiplied by $2$, and the factor cancels in the ratio. The reference score is no longer zero, which is why a fit sets one score back to zero without changing the probabilities.
-:::
-
-2. In the worked example, what is $p_2/p_1$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The exact probabilities satisfy $p_2/p_1=e^{0.5}\approx 1.6487$. It is the odds of category $2$ against category $1$, not against the reference. The four-decimal probabilities $0.5065$ and $0.3072$ are each rounded, so their ratio is not a second calculation of $e^{0.5}$.
-:::
-
-3. How many free linear predictors does a four-category model have?
-
-::: {.callout-tip collapse="true" title="Answer"}
-Three. One category is the reference and its score is fixed at zero. Four free score vectors would describe the same probabilities more than once.
-:::

@@ -29,18 +29,3 @@ Fold scores can be dependent because their training sets overlap. Treating them 
 If cross-validation selects a tuning parameter, reporting the best score as an independent assessment uses the same noisy scores twice. An external test set or outer cross-validation loop can assess the complete selection procedure. In a nested loop, every outer training set repeats the inner choices. Once selection is complete, the chosen procedure can be refitted to all the available development data.{{cite:deisenroth_faisal_ong2020}} (§8.6.1, pp.284–285)
 
 For twelve observations, ordinary three-fold cross-validation fits three models on eight observations each; every observation is assessed once and appears in two training sets. Leave-one-out instead fits twelve models on eleven observations each. These are fit counts before any final all-data refit.{{cite:deisenroth_faisal_ong2020}} (§8.2.4, pp.263–264)
-
-
-## Check yourself
-
-### [Costs of cross-validation](../questions/ex-sl-09-5.qmd) {#self-check-ex-sl-09-5}
-
-::: {.callout-tip collapse="true" title="Answer"}
-For $n=1000$, leave-one-out needs $1000$ fold fits and ten-fold needs ten. Adding one final all-data fit gives $1001$ and $11$, respectively. With ten outer folds, nine inner folds and five candidates, inner selection plus one outer refit costs $10(9\cdot5+1)=460$. The stated final ten-fold selection and refit add $10\cdot5+1=51$, giving $511$.
-:::
-
-### [Separate tuning from evaluation](../questions/ex-sl-09-7.qmd) {#self-check-ex-sl-09-7}
-
-::: {.callout-tip collapse="true" title="Answer"}
-Choosing the highest validation accuracy among twenty candidates selects favourable sampling noise as well as good performance. Fit preprocessing inside training, select on validation data, freeze the choices, refit if desired, and assess on an independent test set. If cross-validation tunes the models, an external test set or an outer loop must assess that tuning procedure.
-:::

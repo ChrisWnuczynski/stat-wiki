@@ -45,20 +45,3 @@ The centred covariance has rank at most $n-1$. If $p\geq n$, its ordinary invers
 []{#property-hotelling-null-calibration}
 
 The exact normal-sample $F$ calibration relies on the Gaussian sampling law and the covariance estimate's distribution, in addition to the algebra of the ellipsoid. Those sampling assumptions should accompany a reported region.{{cite:pan_zhou2011_hotelling}} (§1, Remark 1)
-
-## Check yourself
-Distinguish a confidence set for a mean from a probability contour for observations.
-
-### Inverting a small test {#self-check-ex-sl-02-5}
-[A small $T^2$ test](../questions/ex-sl-02-5.qmd): does the zero mean lie in the corresponding $95\%$ region?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The question gives $T^2=8$. With $n=6$ and $p=2$, the observed $F$ statistic is $(4/10)8=3.2$, below the supplied critical value $6.944$. Thus zero lies inside the inverted confidence region. Inclusion does not prove that zero is the true mean.
-:::
-
-### A data contour {#self-check-ex-sl-01-4}
-[Axes of a contour](../questions/ex-sl-01-4.qmd): what are the axes for its covariance matrix, and what does its probability content refer to?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The eigenvalues are three and one, along $(1,1)$ and $(1,-1)$. For contour level $C$, the semi-axes are $\sqrt{3C}$ and $\sqrt C$. The specified $95\%$ probability content refers to a normal observation, rather than to coverage of a random region estimating its mean.
-:::

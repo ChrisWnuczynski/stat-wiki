@@ -51,21 +51,3 @@ $h_4=4/6=2/3$ and $e_4=4(6-4)=8$.
 The position at a large fixed time is governed by a [law of large numbers](law-of-large-numbers.qmd) and a [central limit theorem](central-limit-theorem.qmd). A passage time uses the path up to a random index, so those two limit theorems do not by themselves give $h_x$. The same cut between neighbouring states reappears as local balance for the [M/M/1 queue](m-m-1-queue.qmd), where the state is a count rather than a fortune.{{cite:durrett2019}} (Thm. 4.8.9, pp. 260–261)
 
 On a finite irreducible Markov chain, every state is hit almost surely from every starting state. In a general chain, the target may lie outside the states reachable from the start, even when the state space is finite and no state is absorbing. For example, a chain can alternate between states $1$ and $2$ and, separately, between $3$ and $4$. Starting at $1$, it never hits $3$, so $T_3=\infty$.{{cite:pishro_nik2014}} (§11.2.4, communicating classes and recurrence)
-
-## Check yourself
-
-### A fair walk between 0 and 8 {#self-check-ex-sp-fair-ruin}
-
-A fair walk is absorbed at $0$ and at $8$, and starts at $5$. Find the probability of reaching $8$ before $0$, and the expected absorption time.
-
-::: {.callout-tip collapse="true" title="Answer"}
-$h_5=5/8$ and $e_5=5(8-5)=15$.
-:::
-
-### A biased walk on four steps {#self-check-ex-sp-biased-goal}
-
-Take $p=2/3$, barriers at $0$ and $4$, and a start at $1$. Compute the probability of hitting $4$ before $0$, and compare it with the fair-walk value.
-
-::: {.callout-tip collapse="true" title="Answer"}
-$q/p=1/2$, so $h_1=(1-1/2)/(1-(1/2)^4)=(1/2)/(15/16)=8/15$. The fair value is $1/4$. Because $8/15>1/4$, the upward drift lifts the hitting probability above the fair line.
-:::

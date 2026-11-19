@@ -19,7 +19,6 @@ $$
 X_i-\overline X=\varepsilon_i-\overline\varepsilon,
 $$
 
-
 because $\mu$ is added to every observation and cancels in the difference. The centred vector is a function of $(\varepsilon_1,\ldots,\varepsilon_n)$ alone, so its distribution does not depend on $\mu$. It is ancillary for $\mu$ when $\mu$ is the only unknown parameter. If a scale $\sigma$ multiplies $\varepsilon_i$, the centred vector is multiplied by $\sigma$, so its distribution depends on $\sigma$. It is then not ancillary for the pair $(\mu,\sigma)$.
 :::
 :::
@@ -36,18 +35,3 @@ The mean is $2$, so the centred vector is $(-1,-1,2)$. The entries sum to $0$. E
 
 ## Connections — Sufficiency and Basu
 A [sufficient statistic](sufficient-statistic.qmd) is the piece that carries $\theta$. An ancillary statistic is a piece whose distribution does not. Whether that separation upgrades to independence is [Basu's theorem](basu-s-theorem.qmd). The centred vector in the proof is ancillary for a pure location parameter and, once a free scale is present, not ancillary for the pair.{{cite:dasgupta2007_basu}} (pp. 945–946, Basu's theorem)
-
-## Check yourself
-### Another shift
-Start from $3,5,7$ and add $10$ to each observation. Write the centred vector.
-
-::: {.callout-tip collapse="true" title="Answer"}
-The observations are $13,15,17$, the mean is $15$, and the centred vector is again $(-2,0,2)$. The location moved. The ancillary statistic did not.
-:::
-
-### A scale that remains
-The errors are multiplied by $2$ before the mean is subtracted. What happens to the centred values of $3,5,7$ if those observations are multiplied by $2$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The observations become $6,10,14$, the mean is $10$, and the centred vector is $(-4,0,4)$, twice $(-2,0,2)$. The centred vector saw the scale. It is not ancillary for a parameter that includes that scale.
-:::

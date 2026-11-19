@@ -45,18 +45,3 @@ This boundary convention gives a separator with two training points on the bound
 ::: {.callout-tip collapse="true" title="Answer"}
 The scores are $-1/2,1/2,1/2$, so the labels are $(0,1,1)$ and all signed margins are strictly positive. Separability of these data does not require a training point on the decision boundary.
 :::
-
-## Check yourself
-### A complete update trace {#self-check-ex-sl-14-4}
-[Training a three-point perceptron](../questions/ex-sl-14-4.qmd): identify its final boundary and number of corrections.
-
-::: {.callout-tip collapse="true" title="Answer"}
-With the stated order and $f(0)=1$, the first pass makes two corrections, the second two, and the third one. The final weights are $(1,1;-1)$, giving boundary $x_1+x_2=1$. The fourth pass verifies that every label is correct. There are five corrections, rather than one correction per presentation.
-:::
-
-### Reading a boundary {#self-check-ex-sl-14-3}
-[A threshold unit](../questions/ex-sl-14-3.qmd): interpret weights $(2,-1)$ and intercept $-1$.
-
-::: {.callout-tip collapse="true" title="Answer"}
-The boundary is $2x_1-x_2-1=0$ and the positive side satisfies $2x_1-x_2\ge1$. The points $(1,0),(0,0),(1,2)$ have scores $1,-1,-1$, hence outputs $(1,0,0)$. The perpendicular distance from the origin to the line is $1/\sqrt5\approx0.447214$.
-:::

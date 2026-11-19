@@ -28,19 +28,3 @@ Subtracting the second year gives $(10,10,10,10)$. The third-year mean is $120$,
 
 ## Connections — Seasonal patterns and serial dependence
 Autocorrelations at multiples of the seasonal lag can reveal a repeating pattern. They do not by themselves identify its cause or establish a seasonal unit root. A seasonal plot aligns observations by their position within a period, while a subseries plot follows one seasonal position over successive periods. Both help distinguish changing seasonal amplitude from changes in the overall level.{{cite:hyndman_athanasopoulos2021}} (§§2.4–2.5 and 2.8)
-
-## Check yourself
-
-### Stationarity and a changing mean {#self-check-c-43}
-[Two stationarity definitions](../questions/c-43.qmd): how do the two definitions differ?
-
-::: {.callout-tip collapse="true" title="Answer"}
-Strict stationarity preserves every finite-dimensional distribution under a common time shift. Weak stationarity requires finite second moments, constant mean and covariance depending only on lag. A deterministic nonconstant seasonal mean fails the constant-mean requirement.
-:::
-
-### Diagnosing a fitted time-series model {#self-check-c-49}
-[Identification and residual checks](../questions/c-49.qmd): what should be checked after choosing AR and MA orders?
-
-::: {.callout-tip collapse="true" title="Answer"}
-Use dependence patterns as candidate-model clues, then check fitted residuals for remaining serial correlation and model inadequacy. Repeated correlation at seasonal lags suggests that the model has left systematic dependence unexplained.
-:::

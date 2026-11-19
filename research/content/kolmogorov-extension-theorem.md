@@ -25,27 +25,5 @@ Let $X_1,X_2,X_3$ be independent Bernoulli variables with success probability $0
 The probabilities are $0.063$ and $0.027$. Their sum is $0.09=P(X_1=1,X_2=1)$.
 :::
 
-## Check yourself
-
-### Margins and joints {#self-check-ex-sp-bernoulli-pairs}
-
-[Practice question](../questions/ex-sp-bernoulli-pairs.qmd)
-
-Construct two pairs $(X,Y)$ with Bernoulli$(1/2)$ margins, one independent and one dependent. Compare $\mathrm{P}(X=Y)$.
-
-::: {.callout-tip collapse="true" title="Answer"}
-Let $X$ and $Y$ be independent Bernoulli$(1/2)$. Then $\mathrm{P}(X=Y)=1/2$. The pair $(X,X)$ has the same margins, and $\mathrm{P}(X=X)=1$.
-:::
-
-### Which events distinguish two outcomes? {#self-check-exr-measurable-coarse-space}
-
-[Practice question](../questions/exr-measurable-coarse-space.qmd)
-
-Let Ω={a,b,c,d} and F={∅,{a,b},{c,d},Ω}. Is X with values (2,2,3,3) measurable? Is Y with values (0,1,0,1) measurable? Exhibit a threshold event for each answer.
-
-::: {.callout-tip collapse="true" title="Answer"}
-X is measurable: for 2≤t<3, {X≤t}={a,b}, with ∅ below 2 and Ω at or above 3. All are in F. Y is not measurable: for 0≤t<1, {Y≤t}={a,c}, which is not in F. The same four numerical outcomes can support one measurement but not the other because F distinguishes only the two blocks.
-:::
-
 ## History
 Kolmogorov published his probability monograph in 1933. The measure-theoretic framework made constructions on infinite product spaces part of the foundations of stochastic-process theory.{{cite:dodge2008}} (p. 282){{cite:durrett2019}} (§A.3)

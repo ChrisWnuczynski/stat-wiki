@@ -40,20 +40,3 @@ It is $1-\Phi(1.644854)=0.05$, the size. Power approaches this value as an upper
 
 ## Common misconceptions — Why two sides compete
 If $\mu_1>\mu_0$, the most powerful normal test rejects for a large sample mean. If $\mu_1<\mu_0$, it rejects for a small sample mean. With a continuous normal distribution, the relevant likelihood-ratio equalities have probability zero, so the optimal regions are unique up to null sets. A single nontrivial level-$\alpha$ rule cannot equal both regions. Thus the unrestricted two-sided alternative has no uniformly most powerful test. Restricting the comparison to unbiased or invariant tests changes the optimisation problem and can yield a useful optimum.{{cite:siegrist2022_lrt}} (§9.5, The Neyman–Pearson Lemma){{cite:siegrist2022_testing}} (§9.1, optimal tests)
-
-## Check yourself
-Distinguish a pointwise power calculation from a claim of uniform optimality.
-
-### The upper normal test {#self-check-ex-inf-np-critical}
-[A critical value from the lemma](../questions/ex-inf-np-critical.qmd): calculate the cutoff and power for $n=25$, $\sigma=2$, $\mu_0=10$ and $\mu_1=11$.
-
-::: {.callout-tip collapse="true" title="Answer"}
-The cutoff is $10.657941$ and power is $0.803765$. The likelihood-ratio ordering is increasing in the mean for every upper alternative, so the same cutoff is used throughout that alternative.
-:::
-
-### A two-sided competitor {#self-check-ex-inf-ump-two-sided}
-[Why the two-sided test is not UMP](../questions/ex-inf-ump-two-sided.qmd): compare the one-sided and two-sided level-$0.05$ tests at a mean two standard errors above the null.
-
-::: {.callout-tip collapse="true" title="Answer"}
-The upper-tail rule has power $\Phi(2-1.644854)\approx0.638760$. The two-sided rule has power $1-\Phi(1.959964-2)+\Phi(-1.959964-2)\approx0.516005$. A lower-tail rule instead wins against lower alternatives, preventing one rule from winning on both sides.
-:::

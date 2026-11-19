@@ -43,20 +43,3 @@ The three occupancy states are equally likely. Blocking is $1/3$, and the accept
 Ergodicity makes long-run time fractions equal the fixed stationary probabilities. Without it, a stationary process can have random limiting time fractions; PASTA relates arrival observations to the corresponding time averages under its limit conditions.
 
 For a general arrival process, arrivals may systematically occur at times when the system is unusually empty or full. A stationary time fraction by itself then does not determine the arrival fraction blocked. PASTA also permits interaction: an arrival may change occupancy immediately after seeing its pre-arrival value. The restriction is nonanticipation of future Poisson arrivals, rather than independence of the entire occupancy path from the arrival path.{{cite:wolff1982_pasta}} (§§1–2, pp. 224–227)
-
-## Check yourself
-Use the arrival model as well as the stationary balance equations.
-
-### A three-state balance calculation {#self-check-ex-sp-birth-death-pi}
-[Birth–death stationary distribution](../questions/ex-sp-birth-death-pi.qmd): use $p_0=1$, $q_1=1/3$, $p_1=2/3$, $q_2=1$.
-
-::: {.callout-tip collapse="true" title="Answer"}
-Local balance gives weights $1,3,2$, so the stationary vector is $(1,3,2)/6$. The full-state time probability is $1/3$. Identifying an arrival blocking probability additionally requires a suitable arrival-observation model.
-:::
-
-### An infinite-room comparison {#self-check-ex-sp-mm1-numbers}
-[M/M/1 numbers](../questions/ex-sp-mm1-numbers.qmd): for arrival rate two and service rate three per hour, find the empty probability, tail at three and mean occupancy.
-
-::: {.callout-tip collapse="true" title="Answer"}
-The infinite-room model has $\rho=2/3$, empty probability $1/3$, tail probability $\Pr(N\ge3)=8/27$ and mean occupancy two. Its mean time in system is one hour. It has no capacity blocking, so its accepted rate is the offered rate two.
-:::

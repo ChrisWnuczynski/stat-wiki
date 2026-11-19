@@ -33,18 +33,3 @@ For a fixed binary learner and normalised current weights, its exponential-loss 
 ## Statistical use — Complexity accumulates across rounds
 
 Learning rate, the number of rounds, and base-learner complexity jointly control the fitted function. A smaller learning rate generally requires more rounds to attain a comparable training loss. Holding out data for stopping or tuning assesses predictive behaviour; continuing to reduce training loss alone does not establish improved prediction. The unrestricted population minimiser need not belong to the chosen finite ensemble class.{{cite:natekin_knoll2013}} (§§2.1–2.3; §4.2)
-
-
-## Check yourself
-
-### [One round of AdaBoost](../questions/ex-sl-13-4.qmd) {#self-check-ex-sl-13-4}
-
-::: {.callout-tip collapse="true" title="Answer"}
-One error among five equally weighted observations gives $\epsilon=0.2$ and $a=\log2$. Correct observations receive unnormalised weight $0.1$ each and the error receives $0.4$, with normaliser $0.8$. The resulting weights are $0.125$ for each correct case and $0.5$ for the incorrect case; the same stump then has weighted error $0.5$.
-:::
-
-### [How ensemble members differ](../questions/depth-ensemble-mechanism.qmd) {#self-check-depth-ensemble-mechanism}
-
-::: {.callout-tip collapse="true" title="Answer"}
-Bagging changes training samples through bootstrap resampling. Random forests also randomise the candidate variables at tree splits. AdaBoost changes observation weights sequentially and combines weighted learners, directing later fits toward cases that the current ensemble handles poorly.
-:::
