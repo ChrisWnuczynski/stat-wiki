@@ -1,3 +1,24 @@
+<a class="skip-link" href="#quarto-document-content">Skip to main content</a>
+<script>
+/* Quarto places this include inside <main>, after the navbar, so the brand
+   link would otherwise be first in the tab order. Move the skip link to the
+   start of <body> as soon as it is parsed, and send focus to the article
+   when it is used. */
+(function () {
+  var link = document.currentScript && document.currentScript.previousElementSibling;
+  if (!link || !link.classList || !link.classList.contains("skip-link")) {
+    link = document.querySelector("a.skip-link");
+  }
+  if (link && document.body) document.body.insertBefore(link, document.body.firstChild);
+  if (!link) return;
+  link.addEventListener("click", function () {
+    var main = document.getElementById("quarto-document-content");
+    if (!main) return;
+    if (!main.hasAttribute("tabindex")) main.setAttribute("tabindex", "-1");
+    main.focus();
+  });
+})();
+</script>
 <script>
 /* The first thing in the body: give it the dark-mode class straight away when
    _theme-head.html found dark mode saved, so the page is drawn dark. */
