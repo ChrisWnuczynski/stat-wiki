@@ -829,8 +829,7 @@
   ],
   "probit-link": [
     "q-38",
-    "c-20",
-    "depth-probit-dose"
+    "c-20"
   ],
   "residual-deviance": [
     "ex-sl-10-6",
