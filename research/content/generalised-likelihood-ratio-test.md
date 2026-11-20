@@ -41,3 +41,21 @@ $Z=1$, so $D=1$ and $\Lambda=e^{-1/2}\approx0.6065$. The two-sided standard-norm
 ## Connections — Deviance differences
 
 If two nested models use the same saturated model to define their deviances, subtracting the deviances cancels that saturated likelihood. What remains is twice the difference between the two fitted log likelihoods. The comparison requires both likelihoods to refer to the same observed data; fitting one model after dropping additional observations changes the comparison.{{cite:siegrist2022_lrt}} (§9.5, Composite Hypotheses)
+
+## Check yourself
+
+### [Two normal means](../questions/ex-inf-glrt-two-means.qmd) {#self-check-ex-inf-glrt-two-means}
+
+Two groups each have eight observations, known variance four, and means twelve and fifteen. Find the between-group sum of squares and the likelihood-ratio statistic.
+
+::: {.callout-tip collapse="true" title="Answer"}
+The pooled mean is $13.5$. Thus $SS_B=8(12-13.5)^2+8(15-13.5)^2=36$, and $D=36/4=9$. It exceeds the stated $3.84$ cutoff.
+:::
+
+### [How many restrictions?](../questions/ex-inf-which-restriction.qmd) {#self-check-ex-inf-which-restriction}
+
+For an intercept, nitrogen, phosphorus and their product, how many independent restrictions remove all three non-intercept terms?
+
+::: {.callout-tip collapse="true" title="Answer"}
+Three. Set each of those three coefficients to zero; the intercept remains free under the null.
+:::

@@ -47,3 +47,18 @@ If prevalence rises to $0.5$ while sensitivity and specificity stay fixed, NPV b
 ::: {.callout-tip collapse="true" title="Answer"}
 The false omission proportion is $10/730=1/73\approx0.013699$, the complement of NPV. It is not the false negative rate $10/100=0.1$, which conditions on the actual condition.
 :::
+
+## Check yourself
+### A negative screening result {#self-check-ex-inf-npv-same}
+[Negative predictive value](../questions/ex-inf-npv-same.qmd): use sensitivity $0.98$, specificity $0.90$ and prevalence $0.02$.
+
+::: {.callout-tip collapse="true" title="Answer"}
+The joint probability of absence and a negative result is $0.90(0.98)=0.882$. False negative probability is $0.02(0.02)=0.0004$. Therefore NPV is $0.882/0.8824\approx0.999547$. Quote NPV with a negative result and positive predictive value with a positive result.
+:::
+
+### A positive screening result {#self-check-ex-inf-ppv-screen}
+[The same screening test](../questions/ex-inf-ppv-screen.qmd): compare its positive predictive value.
+
+::: {.callout-tip collapse="true" title="Answer"}
+True positive probability is $0.98(0.02)=0.0196$ and false positive probability is $0.10(0.98)=0.098$. Positive predictive value is $0.0196/0.1176=1/6$, and five sixths of positive results are false alarms. A high NPV can coexist with a low positive predictive value.
+:::

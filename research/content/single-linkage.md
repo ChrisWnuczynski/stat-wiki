@@ -62,5 +62,22 @@ A second limit appears as the sample grows. The nearest cross-pair between two f
 ## Connections
 [Complete linkage](complete-linkage.qmd) replaces the minimum by a maximum and tracks diameter. [Average linkage](average-linkage.qmd) averages every cross-pair and can change when dissimilarities are rescaled. The three rules are the usual linkages in [hierarchical clustering](hierarchical-clustering.qmd), and the tree is a [dendrogram](dendrogram.qmd). The cophenetic dissimilarity read off that tree obeys the ultrametric inequality, a much tighter constraint than a general distance, which is why the tree should be read as the structure imposed by the linkage rather than as a recovery of every pairwise distance.{{cite:hastie_esl2009}} (Ch. 14, §14.3.12, eq. 14.40, pp. 522–525){{cite:james_islr2021}} (Ch. 12, §12.4, pp. 524–525)
 
+## Check yourself
+### Minimum versus diameter {#self-check-single-diameter}
+
+On the points $0$, $2$, $3$ and $8$, single linkage finishes by attaching $8$ at height $5$. Is $5$ the diameter of $\{0,2,3,8\}$?
+
+::: {.callout-tip collapse="true" title="Answer"}
+No. The diameter is $8-0=8$. The height $5$ is only the nearest distance from $8$ to the cluster $\{0,2,3\}$, namely $8-3$. Single linkage does not record the far pairs.
+:::
+
+### A chain of unit gaps {#self-check-single-chain}
+
+Points sit at $0$, $1$, $2$, $3$ and $6$. List the single-linkage fusion heights in order, and compare the height at which $\{0,1,2,3\}$ is completed with the diameter of that set.
+
+::: {.callout-tip collapse="true" title="Answer"}
+The neighbour gaps are $1$, $1$, $1$ and $3$. The three gaps of length $1$ fuse first, all at height $1$, and $\{0,1,2,3\}$ is complete at height $1$. Its diameter is $3$. The point at $6$ then joins at height $3$.
+:::
+
 ## History
 Single linkage builds a hierarchical classification from a distance table by aggregating the closest elements and replacing their distances to every other element by the minimum of the two old distances. Complete linkage is the same algorithm with the minimum replaced by a maximum.{{cite:dodge2008}} (pp. 84–85, 102) Later surveys include both rules, warned that the minimum chains, and noted that the minimum between large samples from fixed densities collapses toward zero.{{cite:hastie_esl2009}} (Ch. 14, §14.3.12, pp. 523–525)

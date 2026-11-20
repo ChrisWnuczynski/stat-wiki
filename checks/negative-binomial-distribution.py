@@ -22,7 +22,19 @@ assert isclose(nbinom.pmf(0, 2, 2 / 6), 1 / 9)
 assert isclose(nbinom.pmf(0, 2, 2 / 5), .16)
 for printed in ("0.0498", "0.1335", "0.0335", "1/4", "3+3^2/1=12", "2+2^2/2=4", "4+4^2/2=12", "1/9"):
     assert printed in body, printed
-for heading in ("## Motivating example", "{#intuition}", "## Definition", "## Properties", "## Related distributions", "## Statistical inference", "## Worked example", "## Common misconceptions", "## Assumptions and limits", "## Connections", "## History"):
+for heading in (
+    "## A varying call rate spreads the hourly count {#motivating-example}",
+    "{#intuition}",
+    "## Definition {#definition}",
+    "## Variance grows quadratically with the mean {#properties}",
+    "## Geometric case and Poisson limit {#related-distributions}",
+    "## Negative binomial regression and its extra parameter {#used-in}",
+    "## Mean three and $\\nu=1$ against a Poisson benchmark {#worked-example}",
+    "## “Negative” does not mean a negative count {#common-misconceptions}",
+    "## Mixing does not license impossible counts {#assumptions-and-limits}",
+    "## The mixture pieces and the regression setting {#connections}",
+    "## From a series to Greenwood and Yule, then to a mixture {#history}",
+):
     assert heading in body, heading
 assert "**Your turn.**" in body and 'title="Answer"' in body
 assert body.count('title="Proof"') == 1

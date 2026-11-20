@@ -40,3 +40,20 @@ Reject exactly when $X=4$. Its null probability is already $1/16$, so no randomi
 
 ## Assumptions and limits — Which alternatives are being compared
 The lemma concerns two specified sampling laws. It supplies neither a prior probability that either hypothesis is true nor a universal ranking under every alternative. For a composite alternative, the likelihood-ratio ordering can depend on the chosen parameter value. If the same level-$\alpha$ rejection rule wins for every alternative value, it is uniformly most powerful.{{cite:siegrist2022_testing}} (§9.1, power and uniformly most powerful tests)
+
+## Check yourself
+Check both the null probability and the alternative probability of each rule.
+
+### A normal cutoff {#self-check-ex-inf-np-critical}
+[A critical value from the lemma](../questions/ex-inf-np-critical.qmd): with $n=25$, known $\sigma=2$ and null mean ten, find the upper level-$0.05$ cutoff and power at mean eleven.
+
+::: {.callout-tip collapse="true" title="Answer"}
+The standard error is $0.4$. The cutoff is $10+1.644854(0.4)=10.657941$, and the power at eleven is $\Phi(2.5-1.644854)=0.803765$.
+:::
+
+### A discrete serve test {#self-check-ex-inf-serve-power}
+[Power of a serve test](../questions/ex-inf-serve-power.qmd): for $X\sim\operatorname{Bin}(15,p)$, use rejection region $X\ge13$.
+
+::: {.callout-tip collapse="true" title="Answer"}
+The power is $\sum_{j=13}^{15}\binom{15}{j}p^j(1-p)^{15-j}$. It is about $0.027114$ at $p=0.6$ and $0.815939$ at $p=0.9$. A level of $0.05$ permits this conservative rule, whose actual size is below the level.
+:::

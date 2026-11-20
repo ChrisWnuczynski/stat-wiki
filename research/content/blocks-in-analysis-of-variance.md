@@ -25,3 +25,18 @@ The mean difference of tip 4 minus tip 3 is $9.875-9.450=0.425$. Under the addit
 ::: {.callout-tip collapse="true" title="Answer"}
 The treatment and residual sums of squares are unchanged: row shifts cancel from column contrasts and the double-centred residuals. The block sum of squares changes. The treatment $F$ statistic stays $14.4375$.
 :::
+
+## Check yourself
+### Reconstruct the hardness table {#self-check-ex-inf-hardness}
+[Tips and coupons](../questions/ex-inf-hardness.qmd) compares the blocked and unblocked analyses.
+
+::: {.callout-tip collapse="true" title="Answer"}
+The blocked residual sum of squares is $1.290-0.825-0.385=0.080$ on nine degrees of freedom. Dividing the tip mean square by $0.080/9$ gives $14.4375$. Omitting coupon effects gives error $0.905$ on twelve degrees of freedom and $F\approx1.70$.
+:::
+
+### Two treatments reduce to paired differences {#self-check-ex-inf-paired-f}
+[Two treatments in blocks](../questions/ex-inf-paired-f.qmd) connects the tests.
+
+::: {.callout-tip collapse="true" title="Answer"}
+If $D_i=Y_{i1}-Y_{i2}$, then $SS_{\rm treatment}=b\bar D^2/2$ and $MS_E=s_D^2/2$. Their ratio is $b\bar D^2/s_D^2=T^2$. The upper-tail $F_{1,b-1}$ critical value is the square of the two-sided paired-$t$ critical value.
+:::

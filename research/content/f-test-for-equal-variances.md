@@ -30,3 +30,18 @@ The ratio becomes $144/225=0.64$, with numerator and denominator degrees of free
 ## Assumptions and limits
 
 The exact F calibration is a normal-population result. For a general population, unbiasedness of $S^2$ remains valid with finite variance, but its sampling distribution need not be a scaled chi-square. Outliers or heavy tails can change the behaviour of the ratio. Independence between the samples is also necessary for the independent chi-square construction.{{cite:siegrist2022_normals}} (§6.8, “The Sample Variance”; “Ratios of Sample Variances”)
+
+
+## Check yourself
+
+### [Checking equal variances](../questions/ex-inf-variance-ratio-interval.qmd) {#self-check-ex-inf-variance-ratio-interval}
+
+::: {.callout-tip collapse="true" title="Answer"}
+For two independent normal samples of size fifty with standard deviations $14.1$ and $14.3$, the observed ratio is about $0.97222$. Using the supplied critical value $1.762$ gives the interval $(0.55177,1.71306)$ approximately. It contains one, indicating compatibility with equality at that confidence level, rather than proving it.
+:::
+
+### [Expectation of sample variance](../questions/ex-inf-expected-sample-variance.qmd) {#self-check-ex-inf-expected-sample-variance}
+
+::: {.callout-tip collapse="true" title="Answer"}
+Expand about the population mean to obtain $\sum(X_i-\bar X)^2=\sum(X_i-\mu)^2-n(\bar X-\mu)^2$. Expectations give $n\sigma^2-\sigma^2=(n-1)\sigma^2$, hence the sample variance with divisor $n-1$ is unbiased.
+:::

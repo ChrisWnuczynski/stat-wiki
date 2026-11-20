@@ -34,3 +34,46 @@ For the unbiased estimator $T_n=X_1$, the corresponding probability stays $2\{1-
 ::: {.callout-tip collapse="true" title="Answer"}
 Variance changes from $1/n$ to $1/(4n)$, so it is divided by four. Standard error changes from $1/\sqrt n$ to $1/(2\sqrt n)$, so it is halved.
 :::
+
+## Check yourself
+
+### Consistency of a Poisson mean {#self-check-ex-inf-poisson-mle}
+[A Poisson mean](../questions/ex-inf-poisson-mle.qmd): find its estimator and show consistency.
+
+::: {.callout-tip collapse="true" title="Answer"}
+The likelihood is maximised at $\overline X$, including the boundary value zero if all observations vanish. Its expectation is $\theta$ and variance is $\theta/n$, so its mean squared error tends to zero and the probability bound above proves consistency.
+:::
+
+### Concentration and coverage {#self-check-ex-inf-two-standard-errors}
+[Two standard errors](../questions/ex-inf-two-standard-errors.qmd): find the exact normal coverage and a 99% multiplier.
+
+::: {.callout-tip collapse="true" title="Answer"}
+Coverage is $2\Phi(2)-1=0.9545$. The 99% multiplier is $\Phi^{-1}(0.995)=2.57583$. The interval shrinks with $n$ while preserving that fixed coverage under the stated normal model.
+:::
+### An exponential rate {#self-check-ex-inf-exponential-mle}
+
+[An exponential rate](../questions/ex-inf-exponential-mle.qmd)
+
+Let $X_1,\ldots,X_n$ be a random sample from the exponential distribution with rate $\lambda$, density $\lambda e^{-\lambda x}$ for $x>0$.{{cite:siegrist_mle2022}} (§ “The Gamma Distribution; Extending the Method and the Invariance Property”)
+
+(a) Find the maximum likelihood estimator of $\lambda$, and check that it is a maximum.
+
+(b) Find the method-of-moments estimator of $\lambda$.
+
+(c) Use invariance to find the maximum likelihood estimator of the median lifetime $(\log 2)/\lambda$.
+
+:::::::: {.callout-tip collapse="true" title="Answer"}
+
+(a) For this exponential model, the log likelihood has the following form.
+
+$$
+\log L(\lambda)=n\log\lambda-\lambda\sum_{i=1}^nx_i.
+$$
+
+Its derivative $n/\lambda-\sum x_i$ is zero at $\lambda=n/\sum x_i=1/\overline x$. The second derivative, $-n/\lambda^2$, is negative, so this is a maximum. The estimator is $\widehat\lambda=1/\overline X$.
+
+(b) $\mathbb{E} X=1/\lambda$. Setting $1/\lambda=\overline x$ gives the same estimator, $1/\overline X$.
+
+(c) The median lifetime $m$ solves $1-e^{-\lambda m}=1/2$, so $m=(\log2)/\lambda$. By invariance its maximum likelihood estimator is $(\log2)/\widehat\lambda=\overline X\log2$.
+
+::::::::

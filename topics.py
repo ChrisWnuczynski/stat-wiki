@@ -282,6 +282,7 @@ TITLES = dict(tuple(x.strip() for x in line.split("|")) for line in _TITLES.stri
 # The file name is already published. The title can change; this slug stays.
 SLUGS = {
     "sl-18-high-dimensional.qmd#s-regression": "regression-when-p-n",
+    "03-gamma-and-quasi.qmd#s-bids-for-a-bankrupt-firm": "bids-for-a-bankrupt-firm",
 }
 
 # Headings that are an existing article under another name.
@@ -1321,6 +1322,14 @@ ALIASES.update({
     "Variable (mathematics)": "variable",
 })
 
+ALIASES.update({
+    "signed-rank test": "wilcoxon-signed-rank-test",
+    "signed rank test": "wilcoxon-signed-rank-test",
+    "Brown-Forsythe test": "levene-s-test",
+    "Brown–Forsythe test": "levene-s-test",
+    "Friedman rank sum test": "friedman-test",
+})
+
 
 TOPICS += [
     topic("Kernel of a density", "bayes-01-foundations.qmd: recognition of a known density kernel",
@@ -1605,6 +1614,13 @@ LINKS_LAST += [
     link(["re:cholesterol"], "cholesterol-and-heart-disease", scope=[G]),
     link(["re:iris"], "iris-data", scope=[L]),
     link(["re:addiction"], "addiction-data", scope=[G]),
+]
+
+LINKS += [
+    link(["Wilcoxon signed-rank test", "Wilcoxon signed-rank", "signed-rank test"], "wilcoxon-signed-rank-test"),
+    link(["Shapiro–Wilk test", "Shapiro-Wilk test"], "shapiro-wilk-test"),
+    link(["Friedman rank sum test", "Friedman test"], "friedman-test"),
+    link(["Levene's test", "Levene test", "Brown-Forsythe test", "Brown–Forsythe test"], "levene-s-test"),
 ]
 
 RELATED += [

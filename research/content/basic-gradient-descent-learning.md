@@ -25,3 +25,18 @@ For $E(w)=\tfrac12(w_1^2+10w_2^2)$, the two error multipliers are $1-\eta$ and $
 ::: {.callout-tip collapse="true" title="Answer"}
 The multiplier $1-\eta$ is zero. From any starting value one step reaches $w=3$, the minimum of this particular quadratic.
 :::
+
+## Check yourself
+### Why not initialise every unit equally? {#self-check-ex-sl-15-4}
+[Symmetric start](../questions/ex-sl-15-4.qmd) concerns the parameter trajectory.
+
+::: {.callout-tip collapse="true" title="Answer"}
+Equal hidden activations and outgoing weights give equal hidden deltas and gradients. Induction over deterministic batch steps preserves equality; random initialisation can break it.
+:::
+
+### A small gradient far from a good prediction {#self-check-ex-sl-15-6}
+[Saturation](../questions/ex-sl-15-6.qmd) distinguishes optimisation signals from prediction errors.
+
+::: {.callout-tip collapse="true" title="Answer"}
+With target one, $z=-8$ gives $o=0.00033535$ and squared-loss derivative $-0.00067025$. At $z=-1$ the derivative is $-0.28747$. The confidently wrong saturated unit has the smaller derivative. Logistic cross-entropy instead gives $o-1$, approximately $-0.999665$ and $-0.731059$.
+:::

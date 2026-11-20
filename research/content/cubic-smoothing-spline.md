@@ -39,3 +39,20 @@ The second derivative of $y=1/3$ is $0$, so the penalty term is $0$ for every $\
 
 ## Connections
 A [spline](spline.qmd) is a piecewise polynomial with smooth joins at the [knots](knot.qmd). The cubic smoothing spline places a knot at every distinct $x_i$ and lets $\lambda$ choose the roughness, rather than letting the analyst choose a small knot set in advance. [Cross-validation](cross-validation.qmd), including the generalised approximation to [leave-one-out cross-validation](leave-one-out-cross-validation.qmd), is one way to choose $\lambda$. The fitted values are a linear smoother $S_\lambda y$, and the effective degrees of freedom are $\operatorname{tr}(S_\lambda)$. In the Reinsch form the eigenvalues of $S_\lambda$ are $1/(1+\lambda d_k)$, so each direction that the penalty charges shrinks as $\lambda$ grows.{{cite:hastie_esl2009}} (Ch. 5, §5.4.1, eq. 5.16 and 5.20, pp. 153–154)
+
+## Check yourself
+### Where the quadratic loses {#self-check-spline-lambda}
+
+The interpolating quadratic above has penalty integral $8$ and residual sum of squares $0$. For which $\lambda$ is its penalised criterion larger than $2/3$?
+
+::: {.callout-tip collapse="true" title="Answer"}
+The quadratic’s criterion is $8\lambda$. This exceeds $2/3$ when $\lambda>1/12$. At $\lambda=1/12$ the two criteria are equal.
+:::
+
+### What $\lambda=0$ allows {#self-check-spline-zero}
+
+At $\lambda=0$, why can a function that passes through every observation achieve a criterion of zero, and why is that function not unique without a further restriction?
+
+::: {.callout-tip collapse="true" title="Answer"}
+The penalty is switched off, and any interpolant has residual sum of squares zero, hence criterion zero. Many smooth functions pass through the same finite set of points. The natural-cubic-spline selection is a property of the penalised problem at $\lambda>0$, not of the unpenalised residual sum of squares.
+:::

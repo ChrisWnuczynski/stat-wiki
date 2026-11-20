@@ -44,3 +44,20 @@ The update is a permutation matrix: every row and column contains exactly one en
 []{#property-regular-chain-convergence}
 
 The identity matrix is also doubly stochastic. Every distribution is stationary for it, since no state changes. A deterministic cycle has a unique stationary law but periodic point-start behaviour. These examples separate three questions: whether a stationary law exists, whether it is unique, and whether transition probabilities converge to it. Conditions involving communication and periodicity address the latter two questions.{{cite:grinstead_snell1997}} (§11.3, ergodic and regular chains)
+
+## Check yourself
+Check both the matrix sums and the behaviour from the stated initial law.
+
+### Column sums {#self-check-ex-sp-doubly-stochastic}
+[A doubly stochastic matrix](../questions/ex-sp-doubly-stochastic.qmd): prove uniform invariance directly.
+
+::: {.callout-tip collapse="true" title="Answer"}
+For each destination $j$, $(uP)_j=m^{-1}\sum_iP_{ij}=m^{-1}$. Thus every coordinate of $uP$ agrees with $u$.
+:::
+
+### A three-cycle {#self-check-ex-sp-deterministic-cycle}
+[A deterministic three-cycle](../questions/ex-sp-deterministic-cycle.qmd): what is the probability of returning to the initial state after $n$ steps?
+
+::: {.callout-tip collapse="true" title="Answer"}
+It equals one when $n$ is divisible by three and zero otherwise. Its failure to converge is compatible with the uniform distribution being stationary.
+:::

@@ -31,3 +31,19 @@ The transform is $f(s)=1/4+3s^2/4$, its mean is $3/2$, and $f(s)=s$ factors as $
 
 ## Connections — Criticality and several ancestors
 With positive probability of zero offspring, a non-degenerate law of mean at most one becomes extinct almost surely. Mean greater than one permits a smaller fixed point and positive survival probability. The deterministic one-child law has $f(s)=s$ and never dies out, showing why the critical case requires attention to degeneracy. With $r$ independent ancestors, every lineage must die out for total extinction, giving probability $q^r$.{{cite:durrett2019}} (§4.3.4)
+
+## Check yourself
+
+### A critical offspring law {#self-check-ex-sp-critical-extinction}
+[A critical offspring law](../questions/ex-sp-critical-extinction.qmd): find the transform, mean and extinction probability.
+
+::: {.callout-tip collapse="true" title="Answer"}
+For probabilities $(2/5,1/5,2/5)$ on $(0,1,2)$, the mean is $1$ and $f(s)=2/5+s/5+2s^2/5$. The fixed-point equation is $2(s-1)^2=0$, giving extinction probability $1$. The law is non-degenerate with positive probability of no offspring.
+:::
+
+### More than one ancestor {#self-check-ex-sp-many-ancestors}
+[Several ancestors](../questions/ex-sp-many-ancestors.qmd): express extinction in terms of the one-ancestor probability.
+
+::: {.callout-tip collapse="true" title="Answer"}
+The $r$ ancestral lineages reproduce independently. All must become extinct, so the probability is $q^r$.
+:::

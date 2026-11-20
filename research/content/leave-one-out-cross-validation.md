@@ -58,5 +58,30 @@ A second limit is leverage. A point with $S_{ii}$ near $1$ dominates the fit. It
 ## Connections
 [Cross-validation](cross-validation.qmd) is the $K$-fold procedure of which leave-one-out is the case $K=n$. [Nested cross-validation](nested-cross-validation.qmd) puts a search over tuning constants inside an outer split, so that the reported error is not the minimum that chose the constant. The [jackknife](jackknife.qmd) also drops one observation at a time, but it targets the bias and variance of an estimator rather than the prediction error of a fitted rule. For linear smoothers, generalised cross-validation replaces the separate leverages by their average, $\operatorname{tr}(S)/n$.{{cite:hastie_esl2009}} (Ch. 7, §7.10.1, eq. 7.51–7.52, pp. 244–245)
 
+## Check yourself
+### One leverage {#self-check-loo-leverage}
+
+A least-squares fit has ordinary residual $-0.3$ and leverage $1/4$ at a case. Find the leave-one-out residual.
+
+::: {.callout-tip collapse="true" title="Answer"}
+Divide by $1-1/4=3/4$. The leave-one-out residual is $-0.3/(3/4)=-0.4$.
+:::
+
+### Training residual against leave-one-out {#self-check-loo-compare}
+
+In the three-point line, the mean squared ordinary residual is $0.5$ and the mean squared leave-one-out error is $6.75$. Why is the second number the one that estimates prediction error?
+
+::: {.callout-tip collapse="true" title="Answer"}
+Each ordinary residual scores a point on a line that used that point. Each leave-one-out residual scores the point on the line fitted to the other two. The average of those three squared residuals estimates the expected squared error of the fitting rule on a new case. The ordinary residual average estimates how well the line interpolates its own sample.
+:::
+
+### A shared training set {#self-check-loo-dependence}
+
+Two leave-one-out training sets from a sample of size $20$ each omit a different row. How many training rows do they share, and why does that block a binomial standard error for the average of the $20$ errors?
+
+::: {.callout-tip collapse="true" title="Answer"}
+They share $18$ rows. The $20$ held-out errors are functions of heavily overlapping fits, so they are dependent. A binomial variance $p(1-p)/20$ would treat them as independent indicators and would overstate the precision of the average.
+:::
+
 ## History
 Stone’s cross-validatory assessment and the later synthesis in Hastie, Tibshirani and Friedman both treat the case $K=n$ as the extreme split: each fit drops a single case, the bias from the reduced training size is small, and the dependence among the fits is large. The linear-smoother identity that turns the full-sample residuals into leave-one-out residuals is recorded with that synthesis, together with the trace approximation that became generalised cross-validation.{{cite:hastie_esl2009}} (Ch. 7, §7.10.1, pp. 241–245)

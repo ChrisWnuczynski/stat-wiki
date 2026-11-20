@@ -3355,7 +3355,7 @@
       "venue": "Journal of the Royal Statistical Society",
       "volume": "83",
       "issue": "2",
-      "pages": "255",
+      "pages": "255–279",
       "doi": "10.2307/2341080",
       "verification": {
         "source": "crossref",
@@ -4392,6 +4392,23 @@
         "id": "10.2307/2529876"
       }
     },
+    "lambert1992_zip": {
+      "authors": [
+        "Lambert, D."
+      ],
+      "year": 1992,
+      "title": "Zero-Inflated Poisson Regression, with an Application to Defects in Manufacturing",
+      "kind": "article",
+      "venue": "Technometrics",
+      "volume": "34",
+      "issue": "1",
+      "pages": "1–14",
+      "doi": "10.2307/1269547",
+      "verification": {
+        "source": "crossref",
+        "id": "10.2307/1269547"
+      }
+    },
     "lancaster2004_bayesian_econometrics": {
       "authors": [
         "Lancaster, T."
@@ -5048,6 +5065,7 @@
       "year": 1989,
       "title": "Generalized Linear Models",
       "kind": "book",
+      "edition": "2nd ed.",
       "publisher": "Springer",
       "doi": "10.1007/978-1-4899-3242-6",
       "verification": {
@@ -7450,6 +7468,24 @@
         "id": "10.1080/01621459.1987.10478472"
       }
     },
+    "sellers_shmueli2010": {
+      "authors": [
+        "Sellers, K. F.",
+        "Shmueli, G."
+      ],
+      "year": 2010,
+      "title": "A Flexible Regression Model for Count Data",
+      "kind": "article",
+      "venue": "The Annals of Applied Statistics",
+      "volume": "4",
+      "issue": "2",
+      "pages": "943–961",
+      "doi": "10.1214/09-AOAS306",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1214/09-AOAS306"
+      }
+    },
     "selvin1975": {
       "authors": [
         "Selvin, S."
@@ -9335,7 +9371,7 @@
       "venue": "Biometrics Bulletin",
       "volume": "1",
       "issue": "6",
-      "pages": "80",
+      "pages": "80–83",
       "doi": "10.2307/3001968",
       "verification": {
         "source": "crossref",
@@ -11114,6 +11150,24 @@
         "id": "https://iris.who.int/bitstream/handle/10665/43541/9241547073_eng.pdf?sequence=1&isAllowed=y"
       }
     },
+    "ver_hoef_boveng2007": {
+      "authors": [
+        "Ver Hoef, J. M.",
+        "Boveng, P. L."
+      ],
+      "year": 2007,
+      "title": "Quasi-Poisson vs. Negative Binomial Regression: How Should We Model Overdispersed Count Data?",
+      "kind": "article",
+      "venue": "Ecology",
+      "volume": "88",
+      "issue": "11",
+      "pages": "2766–2772",
+      "doi": "10.1890/07-0043.1",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1890/07-0043.1"
+      }
+    },
     "vidgen2017": {
       "authors": [
         "Vidgen, R.",
@@ -12832,6 +12886,264 @@
       "verification": {
         "source": "archival_url",
         "id": "https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/warpbreaks.html"
+      }
+    },
+    "shapiro_wilk1965": {
+      "authors": [
+        "Shapiro, S. S.",
+        "Wilk, M. B."
+      ],
+      "year": 1965,
+      "title": "An Analysis of Variance Test for Normality (Complete Samples)",
+      "kind": "article",
+      "venue": "Biometrika",
+      "volume": "52",
+      "issue": "3/4",
+      "pages": "591-611",
+      "doi": "10.1093/biomet/52.3-4.591",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1093/biomet/52.3-4.591"
+      }
+    },
+    "friedman1937": {
+      "authors": [
+        "Friedman, Milton"
+      ],
+      "year": 1937,
+      "title": "The Use of Ranks to Avoid the Assumption of Normality Implicit in the Analysis of Variance",
+      "kind": "article",
+      "venue": "Journal of the American Statistical Association",
+      "volume": "32",
+      "issue": "200",
+      "pages": "675-701",
+      "doi": "10.1080/01621459.1937.10503522",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1080/01621459.1937.10503522"
+      }
+    },
+    "nist_shapiro2002": {
+      "authors": [
+        "NIST/SEMATECH"
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §7.2.1.3: Shapiro-Wilk Normality Test",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/prc/section2/prc213.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/prc/section2/prc213.htm"
+      }
+    },
+    "nist_levene2002": {
+      "authors": [
+        "NIST/SEMATECH"
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §1.3.5.10: Levene Test for Equality of Variances",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda35a.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda35a.htm"
+      }
+    },
+    "nist_bartlett2002": {
+      "authors": [
+        "NIST/SEMATECH"
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §1.3.5.7: Bartlett's Test",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda357.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda357.htm"
+      }
+    },
+    "nist_ftest2002": {
+      "authors": [
+        "NIST/SEMATECH"
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §1.3.5.9: F-Test for Equality of Two Variances",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda359.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda359.htm"
+      }
+    },
+    "nist_means2002": {
+      "authors": [
+        "NIST/SEMATECH"
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §7.3.1: Comparison of Two Means",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/prc/section3/prc31.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/prc/section3/prc31.htm"
+      }
+    },
+    "nist_signrank2023": {
+      "authors": [
+        "NIST"
+      ],
+      "year": 2023,
+      "title": "NIST Dataplot: Signed Rank Test",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/software/dataplot/refman1/auxillar/signrank.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/software/dataplot/refman1/auxillar/signrank.htm"
+      }
+    },
+    "nist_friedman2023": {
+      "authors": [
+        "NIST"
+      ],
+      "year": 2023,
+      "title": "NIST Dataplot: Friedman Test",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/software/dataplot/refman1/auxillar/friedman.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/software/dataplot/refman1/auxillar/friedman.htm"
+      }
+    },
+    "r_wilcox_test2026": {
+      "authors": [
+        "R Core Team"
+      ],
+      "year": 2026,
+      "title": "Wilcoxon Rank Sum and Signed Rank Tests (R-devel documentation for wilcox.test)",
+      "kind": "book",
+      "publisher": "R Foundation for Statistical Computing",
+      "url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/wilcox.test.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/wilcox.test.html"
+      }
+    },
+    "r_shapiro_test2026": {
+      "authors": [
+        "R Core Team"
+      ],
+      "year": 2026,
+      "title": "Shapiro-Wilk Normality Test (R-devel documentation for shapiro.test)",
+      "kind": "book",
+      "publisher": "R Foundation for Statistical Computing",
+      "url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/shapiro.test.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/shapiro.test.html"
+      }
+    },
+    "r_friedman_test2026": {
+      "authors": [
+        "R Core Team"
+      ],
+      "year": 2026,
+      "title": "Friedman Rank Sum Test (R-devel documentation for friedman.test)",
+      "kind": "book",
+      "publisher": "R Foundation for Statistical Computing",
+      "url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/friedman.test.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/friedman.test.html"
+      }
+    },
+    "car_levene2026": {
+      "authors": [
+        "Fox, John"
+      ],
+      "year": 2026,
+      "title": "Levene's Test (car package documentation for leveneTest)",
+      "kind": "book",
+      "publisher": "Comprehensive R Archive Network",
+      "url": "https://search.r-project.org/CRAN/refmans/car/html/leveneTest.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://search.r-project.org/CRAN/refmans/car/html/leveneTest.html"
+      }
+    },
+    "razali_wah2011": {
+      "authors": [
+        "Razali, Nornadiah Mohd",
+        "Wah, Yap Bee"
+      ],
+      "year": 2011,
+      "title": "Power comparisons of Shapiro-Wilk, Kolmogorov-Smirnov, Lilliefors and Anderson-Darling tests",
+      "kind": "article",
+      "venue": "Journal of Statistical Modeling and Analytics",
+      "volume": "2",
+      "issue": "1",
+      "pages": "21–33",
+      "url": "http://www.de.ufpb.br/~ulisses/disciplinas/normality_tests_comparison.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "http://www.de.ufpb.br/~ulisses/disciplinas/normality_tests_comparison.pdf"
+      }
+    },
+    "ghasemi_zahediasl2012": {
+      "authors": [
+        "Ghasemi, Asghar",
+        "Zahediasl, Saleh"
+      ],
+      "year": 2012,
+      "title": "Normality Tests for Statistical Analysis: A Guide for Non-Statisticians",
+      "kind": "article",
+      "venue": "International Journal of Endocrinology and Metabolism",
+      "volume": "10",
+      "issue": "2",
+      "pages": "486–489",
+      "doi": "10.5812/ijem.3505",
+      "verification": {
+        "source": "crossref",
+        "id": "10.5812/ijem.3505"
+      }
+    },
+    "gastwirth_gel_miao2009": {
+      "authors": [
+        "Gastwirth, Joseph L.",
+        "Gel, Yulia R.",
+        "Miao, Weiwen"
+      ],
+      "year": 2009,
+      "title": "The Impact of Levene's Test of Equality of Variances on Statistical Theory and Practice",
+      "kind": "article",
+      "venue": "Statistical Science",
+      "volume": "24",
+      "issue": "3",
+      "pages": "343–360",
+      "doi": "10.1214/09-STS301",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1214/09-STS301"
+      }
+    },
+    "r_wilcox_test451": {
+      "authors": [
+        "R Core Team"
+      ],
+      "year": 2025,
+      "title": "Wilcoxon Rank Sum and Signed Rank Tests (R 4.5.1 documentation for wilcox.test)",
+      "kind": "book",
+      "publisher": "R Foundation for Statistical Computing",
+      "url": "https://svn.r-project.org/R/tags/R-4-5-1/src/library/stats/man/wilcox.test.Rd",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://svn.r-project.org/R/tags/R-4-5-1/src/library/stats/man/wilcox.test.Rd"
       }
     }
   }

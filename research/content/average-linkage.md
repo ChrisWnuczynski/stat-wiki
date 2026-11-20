@@ -35,3 +35,20 @@ The average is $(6+8+4+6)/4=6$. The minimum is $4$ and the maximum is $8$. The a
 
 ## Connections
 [Single linkage](single-linkage.qmd) uses the nearest cross-pair and can chain. [Complete linkage](complete-linkage.qmd) uses the farthest cross-pair and tracks diameter. Average linkage is the compromise that depends on the numerical scale of $d$. All three are options in [hierarchical clustering](hierarchical-clustering.qmd), and the picture of the fusions is a [dendrogram](dendrogram.qmd). As the clusters grow like samples from two fixed densities, the group average estimates the expected dissimilarity between independent draws from those densities. The single-linkage height collapses toward zero and the complete-linkage height runs off to the extremes of the supports, so those two heights are not estimating that same population contrast.{{cite:hastie_esl2009}} (Ch. 14, §14.3.12, pp. 523–525){{cite:james_islr2021}} (Ch. 12, §12.4, p. 524)
+
+## Check yourself
+### A weighted update {#self-check-average-weight}
+
+A cluster of size $2$ has average distance $4$ to a third cluster, and a cluster of size $1$ has average distance $7$ to that same third cluster. They fuse. What is the average distance from the union to the third cluster?
+
+::: {.callout-tip collapse="true" title="Answer"}
+The three cross-distances consist of two that average $4$ and one that equals $7$. The combined average is $(2\cdot 4+1\cdot 7)/3=5$. Both input averages were at least $4$, and so is $5$.
+:::
+
+### Scale {#self-check-average-scale}
+
+Cross-distances $1$ and $5$ versus two copies of $16/5$. Which pair is closer before squaring, and which is closer after?
+
+::: {.callout-tip collapse="true" title="Answer"}
+Before squaring the means are $3$ and $3.2$, so the pair with distances $1$ and $5$ is closer. After squaring the means are $13$ and $10.24$, so the pair of copies of $16/5$ is closer.
+:::

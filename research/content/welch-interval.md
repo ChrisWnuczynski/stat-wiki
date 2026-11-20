@@ -29,3 +29,19 @@ For the student-weight comparison with sample sizes $15$ and $10$, standard devi
 ::: {.callout-tip collapse="true" title="Answer"}
 Here $a=b$, so $\nu=4a^2/[2a^2/(n-1)]=2(n-1)$. The Welch and pooled calculations agree in this special case.
 :::
+
+## Check yourself
+
+### A known-variance reference calculation {#self-check-ex-inf-two-standard-errors}
+[Two standard errors](../questions/ex-inf-two-standard-errors.qmd): find the exact normal coverage and the multiplier for a 99% interval.
+
+::: {.callout-tip collapse="true" title="Answer"}
+The coverage is $2\Phi(2)-1=0.9545$. A 99% interval requires the standard-normal 0.995 quantile, approximately $2.57583$. Known variance gives an exact normal calculation, while the Welch degrees of freedom calibrate an estimated variance approximately.
+:::
+
+### Pairing changes the unit of analysis {#self-check-ex-inf-paired-or-not}
+[Paired or two-sample?](../questions/ex-inf-paired-or-not.qmd): classify the four study designs.
+
+::: {.callout-tip collapse="true" title="Answer"}
+Before-and-after blood pressure, repeated reaction times on each driver, and twin pairs are paired designs. The distinct, unmatched plots receiving the two fertilisers use an independent two-sample comparison. Each paired analysis is a one-sample analysis of within-pair differences.
+:::

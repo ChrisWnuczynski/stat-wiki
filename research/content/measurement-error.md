@@ -30,3 +30,49 @@ If every reading also has a shared additive calibration shift, averaging leaves 
 ::: {.callout-tip collapse="true" title="Answer"}
 Solve $9/(9+3/m)\ge0.9$, which gives $m\ge3$. Three readings give reliability exactly $0.9$.
 :::
+
+## Check yourself
+
+### An observed association {#self-check-ex-da-correlation-reading}
+
+[Practice question](../questions/ex-da-correlation-reading.qmd)
+
+The sample correlation between $\log_{10}$ serum creatinine and serum sodium in a heart-failure cohort is $-0.26$, and the correlation between $\log_{10}$ serum creatinine and age is $0.23$.
+
+(a) Which pair moves together, and which pair moves in opposite directions?
+
+(b) Why is neither correlation, by itself, a reason to conclude that one variable causes the other?
+
+(c) The moment skewness of serum creatinine is about $4.4$ on its untransformed scale and $1.6$ after taking logarithms. Does the reduction in skewness prove that the transformed measurements are normally distributed?
+
+::: {.callout-tip collapse="true" title="Answer"}
+(a) Serum creatinine and age move together: the correlation $0.23$ is positive, so older patients tend to have somewhat higher creatinine. Creatinine and sodium move in opposite directions: the correlation $-0.26$ is negative. Both are weak; a correlation of about $\pm0.25$ means a straight line accounts for only about 6% of the variance of either variable.
+
+(b) A correlation measures linear association in this sample only. It can arise because a third variable drives both, here perhaps overall illness or kidney function, because the causal arrow points the other way, or by chance. These are observational data, so nothing was assigned and no causal reading follows from the correlation alone.
+
+(c) No. A reduction from $4.4$ to $1.6$ still leaves positive moment skewness, and even zero skewness alone would not imply normality. A histogram or quantile plot is needed to examine shape more fully.
+:::
+
+### Estimating measurement variance {#self-check-ex-inf-expected-sample-variance}
+
+[Practice question](../questions/ex-inf-expected-sample-variance.qmd)
+
+Let $X_1,\ldots,X_n$ be a random sample with mean $\mu$ and variance $\sigma^2$. Show that $\sum_i (X_i-\overline X)^2=\sum_i (X_i-\mu)^2-n(\overline X-\mu)^2$, and deduce that $\mathbb{E} s^2=\sigma^2$.
+
+::: {.callout-tip collapse="true" title="Answer"}
+Write $X_i-\overline X=(X_i-\mu)-(\overline X-\mu)$ and expand:
+
+$$
+\sum_{i=1}^n(X_i-\overline X)^2=\sum_{i=1}^n(X_i-\mu)^2-2(\overline X-\mu)\sum_{i=1}^n(X_i-\mu)+n(\overline X-\mu)^2.
+$$
+
+Since $\sum(X_i-\mu)=n(\overline X-\mu)$, the middle term is $-2n(\overline X-\mu)^2$, which leaves $\sum(X_i-\mu)^2-n(\overline X-\mu)^2$.
+
+Now $\mathbb{E}(X_i-\mu)^2=\sigma^2$ and $\mathbb{E}(\overline X-\mu)^2=\operatorname{Var}\overline X=\sigma^2/n$. Hence
+
+$$
+\mathbb{E}\sum_{i=1}^n(X_i-\overline X)^2=n\sigma^2-n\cdot\frac{\sigma^2}{n}=(n-1)\sigma^2,
+$$
+
+and $\mathbb{E} s^2=\sigma^2$.
+:::

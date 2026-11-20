@@ -2,7 +2,7 @@
 
 The previous chapter stopped at the reason for reparameterising the Conway–Maxwell–Poisson by its mean. This chapter fits that model, then moves to positive continuous responses, and then to variance functions that are not the variance of any exponential family we have named.
 
-## Bids for a bankrupt firm
+## Takeover bids {#s-bids-for-a-bankrupt-firm}
 
 The number of takeover bids received by 126 US firms between 1978 and 1985 is the count below.{{cite:cameron_johansson1997}} The covariates split into three groups. Defensive actions by the target: a lawsuit (`leglrest`), a proposed change in asset structure (`rearest`), a proposed change in ownership structure (`finrest`), and an invitation to a friendly third party, a white knight (`whtknght`). Characteristics of the firm: the bid premium (`bidprem`), the percentage of stock held by institutions (`insthold`), book value in billions (`size`), and its square. And one indicator for Department of Justice intervention (`regulatn`).
 

@@ -27,6 +27,7 @@ assert round(40 / 9, 3) == 4.444
 for printed in ('0.2222', '0.1111', '1/9', '0.5', '2/9'):
     assert printed in body, printed
 assert body.count('title="Proof"') == 1
-assert '## Motivating example' in body and '## Worked example' in body
+assert '## Counts can sit tighter than a Poisson mean allows {#motivating-example}' in body
+assert '## Ten tightly concentrated counts {#worked-example}' in body
 assert '**Your turn.**' in body and 'title="Answer"' in body
 print('underdispersion numeric examples and structure passed')

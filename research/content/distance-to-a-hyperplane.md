@@ -42,3 +42,20 @@ Substitution gives $3(11/25)+4(23/25)-5=0$. The displacement has length $2.6$, w
 ::: {.callout-tip collapse="true" title="Answer"}
 At the origin the score is $-5$, so the signed distance is $-1$ and ordinary distance is $1$. The two score planes are $2/5=0.4$ apart.
 :::
+
+## Check yourself
+Use the normal direction and the boundary equation to check these calculations.
+
+### Signed distances {#self-check-ex-sl-17-1}
+[Distance to a hyperplane](../questions/ex-sl-17-1.qmd): calculate the signed distances of $(2,1)$ and $(0,0)$ when $w=(3,4)^\top$, $b=-5$.
+
+::: {.callout-tip collapse="true" title="Answer"}
+The scores are $5$ and $-5$, and the normal has length $5$. The signed distances are $1$ and $-1$. The score planes at $\pm1$ are $0.4$ apart.
+:::
+
+### The geometry of two support points {#self-check-ex-sl-17-2}
+[A two-point machine](../questions/ex-sl-17-2.qmd): for opposite labels at $(3,3)$ and $(1,1)$, check the margin of $w=(1/2,1/2)$ and $b=-2$.
+
+::: {.callout-tip collapse="true" title="Answer"}
+The two scores are $1$ and $-1$, and $\|w\|=1/\sqrt2$. The total margin is $2\sqrt2$, equal to the distance between the two points. The dual multiplier for either point is $1/4$.
+:::

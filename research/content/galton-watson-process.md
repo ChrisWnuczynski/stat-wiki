@@ -59,5 +59,27 @@ The theorems use independent individuals and one offspring distribution that doe
 ## Connections
 The [probability generating function](probability-generating-function.qmd) is $f$, and extinction is its smallest fixed point. A [Markov chain](markov-chain.qmd) is the right dependence structure, with 0 absorbing. [Markov's inequality](markov-s-inequality.qmd) gives the subcritical bound $\Pr(Z_n>0)\le m^n$. The passage from $\sigma^2$ to $\Var(Z_n)$ is the law of total variance.{{cite:durrett2019}} (pp. 230–232, martingale and extinction criteria)
 
+## Check yourself
+
+### A critical offspring law {#self-check-ex-sp-critical-extinction}
+
+Offspring probabilities are $2/5$, $1/5$ and $2/5$ on $0$, $1$ and $2$. What are the mean and the extinction probability?
+
+[Exercise](../questions/ex-sp-critical-extinction.qmd)
+
+::: {.callout-tip collapse="true" title="Answer"}
+The mean is $1/5+4/5=1$. The law is non-degenerate and $p_0>0$, so the extinction probability is 1. The equation $f(s)=s$ has a double root at 1 and no root in $[0,1)$.
+:::
+
+### The variance recurrence {#self-check-ex-sp-variance-recurrence}
+
+For the two-or-none law, $m=3/2$ and $\sigma^2=3/4$. Check $\Var(Z_1)$ and $\Var(Z_2)$ from the displayed formula.
+
+[Exercise](../questions/ex-sp-variance-recurrence.qmd)
+
+::: {.callout-tip collapse="true" title="Answer"}
+At $n=1$ the formula returns $\sigma^2=3/4=0.75$. At $n=2$ it returns $(3/4)\cdot(3/2)\cdot((9/4)-1)/(1/2)=45/16=2.8125$. The recurrence $\Var(Z_2)=m^2\Var(Z_1)+\sigma^2 m$ gives $(9/4)(3/4)+(3/4)(3/2)=27/16+9/8=45/16$, the same value.
+:::
+
 ## History
 Durrett introduces the process as the generation count $Z_n$ built from independent offspring, names it a Galton–Watson process, and proves the martingale property of $Z_n/m^n$. The extinction criteria he records are the subcritical bound, the critical case excluding a deterministic single child, and the supercritical identification of $q$ with the smaller fixed point of the generating function. Those three theorems are the content of the threshold $m=1$.{{cite:durrett2019}} (pp. 230–232, §4.3.4)

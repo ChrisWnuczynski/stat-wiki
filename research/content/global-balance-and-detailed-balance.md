@@ -50,5 +50,27 @@ The uniform vector is $(1/2,1/2)$. The two products are $(1/2)c$ and $(1/2)c$. T
 ## Connections
 [Detailed balance](detailed-balance.qmd) is the pairwise equation. [Stationarity and detailed balance](stationarity-and-detailed-balance.qmd) is the sampler's reading of the same pair of conditions. A [Metropolis–Hastings](metropolis-hastings-algorithm.qmd) kernel is built to satisfy the pairwise equation for a target known up to scale. Adding the pairwise equations is what produces the single-state conservation law.{{cite:durrett2019}} (pp. 300–301)
 
+## Check yourself
+
+### A deterministic cycle {#self-check-ex-sp-deterministic-cycle}
+
+For the cycle $1\to 2\to 3\to 1$ and $\pi=(1/3,1/3,1/3)$, compute one global-balance residual and one detailed-balance residual.
+
+[Exercise](../questions/ex-sp-deterministic-cycle.qmd)
+
+::: {.callout-tip collapse="true" title="Answer"}
+At state 1 the incoming mass is $\pi_3 p_{31}=1/3$ and $\pi_1=1/3$, so the global residual is 0. On the edge from 1 to 2 the products are $1/3$ and 0, so the detailed residual is $1/3$.
+:::
+
+### Doubly stochastic matrices {#self-check-ex-sp-doubly-stochastic}
+
+Why does every doubly stochastic matrix have the uniform distribution as a stationary distribution, and why is that not detailed balance?
+
+[Exercise](../questions/ex-sp-doubly-stochastic.qmd)
+
+::: {.callout-tip collapse="true" title="Answer"}
+If every column sums to 1 and $\pi_i=1/m$ for $m$ states, then $(\pi P)_j=(1/m)\sum_i p_{ij}=1/m$. That is global balance. Detailed balance also needs $p_{ij}=p_{ji}$ when $\pi$ is uniform. A permutation cycle has $p_{ij}\neq p_{ji}$ and is still doubly stochastic.
+:::
+
 ## History
 Durrett separates a stationary measure from a reversible measure and shows the summation that makes the second notion imply the first. The same implication holds for a general kernel, and the symmetry is the condition one checks when constructing a Markov-chain sampler. The three-cycle is the small example in which the summation has something to cancel and the pairwise products do not match.{{cite:durrett2019}} (pp. 300–301)

@@ -20,5 +20,5 @@ body=(root/"articles/binomial-test.qmd").read_text().split("## See also",1)[0]
 for text in ["11/1024","56/1024","22/1024","0.815939","Your turn","## Check yourself {#check-yourself}"]:
     assert text in body,text
 assert len(re.findall('class="cite-ref"',body))>=5
-for q in ["depth-binomial-test-q1", "depth-binomial-test-q2"]:assert f"../questions/{q}.qmd" in body
+for q in ["ex-inf-serve-power","q-44"]:assert f"../questions/{q}.qmd" in body
 print("binomial-test: exact tails, critical region, power and article checks passed")

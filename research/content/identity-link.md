@@ -45,3 +45,21 @@ $X^{\mathsf T}X=\begin{pmatrix}3&1\\1&1\end{pmatrix}$ and $X^{\mathsf T}y=\begin
 
 ## Connections — Other links keep the mean in range
 The [log link](log-link.qmd) and the [logit link](logit-link.qmd) are used when the mean must stay positive or inside $(0,1)$. Their coefficients are multipliers or log odds ratios, not changes in the mean. The [linear predictor](linear-predictor.qmd) is $\eta$ in every case; only the identity link sets $\mu=\eta$. Fitting still uses [iteratively reweighted least squares](newton-raphson-method.qmd) when the variance depends on the mean, and it collapses to one linear solve when the variance is constant and the link is the identity. {{cite:nelder_wedderburn1972}} (§§1.1, 2.1–2.2, pp. 371–374)
+
+## Check yourself
+
+### The three GLM components {#self-check-c-16}
+
+Name the three components of a generalised linear model, and state the usual conditional-independence assumption.
+
+::: {.callout-tip collapse="true" title="Answer"}
+The components are an exponential-family distribution for the response, a linear predictor $\eta_i=x_i^{\mathsf T}\beta$, and a link $g(\mu_i)=\eta_i$. Responses are independent conditional on the covariates. For a normal response the usual link is the identity, so $\mu_i=\eta_i$.
+:::
+
+### Link, inverse link, and canonical link {#self-check-c-17}
+
+What are a link function, an inverse link, and a canonical link?
+
+::: {.callout-tip collapse="true" title="Answer"}
+The link $g$ maps the conditional mean to the linear predictor, $g(\mu_i)=\eta_i$. The inverse link recovers the mean, $\mu_i=g^{-1}(\eta_i)$. A canonical link equates $\eta_i$ with the natural parameter of the exponential family. For a normal mean that canonical link is the identity.
+:::

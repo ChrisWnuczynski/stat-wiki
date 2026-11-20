@@ -24,3 +24,23 @@ Solve $e^{-4w}=1/2$, giving $w=(\log2)/4=0.173287$ hours. It is shorter than the
 
 ## Assumptions and limits — The clock matters when the rate changes
 For a deterministic nonconstant intensity, waiting from clock time $s$ has survival $\exp\{-\int_s^{s+w}\lambda(u)\,du\}$. After an arrival, the next waiting law depends on that random arrival time; the successive gaps generally are not independent identically distributed exponentials. On the cumulative-intensity clock a Poisson construction again has unit-rate exponential spacings.{{cite:durrett2019}} (§3.7.2, nonhomogeneous Poisson processes, p. 179)
+
+## Check yourself
+
+Use the definitions and calculations above to work through these questions.
+
+### A first wait and a window count {#self-check-ex-sp-poisson-half-hour}
+
+[A first wait and a window count](../questions/ex-sp-poisson-half-hour.qmd). Work both requested probabilities.
+
+::: {.callout-tip collapse="true" title="Answer"}
+The half-hour count has mean $1.5$, giving probability $e^{-1.5}1.5^2/2$ for exactly two events. Twenty minutes is one third of an hour, so the first-wait survival is $e^{-1}$.
+:::
+
+### Conditioning changes the experiment {#self-check-ex-sp-conditional-times}
+
+[Conditioning changes the experiment](../questions/ex-sp-conditional-times.qmd). Explain why the given count matters.
+
+::: {.callout-tip collapse="true" title="Answer"}
+Given $N(2)=3$ in a homogeneous process, the unordered arrival locations are independent uniforms over two hours. All three fall in the first hour with probability $(1/2)^3=1/8$.
+:::

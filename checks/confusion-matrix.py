@@ -23,6 +23,6 @@ body = (root/"articles/confusion-matrix.qmd").read_text().split("## See also",1)
 for text in ["0.8571", "0.3214", "0.9310", "Your turn", "## Check yourself {#check-yourself}"]:
     assert text in body, text
 assert len(re.findall('class="cite-ref"',body)) >= 5
-for qid in ["depth-confusion-matrix-q1", "depth-confusion-matrix-q2"]:
+for qid in ["ex-sl-09-1", "ex-sl-11-8"]:
     assert f"../questions/{qid}.qmd" in body
 print("confusion-matrix: rates and article checks passed")

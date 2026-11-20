@@ -68,5 +68,22 @@ The sample formula also estimates a population quantity only when the correlatio
 ## Connections
 The [correlation](correlation.qmd) is the case with nothing partialled out. The [precision matrix](precision-matrix.qmd) packages every partial correlation given the rest, with a change of sign. In a [Gaussian graphical model](markov-random-field.qmd) a missing edge is a zero partial correlation and, under normality, a conditional independence. [Clique](clique.qmd) factorisation is the matching statement for a positive density on an undirected graph, and it is a different theorem from the three-variable fraction above.{{cite:dodge2008}} (pp. 412–413)
 
+## Check yourself
+### A product that cancels {#self-check-partial-zero}
+
+If $r_{xy}=0.4$, $r_{xz}=0.8$ and $r_{yz}=0.5$, what is the numerator of $r_{xy\cdot z}$, and what does a zero numerator mean?
+
+::: {.callout-tip collapse="true" title="Answer"}
+The numerator is $0.4-0.8\cdot 0.5=0$. The partial correlation is $0$. The ordinary correlation equals the product of the correlations with $Z$, which is the residual-covariance calculation when the linear adjustment accounts for the whole association.
+:::
+
+### Precision sign {#self-check-partial-sign}
+
+A precision matrix has $K_{12}=-0.3$, $K_{11}=1$ and $K_{22}=1$. What is the partial correlation of coordinates $1$ and $2$ given the rest?
+
+::: {.callout-tip collapse="true" title="Answer"}
+It is $-(-0.3)/\sqrt{1\cdot 1}=0.3$. The negative precision entry is a positive partial correlation.
+:::
+
 ## History
 Early users of correlation already knew a large bivariate correlation could be produced by a third variable, and Yule’s 1926 time-series example gave a clear numerical warning. The sample partial correlation is the correlation of the two least-squares residuals, and it equals the fraction in the three ordinary correlations. The three-correlation fraction is the closed form of that residual correlation.{{cite:dodge2008}} (pp. 412–413)

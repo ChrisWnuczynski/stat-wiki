@@ -64,7 +64,7 @@ If every draw is equal, `bw.nrd0` has no spread to scale and falls back to a wid
 ## On the theory page
 
 - [Bias and variance in one bandwidth](../notes/sl-07-linkage-and-density.qmd#s-bias-and-variance-in-one-bandwidth), [Choosing the bandwidth](../notes/sl-07-linkage-and-density.qmd#s-choosing-the-bandwidth), and the [kernel density estimator](../notes/sl-07-linkage-and-density.qmd#def-sl-07-kernel-density).
-- Worked questions: [Kernel density by hand](../questions/ex-sl-07-3.qmd), [A tempting wrong turn](../questions/ex-sl-07-5.qmd), and [Clustering and smoothing choices](../questions/ex-sl-07-6.qmd).
+- Worked questions: [Kernel density by hand](../questions/ex-sl-07-3.qmd), [The training likelihood drives the kernel bandwidth to zero](../questions/ex-sl-07-5.qmd), and [Clustering and smoothing choices](../questions/ex-sl-07-6.qmd).
 
 ## References {#references}
 
@@ -86,7 +86,7 @@ If every draw is equal, `bw.nrd0` has no spread to scale and falls back to a wid
   <div class="cite-body">
     <div class="cite-entry">
       <span class="cite-format">Plain text</span>
-      <pre class="cite-code"><code>StatWiki (2026). &quot;Kernel density laboratory.&quot; StatWiki. Last updated 13 November 2026. https://www.statwiki.io/labs/kernel-density.html</code></pre>
+      <pre class="cite-code"><code>StatWiki (2026). &quot;Kernel density laboratory.&quot; StatWiki. Last updated 19 November 2026. https://www.statwiki.io/labs/kernel-density.html</code></pre>
     </div>
     <div class="cite-entry">
       <span class="cite-format">BibTeX</span>
@@ -95,8 +95,8 @@ If every draw is equal, `bw.nrd0` has no spread to scale and falls back to a wid
   title = {{Kernel density laboratory}},
   year = {2026},
   url = {https://www.statwiki.io/labs/kernel-density.html},
-  urldate = {2026-11-13},
-  note = {StatWiki, last updated 13 November 2026}
+  urldate = {2026-11-19},
+  note = {StatWiki, last updated 19 November 2026}
 }</code></pre>
     </div>
   </div>

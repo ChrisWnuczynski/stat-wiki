@@ -20,6 +20,6 @@ body=(root/"articles/doubly-stochastic-matrix.qmd").read_text().split("## See al
 for text in ["5/16","3/8","Your turn","## Check yourself {#check-yourself}"]:
     assert text in body,text
 assert len(re.findall('class="cite-ref"',body))>=5
-for q in ["depth-doubly-stochastic-matrix-q1", "depth-doubly-stochastic-matrix-q2"]:
+for q in ["ex-sp-doubly-stochastic","ex-sp-deterministic-cycle"]:
     assert f"../questions/{q}.qmd" in body
 print("doubly-stochastic-matrix: identities, powers and article checks passed")

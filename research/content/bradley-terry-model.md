@@ -38,3 +38,21 @@ It remains $3/5$. The difference $(\log3+5)-(\log2+5)$ equals $\log(3/2)$.
 ## Connections — Ties and point systems
 
 A draw is a third possible outcome, so modelling its probability requires an outcome model that allows ties. Treating a draw as half a win and half a loss is a possible scoring convention for a two-outcome estimating procedure; it does not supply a probability model for the draw. League-table point allocations also do not determine the probability of a win in a paired-comparison model. The target likelihood and treatment of draws must be specified separately.{{cite:caron_doucet2012_bt}} (§3, models with ties)
+
+## Check yourself
+
+### [Bradley–Terry](../questions/c-26.qmd) {#self-check-c-26}
+
+State the no-tie probability in terms of log strengths and explain one identifying constraint.
+
+::: {.callout-tip collapse="true" title="Answer"}
+It is $e^{\lambda_j}/(e^{\lambda_j}+e^{\lambda_k})$. Setting one log strength to zero fixes the arbitrary common shift while preserving every fitted probability.
+:::
+
+### [Multinomial logistic regression](../questions/q-46.qmd) {#self-check-q-46}
+
+Why do probabilities stay fixed when the reference score changes?
+
+::: {.callout-tip collapse="true" title="Answer"}
+Subtracting the new reference score from every score multiplies every exponentiated score by the same positive factor. That factor cancels from each probability ratio.
+:::

@@ -49,3 +49,20 @@ Its determinant is $1$, but its first leading minor is $-1$. The quadratic form 
 
 ## Interpretation — What a covariance check establishes
 If $A$ is a covariance matrix, $c^\top Ac$ is the variance of $c^\top X$. A zero variance for a nonzero direction is compatible with positive semidefiniteness but makes the covariance singular. Strict positive definiteness excludes those exact linear dependencies. In numerical work, nearly zero pivots also signal sensitivity to rounding; exact sign criteria and floating-point decisions require different tolerances.{{cite:boyd_vandenberghe2004}} (§A.5.2, definiteness and matrix inequalities)
+
+## Check yourself
+Use quadratic forms to interpret the determinant calculation.
+
+### A covariance quadratic form {#self-check-ex-sl-01-1}
+[Why a covariance is positive semi-definite](../questions/ex-sl-01-1.qmd): identify $a^\top\Sigma a$.
+
+::: {.callout-tip collapse="true" title="Answer"}
+It is $\operatorname{Var}(a^\top X)$ and is therefore nonnegative. It is strictly positive for every nonzero $a$ exactly when no nonzero linear combination has zero variance.
+:::
+
+### A Gram matrix {#self-check-ex-sl-17-5}
+[A Gram matrix](../questions/ex-sl-17-5.qmd): for the Gaussian kernel with scale one at points $0,1,2$, check the leading minors.
+
+::: {.callout-tip collapse="true" title="Answer"}
+The diagonal entries are one, adjacent entries are $e^{-1/2}$ and the corner entries are $e^{-2}$. The leading minors are $1$, $1-e^{-1}=0.632121$ and $0.345500$. All are positive, so the matrix is positive definite, which also implies positive semidefiniteness.
+:::

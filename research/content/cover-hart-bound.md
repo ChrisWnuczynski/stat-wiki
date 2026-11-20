@@ -37,3 +37,19 @@ The Bayes error is $0.1$. The one-neighbour error is $2(0.9)(0.1)=0.18$, which i
 
 ## Statistical use — A limit does not calibrate a small sample
 The bound concerns expected risk as the training size tends to infinity. At a fixed size, distant neighbours and unsuitable distance scaling can give a larger error. One-neighbour classification also need not attain Bayes risk as more data arrive: its limiting label remains noisy. For Euclidean data, a growing neighbour count with $k_n\to\infty$ and $k_n/n\to0$ yields a different consistency regime. Increasing $k$ all the way to the sample size does not meet those conditions.{{cite:devroye1981_nn_error}} (Introduction, p. 1320)
+
+## Check yourself
+
+### Conditional error and a comparison multiplier {#self-check-ex-sl-11-4}
+[The factor of two](../questions/ex-sl-11-4.qmd): calculate the local errors and the stated multipliers.
+
+::: {.callout-tip collapse="true" title="Answer"}
+At class probability $0.9$, the Bayes error is $0.1$ and the limiting one-neighbour error is $0.18$. The arithmetic expression $1+\sqrt{2/k}$ is approximately $2.414$, $1.535$ and $1.200$ for $k=1,7,50$. The binary one-neighbour bound gives the sharper comparison in that case.
+:::
+
+### Tuning with held-out observations {#self-check-ex-sl-11-7}
+[Tuning a nearest-neighbour classifier](../questions/ex-sl-11-7.qmd): describe scaling, selection and evaluation.
+
+::: {.callout-tip collapse="true" title="Answer"}
+Estimate predictor means and standard deviations using training observations and apply that transformation to held-out observations. Select candidate neighbour counts using validation accuracy, then evaluate the selected procedure on an untouched test set. Optional refitting on training plus validation fixes the selected choices before testing. Selecting the largest validation score introduces optimism across repeated splits. A tree likewise uses validation loss to select a depth limit or pruning penalty.
+:::

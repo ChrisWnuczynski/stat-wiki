@@ -565,7 +565,7 @@ How many undirected graphs are there on $p=5$ vertices, and on $p=20$? Why does 
 :::
 
 ::: {#ex-sl-19-6 .exercise}
-## A tempting wrong turn
+## Thresholding correlations is not a concentration graph
 
 A student draws a graph for gene-expression data by connecting every pair of genes whose sample correlation exceeds $0.5$ in absolute value, and interprets the missing edges as conditional independences. What is wrong with this, and what should be used instead?
 

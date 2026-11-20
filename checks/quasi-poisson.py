@@ -17,6 +17,6 @@ near(sqrt(4)*.15,.30)
 assert all(x in page for x in ('\\phi>1','\\phi<1','\\phi=1'))
 assert '::: {.callout-note collapse="true" title="Proof"}' in page
 assert '::: {.callout-tip collapse="true" title="Answer"}' in page
-assert '## Worked example {#worked-example}' in page
+assert '## Two groups, a factor of nine, and an unchanged ratio {#worked-example}' in page
 assert 'Lead context' not in source
 print("quasi-Poisson checks passed")

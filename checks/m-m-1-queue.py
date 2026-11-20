@@ -1,16 +1,11 @@
 """Arithmetic checks for the M/M/1 article."""
 
-import sys
-from pathlib import Path
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from tools.shown import shown
-
 import math
 from fractions import Fraction as F
+from pathlib import Path
 
 root = Path(__file__).resolve().parents[1]
 prose = (root / "research/content/m-m-1-queue.md").read_text(encoding="utf-8")
-prose = shown(prose, "m-m-1-queue")
 article = root / "articles/m-m-1-queue.qmd"
 built = article.read_text(encoding="utf-8") if article.is_file() else ""
 page = built if "Your turn" in built else prose

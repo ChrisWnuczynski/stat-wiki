@@ -49,5 +49,27 @@ If the variance is not $\phi V(\mu)$, dividing by $\sqrt{\hat\phi V(\hat\mu)}$ s
 ## Connections
 The [deviance residual](deviance-residual.qmd) uses the likelihood contribution instead of the variance function. A [generalised linear model](generalised-linear-model.qmd) is where $V(\mu)$ is chosen by the family. The ordinary [residual](error-and-residual.qmd) is the numerator. An [inverse Gaussian](inverse-gaussian-distribution.qmd) or [gamma](gamma-distribution.qmd) family changes $V$ and therefore changes the denominator.{{cite:dodge2008}} (p. 457, residual as observation minus fit)
 
+## Check yourself
+
+### One cell in a count model {#self-check-ex-inf-pearson-one-cell}
+
+A Poisson mean is 18 and the count is 27. What is the Pearson residual?
+
+[Exercise](../questions/ex-inf-pearson-one-cell.qmd)
+
+::: {.callout-tip collapse="true" title="Answer"}
+$(27-18)/\sqrt{18}=9/\sqrt{18}=9/(3\sqrt{2})=\sqrt{18}/2=2.1213$. The same absolute residual would attach to a count of 9, which is 9 below the mean. The two counts are not equally probable.
+:::
+
+### A log-link mean {#self-check-ex-ur-log-link}
+
+Why can a Pearson residual of a count be large when the raw gap $y-\hat\mu$ is moderate?
+
+[Exercise](../questions/ex-ur-log-link.qmd)
+
+::: {.callout-tip collapse="true" title="Answer"}
+The denominator is $\sqrt{\hat\mu}$ for a Poisson model. A moderate gap on top of a small mean is many standard deviations. The count 7 against mean 2 has gap 5 and Pearson residual 3.5355. The count 45 against mean 50 has the same gap and Pearson residual $-0.7071$.
+:::
+
 ## History
 A residual is the difference between the observed value and the fitted value, the part the regression equation does not explain. Scaling that difference by a model standard deviation is the further step that makes residuals from different means comparable when the variance depends on the mean. The Poisson and binary arithmetic above is that scaling, with $\phi=1$ and with $V(\mu)=\mu$ or $V(p)=p(1-p)$.{{cite:dodge2008}} (p. 457, Residual)

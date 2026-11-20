@@ -40,3 +40,25 @@ The risk increase is $0.12$ for three fewer leaves, giving effective penalty $0.
 The training objective constructs candidates. Cross-validation estimates their predictive performance and can choose a subtree with minimum estimated error or a simpler one within a chosen uncertainty allowance. A final test set should be excluded from all such choices. Reusing test error to choose among penalties makes it part of model selection rather than an independent final assessment.{{cite:loh2014_trees}} (§2.1, p. 331){{cite:cawley_talbot2010}} (§2, pp. 2081–2084)
 
 The familiar one-standard-error preference for a smaller tree is a selection convention, not a confidence statement that two trees have equal population risks. The standard error describes uncertainty in an estimated validation error; it does not remove the effects of trying many candidate procedures.{{cite:cawley_talbot2010}} (§2, model-selection criterion overfitting)
+
+## Check yourself
+
+### A penalty changes the preferred tree {#self-check-ex-sl-12-5}
+
+[Practice question](../questions/ex-sl-12-5.qmd)
+
+Compare the two-leaf and five-leaf trees at penalties $0.15$ and $0.05$.
+
+::: {.callout-tip collapse="true" title="Answer"}
+The risks are $0.8$ versus $1.05$ at $0.15$, and $0.6$ versus $0.55$ at $0.05$. The crossover penalty is $1/15$.
+:::
+
+### Grow, prune and assess {#self-check-ex-sl-12-7}
+
+[Practice question](../questions/ex-sl-12-7.qmd)
+
+Why does a pure training tree need assessment, and what shapes can an axis-aligned tree produce?
+
+::: {.callout-tip collapse="true" title="Answer"}
+Pure leaves can fit sampling noise. Use training data to grow candidates and validation data to choose pruning, leaving the test data for final assessment. Each leaf of an axis-aligned tree is an intersection of coordinate half-spaces, giving a rectangular region, possibly unbounded.
+:::

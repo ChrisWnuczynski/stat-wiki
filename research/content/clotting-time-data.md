@@ -24,3 +24,23 @@ seconds. The second mean is lower at this concentration. An intercept comparison
 ::: {.callout-tip collapse="true" title="Answer"}
 The ratio is $e^{b\log 2}=2^b$. It is independent of the starting concentration.
 :::
+
+## Check yourself
+
+Use the definitions and calculations above to work through these questions.
+
+### Gamma means and variances {#self-check-q-45}
+
+[Gamma means and variances](../questions/q-45.qmd). Work parts (b), (c) and (e).
+
+::: {.callout-tip collapse="true" title="Answer"}
+The mean is $\mu_i$, the variance is $\mu_i^2/k$, and a unit covariate increase multiplies the mean by $e^{\beta_1}$. A Gamma model for $Y_i$ does not make $\log Y_i$ normal.
+:::
+
+### Reaction times on a log link {#self-check-q-55}
+
+[Reaction times on a log link](../questions/q-55.qmd). Interpret the coefficient in part (f).
+
+::: {.callout-tip collapse="true" title="Answer"}
+A one-unit temperature increase multiplies the mean by $e^{-0.08}=0.9231$, a decrease of about $7.69\%$. The variance remains proportional to the square of that mean.
+:::

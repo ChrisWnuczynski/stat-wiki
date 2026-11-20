@@ -24,7 +24,7 @@ for printed in ("1/3", "2/3", "3/2", "3/4", "45/16", "2.8125", "2/5", "1/5"):
 assert body.count('title="Proof"') == 1
 assert "**Your turn.**" in body and "## Check yourself" in body
 assert body.count('title="Answer"') >= 3
-for qid in ("depth-galton-watson-process-q1", "depth-galton-watson-process-q2"):
+for qid in ("ex-sp-critical-extinction", "ex-sp-variance-recurrence"):
     assert f"../questions/{qid}.qmd" in page
 assert 'data-cite-key="durrett2019"' in body
 print("galton-watson checks passed")

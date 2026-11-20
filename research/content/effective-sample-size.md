@@ -65,5 +65,27 @@ The variance formula uses a single $\sigma^2$ and autocorrelations that depend o
 ## Connections
 A [Markov chain](markov-chain.qmd) is the usual source of the dependence. [Monte Carlo](monte-carlo-method.qmd) with independent draws is the case $n_{\mathrm{eff}}=n$. [Metropolis–Hastings](metropolis-hastings-algorithm.qmd) can be stationary and still have $\rho$ near 1 if the proposals are tiny. [Detailed balance](detailed-balance.qmd) fixes the stationary distribution of a reversible kernel and says nothing about the size of $\rho$.{{cite:geyer1992}} (§§3.3–3.7, pp. 477–480)
 
+## Check yourself
+
+### One change in a trace {#self-check-ex-ur-one-change}
+
+A stored series has $n=400$ and geometric autocorrelation $\rho=0.5$. Using the long-run formula, what is $n_{\mathrm{eff}}$?
+
+[Exercise](../questions/ex-ur-one-change.qmd)
+
+::: {.callout-tip collapse="true" title="Answer"}
+$(1-0.5)/(1+0.5)=1/3$, so $n_{\mathrm{eff}}\approx400/3=133.33$. The variance of the mean is about three times the independent-draw variance. The exact finite-sample inflation is a little different, because the factors $(1-k/n)$ have been replaced by 1.
+:::
+
+### A posterior mean {#self-check-ex-ur-posterior-mean}
+
+Why can two posterior summaries from the same chain have different effective sample sizes?
+
+[Exercise](../questions/ex-ur-posterior-mean.qmd)
+
+::: {.callout-tip collapse="true" title="Answer"}
+Each summary is a function $g(X_t)$. The autocorrelations of $g(X_t)$ need not equal the autocorrelations of $X_t$. The variance inflation is computed from the series actually averaged. A precise mean does not imply a precise tail probability.
+:::
+
 ## History
 The variance formula for a mean of a stationary sequence is the double sum of the lag covariances. Dependence is separate from stationarity: a stationary chain has one marginal at every time, and the dependence between times is what the effective sample size converts into an equivalent independent count. The numerical factor $(1+\rho)/(1-\rho)$ is the geometric special case of the same sum.

@@ -31,3 +31,21 @@ For the height illustration with means $67$ and $68$ inches, equal standard devi
 ::: {.callout-tip collapse="true" title="Answer"}
 It is $1.2$, a predicted fall of $0.8$ standard deviations. The same model produces opposite apparent changes after selecting unusually low and unusually high initial scores.
 :::
+
+## Check yourself
+
+### [Normal equations for a straight line](../questions/ex-inf-normal-equations.qmd) {#self-check-ex-inf-normal-equations}
+
+Why does the fitted line pass through $(\bar x,\bar y)$?
+
+::: {.callout-tip collapse="true" title="Answer"}
+The derivative with respect to the intercept sets the sum of residuals to zero. Therefore $\bar y=b_0+b_1\bar x$, giving $b_0=\bar y-b_1\bar x$.
+:::
+
+### [Reading a correlation](../questions/ex-da-correlation-reading.qmd) {#self-check-ex-da-correlation-reading}
+
+Does a large correlation establish that changing the predictor causes the predicted response change?
+
+::: {.callout-tip collapse="true" title="Answer"}
+No. Correlation describes association. A shared cause, selection, or another feature of the sampling process can produce the association; a causal conclusion needs additional design or assumptions.
+:::

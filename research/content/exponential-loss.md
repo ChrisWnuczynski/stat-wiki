@@ -19,3 +19,23 @@ For $p=0.8$, $f^*=\log2=0.693147$. Then $0.8e^{-f^*}+0.2e^{f^*}=0.8$, below the 
 ::: {.callout-tip collapse="true" title="Answer"}
 The optimum score is zero and its loss is one. Neither label is more probable at that input.
 :::
+
+## Check yourself
+
+Use the definitions and calculations above to work through these questions.
+
+### Recover the class probability {#self-check-ex-sl-13-5}
+
+[Recover the class probability](../questions/ex-sl-13-5.qmd). Evaluate the requested half-logit.
+
+::: {.callout-tip collapse="true" title="Answer"}
+$f^*=\tfrac12\log4=\log2$ and $1/(1+e^{-2f^*})=0.8$. At probability $0.5$, $f^*=0$.
+:::
+
+### One AdaBoost round {#self-check-ex-sl-13-4}
+
+[One AdaBoost round](../questions/ex-sl-13-4.qmd). Compute the updated mass on the error.
+
+::: {.callout-tip collapse="true" title="Answer"}
+The weighted error is $0.2$, the coefficient is $\log2$, and the normaliser is $0.8$. The mistaken observation has new weight $0.5$, making this same stump wrong on half the new weight.
+:::

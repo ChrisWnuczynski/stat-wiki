@@ -37,3 +37,19 @@ For cumulative category predictors $0.3$ and $-0.5$, the inverse link $g^{-1}(\e
 ::: {.callout-tip collapse="true" title="Answer"}
 Survival is $0.8^2=0.64$, and event probability is $1-0.64=0.36$. The event probability ratio is $0.36/0.2=1.8$.
 :::
+
+## Check yourself
+
+### Reading a coefficient {#self-check-depth-cloglog-interpretation}
+[Reading a complementary log-log coefficient](../questions/depth-cloglog-interpretation.qmd): which quantity is multiplied when the coefficient is $\log 3$?
+
+::: {.callout-tip collapse="true" title="Answer"}
+The quantity $-\log(1-p)$ triples. An interpretation as a hazard ratio additionally requires an event-time model with proportional hazards.
+:::
+
+### Reversing the event {#self-check-depth-cloglog-reversal}
+[Reversing the event in a cloglog model](../questions/depth-cloglog-reversal.qmd): does negating every coefficient model $1-p$ with the same link?
+
+::: {.callout-tip collapse="true" title="Answer"}
+No. The inverse complementary log-log curve is asymmetric. Reversing the event changes the transformation to its log-log counterpart; coefficient sign reversal alone does not perform that transformation.
+:::

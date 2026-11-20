@@ -32,3 +32,17 @@ A compactly supported kernel can give zero estimates in gaps. It is continuous a
 ::: {.callout-tip collapse="true" title="Answer"}
 Only the central observation contributes. The height is $(3/4)/(3\cdot1/2)=1/2$.
 :::
+
+## Check yourself
+
+### [A Gaussian kernel estimate](../questions/ex-sl-07-3.qmd) {#self-check-ex-sl-07-3}
+
+::: {.callout-tip collapse="true" title="Answer"}
+For observations $(-1,0,2)$ and bandwidth one, the Gaussian-kernel estimate at zero is $[\phi(1)+\phi(0)+\phi(2)]/3\approx0.231635$.
+:::
+
+### [Why a multivariate kernel estimate integrates to one](../questions/ex-sl-07-4.qmd) {#self-check-ex-sl-07-4}
+
+::: {.callout-tip collapse="true" title="Answer"}
+For each summand use $u=H^{-1/2}(x-X_i)$. Its Jacobian is $|H|^{1/2}$, cancelling the scaling $|H|^{-1/2}$. Each kernel integrates to one and averaging preserves that integral.
+:::

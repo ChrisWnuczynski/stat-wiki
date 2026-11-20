@@ -1,18 +1,13 @@
 """Arithmetic checks for the Markov properties article."""
 
-import sys
-from pathlib import Path
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from tools.shown import shown
-
 import math
 from fractions import Fraction as F
+from pathlib import Path
 
 import numpy as np
 
 root = Path(__file__).resolve().parents[1]
 prose = (root / "research/content/markov-properties-and-factorisation.md").read_text(encoding="utf-8")
-prose = shown(prose, "markov-properties-and-factorisation")
 article = root / "articles/markov-properties-and-factorisation.qmd"
 built = article.read_text(encoding="utf-8") if article.is_file() else ""
 page = built if "Your turn" in built else prose

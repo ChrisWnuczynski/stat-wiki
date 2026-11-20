@@ -29,7 +29,7 @@ for printed in (
 assert body.count('title="Proof"') == 1
 assert "**Your turn.**" in body and "## Check yourself" in body
 assert body.count('title="Answer"') >= 3
-for qid in ("depth-effective-sample-size-q1", "depth-effective-sample-size-q2"):
+for qid in ("ex-ur-one-change", "ex-ur-posterior-mean"):
     assert f"../questions/{qid}.qmd" in page
 assert 'data-cite-key="geyer1992"' in body
 print("effective sample size checks passed")

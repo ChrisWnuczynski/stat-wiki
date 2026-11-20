@@ -78,7 +78,8 @@ if (!manifestConfigMatches(manifest)) {
   manifest.dimensions = EMBEDDING_DIMENSIONS
   manifest.chunkerVersion = CHUNKER_VERSION
   manifest.maxChars = CHUNK_CHARS
-  await saveManifest(client, manifest)
+  // The new config stays in memory until vectors and chunks are stored.
+  // saveManifest runs after those writes, so a failed run retries from the previous manifest.
   console.log("index config changed; re-embedding stored entries")
 }
 

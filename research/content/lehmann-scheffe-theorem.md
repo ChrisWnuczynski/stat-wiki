@@ -45,3 +45,25 @@ At $p=1/2$, $\operatorname{Var}(X_1X_2)=3/16$, whereas $\operatorname{Var}\{\del
 ::: {.callout-tip collapse="true" title="Answer"}
 There are six ordered pairs of distinct trials. Each pair succeeds with probability $p^2$, so $E\{T(T-1)\}=6p^2$ and $E\{T(T-1)/6\}=p^2$.
 :::
+
+## Check yourself
+
+### A probability of two successes {#self-check-exr-completeness-binomial}
+
+[Practice question](../questions/exr-completeness-binomial.qmd)
+
+In three independent Bernoulli trials let T be the success count. Show that h(T)=T(T-1)/6 is unbiased for p², and evaluate it at T=2. Why is this function unique among unbiased functions of T when p ranges over (0,1)?
+
+::: {.callout-tip collapse="true" title="Answer"}
+There are six ordered pairs of distinct trials. Each pair succeeds with probability p², so E[T(T-1)/6]=p². At T=2 the estimate is 2/6=1/3. If another function of T were unbiased for p², its difference from h would have expectation zero for every p. The binomial count is complete on (0,1), so the difference is zero almost surely.
+:::
+
+### Conditioning an estimator {#self-check-ex-inf-rao-blackwell-variance}
+
+[Practice question](../questions/ex-inf-rao-blackwell-variance.qmd)
+
+Let $U$ be unbiased for $\theta$ and let $T$ be sufficient. In one sentence each, say why $W(T)=\mathbb{E}(U\mid T)$ is a statistic, why it is unbiased, and why $\operatorname{Var} W\le\operatorname{Var} U$.
+
+::: {.callout-tip collapse="true" title="Answer"}
+$W(T)$ is a statistic because sufficiency makes the conditional distribution of the sample given $T$ free of $\theta$, so the conditional expectation does not depend on $\theta$. It is unbiased because $\mathbb{E}\{W(T)\}=\mathbb{E}(U)=\theta$ by the tower property. Its variance is smaller because $\operatorname{Var}(U)=\operatorname{Var}\{W(T)\}+\mathbb{E}\{\operatorname{Var}(U\mid T)\}$ and the second term is nonnegative.
+:::

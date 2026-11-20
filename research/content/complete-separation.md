@@ -43,3 +43,21 @@ $\ell(1)=4\bigl(1-\log(1+e)\bigr)\approx -1.253$. Because the score is positive,
 
 ## Connections — What the software is chasing
 [Maximum likelihood](maximum-likelihood.qmd) looks for a root of the score. [Newton’s method](newton-raphson-method.qmd) follows that score, and here the score never hits zero. The [logit link](logit-link.qmd) is what turns a separating direction into probabilities that can approach $0$ and $1$. A huge coefficient with a huge standard error is a prompt to look at whether the successes and failures are sorted by the predictors, not a precise finite-sample standard error. {{cite:albert_anderson1984}} (§§2–4, pp. 2–7)
+
+## Check yourself
+
+### Complete separation on four points {#self-check-ex-sl-10-5}
+
+For $x=(1,2,3,4)$ and $y=(0,0,1,1)$, the path $\beta_1=s$, $\beta_0=-2.5s$ sends the logistic log-likelihood to $0$ as $s\to\infty$. Does a finite maximum exist?
+
+::: {.callout-tip collapse="true" title="Answer"}
+No. Along that path the linear predictors are $-1.5s,-0.5s,0.5s,1.5s$. As $s\to\infty$ the fitted probabilities approach $0,0,1,1$ and the log-likelihood approaches $0$ without reaching it at a finite coefficient.
+:::
+
+### The logistic weight that separation drives to zero {#self-check-ex-sl-10-1}
+
+Show $\sigma'(\eta)=\sigma(\eta)(1-\sigma(\eta))$ for $\sigma(\eta)=1/(1+e^{-\eta})$.
+
+::: {.callout-tip collapse="true" title="Answer"}
+$\sigma'(\eta)=e^{-\eta}/(1+e^{-\eta})^2=\sigma(\eta)(1-\sigma(\eta))$. Under separation the fitted probabilities approach $0$ or $1$, so these weights approach $0$ and the observed information collapses.
+:::

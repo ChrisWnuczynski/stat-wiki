@@ -1,14 +1,9 @@
 """Arithmetic checks for the five-number summary article."""
 
-import sys
 from pathlib import Path
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from tools.shown import shown
-
 
 root = Path(__file__).resolve().parents[1]
 prose = (root / "research/content/five-number-summary-and-boxplot.md").read_text(encoding="utf-8")
-prose = shown(prose, "five-number-summary-and-boxplot")
 article = root / "articles/five-number-summary-and-boxplot.qmd"
 built = article.read_text(encoding="utf-8") if article.is_file() else ""
 page = built if "Your turn" in built else prose

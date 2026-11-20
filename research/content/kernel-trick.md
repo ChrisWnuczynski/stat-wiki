@@ -28,3 +28,23 @@ The feature inner product is $1+2xx^{\prime}+x^2{x'}^2=(1+xx^{\prime})^2$. The s
 
 ## Connections — Covariance models use the same matrix condition
 A Gaussian-process covariance function must also give positive semidefinite matrices on every finite input set. Its role is to specify joint uncertainty rather than a classification margin. The polynomial and squared-exponential functions can appear in both settings, while their fitted parameters and interpretation depend on the model.{{cite:rasmussen_williams2006}} (§4.1, pp. 79–80)
+
+## Check yourself
+
+Use the definitions and calculations above to work through these questions.
+
+### Separate a middle class from its tails {#self-check-ex-sl-17-4}
+
+[Separate a middle class from its tails](../questions/ex-sl-17-4.qmd). Use the square feature in the supplied map.
+
+::: {.callout-tip collapse="true" title="Answer"}
+The inner product expands to $(1+xx^{\prime})^2$. The middle class has square coordinate at most $0.81$ and the tails at least $2.25$, so the line at $1.5$ separates them in feature space.
+:::
+
+### A finite Gaussian Gram matrix {#self-check-ex-sl-17-5}
+
+[A finite Gaussian Gram matrix](../questions/ex-sl-17-5.qmd). Calculate its entries from pairwise distances.
+
+::: {.callout-tip collapse="true" title="Answer"}
+The matrix has diagonal one, adjacent entries $e^{-1/2}$ and corner entries $e^{-2}$. Its leading principal minors are positive, so it is positive definite for these three distinct inputs.
+:::

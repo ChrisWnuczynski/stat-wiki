@@ -58,7 +58,8 @@ for printed in (
     assert printed in body, f"Missing displayed number {printed}"
 
 assert body.count('title="Proof"') == 1
-assert "## Motivating example" in body and "## Worked example" in body
+assert "## Equal counts can hide unequal rates {#motivating-example}" in body
+assert "## Exposure and a group rate combine in the mean count {#worked-example}" in body
 assert "**Your turn.**" in body and "## Check yourself" in body
 assert body.count('title="Answer"') >= 3
 for qid in ("q-31", "q-55"):

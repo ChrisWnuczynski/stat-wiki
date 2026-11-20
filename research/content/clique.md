@@ -32,3 +32,20 @@ Vertex $1$ is now joined to both $3$ and $4$, so $\{3,4\}$ extends and is no lon
 
 ## Connections
 Evans defines a density to factorise according to the graph when it is a product of potentials, one for each clique. That product is a statement about the joint distribution. The word clique itself remains a description of the graph.{{cite:evans2025_graphical}} (§4.3, eq. 4.1) The [precision matrix](precision-matrix.qmd) of a normal vector encodes the pairwise part of the same idea: a zero off-diagonal entry is a missing edge and a zero [partial correlation](partial-correlation.qmd). The six-vertex graph above has triangular cliques, so an edge potential can be absorbed into the potential of the triangle that contains it.
+
+## Check yourself
+### A pendant edge {#self-check-clique-pendant}
+
+In the four-vertex graph with edges $12$, $23$, $31$ and $34$, why is $\{1,2\}$ not a clique?
+
+::: {.callout-tip collapse="true" title="Answer"}
+The pair $\{1,2\}$ is complete, but vertex $3$ is joined to both endpoints, so $\{1,2,3\}$ is a larger complete set. A clique has to be maximal.
+:::
+
+### Two triangles sharing an edge {#self-check-clique-share}
+
+Vertices $\{1,2,3,4\}$ have all three edges of $\{1,2,3\}$ and all three edges of $\{1,2,4\}$, and no edge $34$. List the cliques.
+
+::: {.callout-tip collapse="true" title="Answer"}
+Both triples are complete. Neither extends: $4$ is not joined to $3$, and $3$ is not joined to $4$. The shared edge $\{1,2\}$ is complete and not maximal. The cliques are $\{1,2,3\}$ and $\{1,2,4\}$.
+:::

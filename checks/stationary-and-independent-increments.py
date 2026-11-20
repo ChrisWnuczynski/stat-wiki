@@ -19,7 +19,7 @@ for printed in ("0.3679", "0.1353", "e^{-1}", "e^{-2}"):
 assert body.count('title="Proof"') == 1
 assert "**Your turn.**" in body and "## Check yourself" in body
 assert body.count('title="Answer"') >= 3
-for qid in ("depth-stationary-and-independent-increments-q1", "depth-stationary-and-independent-increments-q2"):
+for qid in ("ex-sp-increments-and-levels", "ex-sp-poisson-half-hour"):
     assert f"../questions/{qid}.qmd" in page
 assert 'data-cite-key="durrett2019"' in body
 print("stationary and independent increments checks passed")

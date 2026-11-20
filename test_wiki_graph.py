@@ -12,6 +12,7 @@ from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
 import build_wiki
+import tex_math
 import wiki_graph
 
 CHAPTER = build_wiki.CHAPTER_CODES["G1"]
@@ -30,10 +31,17 @@ def _canonical_article_headings(page: Path, body: str) -> list[str]:
     research_path = build_wiki.WIKI / "research" / "content" / f"{page.stem}.md"
     aliases = {}
     if research_path.is_file():
-        aliases = {display.strip(): key for key, display in re.findall(
+        for key, display in re.findall(
             r"^## ([^\n—]+) — ([^\n]+)$", research_path.read_text(encoding="utf-8"), re.M
-        )}
-    headings = [h.strip() for h in re.findall(r"^## ([^\n{]+)", body, flags=re.M)]
+        ):
+            aliases[display.strip()] = key
+            aliases[tex_math.convert_tex_delimiters(display.strip())] = key
+    headings = []
+    for raw in re.findall(r"(?m)^## ([^\n]+)", body):
+        # The anchor is the trailing {#id}. A brace inside the title, as in
+        # log{p/(1 − p)}, is part of the heading.
+        heading = re.sub(r"\s*\{#[^{}]*\}\s*$", "", raw).strip()
+        headings.append(heading)
     return [aliases.get(heading, heading) for heading in headings]
 
 
@@ -918,6 +926,7 @@ class WikiGraphTests(unittest.TestCase):
             m_title = re.search(r'^title:\s*"(.*)"$', text, re.M)
             self.assertIsNotNone(m_title, path.name)
             body = re.sub(r"\A---\n.*?\n---\n+", "", text, count=1, flags=re.S)
+            body = re.sub(r"\A::: \{\.chapter-guide\}\n.*?\n:::\n+", "", body, count=1, flags=re.S)
             body = re.sub(r"\A::: \{\.hatnote\}\n.*?\n:::\n+", "", body, count=1, flags=re.S)
             body = re.sub(r"\A:::: \{\.infobox\}\n.*?\n::::\n+", "", body, count=1, flags=re.S).lstrip()
             first_para = body.split("\n\n", 1)[0].strip()
@@ -1444,7 +1453,11 @@ class ConceptTemplateTests(unittest.TestCase):
         for slug, minimum in baseline.items():
             text = (build_wiki.WIKI / "articles" / f"{slug}.qmd").read_text(encoding="utf-8")
             leading = text.split("## See also", 1)[0]
-            words = _prose_word_count(leading)
+            # Locators moved out of the prose into the reference notes. Count them
+            # with the article so the retention floor still sees those words.
+            notes = text.split("## References", 1)[-1] if "## References" in text else ""
+            locators = " ".join(re.findall(r'class="cite-locator">(.*?)</span>', notes))
+            words = _prose_word_count(leading + " " + locators)
             figures = len(re.findall(r"!\[[^]]*\]\(", text))
             self.assertGreaterEqual(words, minimum["words"], slug)
             self.assertGreaterEqual(figures, minimum["figures"], slug)
@@ -1529,9 +1542,9 @@ class DistributionDepthBatchTests(unittest.TestCase):
             self.assertIn("### ", facts["worked_example"], slug)
             self.assertRegex(facts["worked_example"], r"\d", slug)
             self.assertIn("{{cite:", facts["worked_example"], slug)
-            inference = body.split("## Statistical inference {#used-in}", 1)[1].split("\n## ", 1)[0]
+            inference = re.split(r"(?m)^## [^\n]*\{#used-in\}\n", body, maxsplit=1)[1].split("\n## ", 1)[0]
             self.assertIn("class=\"cite-ref\"", inference, slug)
-            related = body.split("## Related distributions {#related-distributions}", 1)[1].split("\n## ", 1)[0]
+            related = re.split(r"(?m)^## [^\n]*\{#related-distributions\}\n", body, maxsplit=1)[1].split("\n## ", 1)[0]
             self.assertIn(".qmd", related, slug)
             self.assertGreaterEqual(len(related.split()), 20, slug)
             if slug not in history_todo:
@@ -1704,10 +1717,13 @@ class DistributionDepthBatchTests(unittest.TestCase):
             (build_wiki.WIKI / "proofs-todo.json").read_text(encoding="utf-8"))}
         for slug in build_wiki.DISTRIBUTIONS:
             body = (build_wiki.WIKI / "articles" / f"{slug}.qmd").read_text(encoding="utf-8")
-            properties = body.split("## Properties {#properties}", 1)[1].split("\n## ", 1)[0]
+            properties = re.split(r"(?m)^## [^\n]*\{#properties\}\n", body, maxsplit=1)[1].split("\n## ", 1)[0]
             research_path = build_wiki.WIKI / "research" / "content" / f"{slug}.md"
-            researched_properties = research_path.read_text().split("## Properties\n", 1)[1].split("\n## ", 1)[0] \
-                if research_path.is_file() and "## Properties\n" in research_path.read_text() else ""
+            researched_match = re.search(
+                r"(?ms)^## Properties(?: — [^\n]*)?\n(.*?)(?=^## |\Z)",
+                research_path.read_text(encoding="utf-8"),
+            ) if research_path.is_file() else None
+            researched_properties = researched_match.group(1) if researched_match else ""
             global_proof = '::: {.proof}' in researched_properties
             heads = list(re.finditer(r"^### (.+?) \{#(property-[^}]+)\}", properties, re.M))
             for i, head in enumerate(heads):

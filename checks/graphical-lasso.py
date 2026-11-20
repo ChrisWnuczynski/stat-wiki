@@ -26,6 +26,6 @@ assert r"For $\lambda>0$" in body
 for text in ["15/16","5/16","0.625","Your turn","## Check yourself {#check-yourself}"]:
     assert text in body,text
 assert len(re.findall('class="cite-ref"',body))>=5
-for q in ["depth-graphical-lasso-q1", "depth-graphical-lasso-q2"]:
+for q in ["ex-sl-19-6","ex-sl-19-8"]:
     assert f"../questions/{q}.qmd" in body
 print("graphical-lasso: exact KKT and article checks passed")

@@ -76,5 +76,30 @@ The normal assumption on $(a_j,b_j)$ is a model for the population of groups. A 
 ## Connections
 A model with only a random intercept is the special case $\sigma_b^{2}=\sigma_{ab}=0$. [Fixed and random effects](fixed-and-random-effects.qmd) names the distinction between $\beta_1$ and the draws $(a_j,b_j)$, and the [linear mixed model](linear-mixed-model.qmd) is the joint specification. The fixed part $\beta_0+\beta_1 t$ is an ordinary linear mean; the random part changes the covariance, not the interpretation of $\beta_1$ as a population-average slope. A [generalised linear mixed model](generalised-linear-mixed-model.qmd) keeps the same linear predictor and replaces the normal residual by a non-normal conditional distribution, so the marginal covariance formula in the proof is then no longer the whole sampling story.{{cite:bates_lme4_2015}} (§1.1, eq. 2–3, p. 3)
 
+## Check yourself
+### A variance at a later time {#self-check-slope-variance}
+
+Using $\sigma_a^{2}=4$, $\sigma_b^{2}=1$, $\sigma_{ab}=-1/2$ and $\sigma^{2}=1$, what is $\operatorname{Var}(Y_{j1})$?
+
+::: {.callout-tip collapse="true" title="Answer"}
+It is $4+2\cdot 1\cdot(-1/2)+1^{2}\cdot 1+1=4-1+1+1=5$. The cross term $-1$ is smaller in magnitude at $t=1$ than the $-2$ at $t=2$, and the slope variance contributes $1$ rather than $4$.
+:::
+
+### Parallel lines {#self-check-slope-parallel}
+
+Set $\sigma_b^{2}=\sigma_{ab}=0$, keep $\sigma_a^{2}=4$ and $\sigma^{2}=1$. What is the covariance between two distinct occasions, and why does it not depend on their times?
+
+::: {.callout-tip collapse="true" title="Answer"}
+The covariance is $4$. Every term that multiplies a time contains $\sigma_b^{2}$ or $\sigma_{ab}$, both zero, so only the shared intercept variance remains. The lines are parallel random shifts.
+:::
+
+### A correlation that is too large {#self-check-slope-bound}
+
+Someone proposes $\sigma_a^{2}=1$, $\sigma_b^{2}=1$ and $\sigma_{ab}=1.5$. Why is there no random vector $(a_j,b_j)$ with that covariance?
+
+::: {.callout-tip collapse="true" title="Answer"}
+The determinant would be $1\cdot 1-(1.5)^{2}=-1.25<0$, so the matrix is not positive semidefinite. A correlation of $1.5$ is impossible. The bound is $\sigma_{ab}^{2}\le\sigma_a^{2}\sigma_b^{2}$.
+:::
+
 ## History
 Random-effects models for repeated measurements were already in wide use when Bates, Mächler, Bolker and Walker set out the form fitted by `lmer`: a normal conditional mean $X\beta+Zb$, a normal random-effects vector with covariance factorised as $\sigma^{2}\Lambda\Lambda^{\top}$, and a profiled criterion in the variance parameters. Their running example is the sleep-deprivation reaction-time study, in which each subject’s day slope is a draw around a population slope. The marginal covariance calculation above is the second-moment consequence of that conditional normal model.{{cite:bates_lme4_2015}} (§1, pp. 1–3)

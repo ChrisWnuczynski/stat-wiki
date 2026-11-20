@@ -46,3 +46,18 @@ The system has at least five simultaneous services about $18.47\%$ of equilibriu
 ::: {.callout-tip collapse="true" title="Answer"}
 The mean occupancy becomes $24/4=6$ and the empty probability is $e^{-6}\approx0.002479$. The mean sojourn stays $1/4$ hour: extra customers receive extra servers rather than joining a queue.
 :::
+
+## Check yourself
+### Infinite servers {#self-check-ex-sp-mminf-numbers}
+[An M/M/∞ system](../questions/ex-sp-mminf-numbers.qmd): calculate its occupancy and sojourn measures.
+
+::: {.callout-tip collapse="true" title="Answer"}
+With $\lambda=6$ and $\mu=2$, $N$ is Poisson with mean $3$. Thus $P(N=0)=e^{-3}\approx0.049787$, $P(N\ge4)=1-e^{-3}(1+3+9/2+27/6)\approx0.352768$, and $W=1/2$ hour. There is no waiting before service.
+:::
+
+### Balancing neighbouring states {#self-check-ex-sp-birth-death-pi}
+[Birth–death balance on three states](../questions/ex-sp-birth-death-pi.qmd): normalise the local-balance weights.
+
+::: {.callout-tip collapse="true" title="Answer"}
+The equations are $\pi_0=\pi_1/3$ and $(2/3)\pi_1=\pi_2$. Weights $(1,3,2)$ solve them and sum to six, giving $(1/6,1/2,1/3)$. The same flow idea yields factorial weights in the infinite-server process, where the downward rate changes with state.
+:::

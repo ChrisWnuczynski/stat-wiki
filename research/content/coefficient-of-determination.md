@@ -30,3 +30,18 @@ The line accounts for about $26.7\%$ of the centred variation, leaving about $73
 ::: {.callout-tip collapse="true" title="Answer"}
 Its $SSE=1+4+1+16+4=26$, so $1-26/6=-10/3$. This fixed prediction is worse than predicting the sample mean. It is not the least-squares fit with an intercept.
 :::
+
+## Check yourself
+### Derive the fitted line {#self-check-ex-inf-normal-equations}
+[Normal equations for a straight line](../questions/ex-inf-normal-equations.qmd) supplies the orthogonality used in the decomposition.
+
+::: {.callout-tip collapse="true" title="Answer"}
+Differentiating SSE gives $\sum e_i=\sum x_ie_i=0$. These imply $b_0=\bar y-b_1\bar x$ and $b_1=S_{xy}/S_{xx}$. The Hessian is $2X^\top X$, positive definite when the predictor varies.
+:::
+
+### Recognise a different baseline {#self-check-ex-inf-line-through-origin}
+[A line through the origin](../questions/ex-inf-line-through-origin.qmd) omits the intercept.
+
+::: {.callout-tip collapse="true" title="Answer"}
+The fitted slope is $\sum x_iy_i/\sum x_i^2$, with sampling mean $\beta$ and variance $\sigma^2/\sum x_i^2$ under the stated error model. Residuals need not sum to zero, so the centred $R^2=r^2$ identity does not automatically apply.
+:::

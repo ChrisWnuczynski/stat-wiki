@@ -21,3 +21,19 @@ Now suppose independent noise with variance $4$ is added to that trend. Subtract
 ::: {.callout-tip collapse="true" title="Answer"}
 It is $(1+2t)-[1+2(t-4)]=8$ at every eligible time. It is constant, so its straight-line slope is zero.
 :::
+
+## Check yourself
+
+### A fixed mean versus a changing level {#self-check-c-43}
+[Two stationarity definitions](../questions/c-43.qmd): state the moment conditions for weak stationarity.
+
+::: {.callout-tip collapse="true" title="Answer"}
+Second moments must be finite, the mean must be constant, and covariance must depend only on lag. A nonconstant deterministic trend violates the mean condition.
+:::
+
+### Forecasting around a fixed mean {#self-check-depth-point-forecast-ar-two-step}
+[An autoregression two steps ahead](../questions/depth-point-forecast-ar-two-step.qmd): find its forecasts and forecast-error variances.
+
+::: {.callout-tip collapse="true" title="Answer"}
+The forecasts are $20+0.6(30-20)=26$ and $20+0.6^2(30-20)=23.6$. Their error variances are $9$ and $9(1+0.6^2)=12.24$. These predictions return toward a constant mean, rather than extrapolating a fitted trend indefinitely.
+:::

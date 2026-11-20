@@ -31,3 +31,25 @@ At $z=2$ and $n=100$, the exact scaled CDF is $(1-0.25/100)^{100}=0.778557$, whi
 ::: {.callout-tip collapse="true" title="Answer"}
 It is multiplied by $4^{1/2}=2$. This concerns the scale of the maximum, not the value of every realised maximum.
 :::
+
+## Check yourself
+
+### A larger sample {#self-check-ex-sp-pareto-factor}
+
+[Practice question](../questions/ex-sp-pareto-factor.qmd)
+
+A Pareto upper tail has exponent $\alpha=2$. By what factor does the scale of the typical maximum change when the sample size is multiplied by $4$?
+
+::: {.callout-tip collapse="true" title="Answer"}
+The Fréchet scale for exponent $\alpha=2$ is $n^{1/2}$. Replacing $n$ by $4n$ multiplies the scale by $\sqrt{4}=2$.
+:::
+
+### An exponential comparison {#self-check-ex-sp-gumbel-scale}
+
+[Practice question](../questions/ex-sp-gumbel-scale.qmd)
+
+For independent $\mathrm{Exp}(2)$ variables, give $a_n$ and $b_n$ that produce the Gumbel limit.
+
+::: {.callout-tip collapse="true" title="Answer"}
+For an exponential rate $\lambda$ the centring $(\log n)/\lambda$ and the scale $1/\lambda$ produce the Gumbel limit. Here $\lambda=2$, so $b_n=(\log n)/2$ and $a_n=1/2$.
+:::

@@ -30,7 +30,7 @@ assert body.count('title="Answer"') >= 1
 assert body.count("../reference/plots/multivariate-normal-distribution-") == 2
 assert "prob-correlation.png" in body
 questions = set(re.findall(r"\.\./questions/([^.)#]+)\.qmd", body))
-assert len(questions) == 11, f"Expected 11 question links, got {len(questions)}"
+assert len(questions) == 10, f"Expected 10 question links, got {len(questions)}"
 assert all(key in body for key in (
     'data-cite-key="strimmer2025_mva"',
     'data-cite-key="wang2025_foundations"',

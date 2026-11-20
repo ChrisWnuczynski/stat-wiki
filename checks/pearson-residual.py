@@ -26,7 +26,7 @@ for printed in (
 assert body.count('title="Proof"') == 1
 assert "**Your turn.**" in body and "## Check yourself" in body
 assert body.count('title="Answer"') >= 3
-for qid in ("depth-pearson-residual-q1", "depth-pearson-residual-q2"):
+for qid in ("ex-inf-pearson-one-cell", "ex-ur-log-link"):
     assert f"../questions/{qid}.qmd" in page
 assert 'data-cite-key="dodge2008"' in body
 print("pearson residual checks passed")

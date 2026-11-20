@@ -26,3 +26,25 @@ Three arbitrary observed proportions need not satisfy that multiplicative restri
 ::: {.callout-tip collapse="true" title="Answer"}
 The odds multiply to $6$, so the probability is $6/(1+6)=6/7$.
 :::
+
+## Check yourself
+
+### The head-to-head model {#self-check-c-26}
+
+[Practice question](../questions/c-26.qmd)
+
+What is the Bradley--Terry model for a head-to-head contest with no ties?
+
+::: {.callout-tip collapse="true" title="Answer"}
+**Definitions/notation.** For a contest with no ties, assign real-valued log-abilities $\lambda_j$; the model specifies $\mathbb{P}(j\text{ beats }k)=e^{\lambda_j}/(e^{\lambda_j}+e^{\lambda_k})$, equivalently odds $e^{\lambda_j-\lambda_k}$. Only ability differences are identifiable, so a reference such as $\lambda_1=0$ is needed.
+:::
+
+### Model discrepancy {#self-check-c-29}
+
+[Practice question](../questions/c-29.qmd)
+
+What is a saturated model, and what does deviance compare? Distinguish deviance from scaled deviance.
+
+::: {.callout-tip collapse="true" title="Answer"}
+**Definitions/notation.** A saturated mean model fits each observed response exactly ($\tilde\mu_i=y_i$, possibly as a boundary limit); at common dispersion $\phi$, the scaled deviance is $D/\phi=2\{\ell(\tilde\mu;y,\phi)-\ell(\hat\mu;y,\phi)\}$. Thus the unscaled deviance $D$ is $\phi$ times that log-likelihood-ratio discrepancy, and equals the scaled deviance when $\phi=1$.
+:::

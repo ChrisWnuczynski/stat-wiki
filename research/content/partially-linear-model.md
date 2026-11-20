@@ -34,3 +34,25 @@ For a logit model with a treatment indicator and coefficient $0.4$, the treatmen
 ::: {.callout-tip collapse="true" title="Answer"}
 They are $\operatorname{expit}(-1)=0.268941$ and $\operatorname{expit}(-0.6)=0.354344$. The increase is about $0.085402$.
 :::
+
+## Check yourself
+
+### A term and a model {#self-check-c-30}
+
+[Practice question](../questions/c-30.qmd)
+
+Does a significant predictor establish that a GLM fits adequately? Name one separate diagnostic check.
+
+::: {.callout-tip collapse="true" title="Answer"}
+**Definitions/notation.** A coefficient significance test addresses a specified null hypothesis about that coefficient within the assumed model; adequacy concerns whether the model describes the data sufficiently well. Significance does not establish adequacy: for example, inspect Pearson residuals $(y_i-\hat\mu_i)/\sqrt{\hat\phi V(\hat\mu_i)}$ against fitted values for unexplained patterns or changing spread.
+:::
+
+### Reading a log-odds contrast {#self-check-c-26}
+
+[Practice question](../questions/c-26.qmd)
+
+What is the Bradley--Terry model for a head-to-head contest with no ties?
+
+::: {.callout-tip collapse="true" title="Answer"}
+**Definitions/notation.** For a contest with no ties, assign real-valued log-abilities $\lambda_j$; the model specifies $\mathbb{P}(j\text{ beats }k)=e^{\lambda_j}/(e^{\lambda_j}+e^{\lambda_k})$, equivalently odds $e^{\lambda_j-\lambda_k}$. Only ability differences are identifiable, so a reference such as $\lambda_1=0$ is needed.
+:::

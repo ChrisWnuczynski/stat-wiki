@@ -62,5 +62,30 @@ The variance split is for a scalar function of the state. A trace of one coordin
 ## Connections
 The [autocorrelation function](autocorrelation-function.qmd) summarises dependence along one sequence; the trace shows the path that produced those correlations. [Effective sample size](effective-sample-size.qmd) converts that dependence into an equivalent number of independent draws, and it still describes only the region the sequences visited. [Warm-up](burn-in.qmd) is the discarded prefix in the multiple-sequence protocol. The [Gibbs sampler](gibbs-sampling.qmd) and [Metropolis–Hastings](metropolis-hastings-algorithm.qmd) are two transitions whose output is commonly drawn this way; a valid trace does not distinguish which transition was used.{{cite:gelman_rubin1992}} (§1 and §2.2, pp. 457–461)
 
+## Check yourself
+### A separated pair {#self-check-trace-ratio}
+
+Sequences $0,1,0,1$ and $5,6,5,6$ give $W=1/3$ and $\hat\sigma^{2}=12.75$. Why does a histogram of the eight numbers fail to show what the trace shows?
+
+::: {.callout-tip collapse="true" title="Answer"}
+The histogram records that the values $0$, $1$, $5$ and $6$ occurred. It does not record that one sequence produced only $0$ and $1$ while the other produced only $5$ and $6$. The trace, and the gap between the means that enters $B$, keep the sequence labels.
+:::
+
+### When $B$ is zero {#self-check-trace-agree}
+
+Both sequences are $1,2,1,2$, so $B=0$ and $W=1/3$. What is $\hat\sigma^{2}$, and why is a second trace still worth drawing?
+
+::: {.callout-tip collapse="true" title="Answer"}
+Equation (3) gives $\hat\sigma^{2}=(3/4)(1/3)=0.25$. The second trace is what makes $B$ a number rather than an undefined symbol. Agreement of the two paths is the observation that $B=0$; one path alone cannot show agreement with a path that was never run.
+:::
+
+### One chain, two modes {#self-check-trace-one}
+
+A target has two well-separated modes. A single sequence of length $10{,}000$ stays in the mode where it started, and its trace looks stable. What does equation (3) refuse to provide?
+
+::: {.callout-tip collapse="true" title="Answer"}
+It refuses $B$. With one sequence there is no variance among sequence means, so the comparison of between-sequence and within-sequence variation cannot be formed. Stability inside the visited mode does not estimate the unvisited mode.
+:::
+
 ## History
 Gelman and Rubin’s 1992 paper in *Statistical Science* recommended several independent sequences, started from a distribution more dispersed than the target, and a variance estimate that combines the within-sequence variance $W$ with the between-sequence term $B$. They contrasted that numerical comparison with earlier monitoring that looked at graphs or at $B$ alone. The trace plot is the display on which the disagreement those formulae measure is visible iteration by iteration.{{cite:gelman_rubin1992}} (§1–2, pp. 457–461)

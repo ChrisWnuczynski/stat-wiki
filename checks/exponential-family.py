@@ -17,7 +17,7 @@ if __name__ == "__main__":
     for match in re.finditer(r"\{\{cite:([^}]+)\}\}", prose):
         assert re.match(r" \((?:§|Summary|Introduction|Ch\.)", prose[match.end():]), match.group()
     for match in re.finditer(r'<sup[^>]*data-cite-key="([^"]+)"[^>]*>.*?</sup>', body, re.S):
-        assert re.match(r"\s*\((?:§|Ch\.|Summary|Details|Sec\.|p\.|pp\.|Introduction)", body[match.end():]), match.group(1)
+        assert re.search(r'data-locator="[^"]+"', match.group(0)), match.group(1)
 
     for printed in (
         r"$\eta=\theta/e(\phi)$", r"$A(\eta)=-c(\theta)/e(\phi)$",
@@ -51,7 +51,7 @@ if __name__ == "__main__":
     assert r"\mathbf X_i" not in body.split("## Check yourself", 1)[0]
     assert "{{cite:" not in body
     assert not re.search(r"!\[[^\]]*\]\(", page)
-    assert len(set(re.findall(r"\.\./questions/([^.)]+)", body))) == 8
+    assert len(set(re.findall(r"\.\./questions/([^.)]+)", body))) == 7
     keys = set(re.findall(r'data-cite-key="([^"]+)"', body))
     assert keys <= {
         "nelder_wedderburn1972", "diaconis_ylvisaker1979",

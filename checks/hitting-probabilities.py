@@ -23,6 +23,6 @@ body=(root/"articles/hitting-probabilities.qmd").read_text().split("## See also"
 for text in ["27/65","9/13","57/65","8/15","Your turn","## Check yourself {#check-yourself}"]:
     assert text in body,text
 assert len(re.findall('class="cite-ref"',body))>=5
-for q in ["depth-hitting-probabilities-q1", "depth-hitting-probabilities-q2"]:
+for q in ["ex-sp-fair-ruin","ex-sp-biased-goal"]:
     assert f"../questions/{q}.qmd" in body
 print("hitting-probabilities: linear systems, recurrences and article checks passed")

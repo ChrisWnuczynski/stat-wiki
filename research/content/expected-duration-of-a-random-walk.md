@@ -54,3 +54,18 @@ A drift toward the farther boundary has slightly increased the mean duration her
 ::: {.callout-tip collapse="true" title="Answer"}
 The new start is $4$ and target is $12$, giving $4(12-4)=32$ steps. Duration increases by a factor of four, rather than two.
 :::
+
+## Check yourself
+### Fair success and duration {#self-check-ex-sp-fair-ruin}
+[A fair walk on eight steps](../questions/ex-sp-fair-ruin.qmd): calculate both quantities from its start at five.
+
+::: {.callout-tip collapse="true" title="Answer"}
+The upper-boundary probability is $5/8$. The expected duration until either boundary is $5(8-5)=15$ steps. One is a probability, the other a mean number of transitions.
+:::
+
+### Checking the quadratic {#self-check-ex-sp-duration-identity}
+[Checking the duration formula](../questions/ex-sp-duration-identity.qmd): verify the recurrence directly.
+
+::: {.callout-tip collapse="true" title="Answer"}
+Both endpoints of $e_x=x(d-x)$ are zero. Expanding the two neighbouring values gives $(e_{x+1}+e_{x-1})/2=x(d-x)-1$. Adding one therefore returns $e_x$, exactly the fair-walk first-step equation.
+:::

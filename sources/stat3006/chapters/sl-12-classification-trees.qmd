@@ -252,7 +252,7 @@ Tree $1$ has two leaves with weighted impurities $0.30$ and $0.20$. Tree $2$ has
 :::
 
 ::: {#ex-sl-12-6 .exercise}
-## A tempting wrong turn
+## Zero apparent error does not make a tree a perfect classifier
 
 A fully grown tree has apparent error rate $0$. A colleague concludes that the classifier is perfect. Explain what is wrong and what you would report instead.
 

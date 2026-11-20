@@ -39,3 +39,21 @@ For a negative shift the powerful rejection tail is instead the lower tail. The 
 ::: {.callout-tip collapse="true" title="Answer"}
 It is $0.05$. Power is defined at null parameter values too; there it is the false-alarm probability.
 :::
+
+## Check yourself
+
+### [Power of a serve test](../questions/ex-inf-serve-power.qmd) {#self-check-ex-inf-serve-power}
+
+For $X\sim\operatorname{Bin}(15,p)$ and rejection at $X\ge13$, compute the power at $p=0.6$ and $p=0.9$.
+
+::: {.callout-tip collapse="true" title="Answer"}
+$\beta(p)=\sum_{j=13}^{15}\binom{15}{j}p^j(1-p)^{15-j}$. It is approximately $0.027114$ at $0.6$ and $0.815939$ at $0.9$. The attainable size here is below $0.05$ without randomisation.
+:::
+
+### [A critical region for known variance](../questions/ex-inf-blood-pressure-region.qmd) {#self-check-ex-inf-blood-pressure-region}
+
+For the two-sided standardised statistic in that question, what are the level-$0.05$ rejection tails?
+
+::: {.callout-tip collapse="true" title="Answer"}
+Reject for $T<-1.960$ or $T>1.960$. In sample-mean units the endpoints are $127\pm1.960(7/\sqrt{101})$, approximately $125.635$ and $128.365$.
+:::

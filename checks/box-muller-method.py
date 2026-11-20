@@ -20,5 +20,5 @@ body=(root/"articles/box-muller-method.qmd").read_text().split("## See also",1)[
 for text in ["e^{-2}","5/6","Your turn","## Check yourself {#check-yourself}"]:
     assert text in body,text
 assert 'title="Proof"' in body and len(re.findall('class="cite-ref"',body))>=5
-for q in ["depth-box-muller-method-q1", "depth-box-muller-method-q2"]:assert f"../questions/{q}.qmd" in body
+for q in ["ex-prob-generate-normal","ex-prob-generate-uniform"]:assert f"../questions/{q}.qmd" in body
 print("box-muller-method: Jacobian, radial moments, exact draws and article checks passed")

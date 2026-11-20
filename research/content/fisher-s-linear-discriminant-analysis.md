@@ -42,3 +42,18 @@ The second coordinate's mean difference is redundant for the optimal linear cont
 ::: {.callout-tip collapse="true" title="Answer"}
 Replacing $S$ by $2S$ halves every value of $J(a)$. The optimal direction is proportional to $(2S)^{-1}d=(1/2,0)^\top$, the same projection direction, and the maximum becomes $1/2$.
 :::
+
+## Check yourself
+### Comparing two directions {#self-check-ex-sl-08-6}
+[Fisher's direction](../questions/ex-sl-08-6.qmd): compare the optimal and raw-contrast criteria.
+
+::: {.callout-tip collapse="true" title="Answer"}
+With $d=(-3,-2)^\top$ and the displayed covariance, $S^{-1}d=(-3/2,-3/2)^\top$. The maximum is $d^\top S^{-1}d/2=15/4=3.75$. Using $a=d$ gives $a^\top Sa=68/3$ and $J(d)=507/136\approx3.727941$, which is smaller.
+:::
+
+### Covariance parameters and rank {#self-check-ex-sl-08-5}
+[Parameter counts](../questions/ex-sl-08-5.qmd): count the parameters for three classes and ten predictors.
+
+::: {.callout-tip collapse="true" title="Answer"}
+There are $30$ mean parameters and two free prior probabilities. A symmetric ten-dimensional covariance has $55$ parameters. LDA therefore has $30+55+2=87$ and QDA has $30+3(55)+2=197$. Each QDA class needs at least $11$ observations whose centred predictor vectors span ten dimensions; the count alone does not guarantee nonsingularity.
+:::

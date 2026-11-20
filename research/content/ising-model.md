@@ -24,3 +24,23 @@ The target ratio is $e>1$, so the reverse proposal is accepted with probability 
 
 ## Statistical use — Local computation and global uncertainty
 For a large graph, summing over all $2^m$ spin configurations can be expensive, while a local flip uses only one site's neighbours. Cancellation of a normalising constant makes sampling feasible, but does not imply that successive configurations are independent or that a short run explores every high-probability region. Mixing and statistical error still need assessment.{{cite:metropolis1953}} (§II, pp. 1088–1089)
+
+## Check yourself
+
+Use the definitions and calculations above to work through these questions.
+
+### Why the normaliser cancels {#self-check-q-05}
+
+[Why the normaliser cancels](../questions/q-05.qmd). Focus on the symmetric proposal and part (d).
+
+::: {.callout-tip collapse="true" title="Answer"}
+The forward and reverse proposal densities agree. The remaining target ratio divides two weights with the same normalising constant, so that constant cancels as well.
+:::
+
+### Successive states are related {#self-check-ex-sp-weather-two-step}
+
+[Successive states are related](../questions/ex-sp-weather-two-step.qmd). Compute the matrix-power entry.
+
+::: {.callout-tip collapse="true" title="Answer"}
+The two-step probability is $0.9(0.1)+0.1(0.6)=0.15$. A Markov chain can preserve a stationary law while successive states remain dependent.
+:::

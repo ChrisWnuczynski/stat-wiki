@@ -30,3 +30,25 @@ Independence is essential for superposition. Combining a process of rate four wi
 ::: {.callout-tip collapse="true" title="Answer"}
 The rates are six and four per hour. The two processes are independent, so the covariance of their one-hour counts is zero.
 :::
+
+## Check yourself
+
+### A rate and an interval {#self-check-ex-sp-poisson-half-hour}
+
+[Practice question](../questions/ex-sp-poisson-half-hour.qmd)
+
+At rate three per hour, find the probability of two arrivals in half an hour and of waiting more than twenty minutes.
+
+::: {.callout-tip collapse="true" title="Answer"}
+The half-hour count has mean $1.5$, so its probability at two is $e^{-1.5}1.5^2/2=0.251021$. The no-arrival probability for twenty minutes is $e^{-1}=0.367879$.
+:::
+
+### Condition on the total {#self-check-ex-sp-conditional-times}
+
+[Practice question](../questions/ex-sp-conditional-times.qmd)
+
+Given exactly three arrivals in two hours, what is the probability that all occur in the first hour?
+
+::: {.callout-tip collapse="true" title="Answer"}
+Conditional locations are independent uniform points on the two-hour interval before ordering. Each falls in the first half with probability $1/2$, giving $(1/2)^3=1/8$.
+:::

@@ -55,5 +55,27 @@ If the errors are uncorrelated with variance $\sigma^2$ but not normal, $\hat\be
 ## Connections
 [Ordinary least squares](ordinary-least-squares.qmd) is the fitting rule. The [sampling distribution of the least-squares estimator](sampling-distribution-of-the-ols-estimator.qmd) is the normal law this model adds. A [residual](error-and-residual.qmd) is $y-X\hat\beta$, not the unobservable $\varepsilon$. [Student's t distribution](student-t-distribution.qmd) is the reference for a coordinate when $\sigma$ is estimated. A [generalised linear model](generalised-linear-model.qmd) keeps a linear predictor and drops the Gaussian assumption on $Y$ itself.{{cite:hastie_esl2009}} (§3.2, pp. 45–47)
 
+## Check yourself
+
+### Normal equations {#self-check-ex-inf-normal-equations}
+
+In the four-point example, why does a slope of 0.6 with standard error 0.1414 fail to reject at the 5% level?
+
+[Exercise](../questions/ex-inf-normal-equations.qmd)
+
+::: {.callout-tip collapse="true" title="Answer"}
+The ratio is $0.6/0.1414=4.243$. The $0.975$ quantile of $t_2$ is 4.3027. Because $4.243<4.3027$, the level-0.05 two-sided test does not reject a zero slope. The comparison uses two residual degrees of freedom. A normal critical value near 1.96 would have rejected, and that is not the Gaussian model's reference law here.
+:::
+
+### Normal–inverse-$\chi^2$ regression {#self-check-ex-reg-nichisq}
+
+The sampling model says $\hat\beta$ is normal. What extra ingredient makes a posterior for $\beta$ normal–inverse-chi-squared rather than a sampling distribution?
+
+[Exercise](../questions/ex-reg-nichisq.qmd)
+
+::: {.callout-tip collapse="true" title="Answer"}
+A prior distribution on $(\beta,\sigma^2)$. The Gaussian linear model by itself is the distribution of $Y$ given those parameters. Putting a normal–inverse-chi-squared prior on them, and conditioning on $Y$, produces a posterior in the same family. The least-squares fit is the posterior mode or mean only for particular priors. It is not automatically a posterior summary.
+:::
+
 ## History
 Least squares is older than the Gaussian sampling model built on top of it. Hastie, Tibshirani and Friedman separate the two steps explicitly: the minimiser of the residual sum of squares is defined without a distribution, and the normal, chi-squared and $t$ statements begin only once the errors are assumed independent and Gaussian with constant variance. The four-point numbers above are that second step, small enough that the difference between a normal critical value and a $t_2$ critical value is visible.{{cite:hastie_esl2009}} (§3.2, pp. 45–47)

@@ -23,6 +23,6 @@ for printed in ("7.3891", "1.4060", "4.0796", "1.0986", "2"):
     assert printed in body, printed
 assert prose.count('title="Proof"') == 1
 assert "**Your turn.**" in prose and "## Check yourself" in prose
-assert prose.count('title="Answer"') == 4
+assert prose.count('title="Answer"') == 3
 assert "{{cite:rstats_glm2026}}" in prose
 print("fisher-scoring arithmetic passed")

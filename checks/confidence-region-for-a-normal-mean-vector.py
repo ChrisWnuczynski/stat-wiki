@@ -28,5 +28,5 @@ body=(root/"articles/confidence-region-for-a-normal-mean-vector.qmd").read_text(
 for text in ["7.504065","1.06095","0.61254","10/3","Your turn","## Check yourself {#check-yourself}"]:
     assert text in body,text
 assert len(re.findall('class="cite-ref"',body))>=5
-for qid in ["depth-confidence-region-for-a-normal-mean-vector-q1", "depth-confidence-region-for-a-normal-mean-vector-q2"]:assert f"../questions/{qid}.qmd" in body
+for qid in ["ex-sl-02-5","ex-sl-01-4"]:assert f"../questions/{qid}.qmd" in body
 print("confidence-region-for-a-normal-mean-vector: axes, tests, scaling and article checks passed")

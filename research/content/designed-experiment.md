@@ -61,5 +61,27 @@ Randomisation balances traits at the moment of assignment. It does not balance w
 ## Connections
 An [observational study](observational-study.qmd) leaves the conditions unassigned. A [randomised controlled trial](randomised-controlled-trial.qmd) is the case with a control arm and a random allocation. [Blinding and placebo](blinding-and-placebo.qmd) stop knowledge of the assignment from moving the response. A [confounding variable](confounding-variable.qmd) is what randomisation is built to break. The numerical comparison of the two caffeine means, once the design is granted, is a [two-sample t test](two-sample-t-test.qmd).
 
+## Check yourself
+
+### Facial tumours in Tasmanian devils {#self-check-ex-da-devil-tumours}
+
+Thirty devils are split into two groups of 15. One group is given a medicine. What must the description still say before the split can be judged as a randomised experiment, and what is the response?
+
+[Exercise](../questions/ex-da-devil-tumours.qmd)
+
+::: {.callout-tip collapse="true" title="Answer"}
+The split is an experiment once the investigators assign the medicine. Judging the comparison needs the allocation rule, whether measurement was blind, whether the untreated devils had the same handling, and whether the groups were comparable at the start. The response is the change in tumour size over 12 weeks, or the later size adjusted for the starting size. It is quantitative. The medicine-or-not factor is categorical with two levels.
+:::
+
+### A dose comparison for middle-of-the-night insomnia {#self-check-ex-da-motn-insomnia}
+
+Twenty-four patients are randomly allocated to placebo, a low dose, or a high dose. What kind of study is this, and what type of variable is the dose?
+
+[Exercise](../questions/ex-da-motn-insomnia.qmd)
+
+::: {.callout-tip collapse="true" title="Answer"}
+It is a randomised designed experiment with a placebo control. Dose takes three named levels, so it is categorical. The levels have an order, so the factor is ordinal. Total sleep time, the response, is a duration and is quantitative. The random allocation is what makes a later difference in sleep a comparison of the assigned doses.
+:::
+
 ## History
 Experimental designs were first used in the 1920s, mostly in agriculture, and R. A. Fisher was the first to bring mathematical statistics into the design of experiments, writing a non-mathematical outline of the principles in 1926. A design is a specification of factor levels, including the combinations used when several factors are studied together, and it is judged by whether the experimental effort can support the conclusion.{{cite:dodge2008}} (p. 162, History and domains)

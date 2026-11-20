@@ -509,7 +509,7 @@ In a soft-margin machine with $C=2$, three training points have $\alpha=0$, $\al
 :::
 
 ::: {#ex-sl-17-7 .exercise}
-## A tempting wrong turn
+## A narrow Gaussian kernel can interpolate the training set
 
 A practitioner fits a Gaussian-kernel machine with a very large $\gamma$ and $C$ and reports $100\%$ training accuracy, concluding the problem is solved. Explain what has probably happened and how to check it.
 

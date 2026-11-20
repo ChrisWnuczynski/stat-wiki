@@ -43,5 +43,27 @@ The number $Q_3-Q_1$ is only as well defined as $Q_1$ and $Q_3$. Two software pa
 ## Connections
 The [median](median.qmd) is the quartile at probability 1/2. A [five-number summary](five-number-summary-and-boxplot.qmd) displays the minimum, the two quartiles, the median and the maximum, and the box in a boxplot has width equal to the interquartile range. The [sample standard deviation](sample-variance-and-standard-deviation.qmd) is the scale that uses squared deviations. The [range](range.qmd) uses only the two extremes.{{cite:nist_handbook2002}} (§1.3.5.6, range, standard deviation and interquartile range){{cite:dodge2008}} (p. 266, quartiles)
 
+## Check yourself
+
+### Quartiles of a sample {#self-check-ex-da-nutrition-types}
+
+A sample has first quartile 51 and third quartile 70. What is the interquartile range, and what is the upper 1.5-fence?
+
+[Exercise](../questions/ex-da-nutrition-types.qmd)
+
+::: {.callout-tip collapse="true" title="Answer"}
+The interquartile range is $70-51=19$. The upper fence is $70+1.5\times19=70+28.5=98.5$. An age beyond 98.5 would be drawn past the whisker. The fence is a drawing rule, not a statement that such an age is impossible.
+:::
+
+### A spread beside a mean {#self-check-ex-inf-milk-summaries}
+
+Creatinine quartiles are 0.9 and 1.4. Compute the interquartile range and the upper fence, and say why the mean can sit well above the median while this range stays small.
+
+[Exercise](../questions/ex-inf-milk-summaries.qmd)
+
+::: {.callout-tip collapse="true" title="Answer"}
+The interquartile range is $1.4-0.9=0.5$. The upper fence is $1.4+1.5\times0.5=2.15$. A long right tail pulls the mean and the standard deviation and need not move $Q_1$ or $Q_3$ if the central order statistics stay put. That is the same mechanism as the value 100 leaving the interquartile range at 4.5.
+:::
+
 ## History
 The interquartile range is $Q_3-Q_1$, the length of the central half of the distribution. NIST's handbook places the same difference among the scale measures, contrasts it with the variance and the range, and recommends it when long tails make the standard deviation unstable. The factor 1.5 in the boxplot fence is a plotting convention attached to that length, not part of the definition of the length itself.{{cite:dodge2008}} (p. 266, Interquartile range){{cite:nist_handbook2002}} (§1.3.5.6, definition and robustness)

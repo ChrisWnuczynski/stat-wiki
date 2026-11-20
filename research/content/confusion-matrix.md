@@ -51,3 +51,20 @@ There are $116$ negative predictions, of which $108$ are actual negatives. The n
 
 ## Statistical use — Evaluation depends on the reference labels
 The table measures agreement with the supplied reference labels. If those labels make mistakes, the table combines the classifier's errors with errors in the reference. Blinded assessment, careful outcome definitions, and an evaluation design representing the intended population determine what its entries mean. Agreement between two procedures alone cannot establish that either procedure always identifies the underlying state correctly.{{cite:yerushalmy1947}} (pp. 1434–1438)
+
+## Check yourself
+State the denominator before calculating each error rate.
+
+### Weighting the class errors {#self-check-ex-sl-09-1}
+[A confusion matrix](../questions/ex-sl-09-1.qmd): compute the overall and class-specific errors for the table in the question.
+
+::: {.callout-tip collapse="true" title="Answer"}
+The off-diagonal count is $12+16=28$, so the overall error is $28/200=0.14$. The row-specific errors are $12/120=0.1$ and $16/80=0.2$. Weighting them by the observed class proportions gives $0.6(0.1)+0.4(0.2)=0.14$.
+:::
+
+### A majority-class rule {#self-check-ex-sl-11-8}
+[What an accuracy table does and does not say](../questions/ex-sl-11-8.qmd): compare its test accuracy with always predicting class 2.
+
+::: {.callout-tip collapse="true" title="Answer"}
+The classifier has accuracy $(18+32)/60=5/6$ and class errors $2/20=0.1$ and $8/40=0.2$. Always predicting class 2 has accuracy $40/60=2/3$, but misses every class-1 observation. Overall accuracy therefore needs the class-specific rates to show the pattern of errors.
+:::

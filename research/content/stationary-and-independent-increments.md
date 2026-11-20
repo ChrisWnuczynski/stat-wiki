@@ -53,5 +53,27 @@ If one shock creates several events at once, the counts in nearby windows share 
 ## Connections
 Durrett's Brownian motion is the continuous process with both properties. A [Poisson process](homogeneous-poisson-process.qmd) is the counting process with both properties and unit jumps. A [Galton–Watson process](galton-watson-process.qmd) has neither: the next generation depends on the current population. [Independent random variables](independent-random-variables.qmd) are the increment statement when the windows are fixed and disjoint.{{cite:durrett2019}} (pp. 353–354, Brownian motion as the continuous example)
 
+## Check yourself
+
+### Increments and levels {#self-check-ex-sp-increments-and-levels}
+
+For standard Brownian motion, what is $\Var(B(6)-B(4))$, and what is $\Var(B(6))$? Why are they different?
+
+[Exercise](../questions/ex-sp-increments-and-levels.qmd)
+
+::: {.callout-tip collapse="true" title="Answer"}
+The increment has length 2, so its variance is 2. The level $B(6)$ has variance 6. Stationary increments fix the variance of a change of a given length. They do not stop the level from accumulating variance as time passes.
+:::
+
+### A half-hour count {#self-check-ex-sp-poisson-half-hour}
+
+A Poisson process has rate 3 per hour. What is the probability of no events in a 20-minute window, and does the answer depend on when the window starts?
+
+[Exercise](../questions/ex-sp-poisson-half-hour.qmd)
+
+::: {.callout-tip collapse="true" title="Answer"}
+Twenty minutes is $1/3$ hour, so the mean count is $3\times1/3=1$. The probability of zero is $e^{-1}=0.3679$. Stationary increments make the answer the same for every window of that length.
+:::
+
 ## History
 Durrett defines one-dimensional Brownian motion by independent increments, by a normal increment whose variance equals the length of the interval, and by continuous paths. The first two of those are the independent-increments property and the stationary-increments property. He notes that the process arose as a model of Brown's 1828 observation of pollen and of Bachelier's 1900 model of the stock market. The Poisson calculation on this page is the counting-process version of the same two properties, with a Poisson increment in place of a normal one.{{cite:durrett2019}} (pp. 353–354, definition and the historical remark on Brown and Bachelier)

@@ -193,7 +193,7 @@ If $\tau_1(x)=0.9$ at a point, find the conditional Bayes error and the asymptot
 :::
 
 ::: {#ex-sl-11-5 .exercise}
-## A tempting wrong turn
+## A training point cannot be its own neighbour when choosing $k$
 
 A student chooses $k$ by minimising the training-set error of the $k$-nearest-neighbour classifier over $k=1,\ldots,50$, counting each training point as its own neighbour. What happens, and what should be done instead?
 
