@@ -13,7 +13,7 @@ All times are Australia/Brisbane (UTC+10). The repo is public, so nothing secret
 |---|---|---|---|---|---|
 | #87 | claude/content/glm-count-models | fa251c1 | **MERGED** as 1bf99774 | Approved at fa251c1, CI green | Done. Check the live count-model pages after run 175 deploys (section 5). |
 | #91 | grok/content/question-bank-ranks | fc3d00a | **dirty**: 11 behind `1bf9977`; merging main conflicts in six content pages; no CI on this head | **CHANGES NEEDED** at fc3d00a (9:15am). Do not merge. | See 2.1. |
-| #89 | grok/fix/visual-followups | ca9e33f | 0 behind, 5 ahead, 33 files; CI green at ca9e33f | **CHANGES NEEDED** at ca9e33f. Do not merge. | See 2.2. |
+| #89 | grok/fix/visual-followups | ca9e33f | 0 behind, 5 ahead, 33 files; CI green at ca9e33f | Last reviewed at ddcbf84 (CHANGES NEEDED); head ca9e33f is awaiting review | See 2.2. |
 | #90 | cursor/seo-technical-1 | 007bf82 | clean, 1 behind, 2 ahead, 8 files; CI green at 007bf82 | CHANGES NEEDED at 007bf82 | See 2.3. |
 | #65 | research/quality-followup-68-517 (draft) | 3bc956d | dirty, 78+ behind | Stale | See 2.4. |
 
@@ -40,7 +40,7 @@ Follow-up, not blocking: reword the site-internal "Question-bank page" link and 
 Verified OK: scope, line endings, a clean build, citations, the six retargets, and the absence of banned phrases.
 
 ### 2.2 #89: shared sidebar and mid-width infobox
-**Peer Review: CHANGES NEEDED at ca9e33f. CI is green. Do not merge.**
+**Peer Review: Last reviewed at ddcbf84 (CHANGES NEEDED); head ca9e33f is awaiting review.**
 
 Three blocking items:
 1. `research/todo.md:174–323` adds a 150-line "Repeated exercises left for a later pass" section, but `research/*.md` outside `research/content/` must not change. Revert the file to main (blob `1b4789c`) and move the list into the PR description.
@@ -117,7 +117,6 @@ The overnight crawls failed, so nothing was checked between about 8pm on 19 Nov 
 - Chris (owner, Brisbane) is the only person who can grant new permissions. He has said:
   - Merge after Peer Review approves the head SHA and CI is green, gap batches included. Do not deploy any other way.
   - `research/content/`, `sources/`, `build_wiki.py` and `.github/workflows/` may be edited through a pull request. `config`, `checks/`, tests and `tools/` are ordinary changes, reviewed like any other, and are not pre-approved.
-  - No external sign-ups, purchases or form submissions without him.
 - Every PR needs a separate review pass whose verdict names the head SHA. Never self-approve in the same pass that wrote the change. The old roles (Editor, Researcher, Peer Review, UX and UI, SEO, Cloudflare, Repo Helper) were separate bots, so the verdicts above were independent reviews.
 
 ## 7. Review protocol (Peer Review role)

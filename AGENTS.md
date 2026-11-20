@@ -27,6 +27,9 @@ Chris has said the following. This heading does not attribute any other note to 
 
 - Merge only after Peer Review approves the head SHA and CI is green. Do not deploy except by that approved merge.
 - `research/content/`, `sources/`, `build_wiki.py` and `.github/workflows/` may be edited through a pull request. `config`, `checks/`, tests and `tools/` are ordinary changes, reviewed like any other, and are not pre-approved.
+
+# Hard limits
+
 - No external sign-ups, purchases or form submissions without Chris.
 
 # Citations
