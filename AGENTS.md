@@ -16,10 +16,27 @@ Cursor, Claude, and the research bots maintain this repository. Every change fol
 - Name the branch `<bot>/<type>/<short-purpose>`, for example `cursor/docs/agent-ground-rules` or `dot/fix/infobox-keyboard`. Use a branch for one pull request only.
 - One pull request, one purpose. The title and the description say what changed and why. Put a bulk content batch in a single pull request that names its range.
 - A pull request that combines or continues others says `Supersedes #N` and recommends that Chris close the originals. Do not close them yourself.
-- Merge only when the checks are green and the pull request is mergeable. Squash-merge, then delete the branch.
+- Merge only after a separate review approves that exact head SHA, the checks are green, and the pull request is mergeable. Squash-merge, then delete the branch.
 - Do not commit scratch files: handoff notes, run logs, reports, baselines, or to-do lists. Put them in the pull request description, or in a folder already listed in `.gitignore` (research drafts go in `research/pending/`).
 - A daily repo-manager bot labels, comments, and tidies branches that have been merged. Closing pull requests, and deleting work that has not been merged, is left to Chris.
 - If usage runs out or a tool keeps failing, keep unverified work local, record the state, tell Chris once and pause. Push only if the full applicable checklist already passed.
+
+# Before every push
+
+Run the checks that apply to the diff and fix every failure. Do not weaken or skip a test to get green. Rendered and visual checks apply when the change affects rendered pages.
+
+```
+python build_wiki.py
+python -m unittest discover -p 'test_*.py'
+for f in checks/*.py; do python "$f" || echo "FAIL $f"; done
+python check_overview_links.py
+python verify_citations.py --offline
+quarto render            # when the change affects rendered output
+python tools/visual_check.py --site _site
+git diff --check
+```
+
+Also run the Node tests listed in `.github/workflows/publish.yml` when the change touches `labs/`, `webr/`, `ask/` or search code. If `STATWIKI_DODGE_DIR` is unavailable, add no new Dodge citations.
 
 # Approvals on record
 
