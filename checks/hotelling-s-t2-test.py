@@ -1,11 +1,16 @@
 """Arithmetic for the Hotelling T-squared depth pass."""
-from math import sqrt
+
+import sys
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from tools.shown import shown
+from math import sqrt
 
 from scipy.stats import f
 
 root = Path(__file__).resolve().parents[1]
 prose = (root / "research/content/hotelling-s-t2-test.md").read_text(encoding="utf-8")
+prose = shown(prose, "hotelling-s-t2-test")
 page = root / "articles/hotelling-s-t2-test.qmd"
 assert page.is_file(), "generate articles before this check"
 body = page.read_text(encoding="utf-8").split("## See also", 1)[0]

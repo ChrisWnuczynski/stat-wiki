@@ -26,7 +26,6 @@ $$
 f(s)=\frac14+\frac34 s^2.
 $$
 
-
 The fixed-point equation $\frac34 s^2-s+\frac14=0$ is $3s^2-4s+1=0$, or $(3s-1)(s-1)=0$. The roots are $1/3$ and $1$. The extinction probability is the smaller one, $1/3$. Check: $f(1/3)=1/4+(3/4)(1/9)=1/3$.
 
 For a comparison, $p_0=p_1=1/2$ has mean $1/2<1$, so the bound $\mathrm{P}(Z_n>0)\le 2^{-n}$ forces extinction probability $1$. The generating function $f(s)=(1+s)/2$ has no root in $[0,1)$ other than the failure of the supercritical hypothesis: its only fixed point in $[0,1]$ is $1$.
@@ -39,16 +38,3 @@ The mean is $1/4+2/4=3/4<1$, so the extinction probability is $1$ without solvin
 
 ## Connections — The mean, the generating function, and the one-child exception
 The [Galton–Watson process](galton-watson-process.qmd) is the sequence $Z_n$. The mean $m$ is the derivative $f'(1)$. When $m=1$ and the offspring law is not concentrated at $1$, extinction is still certain; the one-child law is the exception, with extinction probability $0$.{{cite:durrett2019}} (Thm. 4.3.11, p. 231) The fixed-point picture is the whole criterion: certain extinction when the smallest root is $1$, and a smaller root when the mean exceeds $1$.
-
-## Check yourself
-Offspring probabilities $p_0=1/8$, $p_1=1/8$, $p_2=3/4$. Is the mean above $1$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The mean is $1/8+2\cdot 3/4=1/8+3/2=13/8>1$. Extinction is not certain. The probability itself is the smaller root of $f(s)=s$, not the mean.
-:::
-
-If $p_0=0$ and $p_2=1$, what is the extinction probability, and what is the mean?
-
-::: {.callout-tip collapse="true" title="Answer"}
-Every individual has two children, so the mean is $2$ and generation $n$ has size $2^n$. The process never hits $0$, and the extinction probability is $0$. The root $s=0$ of $f(s)=s^2$ is that probability.
-:::

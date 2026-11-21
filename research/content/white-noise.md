@@ -50,25 +50,5 @@ Differencing is not a harmless tidy-up. Applied to white noise it manufactures c
 ## Connections
 [Time series](time-series.qmd) models are built by passing white noise through an autoregression or a moving average. [Weak stationarity](weak-stationarity.qmd) is automatic for weak white noise, because the mean and the lag covariances do not depend on time. A [random walk](unit-root.qmd) is the partial sum of white noise, and it is not white noise: its variance grows with time.{{cite:hyndman_athanasopoulos2021}} (§9.1, random walk; §9.3, white noise)
 
-## Check yourself
-
-1. If $Z$ is standard normal, what is $\operatorname{Cov}(Z,Z^2-1)$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-Zero. $\mathbb E(Z^3)=\mathbb E(Z)=0$, so the covariance is zero. The variables are still dependent, because $Z=0$ forces $Z^2-1=-1$.
-:::
-
-2. A white noise of variance $4$ is differenced. What is the lag-$1$ correlation of the differences?
-
-::: {.callout-tip collapse="true" title="Answer"}
-$-1/2$. The variance $4$ cancels: the lag covariance is $-4$ and the difference variance is $8$.
-:::
-
-3. Is an AR(1) with coefficient $0$ and constant $0$ white noise?
-
-::: {.callout-tip collapse="true" title="Answer"}
-Yes. That boundary is the innovation sequence. A coefficient $1$ is a random walk instead, and is not white noise.
-:::
-
 ## History
 An ARMA moving-average piece is a combination of a white noise. One parenthetical definition asks for mutually independent and identically distributed variables, and the combined ARMA equation is also written with a weak white noise. Hyndman and Athanasopoulos use white noise as the stationary innovation of an autoregression, with normal mean-zero variance-one paths in their figures, and they single out coefficient zero and constant zero as the white-noise model itself.{{cite:dodge2008}} (p. 20){{cite:hyndman_athanasopoulos2021}} (§9.1, §9.3)

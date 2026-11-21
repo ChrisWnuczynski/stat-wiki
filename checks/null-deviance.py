@@ -2,11 +2,16 @@
 
 from __future__ import annotations
 
-import math
+import sys
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from tools.shown import shown
+
+import math
 
 ROOT = Path(__file__).resolve().parents[1]
 PROSE = (ROOT / "research" / "content" / "null-deviance.md").read_text(encoding="utf-8")
+PROSE = shown(PROSE, "null-deviance")
 
 
 def bernoulli_null(successes: int, n: int) -> float:

@@ -1,12 +1,17 @@
 """Checks for the three binary links."""
 
-from math import exp
+import sys
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from tools.shown import shown
+
+from math import exp
 
 from scipy.stats import norm
 
 root = Path(__file__).resolve().parents[1]
 prose = (root / "research/content/logit-probit-and-complementary-log-log-links.md").read_text(encoding="utf-8")
+prose = shown(prose, "logit-probit-and-complementary-log-log-links")
 article = root / "articles/logit-probit-and-complementary-log-log-links.qmd"
 target = article.read_text(encoding="utf-8").split("## See also", 1)[0] if article.is_file() else prose
 

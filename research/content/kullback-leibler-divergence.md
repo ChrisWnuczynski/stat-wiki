@@ -102,27 +102,5 @@ Changing the base of the logarithm changes the numerical value and not the ranki
 ## Connections
 [Gibbs' inequality](gibbs-inequality.qmd) is the statement $D(p\,\Vert\,q)\ge 0$. [Akaike's information criterion](akaike-information-criterion.qmd) estimates the expected log score whose population version differs from this divergence by a constant. Mutual information for a joint law is this divergence between the joint distribution and the product of its marginals.{{cite:hastie_esl2009}} (§14.7, pp. 561){{cite:shannon1948}} (Thm. 2)
 
-## Check yourself
-### A zero that should be zero
-Compute $D(p\,\Vert\,p)$ for $p=(0.8,0.2)$.
-
-::: {.callout-tip collapse="true" title="Answer"}
-Each ratio is $1$, and $\log 1=0$, so the divergence is $0$.
-:::
-
-### Which direction is larger?
-For $p=(0.8,0.2)$ and $q=(0.5,0.5)$, which of $0.1927$ and $0.2231$ is $D(q\,\Vert\,p)$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-$D(q\,\Vert\,p)\approx 0.2231$ nats. The smaller number $0.1927$ is $D(p\,\Vert\,q)$, the penalty for using a fair coin when the truth is $p$.
-:::
-
-### Bits
-The forward divergence is about $0.1927$ nats. Divide the unrounded value by $\log 2$ and round to four decimals. What is the result in bits?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The unrounded divergence divided by $\log 2$ equals $0.2781$ bits.
-:::
-
 ## History
 Shannon's 1948 paper introduces the entropy $H=-K\sum p_i\log p_i$ as the quantity fixed, up to the choice of unit $K$, by his assumptions on information, and he identifies it with the entropy of statistical mechanics. The divergence above is the gap between that entropy and the average surprise of a code built from a different distribution.{{cite:shannon1948}} (Thm. 2) Hastie, Tibshirani and Friedman use the same gap as the mutual information between coordinates, the Kullback–Leibler discrepancy from a joint density to the product of its marginals.{{cite:hastie_esl2009}} (§14.7, pp. 561)

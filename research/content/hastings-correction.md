@@ -37,22 +37,3 @@ The correction factor is $1$, so $r=0.5/0.2=2.5$. The acceptance probability is 
 
 ## Connections — Symmetric walks and Gibbs updates
 The [Metropolis algorithm](metropolis-algorithm.qmd) is the special case with correction $1$. The [Metropolis–Hastings algorithm](metropolis-hastings-algorithm.qmd) is the general step, and [Metropolis–Hastings invariance](metropolis-hastings-invariance.qmd) is the statement that the target remains stationary. A Gibbs update is a Metropolis–Hastings step whose conditional proposal makes $r=1$ for every legal jump, so the draw is always accepted.{{cite:gelman_bda2013}} (§11.4, Gibbs as Metropolis–Hastings)
-
-## Check yourself
-
-### A keen reverse jump
-Using $p(1)=0.2$, $p(3)=0.5$, $J(1\mid 3)=0.4$ and $J(3\mid 1)=0.1$, find $r$ for a move from $1$ to $3$.
-
-::: {.callout-tip collapse="true" title="Answer"}
-$$
-r=\frac{0.5\times 0.4}{0.2\times 0.1}=10.
-$$
-The acceptance probability is $1$. The proposal rarely offers the move, and the target density is higher at the destination, so the correction makes the ratio larger than $1$.
-:::
-
-### Where the correction is idle
-A proposal adds an increment drawn from $N(0,1)$, independent of the sign. What is the Hastings correction?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The increment density is symmetric, so $J(\omega+d\mid\omega)=J(\omega\mid\omega+d)$. The correction equals $1$ and the acceptance ratio reduces to the ratio of target densities.
-:::

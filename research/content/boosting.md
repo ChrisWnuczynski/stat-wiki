@@ -14,7 +14,6 @@ $$
 \alpha_t=\frac12\log\frac{1-\varepsilon_t}{\varepsilon_t}
 $$
 
-
 and replaces the weight $w_{t,i}$ by a multiple of $w_{t,i}\exp(-\alpha_t y_i f_t(x_i))$, then divides by the sum of those multiples so that the new weights sum to $1$. The ensemble is the sign of $\sum_t\alpha_t f_t(x)$.{{cite:freund_schapire1997}} (p. 12)
 
 Hastie, Tibshirani and Friedman write the same round with vote weight $\log((1-\varepsilon_t)/\varepsilon_t)$, twice $\alpha_t$, and multiply only the misclassified weights by the exponential of that larger coefficient. A misclassified weight then grows relative to a correctly classified weight by $(1-\varepsilon_t)/\varepsilon_t$ in both writings, so the normalised weight distribution is the same, and the sign of the vote is the same.{{cite:hastie_esl2009}} (p. 339, Algorithm 10.1)
@@ -33,7 +32,6 @@ $$
 \alpha=\frac12\log 3\approx 0.5493.
 $$
 
-
 The normaliser is $2\sqrt{(1/4)(3/4)}=\sqrt3/2$. Each correct case then has new weight $1/6$, and the incorrect case has new weight $1/2$. The three correct weights sum to $1/2$, and the one incorrect weight is $1/2$, which is the coin-toss error proved above. The ratio of the incorrect multiplier to the correct multiplier is $3=(1-\varepsilon)/\varepsilon$.
 
 **Your turn.** A later round has weighted error $1/5$. Find $\alpha$ as a logarithm, and find the factor by which an incorrect weight grows relative to a correct weight.
@@ -44,16 +42,3 @@ $\alpha=\frac12\log 4=\log 2$. The relative factor is $(1-1/5)/(1/5)=4$. The log
 
 ## Connections — What boosting is not averaging
 [Bagging](bagging.qmd) and a [random forest](random-forest.qmd) draw diversity from different samples. Boosting manufactures diversity by reweighting. The base rule is often a [decision stump](decision-stump.qmd), and the particular half-log update above is [AdaBoost](adaboost.qmd). A round with error above $1/2$ gets a negative vote, which is a vote for the opposite label.{{cite:freund_schapire1997}} (p. 12){{cite:schapire1990}} (pp. 197–198)
-
-## Check yourself
-A round with $\varepsilon=0.4$ still has a positive vote. What is $\alpha$, to four decimal places, and by what factor does an incorrect weight grow relative to a correct weight?
-
-::: {.callout-tip collapse="true" title="Answer"}
-$\alpha=\frac12\log(0.6/0.4)=\frac12\log 1.5\approx 0.2027$. The relative factor is $0.6/0.4=1.5$.
-:::
-
-Two stumps vote $+1$ and $-1$ with coefficients $0.6$ and $0.2$. What sign does the ensemble return?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The weighted vote is $0.6-0.2=0.4>0$, so the ensemble returns $+1$.
-:::
