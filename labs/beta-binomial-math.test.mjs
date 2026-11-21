@@ -55,6 +55,25 @@ test("a uniform prior and 3 heads in 10 tosses has posterior mean 1/3", () => {
 });
 
 test("modes at the boundary and a flat density are named, not invented", () => {
+  const cases = [
+    [0.6, 0.6, null, "none: the density is unbounded at both ends"],
+    [0.6, 1, 0, ""],
+    [0.6, 2, 0, ""],
+    [1, 0.6, 1, ""],
+    [1, 1, null, "every point: the density is flat"],
+    [1, 2, 0, ""],
+    [2, 0.6, 1, ""],
+    [2, 1, 1, ""],
+    [2, 2, 0.5, ""],
+  ];
+  for (const [a, b, mode, modeNote] of cases) {
+    const summary = beta.betaSummary(a, b);
+    assert.equal(summary.mode, mode, `Beta(${a}, ${b}) mode`);
+    assert.equal(summary.modeNote, modeNote, `Beta(${a}, ${b}) mode note`);
+    const updated = beta.update({ alpha: a, beta: b, n: 0, x: 0 });
+    assert.deepEqual(updated.prior, summary);
+    assert.deepEqual(updated.posterior, summary);
+  }
   assert.equal(beta.betaSummary(1, 1).mode, null);
   assert.match(beta.betaSummary(1, 1).modeNote, /flat/);
   assert.equal(beta.betaSummary(0.5, 0.5).mode, null);
@@ -62,6 +81,14 @@ test("modes at the boundary and a flat density are named, not invented", () => {
   assert.equal(beta.betaSummary(0.5, 2).mode, 0);
   assert.equal(beta.betaSummary(2, 0.5).mode, 1);
   assert.equal(beta.betaSummary(3, 3).mode, 0.5);
+});
+
+test("one tail preserves the zero boundary mode for a Beta(0.6, 1) prior", () => {
+  const updated = beta.update({ alpha: 0.6, beta: 1, n: 1, x: 0 });
+  assert.equal(updated.posterior.a, 0.6);
+  assert.equal(updated.posterior.b, 2);
+  assert.equal(updated.posterior.mode, 0);
+  assert.equal(updated.posterior.modeNote, "");
 });
 
 test("no tosses leaves the prior as the posterior", () => {
