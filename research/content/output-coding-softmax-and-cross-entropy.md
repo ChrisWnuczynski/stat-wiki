@@ -87,27 +87,5 @@ Softmax on the outputs does not stop a hidden unit from saturating. The missing 
 ## Connections
 The [sigmoid function](sigmoid-function.qmd) is the two-class case of softmax. [Cross-entropy](kullback-leibler-divergence.qmd) in the population sense is the extra surprise of using one distribution in place of another; the training loss here is the empirical version for a one-hot label. The [learning rate](learning-rate.qmd) multiplies the residual $s-y$ when the scores are updated by gradient descent. A [logit link](logit-link.qmd) is the two-class linear model obtained when the score difference is linear in the inputs and there is no hidden layer.{{cite:hastie_esl2009}} (§11.3–11.5, pp. 393–397)
 
-## Check yourself
-### Three scores
-For $z=(0,1,-1)$ and true class $2$, what are the softmax probabilities to four decimals, and the cross-entropy to four decimals?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The probabilities are $0.2447$, $0.6652$, and $0.0900$. The cross-entropy is $0.4076$.
-:::
-
-### A shift
-Add $5$ to every coordinate of $(2,1,0.1)$. Do the probabilities change?
-
-::: {.callout-tip collapse="true" title="Answer"}
-No. Each exponential is multiplied by $e^{5}$, and so is their sum. The probabilities stay about $(0.659,0.242,0.099)$.
-:::
-
-### Two classes
-Scores $1.5$ and $0.5$. What is the probability of the first class, to four decimals?
-
-::: {.callout-tip collapse="true" title="Answer"}
-It equals $1/(1+e^{-1})\approx 0.7311$.
-:::
-
 ## History
 Shannon's entropy measures the average surprise of a discrete source by $-\sum p\log p$. The training loss on this page is that surprise when $p$ is a one-hot label and the logarithm is applied to the predicted probability.{{cite:shannon1948}} (Thm. 2) Hastie, Tibshirani and Friedman write the softmax as the normalised exponential used for $K$-class outputs, and they pair it with cross-entropy so that the network, restricted to linear scores, is a multinomial logistic regression fitted by maximum likelihood.{{cite:hastie_esl2009}} (§11.3–11.4, pp. 393–395)

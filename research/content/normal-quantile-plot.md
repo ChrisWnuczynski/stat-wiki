@@ -21,16 +21,3 @@ The reference points are $5+2(-0.674)=3.65$, $5$, and $5+2(0.674)=6.35$. The sam
 
 ## Connections
 The horizontal coordinates are quantiles of the [normal distribution](normal-distribution.qmd). A two-sample quantile plot answers whether two batches share a shape, including a shift of location or a change of scale. The ordered values are [sample quantiles](sample-quantile.qmd). Residual plots from a regression use the same picture to ask whether the errors look normal. The plot is a diagnostic, not a formal test: the extreme points move more than the centre.{{cite:nist_qq_plot}} (§1.3.3.24, shifts, scale and tails){{cite:dodge2008}} (p. 437, extremes)
-
-## Check yourself
-**1.** Standard normal scores are paired with a sample that is exactly $4+3z_i$ at those scores. What are the intercept and slope of the line?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The points lie on $x=4+3z$, so the intercept is $4$ and the slope is $3$. The line is straight because the sample is an exact normal location-scale shift of the scores.
-:::
-
-**2.** Two samples of equal size differ only by adding $5$ to every value in the second sample. How does their quantile–quantile plot sit relative to the $45$-degree line?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The ordered values differ by $5$ at every rank, so the points lie on a line parallel to the $45$-degree line and shifted by $5$. The shape is the same; the location is not.
-:::

@@ -16,7 +16,6 @@ $$
 [i]=\{j\in S: i\leftrightarrow j\}.
 $$
 
-
 The classes partition $S$. A nonempty set $A$ is closed when $i\in A$ and $i\to j$ imply $j\in A$. A closed set with no proper closed subset is irreducible. An irreducible set is a communicating class, and a chain whose whole state space is irreducible is called an irreducible chain.{{cite:siegrist2022_markov_recurrence}} (§4, equivalence classes and irreducible sets)
 
 ## Interpretation
@@ -32,7 +31,6 @@ Aperiodicity is not required for a stationary distribution. The deterministic al
 $$
 P=\begin{pmatrix}0&1\\1&0\end{pmatrix}
 $$
-
 
 has one communicating class, period $2$, and stationary distribution $(1/2,1/2)$. Its powers do not converge: $P^{2m}=I$ and $P^{2m+1}=P$. The stationary distribution describes long-run frequencies along a path. It does not describe the one-step distribution, which keeps flipping.{{cite:siegrist2022_markov_period}} (§5, period and limiting behaviour)
 
@@ -56,7 +54,6 @@ $$
 P=\begin{pmatrix}0&1\\0&1\end{pmatrix}.
 $$
 
-
 State $0$ leads to $0$ in zero steps and to $1$ in one step. State $1$ leads only to $1$. The communicating classes are $\{0\}$ and $\{1\}$. The set $\{1\}$ is closed. The set $\{0\}$ is a class and is not closed, because $0\to 1$ and $1\notin\{0\}$. The whole space is closed and is not one class.{{cite:siegrist2022_markov_recurrence}} (§4, the two-state example)
 
 Now take states $\{a,b,c\}$ and
@@ -64,7 +61,6 @@ Now take states $\{a,b,c\}$ and
 $$
 P=\begin{pmatrix}0&1/3&2/3\\0&0&1\\1&0&0\end{pmatrix}.
 $$
-
 
 There is a path between every pair, so the chain is one class and that class is closed. No diagonal entry is positive. Still $P^2(a,a)\ge (2/3)\cdot 1=2/3$ by the path $a\to c\to a$, and $P^3(a,a)\ge (1/3)\cdot 1\cdot 1=1/3$ by the path $a\to b\to c\to a$. The return times include $2$ and $3$, whose greatest common divisor is $1$, so the class is aperiodic.{{cite:siegrist2022_markov_period}} (§5, returns at times $2$ and $3$)
 
@@ -86,26 +82,6 @@ The arrows record positive probability, not the size of that probability. A tran
 
 ## Connections
 An [irreducible Markov chain](irreducible-markov-chain.qmd) is a chain with one communicating class. A [stationary distribution](stationary-distribution.qmd) solves $\pi P=\pi$; uniqueness on a finite set uses that single closed class. The [limiting distribution](limiting-distribution.qmd) needs aperiodicity of that class as well. A self-loop is one way to force period $1$, and it is not the only way.{{cite:siegrist2022_markov_recurrence}} (§4, irreducible chains){{cite:siegrist2022_markov_period}} (§5, aperiodicity)
-
-## Check yourself
-
-1. In the matrix with rows $(0,1)$ and $(0,1)$, is $\{0,1\}$ a communicating class?
-
-::: {.callout-tip collapse="true" title="Answer"}
-No. State $1$ does not lead to state $0$, so the states do not communicate. There are two classes, $\{0\}$ and $\{1\}$.
-:::
-
-2. For the alternation, does $\pi=(1/2,1/2)$ satisfy $\pi P=\pi$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-Yes. Each coordinate of $\pi P$ is $1/2$, because each column of $P$ contains a single $1$. The chain still has period $2$, so the stationary equation has a solution and $P^n$ does not converge.
-:::
-
-3. If a state has a self-loop, what is its period?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The period is $1$. A return in one step is on the list whose greatest common divisor is the period, and that divisor is then $1$. The rest of the class is aperiodic as well.
-:::
 
 ## History
 The classification used here is the equivalence relation of mutual accessibility for a discrete-time chain: $i$ leads to $j$ when some $n$-step probability is positive, including the zero-step case $i\to i$, and communication is the two-way relation. Closed sets are the sets that no path leaves. Siegrist's account shows by a two-state chain that a class need not be closed and a closed set need not be a single class, and it shows that recurrence is constant on a class. The period, defined as the greatest common divisor of the return times, is constant on a class for the same path-sandwiching reason.{{cite:siegrist2022_markov_recurrence}} (§4, equivalence classes){{cite:siegrist2022_markov_period}} (§5, period is a class property)

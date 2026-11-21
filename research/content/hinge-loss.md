@@ -34,16 +34,3 @@ The hinge at margin $1$ is $0$. The hinge at margin $-2$ is $1-(-2)=3$. The sum 
 
 ## Connections
 The hinge is the loss that the soft-margin support-vector classifier minimises together with a penalty on the weight. Binomial deviance, the loss behind logistic regression, keeps falling as the margin grows, so it never has this exact flat region. A population hinge chooses the more probable class, whereas squared error targets a linear function of the class probability.{{cite:hastie_esl2009}} (§12.3.2, p. 427, population minimisers)
-
-## Check yourself
-**1.** What is the hinge at margin $0.2$, and what is the slope of the hinge, as a function of the margin, just to the left of $1$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The hinge is $1-0.2=0.8$. Just to the left of $1$ the slope in the margin is $-1$.
-:::
-
-**2.** In the criterion above, take $\lambda=2$ and $\lVert\beta\rVert=1$, and add the penalty to the worked total hinge of $2.25$. What is the criterion value?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The penalty is $(2/2)(1)=1$. The criterion value is $2.25+1=3.25$. A larger $\lambda$ charges the same weight more heavily and tolerates more hinge.
-:::

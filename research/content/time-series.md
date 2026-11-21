@@ -26,7 +26,6 @@ $$
 \operatorname{Var}(\bar X)=\frac1T\sum_{h=-(T-1)}^{T-1}\Bigl(1-\frac{|h|}{T}\Bigr)\gamma_h.
 $$
 
-
 Independent data with the same marginal variance would have given $\gamma_0/T$. Positive $\phi$ makes the mean less precise than that benchmark, because successive values repeat the same shock.{{cite:hyndman_athanasopoulos2021}} (§9.3, stationary AR(1))
 
 At $\phi=1/2$ and $\sigma^2=1$, $\gamma_0=4/3$. The large-sample multiplier $(1+\phi)/(1-\phi)$ equals $3$. For $T=4$ the exact multiplier is $2.0625$, and $\operatorname{Var}(\bar X)=0.6875$, against the independent-data value $1/3\approx 0.3333$. The limit $3$ is the right long-series factor and the wrong factor for these four observations.{{cite:hyndman_athanasopoulos2021}} (§9.3, AR(1) stationarity condition)
@@ -40,7 +39,6 @@ For any weakly stationary series, expand $\operatorname{Var}(\sum_{t=1}^T X_t)=\
 $$
 \tfrac34\cdot\tfrac12+\tfrac12\cdot\tfrac14+\tfrac14\cdot\tfrac18=\tfrac{3}{8}+\tfrac18+\tfrac1{32}=\tfrac{17}{32}=0.53125.
 $$
-
 
 The two-sided sum is $1+2\times 0.53125=2.0625$. Then $\operatorname{Var}(\bar X)=(4/3)/4\times 2.0625=0.6875$.{{cite:hyndman_athanasopoulos2021}} (§9.1, covariance depending only on lag)
 :::
@@ -74,26 +72,6 @@ Forecasts that change the thing being forecast are a different failure. A widely
 
 ## Connections
 [White noise](white-noise.qmd) is the innovation sequence inside the autoregression, and the series itself when $\phi=0$. [Weak stationarity](weak-stationarity.qmd) is the moment restriction used for the covariance formula. A [simple linear regression](simple-linear-regression.qmd) of one series on time estimates a fixed line; it is the wrong mean for a random walk, whose level is not a function of the date.{{cite:hyndman_athanasopoulos2021}} (§9.1, random walk; §9.3, white-noise boundary)
-
-## Check yourself
-
-1. The path of a random walk is $1,0,0,2$. What is the point forecast of the next value?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The forecast is $2$ at every horizon. Future increments have mean zero, so they do not move the point forecast off the last observation.
-:::
-
-2. For $\phi=1/2$ and $T=4$, is the variance of the sample mean equal to $(4/3)/4=1/3$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-No. That is the variance for four uncorrelated draws with variance $4/3$. The exact autoregressive variance is $0.6875$, and $0.6875/(1/3)=2.0625$.)
-:::
-
-3. Does sorting $123,39,78,52,110$ into increasing order keep the lag-$1$ correlation?
-
-::: {.callout-tip collapse="true" title="Answer"}
-No. The recorded order has lag-$1$ correlation about $-0.4671$. The sorted order has about $0.4665$. The mean $80.4$ is the same.
-:::
 
 ## History
 A time series is a sequence of observations measured at successive times, from hourly traffic counts to annual records, and the analysis is a route to prediction. The movement splits into trend, seasonal variation, cyclical fluctuation and irregular variation. W. M. Persons proposed that four-part decomposition in 1919.{{cite:dodge2008}} (p. 536, definition, components and Persons)

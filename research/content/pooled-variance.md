@@ -101,5 +101,23 @@ With the same two standard deviations and $F_{49,49;0.975}=1.762$, form the 95% 
 The point estimate is $14.1^2/14.3^2=198.81/204.49=0.97222$. Dividing and multiplying by 1.762 gives $(0.55177,\ 1.71306)$, which rounds to $(0.5518,\ 1.7131)$. The interval contains 1, so these samples do not by themselves rule out a common variance. The interval is wide: ratios from about 0.55 to 1.71 are still compatible with the $F$ calculation.
 :::
 
+### A proportion in a poll {#self-check-ex-inf-green-voters}
+
+[A proportion in a poll](../questions/ex-inf-green-voters.qmd)
+
+In a sample of 1000 registered voters, 227 say they will vote for a given party. Using the Wald approximation and $z_{0.975}=1.960$, give an approximate 95% confidence interval for the population proportion.
+
+:::::::: {.callout-tip collapse="true" title="Answer"}
+
+$\widehat p=227/1000=0.227$. The estimated standard error is
+
+$$
+\sqrt{\frac{0.227\times 0.773}{1000}}\approx 0.01325.
+$$
+
+The interval is $0.227\pm 1.960\times 0.01325$, that is $(0.201,\,0.253)$.
+
+::::::::
+
 ## History
 The pooled variance is the estimate used when several populations have unknown variances that can be treated as equal, in both the sums-of-squares form and the degrees-of-freedom weighted form. The computer-brand calculation is the numerical pattern above: two samples, sums of squares 95000 and 70000, and pooled value 13750. The exact $t$ and chi-squared laws that justify using that number in a mean comparison are normal-sample theorems, set out for the two-sample model by Siegrist.{{cite:dodge2008}} (pp. 427–428, Pooled Variance){{cite:siegrist2022_normals}} (§6.08, “The Two Sample Model”)

@@ -77,27 +77,5 @@ Chebyshev's refinement is unavailable when the variance is infinite. A nonnegati
 ## Connections
 [Chebyshev's inequality](chebyshev-s-inequality.qmd) is Markov's inequality applied to a squared deviation. The [weak law](law-of-large-numbers.qmd) is the Chebyshev bound on an average whose variance tends to zero. The [strong law](strong-law.qmd) needs a stronger argument, because these bounds need not be summable. Convergence in $L^1$ implies [convergence in probability](modes-of-convergence.qmd) by the inequality on this page, and the converse is false.{{cite:durrett2019}} (Thm. 1.6.4, pp. 29–30)
 
-## Check yourself
-### The hour-long job
-A nonnegative duration has mean $10$ minutes. What does Markov's inequality say about a duration of at least $60$ minutes?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The probability is at most $10/60=1/6$. If the variance is $25$, Chebyshev's inequality further bounds the same event by $25/50^2=0.01$.
-:::
-
-### Equality
-Construct a nonnegative law with mean $4$ for which $\mathrm{P}(X\ge 20)=0.2$.
-
-::: {.callout-tip collapse="true" title="Answer"}
-Put probability $0.2$ on $20$ and probability $0.8$ on $0$. The mean is $4$ and the tail probability equals $0.2$, so Markov's bound is attained.
-:::
-
-### An exponential tail
-For an exponential law with mean $10$, compute $e^{-6}$ to six decimals and compare it with $1/6$.
-
-::: {.callout-tip collapse="true" title="Answer"}
-$e^{-6}\approx 0.002479$, while $1/6\approx 0.1667$. Markov's bound is valid and about $67$ times the exponential probability. The exponential number uses the survival formula. The Markov number uses only the mean.
-:::
-
 ## History
 The comparison of a nonnegative variable with a threshold times an indicator is the form proved as the general moment inequality in Durrett, who attaches Chebyshev's name to that general statement and notes that other authors call it Markov's inequality. The second-moment special case, under the name Bienaymé–Chebyshev, is $\mathrm{P}(|X-\mu|\ge\varepsilon)\le\sigma^2/\varepsilon^2$.{{cite:durrett2019}} (Thm. 1.6.4, pp. 29–30){{cite:dodge2008}} (p. 298)

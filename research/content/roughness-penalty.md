@@ -75,27 +75,5 @@ On $[0,1]$, $f(x)=x^2$ has penalty $4$, while the same formula on $[0,2]$ has pe
 ## Connections
 A [cubic smoothing spline](cubic-smoothing-spline.qmd) is the minimiser of this penalty for squared error. A [knot](knot.qmd) is one of the joins in that spline. [Cross-validation](cross-validation.qmd) is one way to choose $\lambda$, and the reported [degrees of freedom](degrees-of-freedom.qmd) summarise the resulting smoother. The same penalty, placed on a smooth inside a linear predictor, is the smooth term of a generalised additive model.{{cite:hastie_esl2009}} (§5.4, pp. 151–152)
 
-## Check yourself
-### The three-point line
-For $(0,0)$, $(1,1)$, and $(2,0)$, what is the least-squares line, and what is its residual sum of squares?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The slope is $0$ and the line is $y=1/3$. The residual sum of squares is $2/3$.
-:::
-
-### A penalty that does not move
-Compute $\int_0^1\{f''(x)\}^2\,\mathrm{d}x$ for $f(x)=4+5x$, and for $f(x)=4+5x+x^2$.
-
-::: {.callout-tip collapse="true" title="Answer"}
-The first function has second derivative $0$, so the integral is $0$. The second has second derivative $2$, so the integral on $[0,1]$ is $4$. The linear part does not contribute.
-:::
-
-### Where the quadratic wins
-Using the scores in the worked example, for which $\lambda$ is the interpolating quadratic's penalised score smaller than the straight line's score of $2/3$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The quadratic scores $8\lambda$. This is smaller than $2/3$ when $\lambda<1/12$. At $\lambda=0.1$ the quadratic scores $0.8$, which is larger, so the straight line wins that comparison.
-:::
-
 ## History
 Reinsch's 1967 spline paper is the numerical source cited for minimising a residual sum of squares plus a multiple of integrated squared curvature. The squared-error form used here is the one written by Hastie, Tibshirani and Friedman, with the two limits $\lambda=0$ and $\lambda=\infty$ stated explicitly, and with the coefficient formula displayed as a ridge regression in a natural-spline basis.{{cite:hastie_esl2009}} (§5.4, pp. 151–152) The penalised log-likelihood with the factor $1/2$ is the exponential-family version of that same trade.

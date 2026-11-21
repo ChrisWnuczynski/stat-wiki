@@ -17,7 +17,6 @@ printed=['-1257','-1125','115821','-901']
 # Verify the forecast numbers using the fitted model in base R; the exact auto.arima
 # order selection was also reproduced separately with forecast 8.20 during research.
 import os,shutil,subprocess
-from pathlib import Path
 rhome=os.environ.get('STATWIKI_R_HOME')
 if rhome:
  cmd=[str(Path(rhome)/'bin/exec/R'),'--vanilla','--slave','-e']

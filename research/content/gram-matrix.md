@@ -8,14 +8,11 @@ $$
 K_S=\begin{pmatrix}1&0&1\\0&1&1\\1&1&2\end{pmatrix}.
 $$
 
-
 Its eigenvalues are $0$, $1$ and $3$, all nonnegative, which matches the quadratic-form test. For $c=(1,-1,1/2)^\top$,
 
 $$
 c^\top K_S c=\bigl\|1\cdot(1,0)-1\cdot(0,1)+\tfrac12(1,1)\bigr\|^2=\bigl\|(1.5,-0.5)\bigr\|^2=2.5.
 $$
-
-
 
 ## Intuition — Pairwise products instead of features
 Once a map $\phi$ sends each input to a feature vector, every later formula that needs those features often needs them only through products $\phi(x_i)^\top\phi(x_j)$. Collecting those products in a matrix means the map itself can stay off the page. The $(i,j)$ entry is large when the two mapped points point the same way, and it is zero when they are orthogonal.{{cite:hastie_esl2009}} (Ch. 12, §12.3, p. 424, Eq. 12.21)
@@ -29,7 +26,6 @@ $$
 (K_S)_{ij}=K(x_i,x_j).
 $$
 
-
 A kernel that really is an inner product has to be symmetric, and every finite matrix of this form has to be positive semidefinite.{{cite:hastie_esl2009}} (Ch. 12, §12.3, p. 424)
 
 ## Properties — Why every Gram matrix is positive semidefinite
@@ -41,7 +37,6 @@ $$
 \sum_{i=1}^N\sum_{j=1}^N c_i c_j K(x_i,x_j)
 =\Bigl\|\sum_{i=1}^N c_i\phi(x_i)\Bigr\|^2\ge 0.
 $$
-
 
 The left-hand side is $c^\top K_S c$, so $K_S$ is positive semidefinite. The argument uses only the inner-product representation, so it applies to every finite set of inputs.{{cite:hastie_esl2009}} (Ch. 12, §12.3, p. 424, Eq. 12.21)
 :::
@@ -58,30 +53,8 @@ $$
 K_S=\begin{pmatrix}1&-1\\-1&1\end{pmatrix}.
 $$
 
-
 The eigenvalues are $0$ and $2$. At $c=(1,1)^\top$ the quadratic form is $0$: the two mapped points are scalar multiples, and the coefficients cancel them.
 :::
 
 ## Connections — Kernels and margin methods
 A [kernel](kernel.qmd) is the function whose values fill the Gram matrix. [Positive definite matrices](positive-definite-matrix.qmd) are the stricter case in which $c^\top K_S c>0$ for every $c\neq 0$; semidefiniteness allows a zero eigenvalue when the mapped points are linearly dependent. The [soft-margin primal](soft-margin-primal.qmd) and the [hard-margin dual](hard-margin-dual.qmd) replace each feature inner product by a kernel entry, which is why the dual is written entirely in terms of $K_S$.{{cite:hastie_esl2009}} (Ch. 12, §12.3, pp. 424 and 437)
-
-## Check yourself
-### A diagonal feature map
-Two inputs map to $\phi(x_1)=(2,0)$ and $\phi(x_2)=(0,3)$. Write the Gram matrix and its eigenvalues.
-
-::: {.callout-tip collapse="true" title="Answer"}
-The products are $4$, $0$ and $9$, so $K_S=\operatorname{diag}(4,9)$. The eigenvalues are $4$ and $9$. The off-diagonal zeros record orthogonal features.
-:::
-
-### A coefficient that cancels
-Using the three-point matrix in the worked example, take $c=(1,1,-1)^\top$. Compute $c^\top K_S c$, and say what that number means for the mapped points.
-
-::: {.callout-tip collapse="true" title="Answer"}
-
-$$
-c^\top K_S c=\bigl\|(1,0)+(0,1)-(1,1)\bigr\|^2=\|(0,0)\|^2=0.
-$$
-
-
-The three feature vectors with these coefficients sum to the zero vector, so the quadratic form contributes nothing even though $c$ itself is not zero.
-:::

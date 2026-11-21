@@ -8,13 +8,11 @@ $$
 S=\begin{pmatrix}2&1\\1&2\end{pmatrix}
 $$
 
-
 has eigenvalues $3$ and $1$, because $(2-\lambda)^2-1=0$. Unit eigenvectors are $a_1=(1,1)^\top/\sqrt{2}$ and $a_2=(1,-1)^\top/\sqrt{2}$. A centred point $(2,0)$ has scores
 
 $$
 a_1^\top(2,0)=\sqrt{2},\qquad a_2^\top(2,0)=\sqrt{2}.
 $$
-
 
 The first component carries $3/(3+1)=3/4$ of the total sample variance. Its rank-one reconstruction is $\sqrt{2}\,a_1=(1,1)$, and the residual $(2,0)-(1,1)=(1,-1)$ has squared length $2$.
 
@@ -27,7 +25,6 @@ Let the centred data matrix have singular-value decomposition $X=UDV^\top$, with
 $$
 \hat\lambda_i=V_q^\top(x_i-\bar x).
 $$
-
 
 {{cite:hastie_esl2009}} (Ch. 14, §14.5.1, p. 535, Eqs. 14.51–14.52) The same directions are the unit eigenvectors of the sample covariance, because that matrix is a positive multiple of $X^\top X$ and $X^\top X=VD^2V^\top$. The $j$th eigenvalue is the sample variance of the $j$th score.
 
@@ -48,18 +45,3 @@ $a_1^\top(0,2)=\sqrt{2}$ and $a_2^\top(0,2)=-\sqrt{2}$. The second score changed
 
 ## Connections — Singular vectors and a regression line
 The directions are [eigenvectors](eigenvalues-and-eigenvectors.qmd) of $S$ and the right singular vectors in the [singular value decomposition](singular-value-decomposition.qmd) of the centred data. [Principal component directions](principal-component-directions.qmd) names the same axes; the scores are the coordinates along them. A least-squares line minimises squared error in one designated response. A principal-component line minimises squared distance to the line in all coordinates at once, which is why the two lines need not agree.
-
-## Check yourself
-### The second component's share
-For the covariance above, what fraction of the trace sits on the second component?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The trace is $4$, the second eigenvalue is $1$, and the fraction is $1/4$. The two fractions $3/4$ and $1/4$ add to $1$.
-:::
-
-### Replacing $a_1$ by $-a_1$
-What happens to the score of $(2,0)$ on the first direction if the eigenvector is multiplied by $-1$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The score changes from $\sqrt{2}$ to $-\sqrt{2}$. The reconstructed point $(-\sqrt{2})(-a_1)$ is still $(1,1)$, so the fitted point does not move.
-:::

@@ -1,9 +1,14 @@
 """Arithmetic checks for extreme-value classification."""
-import math
+
+import sys
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from tools.shown import shown
+import math
 
 root = Path(__file__).resolve().parents[1]
 text = (root / "research/content/extreme-value-classification.md").read_text()
+text = shown(text, "extreme-value-classification")
 body = (root / "articles/extreme-value-classification.qmd").read_text().split("## See also", 1)[0]
 g20 = (1 - 1 / 20) ** 20
 g50 = (1 - 1 / 50) ** 50
