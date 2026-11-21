@@ -13145,6 +13145,69 @@
         "source": "archival_url",
         "id": "https://svn.r-project.org/R/tags/R-4-5-1/src/library/stats/man/wilcox.test.Rd"
       }
+    },
+    "rodriguez_glm_multinomial": {
+      "authors": [
+        "Rodríguez, G."
+      ],
+      "year": 2026,
+      "title": "Generalized Linear Models: The Multinomial Logit Model",
+      "kind": "book",
+      "publisher": "Princeton University",
+      "url": "https://grodri.github.io/glms/notes/c6s2",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://grodri.github.io/glms/notes/c6s2"
+      }
+    },
+    "mit_1806_least_squares2022": {
+      "authors": [
+        "Massachusetts Institute of Technology, Department of Mathematics"
+      ],
+      "year": 2022,
+      "title": "18.06 Problem Set 6 Solutions",
+      "kind": "book",
+      "publisher": "Massachusetts Institute of Technology",
+      "url": "https://web.mit.edu/~linalg/webpage/Fall2022/pset6sol.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://web.mit.edu/~linalg/webpage/Fall2022/pset6sol.html"
+      }
+    },
+    "oehlert2010": {
+      "authors": [
+        "Oehlert, G. W."
+      ],
+      "year": 2010,
+      "title": "A First Course in Design and Analysis of Experiments",
+      "kind": "book",
+      "edition": "1st ed., author-distributed edition",
+      "publisher": "Gary W. Oehlert, University of Minnesota",
+      "url": "https://users.stat.umn.edu/~gary/book/fcdae.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://users.stat.umn.edu/~gary/book/fcdae.pdf"
+      }
+    },
+    "nist_tukey2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §7.4.7.1: Tukey's Method",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/prc/section4/prc471.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/prc/section4/prc471.htm"
+      }
     }
   }
 }

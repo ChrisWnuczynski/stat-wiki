@@ -15,7 +15,6 @@ $$
 \qquad k=1,\ldots,K-1.
 $$
 
-
 The probabilities are recovered by setting the baseline linear predictor to $0$ and normalising the exponentials. There is no requirement that the slopes $\beta_k$ be equal, because the labels are not ordered. {{cite:nelder_wedderburn1972}} (§3.3, p. 379)
 
 ## Properties — The omitted comparison is a difference
@@ -26,7 +25,6 @@ $$
 \log\frac{p_k}{p_j}=\log\frac{p_k}{p_0}-\log\frac{p_j}{p_0}
 =(\beta_{0k}-\beta_{0j})+x^\top(\beta_k-\beta_j).
 $$
-
 
 The right-hand side is linear in $x$, with slope equal to the difference of the two baseline slopes.
 :::
@@ -41,7 +39,6 @@ $$
 \log\frac{p_2}{p_0}=\log\frac{2}{5}\approx -0.9163.
 $$
 
-
 {{cite:nelder_wedderburn1972}} (§3.3, p. 379)
 Their difference is $\log(2/3)\approx -0.4055$, which equals $\log(p_2/p_1)$ because $(1/5)/(3/10)=2/3$.
 
@@ -55,8 +52,6 @@ $$
 \frac{2/5}{2}=\frac15.
 $$
 
-
-
 **Your turn.** Replace $p_2$ by $1/10$ and $p_0$ by $3/5$, keeping $p_1=3/10$. Find $\log(p_2/p_1)$ from the two baseline log-odds, and check that the three probabilities still sum to $1$.
 
 ::: {.callout-tip collapse="true" title="Answer"}
@@ -65,16 +60,3 @@ $3/5+3/10+1/10=1$. Then $\log(p_2/p_0)-\log(p_1/p_0)=\log((1/10)/(3/5))-\log((3/
 
 ## Connections — Ordered labels use a different comparison
 [Ordinal responses](ordinal-responses.qmd) keep the order and model cumulative tails with a shared slope. Nominal labels have no such tail. The [logit link](logit-link.qmd) is the two-category case of the baseline formula, with a single log-odds. Changing which label is called $0$ rewrites the coefficients and does not change the fitted probabilities.
-
-## Check yourself
-If $p_1/p_0=2$ and $p_2/p_0=6$, what is $p_2/p_1$, and what is $\log(p_2/p_1)$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-$p_2/p_1=6/2=3$, so the log-odds equal $\log 3$. The same number is $\log 6-\log 2$.
-:::
-
-The linear predictors at $x=0$ are $\eta_1=\log 2$ and $\eta_2=\log 6$, with $\eta_0=0$. What is $p_0$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The weights are $1$, $2$ and $6$, summing to $9$, so $p_0=1/9$.
-:::

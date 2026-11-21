@@ -2,11 +2,16 @@
 
 from __future__ import annotations
 
-from fractions import Fraction
+import sys
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from tools.shown import shown
+
+from fractions import Fraction
 
 ROOT = Path(__file__).resolve().parents[1]
 PROSE = (ROOT / "research" / "content" / "partial-autocorrelation.md").read_text(encoding="utf-8")
+PROSE = shown(PROSE, "partial-autocorrelation")
 
 
 def phi22(rho1: float, rho2: float) -> float:

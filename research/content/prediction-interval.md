@@ -43,19 +43,3 @@ The leverage term vanishes, so the factor under the square root is $1+1/11=1.090
 
 ## Connections — Means, forecasts, and coverage
 A [confidence interval](confidence-interval.qmd) covers a fixed parameter. A prediction interval covers a random future response, which is why the residual variance remains after the parameter uncertainty has gone. In a time-series forecast the same idea appears as $\hat y_{T+h|T}\pm c\hat\sigma_h$, and $\hat\sigma_h$ usually grows with the horizon.{{cite:hyndman_athanasopoulos2021}} (§5.5, Multi-step prediction intervals) The straight-line case is the [pivot](pivot.qmd) $(\,Y_{\mathrm{new}}-\widehat Y(x)\,)/(\text{estimated scale})$, inverted for the unobserved $Y_{\mathrm{new}}$.
-
-## Check yourself
-
-### Known line, one new draw
-The line is known exactly, $\sigma=2$, and a new response is normal about the line. Give a 95% prediction interval around the known mean $10$, using the normal multiplier $1.96$.
-
-::: {.callout-tip collapse="true" title="Answer"}
-There is no uncertainty in the mean, so the half-width is $1.96\times 2=3.92$. The interval is $(6.08,13.92)$.
-:::
-
-### Why the mean interval is the wrong forecast
-At $x=8$ in the worked example the 95% interval for the mean runs from $12-1.410=10.590$ to $12+1.410=13.410$. Why is that range too narrow as a forecast of one new response?
-
-::: {.callout-tip collapse="true" title="Answer"}
-It accounts only for uncertainty in $\widehat Y(8)$. One new response also has variance $\sigma^2$, so the prediction margin is $3.67462$ rather than $1.410$. Quoting $(10.590,13.410)$ as a range for a single new outcome understates the residual scatter the model itself assumes.
-:::

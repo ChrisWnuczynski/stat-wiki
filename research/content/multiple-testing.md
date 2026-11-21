@@ -31,19 +31,3 @@ The probability that one true null is not rejected is $0.95$, so the probability
 
 ## Connections — One comparison and a long list
 A [Bonferroni correction](bonferroni-correction.qmd) is the union-bound threshold. The [false discovery rate](false-discovery-rate.qmd) is the proportion Benjamini and Hochberg control, and [Benjamini–Hochberg](benjamini-hochberg.qmd) is the ordered procedure. [Multiple comparisons](multiple-comparisons.qmd) in an analysis of variance is the same accumulation of error, specialised to contrasts among means. Dependence among the tests makes $1-(1-\alpha)^m$ the wrong family-wise formula. Positive dependence tends to make that probability smaller, because the false rejections overlap.{{cite:hastie_esl2009}} (§18.7, p. 686)
-
-## Check yourself
-
-### Twenty tests, Bonferroni
-Twenty tests, family-wise level $0.05$. What is the Bonferroni threshold?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The threshold is $0.05/20=0.0025$. A $p$-value of $0.01$ is not rejected, even though it would have been rejected as a single test at level $0.05$.
-:::
-
-### An empty rejection list
-Ordered $p$-values $0.40$ and $0.60$, with $m=2$ and $q^\ast=0.05$. How many hypotheses are rejected?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The thresholds are $0.025$ and $0.050$. Neither ordered $p$-value meets its threshold, so $k$ does not exist and nothing is rejected.
-:::

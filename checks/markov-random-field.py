@@ -1,8 +1,13 @@
 """Arithmetic checks for the Markov random field article."""
+
+import sys
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from tools.shown import shown
 
 root = Path(__file__).resolve().parents[1]
 text = (root / "research/content/markov-random-field.md").read_text()
+text = shown(text, "markov-random-field")
 body = (root / "articles/markov-random-field.qmd").read_text().split("## See also", 1)[0]
 assert abs(0.8 * 0.8 - 0.64) < 1e-12
 joint = 0.5 * 0.64 + 0.5 * 0.04

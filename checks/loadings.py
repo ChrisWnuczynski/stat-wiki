@@ -1,8 +1,13 @@
 """Check the two-variable correlation loadings."""
-from math import sqrt
+
+import sys
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from tools.shown import shown
+from math import sqrt
 root = Path(__file__).resolve().parents[1]
 content = (root / "research/content/loadings.md").read_text()
+content = shown(content, "loadings")
 article = root / "articles/loadings.qmd"
 page = article.read_text().split("## See also", 1)[0] if article.is_file() else content
 

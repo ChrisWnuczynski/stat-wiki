@@ -1,8 +1,13 @@
 """Arithmetic for the white-noise depth pass."""
+
+import sys
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from tools.shown import shown
 
 root = Path(__file__).resolve().parents[1]
 prose = (root / "research/content/white-noise.md").read_text(encoding="utf-8")
+prose = shown(prose, "white-noise")
 page = root / "articles/white-noise.qmd"
 assert page.is_file(), "generate articles before this check"
 body = page.read_text(encoding="utf-8").split("## See also", 1)[0]

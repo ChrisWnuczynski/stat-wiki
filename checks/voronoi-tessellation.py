@@ -1,9 +1,14 @@
 """Arithmetic checks for the Voronoi tessellation article."""
-import math
+
+import sys
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from tools.shown import shown
+import math
 
 root = Path(__file__).resolve().parents[1]
 text = (root / "research/content/voronoi-tessellation.md").read_text()
+text = shown(text, "voronoi-tessellation")
 body = (root / "articles/voronoi-tessellation.qmd").read_text().split("## See also", 1)[0]
 
 def dist(p, c):

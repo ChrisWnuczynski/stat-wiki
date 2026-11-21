@@ -36,16 +36,3 @@ The bias is $-9/8=-1.125$. The unbiased variance has variance $2(81)/7=162/7\app
 
 ## Connections
 An [unbiased estimator](unbiased-estimator.qmd) is the special case $b(\theta)=0$. [Mean squared error](mean-squared-error.qmd) is the sum compared above. The square root of an unbiased variance estimator is not unbiased for the standard deviation, because the square root is curved. A study that systematically drops some units can be biased as a sample even when every recorded estimator has bias zero.{{cite:dodge2008}} (p. 41, several types of bias)
-
-## Check yourself
-**1.** If $T$ is unbiased for $\theta$ and $c$ is a constant, what is the bias of $cT$ for $\theta$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-$\mathbb{E}(cT)=c\theta$, so the bias is $c\theta-\theta=(c-1)\theta$. The choice $c=(n-1)/n$ is the step from $s^2$ to $S_n^2$ when both estimate $\sigma^2$, and it produces bias $-\sigma^2/n$.
-:::
-
-**2.** An estimator has variance $0.3$ and bias $0.1$. What is its mean squared error?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The mean squared error is $0.3+0.1^2=0.31$. The squared bias is a tenth of the variance, so most of the error is scatter.
-:::

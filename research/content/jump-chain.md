@@ -35,19 +35,3 @@ The exit rate is $2+4+6=12$. The probability of jumping to state $3$ falls from 
 
 ## Connections — Generators, holding times, and periodicity
 The [holding time](holding-time.qmd) is the exponential wait that the jump chain ignores. The generator stores the rates $q_{ij}$, including the negative diagonal $-\nu_i$, and its rows sum to $0$. A transition matrix of the jump chain has rows that sum to $1$. A two-state jump chain that always switches is periodic as a discrete-time chain. The continuous-time process is not forced to switch at integer times, so the random holds destroy that clockwork.{{cite:pishro_nik2014}} (§11.3, embedded chain)
-
-## Check yourself
-
-### An absorbing state
-All rates out of state $0$ are $0$. What is the jump chain's behaviour at $0$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-$\nu_0=0$, so there is no next state. The holding time is infinite and the jump chain stays at $0$.
-:::
-
-### Two equal rates
-$q_{12}=q_{13}=5$. Find the jump probabilities and the mean hold.
-
-::: {.callout-tip collapse="true" title="Answer"}
-$\nu_1=10$, so each destination has probability $5/10=1/2$. The mean holding time is $1/10$.
-:::

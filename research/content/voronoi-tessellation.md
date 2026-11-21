@@ -35,19 +35,3 @@ The distance to $\mathbf{a}$ is $4$ and the distance to $\mathbf{b}$ is $\sqrt{(
 
 ## Connections — Clustering, prototypes, and convex cells
 [Lloyd's $k$-means algorithm](lloyd-s-k-means-algorithm.qmd) redraws this tessellation at every assignment step, {{cite:hastie_esl2009}} (§14.3.6, p. 510) and the [$k$-means criterion](k-means-criterion.qmd) is the sum of squared distances to the centre of the cell. A cell is an intersection of half-spaces, one for each other centre, so it is convex. A third centre does not bend the pairwise boundary. It only shortens the piece of that boundary that remains active.
-
-## Check yourself
-
-### One cut in the plane
-Centres $(0,0)$ and $(4,0)$. Write the boundary and say which cell contains $(1,5)$.
-
-::: {.callout-tip collapse="true" title="Answer"}
-The midpoint is $(2,0)$ and the segment is horizontal, so the boundary is the vertical line $x=2$. The point $(1,5)$ has $x<2$, so it belongs to the cell of $(0,0)$. The distances are $\sqrt{26}$ and $\sqrt{34}$.
-:::
-
-### A tie
-For the centres $(0,0)$ and $(6,2)$, does $(3,1)$ belong to one cell alone?
-
-::: {.callout-tip collapse="true" title="Answer"}
-No. It is the midpoint, and both distances equal $\sqrt{10}$. It lies on the boundary $3x+y=10$. In an assignment rule one must break the tie; the boundary itself is not an interior point of either open cell.
-:::

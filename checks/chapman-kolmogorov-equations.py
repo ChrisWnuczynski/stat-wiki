@@ -1,11 +1,16 @@
 """Checks for the Chapman–Kolmogorov article."""
 
+import sys
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from tools.shown import shown
+
 
 import numpy as np
 
 root = Path(__file__).resolve().parents[1]
 prose = (root / "research/content/chapman-kolmogorov-equations.md").read_text(encoding="utf-8")
+prose = shown(prose, "chapman-kolmogorov-equations")
 article = root / "articles/chapman-kolmogorov-equations.qmd"
 target = article.read_text(encoding="utf-8").split("## See also", 1)[0] if article.is_file() else prose
 

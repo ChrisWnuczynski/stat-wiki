@@ -83,29 +83,5 @@ Conditional probability is undefined when the conditioning event has probability
 ## Connections
 An [event](event.qmd) is a member of $\mathcal{F}$. A [probability measure](probability-measure.qmd) is the set function $\mathrm{P}$, and a [sigma-algebra](sigma-algebra.qmd) is the family it is defined on. The [axioms of probability](axioms-of-probability.qmd) are this definition read on the events a first course names explicitly. The [strong law](strong-law.qmd) is a probability-$1$ statement about one sequence of sample averages, which is why it lives on a space closed under countable operations.{{cite:durrett2019}} (§1.1; Thm. 2.4.1)
 
-## Check yourself
-Three short calculations. Open an answer only after you have a number or a yes-or-no.
-
-### A union from three pieces
-Suppose $\mathrm{P}(A)=0.2$, $\mathrm{P}(B)=0.5$, and $\mathrm{P}(A\cap B)=0.1$. Find $\mathrm{P}(A\cup B)$ and $\mathrm{P}(A^c)$, and decide whether $A\subset B$ is possible.
-
-::: {.callout-tip collapse="true" title="Answer"}
-Inclusion–exclusion gives $\mathrm{P}(A\cup B)=0.2+0.5-0.1=0.6$. The complement has probability $1-0.2=0.8$. If $A$ were contained in $B$, the intersection would equal $A$ and would have probability $0.2$, not $0.1$. So $A$ is not a subset of $B$.
-:::
-
-### A countable sum
-Independent trials succeed with probability $0.2$ and otherwise fail. The chance that the first success occurs on trial $k$ is $(0.8)^{k-1}(0.2)$. Find the chance that the first success occurs on trial $3$, and the chance that it occurs on trial $1$, $2$, or $3$.
-
-::: {.callout-tip collapse="true" title="Answer"}
-Trial $3$ has probability $(0.8)^2(0.2)=0.128$. The three-trial total is $0.2+0.16+0.128=0.488$. The remaining probability $0.512$ is the chance that the first three trials all fail, which is $(0.8)^3$.
-:::
-
-### Finite versus countable
-On the positive integers, let $\mathcal{A}$ contain every set that is finite or has finite complement. Explain why $\mathcal{A}$ is an algebra and why the set of even integers shows that it is not a sigma-algebra.
-
-::: {.callout-tip collapse="true" title="Answer"}
-The complement of a finite set has finite complement only in the trivial sense that the original set is finite, and the complement of a cofinite set is finite, so $\mathcal{A}$ is closed under complements. The union of two finite sets is finite, and a union that involves a cofinite set is cofinite. Each even singleton is finite, hence in $\mathcal{A}$. The even integers are a countable union of those singletons, and both that set and its complement are infinite, so the union is not in $\mathcal{A}$.
-:::
-
 ## History
 The triple $(\Omega,\mathcal{F},\mathrm{P})$ is the starting point of the measure-theoretic development in Durrett: outcomes, a sigma-field of events, and a countably additive probability. The same chapter points out that equal weights are optional. The four faces of an ancient astragalus, scored $1$, $3$, $4$, and $6$, need four probabilities, not a single count of faces.{{cite:durrett2019}} (§1.1, pp. 1–3) Later limit theorems, including the strong law under a finite absolute mean, are proved inside this framework rather than by a separate set of axioms.{{cite:durrett2019}} (Thm. 2.4.1, p. 76)
