@@ -13,12 +13,18 @@ import {
   exponentialMonteCarlo,
   fractionBand,
   populationById,
+  proportionCoverageCurve,
   runningFraction,
   truthOf,
   validate,
 } from "./coverage-math.js";
 import { formatNumber } from "./stat-math.js";
 import { band, chartColors, createPlot, drawAxes, message, niceTicks, plotBox, rule, scaleLinear, stroke, svgEl } from "./svg-chart.js";
+
+export function coveragePointTitle(method, point, open) {
+  // Keep each breakpoint distinct from nearby cuts and the domain ends.
+  return `${method === "wald" ? "Wald" : "Wilson"}: ${open ? "one-sided limit" : "exact coverage"} ${formatNumber(point.coverage)} at p = ${point.p}`;
+}
 
 function coverageTicks(level) {
   const ticks = [0, 0.5, level, 1].filter((value, index, list) => list.indexOf(value) === index && value >= 0 && value <= 1);
@@ -184,15 +190,11 @@ export function mount(root) {
   function cachedCurves(n, level) {
     const key = `${n}|${level}`;
     if (curveCache && curveCache.key === key) return curveCache;
-    const grid = 80;
-    const wald = [];
-    const wilson = [];
-    for (let i = 0; i <= grid; i++) {
-      const p = i / grid;
-      wald.push(exactProportionCoverage(n, p, level, "wald"));
-      wilson.push(exactProportionCoverage(n, p, level, "wilson"));
-    }
-    curveCache = { key, grid, wald, wilson };
+    curveCache = {
+      key,
+      wald: proportionCoverageCurve(n, level, "wald"),
+      wilson: proportionCoverageCurve(n, level, "wilson"),
+    };
     return curveCache;
   }
 
@@ -336,7 +338,6 @@ export function mount(root) {
     if (proportion) {
       runningNote.textContent = "Exact coverage, summed over the binomial counts. The stated level is the horizontal line. Wald's curve is the sawtooth.";
       const curves = cachedCurves(cfg.n, cfg.level);
-      const { grid, wald, wilson } = curves;
       plotB.setLabel(`Exact ${cfg.method} coverage at p = ${formatNumber(cfg.p)} is ${formatNumber(reference)}`);
       plotB.draw(({ svg, width, height, colors: ink }) => {
         const box = plotBox(width, height);
@@ -351,9 +352,41 @@ export function mount(root) {
           yFormat: (value) => formatNumber(value),
         });
         rule(svg, box.left, yScale(cfg.level), box.left + box.innerWidth, yScale(cfg.level), { stroke: ink.muted, width: 1, dash: "4 3" });
-        const place = (series) => series.map((value, index) => [xScale(index / grid), yScale(value)]);
-        stroke(svg, place(wald), { stroke: ink.miss, width: cfg.method === "wald" ? 2.2 : 1.3 });
-        stroke(svg, place(wilson), { stroke: ink.hit, width: cfg.method === "wilson" ? 2.2 : 1.3 });
+        // Keep the selected method visible where the two curves coincide.
+        const order = cfg.method === "wald" ? ["wilson", "wald"] : ["wald", "wilson"];
+        for (const method of order) {
+          const curve = curves[method];
+          const color = method === "wald" ? ink.miss : ink.hit;
+          for (const segment of curve.segments) {
+            stroke(svg, segment.map((point) => [xScale(point.p), yScale(point.coverage)]), {
+              stroke: color, width: cfg.method === method ? 2.2 : 1.3,
+            });
+          }
+          // Filled points retain exact values at jumps and at the domain ends;
+          // hollow points distinguish excluded one-sided limits. Close marks
+          // are coalesced in screen space only; the curve keeps every tiny strip.
+          const marked = [];
+          const mark = (point, open) => {
+            const x = xScale(point.p);
+            const y = yScale(point.coverage);
+            if (marked.some((old) => old.open === open && Math.hypot(x - old.x, y - old.y) < 8)) return;
+            marked.push({ x, y, open });
+            const node = svgEl(svg, "circle", {
+              cx: x, cy: y, r: 2.5, fill: open ? ink.bg : color, stroke: color, "stroke-width": 1,
+            });
+            svgEl(node, "title").textContent = coveragePointTitle(method, point, open);
+          };
+          mark(curve.points[0], false);
+          mark(curve.points.at(-1), false);
+          curve.points.forEach((point, index) => {
+            const sides = [curve.segments[index - 1]?.at(-1), curve.segments[index]?.[0]].filter(Boolean);
+            const excluded = sides.filter((side) => Math.abs(yScale(side.coverage) - yScale(point.coverage)) >= 4);
+            if (excluded.length) {
+              for (const side of excluded) mark(side, true);
+              mark(point, false);
+            }
+          });
+        }
         svgEl(svg, "circle", { cx: xScale(cfg.p), cy: yScale(reference), r: 4, fill: cfg.method === "wald" ? ink.miss : ink.hit, stroke: ink.bg, "stroke-width": 1 });
       });
       const curveLegend = markerLegend([
