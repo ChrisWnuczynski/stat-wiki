@@ -299,18 +299,25 @@ seriesOn = labControls.seriesOn
 ```{ojs}
 //| echo: false
 //| output: false
+drawCache = ({})
+```
+
+```{ojs}
+//| echo: false
+//| output: false
 draws = {
   const api = kdeApi;
   if (!Number.isInteger(seedValue)) return { error: "The seed must be an integer. No sample was drawn." };
   // Observable also reevaluates these cells on bandwidth and toggle edits.
-  if (this && this.seed === (seedValue >>> 0) && this.n === drawCount && this.population.id === populationId) return this;
+  const cached = drawCache.snapshot;
+  if (cached && cached.seed === (seedValue >>> 0) && cached.n === drawCount && cached.population.id === populationId) return cached;
   const dist = api.population(populationId);
   if (dist.error) return dist;
   const seq = api.sequence(seedValue);
   if (seq.error) return seq;
   const drawn = api.samplePrefix(seq, populationId, drawCount);
   if (drawn.error) return drawn;
-  return { values: drawn.values, components: dist.components, n: drawCount, population: dist, seed: seedValue >>> 0 };
+  return drawCache.snapshot = { values: drawn.values, components: dist.components, n: drawCount, population: dist, seed: seedValue >>> 0 };
 }
 ```
 
@@ -319,8 +326,8 @@ draws = {
 //| output: false
 pairWork = {
   if (draws.error) return draws;
-  if (this && this.snapshot === draws) return this;
-  return { ...kdeApi.pairCache(draws.values), snapshot: draws };
+  if (drawCache.work?.snapshot === draws) return drawCache.work;
+  return drawCache.work = { ...kdeApi.pairCache(draws.values), snapshot: draws };
 }
 ```
 
@@ -330,12 +337,12 @@ pairWork = {
 drawsSettled = {
   const snapshot = draws;
   const work = pairWork;
-  if (this && this.snapshot === snapshot && this.work === work) return this;
+  if (drawCache.settled?.snapshot === snapshot && drawCache.settled.work === work) return drawCache.settled;
   await new Promise((resolve) => {
     const timer = setTimeout(resolve, 100);
     invalidation.then(() => clearTimeout(timer));
   });
-  return { snapshot, work };
+  return drawCache.settled = { snapshot, work };
 }
 ```
 
@@ -345,7 +352,7 @@ drawsSettled = {
 riskCurves = {
   const api = kdeApi;
   const settled = drawsSettled;
-  if (this && this.settled === settled) return this;
+  if (drawCache.curves?.settled === settled) return drawCache.curves;
   if (settled.snapshot.error) return settled.snapshot;
   if (settled.work.error) return settled.work;
   const components = settled.snapshot.components;
@@ -367,7 +374,7 @@ riskCurves = {
     return row.error ? row : { value: row.mise };
   }, api.BAND_LO, api.BAND_HI, 31, api.MISE_STEP);
   if (minMise.error) return minMise;
-  return {
+  return drawCache.curves = {
     settled,
     grid,
     ise: ise.values,
