@@ -7837,39 +7837,75 @@ SIDEBAR_JS = """
   function compactRange() {
     return window.matchMedia("(min-width: 900px) and (max-width: 1200px)").matches;
   }
-  function syncCompact() {
+  function syncInfobox(box) {
+    var button = box.querySelector(".infobox-toggle");
+    var label = box.querySelector(".infobox-label");
+    var body = box.querySelector(".infobox-body");
     var compact = compactRange();
-    document.documentElement.classList.toggle("infobox-compact", compact);
-    document.querySelectorAll(".infobox").forEach(function (box) {
-      var title = box.querySelector(".infobox-title");
-      if (!title) return;
-      if (!compact) {
-        title.removeAttribute("role");
-        title.removeAttribute("tabindex");
-        title.removeAttribute("aria-expanded");
-        return;
-      }
-      title.setAttribute("role", "button");
-      title.setAttribute("tabindex", "0");
-      title.setAttribute("aria-expanded", box.classList.contains("is-open") ? "true" : "false");
-    });
+    var open = !compact || box.classList.contains("is-open");
+    // Expose the new focus target before hiding the old one on resize.
+    if (compact) {
+      button.hidden = false;
+      button.disabled = false;
+      if (!open && body.contains(document.activeElement)) button.focus();
+      label.hidden = true;
+    } else {
+      label.hidden = false;
+      if (button.contains(document.activeElement)) label.focus();
+      button.hidden = true;
+      button.disabled = true;
+    }
+    button.setAttribute("aria-expanded", open ? "true" : "false");
+    button.querySelector(".infobox-cue").textContent = open ? "Hide details" : "Show details";
+    body.inert = !open;
+    body.setAttribute("aria-hidden", open ? "false" : "true");
+    box.classList.toggle("is-compact", compact);
+  }
+  function syncCompact() {
+    document.querySelectorAll(".infobox[data-infobox-ready]").forEach(syncInfobox);
   }
   function armInfoboxes() {
-    document.querySelectorAll(".infobox").forEach(function (box) {
+    document.querySelectorAll(".infobox").forEach(function (box, index) {
       var title = box.querySelector(".infobox-title");
-      if (!title || title.getAttribute("data-armed") === "true") return;
-      title.setAttribute("data-armed", "true");
-      title.addEventListener("click", function () {
-        if (!document.documentElement.classList.contains("infobox-compact")) return;
-        var open = !box.classList.contains("is-open");
-        box.classList.toggle("is-open", open);
-        title.setAttribute("aria-expanded", open ? "true" : "false");
+      if (!title || box.hasAttribute("data-infobox-ready")) return;
+      var heading = document.createElement("h2");
+      heading.className = "infobox-title";
+      var label = document.createElement("span");
+      label.className = "infobox-label";
+      label.tabIndex = -1;
+      // Pandoc puts the title's inline maths and text inside a paragraph.
+      label.innerHTML = title.firstElementChild && title.firstElementChild.tagName === "P"
+        ? title.firstElementChild.innerHTML : title.innerHTML;
+      var body = document.createElement("div");
+      body.className = "infobox-body";
+      var id = "infobox-body-" + (index + 1);
+      while (document.getElementById(id)) id += "-details";
+      body.id = id;
+      var button = document.createElement("button");
+      button.type = "button";
+      button.className = "infobox-toggle";
+      button.hidden = true;
+      button.setAttribute("aria-controls", id);
+      var name = document.createElement("span");
+      name.innerHTML = label.innerHTML;
+      var cue = document.createElement("span");
+      cue.className = "infobox-cue";
+      button.append(name, cue);
+      button.addEventListener("click", function () {
+        if (!compactRange()) return;
+        box.classList.toggle("is-open");
+        syncInfobox(box);
+        markScrollers();
       });
-      title.addEventListener("keydown", function (event) {
-        if (event.key !== "Enter" && event.key !== " ") return;
-        event.preventDefault();
-        title.click();
+      heading.append(label, button);
+      // Nothing is hidden until the native control and its handler exist.
+      title.replaceWith(heading);
+      Array.from(box.children).forEach(function (child) {
+        if (child !== heading) body.appendChild(child);
       });
+      box.appendChild(body);
+      box.setAttribute("data-infobox-ready", "true");
+      syncInfobox(box);
     });
   }
   function applySidebar(payload) {
@@ -7930,8 +7966,8 @@ SIDEBAR_JS = """
       return;
     }
     sidebarBooted = true;
-    syncCompact();
     armInfoboxes();
+    syncCompact();
     function finish() {
       markCurrent();
       markParents();
@@ -7959,8 +7995,8 @@ SIDEBAR_JS = """
     else schedule();
   });
   window.addEventListener("resize", function () {
-    syncCompact();
     armInfoboxes();
+    syncCompact();
     markScrollers();
   });
   document.addEventListener("click", function (event) {

@@ -577,47 +577,59 @@ body.quarto-dark main table.can-scroll-x {
   box-shadow: inset -18px 0 14px -6px rgba(255, 255, 255, 0.55);
 }
 
-/* Between a phone and a wide desktop the summary would otherwise sit, fully
-   open, above the article. Keep one title row until the reader asks for it.
-   Mobile ordering is unchanged. */
-html.infobox-compact .infobox {
+/* Compact summaries are enabled only after their native control is ready. */
+.infobox.is-compact {
   float: none;
   width: 100%;
   max-width: none;
   margin: 0 0 0.75rem;
 }
 
-/* Clip the body instead of removing it from layout, so a closed summary is one
-   title and the table still sits inside the box. */
-html.infobox-compact .infobox:not(.is-open) {
-  max-height: 4.8rem;
+/* Keep the table's width measurable, but remove the closed body's height,
+   visibility and focus targets. The script also applies inert and aria-hidden. */
+.infobox.is-compact:not(.is-open) > .infobox-body {
+  max-height: 0;
   overflow: hidden;
-}
-
-/* A clipped link would still take Tab focus while the summary is closed. */
-html.infobox-compact .infobox:not(.is-open) > :not(.infobox-title) {
   visibility: hidden;
 }
 
-html.infobox-compact .infobox.is-open {
-  max-height: none;
-  overflow-x: auto;
+#quarto-document-content .infobox h2.infobox-title {
+  margin: 0;
+  border: 0;
+  font-size: 1.15rem;
+  line-height: inherit;
 }
 
-html.infobox-compact .infobox-title {
+.infobox-title p {
+  margin: 0;
+}
+
+.infobox-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  color: var(--wiki-text);
+  background: transparent;
+  font: inherit;
+  text-align: left;
   cursor: pointer;
 }
 
-html.infobox-compact .infobox-title::after {
-  content: "Show";
-  float: right;
+.infobox-toggle[hidden],
+.infobox-label[hidden] {
+  display: none;
+}
+
+.infobox-cue {
+  flex: none;
+  color: var(--wiki-text);
   font-family: -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   font-size: 0.75rem;
   font-weight: 600;
-}
-
-html.infobox-compact .infobox.is-open .infobox-title::after {
-  content: "Hide";
 }
 
 /* A 21rem float leaves a readable column only while the article is wide.
