@@ -1,6 +1,8 @@
 """Arithmetic for the baseline-category logit depth pass."""
 
 import sys
+import json
+import re
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from tools.shown import shown
@@ -33,4 +35,21 @@ assert prose.count('title="Proof"') == 1
 assert "**Your turn.**" in prose and "## Check yourself" in prose
 assert prose.count('title="Answer"') == 4
 assert "{{cite:hastie_esl2009}}" in prose
+
+# The independent exercise must not repeat the visible worked scores or odds.
+questions = json.loads((root / "sources/depth-questions.json").read_text(encoding="utf-8"))
+question = next(q for q in questions if q["id"] == "depth-baseline-category-logit-model-q2")
+scores = dict((int(k), float(v)) for k, v in re.findall(r"\\eta_([012])=([0-9.]+)", question["body"]))
+assert [scores[k] for k in range(3)] == [0, 0.3, 1.2]
+normalizer = sum(exp(scores[k]) for k in range(3))
+exercise_odds = (exp(scores[2]) / normalizer) / (exp(scores[1]) / normalizer)
+assert abs(exercise_odds - exp(scores[2] - scores[1])) < 1e-12
+assert round(exercise_odds, 6) == 2.459603
+assert "e^{0.9}\\approx 2.459603" in question["answer"]
+assert "denominator cancels" in question["answer"]
+assert "2.459603" in prose and "2.459603" in body
+authored = (root / "research/content/baseline-category-logit-model.md").read_text(encoding="utf-8")
+assert "2.459603" not in authored and "\\eta_1=0.3" not in authored
+assert 1e-6 < abs(0.5065 / 0.3072 - exp(0.5)) < 5e-5
+assert "$0.5065/0.3072$ is only an approximation" in authored
 print("baseline-category-logit-model arithmetic passed")

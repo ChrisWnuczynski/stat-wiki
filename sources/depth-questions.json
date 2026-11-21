@@ -612,8 +612,8 @@
     "id": "depth-baseline-category-logit-model-q2",
     "topic_code": "G4",
     "title": "Odds between non-reference categories",
-    "body": "A three-category logit model has scores $\\eta_0=0$, $\\eta_1=0.5$ and $\\eta_2=1$, with $p_k=e^{\\eta_k}/\\sum_{j=0}^2 e^{\\eta_j}$. What is $p_2/p_1$?\n",
-    "answer": "The exact probabilities satisfy $p_2/p_1=e^{0.5}\\approx 1.6487$. It is the odds of category $2$ against category $1$, not against the reference. The four-decimal probabilities $0.5065$ and $0.3072$ are each rounded, so their ratio is not a second calculation of $e^{0.5}$.\n"
+    "body": "A three-category logit model has scores $\\eta_0=0$, $\\eta_1=0.3$ and $\\eta_2=1.2$, with $p_k=e^{\\eta_k}/\\sum_{j=0}^2 e^{\\eta_j}$. What is $p_2/p_1$?\n",
+    "answer": "The common normalising denominator cancels in the ratio, so $p_2/p_1=e^{1.2}/e^{0.3}=e^{0.9}\\approx 2.459603$. These are the odds of category $2$ against category $1$, not against the reference.\n"
   },
   {
     "id": "depth-baseline-category-logit-model-q3",
@@ -626,15 +626,15 @@
     "id": "depth-benjamini-hochberg-q1",
     "topic_code": "L18",
     "title": "A $p$-value equal to its threshold",
-    "body": "For $m=5$ and $q^*=0.05$, the third threshold is $0.03$. If the ordered $p$-values are $0.001$, $0.012$, $0.030$, $0.20$, $0.40$, what is $k$ under the closed rule $P_{(i)}\\le (i/m)q^*$, and what is $k$ under the strict rule $P_{(j)}<\\alpha j/m$?\n",
-    "answer": "The closed rule has $0.030\\le 0.030$, and $0.20>0.04$, so $k=3$. The strict rule has $0.030<0.030$ false and $0.012<0.020$ true, so its largest index is $2$. Equality is the case in which the two cutoffs separate.\n"
+    "body": "For $m=5$ and a common level $q^*=\\alpha=0.05$, the third threshold is $0.03$. If the ordered $p$-values are $0.001$, $0.012$, $0.030$, $0.20$, $0.40$, what is $k$ under the closed rule $P_{(i)}\\le (i/m)q^*$, and what is $k$ under the strict rule $P_{(j)}<\\alpha j/m$?\n",
+    "answer": "Both rules use thresholds $0.01$, $0.02$, $0.03$, $0.04$ and $0.05$. The fourth and fifth comparisons fail because $0.20>0.04$ and $0.40>0.05$. The closed rule includes $0.030\\le 0.030$, so its largest successful index is $k=3$. The strict rule excludes equality at the third index, while $0.012<0.020$ holds at the second, so its largest successful index is $k=2$. The difference comes solely from equality at the threshold.\n"
   },
   {
     "id": "depth-benjamini-hochberg-q2",
     "topic_code": "L18",
-    "title": "Nothing rejected",
+    "title": "Checking all five thresholds",
     "body": "Ordered $p$-values $0.04$, $0.20$, $0.30$, $0.40$, $0.50$ are tested at $m=5$ and $q^*=0.05$. What is rejected?\n",
-    "answer": "The first threshold is $0.01$, and $0.04>0.01$. No later comparison can create an earlier success once the largest successful index is sought, and none succeeds, so nothing is rejected.\n"
+    "answer": "The five thresholds are $0.01$, $0.02$, $0.03$, $0.04$ and $0.05$. Every comparison fails: $0.04>0.01$, $0.20>0.02$, $0.30>0.03$, $0.40>0.04$ and $0.50>0.05$. Thus no successful index exists, $k=0$, and nothing is rejected. Benjamini–Hochberg rejects all hypotheses up to the largest successful index; an earlier failed comparison can still be included if a later comparison succeeds. Here none of the five comparisons succeeds.\n"
   },
   {
     "id": "depth-bias-of-an-estimator-q1",
@@ -1319,22 +1319,22 @@
     "id": "depth-multicollinearity-q1",
     "topic_code": "L18",
     "title": "Variance inflation from correlated predictors",
-    "body": "Two predictor vectors are $x_1=(1,2,3,4,5)$ and $x_2=(2,4,5,8,11)$. Let $r$ be their sample correlation. Compute $1-r^2$ and the associated variance inflation factor.\n",
-    "answer": "$1-0.968=0.032$. The inflation factor is $1/0.032=31.25$.\n"
+    "body": "A regression with an intercept has predictors $x_1=(1,2,3,4,5)$ and $x_2=(2,5,6,7,10)$. Let $r$ be their sample correlation. Compute $1-r^2$ and the associated variance inflation factor.\n",
+    "answer": "The predictor means are $3$ and $6$. Their centred cross-products are $S_{11}=10$, $S_{22}=34$ and $S_{12}=18$, so $r^2=18^2/(10\\cdot34)=81/85$. Thus $1-r^2=4/85$, and the variance inflation factor is $85/4=21.25$.\n"
   },
   {
     "id": "depth-multicollinearity-q2",
     "topic_code": "L18",
-    "title": "What happens to the least-squares slopes if $x_2=(2,4,6,8,10)$?",
-    "body": "A least-squares regression includes an intercept and predictors $x_1=(1,2,3,4,5)$ and $x_2=(2,4,6,8,10)$. Are its two slope coefficients uniquely determined? Explain.\n",
-    "answer": "$x_2=2x_1$ exactly, the determinant is $0$, and there is no unique slope pair. Any coefficient on $x_1$ can be traded against the coefficient on $x_2$ without changing fitted means.\n"
+    "title": "An affine dependence with an intercept",
+    "body": "A least-squares regression includes an intercept and predictors $x_1=(1,2,3,4,5)$ and $x_2=(5,8,11,14,17)$. Are its two slope coefficients uniquely determined? Explain how the coefficients can change without changing any fitted value.\n",
+    "answer": "Here $x_2=3x_1+2$, so $b_0+b_1x_1+b_2x_2=(b_0+2b_2)+(b_1+3b_2)x_1$. For any real $t$, the coefficients $(b_0-2t,b_1-3t,b_2+t)$ give the same fitted values. The design with an intercept has rank $2$ rather than $3$, so the slope pair is not unique, although the least-squares fitted values are unique.\n"
   },
   {
     "id": "depth-multicollinearity-q3",
     "topic_code": "L18",
-    "title": "Is the simple slope $0.7$ the partial slope of $x_1$?",
-    "body": "For $x_1=(1,2,3,4,5)$, $x_2=(2,4,5,8,11)$ and $y=(1,2,1,3,4)$, the simple regression of $y$ on $x_1$ with an intercept has slope $0.7$. Is this also the partial slope of $x_1$ in the regression on both predictors with an intercept?\n",
-    "answer": "No. The partial slope is $-1.5$. The value $0.7$ is $S_{1y}/S_{11}=7/10$ from the regression that ignores $x_2$.\n"
+    "title": "Simple and partial slopes",
+    "body": "For $x_1=(1,2,3,4,5)$, $x_2=(2,5,6,7,10)$ and $y=(4,3,4,5,4)$, compute the simple slope of $y$ on $x_1$ and the partial slope of $x_1$ after including $x_2$. Include an intercept in both regressions. Are the two slopes equal?\n",
+    "answer": "The centred cross-products are $S_{11}=10$, $S_{22}=34$, $S_{12}=18$, $S_{1y}=2$ and $S_{2y}=2$. The simple slope is $S_{1y}/S_{11}=2/10=0.2$. The slope-matrix determinant is $10\\cdot34-18^2=16$, and the partial slope is $b_1=(34\\cdot2-18\\cdot2)/16=2$. The full fit has intercept $4$ and $b_2=-1$. The simple and partial slopes are different because the latter adjusts for $x_2$.\n"
   },
   {
     "id": "depth-multiple-testing-q1",

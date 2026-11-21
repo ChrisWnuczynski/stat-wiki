@@ -48,7 +48,7 @@ p_1=\frac{1.6487}{5.3670}\approx 0.3072,\qquad
 p_2=\frac{2.7183}{5.3670}\approx 0.5065.
 $$
 
-They sum to $1$. The odds of category $2$ against the reference are $e^{1}\approx 2.7183$. The odds of category $2$ against category $1$ are $e^{1-0.5}=e^{0.5}\approx 1.6487$, which is $0.5065/0.3072$. Adding $1$ to every score leaves these three probabilities unchanged, because every exponential would be multiplied by $e$.{{cite:hastie_esl2009}} (§4.4, eqs. 4.17–4.18, p. 119)
+They sum to $1$. The odds of category $2$ against the reference are $e^{1}\approx 2.7183$. The odds of category $2$ against category $1$ are $e^{1-0.5}=e^{0.5}\approx 1.6487$, while $0.5065/0.3072$ is only an approximation because both probabilities are rounded. Adding $1$ to every score leaves these three probabilities unchanged, because every exponential would be multiplied by $e$.{{cite:hastie_esl2009}} (§4.4, eqs. 4.17–4.18, p. 119)
 
 **Your turn.** Set the two free scores to $0$ and $\log 3$, with the reference score still $0$. Find the three probabilities.
 
