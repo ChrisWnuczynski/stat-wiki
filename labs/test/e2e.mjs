@@ -228,10 +228,178 @@ try {
 
   step("a binomial sample size moves the stems");
   await familySelect.selectOption("binomial");
-  const stemsAtTen = await page.locator("#distribution svg").first().locator("circle").count();
-  await spin("n as a number").fill("25");
-  await page.waitForFunction((start) => document.querySelector("#distribution svg").querySelectorAll("circle").length > start, stemsAtTen);
-  assert.ok(await page.locator("#distribution svg").first().locator("circle").count() > stemsAtTen);
+  const mass = page.locator("#distribution svg").first();
+  const stems = mass.locator("g[clip-path] line");
+  const n = spin("n as a number");
+  const nSlider = page.locator("#distribution").getByRole("slider", { name: "n", exact: true });
+  const nFeedbackId = await n.getAttribute("aria-describedby");
+  assert.ok(nFeedbackId, "the number field has linked feedback");
+  const nFeedback = page.locator(`[id="${nFeedbackId}"]`);
+  const accessibility = await page.context().newCDPSession(page);
+  await accessibility.send("Accessibility.enable");
+  const statusNodes = new Map();
+  async function assertFeedbackStatus(input, feedback, text) {
+    const id = await feedback.getAttribute("id");
+    assert.equal(await input.getAttribute("aria-describedby"), id);
+    const status = feedback.locator("..");
+    assert.equal(await status.getAttribute("role"), "status");
+    assert.equal(await status.getAttribute("aria-live"), "polite");
+    assert.equal(await status.getAttribute("aria-atomic"), "true");
+    assert.equal(await feedback.getAttribute("aria-live"), null, "only the wrapper is a live region");
+    assert.equal(await status.locator("[aria-live], [role='status'], [role='alert'], input").count(), 0);
+    assert.equal(await status.textContent(), text);
+    assert.notEqual(await status.evaluate((node) => getComputedStyle(node).display), "none");
+    assert.equal(await status.evaluate((node) => getComputedStyle(node).visibility), "visible");
+    const { root } = await accessibility.send("DOM.getDocument");
+    const { nodeId } = await accessibility.send("DOM.querySelector", {
+      nodeId: root.nodeId, selector: `[role="status"]:has(> [id="${id}"])`,
+    });
+    assert.ok(nodeId, "the linked note has a persistent status wrapper");
+    const { nodes } = await accessibility.send("Accessibility.getPartialAXTree", { nodeId });
+    const exposed = nodes.find((node) => node.role?.value === "status" && !node.ignored);
+    assert.ok(exposed, "the status is exposed in Chromium's accessibility tree, even when empty");
+    assert.ok(Number.isInteger(exposed.backendDOMNodeId));
+    if (!statusNodes.has(id)) statusNodes.set(id, exposed.backendDOMNodeId);
+    assert.equal(exposed.backendDOMNodeId, statusNodes.get(id), "the same status survives invalid and valid edits");
+    assert.equal(exposed.properties.find((property) => property.name === "live")?.value.value, "polite");
+    assert.equal(exposed.properties.find((property) => property.name === "atomic")?.value.value, true);
+    const { nodeId: inputId } = await accessibility.send("DOM.querySelector", {
+      nodeId: root.nodeId, selector: `input[aria-describedby="${id}"]`,
+    });
+    const { nodes: inputNodes } = await accessibility.send("Accessibility.getPartialAXTree", { nodeId: inputId });
+    const spinbutton = inputNodes.find((node) => node.role?.value === "spinbutton" && !node.ignored);
+    assert.ok(spinbutton);
+    assert.equal(spinbutton.description?.value ?? "", text, "the field exposes its own feedback");
+  }
+  await assertFeedbackStatus(n, nFeedback, "");
+  assert.equal(await nFeedback.isVisible(), false);
+  const emptyRow = await n.evaluate((input) => {
+    const field = input.closest(".control-field").getBoundingClientRect();
+    const controls = input.closest(".control-slider").getBoundingClientRect();
+    return field.bottom - controls.bottom;
+  });
+  assert.ok(Math.abs(emptyRow) < 1, `empty status adds no visual row: ${emptyRow}px`);
+  assert.equal(await stems.count(), 11);
+  await n.fill("25");
+  await page.waitForFunction(() => document.querySelector("#distribution svg").querySelectorAll("g[clip-path] line").length === 26);
+  assert.equal(await stems.count(), 26);
+  assert.equal(await mass.locator("circle").count(), 26);
+  assertSpread(await distributionCharts());
+
+  step("invalid binomial edits keep the accepted value and both plots");
+  const acceptedCharts = await distributionCharts();
+  const acceptedReadout = await page.locator("#distribution .readout-line").textContent();
+  assert.match(acceptedReadout, /n 25, p 0\.3/);
+  async function assertInvalidN(raw) {
+    assert.equal(await n.inputValue(), raw);
+    assert.equal(await nSlider.inputValue(), "25");
+    assert.equal(await n.evaluate((input) => input === document.activeElement), true);
+    assert.equal(await n.getAttribute("aria-invalid"), "true");
+    assert.equal(await nFeedback.isVisible(), true);
+    assert.match(await nFeedback.textContent(), /from 1 to 40 in steps of 1.*Showing 25/);
+    await assertFeedbackStatus(n, nFeedback, "n must be a number from 1 to 40 in steps of 1. Showing 25.");
+    assert.equal(await page.locator("#distribution .readout-line").textContent(), acceptedReadout);
+    assert.equal(await stems.count(), 26);
+    assert.equal(await mass.locator("circle").count(), 26);
+    assert.deepEqual(await distributionCharts(), acceptedCharts);
+  }
+  for (const raw of ["10.5", "10.0000000001", "0", "41"]) {
+    await n.fill(raw);
+    await assertInvalidN(raw);
+  }
+  await n.press("ControlOrMeta+A");
+  await n.press("Delete");
+  await assertInvalidN("");
+  await n.press("-");
+  assert.equal(await n.evaluate((input) => input.validity.badInput), true);
+  await assertInvalidN("");
+  await n.press("ControlOrMeta+A");
+  await n.press("Delete");
+  await assertInvalidN("");
+
+  step("keyboard digits accept n = 12, clear feedback and draw the CDF endpoints");
+  await n.press("1");
+  assert.equal(await n.inputValue(), "1");
+  assert.equal(await nSlider.inputValue(), "1");
+  assert.equal(await n.getAttribute("aria-invalid"), null);
+  assert.equal(await nFeedback.textContent(), "");
+  await n.press("2");
+  assert.equal(await n.inputValue(), "12");
+  assert.equal(await nSlider.inputValue(), "12");
+  assert.equal(await n.evaluate((input) => input === document.activeElement), true);
+  assert.equal(await nFeedback.isVisible(), false);
+  await assertFeedbackStatus(n, nFeedback, "");
+  assert.equal(await stems.count(), 13);
+  assert.equal(await mass.locator("circle").count(), 13);
+  assert.match(await page.locator("#distribution .readout-line").textContent(), /n 12, p 0\.3/);
+  const twelveCharts = await distributionCharts();
+  assertSpread(twelveCharts);
+  const cdf = twelveCharts[1];
+  const yZero = cdf.yLabels.find((tick) => parseTick(tick.text) === 0).y;
+  const yOne = cdf.yLabels.find((tick) => parseTick(tick.text) === 1).y;
+  const probabilityAt = (point) => (yZero - point[1]) / (yZero - yOne);
+  assert.equal(cdf.points.length, 26);
+  assert.equal(cdf.points[0][0], cdf.points[1][0]);
+  assert.ok(Math.abs(probabilityAt(cdf.points[1]) - 0.7 ** 12) < 0.01 / (yZero - yOne), "F(0) = 0.7^12, within SVG rounding");
+  assert.equal(probabilityAt(cdf.points.at(-1)), 1, "F(12) = 1");
+  assert.equal(cdf.points.at(-1)[0], cdf.xLabels.find((tick) => parseTick(tick.text) === 12).x);
+
+  step("keyboard range input recovers from invalid text and keeps focus");
+  await n.fill("12.5");
+  assert.equal(await n.getAttribute("aria-invalid"), "true");
+  assert.equal(await n.evaluate((input) => input === document.activeElement), true);
+  assert.equal(await nSlider.inputValue(), "12");
+  assert.deepEqual(await distributionCharts(), twelveCharts);
+  await assertFeedbackStatus(n, nFeedback, "n must be a number from 1 to 40 in steps of 1. Showing 12.");
+  await nSlider.focus();
+  await nSlider.press("ArrowRight");
+  assert.equal(await nSlider.inputValue(), "13");
+  assert.equal(await n.inputValue(), "13");
+  assert.equal(await nSlider.evaluate((input) => input === document.activeElement), true);
+  assert.equal(await n.getAttribute("aria-invalid"), null);
+  assert.equal(await nFeedback.textContent(), "");
+  await assertFeedbackStatus(n, nFeedback, "");
+  assert.equal(await stems.count(), 14);
+  assertSpread(await distributionCharts());
+
+  step("a decimal sigma stays editable and obeys its configured step");
+  await familySelect.selectOption("normal");
+  const sigma = spin("σ as a number");
+  const sigmaSlider = page.locator("#distribution").getByRole("slider", { name: "σ", exact: true });
+  const sigmaFeedbackId = await sigma.getAttribute("aria-describedby");
+  assert.ok(sigmaFeedbackId);
+  const sigmaFeedback = page.locator(`[id="${sigmaFeedbackId}"]`);
+  assert.notEqual(sigmaFeedbackId, nFeedbackId);
+  await assertFeedbackStatus(sigma, sigmaFeedback, "");
+  await sigma.focus();
+  await sigma.press("ControlOrMeta+A");
+  await sigma.press("Delete");
+  for (const key of ["1", ".", "2", "5"]) await sigma.press(key);
+  assert.equal(await sigma.inputValue(), "1.25");
+  assert.equal(await sigmaSlider.inputValue(), "1.25");
+  assert.equal(await sigma.evaluate((input) => input === document.activeElement), true);
+  assert.equal(await sigma.getAttribute("aria-invalid"), null);
+  assert.equal(await sigmaFeedback.textContent(), "");
+  assert.match(await page.locator("#distribution .readout-line").textContent(), /σ 1\.25/);
+  const decimalCharts = await distributionCharts();
+  assertSpread(decimalCharts);
+  for (const raw of ["1.23", "1.2500000001"]) {
+    await sigma.fill(raw);
+    assert.equal(await sigma.inputValue(), raw);
+    assert.equal(await sigmaSlider.inputValue(), "1.25");
+    assert.equal(await sigma.getAttribute("aria-invalid"), "true");
+    assert.match(await sigmaFeedback.textContent(), /from 0\.3 to 3 in steps of 0\.05.*Showing 1\.25/);
+    await assertFeedbackStatus(sigma, sigmaFeedback, "σ must be a number from 0.3 to 3 in steps of 0.05. Showing 1.25.");
+    assert.deepEqual(await distributionCharts(), decimalCharts);
+  }
+  await sigmaSlider.focus();
+  await sigmaSlider.press("ArrowRight");
+  assert.equal(await sigmaSlider.inputValue(), "1.3");
+  assert.equal(await sigma.inputValue(), "1.3");
+  assert.equal(await sigmaSlider.evaluate((input) => input === document.activeElement), true);
+  assert.equal(await sigma.getAttribute("aria-invalid"), null);
+  assert.equal(await sigmaFeedback.textContent(), "");
+  assert.match(await page.locator("#distribution .readout-line").textContent(), /σ 1\.3/);
   assertSpread(await distributionCharts());
 
   step("a closed chart keeps a real width, then follows the container");
