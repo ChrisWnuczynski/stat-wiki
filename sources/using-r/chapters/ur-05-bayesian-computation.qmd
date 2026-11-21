@@ -30,7 +30,9 @@ c(observed_rate = y / n,
   stats::quantile(posterior_draws, c(0.025, 0.975)))
 ```
 
-The posterior mean of a $\operatorname{Beta}(a,b)$ random variable is $a/(a+b)$, so `a_post / (a_post + b_post)` should agree with `mean(posterior_draws)` up to Monte Carlo error. If it does not, the draws are not from the beta that was intended. The observed rate $y/n$ is the maximum-likelihood estimate. It is not the posterior mean, unless the prior is improper in the way the beta–binomial page sets out. With $a_0=b_0=2$ the posterior mean is pulled from $y/n$ toward $1/2$ by four pseudo-counts.
+The mean of a $\operatorname{Beta}(a,b)$ random variable is $a/(a+b)$, so `mean(posterior_draws)` should vary around the exact posterior mean `a_post / (a_post + b_post)` with Monte Carlo error. A discrepancy large relative to that variation is a reason to check the posterior parameters and the sampling code.
+
+For $n>0$, the observed rate $y/n$ is the maximum-likelihood estimate. With $a_0,b_0>0$, the posterior mean is a weighted average of the prior mean $a_0/(a_0+b_0)$ and the observed rate, with weights proportional to $a_0+b_0$ and $n$. It equals the observed rate if and only if the prior mean also equals that rate; otherwise it lies strictly between them. Thus a proper prior need not change the mean from $y/n$. If $n=0$, no sample proportion is defined, and the posterior remains the prior.
 
 ```r
 curve(dbeta(x, a_post, b_post), from = 0, to = 1, n = 400,
@@ -192,11 +194,11 @@ Report the prior with the posterior. A Bayes factor multiplies prior odds; it is
 ## Exercises
 
 ::: {#ex-ur-posterior-mean .exercise}
-## The posterior mean is not the observed rate
+## The posterior mean and the observed rate
 
-A beta–binomial update starts from a Beta(2, 2) prior and then observes $y$ successes in $n$ trials.
+A beta–binomial update starts from a $\operatorname{Beta}(2,2)$ prior and then observes $y$ successes in $n>0$ trials.
 
-Why is the posterior mean not the observed rate $y/n$?
+Express the posterior mean as a weighted average of the prior mean and the observed rate $y/n$. When are the posterior mean and the observed rate equal? Compare two successes in four trials with three successes in four trials. Explain what changes when $n=0$, and how the exact posterior mean can be used to check simulated draws.
 
 [Solution](#sol-ur-posterior-mean)
 :::
