@@ -218,6 +218,49 @@ export function exactProportionCoverage(n, p, level, method) {
   return total;
 }
 
+// Separate continuous pieces of the binomial sum. At each cut, the endpoint
+// value comes from the same oracle as the readout; a piece's endpoint instead
+// uses its fixed accepted counts, so it is the appropriate one-sided limit.
+export function proportionCoverageCurve(n, level, method) {
+  if (!Number.isInteger(n) || n < 1 || n > LIMITS.nMax || !(level > 0 && level < 1)) {
+    return { error: "The coverage curve needs a supported sample size and level." };
+  }
+  const intervals = [];
+  const cuts = new Set([0, 1]);
+  for (let successes = 0; successes <= n; successes++) {
+    const interval = proportionInterval(successes, n, method, level);
+    if (interval.error) return interval;
+    // Expand before clipping, exactly as hitsTruth does. Do not round or merge
+    // nearby cuts: even a subpixel tolerance strip has its own membership.
+    const lower = Math.max(0, interval.lower - COVER_TOL);
+    const upper = Math.min(1, interval.upper + COVER_TOL);
+    intervals.push({ successes, lower, upper });
+    cuts.add(lower);
+    cuts.add(upper);
+  }
+  const boundaries = [...cuts].sort((a, b) => a - b);
+  const segments = [];
+  for (let i = 1; i < boundaries.length; i++) {
+    const lower = boundaries[i - 1];
+    const upper = boundaries[i];
+    // Comparing the ends avoids a rounded midpoint landing on an adjacent cut.
+    const accepted = intervals.filter((row) => row.lower <= lower && row.upper >= upper);
+    const steps = Math.max(1, Math.ceil((upper - lower) * 1024));
+    const points = [];
+    for (let j = 0; j <= steps; j++) {
+      const p = j === steps ? upper : lower + (upper - lower) * j / steps;
+      let coverage = 0;
+      for (const row of accepted) coverage += binomPmf(row.successes, n, p);
+      points.push({ p, coverage });
+    }
+    segments.push(points);
+  }
+  // At most 2(n + 1) + 2 cuts and 1024 + 2 * segments sampled points.
+  // Work is bounded by n/level, independent of the selected probability.
+  const points = boundaries.map((p) => ({ p, coverage: exactProportionCoverage(n, p, level, method) }));
+  return { segments, points };
+}
+
 export function runningFraction(intervals) {
   let hits = 0;
   return intervals.map((row, index) => {
