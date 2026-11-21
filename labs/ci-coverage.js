@@ -21,6 +21,11 @@ import {
 import { formatNumber } from "./stat-math.js";
 import { band, chartColors, createPlot, drawAxes, message, niceTicks, plotBox, rule, scaleLinear, stroke, svgEl } from "./svg-chart.js";
 
+export function coveragePointTitle(method, point, open) {
+  // Keep each breakpoint distinct from nearby cuts and the domain ends.
+  return `${method === "wald" ? "Wald" : "Wilson"}: ${open ? "one-sided limit" : "exact coverage"} ${formatNumber(point.coverage)} at p = ${point.p}`;
+}
+
 function coverageTicks(level) {
   const ticks = [0, 0.5, level, 1].filter((value, index, list) => list.indexOf(value) === index && value >= 0 && value <= 1);
   ticks.sort((a, b) => a - b);
@@ -369,7 +374,7 @@ export function mount(root) {
             const node = svgEl(svg, "circle", {
               cx: x, cy: y, r: 2.5, fill: open ? ink.bg : color, stroke: color, "stroke-width": 1,
             });
-            svgEl(node, "title").textContent = `${method === "wald" ? "Wald" : "Wilson"}: ${open ? "one-sided limit" : "exact coverage"} ${formatNumber(point.coverage)} at p = ${formatNumber(point.p)}`;
+            svgEl(node, "title").textContent = coveragePointTitle(method, point, open);
           };
           mark(curve.points[0], false);
           mark(curve.points.at(-1), false);

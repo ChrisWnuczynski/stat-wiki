@@ -6,6 +6,7 @@ import { dirname, join } from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
 import * as cover from "./coverage-math.js";
+import { coveragePointTitle } from "./ci-coverage.js";
 
 const root = dirname(fileURLToPath(import.meta.url));
 const reference = JSON.parse(readFileSync(join(root, "fixtures", "stats-reference.json"), "utf8"));
@@ -194,6 +195,28 @@ test("Wilson and maximum-n curves have bounded finite paths with fixed membershi
   }
   for (const args of [[0, 0.95, "wald"], [201, 0.95, "wald"], [10, 1, "wald"], [10, 0.95, "t"]]) {
     assert.ok(cover.proportionCoverageCurve(...args).error);
+  }
+});
+
+test("breakpoint titles preserve exact probabilities at tolerance cuts and domain ends", () => {
+  assert.equal(coveragePointTitle("wald", { p: 1 - 1e-10, coverage: 0 }, true),
+    "Wald: one-sided limit 0 at p = 0.9999999999");
+  assert.equal(coveragePointTitle("wald", { p: 1, coverage: 1 }, false),
+    "Wald: exact coverage 1 at p = 1");
+  assert.equal(coveragePointTitle("wald", { p: 1e-10, coverage: 0 }, true),
+    "Wald: one-sided limit 0 at p = 1e-10");
+  assert.equal(coveragePointTitle("wald", { p: 0, coverage: 1 }, false),
+    "Wald: exact coverage 1 at p = 0");
+  const cut = cover.proportionInterval(1, 10, "wald", 0.95).upper + 1e-10;
+  for (const method of ["wald", "wilson"]) for (const n of [1, 10, 200]) {
+    const curve = cover.proportionCoverageCurve(n, 0.95, method);
+    for (const point of [...curve.points, ...curve.segments.flatMap((segment) => [segment[0], segment.at(-1)])]) {
+      for (const open of [false, true]) {
+        const text = coveragePointTitle(method, point, open).split(" at p = ")[1];
+        assert.equal(Number(text), point.p, `${method} n=${n}: breakpoint must round-trip`);
+        if (point.p === cut) assert.equal(text, "0.2859385097913685");
+      }
+    }
   }
 });
 
