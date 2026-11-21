@@ -39,18 +39,20 @@ It is $S(2)/S(1)=e^{-4}/e^{-1}=e^{-3}\approx0.04979$. It is a conditional surviv
 
 ## Check yourself
 
-### [Survival from the hazard](../questions/ex-prob-hazard-survival.qmd) {#self-check-ex-prob-hazard-survival}
-
-Why is the integration constant zero in $\log S(t)=-H(t)$?
+**1.** A lifetime has constant hazard 0.2 per year. What are the probability of surviving 10 years and the median lifetime?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-An absolutely continuous nonnegative lifetime has $P(T=0)=0$, so $S(0)=1$ and $\log S(0)=0$. An atom at zero would require its own initial survival factor.
+The cumulative hazard to 10 years is 2, so $S(10)=e^{-2}\approx 0.135335$. The median solves $0.2t=\log 2$, hence $t=(\log 2)/0.2\approx 3.465736$ years.
 :::
 
-### [Five years of a component](../questions/ex-prob-component-five-years.qmd) {#self-check-ex-prob-component-five-years}
-
-Find survival through five years for the constant hazard $0.1$ per year.
+**2.** The hazard is $h(t)=2t$. What is the probability that the lifetime is at most 1?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-$H(5)=0.5$ and $S(5)=e^{-0.5}\approx0.60653$.
+The cumulative hazard to 1 is 1, so $P(T\le 1)=1-e^{-1}\approx 0.632121$.
+:::
+
+**3.** A Weibull lifetime has shape $k=1$ and scale $a>0$. What is its hazard?
+
+::: {.callout-tip collapse="true" title="Answer"}
+The Weibull hazard is $kt^{k-1}/a^k$. At $k=1$ this is the constant $1/a$.
 :::

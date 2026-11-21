@@ -43,6 +43,12 @@ Suppose three independent lifetimes are exponential with a common rate $\lambda>
 There are three failure factors and total observed time $1+2+4+5=12$, so $L(\lambda)=\lambda^3e^{-12\lambda}$. The score is $3/\lambda-12$, giving $\widehat\lambda=3/12=0.25$ per unit time. The log likelihood is strictly concave for positive $\lambda$, so this stationary point is the maximum.
 :::
 
+**A further exercise.** Five independent Bernoulli trials produce three successes. What is the maximum-likelihood success probability, and what is the likelihood ratio of that value to $1/2$?
+
+::: {.callout-tip collapse="true" title="Answer"}
+The maximiser is $3/5$. The ratio of likelihoods is $(6/5)^3(4/5)^2=3456/3125=1.10592$.
+:::
+
 ## Common misconceptions
 The MLE is a rule, while the numerical maximiser from one sample is its estimate. A higher likelihood at one parameter does not assign that parameter a posterior probability. A zero score need not mark a global maximum; the normal degenerate and uniform boundary examples show why checking the domain matters. Invariance under a parameter transformation does not imply that the transformed estimate is unbiased. A model can fit its training observations well and still be inaccurate for new observations.{{cite:fisher1922}} (pp. 323–327){{cite:nist_handbook_mle2002}} (§1.3.6.5.2)
 

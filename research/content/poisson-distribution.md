@@ -38,6 +38,12 @@ To see what a varying rate does, suppose half the windows have mean $1$ and half
 Ninety minutes is $3/2$ hours, so $\lambda=2(3/2)=3$. The probability is $\Pr\{N(3/2)\le1\}=e^{-3}(1+3)=4e^{-3}\approx0.1991$. The mean is an expected count over the specified exposure; it is not a count guaranteed in every such window.
 :::
 
+**A further exercise.** For a Poisson count with mean 2.5, which integer is the unique mode, and what is the probability of a zero count?
+
+::: {.callout-tip collapse="true" title="Answer"}
+Because 2.5 is not an integer, the unique mode is $\lfloor 2.5\rfloor=2$. The zero probability is $e^{-2.5}\approx 0.082085$.
+:::
+
 ## Common misconceptions
 
 A Poisson mean is not automatically an hourly rate: its unit is an expected count for the stated window. A Poisson *marginal* count does not by itself imply independent arrivals or exponential waits; those require a process assumption. “Mean equals variance” is a model property, not an identity that every finite dataset must satisfy. And a rare-event approximation is not justified merely because $n$ is large: the individual success probability must be small enough that its dependence on $n$ leaves a stable expected total.{{cite:siegrist2022_poisson_distribution}} (§4, “Basic Theory,” “Moments,” and “The Binomial Distribution”)

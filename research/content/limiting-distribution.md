@@ -43,8 +43,16 @@ a_n-\frac23=0.4^n\left(a_0-\frac23\right).
 $$
 Starting wet means $a_0=0$, so $a_2=0.56$ and $a_5=2062/3125=0.65984$. The total variation distance after five steps is $|a_5-2/3|=64/9375\approx0.006827$.
 
+The factor $0.4$ is this chain's second eigenvalue, and it equals $P_{11}-P_{21}$. Each further day multiplies the distance from the stationary dry-day probability $2/3$ by $0.4$, which is why five steps from a wet start leave a gap of only $64/9375$. The same closed form with a dry start, $a_0=1$, approaches $2/3$ from above. Either state can be reached from the other in one step, and each state can stay put, so the chain is irreducible and aperiodic. Convergence of a finite chain asks only that some power of $P$ have every entry positive, so that this factor lies strictly inside the unit interval.{{cite:grinstead_snell1997}} (§11.4, finite-chain convergence proof)
+
 **Your turn.** If the chain starts dry instead, find the dry probability after five transitions.
 
 ::: {.callout-tip collapse="true" title="Answer"}
 Use $a_0=1$, giving $a_5=2/3+(1/3)(0.4)^5=0.67008$. Both starts approach the same limit from opposite sides.
+:::
+
+**A further exercise.** A two-state chain has $P_{11}=1/2$, $P_{12}=1/2$, $P_{21}=1/5$ and $P_{22}=4/5$. Find the unique stationary distribution.
+
+::: {.callout-tip collapse="true" title="Answer"}
+The balance equation $\pi_1=(1/2)\pi_1+(1/5)\pi_2$ with $\pi_2=1-\pi_1$ gives $(7/10)\pi_1=1/5$, so $\pi=(2/7,5/7)$.
 :::

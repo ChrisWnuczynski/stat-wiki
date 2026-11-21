@@ -33,7 +33,7 @@ A random walk observed at $12$ has point forecasts equal to $12$ at every horizo
 **Your turn.** An ARIMA$(1,0,0)$ model with no extra constant is $y_t=0.5 y_{t-1}+\varepsilon_t$. The last observation is $4$. Find the one-step and two-step point forecasts.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The one-step forecast is $0.5\times 4=2$. The two-step forecast replaces the unknown next level by that forecast, giving $0.5\times 2=1$.$)
+The one-step forecast is $0.5\times 4=2$. The two-step forecast replaces the unknown next level by that forecast, giving $0.5\times 2=1$.
 :::
 
 ## Connections

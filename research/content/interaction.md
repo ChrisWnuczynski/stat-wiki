@@ -39,6 +39,12 @@ Consider hypothetical mean yields for two binary settings. Let $\mu_{00}=10$, $\
 The $A$ effect is $11-8=3$ when $B=0$ and $20-13=7$ when $B=1$, so the interaction contrast is $7-3=4$. The $B$ effect at $A=0$ is $13-8=5$. The model is $\mathbb E(Y\mid A,B)=8+3A+5B+4AB$, which gives 20 at $(1,1)$. Omitting the product term would predict $8+3+5=16$ there. The contrast is on the response-mean scale.
 :::
 
+**A further exercise.** Four cell means are $\mu_{00}=2$, $\mu_{10}=5$, $\mu_{01}=4$ and $\mu_{11}=9$. What is the interaction contrast, and what is the effect of moving $A$ from 0 to 1 when $B=1$?
+
+::: {.callout-tip collapse="true" title="Answer"}
+The contrast is $9-4-5+2=2$. The effect of $A$ when $B=1$ is $9-4=5$.
+:::
+
 ## Common misconceptions
 Interaction does not require two plotted lines to cross; any change in their difference across levels is interaction. A visible crossing is not proof of a precise population effect without accounting for sample variation. Conversely, a large main effect can coexist with zero interaction when the lines are parallel. A main coefficient in a model with a product term is tied to the other variable's reference value, not necessarily its overall average effect.{{cite:nist_interactions2002}} (§3.4.2.3)
 
