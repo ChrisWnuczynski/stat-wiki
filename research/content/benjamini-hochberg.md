@@ -14,7 +14,6 @@ $$
 \mathrm{FDR}=\mathbb{E}(V/R),
 $$
 
-
 with $V$ the number of false rejections and $R$ the number of rejections, and they record the bound $\mathrm{FDR}\le (M_0/M)\alpha\le\alpha$ under independence.{{cite:hastie_esl2009}} (p. 687, Eq. 18.43 and Eq. 18.45)
 
 ## Worked example — Five ordered $p$-values
@@ -27,18 +26,3 @@ The thresholds are $0.004$, $0.008$, $0.012$, $0.016$ and $0.020$. Only $0.001\l
 
 ## Connections — Family-wise error and a plug-in estimate
 The [family-wise error rate](family-wise-error-rate.qmd) is $\mathbb{P}(V\ge 1)$, which is at least the false-discovery rate, so a procedure that controls the former controls the latter.{{cite:hastie_esl2009}} (p. 687) A [Bonferroni correction](bonferroni-correction.qmd) is the single cutoff $q^*/m$ used in the example. The [false discovery rate](false-discovery-rate.qmd) is the expectation being controlled, not the false-discovery proportion in one realised list. Hastie, Tibshirani and Friedman also describe a permutation plug-in, $\widehat{\mathrm{FDR}}=\widehat{\mathbb{E}}(V)/R_{\mathrm{obs}}$, and say that it matches Benjamini–Hochberg when the $p$-values come from those permutations.{{cite:hastie_esl2009}} (p. 689, Algorithm 18.3)
-
-## Check yourself
-### A $p$-value equal to its threshold
-For $m=5$ and $q^*=0.05$, the third threshold is $0.03$. If the ordered $p$-values are $0.001$, $0.012$, $0.030$, $0.20$, $0.40$, what is $k$ under the closed rule $P_{(i)}\le (i/m)q^*$, and what is $k$ under the strict rule $P_{(j)}<\alpha j/m$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The closed rule has $0.030\le 0.030$, and $0.20>0.04$, so $k=3$. The strict rule has $0.030<0.030$ false and $0.012<0.020$ true, so its largest index is $2$. Equality is the case in which the two cutoffs separate.
-:::
-
-### Nothing rejected
-Ordered $p$-values $0.04$, $0.20$, $0.30$, $0.40$, $0.50$ are tested at $m=5$ and $q^*=0.05$. What is rejected?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The first threshold is $0.01$, and $0.04>0.01$. No later comparison can create an earlier success once the largest successful index is sought, and none succeeds, so nothing is rejected.
-:::

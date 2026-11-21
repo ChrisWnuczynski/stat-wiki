@@ -19,7 +19,6 @@ $$
 D_0=-2\sum_i\bigl(y_i\log\hat p+(1-y_i)\log(1-\hat p)\bigr).
 $$
 
-
 The maximiser is $\hat p=\bar y$.
 :::
 :::
@@ -31,7 +30,6 @@ $$
 D_0=-2\bigl(3\log(3/4)+\log(1/4)\bigr)\approx 4.4987.
 $$
 
-
 The null residual degrees of freedom are $4-1=3$. If a covariate model later reports residual deviance $1.4987$ on $2$ degrees of freedom, the drop is $4.4987-1.4987=3$ on $3-2=1$ degree of freedom. That difference is a comparison with the intercept-only fit, not a comparison of the covariate model with a perfect fit beyond what the residual deviance already measures.
 
 **Your turn.** Observations $1,0,0,0$. Compute $\hat p$ and the null deviance to four decimal places.
@@ -42,16 +40,3 @@ $\hat p=1/4$. By symmetry with the worked example, swapping the labels $0$ and $
 
 ## Connections — Residual deviance, degrees of freedom, and the likelihood ratio
 The [residual deviance](residual-deviance.qmd) replaces the intercept-only log-likelihood by the fitted model's. Their difference is the likelihood-ratio comparison of the two models, and the change in [degrees of freedom](degrees-of-freedom.qmd) is the number of covariates added when the intercept is already present. The [saturated model](saturated-model.qmd) is the reference that makes both deviances zero when the fit is perfect. For a binary response that reference contributes nothing, which is why the formula collapsed to $-2\ell_{\mathrm{null}}$.
-
-## Check yourself
-Five binary observations contain four ones. What is $\hat p$, and what is `df.null` for an intercept-only fit?
-
-::: {.callout-tip collapse="true" title="Answer"}
-$\hat p=4/5$. One intercept is estimated, so `df.null` is $5-1=4$.
-:::
-
-Why is the null deviance of $1,1,0,1$ not equal to $-2\log((3/4)^4)$, which would be the deviance if all four observations equalled $3/4$ in a continuous likelihood?
-
-::: {.callout-tip collapse="true" title="Answer"}
-Three observations contribute $\log(3/4)$ and the zero contributes $\log(1/4)$, so the sum is $3\log(3/4)+\log(1/4)$, not $4\log(3/4)$. The zero is a failure at probability $3/4$, and it is in the likelihood.
-:::

@@ -17,7 +17,6 @@ $$
 K=\begin{pmatrix}1&-1/2&0\\ -1/2&1&-1/2\\ 0&-1/2&1\end{pmatrix}.
 $$
 
-
 The $(1,3)$ entry is $0$. The quadratic form is $x_1^2+x_2^2+x_3^2-x_1 x_2-x_2 x_3$. Completing the square in $x_1$ and in $x_3$ leaves no product $x_1 x_3$, so the conditional density of $(X_1,X_3)$ given $X_2$ factors. The marginal correlation of $X_1$ and $X_3$ need not be zero: both can still depend on $X_2$.{{cite:grinstead_snell1997}} (p. 164, a conditional probability factors when the variables are independent given the condition)
 
 ## Properties
@@ -32,7 +31,6 @@ Write the quadratic form as
 $$
 (x_1-\tfrac12 x_2)^2+(x_3-\tfrac12 x_2)^2+\tfrac12 x_2^2.
 $$
-
 
 Expanding recovers $x_1^2+x_2^2+x_3^2-x_1 x_2-x_2 x_3$, and the cross term $x_1 x_3$ does not appear. In the Gaussian density the conditional exponent of $(x_1,x_3)$ given $x_2$ is therefore a sum of a function of $(x_1,x_2)$ and a function of $(x_3,x_2)$. The conditional joint density factors, which is $X_1\perp X_3\mid X_2$.{{cite:grinstead_snell1997}} (p. 164, conditional probability and independence)
 
@@ -65,26 +63,6 @@ The graph is not the distribution. Two different positive definite matrices can 
 
 ## Connections
 [Conditional independence](conditional-independence.qmd) is the relation a separator is meant to encode. A [precision matrix](partial-correlation.qmd) zero is the Gaussian form of a missing edge. The path on three vertices is the smallest graph in which a marginal association and a conditional independence coexist, as $K_{13}=0$ and $\Sigma_{13}=1/2$ show.{{cite:grinstead_snell1997}} (p. 164)
-
-## Check yourself
-
-1. On the path $1-2-3$, what is the degree of vertex $2$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-$2$. It has neighbours $1$ and $3$. The endpoints each have degree $1$.
-:::
-
-2. For the precision $K$ in the example, what is $K_{13}$, and what is $\Sigma_{13}$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-$K_{13}=0$ and $\Sigma_{13}=1/2$. The missing edge is the precision zero. The marginal covariance is not zero.
-:::
-
-3. Does a self-loop appear in this definition of an undirected graph?
-
-::: {.callout-tip collapse="true" title="Answer"}
-No. An edge is a pair of distinct vertices. A loop at a vertex is excluded.
-:::
 
 ## History
 The path and the separator are combinatorial. The probability reading uses conditional independence: a product of conditional probabilities. Grinstead and Snell set conditional probability and independence side by side in the continuous chapter that also treats the memoryless property. The Gaussian calculation here is the same product, read off a quadratic form whose cross term $x_1 x_3$ is absent. The general equivalence between a positive density's factorisation and its missing edges is a further theorem.{{cite:grinstead_snell1997}} (p. 164, conditional probability)

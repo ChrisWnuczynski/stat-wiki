@@ -43,19 +43,3 @@ The formula gives $(1-1/20)^{20}=0.35849$, the same number as the exponential ca
 
 ## Connections — Averages, lifetimes, and dependence
 The [central limit theorem](central-limit-theorem.qmd) scales a sum. Extreme-value limits scale a maximum, and the scale is logarithmic, a power of $n$, or a gap to an endpoint, according to the type. [Exponential tails and the Gumbel law](exponential-tails-and-the-gumbel-law.qmd), [power-law tails and the Fréchet law](power-law-tails-and-the-frechet-law.qmd) and [a finite endpoint and a Weibull extreme-value law](a-finite-endpoint-and-a-weibull-extreme-value-law.qmd) are the three cases. NIST notes that a series system, which fails at the first component failure, has a minimum whose limit is Weibull when the component lifetimes are bounded below by zero.{{cite:nist_extreme_value}} (§8.1.6.3, series systems) Dependence can replace $n$ by a smaller count of independent excursions. The identity $F(x)^n$ uses independence.
-
-## Check yourself
-
-### A larger exponential sample
-Compute $(1-1/50)^{50}$ and say whether it is closer to $e^{-1}=0.36788$ than $(1-1/20)^{20}=0.35849$ is.
-
-::: {.callout-tip collapse="true" title="Answer"}
-$(1-1/50)^{50}=0.36417$. The gap to $0.36788$ is $0.00371$, smaller than the gap $0.00939$ at $n=20$. The limit statement is visible in the arithmetic.
-:::
-
-### Which type has a finite upper end?
-A measurement cannot exceed $1$, and one studies $n(1-M_n)$. Which of the three types is that limit, and why is it not Gumbel?
-
-::: {.callout-tip collapse="true" title="Answer"}
-It is the Weibull extreme-value type. The maximum is pressed against a finite endpoint, so the limiting variable lives on one side of $0$. A Gumbel limit is spread over the whole real line and comes from an unbounded light tail, not from a hard ceiling.
-:::

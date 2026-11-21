@@ -8,7 +8,6 @@ $$
 U(3)=\binom{3}{1}\Bigl(\frac14\Bigr)\Bigl(\frac34\Bigr)^{2}=\frac{27}{64}=0.421875.
 $$
 
-
 The plug-in maximum-likelihood value is $e^{-3/4}(3/4)=0.3543$ to four decimals. The two numbers answer different questions: $0.421875$ is the unbiased conditional probability, and $0.3543$ is $g$ evaluated at $T/n$.
 
 ## Intuition — Stay unbiased, then discard noise
@@ -21,7 +20,6 @@ $$
 \operatorname{Var}_\theta(U)\le\operatorname{Var}_\theta(V).
 $$
 
-
 The inequality has to hold on the whole parameter space. An estimator that wins at one $\theta$ and loses at another is not uniformly minimum-variance unbiased.{{cite:siegrist2022_sufficient_complete}} (§7.6, Properties of Sufficient Statistics and Complete Statistics)
 
 ## Properties — The Poisson conditional probability is unbiased
@@ -30,7 +28,6 @@ Let $X_1,\ldots,X_n$ be independent Poisson($\theta$) random variables, $T=\sum_
 $$
 U(t)=\binom{t}{k}\Bigl(\frac1n\Bigr)^k\Bigl(1-\frac1n\Bigr)^{t-k}
 $$
-
 
 for $t\ge k$, and $U(t)=0$ for $t<k$.
 
@@ -41,7 +38,6 @@ The binomial formula does not depend on $\theta$. The law of total probability t
 $$
 \mathbb{E}_\theta U(T)=\mathbb{E}_\theta\bigl[\mathbb{P}(X_1=k\mid T)\bigr]=\mathbb{P}(X_1=k)=e^{-\theta}\theta^k/k!.
 $$
-
 
 So $U(T)$ is unbiased for $g(\theta)=\mathbb{P}(X_1=k)$. The plug-in $e^{-\overline X}\overline X^k/k!$ is a different function of $T$. For $k=0$ the map $x\mapsto e^{-x}$ is strictly convex, and $\overline X$ is unbiased for $\theta$ and not degenerate, so Jensen's inequality yields $\mathbb{E} e^{-\overline X}>e^{-\theta}$. The plug-in is biased high.
 :::
@@ -59,18 +55,3 @@ $U(2)=(3/4)^2=9/16=0.5625$. The plug-in is $e^{-1/2}=0.6065$ to four decimals. I
 
 ## Connections — Bounds, sufficiency and completeness
 An estimator that meets the [Cramér–Rao lower bound](cramer-rao-lower-bound.qmd) at every $\theta$ is uniformly minimum-variance unbiased, because nothing unbiased can undercut that bound. The converse fails: the normal [sample variance](sample-variance-and-standard-deviation.qmd) with divisor $n-1$ is the unbiased estimator built from the complete sufficient residual sum, and it does not attain the one-parameter information bound for $\sigma^2$. The variance drop from conditioning is the [Rao–Blackwell theorem](rao-blackwell-theorem.qmd). Completeness is the extra property, beyond a [sufficient statistic](sufficient-statistic.qmd), that makes the unbiased function unique.{{cite:siegrist2022_sufficient_complete}} (§7.6, Properties of Sufficient Statistics and Complete Statistics)
-
-## Check yourself
-### A single success shared by two observations
-For $n=2$, $k=0$ and $T=1$, compute $U(1)$.
-
-::: {.callout-tip collapse="true" title="Answer"}
-$U(1)=(1/2)^1=1/2$. Given one success in total, it falls on the second observation with probability $1/2$, so the conditional probability that the first observation is zero is $1/2$.
-:::
-
-### Where the plug-in is not unbiased
-Why is $e^{-\overline X}$ not uniformly minimum-variance unbiased for $e^{-\theta}$ in an independent Poisson sample?
-
-::: {.callout-tip collapse="true" title="Answer"}
-It is not unbiased. Strict convexity of $e^{-x}$ and Jensen's inequality give $\mathbb{E} e^{-\overline X}>e^{-\theta}$ whenever $\overline X$ is non-degenerate. The unbiased class does not contain this plug-in, so the minimum-variance competition among unbiased estimators does not include it.
-:::

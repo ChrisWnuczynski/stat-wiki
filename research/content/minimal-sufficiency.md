@@ -79,27 +79,5 @@ Dependence across observations can make the sum insufficient. The Poisson argume
 ## Connections
 A [sufficient statistic](sufficient-statistic.qmd) keeps the likelihood comparisons. Minimal sufficiency is the coarsest such reduction. A [complete statistic](complete-statistic.qmd) has no nonzero function of mean zero, and completeness implies minimal sufficiency. An ancillary statistic, such as the range in the uniform shift model, has a distribution free of $\theta$. The [likelihood function](likelihood-function.qmd) is the object the ratio criterion reads.
 
-## Check yourself
-### A constant ratio
-For the Poisson samples $(2,0,5)$ and $(1,3,3)$, what is the likelihood ratio, and does it depend on $\lambda$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The ratio is $36/240=0.15$ for every $\lambda>0$. The sums both equal $7$, so the powers of $\lambda$ cancel.
-:::
-
-### A ratio that moves
-Evaluate $0.1\lambda^3$ at $\lambda=1$ and at $\lambda=2$.
-
-::: {.callout-tip collapse="true" title="Answer"}
-The values are $0.1$ and $0.8$. The ratio of $(2,0,5)$ against $(4,0,0)$ depends on $\lambda$, and the sums $7$ and $4$ differ.
-:::
-
-### A uniform window
-Observations $0.2$, $0.9$, $1.1$ come from $\mathrm{Uniform}(\theta,\theta+1)$. For which $\theta$ is the likelihood positive?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The parameter must satisfy $\theta\le 0.2$ and $\theta\ge 0.1$, so $\theta$ lies in $[0.1,0.2]$. The range $0.9$ does not determine this interval.
-:::
-
 ## History
 The ratio criterion is the practical test of minimal sufficiency for dominated families whose support does not move with the parameter. The normal calculation shows why the sample sum is enough for a normal mean when the variance is known, and the uniform shift model shows why a minimal sufficient statistic need not be complete. Those two calculations are the ones carried out above.

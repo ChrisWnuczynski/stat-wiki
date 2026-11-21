@@ -1,9 +1,14 @@
 """Arithmetic checks for the jump chain article."""
-import math
+
+import sys
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from tools.shown import shown
+import math
 
 root = Path(__file__).resolve().parents[1]
 text = (root / "research/content/jump-chain.md").read_text()
+text = shown(text, "jump-chain")
 body = (root / "articles/jump-chain.qmd").read_text().split("## See also", 1)[0]
 assert 2 / 6 == 1 / 3 and 4 / 6 == 2 / 3
 assert abs(math.exp(-3) - 0.049787068367863944) < 1e-15

@@ -54,3 +54,22 @@ Find survival through five years for the constant hazard $0.1$ per year.
 ::: {.callout-tip collapse="true" title="Answer"}
 $H(5)=0.5$ and $S(5)=e^{-0.5}\approx0.60653$.
 :::
+### Paths and cuts of the bridge {#self-check-ex-prob-bridge-paths}
+
+[Paths and cuts of the bridge](../questions/ex-prob-bridge-paths.qmd)
+
+The bridge has minimal path sets $\{1,4\}$, $\{2,5\}$, $\{1,3,5\}$ and $\{2,3,4\}$. Write the structure function by the path formula, and expand it far enough to see the four path monomials. Say how the same system is drawn as a series arrangement of parallel modules, and as a parallel arrangement of series modules, if components may be duplicated in the drawing.
+
+:::::::: {.callout-tip collapse="true" title="Answer"}
+
+By the path formula,
+
+$$
+\varphi(\mathbf x)=1-(1-x_1x_4)(1-x_2x_5)(1-x_1x_3x_5)(1-x_2x_3x_4).
+$$
+
+Expanding, the terms of degree two and three are $x_1x_4+x_2x_5+x_1x_3x_5+x_2x_3x_4$, the four path monomials, followed by products of pairs of paths with alternating signs; reducing $x_i^2=x_i$ gives the polynomial in the chapter.
+
+The path formula draws the bridge as four series branches, $1$–$4$, $2$–$5$, $1$–$3$–$5$ and $2$–$3$–$4$, placed in parallel. The cut formula draws it as four parallel modules, $\{1,2\}$, $\{4,5\}$, $\{1,3,5\}$ and $\{2,3,4\}$, placed in series. Both drawings repeat components, which is why the bridge itself is not a series–parallel system.
+
+::::::::

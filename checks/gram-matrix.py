@@ -1,11 +1,16 @@
 """Arithmetic checks for the Gram-matrix article."""
 
+import sys
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from tools.shown import shown
+
 
 import numpy as np
 
 root = Path(__file__).resolve().parents[1]
 prose = (root / "research/content/gram-matrix.md").read_text(encoding="utf-8")
+prose = shown(prose, "gram-matrix")
 article = root / "articles/gram-matrix.qmd"
 target = article.read_text(encoding="utf-8").split("## See also", 1)[0] if article.is_file() else prose
 

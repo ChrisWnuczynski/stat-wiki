@@ -59,27 +59,5 @@ Missing pairs remove terms from the group distance. The hierarchy then depends o
 ## Connections
 [Single, complete, and average linkage](single-complete-and-average-linkage.qmd) are the three group distances used in the clinic tree. A [dendrogram](dendrogram.qmd) is the drawing of the heights. Agglomerative and divisive clustering are the two directions through the same nest. The cophenetic dissimilarity is the original distance as the tree remembers it.
 
-## Check yourself
-### How many distinct heights?
-For four clinics and three merges, what is the largest number of distinct cophenetic values the dendrogram can contain, and how many pairs are there?
-
-::: {.callout-tip collapse="true" title="Answer"}
-There are $6$ pairs and at most $3$ distinct cophenetic values, one per merge. In the average-linkage tree the distinct values are $1$, $2$, and $10.5$.
-:::
-
-### Complete-linkage average
-The six cophenetic values under complete linkage are $1$, $2$, and four copies of $12$. What is their average?
-
-::: {.callout-tip collapse="true" title="Answer"}
-$(1+2+48)/6=8.5$.
-:::
-
-### A cut
-Under average linkage, does a cut at height $6$ return two clusters or one?
-
-::: {.callout-tip collapse="true" title="Answer"}
-Height $6$ lies between $2$ and $10.5$, so the two pairs have been formed and have not yet been joined. The cut returns two clusters.
-:::
-
 ## History
 Agglomerative clustering repeatedly replaces the closest pair by a single element and rebuilds the distance table after each merge. A dendrogram is the tree of those aggregations drawn against a distance scale.{{cite:dodge2008}} (pp. 84 and 157) Hastie, Tibshirani and Friedman emphasise that the algorithm produces $N-1$ nested partitions whether or not the data are nested, and that the cophenetic dissimilarities obey an ultrametric inequality the original distances need not obey.{{cite:hastie_esl2009}} (§14.3, pp. 520–522)

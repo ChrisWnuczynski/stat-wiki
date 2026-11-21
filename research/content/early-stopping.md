@@ -20,18 +20,3 @@ The smallest validation error is $0.28$, at epoch $3$. Using the test set to cho
 
 ## Connections — A path, not a penalty
 The clock of the rule is the [epoch](epoch.qmd). The steps being stopped are often [stochastic gradient descent](stochastic-gradient-descent.qmd), and the place they start is the [weight initialisation](weight-initialisation.qmd). [Regularisation](regularisation.qmd) changes the criterion by a penalty; early stopping leaves the criterion alone and shortens the path. The [validation set](validation-set.qmd) is what chooses the stopping time, so a later [held-out test set](a-held-out-test-set.qmd) has to stay out of that choice.{{cite:hastie_esl2009}} (Ch. 11, §11.5.2, p. 398){{cite:bishop2006}} (§5.5.2, pp. 259–260)
-
-## Check yourself
-### A monotone validation curve
-Validation errors are $0.40$, $0.33$, $0.29$, $0.27$, $0.26$. Where does the rule stop?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The minimum on this list is the last value, $0.26$, so the rule keeps the fifth epoch. A validation curve that has not turned up does not, by itself, say that a later epoch would be worse. It only says that, among the epochs already run, the last one is best.
-:::
-
-### Training versus validation
-At epoch $4$ the training error is $0.14$ and the validation error is $0.29$. At epoch $3$ the training error is $0.21$ and the validation error is $0.27$. Which epoch does early stopping keep?
-
-::: {.callout-tip collapse="true" title="Answer"}
-Epoch $3$, because $0.27<0.29$. The lower training error at epoch $4$ is the quantity the rule is refusing to chase.
-:::
