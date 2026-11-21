@@ -41,8 +41,8 @@ export function betaSummary(a, b, level = 0.95) {
   let modeNote = "";
   if (a > 1 && b > 1) mode = (a - 1) / (sum - 2);
   else if (a === 1 && b === 1) modeNote = "every point: the density is flat";
-  else if (a <= 1 && b > 1) mode = 0;
-  else if (a > 1 && b <= 1) mode = 1;
+  else if (a <= 1 && b >= 1) mode = 0;
+  else if (a >= 1 && b <= 1) mode = 1;
   else modeNote = "none: the density is unbounded at both ends";
   const tail = (1 - level) / 2;
   return {
