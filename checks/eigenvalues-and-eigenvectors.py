@@ -23,6 +23,28 @@ for printed in (
 assert body.count('title="Proof"') == 1
 assert body.count('title="Answer"') >= 1
 questions = set(re.findall(r"\.\./questions/([^.)#]+)\.qmd", page))
-assert len(questions) == 15, f"Expected 15 question links, got {len(questions)}"
+# Preserve the original exercises and the four independently migrated checks.
+expected_questions = {
+    "depth-gram-matrix-q1",
+    "depth-loadings-q1",
+    "depth-loadings-q2",
+    "depth-principal-component-directions-and-scores-q1",
+    "ex-sl-01-1",
+    "ex-sl-01-4",
+    "ex-sl-02-3",
+    "ex-sl-02-7",
+    "ex-sl-02-9",
+    "ex-sl-03-1",
+    "ex-sl-03-3",
+    "ex-sl-03-4",
+    "ex-sl-03-5",
+    "ex-sl-03-7",
+    "ex-sl-08-8",
+    "ex-sl-17-5",
+    "ex-sl-18-1",
+    "ex-sl-18-2",
+    "ex-ur-exchangeable-bound",
+}
+assert questions == expected_questions, questions ^ expected_questions
 assert 'data-cite-key="strimmer2025_mva"' in body
 print("eigenvalues-and-eigenvectors arithmetic, proof, and links passed")

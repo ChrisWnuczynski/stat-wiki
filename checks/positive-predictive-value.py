@@ -1,8 +1,13 @@
 """Arithmetic checks for the positive predictive value article."""
+
+import sys
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from tools.shown import shown
 
 root = Path(__file__).resolve().parents[1]
 text = (root / "research/content/positive-predictive-value.md").read_text()
+text = shown(text, "positive-predictive-value")
 page = (root / "articles/positive-predictive-value.qmd").read_text()
 body = page.split("## See also", 1)[0]
 

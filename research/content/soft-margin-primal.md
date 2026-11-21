@@ -8,7 +8,6 @@ $$
 0.5+2\times 1.75=4.
 $$
 
-
 The third point is misclassified, because its functional margin is negative and its slack exceeds $1$. This plane is feasible. Feasibility of this plane does not make it the minimiser.
 
 ## Intuition — A budget for overlap
@@ -21,7 +20,6 @@ $$
 \min_{\beta,\beta_0,\xi}\ \frac12\|\beta\|^2+C\sum_{i=1}^{N}\xi_i
 $$
 
-
 subject to $\xi_i\ge 0$ and $Y_i(X_i^\top\beta+\beta_0)\ge 1-\xi_i$. The geometric margin of the resulting plane is $1/\|\beta\|$.{{cite:hastie_esl2009}} (Ch. 12, §12.2.1, p. 420, Eq. 12.8)
 
 ## Properties — The smallest feasible slack
@@ -32,7 +30,6 @@ Fix $\beta$ and $\beta_0$, and write $f(x)=x^\top\beta+\beta_0$. The objective i
 $$
 \xi_i=\max\{0,\ 1-Y_i f(X_i)\}.
 $$
-
 
 If $Y_i f(X_i)\ge 1$, the point is outside the margin or on it and the slack is zero. If $0\le Y_i f(X_i)<1$, the point is inside the margin but on the correct side, and the slack is $1-Y_i f(X_i)\le 1$. If $Y_i f(X_i)<0$, the point is on the wrong side of the plane and the slack exceeds $1$.{{cite:hastie_esl2009}} (Ch. 12, §12.2, p. 419)
 :::
@@ -50,18 +47,3 @@ The weight term is still $0.5$ and the total slack is still $1.75$, so the cost 
 
 ## Connections — Dual bounds and the hinge
 The [hard-margin primal](hard-margin-primal.qmd) is the same programme with every slack forced to zero. The [hinge loss](hinge-loss.qmd) is what remains after each slack is replaced by $\max\{0,1-Y_i f(X_i)\}$. In the dual, $C$ becomes the upper bound on the multipliers, and a [kernel](kernel.qmd) replaces $X_i^\top X_j$ by a [Gram matrix](gram-matrix.qmd) entry.{{cite:hastie_esl2009}} (Ch. 12, §12.2.1, p. 420, Eq. 12.13; §12.3, p. 424)
-
-## Check yourself
-### On the correct side of the margin
-A point has functional margin $1.4$. What is its smallest feasible slack?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The slack is $0$. The constraint $Y f(X)\ge 1$ already holds, so the cost does not need a positive shortfall.
-:::
-
-### One shortfall and a chosen cost
-Suppose $\|\beta\|^2=0.4$, a single point has functional margin $0.2$, and $C=5$. Give the smallest feasible slack and the primal cost of this candidate.
-
-::: {.callout-tip collapse="true" title="Answer"}
-The slack is $1-0.2=0.8$. The weight term is $0.2$, and the cost is $0.2+5\times 0.8=4.2$.
-:::

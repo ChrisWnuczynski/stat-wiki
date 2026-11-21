@@ -20,7 +20,6 @@ assert np.diff(np.quantile(y,[.25,.75]))[0]==20 and round(y.std(ddof=1),3)==35.3
 z=np.array([2,2,5,7]);assert z.mean()==4 and np.median(z)==3.5 and np.ptp(z)==5 and z.var(ddof=1)==6
 assert round(19/11.89,3)==1.598
 assert round(2*stats.norm.ppf(.75),3)==1.349
-from pathlib import Path
 import csv
 files=list(Path('sources/stat1301/data').glob('*'))
 heart=next(p for p in files if 'heart' in p.name and p.suffix=='.csv')

@@ -32,18 +32,3 @@ The first case now contributes $0.6\times 0.1=0.06$. With the second contributio
 
 ## Connections — What the E step is averaging
 The [EM algorithm](em-algorithm.qmd) replaces each $z_{ih}$ in $\ell_C$ by its conditional expectation given the case, then maximises. Those conditional probabilities are the responsibilities in a [finite mixture model](finite-mixture-model.qmd). The [likelihood function](likelihood-function.qmd) of the observed sample is the product of the sums, which is what $\ell_C$ avoids. The algebra is the same for a normal component and for any other component density that the indicator simply switches on.{{cite:bishop2006}} (eqs. 9.30 and 9.36, pp. 440–443)
-
-## Check yourself
-### An all-zero exponent
-Why does $(\pi_2 f_2)^{0}$ equal $1$ in the first case of the worked example, rather than $0$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The exponent is the indicator that the case came from component $2$. It is $0$, and a positive number to the power $0$ is $1$. The factor drops out of the product. It is not a probability of zero.
-:::
-
-### Observed versus complete
-For the first case, which is larger, the complete contribution $0.2$ under label $1$ or the observed contribution $0.26$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The observed contribution $0.26$ is larger. It equals $0.2+0.06$, the sum of the two possible complete contributions.
-:::

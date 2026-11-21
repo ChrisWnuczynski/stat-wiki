@@ -21,16 +21,3 @@ The four-number mean is $(10+22+14+18)/4=16$. It exceeds the observed mean by $2
 
 ## Connections
 A mixture's missing component label is handled by the [E step](e-step.qmd) of the [EM algorithm](em-algorithm.qmd), which replaces the label by its conditional probability. That calculation needs a model for the label. A dropped measurement needs a model for why it is missing. Repeating the experiment, when it can be done, avoids both models.{{cite:dodge2008}} (p. 350, repeating the experiment)
-
-## Check yourself
-**1.** Three observed responses are $4$, $4$ and $10$, and one planned response is missing. What is the observed mean?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The observed mean is $(4+4+10)/3=6$.
-:::
-
-**2.** Why is inventing a mixture component label a different problem from estimating that missing response?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The component label was never one of the intended measurements; it is part of a complete-data story. The missing response was a measurement the design meant to record. The two holes are filled by different models.
-:::

@@ -1,8 +1,13 @@
 """Check exponential holding times."""
-from math import exp
+
+import sys
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from tools.shown import shown
+from math import exp
 root = Path(__file__).resolve().parents[1]
 content = (root / "research/content/holding-time.md").read_text()
+content = shown(content, "holding-time")
 article = root / "articles/holding-time.qmd"
 page = article.read_text().split("## See also", 1)[0] if article.is_file() else content
 

@@ -24,18 +24,3 @@ The event $\{X_1=1,X_2=0\}$ is the first step $+1$ and the second step $-1$, wit
 
 ## Connections — The conditions that come next
 A [Markov chain](markov-chain.qmd) is the discrete-time case in which the next state depends on the present state and not on the earlier path. [Stationary and independent increments](stationary-and-independent-increments.qmd) are the two clock conditions used for random walks and for the [homogeneous Poisson process](homogeneous-poisson-process.qmd). The finite-dimensional joints live on the product of the state space with itself; the [sigma-algebra](sigma-algebra.qmd) is what makes events about the whole path legitimate.{{cite:dodge2008}} (pp. 521–522, Markov process and independent increments)
-
-## Check yourself
-### A copied step
-Suppose the second step is forced to equal the first, so $X_2=2X_1$. Are the increments $X_1-X_0$ and $X_2-X_1$ independent?
-
-::: {.callout-tip collapse="true" title="Answer"}
-No. Here $X_2-X_1=X_1$, so the second increment is the first increment. They are equal, not independent. The position at time 2 is then supported on $\{-2,+2\}$, each with probability $1/2$.
-:::
-
-### Adding means
-Keep independent steps with mean $0$ and variance $1$, but drop the assumption that each step is $\pm 1$. What are $\mathbb E(X_2)$ and $\operatorname{Var}(X_2)$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The mean of a sum is the sum of the means, so $\mathbb E(X_2)=0$. Independence makes the variances add, so $\operatorname{Var}(X_2)=2$. The four-point distribution in the worked example is a special case of this calculation.
-:::

@@ -16,14 +16,12 @@ $$
 Q(b_0,b_1)=\sum_{i=1}^n\bigl(y_i-b_0-b_1 x_i\bigr)^2.
 $$
 
-
 The minimiser is
 
 $$
 \hat\beta_1=\frac{\sum_{i=1}^n(x_i-\bar x)(y_i-\bar y)}{\sum_{i=1}^n(x_i-\bar x)^2},\qquad
 \hat\beta_0=\bar y-\hat\beta_1\bar x.
 $$
-
 
 The same critical-point equations are the normal equations $\sum_i(y_i-\hat\beta_0-\hat\beta_1 x_i)=0$ and $\sum_i x_i(y_i-\hat\beta_0-\hat\beta_1 x_i)=0$.{{cite:nist_ls_straight2002}} (§4.4.3.1, straight-line estimators){{cite:dodge2008}} (p. 305, normal equations)
 
@@ -32,7 +30,6 @@ The sampling model writes the responses as random variables $Y_i=\beta_0+\beta_1
 $$
 \hat\sigma=\sqrt{\frac{Q}{n-2}}.
 $$
-
 
 {{cite:nist_ls_straight2002}} (§4.4.3.1, residual standard deviation){{cite:nist_linear_least_squares_pmd2002}} (§4.1.4.1, statistically linear)
 
@@ -56,7 +53,6 @@ $$
 \mathbb E(\hat\beta_1)=\sum_i(x_i-\bar x)(\beta_0+\beta_1 x_i)/S_{xx}=\beta_1,
 $$
 
-
 again because the centred inputs sum to zero. The intercept identity then gives $\mathbb E(\hat\beta_0)=\beta_0$. If the $Y_i$ are uncorrelated with variance $\sigma^2$, the variance of the linear combination is $\sigma^2\sum_i(x_i-\bar x)^2/S_{xx}^2=\sigma^2/S_{xx}$.{{cite:nist_ls_straight2002}} (§4.4.3.1, slope estimator)
 :::
 :::
@@ -70,7 +66,6 @@ For the five seedlings, $\bar x=6$, $\bar y=7$, $S_{xx}=40$ and $S_{xy}=42$. The
 $$
 Q=0.2^2+(-0.9)^2+1^2+(-0.1)^2+(-0.2)^2=1.90.
 $$
-
 
 With $n-2=3$, $\hat\sigma=\sqrt{1.90/3}=\sqrt{19/30}\approx 0.7958$. The estimated standard error of the slope is $\sqrt{(19/30)/40}=\sqrt{19/1200}\approx 0.1258$. At $7$ hours, between the observed inputs, the fitted mean is $0.70+1.05\times 7=8.05$ millimetres.{{cite:nist_ls_straight2002}} (§4.4.3.1, estimators and residual standard deviation)
 
@@ -94,26 +89,6 @@ If the inputs are identical, $S_{xx}=0$ and no slope is defined. If the mean res
 
 ## Connections
 The [least-squares line](least-squares-line.qmd) is this fitted line. A [pivot](pivot.qmd) for the slope appears once normal independent errors supply a $t_{n-2}$ reference law for $(\hat\beta_1-\beta_1)/(\hat\sigma/\sqrt{S_{xx}})$. [Multicollinearity](multicollinearity.qmd) is the matching failure when several inputs are nearly linear combinations of one another, so that the analogue of $S_{xx}$ is nearly singular. [Poisson regression](poisson-regression.qmd) keeps a regression mean and drops both the identity link and the constant variance.{{cite:nist_ls_straight2002}} (§4.4.3.1, straight-line estimators)
-
-## Check yourself
-
-1. The five seedling inputs are all set equal to $6$ hours. What happens to the slope formula?
-
-::: {.callout-tip collapse="true" title="Answer"}
-Every centred input is $0$, so $S_{xx}=0$ and the ratio that defines $\hat\beta_1$ is undefined. Many lines pass equally close in the vertical direction when the inputs do not vary.
-:::
-
-2. For the original seedlings, is the fitted height at $6$ hours equal to $7$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-Yes. The fitted line passes through $(\bar x,\bar y)=(6,7)$. The arithmetic is $0.70+1.05\times 6=7$.
-:::
-
-3. After the last response changes from $11$ to $20$, which slope is the least-squares slope, $1.05$ or $1.95$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The slope is $1.95$, because $S_{xy}$ becomes $78$ and $78/40=1.95$. The value $1.05$ was the slope before that one response changed.
-:::
 
 ## History
 The least-squares criterion minimises the sum of squared residuals between observed and fitted values. Legendre introduced the method in 1805. Independent development in the late eighteenth and early nineteenth centuries by Gauss, Legendre, and possibly Adrain. Those two accounts agree that the published early nineteenth-century method is least squares; they do not agree on a single inventor.{{cite:dodge2008}} (p. 304, least-squares method){{cite:nist_linear_least_squares_pmd2002}} (§4.1.4.1, Gauss, Legendre and Adrain)

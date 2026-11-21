@@ -299,23 +299,36 @@ seriesOn = labControls.seriesOn
 ```{ojs}
 //| echo: false
 //| output: false
+drawCache = ({})
+```
+
+```{ojs}
+//| echo: false
+//| output: false
 draws = {
   const api = kdeApi;
   if (!Number.isInteger(seedValue)) return { error: "The seed must be an integer. No sample was drawn." };
+  // Observable also reevaluates these cells on bandwidth and toggle edits.
+  const cached = drawCache.snapshot;
+  if (cached && cached.seed === (seedValue >>> 0) && cached.n === drawCount && cached.population.id === populationId) return cached;
   const dist = api.population(populationId);
   if (dist.error) return dist;
   const seq = api.sequence(seedValue);
   if (seq.error) return seq;
   const drawn = api.samplePrefix(seq, populationId, drawCount);
   if (drawn.error) return drawn;
-  return { values: drawn.values, components: dist.components, n: drawCount, population: dist, seed: seedValue >>> 0 };
+  return drawCache.snapshot = { values: drawn.values, components: dist.components, n: drawCount, population: dist, seed: seedValue >>> 0 };
 }
 ```
 
 ```{ojs}
 //| echo: false
 //| output: false
-pairWork = draws.error ? draws : kdeApi.pairCache(draws.values)
+pairWork = {
+  if (draws.error) return draws;
+  if (drawCache.work?.snapshot === draws) return drawCache.work;
+  return drawCache.work = { ...kdeApi.pairCache(draws.values), snapshot: draws };
+}
 ```
 
 ```{ojs}
@@ -324,11 +337,12 @@ pairWork = draws.error ? draws : kdeApi.pairCache(draws.values)
 drawsSettled = {
   const snapshot = draws;
   const work = pairWork;
+  if (drawCache.settled?.snapshot === snapshot && drawCache.settled.work === work) return drawCache.settled;
   await new Promise((resolve) => {
     const timer = setTimeout(resolve, 100);
     invalidation.then(() => clearTimeout(timer));
   });
-  return { snapshot, work };
+  return drawCache.settled = { snapshot, work };
 }
 ```
 
@@ -338,6 +352,7 @@ drawsSettled = {
 riskCurves = {
   const api = kdeApi;
   const settled = drawsSettled;
+  if (drawCache.curves?.settled === settled) return drawCache.curves;
   if (settled.snapshot.error) return settled.snapshot;
   if (settled.work.error) return settled.work;
   const components = settled.snapshot.components;
@@ -359,7 +374,8 @@ riskCurves = {
     return row.error ? row : { value: row.mise };
   }, api.BAND_LO, api.BAND_HI, 31, api.MISE_STEP);
   if (minMise.error) return minMise;
-  return {
+  return drawCache.curves = {
+    settled,
     grid,
     ise: ise.values,
     variance: mise.integratedVariance,
@@ -373,8 +389,16 @@ riskCurves = {
 
 ```{ojs}
 //| echo: false
+//| output: false
+selectedRisk = kdeApi.riskAtBandwidth(drawsSettled.work, bandwidth, drawsSettled.snapshot.components)
+```
+
+```{ojs}
+//| echo: false
 labReadout = {
   const api = kdeApi;
+  const draws = drawsSettled.snapshot;
+  const pairWork = drawsSettled.work;
   const entries = [];
   const alerts = [];
   const add = (label, value, title) => entries.push({ label, value, title });
@@ -382,8 +406,7 @@ labReadout = {
     alerts.push(draws.error || pairWork.error);
   } else {
     const ruled = api.silvermanNrd0(draws.values);
-    const ise = api.iseFromCache(pairWork, bandwidth, draws.components);
-    const risk = api.miseParts(draws.n, bandwidth, draws.components);
+    const { ise, risk } = selectedRisk;
     const fmt = viewFns.formatNumber;
     add("n", String(draws.n));
     add("seed", String(draws.seed));
@@ -503,6 +526,7 @@ densityChart = {
 //| echo: false
 riskChart = {
   const api = kdeApi;
+  const draws = drawsSettled.snapshot;
   const frame = labChrome.graphFrame("Risk against bandwidth");
   if (riskCurves.error) {
     const alert = document.createElement("p");
@@ -520,10 +544,18 @@ riskChart = {
     mise: riskCurves.mise[i],
     ise: riskCurves.ise[i],
   }));
+  const at = {
+    h: selectedRisk.h,
+    bias: selectedRisk.risk.integratedSquaredBias,
+    variance: selectedRisk.risk.integratedVariance,
+    mise: selectedRisk.risk.mise,
+    ise: selectedRisk.ise.value,
+  };
   let yMax = 0;
   let yMin = 0;
-  for (const row of rows) {
+  for (const row of [...rows, at]) {
     for (const key of chosen) {
+      if (!Number.isFinite(row[key])) continue;
       if (row[key] > yMax) yMax = row[key];
       if (row[key] < yMin) yMin = row[key];
     }
@@ -545,8 +577,7 @@ riskChart = {
   for (const key of ["bias", "variance", "mise", "ise"]) {
     if (!chosen.has(key)) continue;
     marks.push(Plot.line(rows, { x: "h", y: key, ...style[key] }));
-    const at = rows.reduce((best, row) => Math.abs(row.h - bandwidth) < Math.abs(best.h - bandwidth) ? row : best, rows[0]);
-    if (Number.isFinite(at[key])) marks.push(Plot.dot([{ h: bandwidth, y: at[key] }], { x: "h", y: "y", fill: style[key].stroke, r: 3.5 }));
+    if (Number.isFinite(at[key])) marks.push(Plot.dot([at], { x: "h", y: key, fill: style[key].stroke, r: 3.5 }));
   }
   const markers = [
     { x: riskCurves.minMise.x, text: "min MISE " + viewFns.formatNumber(riskCurves.minMise.x), stroke: themeColors.mise },

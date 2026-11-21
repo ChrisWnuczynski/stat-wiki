@@ -23,23 +23,3 @@ A recovers $50\cdot(4/5)+50\cdot(2/5)=60$ of $100$ patients. B recovers $50\cdot
 
 ## Connections — Design, stratification, and a causal diagram
 An [observational study](observational-study.qmd) leaves the tie between treatment and the confounder intact. A [designed experiment](designed-experiment.qmd) assigns treatment by a mechanism that does not consult the confounder. {{cite:hernan_robins2020}} (Chs. 1–3) Stratifying, as in the two sex rows above, reports the association with the confounder held fixed. The figure on this page is that distinction for smoking and height. Neither the pooled rate nor a single correlation is a substitute for the stratified comparison.
-
-## Check yourself
-In the unbalanced table, recovery under A is $4/5$ for men and $2/5$ for women. Is A's pooled recovery a weighted average of those two rates, and what are the weights?
-
-::: {.callout-tip collapse="true" title="Answer"}
-Yes. The weights are the sex counts in A, $10/110$ and $100/110$:
-
-$$
-\frac{10}{110}\cdot\frac{4}{5}+\frac{100}{110}\cdot\frac{2}{5}=\frac{48}{110}.
-$$
-
-
-The weights are not $1/2$ and $1/2$.
-:::
-
-Men recover at $7/10$ under B and women at $3/10$. If B's patients were half men and half women, what recovery rate would the same within-sex rates give?
-
-::: {.callout-tip collapse="true" title="Answer"}
-$\frac12\cdot 7/10+\frac12\cdot 3/10=1/2$. That is the balanced figure already computed for B, not the pooled $73/110$ from the unbalanced table.
-:::

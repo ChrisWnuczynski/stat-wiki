@@ -310,15 +310,15 @@
   {
     "id": "depth-weak-stationarity-ar",
     "title": "Autocovariances of a stationary AR(1)",
-    "body": "A stationary AR(1) has coefficient 0.4 and independent innovation variance 9. Find its variance γ(0), lag-one autocovariance γ(1), and lag-two autocorrelation ρ(2).",
-    "answer": "The variance is 9/(1-0.4²)=75/7≈10.7143. Then γ(1)=0.4(75/7)=30/7≈4.2857, while ρ(2)=0.4²=0.16. These values are independent of the calendar origin under stationarity.",
+    "body": "A stationary AR(1) has coefficient $0.4$ and independent innovation variance $9$. Find its variance $\\gamma(0)$, lag-one autocovariance $\\gamma(1)$ and lag-two autocorrelation $\\rho(2)$.",
+    "answer": "Stationarity gives $\\gamma(0)=0.4^2\\gamma(0)+9$, so $\\gamma(0)=75/7\\approx10.7143$. Then $\\gamma(1)=0.4\\gamma(0)=30/7\\approx4.2857$, while $\\rho(2)=0.4^2=0.16$. These quantities depend on lag, not on the calendar origin.",
     "topic_code": "T1"
   },
   {
     "id": "depth-weak-not-strict",
     "title": "Stable moments, changing distributions",
-    "body": "Independent even-time values equal -1 or 1 with equal chances. Independent odd-time values are uniform on [-√3,√3]. Is the combined series weakly stationary? Is it strictly stationary? Explain from means, variances, covariances and one-time distributions.",
-    "answer": "Both marginals have mean 0 and variance 1; independence makes every nonzero-lag covariance 0. Hence the process is weakly stationary. The even-time law has two atoms but the odd-time law is continuous, so a one-step shift changes the marginal distribution and strict stationarity fails.",
+    "body": "All variables in a time series are independent. Even-time values equal $-1$ or $1$ with equal probabilities; odd-time values are uniform on $[-\\sqrt3,\\sqrt3]$. Is the series weakly stationary? Is it strictly stationary? Explain using means, variances, covariances and one-time distributions.",
+    "answer": "Both marginal laws have mean $0$ and variance $1$; independence makes every covariance at a nonzero lag equal to $0$. Thus the process is weakly stationary. The even-time law has two atoms and the odd-time law is continuous, so shifting by one time step changes a marginal distribution and strict stationarity fails.",
     "topic_code": "T1"
   },
   {
@@ -481,5 +481,1461 @@
     "body": "Why can adding an L2 penalty to a loss produce a different update from a separate weight-decay step under Adam, although they can coincide for ordinary SGD?",
     "answer": "An L2 penalty contributes $\\lambda$ times the weight to the gradient, so Adam's adaptive coordinate scaling also acts on the penalty gradient. A separate decay step scales the weight directly outside the adaptive gradient calculation. Ordinary scalar-step SGD gives the same algebra after matching the coefficients.",
     "topic_code": "L16"
+  },
+  {
+    "id": "depth-wold-deterministic-piece",
+    "topic_code": "T1",
+    "title": "The predictable piece of a Wold decomposition",
+    "body": "A weakly stationary series is written as a linearly predictable series plus a moving average of uncorrelated innovations. What is special about the predictable piece?",
+    "answer": "Its future values are linear functions of its past, so the innovation variance attached to that piece is zero. That piece is the singular component determined by the linear past. The moving-average piece carries the new unpredictable variation."
+  },
+  {
+    "id": "depth-hammersley-path-conditional",
+    "topic_code": "L19",
+    "title": "A conditional probability on a path",
+    "body": "For discrete variables $X_1,X_2,X_3$ on the pairwise Markov path $1-2-3$, assume $P(X_2=1,X_3=0)>0$. Does $P(X_1=1\\mid X_2=1,X_3=0)$ depend on the value $0$ assigned to $X_3$?",
+    "answer": "No. Conditional independence of the endpoints given the middle variable means the conditional distribution of $X_1$ given $X_2$ and $X_3$ is the conditional distribution of $X_1$ given $X_2$ alone."
+  },
+  {
+    "id": "depth-hammersley-positivity",
+    "topic_code": "L19",
+    "title": "Why a zero-probability configuration matters",
+    "body": "The Hammersley–Clifford theorem derives clique factorisation from the pairwise Markov property for a strictly positive density. If some configurations have probability zero, is the converse still guaranteed, and which direction remains valid?",
+    "answer": "No general converse is guaranteed without positivity: support restrictions can satisfy pairwise conditional independences without a clique factorisation. A proof that takes logarithms of the density or divides by conditional probabilities cannot apply at its zeros. Factorisation still implies the global, and hence pairwise, Markov property wherever the conditional probabilities are defined."
+  },
+  {
+    "id": "depth-geometric-mean-trials",
+    "topic_code": "P2",
+    "title": "Mean number of trials until the first success",
+    "body": "Independent trials succeed with probability $1/4$. Let $X$ be the trial number of the first success. Find $\\mathrm{E}(X)$.",
+    "answer": "On the trial-count convention, $\\mathrm{E}(X)=1/p=4$. The failure-count mean would be $(1-p)/p=3$, one less."
+  },
+  {
+    "id": "depth-geometric-memoryless-wait",
+    "topic_code": "P2",
+    "title": "A geometric wait that forgets its past",
+    "body": "Independent Bernoulli trials succeed with probability $1/4$. If $X$ is the trial number of the first success, find $P(X>5\\mid X>2)$.",
+    "answer": "The lack of memory gives $P(X>5\\mid X>2)=P(X>3)=(3/4)^3=27/64$."
+  },
+  {
+    "id": "depth-cmp-poisson-case",
+    "topic_code": "P2",
+    "title": "The Conway–Maxwell–Poisson law at unit dispersion",
+    "body": "The Conway–Maxwell–Poisson probabilities satisfy $P(X=k)/P(X=k-1)=\\lambda/k^{\\nu}$. What familiar law appears when $\\nu=1$?",
+    "answer": "The ratios become $\\lambda/k$, which are the Poisson ratios, and the normalising series is $e^{\\lambda}$. The distribution is Poisson with mean $\\lambda$."
+  },
+  {
+    "id": "depth-cmp-underdispersion",
+    "topic_code": "P2",
+    "title": "A dispersion parameter above one",
+    "body": "For $\\lambda>0$, compare the successive-probability ratios of a Conway–Maxwell–Poisson law with $\\nu=2$ and a Poisson law with mean $\\lambda$. Which ratio is smaller for $k>1$, and what does this imply once the probabilities are decreasing in the upper tail?",
+    "answer": "The ratios are $\\lambda/k^2$ and $\\lambda/k$, respectively. The first is smaller for every $k>1$. Once both sequences are decreasing, each successive Conway–Maxwell–Poisson probability is a smaller fraction of its predecessor. This compares decay ratios; it does not assert that every individual probability is smaller, since each law must sum to one."
+  },
+  {
+    "id": "depth-behrens-pooled-t",
+    "topic_code": "I4",
+    "title": "Unequal variances and the pooled t statistic",
+    "body": "Two independent normal samples have unknown means and unknown variances that need not be equal. Is the usual pooled two-sample $t$ statistic exactly Student $t$ when the means are equal?",
+    "answer": "No. Exact Student calibration of the pooled statistic uses one common variance. When the variances differ, the null distribution depends on the variance ratio and is not a single $t$ law."
+  },
+  {
+    "id": "depth-behrens-welch-se",
+    "topic_code": "I4",
+    "title": "A Welch standard error",
+    "body": "Two samples of size $10$ have sample variances $1$ and $4$. The estimated difference of means is $0$. Find the Welch standard error of the difference of means.",
+    "answer": "The estimated variance of the difference is $1/10+4/10=1/2$, so the standard error is $\\sqrt{1/2}$."
+  },
+  {
+    "id": "depth-adaboost-q1",
+    "topic_code": "L13",
+    "title": "With $\\varepsilon=0.1$, what is $\\alpha$, to three decimals?",
+    "body": "In binary AdaBoost with labels in $\\{-1,+1\\}$, use $\\alpha=\\tfrac12\\log((1-\\varepsilon)/\\varepsilon)$ for weighted error $\\varepsilon$. With $\\varepsilon=0.1$, what is $\\alpha$, to three decimals?\n",
+    "answer": "$\\alpha=\\frac12\\log(0.9/0.1)=\\frac12\\log 9\\approx 1.099$. The vote is larger than the vote $0.549$ at $\\varepsilon=1/4$, because the weak rule is more accurate.\n"
+  },
+  {
+    "id": "depth-adaboost-q2",
+    "topic_code": "L13",
+    "title": "A perfect classification round",
+    "body": "In binary AdaBoost the vote coefficient is $\\alpha=\\tfrac12\\log((1-\\varepsilon)/\\varepsilon)$, where $\\varepsilon$ is the weighted classification error. Why is this formula not a finite coefficient when a round classifies every case correctly?\n",
+    "answer": "The ratio $(1-\\varepsilon)/\\varepsilon$ divides by zero, so $\\alpha$ is infinite. A weak rule that already classifies every weighted case correctly needs a stopping rule rather than this coefficient.\n"
+  },
+  {
+    "id": "depth-adjusted-rand-index-q1",
+    "topic_code": "L4",
+    "title": "One pair",
+    "body": "How many pairs do $3$ items make, and how many do $6$ items make?\n",
+    "answer": "$\\binom32=3$ and $\\binom62=15$, since an unordered pair is counted twice among the ordered pairs of distinct items.\n"
+  },
+  {
+    "id": "depth-adjusted-rand-index-q2",
+    "topic_code": "L4",
+    "title": "A zero in the denominator",
+    "body": "Two partitions of $n\\ge2$ objects both put every object in a singleton group. Let $I$ count pairs grouped together in both partitions, and let $A$ and $B$ count pairs grouped together in each partition. What is $I$, and why is the adjusted Rand formula $[I-AB/\\binom n2]/[(A+B)/2-AB/\\binom n2]$ undefined without a convention for this case?\n",
+    "answer": "No pair is together in either partition, so $I=0$ and both pair totals are $0$. The expectation and the ceiling are $0$, and the correction divides by zero. There are no together-pairs whose chance agreement one could subtract.\n"
+  },
+  {
+    "id": "depth-ancillary-statistic-q1",
+    "topic_code": "B7",
+    "title": "Another shift",
+    "body": "Start from $3,5,7$ and add $10$ to each observation. Write the centred vector.\n",
+    "answer": "The observations are $13,15,17$, the mean is $15$, and the centred vector is again $(-2,0,2)$. The location moved. The ancillary statistic did not.\n"
+  },
+  {
+    "id": "depth-ancillary-statistic-q2",
+    "topic_code": "B7",
+    "title": "A scale that remains",
+    "body": "The errors are multiplied by $2$ before the mean is subtracted. What happens to the centred values of $3,5,7$ if those observations are multiplied by $2$?\n",
+    "answer": "The observations become $6,10,14$, the mean is $10$, and the centred vector is $(-4,0,4)$, twice $(-2,0,2)$. The centred vector saw the scale. It is not ancillary for a parameter that includes that scale.\n"
+  },
+  {
+    "id": "depth-arima-model-q1",
+    "topic_code": "T2",
+    "title": "Which ARIMA orders, and what constant, give a random walk with drift $c$?",
+    "body": "Which ARIMA orders, and what constant, give a random walk with drift $c$?\n",
+    "answer": "The differences have mean $c$ and no further autoregressive or moving-average terms, so the model is ARIMA$(0,1,0)$ with constant $c$.\n"
+  },
+  {
+    "id": "depth-arima-model-q2",
+    "topic_code": "T2",
+    "title": "Observations lost by second differencing",
+    "body": "Second differences of a series satisfy $y''_t=y_t-2y_{t-1}+y_{t-2}$. How many observations are lost relative to the original length $T$?\n",
+    "answer": "Each difference drops one time point, so two differences leave $T-2$ values. In practice it is rarely useful to difference more than twice.\n"
+  },
+  {
+    "id": "depth-baseline-category-logit-model-q1",
+    "topic_code": "G4",
+    "title": "If every score increases by $\\log 2$, do the probabilities change?",
+    "body": "A baseline-category logit model uses $p_k=e^{\\eta_k}/\\sum_j e^{\\eta_j}$. If every score $\\eta_j$, including the reference score, increases by $\\log 2$, do the probabilities change?\n",
+    "answer": "No. Every exponential is multiplied by $2$, and the factor cancels in the ratio. The reference score is no longer zero, which is why a fit sets one score back to zero without changing the probabilities.\n"
+  },
+  {
+    "id": "depth-baseline-category-logit-model-q2",
+    "topic_code": "G4",
+    "title": "Odds between non-reference categories",
+    "body": "A three-category logit model has scores $\\eta_0=0$, $\\eta_1=0.3$ and $\\eta_2=1.2$, with $p_k=e^{\\eta_k}/\\sum_{j=0}^2 e^{\\eta_j}$. What is $p_2/p_1$?\n",
+    "answer": "The common normalising denominator cancels in the ratio, so $p_2/p_1=e^{1.2}/e^{0.3}=e^{0.9}\\approx 2.459603$. These are the odds of category $2$ against category $1$, not against the reference.\n"
+  },
+  {
+    "id": "depth-baseline-category-logit-model-q3",
+    "topic_code": "G4",
+    "title": "How many free linear predictors does a four-category model have?",
+    "body": "How many free linear predictors does a four-category model have?\n",
+    "answer": "Three. One category is the reference and its score is fixed at zero. Four free score vectors would describe the same probabilities more than once.\n"
+  },
+  {
+    "id": "depth-benjamini-hochberg-q1",
+    "topic_code": "L18",
+    "title": "A $p$-value equal to its threshold",
+    "body": "For $m=5$ and a common level $q^*=\\alpha=0.05$, the third threshold is $0.03$. If the ordered $p$-values are $0.001$, $0.012$, $0.030$, $0.20$, $0.40$, what is $k$ under the closed rule $P_{(i)}\\le (i/m)q^*$, and what is $k$ under the strict rule $P_{(j)}<\\alpha j/m$?\n",
+    "answer": "Both rules use thresholds $0.01$, $0.02$, $0.03$, $0.04$ and $0.05$. The fourth and fifth comparisons fail because $0.20>0.04$ and $0.40>0.05$. The closed rule includes $0.030\\le 0.030$, so its largest successful index is $k=3$. The strict rule excludes equality at the third index, while $0.012<0.020$ holds at the second, so its largest successful index is $k=2$. The difference comes solely from equality at the threshold.\n"
+  },
+  {
+    "id": "depth-benjamini-hochberg-q2",
+    "topic_code": "L18",
+    "title": "Checking all five thresholds",
+    "body": "Ordered $p$-values $0.04$, $0.20$, $0.30$, $0.40$, $0.50$ are tested at $m=5$ and $q^*=0.05$. What is rejected?\n",
+    "answer": "The five thresholds are $0.01$, $0.02$, $0.03$, $0.04$ and $0.05$. Every comparison fails: $0.04>0.01$, $0.20>0.02$, $0.30>0.03$, $0.40>0.04$ and $0.50>0.05$. Thus no successful index exists, $k=0$, and nothing is rejected. Benjamini–Hochberg rejects all hypotheses up to the largest successful index; an earlier failed comparison can still be included if a later comparison succeeds. Here none of the five comparisons succeeds.\n"
+  },
+  {
+    "id": "depth-bias-of-an-estimator-q1",
+    "topic_code": "I2",
+    "title": "If $T$ is unbiased for $\\theta$ and $c$ is a constant, what is the bias of $cT$ for $\\theta$?",
+    "body": "If $T$ is unbiased for $\\theta$ and $c$ is a constant, what is the bias of $cT$ for $\\theta$?\n",
+    "answer": "$\\mathbb{E}(cT)=c\\theta$, so the bias is $c\\theta-\\theta=(c-1)\\theta$. The choice $c=(n-1)/n$ is the step from $s^2$ to $S_n^2$ when both estimate $\\sigma^2$, and it produces bias $-\\sigma^2/n$.\n"
+  },
+  {
+    "id": "depth-bias-of-an-estimator-q2",
+    "topic_code": "I2",
+    "title": "An estimator has variance $0.3$ and bias $0.1$.",
+    "body": "An estimator has variance $0.3$ and bias $0.1$. What is its mean squared error?\n",
+    "answer": "The mean squared error is $0.3+0.1^2=0.31$. The squared bias is a tenth of the variance, so most of the error is scatter.\n"
+  },
+  {
+    "id": "depth-bids-for-a-bankrupt-firm-q1",
+    "topic_code": "G3",
+    "title": "A zero coefficient",
+    "body": "A log-linear mean satisfies $\\log\\mu=\\beta_0+\\beta_1 z$, where $z$ is an indicator. If $\\beta_1=0$, what is the ratio of the means at $z=1$ and $z=0$?\n",
+    "answer": "$e^{0}=1$. The indicator does not change the fitted mean.\n"
+  },
+  {
+    "id": "depth-bids-for-a-bankrupt-firm-q2",
+    "topic_code": "G3",
+    "title": "The other side of the bend",
+    "body": "The quadratic $-0.0076\\,s^2+0.1793\\,s$ at $s=0$ is $0$. At the turning point the added log-mean is about $1.0575$. Is the fitted size curve higher at $s=11.80$ than at $s=0$?\n",
+    "answer": "Yes. The factor $2.879$ is greater than $1$, and the square term is negative, so this is a maximum rather than a minimum. Past the turning point the quadratic pulls the log-mean back down.\n"
+  },
+  {
+    "id": "depth-bonferroni-correction-q1",
+    "topic_code": "D6",
+    "title": "Four raw $p$-values",
+    "body": "Which of $0.02$ and $0.01$ are rejected by a four-test Bonferroni rule at family-wise level $0.05$?\n",
+    "answer": "The adjusted values are $0.08$ and $0.04$. Only $0.01$, with adjusted value $0.04$, is rejected.\n"
+  },
+  {
+    "id": "depth-bonferroni-correction-q2",
+    "topic_code": "D6",
+    "title": "The independent calculation",
+    "body": "For four independent tests at level $0.0125$, is the family-wise error equal to $0.05$?\n",
+    "answer": "No. It equals $1-(0.9875)^4\\approx 0.0491$, which is less than $0.05$. The value $0.05$ is the union bound, not the independent probability.\n"
+  },
+  {
+    "id": "depth-bonferroni-correction-q3",
+    "topic_code": "D6",
+    "title": "Six tests",
+    "body": "A raw $p$-value is $0.01$ and there are six tests. What is the Bonferroni adjusted value at family-wise level $0.05$, and is it rejected?\n",
+    "answer": "The adjusted value is $0.06$, which is greater than $0.05$, so the null is not rejected. The per-test level would have been $0.05/6\\approx 0.00833$, and $0.01$ is larger than that level.\n"
+  },
+  {
+    "id": "depth-boosting-q1",
+    "topic_code": "L13",
+    "title": "A round with $\\varepsilon=0.4$ still has a positive vote.",
+    "body": "Binary AdaBoost uses $\\alpha=\\tfrac12\\log((1-\\varepsilon)/\\varepsilon)$ and multiplies a case weight by $e^{-\\alpha y h(x)}$, where $y,h(x)\\in\\{-1,+1\\}$. For weighted error $\\varepsilon=0.4$, find $\\alpha$ to four decimals and the ratio of the incorrect-case multiplier to the correct-case multiplier.\n",
+    "answer": "$\\alpha=\\frac12\\log(0.6/0.4)=\\frac12\\log 1.5\\approx 0.2027$. The relative factor is $0.6/0.4=1.5$.\n"
+  },
+  {
+    "id": "depth-boosting-q2",
+    "topic_code": "L13",
+    "title": "Two stumps vote $+1$ and $-1$ with coefficients $0.6$ and $0.2$.",
+    "body": "Two stumps vote $+1$ and $-1$ with coefficients $0.6$ and $0.2$. What sign does the ensemble return?\n",
+    "answer": "The weighted vote is $0.6-0.2=0.4>0$, so the ensemble returns $+1$.\n"
+  },
+  {
+    "id": "depth-chapman-kolmogorov-equations-q1",
+    "topic_code": "P6",
+    "title": "After one step",
+    "body": "A time-homogeneous Markov chain on states $1,2$ has transition matrix $P=\\begin{pmatrix}0.8&0.2\\\\0.4&0.6\\end{pmatrix}$, with row $i$ giving the next-state probabilities from $i$. Starting at $X_0=1$, find $\\mathbb P(X_1=1)$ and $\\mathbb P(X_2=1)$.\n",
+    "answer": "$\\mathbb{P}(X_1=1)=0.8$, the $(1,1)$ entry of $P$. $\\mathbb{P}(X_2=1)=0.72$, the $(1,1)$ entry of $P^2$. The one-step probability is not the two-step probability.\n"
+  },
+  {
+    "id": "depth-chapman-kolmogorov-equations-q2",
+    "topic_code": "P6",
+    "title": "A route of length three",
+    "body": "Using $P^2_{11}=0.72$ and $P_{11}=0.8$, and $P^2_{12}=0.28$ and $P_{21}=0.4$, give $\\mathbb{P}(X_3=1\\mid X_0=1)$.\n",
+    "answer": "Condition on the state at time $2$: $0.72\\times 0.8+0.28\\times 0.4=0.576+0.112=0.688$. This is the $(1,1)$ entry of $P^2 P$, which Chapman–Kolmogorov identifies with $P^3$.\n"
+  },
+  {
+    "id": "depth-chi-squared-test-of-independence-q1",
+    "topic_code": "I5",
+    "title": "Degrees of freedom",
+    "body": "How many degrees of freedom does the Pearson chi-squared test of independence use for a $3\\times4$ contingency table with no structural zeros?",
+    "answer": "$(3-1)(4-1)=6$. The arithmetic is $12-1-(2+3)=6$.\n"
+  },
+  {
+    "id": "depth-chi-squared-test-of-independence-q2",
+    "topic_code": "I5",
+    "title": "A cell below the warning line",
+    "body": "One fitted count is $3.2$ and the others exceed $5$. What does the small-cell condition say about the chi-squared approximation?\n",
+    "answer": "The approximation is unreliable when an estimated frequency is small, and the stated threshold is less than $5$. A fitted count of $3.2$ falls under that warning. Combining categories is the remedy only when the combined categories still make sense.\n"
+  },
+  {
+    "id": "depth-communicating-classes-q1",
+    "topic_code": "SP5",
+    "title": "In the matrix with rows $(0,1)$ and $(0,1)$, is $\\{0,1\\}$ a communicating class?",
+    "body": "In the matrix with rows $(0,1)$ and $(0,1)$, is $\\{0,1\\}$ a communicating class?\n",
+    "answer": "No. State $1$ does not lead to state $0$, so the states do not communicate. There are two classes, $\\{0\\}$ and $\\{1\\}$.\n"
+  },
+  {
+    "id": "depth-communicating-classes-q2",
+    "topic_code": "SP5",
+    "title": "For the alternation, does $\\pi=(1/2,1/2)$ satisfy $\\pi P=\\pi$?",
+    "body": "A Markov chain on states $1,2$ alternates deterministically, with transition matrix $P=\\begin{pmatrix}0&1\\\\1&0\\end{pmatrix}$. Does $\\pi=(1/2,1/2)$ satisfy $\\pi P=\\pi$? Does that imply that $P^n$ converges?\n",
+    "answer": "Yes. Each coordinate of $\\pi P$ is $1/2$, because each column of $P$ contains a single $1$. The chain still has period $2$, so the stationary equation has a solution and $P^n$ does not converge.\n"
+  },
+  {
+    "id": "depth-communicating-classes-q3",
+    "topic_code": "SP5",
+    "title": "If a state has a self-loop, what is its period?",
+    "body": "If a state has a self-loop, what is its period?\n",
+    "answer": "The period is $1$. A return in one step is on the list whose greatest common divisor is the period, and that divisor is then $1$. The rest of the class is aperiodic as well.\n"
+  },
+  {
+    "id": "depth-complete-data-likelihood-q1",
+    "topic_code": "L5",
+    "title": "An all-zero exponent",
+    "body": "A case in a two-component mixture has known label $1$, encoded by $(z_1,z_2)=(1,0)$. Its likelihood contribution is $(\\pi_1 f_1(x))^{z_1}(\\pi_2 f_2(x))^{z_2}$, where both weighted densities are positive. Why does the component-$2$ factor equal $1$ rather than $0$?\n",
+    "answer": "The exponent is the indicator that the case came from component $2$. It is $0$, and a positive number to the power $0$ is $1$. The factor drops out of the product. It is not a probability of zero.\n"
+  },
+  {
+    "id": "depth-complete-data-likelihood-q2",
+    "topic_code": "L5",
+    "title": "Observed versus complete",
+    "body": "At an observation $x$, a two-component mixture has weights $\\pi_1=0.4$, $\\pi_2=0.6$ and densities $f_1(x)=0.5$, $f_2(x)=0.1$. Compare its complete-data contribution when the label is $1$ with its observed-data contribution when the label is unobserved. Which is larger, and why?\n",
+    "answer": "The observed contribution $0.26$ is larger. It equals $0.2+0.06$, the sum of the two possible complete contributions.\n"
+  },
+  {
+    "id": "depth-confounding-variable-q1",
+    "topic_code": "D1",
+    "title": "In the unbalanced table, recovery under A is $4/5$ for men and $2/5$ for women.",
+    "body": "Among patients receiving treatment A, $8$ of $10$ men and $40$ of $100$ women recover. Is the pooled recovery rate a weighted average of the two within-sex rates, and what are the weights?\n",
+    "answer": "Yes. The weights are the sex counts in A, $10/110$ and $100/110$:\n\n$$\n\\frac{10}{110}\\cdot\\frac{4}{5}+\\frac{100}{110}\\cdot\\frac{2}{5}=\\frac{48}{110}.\n$$\n\n\nThe weights are not $1/2$ and $1/2$.\n"
+  },
+  {
+    "id": "depth-confounding-variable-q2",
+    "topic_code": "D1",
+    "title": "Men recover at $7/10$ under B and women at $3/10$.",
+    "body": "Men recover at $7/10$ under B and women at $3/10$. If B's patients were half men and half women, what recovery rate would the same within-sex rates give?\n",
+    "answer": "$\\frac12\\cdot 7/10+\\frac12\\cdot 3/10=1/2$. That is the balanced figure already computed for B, not the pooled $73/110$ from the unbalanced table.\n"
+  },
+  {
+    "id": "depth-convolution-q1",
+    "topic_code": "P5",
+    "title": "A total of twelve",
+    "body": "Two independent fair dice. Find $\\Pr(X+Y=12)$.\n",
+    "answer": "Only $(6,6)$ works, so the probability is $1/36$. The convolution has a single term.\n"
+  },
+  {
+    "id": "depth-convolution-q2",
+    "topic_code": "P5",
+    "title": "Dependent uniforms are a different integral",
+    "body": "If $X$ is uniform on $[0,1]$ and $Y=X$, what is wrong with writing the sum's density as the convolution of the two marginal uniforms?\n",
+    "answer": "$X$ and $Y$ are not independent, and $X+Y=2X$ is supported on $[0,2]$ with a different law from the triangular convolution. The product $f_X(x)f_Y(z-x)$ is the joint density only under independence. The dependent calculation uses the joint distribution along $y=x$.\n"
+  },
+  {
+    "id": "depth-countable-additivity-q1",
+    "topic_code": "SP9",
+    "title": "The empty event",
+    "body": "Use countable additivity for a probability measure to show that $P(\\emptyset)=0$. Which disjoint sequence of sets can be used?\n",
+    "answer": "$P(\\emptyset)=0$. The sequence is $\\emptyset,\\emptyset,\\ldots$, a disjoint sequence whose union is $\\emptyset$, so the probability equals the sum of infinitely many copies of itself.\n"
+  },
+  {
+    "id": "depth-countable-additivity-q2",
+    "topic_code": "SP9",
+    "title": "Two events, then nothing",
+    "body": "Let $A$ and $B$ be disjoint with $P(A)=P(B)=1/4$, and set every later set empty. What is $P(A\\cup B)$?\n",
+    "answer": "Countable additivity gives $1/4+1/4+0+0+\\cdots=1/2$. Finite additivity is this axiom with the tail sets empty.\n"
+  },
+  {
+    "id": "depth-cramer-rao-lower-bound-q1",
+    "topic_code": "I8",
+    "title": "A Poisson mean",
+    "body": "For $n$ independent Poisson($\\lambda$) observations, $\\mathcal{I}(\\lambda)=n/\\lambda$. What is the bound for an unbiased estimator of $\\lambda$, and does $\\overline X$ meet it?\n",
+    "answer": "A single Poisson log probability $-\\lambda+X\\log\\lambda$ has score $X/\\lambda-1$, with variance $\\operatorname{Var}(X)/\\lambda^2=1/\\lambda$. For $n$ independent copies, $\\mathcal{I}(\\lambda)=n/\\lambda$, and the bound is $\\lambda/n$. The sample mean is unbiased with that variance, so it meets the bound.\n"
+  },
+  {
+    "id": "depth-cramer-rao-lower-bound-q2",
+    "topic_code": "I8",
+    "title": "A target with derivative zero",
+    "body": "In a regular one-parameter model with finite positive Fisher information $\\mathcal I(\\theta)$, the Cramér–Rao bound for an unbiased estimator of $g(\\theta)$ is $[g'(\\theta)]^2/\\mathcal I(\\theta)$. If $g'(\\theta_0)=0$, what does the bound say at $\\theta_0$?\n",
+    "answer": "The numerator is zero, so the bound is $0$. That does not by itself produce an estimator with variance zero. It says the inequality gives no positive floor at a stationary point of $g$.\n"
+  },
+  {
+    "id": "depth-dendrogram-q1",
+    "topic_code": "L7",
+    "title": "On the four-point dendrogram, how many clusters does a cut at height $0.5$ return, and how many does a cut at height $7$ return?",
+    "body": "Four points at $0$, $1$, $4$ and $10$ are clustered by single linkage using absolute differences. How many clusters does a horizontal cut at height $0.5$ return, and how many does a cut at height $7$ return?\n",
+    "answer": "Height $0.5$ is below every merge, so there are four clusters, the four points. Height $7$ is above the last merge at $6$, so there is one cluster.\n"
+  },
+  {
+    "id": "depth-dendrogram-q2",
+    "topic_code": "L7",
+    "title": "Why is the single-linkage distance from $\\{0,1\\}$ to $4$ equal to $3$ rather than $4$?",
+    "body": "Why is the single-linkage distance from $\\{0,1\\}$ to $4$ equal to $3$ rather than $4$?\n",
+    "answer": "Single linkage takes the closest pair across the two groups. That pair is $1$ and $4$, at distance $3$. The distance $4$ is the complete-linkage height, using $0$ and $4$.\n"
+  },
+  {
+    "id": "depth-discrete-time-markov-chain-q1",
+    "topic_code": "SP4",
+    "title": "Both rows of a two-state matrix equal $(1/2,1/2)$.",
+    "body": "Both rows of a two-state matrix equal $(1/2,1/2)$. What is the two-step probability of moving from state $1$ to state $2$?\n",
+    "answer": "Every one-step probability into state $2$ is $1/2$, so the two-step probability is $(1/2)(1/2)+(1/2)(1/2)=1/2$. The square of this matrix equals the matrix itself.\n"
+  },
+  {
+    "id": "depth-discrete-time-markov-chain-q2",
+    "topic_code": "SP4",
+    "title": "Successive states of a Markov chain are not automatically independent.",
+    "body": "A Markov chain on states $1,2$ has transition matrix $P=\\begin{pmatrix}0.8&0.2\\\\0.5&0.5\\end{pmatrix}$. Why is the next state more likely to be $2$ after state $2$ than after state $1$? What does this show about dependence between successive states when both current states have positive probability?\n",
+    "answer": "The second row puts probability $0.5$ on staying in state $2$, while the first row puts only $0.2$ there. Different rows mean the next state still carries information about the current state.\n"
+  },
+  {
+    "id": "depth-early-stopping-q1",
+    "topic_code": "L16",
+    "title": "A monotone validation curve",
+    "body": "Validation errors after epochs $1$ through $5$ are $0.40$, $0.33$, $0.29$, $0.27$, $0.26$. A stopping rule stops at the first increase in validation error and retains the epoch with lowest validation error. Has it stopped by epoch $5$, and which epoch is best so far?\n",
+    "answer": "The rule has not stopped, because validation error has decreased at each observed epoch. The fifth epoch is best so far, with error $0.26$. This does not imply that a later epoch will be worse; it only identifies the best of the five completed epochs."
+  },
+  {
+    "id": "depth-early-stopping-q2",
+    "topic_code": "L16",
+    "title": "Training versus validation",
+    "body": "At epoch $4$ the training error is $0.14$ and the validation error is $0.29$. At epoch $3$ the training error is $0.21$ and the validation error is $0.27$. Which epoch does early stopping keep?\n",
+    "answer": "Epoch $3$, because $0.27<0.29$. The lower training error at epoch $4$ is the quantity the rule is refusing to chase.\n"
+  },
+  {
+    "id": "depth-epoch-q1",
+    "topic_code": "L16",
+    "title": "Batch versus online",
+    "body": "A training set has $5000$ cases. How many online updates equal one epoch, and how many batch updates equal one epoch?\n",
+    "answer": "Online learning updates after every case, so one epoch is $5000$ updates. Batch learning updates once from the full sum, so one epoch is $1$ update.\n"
+  },
+  {
+    "id": "depth-epoch-q2",
+    "topic_code": "L16",
+    "title": "A remainder",
+    "body": "A training set contains $n=20$ cases and is traversed in non-overlapping mini-batches of size $m=4$, once per epoch. After $7$ parameter updates, how many full epochs and how many batches of the next epoch have been completed?\n",
+    "answer": "Five updates finish the first epoch. The next two updates are two of the five batches of the second epoch. The run has completed $1$ epoch and $2/5$ of the next, which is $7/5=1.4$ epochs.\n"
+  },
+  {
+    "id": "depth-extinction-probability-q1",
+    "topic_code": "SP2",
+    "title": "Offspring probabilities $p_0=1/8$, $p_1=1/8$, $p_2=3/4$.",
+    "body": "Offspring probabilities $p_0=1/8$, $p_1=1/8$, $p_2=3/4$. Is the mean above $1$?\n",
+    "answer": "The mean is $1/8+2\\cdot 3/4=1/8+3/2=13/8>1$. Extinction is not certain. The probability itself is the smaller root of $f(s)=s$, not the mean.\n"
+  },
+  {
+    "id": "depth-extinction-probability-q2",
+    "topic_code": "SP2",
+    "title": "If $p_0=0$ and $p_2=1$, what is the extinction probability, and what is the mean?",
+    "body": "If $p_0=0$ and $p_2=1$, what is the extinction probability, and what is the mean?\n",
+    "answer": "Every individual has two children, so the mean is $2$ and generation $n$ has size $2^n$. The process never hits $0$, and the extinction probability is $0$. The root $s=0$ of $f(s)=s^2$ is that probability.\n"
+  },
+  {
+    "id": "depth-extreme-value-classification-q1",
+    "topic_code": "SP12",
+    "title": "A larger exponential sample",
+    "body": "Compute $(1-1/50)^{50}$ and say whether it is closer to $e^{-1}=0.36788$ than $(1-1/20)^{20}=0.35849$ is.\n",
+    "answer": "$(1-1/50)^{50}=0.36417$. The gap to $0.36788$ is $0.00371$, smaller than the gap $0.00939$ at $n=20$. The limit statement is visible in the arithmetic.\n"
+  },
+  {
+    "id": "depth-extreme-value-classification-q2",
+    "topic_code": "SP12",
+    "title": "Which type has a finite upper end?",
+    "body": "Let $M_n$ be the maximum of $n$ independent $\\operatorname{Uniform}(0,1)$ observations. Which extreme-value type describes the limit of $n(M_n-1)$? Equivalently, what nonnegative limit does $n(1-M_n)$ have, and why is this not a Gumbel limit?\n",
+    "answer": "For $x\\ge0$ and $n>x$, $P(n(1-M_n)>x)=(1-x/n)^n\\to e^{-x}$. Thus the gap converges to an exponential law of rate $1$, and its negative has the reversed Weibull extreme-value law with shape $1$. It has a finite upper endpoint at zero, whereas the Gumbel law has support on the whole real line.\n"
+  },
+  {
+    "id": "depth-false-discovery-rate-q1",
+    "topic_code": "L18",
+    "title": "Sorted $p$-values $0.01$ and $0.04$, with $M=2$ and level $0.05$.",
+    "body": "Two hypotheses have sorted $p$-values $0.01$ and $0.04$. Apply the Benjamini–Hochberg step-up rule at level $0.05$. How many hypotheses are rejected?\n",
+    "answer": "The thresholds are $0.025$ and $0.05$. Then $0.01<0.025$ and $0.04<0.05$, so both are rejected.\n"
+  },
+  {
+    "id": "depth-false-discovery-rate-q2",
+    "topic_code": "L18",
+    "title": "In that two-test rejection, could the realised false-discovery proportion still be $1$?",
+    "body": "The Benjamini–Hochberg procedure rejects both hypotheses in a two-test family at level $0.05$. Could the realised false-discovery proportion still equal $1$? Explain the distinction between the realised proportion and its expectation.\n",
+    "answer": "Yes. If both nulls are true, then $V=R=2$ and the proportion is $1$. Control of the expected proportion does not cap the proportion on a single list.\n"
+  },
+  {
+    "id": "depth-generator-q1",
+    "topic_code": "SP7",
+    "title": "Row sums",
+    "body": "A continuous-time Markov chain alternates between idle and busy, leaving idle at rate $2$ per hour and busy at rate $4$ per hour. Write its generator, in that state order, and find both row sums.\n",
+    "answer": "Each row sums to $0$: $-2+2=0$ and $4-4=0$.\n"
+  },
+  {
+    "id": "depth-generator-q2",
+    "topic_code": "SP7",
+    "title": "Time versus visits",
+    "body": "A continuous-time Markov chain alternates between idle and busy, leaving idle at rate $2$ per hour and busy at rate $4$ per hour. In the long run, what fraction of visits does the jump chain spend idle, and what fraction of time does the continuous-time chain spend idle?\n",
+    "answer": "The jump chain alternates, so half of the visits are idle. The time average is $2/3$, because idle spells last twice as long as busy spells.\n"
+  },
+  {
+    "id": "depth-generator-q3",
+    "topic_code": "SP7",
+    "title": "One hour",
+    "body": "A continuous-time Markov chain leaves idle at rate $2$ per hour and busy at rate $4$ per hour. Starting idle, what is the probability of being busy after one hour, to four decimals, and what stationary probability does it approach?\n",
+    "answer": "The probability is $(1-e^{-6})/3\\approx 0.3325$. The stationary probability of busy is $1/3\\approx 0.3333$.\n"
+  },
+  {
+    "id": "depth-gini-index-q1",
+    "topic_code": "L12",
+    "title": "A pure node",
+    "body": "All $10$ cases in a node belong to one class. What is the Gini index?\n",
+    "answer": "One proportion is $1$ and the others are $0$, so $1-\\sum\\hat p_g^2=0$. Two draws from the node always match.\n"
+  },
+  {
+    "id": "depth-gini-index-q2",
+    "topic_code": "L12",
+    "title": "The even two-class node",
+    "body": "For two classes with $p=1/2$, what is $2p(1-p)$?\n",
+    "answer": "$2\\cdot\\tfrac12\\cdot\\tfrac12=\\tfrac12$. This is the largest two-class value: the quadratic $2p(1-p)$ opens downwards and its vertex is at $p=1/2$.\n"
+  },
+  {
+    "id": "depth-gram-matrix-q1",
+    "topic_code": "L17",
+    "title": "A diagonal feature map",
+    "body": "Two inputs map to $\\phi(x_1)=(2,0)$ and $\\phi(x_2)=(0,3)$. Write the Gram matrix and its eigenvalues.\n",
+    "answer": "The products are $4$, $0$ and $9$, so $K_S=\\operatorname{diag}(4,9)$. The eigenvalues are $4$ and $9$. The off-diagonal zeros record orthogonal features.\n"
+  },
+  {
+    "id": "depth-gram-matrix-q2",
+    "topic_code": "L17",
+    "title": "A coefficient that cancels",
+    "body": "The feature vectors $(1,0)$, $(0,1)$ and $(1,1)$ have Gram matrix $K_S=\\begin{pmatrix}1&0&1\\\\0&1&1\\\\1&1&2\\end{pmatrix}$. For $c=(1,1,-1)^\\top$, compute $c^\\top K_Sc$ and explain what it implies about these feature vectors.\n",
+    "answer": "$$\nc^\\top K_S c=\\bigl\\|(1,0)+(0,1)-(1,1)\\bigr\\|^2=\\|(0,0)\\|^2=0.\n$$\n\n\nThe three feature vectors with these coefficients sum to the zero vector, so the quadratic form contributes nothing even though $c$ itself is not zero.\n"
+  },
+  {
+    "id": "depth-hastings-correction-q1",
+    "topic_code": "B4",
+    "title": "A keen reverse jump",
+    "body": "Using $p(1)=0.2$, $p(3)=0.5$, $J(1\\mid 3)=0.4$ and $J(3\\mid 1)=0.1$, find $r$ for a move from $1$ to $3$.\n",
+    "answer": "$$\nr=\\frac{0.5\\times 0.4}{0.2\\times 0.1}=10.\n$$\nThe acceptance probability is $1$. The proposal rarely offers the move, and the target density is higher at the destination, so the correction makes the ratio larger than $1$.\n"
+  },
+  {
+    "id": "depth-hastings-correction-q2",
+    "topic_code": "B4",
+    "title": "Where the correction is idle",
+    "body": "A proposal adds an increment drawn from $N(0,1)$, independent of the sign. What is the Hastings correction?\n",
+    "answer": "The increment density is symmetric, so $J(\\omega+d\\mid\\omega)=J(\\omega\\mid\\omega+d)$. The correction equals $1$ and the acceptance ratio reduces to the ratio of target densities.\n"
+  },
+  {
+    "id": "depth-hierarchical-clustering-q1",
+    "topic_code": "L7",
+    "title": "How many distinct heights?",
+    "body": "For four clinics and three merges, what is the largest number of distinct cophenetic values the dendrogram can contain, and how many pairs are there?\n",
+    "answer": "There are $6$ pairs and at most $3$ distinct cophenetic values, one per merge. In the average-linkage tree the distinct values are $1$, $2$, and $10.5$.\n"
+  },
+  {
+    "id": "depth-hierarchical-clustering-q2",
+    "topic_code": "L7",
+    "title": "Complete-linkage average",
+    "body": "The six cophenetic values under complete linkage are $1$, $2$, and four copies of $12$. What is their average?\n",
+    "answer": "$(1+2+48)/6=8.5$.\n"
+  },
+  {
+    "id": "depth-hierarchical-clustering-q3",
+    "topic_code": "L7",
+    "title": "A cut",
+    "body": "Four points at $0$, $1$, $10$ and $12$ are clustered by average linkage with absolute differences. Does a horizontal cut at height $6$ return two clusters or one?\n",
+    "answer": "Height $6$ lies between $2$ and $10.5$, so the two pairs have been formed and have not yet been joined. The cut returns two clusters.\n"
+  },
+  {
+    "id": "depth-hinge-loss-q1",
+    "topic_code": "L17",
+    "title": "What is the hinge at margin $0.2$, and what is the slope of the hinge, as a function of the margin, just to the left of $1$?",
+    "body": "What is the hinge at margin $0.2$, and what is the slope of the hinge, as a function of the margin, just to the left of $1$?\n",
+    "answer": "The hinge is $1-0.2=0.8$. Just to the left of $1$ the slope in the margin is $-1$.\n"
+  },
+  {
+    "id": "depth-hinge-loss-q2",
+    "topic_code": "L17",
+    "title": "The contribution of the ridge penalty",
+    "body": "A support-vector criterion is $\\sum_i[1-y_i f(x_i)]_++(\\lambda/2)\\lVert\\beta\\rVert^2$. With total hinge loss $2.25$, $\\lambda=2$ and $\\lVert\\beta\\rVert=1$, what is the criterion value?\n",
+    "answer": "The penalty is $(2/2)(1)=1$. The criterion value is $2.25+1=3.25$. A larger $\\lambda$ charges the same weight more heavily and tolerates more hinge.\n"
+  },
+  {
+    "id": "depth-holding-time-q1",
+    "topic_code": "SP7",
+    "title": "The remaining holding time",
+    "body": "A holding time is exponential with constant rate $2$ per hour. Conditional on already having waited $1$ hour without a transition, what is the probability of waiting at least one further hour?",
+    "answer": "Memorylessness makes the remaining wait a fresh exponential of rate $2$, so the probability is $e^{-2}\\approx 0.1353$. The hour already spent does not appear in the answer.\n"
+  },
+  {
+    "id": "depth-holding-time-q2",
+    "topic_code": "SP7",
+    "title": "Exit rates $3$ and $1$ leave a state.",
+    "body": "Exit rates $3$ and $1$ leave a state. What is the probability that the rate-$3$ clock rings first, and what is the mean hold?\n",
+    "answer": "The total rate is $4$, so the rate-$3$ clock wins with probability $3/4=0.75$. The mean hold is $1/4=0.25$ time unit.\n"
+  },
+  {
+    "id": "depth-hotelling-s-t2-test-q1",
+    "topic_code": "L2",
+    "title": "For $n=6$, $p=2$, mean $(1,1)$ and $S=2I_2$, what is the transformed statistic?",
+    "body": "A sample of size $n=6$ in $p=2$ dimensions has mean $(1,1)^\\top$ and sample covariance $S=2I_2$. To test a zero population mean, find $T^2=n\\bar x^\\top S^{-1}\\bar x$ and its transformed statistic $(n-p)T^2/[p(n-1)]$.\n",
+    "answer": "$2.4$. Here $T^2=6$ and the factor is $4/10=0.4$.\n"
+  },
+  {
+    "id": "depth-hotelling-s-t2-test-q2",
+    "topic_code": "L2",
+    "title": "A statistic against an F quantile",
+    "body": "Does $2.4$ exceed the $0.95$ quantile of $F_{2,4}$?\n",
+    "answer": "No. That quantile is $6.944$. The upper tail probability of $2.4$ is $0.2066$.\n"
+  },
+  {
+    "id": "depth-hotelling-s-t2-test-q3",
+    "topic_code": "L2",
+    "title": "When $p=1$, $n=5$, $\\bar x=2$ and $s=1$, what is $T^2$?",
+    "body": "For the one-dimensional test of a zero mean, let $n=5$, $\\bar x=2$ and sample standard deviation $s=1$. What is Hotelling's $T^2=n\\bar x^2/s^2$?\n",
+    "answer": "$20$, which equals $t^2$. The $F$ factor is $1$ in this one-dimensional case, so the transformed statistic is also $20$.\n"
+  },
+  {
+    "id": "depth-independent-random-variables-q1",
+    "topic_code": "P4",
+    "title": "A zero in the table",
+    "body": "$\\Pr(X=1)=1/2$, $\\Pr(Y=1)=1/3$ and $\\Pr(X=1,Y=1)=0$. Are $X$ and $Y$ independent?\n",
+    "answer": "No. The product of the marginals is $1/6$, and the joint probability is $0$. One cell where the product formula fails is enough.\n"
+  },
+  {
+    "id": "depth-independent-random-variables-q2",
+    "topic_code": "P4",
+    "title": "A fair pair of coins",
+    "body": "Two independent fair coins. Find $\\Pr(\\text{both heads})$ and $\\E[XY]$ if a head is coded $1$ and a tail $0$.\n",
+    "answer": "Each head has probability $1/2$, so both heads have probability $1/4$. That event is $\\{XY=1\\}$, and $XY$ is $0$ otherwise, so $\\E[XY]=1/4$. This equals $\\E[X]\\E[Y]=(1/2)\\times(1/2)$.\n"
+  },
+  {
+    "id": "depth-jump-chain-q1",
+    "topic_code": "SP7",
+    "title": "An absorbing state",
+    "body": "All rates out of state $0$ are $0$. What is the jump chain's behaviour at $0$?\n",
+    "answer": "$\\nu_0=0$, so there is no next state. The holding time is infinite and the jump chain stays at $0$.\n"
+  },
+  {
+    "id": "depth-jump-chain-q2",
+    "topic_code": "SP7",
+    "title": "Two equal rates",
+    "body": "A continuous-time Markov chain can leave state $1$ only for states $2$ and $3$, with rates $q_{12}=q_{13}=5$ per hour. Find the two jump probabilities and the mean holding time in state $1$.\n",
+    "answer": "$\\nu_1=10$, so each destination has probability $5/10=1/2$. The mean holding time is $1/10$.\n"
+  },
+  {
+    "id": "depth-kullback-leibler-divergence-q1",
+    "topic_code": "L6",
+    "title": "A zero that should be zero",
+    "body": "Compute $D(p\\,\\Vert\\,p)$ for $p=(0.8,0.2)$.\n",
+    "answer": "Each ratio is $1$, and $\\log 1=0$, so the divergence is $0$.\n"
+  },
+  {
+    "id": "depth-kullback-leibler-divergence-q2",
+    "topic_code": "L6",
+    "title": "Which direction is larger?",
+    "body": "For $p=(0.8,0.2)$ and $q=(0.5,0.5)$, which of $0.1927$ and $0.2231$ is $D(q\\,\\Vert\\,p)$?\n",
+    "answer": "$D(q\\,\\Vert\\,p)\\approx 0.2231$ nats. The smaller number $0.1927$ is $D(p\\,\\Vert\\,q)$, the penalty for using a fair coin when the truth is $p$.\n"
+  },
+  {
+    "id": "depth-kullback-leibler-divergence-q3",
+    "topic_code": "L6",
+    "title": "Bits",
+    "body": "For $p=(0.8,0.2)$ and $q=(0.5,0.5)$, calculate $D(p\\Vert q)=\\sum_i p_i\\log(p_i/q_i)$ in nats. Divide the unrounded value by $\\log 2$ and report the divergence in bits to four decimals.\n",
+    "answer": "The unrounded divergence divided by $\\log 2$ equals $0.2781$ bits.\n"
+  },
+  {
+    "id": "depth-learning-rate-q1",
+    "topic_code": "L15",
+    "title": "The multiplier",
+    "body": "Gradient descent on $E(w)=(w-3)^2$ uses $w_{r+1}=w_r-\\varepsilon E'(w_r)$. Which constant learning rates $\\varepsilon$ strictly decrease the loss at every step with $w_r\\ne3$?\n",
+    "answer": "Those with $0<\\varepsilon<1$. The absolute value of $1-2\\varepsilon$ is then below $1$. At $\\varepsilon=1$ the error keeps its size and changes sign.\n"
+  },
+  {
+    "id": "depth-learning-rate-q2",
+    "topic_code": "L15",
+    "title": "Two steps from 5",
+    "body": "Gradient descent on $E(w)=(w-3)^2$ uses $w_{r+1}=w_r-\\varepsilon E'(w_r)$. Starting at $w_0=5$ with $\\varepsilon=0.4$, find the next two weights.\n",
+    "answer": "The multiplier is $0.2$. The error $2$ becomes $0.4$, so the first weight is $3.4$. The error $0.4$ becomes $0.08$, so the second weight is $3.08$.\n"
+  },
+  {
+    "id": "depth-learning-rate-q3",
+    "topic_code": "L15",
+    "title": "A finite sum of steps",
+    "body": "Why can a positive learning-rate sequence $\\gamma_r=1/r^2$ provide insufficient total movement in gradient descent, whereas $\\gamma_r=1/r$ satisfies the usual divergent-sum requirement? Does this requirement alone guarantee convergence?",
+    "answer": "The sum $\\sum_{r=1}^\\infty1/r^2$ is finite, whereas $\\sum_{r=1}^\\infty1/r$ diverges. If the gradient is bounded, a finite total step size can leave a positive distance to the minimiser. Divergence of the step-size sum prevents this particular obstruction, but convergence also depends on the objective, gradient noise and other step-size conditions."
+  },
+  {
+    "id": "depth-least-squares-line-q1",
+    "topic_code": "I6",
+    "title": "For $(0,1)$, $(1,1)$, $(2,4)$, what is the fitted height at $x=1$?",
+    "body": "For $(0,1)$, $(1,1)$, $(2,4)$, what is the fitted height at $x=1$?\n",
+    "answer": "$2$, the mean of $y$. The arithmetic is $0.5+1.5\\cdot 1=2$.\n"
+  },
+  {
+    "id": "depth-least-squares-line-q2",
+    "topic_code": "I6",
+    "title": "Constraining the intercept to zero",
+    "body": "For observations $(0,1)$, $(1,1)$ and $(2,4)$, find the least-squares slope when the fitted line is constrained to pass through the origin.\n",
+    "answer": "$9/5=1.8$. The products $x_i y_i$ sum to $9$ and the squares $x_i^2$ sum to $5$.\n"
+  },
+  {
+    "id": "depth-least-squares-line-q3",
+    "topic_code": "I6",
+    "title": "Why is the origin line's residual sum of squares $1.8$ rather than $1.5$?",
+    "body": "For observations $(0,1)$, $(1,1)$ and $(2,4)$, explain why the least-squares residual sum of squares is $1.8$ when the intercept is fixed at zero and $1.5$ when an intercept is fitted.\n",
+    "answer": "The origin line is not allowed an intercept. The free line reaches $1.5$ by using intercept $0.5$. Inside the origin-only family, $1.8$ is the minimum.\n"
+  },
+  {
+    "id": "depth-limit-theorems-q1",
+    "topic_code": "P5",
+    "title": "The hundred tosses",
+    "body": "For $100$ fair tosses, what are the exact probability $\\mathrm{P}(S\\ge 60)$, the plain normal approximation, and the continuity-corrected approximation, to four decimals?\n",
+    "answer": "The exact value is $0.0284$. The plain approximation is $0.0228$. The continuity correction is $0.0287$.\n"
+  },
+  {
+    "id": "depth-limit-theorems-q2",
+    "topic_code": "P5",
+    "title": "Chebyshev against the normal tail",
+    "body": "Let $S\\sim\\operatorname{Binomial}(100,1/2)$. The Chebyshev bound on $P(|S/100-1/2|\\ge0.1)$ is $0.25$, while the uncorrected normal approximation to $P(S\\ge60)$ is about $0.023$. Why is there no contradiction?",
+    "answer": "Chebyshev's inequality is an upper bound that uses only the variance. The normal approximation estimates the probability. An upper bound of $0.25$ is compatible with a probability near $0.046$ for the two tails.\n"
+  },
+  {
+    "id": "depth-limit-theorems-q3",
+    "topic_code": "P5",
+    "title": "Twenty tosses",
+    "body": "For $S\\sim\\mathrm{Bin}(20,1/2)$, the exact $\\mathrm{P}(S\\le 8)$ is $0.2517$ and the plain normal value is $0.186$. What does the continuity correction do?\n",
+    "answer": "It reads the normal distribution at $8.5$ rather than at $8$, and the value is about $0.251$, close to $0.2517$. The plain reading at $8$ is the one that sits low.\n"
+  },
+  {
+    "id": "depth-link-function-q1",
+    "topic_code": "G1",
+    "title": "A zero predictor",
+    "body": "Give the identity, log and logit means at $\\eta=0$.\n",
+    "answer": "The identity mean is $0$. The log-link mean is $e^{0}=1$. The logit mean is $1/2$. Zero is a legal log mean only in the limit $\\eta\\to-\\infty$; at $\\eta=0$ the log mean is $1$.\n"
+  },
+  {
+    "id": "depth-link-function-q2",
+    "topic_code": "G1",
+    "title": "A coefficient on the log scale",
+    "body": "Under a log link, $\\eta=\\beta_0+\\beta_1 x$ and $\\beta_1=0.2$. By what factor does the mean change when $x$ increases by $1$?\n",
+    "answer": "The mean is multiplied by $e^{0.2}=1.2214$ to four decimals. The identity link would have added $0.2$ instead of multiplying.\n"
+  },
+  {
+    "id": "depth-little-s-law-q1",
+    "topic_code": "SP8",
+    "title": "A server completes $12$ jobs an hour, and the mean number of jobs in the system is $3$.",
+    "body": "A server completes $12$ jobs an hour, and the mean number of jobs in the system is $3$. What is the mean sojourn, in minutes?\n",
+    "answer": "$W=3/12=1/4$ hour, which is $15$ minutes. The completion rate in a stable system is the accepted arrival rate.\n"
+  },
+  {
+    "id": "depth-little-s-law-q2",
+    "topic_code": "SP8",
+    "title": "The mean wait in the queue is $10$ minutes and the mean service is $5$ minutes, with $12$ jobs an hour accepted.",
+    "body": "The mean wait in the queue is $10$ minutes and the mean service is $5$ minutes, with $12$ jobs an hour accepted. What are $L_q$ and $L$?\n",
+    "answer": "Ten minutes is $1/6$ hour and five minutes is $1/12$ hour, so $W=1/6+1/12=1/4$ hour. Then $L_q=12\\times 1/6=2$ and $L=12\\times 1/4=3$.\n"
+  },
+  {
+    "id": "depth-loadings-q1",
+    "topic_code": "L3",
+    "title": "Variance in the second component",
+    "body": "The correlation matrix of two standardised variables is $R=\\begin{pmatrix}1&0.8\\\\0.8&1\\end{pmatrix}$. What fraction of the total variance belongs to the second principal component?\n",
+    "answer": "The eigenvalues sum to the trace $2$, so the second component accounts for $0.2/2=0.1$.\n"
+  },
+  {
+    "id": "depth-loadings-q2",
+    "topic_code": "L3",
+    "title": "A unit loading of $0.6$ belongs to a component of variance $0.25$.",
+    "body": "Principal components are calculated from standardised variables of variance $1$. A coordinate of a unit eigenvector is $0.6$, and its eigenvalue is $0.25$. What is the correlation between that variable and the corresponding component score?\n",
+    "answer": "The correlation is $0.6\\sqrt{0.25}=0.6\\times 0.5=0.3$.\n"
+  },
+  {
+    "id": "depth-local-balance-q1",
+    "topic_code": "SP8",
+    "title": "A stationary probability ratio",
+    "body": "A birth–death chain on states $0,1,2$ has stationary probabilities $(4/7,2/7,1/7)$. What is $\\pi_2/\\pi_1$, and which ratio of birth and death rates must it equal under local balance?\n",
+    "answer": "$\\pi_2/\\pi_1=(1/7)/(2/7)=1/2$, and the cut says this equals $\\lambda_1/\\mu_2=1/2$.\n"
+  },
+  {
+    "id": "depth-local-balance-q2",
+    "topic_code": "SP8",
+    "title": "Constant rates on an infinite state space",
+    "body": "A birth–death chain on $\\{0,1,2,\\ldots\\}$ has birth rates $\\lambda_n=1$ for every $n\\ge0$ and death rates $\\mu_n=1$ for every $n\\ge1$. Can its local-balance product weights be normalised to a stationary probability distribution?\n",
+    "answer": "No. Every weight equals $\\pi_0$, and $\\sum_n 1$ diverges. The equations still define an invariant measure.\n"
+  },
+  {
+    "id": "depth-logit-probit-and-complementary-log-log-links-q1",
+    "topic_code": "G1",
+    "title": "A zero predictor",
+    "body": "Give the logit and probit probabilities at $\\eta=0$, and the complementary log-log probability to four decimals.\n",
+    "answer": "The logit and the probit both equal $1/2$. Complementary log-log equals $1-\\exp(-1)=0.6321$ to four decimals. Symmetry about $1/2$ fails at the origin for that link.\n"
+  },
+  {
+    "id": "depth-logit-probit-and-complementary-log-log-links-q2",
+    "topic_code": "G1",
+    "title": "A large positive predictor",
+    "body": "As $\\eta\\to\\infty$, what happens to each of the three probabilities?\n",
+    "answer": "Each tends to $1$. The logit ratio $e^{\\eta}/(1+e^{\\eta})$ does, $\\Phi(\\eta)$ does, and $\\exp(-e^{\\eta})$ tends to $0$, so complementary log-log tends to $1$. The limits agree; the speed at a finite $\\eta$ does not.\n"
+  },
+  {
+    "id": "depth-markov-random-field-q1",
+    "topic_code": "L19",
+    "title": "Reading the graph",
+    "body": "A Markov random field has path graph $X-Y-Z$. Which pair is conditionally independent given the third variable under the global Markov property, and which pairs are neighbours?\n",
+    "answer": "$X$ and $Z$ are the non-adjacent pair, so the pairwise property says $X\\perp Z\\mid Y$. The edges are $X-Y$ and $Y-Z$. The pairwise property does not say that an adjacent pair is conditionally independent given the remaining variable.\n"
+  },
+  {
+    "id": "depth-markov-random-field-q2",
+    "topic_code": "L19",
+    "title": "A numerical check of the margin",
+    "body": "Let $Y\\sim\\operatorname{Bernoulli}(1/2)$. Conditional on $Y=y$, let $X$ and $Z$ be independent Bernoulli variables with success probability $0.8$ if $y=1$ and $0.2$ if $y=0$. Compute $P(X=1,Z=0)$.\n",
+    "answer": "Given $Y=1$ the probability is $0.8\\times 0.2=0.16$. Given $Y=0$ it is $0.2\\times 0.8=0.16$. The marginal is $\\tfrac12(0.16)+\\tfrac12(0.16)=0.16$.\n"
+  },
+  {
+    "id": "depth-markov-s-inequality-q1",
+    "topic_code": "SP1",
+    "title": "The hour-long job",
+    "body": "A nonnegative duration has mean $10$ minutes. What does Markov's inequality say about a duration of at least $60$ minutes?\n",
+    "answer": "The probability is at most $10/60=1/6$. If the variance is $25$, Chebyshev's inequality further bounds the same event by $25/50^2=0.01$.\n"
+  },
+  {
+    "id": "depth-markov-s-inequality-q2",
+    "topic_code": "SP1",
+    "title": "Equality",
+    "body": "Construct a nonnegative law with mean $4$ for which $\\mathrm{P}(X\\ge 20)=0.2$.\n",
+    "answer": "Put probability $0.2$ on $20$ and probability $0.8$ on $0$. The mean is $4$ and the tail probability equals $0.2$, so Markov's bound is attained.\n"
+  },
+  {
+    "id": "depth-markov-s-inequality-q3",
+    "topic_code": "SP1",
+    "title": "An exponential tail",
+    "body": "For an exponential law with mean $10$, compute $e^{-6}$ to six decimals and compare it with $1/6$.\n",
+    "answer": "$e^{-6}\\approx 0.002479$, while $1/6\\approx 0.1667$. Markov's bound is valid and about $67$ times the exponential probability. The exponential number uses the survival formula. The Markov number uses only the mean.\n"
+  },
+  {
+    "id": "depth-mini-batch-q1",
+    "topic_code": "L16",
+    "title": "One case",
+    "body": "For an intercept-only predictor $w$, a case with response $y$ has loss $\\tfrac12(w-y)^2$. At $w=0$, what is the online gradient for the case $y=7$ from the responses $1,3,5,7$?\n",
+    "answer": "The gradient is $0-7=-7$. It is an unbiased draw from the four case gradients $-1,-3,-5,-7$, whose mean is $-4$, but this particular draw is far from $-4$.\n"
+  },
+  {
+    "id": "depth-mini-batch-q2",
+    "topic_code": "L16",
+    "title": "A deterministic partition",
+    "body": "For case loss $\\tfrac12(w-y)^2$, evaluate the two mean gradients at $w=0$ on batches with responses $\\{1,5\\}$ and $\\{3,7\\}$. Why does averaging these gradients give the full-data gradient $-4$, although neither batch was sampled at random?\n",
+    "answer": "The two batches partition the sample, so the average of their means is the mean of all four responses. Random sampling is not required for that identity. Unbiasedness of one batch requires the random draw.\n"
+  },
+  {
+    "id": "depth-minimal-sufficiency-q1",
+    "topic_code": "B7",
+    "title": "A constant ratio",
+    "body": "For the Poisson samples $(2,0,5)$ and $(1,3,3)$, what is the likelihood ratio, and does it depend on $\\lambda$?\n",
+    "answer": "The ratio is $36/240=0.15$ for every $\\lambda>0$. The sums both equal $7$, so the powers of $\\lambda$ cancel.\n"
+  },
+  {
+    "id": "depth-minimal-sufficiency-q2",
+    "topic_code": "B7",
+    "title": "A ratio that moves",
+    "body": "Evaluate $0.1\\lambda^3$ at $\\lambda=1$ and at $\\lambda=2$.\n",
+    "answer": "The values are $0.1$ and $0.8$. The ratio of $(2,0,5)$ against $(4,0,0)$ depends on $\\lambda$, and the sums $7$ and $4$ differ.\n"
+  },
+  {
+    "id": "depth-minimal-sufficiency-q3",
+    "topic_code": "B7",
+    "title": "A uniform window",
+    "body": "Observations $0.2$, $0.9$, $1.1$ come from $\\mathrm{Uniform}(\\theta,\\theta+1)$. For which $\\theta$ is the likelihood positive?\n",
+    "answer": "The parameter must satisfy $\\theta\\le 0.2$ and $\\theta\\ge 0.1$, so $\\theta$ lies in $[0.1,0.2]$. The range $0.9$ does not determine this interval.\n"
+  },
+  {
+    "id": "depth-missing-data-q1",
+    "topic_code": "L5",
+    "title": "Three observed responses are $4$, $4$ and $10$, and one planned response is missing.",
+    "body": "Three observed responses are $4$, $4$ and $10$, and one planned response is missing. What is the observed mean?\n",
+    "answer": "The observed mean is $(4+4+10)/3=6$.\n"
+  },
+  {
+    "id": "depth-missing-data-q2",
+    "topic_code": "L5",
+    "title": "Why is inventing a mixture component label a different problem from estimating that missing response?",
+    "body": "Three planned responses are observed as $4$, $4$ and $10$, while a fourth response is missing. Explain why assigning latent mixture-component labels to the three observed responses is a different problem from estimating the missing response.\n",
+    "answer": "The component label was never one of the intended measurements; it is part of a complete-data story. The missing response was a measurement the design meant to record. The two holes are filled by different models.\n"
+  },
+  {
+    "id": "depth-multicollinearity-q1",
+    "topic_code": "L18",
+    "title": "Variance inflation from correlated predictors",
+    "body": "A regression with an intercept has predictors $x_1=(1,2,3,4,5)$ and $x_2=(2,5,6,7,10)$. Let $r$ be their sample correlation. Compute $1-r^2$ and the associated variance inflation factor.\n",
+    "answer": "The predictor means are $3$ and $6$. Their centred cross-products are $S_{11}=10$, $S_{22}=34$ and $S_{12}=18$, so $r^2=18^2/(10\\cdot34)=81/85$. Thus $1-r^2=4/85$, and the variance inflation factor is $85/4=21.25$.\n"
+  },
+  {
+    "id": "depth-multicollinearity-q2",
+    "topic_code": "L18",
+    "title": "An affine dependence with an intercept",
+    "body": "A least-squares regression includes an intercept and predictors $x_1=(1,2,3,4,5)$ and $x_2=(5,8,11,14,17)$. Are its two slope coefficients uniquely determined? Explain how the coefficients can change without changing any fitted value.\n",
+    "answer": "Here $x_2=3x_1+2$, so $b_0+b_1x_1+b_2x_2=(b_0+2b_2)+(b_1+3b_2)x_1$. For any real $t$, the coefficients $(b_0-2t,b_1-3t,b_2+t)$ give the same fitted values. The design with an intercept has rank $2$ rather than $3$, so the slope pair is not unique, although the least-squares fitted values are unique.\n"
+  },
+  {
+    "id": "depth-multicollinearity-q3",
+    "topic_code": "L18",
+    "title": "Simple and partial slopes",
+    "body": "For $x_1=(1,2,3,4,5)$, $x_2=(2,5,6,7,10)$ and $y=(4,3,4,5,4)$, compute the simple slope of $y$ on $x_1$ and the partial slope of $x_1$ after including $x_2$. Include an intercept in both regressions. Are the two slopes equal?\n",
+    "answer": "The centred cross-products are $S_{11}=10$, $S_{22}=34$, $S_{12}=18$, $S_{1y}=2$ and $S_{2y}=2$. The simple slope is $S_{1y}/S_{11}=2/10=0.2$. The slope-matrix determinant is $10\\cdot34-18^2=16$, and the partial slope is $b_1=(34\\cdot2-18\\cdot2)/16=2$. The full fit has intercept $4$ and $b_2=-1$. The simple and partial slopes are different because the latter adjusts for $x_2$.\n"
+  },
+  {
+    "id": "depth-multiple-testing-q1",
+    "topic_code": "L18",
+    "title": "Twenty tests, Bonferroni",
+    "body": "Twenty tests, family-wise level $0.05$. What is the Bonferroni threshold?\n",
+    "answer": "The threshold is $0.05/20=0.0025$. A $p$-value of $0.01$ is not rejected, even though it would have been rejected as a single test at level $0.05$.\n"
+  },
+  {
+    "id": "depth-multiple-testing-q2",
+    "topic_code": "L18",
+    "title": "An empty rejection list",
+    "body": "Ordered $p$-values $0.40$ and $0.60$, with $m=2$ and $q^\\ast=0.05$. How many hypotheses are rejected?\n",
+    "answer": "The thresholds are $0.025$ and $0.050$. Neither ordered $p$-value meets its threshold, so $k$ does not exist and nothing is rejected.\n"
+  },
+  {
+    "id": "depth-nominal-responses-q1",
+    "topic_code": "G4",
+    "title": "If $p_1/p_0=2$ and $p_2/p_0=6$, what is $p_2/p_1$, and what is $\\log(p_2/p_1)$?",
+    "body": "If $p_1/p_0=2$ and $p_2/p_0=6$, what is $p_2/p_1$, and what is $\\log(p_2/p_1)$?\n",
+    "answer": "$p_2/p_1=6/2=3$, so the log-odds equal $\\log 3$. The same number is $\\log 6-\\log 2$.\n"
+  },
+  {
+    "id": "depth-nominal-responses-q2",
+    "topic_code": "G4",
+    "title": "The linear predictors at $x=0$ are $\\eta_1=\\log 2$ and $\\eta_2=\\log 6$, with $\\eta_0=0$.",
+    "body": "The linear predictors at $x=0$ are $\\eta_1=\\log 2$ and $\\eta_2=\\log 6$, with $\\eta_0=0$. What is $p_0$?\n",
+    "answer": "The weights are $1$, $2$ and $6$, summing to $9$, so $p_0=1/9$.\n"
+  },
+  {
+    "id": "depth-normal-quantile-plot-q1",
+    "topic_code": "D2",
+    "title": "Standard normal scores are paired with a sample that is exactly $4+3z_i$ at those scores.",
+    "body": "Standard normal scores are paired with a sample that is exactly $4+3z_i$ at those scores. What are the intercept and slope of the line?\n",
+    "answer": "The points lie on $x=4+3z$, so the intercept is $4$ and the slope is $3$. The line is straight because the sample is an exact normal location-scale shift of the scores.\n"
+  },
+  {
+    "id": "depth-normal-quantile-plot-q2",
+    "topic_code": "D2",
+    "title": "Two samples of equal size differ only by adding $5$ to every value in the second sample.",
+    "body": "Two samples of equal size differ only by adding $5$ to every value in the second sample. How does their quantile–quantile plot sit relative to the $45$-degree line?\n",
+    "answer": "The ordered values differ by $5$ at every rank, so the points lie on a line parallel to the $45$-degree line and shifted by $5$. The shape is the same; the location is not.\n"
+  },
+  {
+    "id": "depth-null-deviance-q1",
+    "topic_code": "G5",
+    "title": "Five binary observations contain four ones.",
+    "body": "Five binary observations contain four ones. What is $\\hat p$, and what is `df.null` for an intercept-only fit?\n",
+    "answer": "$\\hat p=4/5$. One intercept is estimated, so `df.null` is $5-1=4$.\n"
+  },
+  {
+    "id": "depth-null-deviance-q2",
+    "topic_code": "G5",
+    "title": "Why is the null deviance of $1,1,0,1$ not equal to $-2\\log((3/4)^4)$, which would be the deviance if all four observations equalled $3/4$",
+    "body": "Four independent Bernoulli responses are $1,1,0,1$. Why is the fitted intercept-only null deviance not $-2\\log((3/4)^4)$? Write the likelihood contribution of the zero response explicitly.\n",
+    "answer": "The fitted success probability is $3/4$, so the zero contributes $1/4$, not $3/4$. The fitted likelihood is $(3/4)^3(1/4)$; the saturated Bernoulli likelihood is $1$. Thus the deviance is $-2[3\\log(3/4)+\\log(1/4)]\\approx4.4987$.\n"
+  },
+  {
+    "id": "depth-ordinal-responses-q1",
+    "topic_code": "G4",
+    "title": "Intercepts that must decrease",
+    "body": "For ordered categories $1,2,3$, a proportional-odds model uses $\\operatorname{logit}P(Y\\ge k\\mid x)=\\beta_{0k}+\\beta x$, $k=2,3$. Can intercepts $\\beta_{02}=0.2$ and $\\beta_{03}=1.2$ define valid cumulative probabilities with a shared slope?\n",
+    "answer": "No. Then $\\mathrm{P}(Y\\ge 3)$ would have the larger intercept, so at $x=0$ the upper tail would exceed the lower tail. The intercepts must decrease as $k$ increases.\n"
+  },
+  {
+    "id": "depth-ordinal-responses-q2",
+    "topic_code": "G4",
+    "title": "If $\\beta=0.5$, by what factor does a unit increase in $x$ multiply the odds of the top category, and the odds of the middle-or-top",
+    "body": "For ordered categories $1,2,3$, suppose $\\operatorname{logit}P(Y\\ge k\\mid x)=\\beta_{0k}+0.5x$, $k=2,3$, with valid ordered intercepts. By what factor does a unit increase in $x$ multiply the odds of the top category and the odds of the middle-or-top category?\n",
+    "answer": "Both are multiplied by $e^{0.5}\\approx 1.6487$. The cut does not appear in the factor.\n"
+  },
+  {
+    "id": "depth-out-of-bag-estimation-and-variable-importance-q1",
+    "topic_code": "L13",
+    "title": "A case in every sample",
+    "body": "If a case appears in every bootstrap sample, how many trees vote in its out-of-bag prediction?\n",
+    "answer": "None. The out-of-bag prediction uses only trees that missed the case. If there are no such trees, that case contributes no out-of-bag prediction.\n"
+  },
+  {
+    "id": "depth-out-of-bag-estimation-and-variable-importance-q2",
+    "topic_code": "L13",
+    "title": "A zero drop",
+    "body": "The accuracy after permuting predictor $j$ equals the accuracy before it, in every tree. What is the permutation importance of $j$?\n",
+    "answer": "The average drop is $0$. Inside this fit, shuffling $j$ in the out-of-bag cases did not change the accuracy. A later refit that deleted $j$ could still change, if another predictor took its place.\n"
+  },
+  {
+    "id": "depth-output-coding-softmax-and-cross-entropy-q1",
+    "topic_code": "L16",
+    "title": "Three scores",
+    "body": "For $z=(0,1,-1)$ and true class $2$, what are the softmax probabilities to four decimals, and the cross-entropy to four decimals?\n",
+    "answer": "The probabilities are $0.2447$, $0.6652$, and $0.0900$. The cross-entropy is $0.4076$.\n"
+  },
+  {
+    "id": "depth-output-coding-softmax-and-cross-entropy-q2",
+    "topic_code": "L16",
+    "title": "A shift",
+    "body": "Add $5$ to every coordinate of $(2,1,0.1)$. Do the probabilities change?\n",
+    "answer": "No. Each exponential is multiplied by $e^{5}$, and so is their sum. The probabilities stay about $(0.659,0.242,0.099)$.\n"
+  },
+  {
+    "id": "depth-output-coding-softmax-and-cross-entropy-q3",
+    "topic_code": "L16",
+    "title": "Two classes",
+    "body": "Scores $1.5$ and $0.5$. What is the probability of the first class, to four decimals?\n",
+    "answer": "It equals $1/(1+e^{-1})\\approx 0.7311$.\n"
+  },
+  {
+    "id": "depth-partial-autocorrelation-q1",
+    "topic_code": "T2",
+    "title": "Lag-two correlation of an autoregression",
+    "body": "A stationary autoregression of order $1$ has coefficient $0.8$. Find its lag-two autocorrelation $\\rho_2$ and lag-two partial autocorrelation $\\phi_{22}$.\n",
+    "answer": "$\\rho_2=0.64$ and $\\phi_{22}=(0.64-0.64)/(1-0.64)=0$.\n"
+  },
+  {
+    "id": "depth-partial-autocorrelation-q2",
+    "topic_code": "T2",
+    "title": "A partial autocorrelation that is not zero",
+    "body": "If $\\rho_1=0.5$ and $\\rho_2=0.1$, what is $\\phi_{22}$ to four decimal places? Is the series an autoregression of order $1$?\n",
+    "answer": "$\\phi_{22}=(0.1-0.25)/(1-0.25)=-0.15/0.75=-0.2$. It is not an autoregression of order $1$, because that model would have forced the numerator, and so $\\phi_{22}$, to be $0$.\n"
+  },
+  {
+    "id": "depth-polynomial-kernel-q1",
+    "topic_code": "L17",
+    "title": "A repeated input",
+    "body": "Compute $(1+\\mathbf{x}^\\top\\mathbf{x})^2$ for $\\mathbf{x}=(1,1)$.\n",
+    "answer": "The inner product is $2$, so the kernel is $(1+2)^2=9$. This is $K(\\mathbf{x},\\mathbf{x})=\\|h(\\mathbf{x})\\|^2$, not a comparison of two different points.\n"
+  },
+  {
+    "id": "depth-polynomial-kernel-q2",
+    "topic_code": "L17",
+    "title": "Dimension",
+    "body": "The inhomogeneous polynomial kernel $K(x,x')=(1+x^\\top x')^2$ on $\\mathbb R^3$ has a feature map with one coordinate for each monomial of total degree at most $2$. How many coordinates does this map have?\n",
+    "answer": "The count is $\\binom{3+2}{2}=\\binom{5}{2}=10$. They are the constant, three linear terms, three squares and three cross products.\n"
+  },
+  {
+    "id": "depth-positive-continuous-responses-q1",
+    "topic_code": "G3",
+    "title": "A log-link predictor equals $\\log 4$.",
+    "body": "A log-link predictor equals $\\log 4$. What is the fitted mean?\n",
+    "answer": "The mean is $4$. The log link returns the exponential of the predictor.\n"
+  },
+  {
+    "id": "depth-positive-continuous-responses-q2",
+    "topic_code": "G3",
+    "title": "An inverse-link predictor equals $-0.5$.",
+    "body": "An inverse-link predictor equals $-0.5$. Why is there no positive fitted mean?\n",
+    "answer": "The inverse would be $1/(-0.5)=-2$, which is negative. The inverse link is available only while the linear predictor is positive.\n"
+  },
+  {
+    "id": "depth-positive-predictive-value-q1",
+    "topic_code": "I16",
+    "title": "Equal sensitivity and specificity at one percent prevalence",
+    "body": "A test has sensitivity $0.99$ and specificity $0.99$. The prevalence is $0.01$. What is the positive predictive value?\n",
+    "answer": "True and false positives contribute the same joint probability, $0.01\\times 0.99=0.0099$ and $0.99\\times 0.01=0.0099$. The positive predictive value is $0.0099/0.0198=0.5$.\n"
+  },
+  {
+    "id": "depth-positive-predictive-value-q2",
+    "topic_code": "I16",
+    "title": "A prevalence of one half",
+    "body": "Sensitivity and specificity are both $0.9$, and the prevalence is $0.5$. Show that the positive predictive value equals the sensitivity.\n",
+    "answer": "The denominator is $0.5\\times 0.9+0.5\\times 0.1=0.5$, and the numerator is $0.45$, so the ratio is $0.9$. With equal prevalence of the two states and equal error rates, the reversed probability matches the sensitivity.\n"
+  },
+  {
+    "id": "depth-posterior-membership-q1",
+    "topic_code": "L5",
+    "title": "Normalising mixture memberships",
+    "body": "A two-component mixture has weights $0.6,0.4$ and component densities $0.2,0.8$ at an observation. Let $\\tau_1,\\tau_2$ be the two posterior membership probabilities. What is $\\tau_1+\\tau_2$?\n",
+    "answer": "$1$. The memberships are $3/11$ and $8/11$.\n"
+  },
+  {
+    "id": "depth-posterior-membership-q2",
+    "topic_code": "L5",
+    "title": "If the densities are equal, do the memberships equal the prior weights?",
+    "body": "A two-component mixture has weights $0.6,0.4$. If its two densities have the same positive value at an observation, do the posterior memberships equal the prior weights?\n",
+    "answer": "Yes. The equal positive density factors cancel in Bayes' rule, leaving memberships $0.6$ and $0.4$, equal to the prior weights."
+  },
+  {
+    "id": "depth-posterior-membership-q3",
+    "topic_code": "L5",
+    "title": "A membership-weighted mean",
+    "body": "Two observations are $x_1=4$ and $x_2=0$. Their posterior memberships in component $2$ are $8/11$ and $0$. What mean does the membership-weighted update give for component $2$?\n",
+    "answer": "$4$. Only the first point has positive membership on component $2$, and that point sits at $4$.\n"
+  },
+  {
+    "id": "depth-precision-weighting-q1",
+    "topic_code": "B3",
+    "title": "With $n=4$, $\\sigma^2=4$ and $\\sigma_0^2=1$, what are the weights on $\\bar x$ and on $\\mu_0$?",
+    "body": "Independent observations have distribution $N(\\mu,\\sigma^2)$, and the prior is $\\mu\\sim N(\\mu_0,\\sigma_0^2)$. With $n=4$, known $\\sigma^2=4$ and $\\sigma_0^2=1$, what weights does the posterior mean put on $\\bar x$ and $\\mu_0$?\n",
+    "answer": "$\\kappa_0=4/1=4$. The data weight is $4/(4+4)=1/2$, and the prior weight is also $1/2$.\n"
+  },
+  {
+    "id": "depth-precision-weighting-q2",
+    "topic_code": "B3",
+    "title": "Posterior variance and sampling variance",
+    "body": "Four independent observations have distribution $N(\\mu,1)$, and $\\mu\\sim N(0,1)$ a priori. The posterior mean puts weight $0.8$ on the sample mean. Why is the posterior variance $0.2$ rather than the sample-mean variance $1/4$?\n",
+    "answer": "The sampling variance of $\\bar x$ is $1/4$. The posterior variance is $a/n=0.8/4=0.2$, which is smaller, because the prior precision $1$ has been added to the data precision $4$. The reciprocal of $5$ is $0.2$.\n"
+  },
+  {
+    "id": "depth-prediction-interval-q1",
+    "topic_code": "I6",
+    "title": "Known line, one new draw",
+    "body": "The line is known exactly, $\\sigma=2$, and a new response is normal about the line. Give a 95% prediction interval around the known mean $10$, using the normal multiplier $1.96$.\n",
+    "answer": "There is no uncertainty in the mean, so the half-width is $1.96\\times 2=3.92$. The interval is $(6.08,13.92)$.\n"
+  },
+  {
+    "id": "depth-prediction-interval-q2",
+    "topic_code": "I6",
+    "title": "Why the mean interval is the wrong forecast",
+    "body": "In a Gaussian linear regression with positive residual variance, a $95\\%$ confidence interval for the mean response at $x=8$ is $[10.590,13.410]$, centred at $12$. Why is that interval too narrow for predicting one independent new response at $x=8$?\n",
+    "answer": "It accounts only for uncertainty in $\\widehat Y(8)$. One new response also has variance $\\sigma^2$, so the prediction margin is $3.67462$ rather than $1.410$. Quoting $(10.590,13.410)$ as a range for a single new outcome understates the residual scatter the model itself assumes.\n"
+  },
+  {
+    "id": "depth-principal-component-directions-and-scores-q1",
+    "topic_code": "L3",
+    "title": "The second component's share",
+    "body": "A covariance matrix is $S=\\begin{pmatrix}2&1\\\\1&2\\end{pmatrix}$. What fraction of its trace belongs to the second principal component?\n",
+    "answer": "The trace is $4$, the second eigenvalue is $1$, and the fraction is $1/4$. The two fractions $3/4$ and $1/4$ add to $1$.\n"
+  },
+  {
+    "id": "depth-principal-component-directions-and-scores-q2",
+    "topic_code": "L3",
+    "title": "Replacing $a_1$ by $-a_1$",
+    "body": "A centred observation is $(2,0)^\\top$, and its first principal-component direction is $a_1=(1,1)^\\top/\\sqrt2$. What happens to its score and its rank-one reconstruction if the direction is replaced by $-a_1$?\n",
+    "answer": "The score changes from $\\sqrt{2}$ to $-\\sqrt{2}$. The reconstructed point $(-\\sqrt{2})(-a_1)$ is still $(1,1)$, so the fitted point does not move.\n"
+  },
+  {
+    "id": "depth-probability-space-q1",
+    "topic_code": "SP9",
+    "title": "A union from three pieces",
+    "body": "Suppose $\\mathrm{P}(A)=0.2$, $\\mathrm{P}(B)=0.5$, and $\\mathrm{P}(A\\cap B)=0.1$. Find $\\mathrm{P}(A\\cup B)$ and $\\mathrm{P}(A^c)$, and decide whether $A\\subset B$ is possible.\n",
+    "answer": "Inclusion–exclusion gives $\\mathrm{P}(A\\cup B)=0.2+0.5-0.1=0.6$. The complement has probability $1-0.2=0.8$. If $A$ were contained in $B$, the intersection would equal $A$ and would have probability $0.2$, not $0.1$. So $A$ is not a subset of $B$.\n"
+  },
+  {
+    "id": "depth-probability-space-q2",
+    "topic_code": "SP9",
+    "title": "A countable sum",
+    "body": "Independent trials succeed with probability $0.2$ and otherwise fail. The chance that the first success occurs on trial $k$ is $(0.8)^{k-1}(0.2)$. Find the chance that the first success occurs on trial $3$, and the chance that it occurs on trial $1$, $2$, or $3$.\n",
+    "answer": "Trial $3$ has probability $(0.8)^2(0.2)=0.128$. The three-trial total is $0.2+0.16+0.128=0.488$. The remaining probability $0.512$ is the chance that the first three trials all fail, which is $(0.8)^3$.\n"
+  },
+  {
+    "id": "depth-probability-space-q3",
+    "topic_code": "SP9",
+    "title": "Finite versus countable",
+    "body": "On the positive integers, let $\\mathcal{A}$ contain every set that is finite or has finite complement. Explain why $\\mathcal{A}$ is an algebra and why the set of even integers shows that it is not a sigma-algebra.\n",
+    "answer": "The complement of a finite set has finite complement only in the trivial sense that the original set is finite, and the complement of a cofinite set is finite, so $\\mathcal{A}$ is closed under complements. The union of two finite sets is finite, and a union that involves a cofinite set is cofinite. Each even singleton is finite, hence in $\\mathcal{A}$. The even integers are a countable union of those singletons, and both that set and its complement are infinite, so the union is not in $\\mathcal{A}$.\n"
+  },
+  {
+    "id": "depth-quadratic-discriminant-analysis-q1",
+    "topic_code": "L8",
+    "title": "Equal variances",
+    "body": "Class 1 is $N(0,1)$, class 2 is $N(2,1)$, and the priors are equal. Is the decision boundary quadratic?\n",
+    "answer": "No. The covariances agree, so the quadratic terms cancel. The boundary is the midpoint $x=1$, where the two normal log-densities with equal variance and equal prior are equal.\n"
+  },
+  {
+    "id": "depth-quadratic-discriminant-analysis-q2",
+    "topic_code": "L8",
+    "title": "A one-dimensional parameter count",
+    "body": "For $G=2$ classes and $p=1$ predictor, linear discriminant analysis estimates $4$ free parameters and quadratic discriminant analysis estimates $5$. Which extra parameter appears?\n",
+    "answer": "Linear discriminant analysis uses two means, one shared variance and one free prior. Quadratic discriminant analysis replaces the shared variance by two class variances, which adds one parameter. The prior still contributes one free value because the two priors sum to $1$.\n"
+  },
+  {
+    "id": "depth-random-forest-q1",
+    "topic_code": "L13",
+    "title": "Doubling the forest",
+    "body": "An ensemble averages $B=200$ predictions, each with variance $\\sigma^2=4$ and every pair with correlation $\\rho=0.2$. Find the variance of the ensemble average.\n",
+    "answer": "$0.8+(0.8/200)\\cdot 4=0.8+0.016=0.816$. The floor is unchanged. The second term has halved.\n"
+  },
+  {
+    "id": "depth-random-forest-q2",
+    "topic_code": "L13",
+    "title": "A single candidate predictor",
+    "body": "For an average of $B$ equally variable predictors with common pairwise correlation, the variance is $\\sigma^2[\\rho+(1-\\rho)/B]$. In a random forest, restricting each split to one randomly chosen predictor can reduce $\\rho$ and increase $\\sigma^2$. Does this necessarily reduce the ensemble variance?\n",
+    "answer": "Both terms move. A smaller $\\rho$ lowers the floor $\\rho\\sigma^2$, but a larger $\\sigma^2$ raises it and also raises the term that still depends on $B$. The formula does not say that the smallest $m$ is the best $m$.\n"
+  },
+  {
+    "id": "depth-randomised-block-design-q1",
+    "topic_code": "I7",
+    "title": "A zero residual",
+    "body": "Two treatments in two blocks read $3,5$ in the first block and $4,6$ in the second. Find $\\mathrm{SS}_{\\mathrm{error}}$.\n",
+    "answer": "Every block shows the same treatment gap of $2$, and the block shift is $1$. The additive fit reproduces every cell, so $\\mathrm{SS}_{\\mathrm{error}}=0$. The error still has $(2-1)(2-1)=1$ degree of freedom; the sum of squares on that degree of freedom happens to be zero because the treatment gap is the same in both blocks.\n"
+  },
+  {
+    "id": "depth-randomised-block-design-q2",
+    "topic_code": "I7",
+    "title": "Where randomisation happens",
+    "body": "In a complete block design, which assignments are randomised, and which grouping is fixed before the experiment?\n",
+    "answer": "The blocks are formed from units that are already alike. Inside each block the treatments are assigned at random. The comparison of treatments is then within blocks, and the randomisation is what justifies treating the remaining within-block differences as error.\n"
+  },
+  {
+    "id": "depth-regression-slope-q1",
+    "topic_code": "I6",
+    "title": "The points $(0,1)$, $(1,3)$ and $(2,5)$ lie on $Y=1+2x$.",
+    "body": "The points $(0,1)$, $(1,3)$ and $(2,5)$ lie on $Y=1+2x$. What least-squares slope does the formula return?\n",
+    "answer": "The means are $\\overline x=1$ and $\\overline Y=3$. Then $S_{xx}=2$ and $S_{xY}=4$, so the slope is $4/2=2$ and the intercept is $3-2\\cdot 1=1$. The residuals are zero.\n"
+  },
+  {
+    "id": "depth-regression-slope-q2",
+    "topic_code": "I6",
+    "title": "Why can one unusual $Y$ value move $\\widehat\\beta_1$ by a large amount?",
+    "body": "Why can one unusual $Y$ value move $\\widehat\\beta_1$ by a large amount?\n",
+    "answer": "The criterion squares vertical deviations, so a point far from the line in the $Y$ direction contributes a large squared term and pulls the slope. The fit has no separate protection against that point.\n"
+  },
+  {
+    "id": "depth-roughness-penalty-q1",
+    "topic_code": "S1",
+    "title": "The three-point line",
+    "body": "For $(0,0)$, $(1,1)$, and $(2,0)$, what is the least-squares line, and what is its residual sum of squares?\n",
+    "answer": "The slope is $0$ and the line is $y=1/3$. The residual sum of squares is $2/3$.\n"
+  },
+  {
+    "id": "depth-roughness-penalty-q2",
+    "topic_code": "S1",
+    "title": "A penalty that does not move",
+    "body": "Compute $\\int_0^1\\{f''(x)\\}^2\\,\\mathrm{d}x$ for $f(x)=4+5x$, and for $f(x)=4+5x+x^2$.\n",
+    "answer": "The first function has second derivative $0$, so the integral is $0$. The second has second derivative $2$, so the integral on $[0,1]$ is $4$. The linear part does not contribute.\n"
+  },
+  {
+    "id": "depth-roughness-penalty-q3",
+    "topic_code": "S1",
+    "title": "Where the quadratic wins",
+    "body": "For data $(0,0)$, $(1,1)$ and $(2,0)$, compare $f(x)=1-(x-1)^2$ with $g(x)=1/3$ using $\\sum_i[y_i-h(x_i)]^2+\\lambda\\int_0^2[h''(t)]^2\\,dt$. For which $\\lambda\\ge0$ does the quadratic have a smaller score than the line?\n",
+    "answer": "The quadratic scores $8\\lambda$. This is smaller than $2/3$ when $\\lambda<1/12$. At $\\lambda=0.1$ the quadratic scores $0.8$, which is larger, so the straight line wins that comparison.\n"
+  },
+  {
+    "id": "depth-sample-variance-and-standard-deviation-q1",
+    "topic_code": "D2",
+    "title": "The same sum of squares",
+    "body": "A sample of size $6$ has $\\sum_i(x_i-\\overline x)^2=10$. Give $s^2$ and the divisor-$n$ mean square.\n",
+    "answer": "$s^2=10/5=2$. The divisor-$n$ mean square is $10/6=5/3$. The unbiased sample variance is the larger of the two.\n"
+  },
+  {
+    "id": "depth-sample-variance-and-standard-deviation-q2",
+    "topic_code": "D2",
+    "title": "Why the deviations are short one",
+    "body": "Why do the deviations $x_i-\\overline x$ have only $n-1$ free values?\n",
+    "answer": "They sum to zero. Any $n-1$ of them determine the last one, so the sum of squares is an average over $n-1$ degrees of freedom when the divisor in $s^2$ is $n-1$.\n"
+  },
+  {
+    "id": "depth-simple-linear-regression-q1",
+    "topic_code": "I6",
+    "title": "The five seedling inputs are all set equal to $6$ hours.",
+    "body": "The five seedling inputs are all set equal to $6$ hours. What happens to the slope formula?\n",
+    "answer": "Every centred input is $0$, so $S_{xx}=0$ and the ratio that defines $\\hat\\beta_1$ is undefined. Many lines pass equally close in the vertical direction when the inputs do not vary.\n"
+  },
+  {
+    "id": "depth-simple-linear-regression-q2",
+    "topic_code": "I6",
+    "title": "For the original seedlings, is the fitted height at $6$ hours equal to $7$?",
+    "body": "Five seedlings have light exposures $2,4,6,8,10$ hours and growths $3,4,8,9,11$ millimetres. A least-squares line with an intercept is fitted. Is its fitted height at $6$ hours equal to $7$ millimetres?\n",
+    "answer": "Yes. The fitted line passes through $(\\bar x,\\bar y)=(6,7)$. The arithmetic is $0.70+1.05\\times 6=7$.\n"
+  },
+  {
+    "id": "depth-simple-linear-regression-q3",
+    "topic_code": "I6",
+    "title": "After the last response changes from $11$ to $20$, which slope is the least-squares slope, $1.05$ or $1.95$?",
+    "body": "Five light exposures are $2,4,6,8,10$ hours and growths are $3,4,8,9,11$ millimetres. Replace the final response $11$ by $20$ and refit a least-squares line with an intercept. Is the new slope $1.05$ or $1.95$?\n",
+    "answer": "The slope is $1.95$, because $S_{xy}$ becomes $78$ and $78/40=1.95$. The value $1.05$ was the slope before that one response changed.\n"
+  },
+  {
+    "id": "depth-single-complete-and-average-linkage-q1",
+    "topic_code": "L7",
+    "title": "Four gaps",
+    "body": "The cross distances between $\\{0,1\\}$ and $\\{10,12\\}$ are $10$, $12$, $9$, and $11$. What are the single, complete, and average linkages?\n",
+    "answer": "The minimum is $9$, the maximum is $12$, and the average is $10.5$.\n"
+  },
+  {
+    "id": "depth-single-complete-and-average-linkage-q2",
+    "topic_code": "L7",
+    "title": "A chain of three",
+    "body": "After merging positions $0$ and $1$, the distances to $2$ are $2$ and $1$. What does each rule return?\n",
+    "answer": "Single linkage returns $1$, complete linkage returns $2$, and average linkage returns $1.5$.\n"
+  },
+  {
+    "id": "depth-single-complete-and-average-linkage-q3",
+    "topic_code": "L7",
+    "title": "A rescaling",
+    "body": "The cross-distances between clusters $\\{0,1\\}$ and $\\{10,12\\}$ are $10$, $12$, $9$ and $11$. Their single and average linkages are $9$ and $10.5$. After replacing every distance $d$ by $d^2$, do the two linkages equal the squares of those original values?\n",
+    "answer": "Single linkage uses the smallest squared gap, $9^2=81$, which is the square of the old height. Average linkage averages $100$, $144$, $81$, and $121$, which equals $111.5$, not $10.5^2=110.25$. The average does not commute with squaring.\n"
+  },
+  {
+    "id": "depth-soft-margin-primal-q1",
+    "topic_code": "L17",
+    "title": "On the correct side of the margin",
+    "body": "A point has functional margin $1.4$. What is its smallest feasible slack?\n",
+    "answer": "The slack is $0$. The constraint $Y f(X)\\ge 1$ already holds, so the cost does not need a positive shortfall.\n"
+  },
+  {
+    "id": "depth-soft-margin-primal-q2",
+    "topic_code": "L17",
+    "title": "One shortfall and a chosen cost",
+    "body": "A soft-margin primal objective is $\\tfrac12\\lVert\\beta\\rVert^2+C\\sum_i\\xi_i$, with constraints $y_if(x_i)\\ge1-\\xi_i$ and $\\xi_i\\ge0$. For a single point with functional margin $0.2$, $\\lVert\\beta\\rVert^2=0.4$ and $C=5$, find the smallest feasible slack and the objective value.",
+    "answer": "The slack is $1-0.2=0.8$. The weight term is $0.2$, and the cost is $0.2+5\\times 0.8=4.2$.\n"
+  },
+  {
+    "id": "depth-stochastic-gradient-descent-q1",
+    "topic_code": "L16",
+    "title": "The flat point",
+    "body": "An intercept-only predictor has case loss $\\tfrac12(w-y_i)^2$. All three responses equal $5$, and $w=5$. What is each case gradient, and does a gradient step of any finite size change $w$?\n",
+    "answer": "Each gradient is $5-5=0$, so the update subtracts zero and $w$ stays at $5$. Unbiasedness is not the issue: the full gradient is zero as well.\n"
+  },
+  {
+    "id": "depth-stochastic-gradient-descent-q2",
+    "topic_code": "L16",
+    "title": "A constant step size",
+    "body": "Hastie, Tibshirani and Friedman ask for $\\gamma_r\\to 0$, $\\sum_r\\gamma_r=\\infty$ and $\\sum_r\\gamma_r^2<\\infty$. Which of $\\gamma_r=1/r$ and $\\gamma_r=0.1$ meets $\\gamma_r\\to 0$?\n",
+    "answer": "The sequence $1/r$ tends to zero. The constant $0.1$ does not, so it fails the first condition. The harmonic choice is the example they give of a rate that meets all three.\n"
+  },
+  {
+    "id": "depth-stochastic-process-q1",
+    "topic_code": "SP1",
+    "title": "A copied step",
+    "body": "Set $X_0=0$, let $X_1$ be equally likely to be $-1$ or $1$, and force $X_2=2X_1$. Are the increments $X_1-X_0$ and $X_2-X_1$ independent?\n",
+    "answer": "No. Here $X_2-X_1=X_1$, so the second increment is the first increment. They are equal, not independent. The position at time 2 is then supported on $\\{-2,+2\\}$, each with probability $1/2$.\n"
+  },
+  {
+    "id": "depth-stochastic-process-q2",
+    "topic_code": "SP1",
+    "title": "Adding means",
+    "body": "Let $X_0=0$, $X_1=S_1$ and $X_2=S_1+S_2$, where the independent steps $S_1,S_2$ each have mean $0$ and variance $1$. Without assuming that the steps take only the values $\\pm1$, find $E(X_2)$ and $\\operatorname{Var}(X_2)$.\n",
+    "answer": "Linearity of expectation gives $E(X_2)=E(S_1)+E(S_2)=0$. Independence makes the covariance of the steps zero, so $\\operatorname{Var}(X_2)=1+1=2$. These moments do not determine the full distribution of $X_2$."
+  },
+  {
+    "id": "depth-structure-function-q1",
+    "topic_code": "P7",
+    "title": "A series of two",
+    "body": "Write $\\varphi$ for two components in series, and the reliability when they work independently with probabilities $0.9$ and $0.8$.\n",
+    "answer": "$\\varphi(x_1,x_2)=x_1x_2$. Independence gives $r=0.9\\times 0.8=0.72$.\n"
+  },
+  {
+    "id": "depth-structure-function-q2",
+    "topic_code": "P7",
+    "title": "One failed component in parallel",
+    "body": "Three components stand in parallel and the state is $(0,1,0)$. Does the system work?\n",
+    "answer": "Yes. A parallel structure works when at least one component works, and here $\\varphi=1-(1-0)(1-1)(1-0)=1$. The two failures do not matter.\n"
+  },
+  {
+    "id": "depth-sums-of-smooth-functions-q1",
+    "topic_code": "S2",
+    "title": "For the additive table, what is $\\eta(1,0)-\\eta(0,0)$?",
+    "body": "An additive predictor is $\\eta(x,z)=1+g_1(x)+g_2(z)$, with $g_1(0)=-0.3$, $g_1(1)=0.3$, $g_2(0)=-0.5$ and $g_2(1)=0.5$. What is $\\eta(1,0)-\\eta(0,0)$?\n",
+    "answer": "$0.8-0.2=0.6$, the same as $1.8-1.2$.\n"
+  },
+  {
+    "id": "depth-sums-of-smooth-functions-q2",
+    "topic_code": "S2",
+    "title": "A log-link multiplier",
+    "body": "What is $e^{0.6}$ to four decimals?\n",
+    "answer": "$1.8221$. On a log link that is the multiplicative change in the mean when $\\eta$ increases by $0.6$.\n"
+  },
+  {
+    "id": "depth-sums-of-smooth-functions-q3",
+    "topic_code": "S2",
+    "title": "If $k=4$, what usual ceiling is there on the effective degrees of freedom of that smooth?",
+    "body": "A univariate regression-spline smooth has basis dimension $k=4$ and one centring constraint. What is the usual maximum effective degrees of freedom of this smooth?\n",
+    "answer": "$k-1=3$. The penalty may choose a smaller value. It does not choose a larger one than the basis allows.\n"
+  },
+  {
+    "id": "depth-time-series-q1",
+    "topic_code": "T1",
+    "title": "The path of a random walk is $1,0,0,2$.",
+    "body": "A random walk without drift has observations $1,0,0,2$. Future increments have conditional mean zero given the observed path. What is the point forecast of the next value?\n",
+    "answer": "The forecast is $2$ at every horizon. Future increments have mean zero, so they do not move the point forecast off the last observation.\n"
+  },
+  {
+    "id": "depth-time-series-q2",
+    "topic_code": "T1",
+    "title": "For $\\phi=1/2$ and $T=4$, is the variance of the sample mean equal to $(4/3)/4=1/3$?",
+    "body": "A stationary AR(1) satisfies $X_t=\\tfrac12X_{t-1}+\\varepsilon_t$ with innovation variance $1$. Is the variance of the mean of four consecutive observations equal to $(4/3)/4=1/3$? Compute it using the autocovariances.\n",
+    "answer": "No. The autocovariance is $\\gamma(h)=(4/3)(1/2)^{|h|}$. Consequently, $\\operatorname{Var}(\\bar X_4)=[4\\gamma(0)+2\\sum_{h=1}^3(4-h)\\gamma(h)]/16=11/16=0.6875$. Its ratio to $1/3$ is $33/16=2.0625$; positive serial correlation makes the independent-observations formula too small.\n"
+  },
+  {
+    "id": "depth-time-series-q3",
+    "topic_code": "T1",
+    "title": "Does sorting $123,39,78,52,110$ into increasing order keep the lag-$1$ correlation?",
+    "body": "Does sorting $123,39,78,52,110$ into increasing order keep the lag-$1$ correlation?\n",
+    "answer": "No. The recorded order has lag-$1$ correlation about $-0.4671$. The sorted order has about $0.4665$. The mean $80.4$ is the same.\n"
+  },
+  {
+    "id": "depth-tukey-intervals-q1",
+    "topic_code": "I7",
+    "title": "A zero difference",
+    "body": "The estimated difference is $0$ and the half-width is approximately $4.936$. Does the interval exclude zero?\n",
+    "answer": "The interval is approximately $(-4.936,\\ 4.936)$. It contains zero, so the test does not separate the groups.\n"
+  },
+  {
+    "id": "depth-tukey-intervals-q2",
+    "topic_code": "I7",
+    "title": "Quadrupling the error mean square",
+    "body": "Keep $k=3$, $r=4$, $\\nu=k(r-1)=9$ and the same unrounded $0.95$ studentised-range quantile $Q\\approx 3.948492$, but replace $S^2=6.25$ by $25$. What is the half-width to three decimals?\n",
+    "answer": "$\\sqrt{25}=5$ and $\\sqrt{4}=2$, so the half-width is $Q\\times 5/2\\approx 9.871$, using the unrounded quantile. The quantile did not change; only the error scale did.\n"
+  },
+  {
+    "id": "depth-undirected-graph-q1",
+    "topic_code": "L19",
+    "title": "On the path $1-2-3$, what is the degree of vertex $2$?",
+    "body": "On the path $1-2-3$, what is the degree of vertex $2$?\n",
+    "answer": "$2$. It has neighbours $1$ and $3$. The endpoints each have degree $1$.\n"
+  },
+  {
+    "id": "depth-undirected-graph-q2",
+    "topic_code": "L19",
+    "title": "A zero precision entry and its covariance",
+    "body": "A nonsingular Gaussian vector has precision $K=\\begin{pmatrix}1&-1/2&0\\\\-1/2&1&-1/2\\\\0&-1/2&1\\end{pmatrix}$. Find $K_{13}$ and the covariance $\\Sigma_{13}$ for $\\Sigma=K^{-1}$. What distinction do they illustrate?\n",
+    "answer": "$K_{13}=0$ and $\\Sigma_{13}=1/2$. The missing edge is the precision zero. The marginal covariance is not zero.\n"
+  },
+  {
+    "id": "depth-undirected-graph-q3",
+    "topic_code": "L19",
+    "title": "Self-loops and simple graphs",
+    "body": "In a simple undirected graph, an edge is an unordered pair of distinct vertices. Can this definition include a self-loop?\n",
+    "answer": "No. An edge is a pair of distinct vertices. A loop at a vertex is excluded.\n"
+  },
+  {
+    "id": "depth-uniformly-minimum-variance-unbiased-estimator-q1",
+    "topic_code": "I9",
+    "title": "A single success shared by two observations",
+    "body": "Let $X_1,X_2$ be independent $\\operatorname{Poisson}(\\theta)$ variables and $T=X_1+X_2$. The Rao–Blackwell estimator of $P_\\theta(X_1=0)$ is $U(T)=P(X_1=0\\mid T)$. Compute $U(1)$.\n",
+    "answer": "$U(1)=(1/2)^1=1/2$. Given one success in total, it falls on the second observation with probability $1/2$, so the conditional probability that the first observation is zero is $1/2$.\n"
+  },
+  {
+    "id": "depth-uniformly-minimum-variance-unbiased-estimator-q2",
+    "topic_code": "I9",
+    "title": "Where the plug-in is not unbiased",
+    "body": "For independent $\\operatorname{Poisson}(\\theta)$ observations with $\\theta>0$, why is $e^{-\\bar X}$ not a uniformly minimum-variance unbiased estimator of $e^{-\\theta}$?\n",
+    "answer": "It is not unbiased. Strict convexity of $e^{-x}$ and Jensen's inequality give $\\mathbb{E} e^{-\\overline X}>e^{-\\theta}$ whenever $\\overline X$ is non-degenerate. The unbiased class does not contain this plug-in, so the minimum-variance competition among unbiased estimators does not include it.\n"
+  },
+  {
+    "id": "depth-voronoi-tessellation-q1",
+    "topic_code": "L4",
+    "title": "One cut in the plane",
+    "body": "Centres $(0,0)$ and $(4,0)$. Write the boundary and say which cell contains $(1,5)$.\n",
+    "answer": "The midpoint is $(2,0)$ and the segment is horizontal, so the boundary is the vertical line $x=2$. The point $(1,5)$ has $x<2$, so it belongs to the cell of $(0,0)$. The distances are $\\sqrt{26}$ and $\\sqrt{34}$.\n"
+  },
+  {
+    "id": "depth-voronoi-tessellation-q2",
+    "topic_code": "L4",
+    "title": "A tie",
+    "body": "For the centres $(0,0)$ and $(6,2)$, does $(3,1)$ belong to one cell alone?\n",
+    "answer": "No. It is the midpoint, and both distances equal $\\sqrt{10}$. It lies on the boundary $3x+y=10$. In an assignment rule one must break the tie; the boundary itself is not an interior point of either open cell.\n"
+  },
+  {
+    "id": "depth-wald-interval-q1",
+    "topic_code": "I3",
+    "title": "Where the normal limit applies directly",
+    "body": "For a fair coin, the Wald standard error at the true $p=1/2$ equals $1/(2\\sqrt n)$. For $n=100$, what is that number, and which theorem supplies the normal shape?\n",
+    "answer": "$1/(2\\sqrt{100})=0.05$. The normal shape is the De Moivre–Laplace theorem for the symmetric random walk, which is this statistic. The plug-in step is idle here only because $\\widehat p$ happened to equal $1/2$.\n"
+  },
+  {
+    "id": "depth-wald-interval-q2",
+    "topic_code": "I3",
+    "title": "A wider plug-in",
+    "body": "Among proportions in $(0,1)$, where is $\\widehat p(1-\\widehat p)$ largest? What does that say about the Wald half-width for fixed $n$?\n",
+    "answer": "The product $p(1-p)$ has derivative $1-2p$ and is largest at $p=1/2$, where it equals $1/4$. For a fixed sample size the plugged-in Wald interval is widest when $\\widehat p$ is nearest one half, and it shrinks to a point as $\\widehat p$ approaches $0$ or $1$.\n"
+  },
+  {
+    "id": "depth-wald-test-q1",
+    "topic_code": "L10",
+    "title": "One standard error from zero",
+    "body": "The estimate equals its standard error, and the null value is zero. What is $Z$, and does the two-sided level $0.05$ test reject?\n",
+    "answer": "$Z=1$. The two-sided $p$-value is $2\\{1-\\Phi(1)\\}=0.3173$ to four decimals. The test does not reject, because $1<1.960$.\n"
+  },
+  {
+    "id": "depth-wald-test-q2",
+    "topic_code": "L10",
+    "title": "The boundary",
+    "body": "What is $2\\{1-\\Phi(1.960)\\}$, to four decimals?\n",
+    "answer": "It equals $0.0500$. The critical value $1.960$ is chosen so that the two-sided standard-normal test has level about $5\\%$. A finite-sample Wald statistic need not have that exact null probability.\n"
+  },
+  {
+    "id": "depth-weight-initialisation-q1",
+    "topic_code": "L16",
+    "title": "Exact zeros",
+    "body": "All incoming and outgoing weights of two hidden units are zero. A batch gradient step treats the two units symmetrically. Do the units separate?\n",
+    "answer": "No. Equal weights stay equal under a symmetric deterministic update, so the units remain copies of each other. Independent random starts break that tie.\n"
+  },
+  {
+    "id": "depth-weight-initialisation-q2",
+    "topic_code": "L16",
+    "title": "Which rule is which",
+    "body": "A layer has $100$ inputs and $4$ outputs, ignoring bias. Which is larger, $(100)^{-1/2}$ or $\\sqrt{2/(100+4)}$?\n",
+    "answer": "$(100)^{-1/2}=0.1$. The Glorot standard deviation is $\\sqrt{2/104}\\approx 0.1387$, which is larger for these two widths. The comparison is only the two formulas: a narrow output layer changes the symmetric rule, and it does not by itself say which scale will train better.\n"
+  },
+  {
+    "id": "depth-white-noise-q1",
+    "topic_code": "T1",
+    "title": "If $Z$ is standard normal, what is $\\operatorname{Cov}(Z,Z^2-1)$?",
+    "body": "If $Z$ is standard normal, what is $\\operatorname{Cov}(Z,Z^2-1)$?\n",
+    "answer": "The covariance is zero, since $E(Z^3)=E(Z)=0$. Nevertheless, the variables are dependent. For example, $\\{|Z|<1\\}$ and $\\{Z^2-1<0\\}$ are the same event and have probability strictly between $0$ and $1$; independence would require that probability to equal its square."
+  },
+  {
+    "id": "depth-white-noise-q2",
+    "topic_code": "T1",
+    "title": "A white noise of variance $4$ is differenced.",
+    "body": "A white noise of variance $4$ is differenced. What is the lag-$1$ correlation of the differences?\n",
+    "answer": "$-1/2$. The variance $4$ cancels: the lag covariance is $-4$ and the difference variance is $8$.\n"
+  },
+  {
+    "id": "depth-white-noise-q3",
+    "topic_code": "T1",
+    "title": "Is an AR(1) with coefficient $0$ and constant $0$ white noise?",
+    "body": "Is an AR(1) with coefficient $0$ and constant $0$ white noise?\n",
+    "answer": "Yes. That boundary is the innovation sequence. A coefficient $1$ is a random walk instead, and is not white noise.\n"
   }
 ]

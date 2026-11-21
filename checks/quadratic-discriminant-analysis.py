@@ -1,9 +1,14 @@
 """Arithmetic checks for quadratic discriminant analysis."""
-import math
+
+import sys
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from tools.shown import shown
+import math
 
 root = Path(__file__).resolve().parents[1]
 text = (root / "research/content/quadratic-discriminant-analysis.md").read_text()
+text = shown(text, "quadratic-discriminant-analysis")
 body = (root / "articles/quadratic-discriminant-analysis.qmd").read_text().split("## See also", 1)[0]
 
 def delta(x, mu, var):

@@ -77,27 +77,5 @@ If the inputs are not scaled, a weight on a large input has a large partial deri
 ## Connections
 Back-propagation is the chain-rule computation of the partial derivatives that the learning rate multiplies. [Gradient descent](gradient-descent.qmd) is the update itself. A [sigmoid function](sigmoid-function.qmd) is one source of curvature that changes with the weights, so a constant step can be stable in one region and unstable in another. Early stopping is a different control on the fit: it limits how many steps are taken, rather than how long each step is.{{cite:hastie_esl2009}} (§11.4–11.5, pp. 396–397)
 
-## Check yourself
-### The multiplier
-For $E(w)=(w-3)^2$, which constant learning rates make the error shrink at every step?
-
-::: {.callout-tip collapse="true" title="Answer"}
-Those with $0<\varepsilon<1$. The absolute value of $1-2\varepsilon$ is then below $1$. At $\varepsilon=1$ the error keeps its size and changes sign.
-:::
-
-### Two steps from 5
-From $w=5$ with $\varepsilon=0.4$, what are the next two weights?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The multiplier is $0.2$. The error $2$ becomes $0.4$, so the first weight is $3.4$. The error $0.4$ becomes $0.08$, so the second weight is $3.08$.
-:::
-
-### A finite sum of steps
-Why can $\gamma_r=1/r^2$ fail a descent that $\gamma_r=1/r$ is built to finish?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The sum $\sum 1/r^2$ converges, so the total distance the updates are allowed to travel is finite. The schedule can stop short of the minimiser. The harmonic schedule $\sum 1/r$ diverges, so the total step length is unlimited, while $\sum 1/r^2$ still converges.
-:::
-
 ## History
 Widrow and Hoff's 1960 delta rule is the name Hastie, Tibshirani and Friedman attach to the two-pass update that back-propagation implements. In that update the learning rate is the factor in front of the gradient. Robbins and Monro's stochastic approximation supplies the decreasing-step conditions $\gamma_r\to 0$, $\sum\gamma_r=\infty$, and $\sum\gamma_r^2<\infty$, with $1/r$ as a schedule that satisfies them.{{cite:hastie_esl2009}} (§11.5, p. 397)

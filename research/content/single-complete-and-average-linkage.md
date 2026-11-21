@@ -71,27 +71,5 @@ Average linkage's population reading, as an estimate of $\iint d(x,x')\,p_G(x)p_
 ## Connections
 [Hierarchical clustering](hierarchical-clustering.qmd) is the sequence of merges these distances drive. A [dendrogram](dendrogram.qmd) records the heights. [Single linkage](single-linkage.qmd) is the minimum rule on its own. The same three choices appear whenever an algorithm must replace a set of pairwise numbers by one number for a pair of groups.
 
-## Check yourself
-### Four gaps
-The cross distances between $\{0,1\}$ and $\{10,12\}$ are $10$, $12$, $9$, and $11$. What are the single, complete, and average linkages?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The minimum is $9$, the maximum is $12$, and the average is $10.5$.
-:::
-
-### A chain of three
-After merging positions $0$ and $1$, the distances to $2$ are $2$ and $1$. What does each rule return?
-
-::: {.callout-tip collapse="true" title="Answer"}
-Single linkage returns $1$, complete linkage returns $2$, and average linkage returns $1.5$.
-:::
-
-### A rescaling
-Replace every distance $d$ by $d^2$. Do single linkage and average linkage still merge $\{0,1\}$ with $\{10,12\}$ at heights that are the squares of $9$ and $10.5$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-Single linkage uses the smallest squared gap, $9^2=81$, which is the square of the old height. Average linkage averages $100$, $144$, $81$, and $121$, which equals $111.5$, not $10.5^2=110.25$. The average does not commute with squaring.
-:::
-
 ## History
 Single linkage is the Euclidean distance between the closest members of two classes, and complete linkage is the distance between the furthest members, inside an agglomerative algorithm that rebuilds the distance table after each merge.{{cite:dodge2008}} (p. 84) Hastie, Tibshirani and Friedman add group-average linkage, the size-weighted mean of all cross dissimilarities, and they record that single and complete linkage depend only on the order of those dissimilarities.{{cite:hastie_esl2009}} (§14.3, pp. 523–525)

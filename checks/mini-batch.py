@@ -1,9 +1,14 @@
 """Arithmetic checks for the mini-batch article."""
-from itertools import combinations
+
+import sys
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from tools.shown import shown
+from itertools import combinations
 
 root = Path(__file__).resolve().parents[1]
 text = (root / "research/content/mini-batch.md").read_text()
+text = shown(text, "mini-batch")
 body = (root / "articles/mini-batch.qmd").read_text().split("## See also", 1)[0]
 y = (1, 3, 5, 7)
 full = -sum(y) / 4
