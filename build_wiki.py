@@ -3831,6 +3831,7 @@ REDIRECT_HTML = """<!DOCTYPE html>
 <meta charset="utf-8">
 <title>Redirect</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="{canonical}">
 <meta http-equiv="refresh" content="0; url={target}">
 <script type="text/javascript">
 var redirects = {{"": "{target}"}};
@@ -3845,6 +3846,18 @@ window.location.replace(redirect);
 </body>
 </html>
 """
+
+
+def render_redirect(page: Path, target: str, label: str) -> str:
+    """A 200 stub: absolute canonical, meta refresh, and a visible link. No noindex."""
+    import canonical_redirects
+
+    # The stub lives in <root>/articles/, including the temporary roots used by tests.
+    canonical = html_escape(canonical_redirects.absolute_redirect_url(page, target, site_dir=page.parent.parent))
+    text = REDIRECT_HTML.format(target=target, chapter=label, canonical=canonical)
+    if "noindex" in text.lower():
+        raise SystemExit(f"Redirect stub would send noindex: {page}")
+    return text
 
 
 def write_retired_pages() -> None:
@@ -3862,14 +3875,14 @@ def write_retired_pages() -> None:
         path = ARTICLE_DIR / f"{s}.html"
         target = f"{href(path, chapter.with_suffix('.html'))}#{anchor}"
         chapter_title = html_escape(PAGE_TITLES.get(chapter, "its chapter"))
-        path.write_text(REDIRECT_HTML.format(target=target, chapter=chapter_title), encoding="utf-8")
+        path.write_text(render_redirect(path, target, chapter_title), encoding="utf-8")
     for old_slug, target_slug in sorted(MERGED_ARTICLES.items()):
         if old_slug in ARTICLES:
             raise SystemExit(f"Merged article {old_slug} was still written as a page")
         path = ARTICLE_DIR / f"{old_slug}.html"
         target = f"{target_slug}.html"
         dest_title = html_escape(ARTICLES[target_slug]["term"])
-        path.write_text(REDIRECT_HTML.format(target=target, chapter=dest_title), encoding="utf-8")
+        path.write_text(render_redirect(path, target, dest_title), encoding="utf-8")
 
 
 def ambiguous_alias_slugs() -> set[str]:
@@ -3904,7 +3917,7 @@ def write_alias_redirect_pages() -> None:
         from urllib.parse import quote
         rel_target = f"../search.html#q={quote(term_label)}"
         path.write_text(
-            REDIRECT_HTML.format(target=rel_target, chapter=html_escape(f"Disambiguation: {term_label}")),
+            render_redirect(path, rel_target, html_escape(f"Disambiguation: {term_label}")),
             encoding="utf-8",
         )
 
@@ -3922,7 +3935,7 @@ def write_alias_redirect_pages() -> None:
         if "#" in target_href:
             rel_target += "#" + target_href.split("#", 1)[1]
         dest_title = html_escape(PAGE_TITLES.get(target_qmd, target_qmd.stem.replace("-", " ")))
-        path.write_text(REDIRECT_HTML.format(target=rel_target, chapter=dest_title), encoding="utf-8")
+        path.write_text(render_redirect(path, rel_target, dest_title), encoding="utf-8")
 
 
 def what_links_here(page: dict, links: list[tuple[dict, str, str]], questions: list[dict]) -> str:
@@ -5380,6 +5393,151 @@ def to_greek(tex: str) -> str:
     return re.sub(r"(?<![\\A-Za-z])b(?![A-Za-z])", r"\\beta", tex)
 
 
+_FIGURE_TITLE_LIMIT = 100
+
+
+_MATH_NAMES = {"int": "∫", "sum": "∑", "prod": "∏", "infty": "∞", "partial": "∂"}
+
+
+def _rough_math(source: str) -> str:
+    """A readable stand-in when the maths is too nested for a symbol-by-symbol reading."""
+    import search_meta
+
+    text = source
+    text = re.sub(
+        r"\\(?:overline|bar)\s*(?:\{([A-Za-z])\}|([A-Za-z]))",
+        lambda match: (match.group(1) or match.group(2)) + "\u0304",
+        text,
+    )
+    text = re.sub(
+        r"\\(?:mathrm|operatorname|text|mathbf|boldsymbol|mathbb|mathcal)\{([^{}]*)\}",
+        r"\1",
+        text,
+    )
+    # Keep a brace so \int\{g does not become the single command \intg.
+    text = text.replace(r"\{", "{").replace(r"\}", "}")
+    text = re.sub(r"\\[,;:! ]", " ", text)
+    text = text.replace("''", "″")
+    text = re.sub(r"\\sqrt\s*\{([^{}]+)\}", lambda match: "√(" + match.group(1) + ")", text)
+    text = re.sub(r"\\sqrt\s*([A-Za-z0-9])", r"√\1", text)
+
+    def command(match: re.Match) -> str:
+        name = match.group(1)
+        if name in search_meta.GREEK:
+            return search_meta.GREEK[name]
+        if name in search_meta.SYMBOLS:
+            return search_meta.SYMBOLS[name]
+        if name in _MATH_NAMES:
+            return _MATH_NAMES[name]
+        if name in search_meta.DROPPED or name in search_meta.WRAPPERS or name in search_meta.ACCENTS:
+            return ""
+        return name
+
+    text = re.sub(r"\\([A-Za-z]+)", command, text)
+
+    def script(match: re.Match) -> str:
+        table = search_meta.SUP if match.group(1) == "^" else search_meta.SUB
+        body = match.group(2) or match.group(3) or ""
+        if body and all(ch in table for ch in body):
+            return "".join(table[ch] for ch in body)
+        return body
+
+    text = re.sub(r"(\^|_)(?:\{([^{}]+)\}|([A-Za-z0-9]))", script, text)
+    text = text.replace("{", "").replace("}", "").replace("\\", "")
+    text = re.sub(r"\(\s+", "(", text)
+    text = re.sub(r"\s+\)", ")", text)
+    text = re.sub(r"\s*/\s*", "/", text)
+    return re.sub(r"\s+", " ", text).strip()
+
+
+def _math_plain(source: str) -> str:
+    """Plain text for a bit of caption maths. No dollars or commands remain."""
+    import search_meta
+
+    source = source.strip()
+    plain = ""
+    try:
+        plain = search_meta.latex_to_text(source)
+    except search_meta.Hard:
+        plain = ""
+    # A faithful reading that still contains a broken radical is not usable in a title.
+    if not plain or "\\" in plain or "√()" in plain:
+        plain = _rough_math(source)
+    return plain
+
+
+def caption_plain(caption: str) -> str:
+    """A figure caption as plain text, with links and maths markup removed."""
+    text = caption or ""
+    text = re.sub(r"\[((?:[^\[\]]|\[[^\]]*\])*)\]\([^)]*\)", r"\1", text)
+
+    def maths(match: re.Match) -> str:
+        return _math_plain(match.group(1))
+
+    text = re.sub(r"\$\$(.+?)\$\$", maths, text, flags=re.S)
+    text = re.sub(r"\$(.+?)\$", maths, text, flags=re.S)
+    text = text.replace("*", "").replace("`", "")
+    text = text.replace("$", "")
+    text = re.sub(r"\\[A-Za-z]+", "", text)
+    text = text.replace("\\", "")
+    return re.sub(r"\s+", " ", text).strip()
+
+
+# A shortened title should not stop on a word that only introduces what was cut off.
+_TITLE_TRAILERS = {"a", "an", "the", "of", "in", "on", "to", "for", "and", "or", "with", "from", "by", "as", "at"}
+
+
+def _cut_title(text: str, limit: int) -> str:
+    if len(text) <= limit:
+        return text
+    window = text[:limit]
+    for sep in (",", ";", ":"):
+        at = window.rfind(sep)
+        if at >= 24:
+            window = window[:at]
+            break
+    else:
+        at = window.rfind(" ")
+        if at >= 24:
+            window = window[:at]
+    words = window.split()
+    while len(words) > 4 and words[-1].rstrip(",;:").lower() in _TITLE_TRAILERS:
+        words.pop()
+    return " ".join(words)
+
+
+def figure_page_title(caption: str, png: str) -> str:
+    """Page title from a figure caption, or File:<name> when there is no caption.
+
+    The title is the first sentence, shortened at a clause when that sentence
+    is long. Maths is plain text, so the title has no $...$ and no commands.
+    """
+    plain = caption_plain(caption).strip(" .")
+    if not plain:
+        return f"File:{png}"
+    parts = re.split(r"(?<=[.!?])\s+(?=[A-Z])", plain)
+    chosen = ""
+    for part in parts:
+        part = part.strip()
+        if not part:
+            continue
+        nxt = f"{chosen} {part}".strip() if chosen else part
+        if len(nxt) <= _FIGURE_TITLE_LIMIT:
+            chosen = nxt
+            if len(chosen) >= 40:
+                break
+            continue
+        if not chosen:
+            chosen = _cut_title(part, _FIGURE_TITLE_LIMIT)
+        break
+    chosen = re.sub(r"[.]+$", "", chosen).strip(" ,;:-")
+    if not chosen:
+        return f"File:{png}"
+    if chosen.lower().startswith("figure:"):
+        return chosen[0].upper() + chosen[1:]
+    return "Figure: " + chosen
+
+
 def short_caption(caption: str) -> str:
     """The first sentence of a figure caption, for an infobox."""
     out = ""
@@ -5485,7 +5643,7 @@ def write_file_pages() -> None:
             lines += [f"- [{name}]({href(path, page)})" for name, page in sorted(used, key=lambda u: u[0].lower())]
         else:
             lines.append("No page shows this file yet.")
-        write_qmd(path, f"File:{png}", "\n".join(lines) + "\n", description=f"Figure file · {info['chapter_title'] if info else SITE_NAME}")
+        write_qmd(path, figure_page_title(caption, png), "\n".join(lines) + "\n", description=f"Figure file · {info['chapter_title'] if info else SITE_NAME}")
         group = info["chapter_title"] if info else "Other figures"
         # An empty caption keeps a lone thumbnail from becoming a captioned figure.
         gallery.setdefault(group, []).append(
@@ -7975,6 +8133,13 @@ format:
     robots = (WIKI / "robots.txt").read_text(encoding="utf-8")
     if "User-agent: *" not in robots or "Allow: /" not in robots:
         raise SystemExit("robots.txt must allow every crawler")
+    for rule in (
+        "Disallow: /figures/*.tex",
+        "Disallow: /figures/*.pdf",
+        "Sitemap: https://www.statwiki.io/sitemap.xml",
+    ):
+        if rule not in robots:
+            raise SystemExit(f"robots.txt is missing {rule}")
 
 
 OVERVIEW_SOURCE = WIKI / "research" / "content" / "what-is-statistics.md"
