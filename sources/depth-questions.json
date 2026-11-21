@@ -1816,15 +1816,15 @@
     "id": "depth-tukey-intervals-q1",
     "topic_code": "I7",
     "title": "A zero difference",
-    "body": "The estimated difference is $0$ and the half-width is $5.051$. Does the interval exclude zero?\n",
-    "answer": "The interval is $(-5.051,\\ 5.051)$. It contains zero, so the test does not separate the groups.\n"
+    "body": "The estimated difference is $0$ and the half-width is approximately $4.936$. Does the interval exclude zero?\n",
+    "answer": "The interval is approximately $(-4.936,\\ 4.936)$. It contains zero, so the test does not separate the groups.\n"
   },
   {
     "id": "depth-tukey-intervals-q2",
     "topic_code": "I7",
-    "title": "Doubling the error mean square",
-    "body": "Keep $Q=4.041$, $r=4$ and replace $S^2=6.25$ by $25$. What is the half-width to three decimals?\n",
-    "answer": "$\\sqrt{25}=5$ and $\\sqrt{4}=2$, so the half-width is $4.041\\times 5/2=10.103$. The quantile did not change; only the error scale did.\n"
+    "title": "Quadrupling the error mean square",
+    "body": "Keep $k=3$, $r=4$, $\\nu=k(r-1)=9$ and the same unrounded $0.95$ studentised-range quantile $Q\\approx 3.948492$, but replace $S^2=6.25$ by $25$. What is the half-width to three decimals?\n",
+    "answer": "$\\sqrt{25}=5$ and $\\sqrt{4}=2$, so the half-width is $Q\\times 5/2\\approx 9.871$, using the unrounded quantile. The quantile did not change; only the error scale did.\n"
   },
   {
     "id": "depth-undirected-graph-q1",
