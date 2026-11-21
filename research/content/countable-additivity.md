@@ -38,18 +38,3 @@ $P(A_5)=1-2^{-5}=31/32=0.96875$. The difference $A_5\setminus A_3=\{4,5\}$ has p
 
 ## Connections — Where the countable union is doing the work
 An [event](event.qmd) has to lie in the [sigma-algebra](sigma-algebra.qmd) before this axiom applies to it. A [stochastic process](stochastic-process.qmd) needs those countable operations for events about a whole path, such as "the walk ever reaches $a$". The [central limit theorem](central-limit-theorem.qmd) is a later limit of probabilities; continuity from below is the special case in which the events themselves increase to a limit.{{cite:durrett2019}} (Thm. 1.1.1, pp. 1–2)
-
-## Check yourself
-### The empty event
-What is $P(\emptyset)$, and which sequence of sets is used?
-
-::: {.callout-tip collapse="true" title="Answer"}
-$P(\emptyset)=0$. The sequence is $\emptyset,\emptyset,\ldots$, a disjoint sequence whose union is $\emptyset$, so the probability equals the sum of infinitely many copies of itself.
-:::
-
-### Two events, then nothing
-Let $A$ and $B$ be disjoint with $P(A)=P(B)=1/4$, and set every later set empty. What is $P(A\cup B)$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-Countable additivity gives $1/4+1/4+0+0+\cdots=1/2$. Finite additivity is this axiom with the tail sets empty.
-:::

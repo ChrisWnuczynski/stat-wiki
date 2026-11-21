@@ -35,19 +35,3 @@ Given $Y=0$ the success probability is $0.2$, so $\Pr(X=1\mid Y=0)=0.2$ and $\Pr
 
 ## Connections — Graphs and conditional independence
 [Conditional independence](conditional-independence.qmd) is the probability statement. [Markov properties and factorisation](markov-properties-and-factorisation.qmd) is the list of pairwise, local and global versions, together with the clique factorisation. A [Markov chain](markov-chain.qmd) in time is the special case of this line graph, with the past and the future independent given the present. The Hammersley–Clifford theorem says that a positive density has the pairwise property if and only if it factorises over the graph. The proof above covers a path graph; the general equivalence uses a longer inclusion of cliques.
-
-## Check yourself
-
-### Reading the graph
-On the path $X-Y-Z$, which pair is conditionally independent given the third variable, and which pairs are neighbours?
-
-::: {.callout-tip collapse="true" title="Answer"}
-$X$ and $Z$ are the non-adjacent pair, so the pairwise property says $X\perp Z\mid Y$. The edges are $X-Y$ and $Y-Z$. The pairwise property does not say that an adjacent pair is conditionally independent given the remaining variable.
-:::
-
-### A numerical check of the margin
-Using the worked example, compute $\Pr(X=1,Z=0)$.
-
-::: {.callout-tip collapse="true" title="Answer"}
-Given $Y=1$ the probability is $0.8\times 0.2=0.16$. Given $Y=0$ it is $0.2\times 0.8=0.16$. The marginal is $\tfrac12(0.16)+\tfrac12(0.16)=0.16$.
-:::

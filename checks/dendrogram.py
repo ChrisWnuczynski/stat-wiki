@@ -2,10 +2,15 @@
 
 from __future__ import annotations
 
+import sys
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from tools.shown import shown
+
 
 ROOT = Path(__file__).resolve().parents[1]
 PROSE = (ROOT / "research" / "content" / "dendrogram.md").read_text(encoding="utf-8")
+PROSE = shown(PROSE, "dendrogram")
 
 
 def single_linkage_height(left: list[float], right: list[float]) -> float:

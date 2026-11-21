@@ -1,8 +1,13 @@
 """Check normal scores and reference lines."""
+
+import sys
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from tools.shown import shown
 from scipy.stats import norm
 root = Path(__file__).resolve().parents[1]
 content = (root / "research/content/normal-quantile-plot.md").read_text()
+content = shown(content, "normal-quantile-plot")
 article = root / "articles/normal-quantile-plot.qmd"
 page = article.read_text().split("## See also", 1)[0] if article.is_file() else content
 

@@ -35,19 +35,3 @@ True positives now contribute $0.10\times 0.90=0.090$ and false positives contri
 
 ## Connections — Reversing a conditional probability
 The same reversal is [Bayes' rule](bayes-rule.qmd) for two events. [Sensitivity and specificity](sensitivity-and-specificity.qmd) fix the truth and ask about the test; the [negative predictive value](negative-predictive-value.qmd) is the companion probability for a negative result. In a screening programme the prevalence is the prior probability of $D$, so a statement about a positive report is incomplete until that prior is named.
-
-## Check yourself
-
-### Equal sensitivity and specificity at one percent prevalence
-A test has sensitivity $0.99$ and specificity $0.99$. The prevalence is $0.01$. What is the positive predictive value?
-
-::: {.callout-tip collapse="true" title="Answer"}
-True and false positives contribute the same joint probability, $0.01\times 0.99=0.0099$ and $0.99\times 0.01=0.0099$. The positive predictive value is $0.0099/0.0198=0.5$.
-:::
-
-### A prevalence of one half
-Sensitivity and specificity are both $0.9$, and the prevalence is $0.5$. Show that the positive predictive value equals the sensitivity.
-
-::: {.callout-tip collapse="true" title="Answer"}
-The denominator is $0.5\times 0.9+0.5\times 0.1=0.5$, and the numerator is $0.45$, so the ratio is $0.9$. With equal prevalence of the two states and equal error rates, the reversed probability matches the sensitivity.
-:::

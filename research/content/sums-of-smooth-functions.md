@@ -17,7 +17,6 @@ $$
 \bigl(\eta(1,1)-\eta(1,0)\bigr)-\bigl(\eta(0,1)-\eta(0,0)\bigr)=0
 $$
 
-
 for the additive table, because both dose contrasts equal $0.6$. For a corner of $2.4$ instead of $1.8$ the contrast is $2.4-0.8-1.2+0.2=0.6$. Additivity is exactly the statement that this contrast is zero.{{cite:hastie_esl2009}} (§5.4, pp. 151–152)
 
 Centring matters for the intercept. Adding $3$ to $g_1$ and subtracting $3$ from the intercept leaves every $\eta$ unchanged. The sum-to-zero constraint picks one of those representations. Without it the intercept and the smooths are not separately readable.{{cite:hastie_esl2009}} (§5.4, pp. 151–152)
@@ -35,7 +34,6 @@ $$
 \eta(1,1)-\eta(1,0)-\eta(0,1)+\eta(0,0)
 =g_1(1)-g_1(1)-g_1(0)+g_1(0)+g_2(1)-g_2(0)-g_2(1)+g_2(0)=0.
 $$
-
 
 The intercept cancels. Any table with a nonzero value of that contrast is not of the additive form. For the numbers $-0.3,0.3$ and $-0.5,0.5$ with intercept $1$, the four values are $0.2,1.2,0.8,1.8$ and the contrast is zero. Replacing $1.8$ by $2.4$ makes the contrast $0.6$.{{cite:hastie_esl2009}} (§5.4, pp. 151–152)
 
@@ -75,26 +73,6 @@ A smooth plotted on the link scale is not a change in the mean. The factor $e^{0
 
 ## Connections
 A [generalised linear model](generalised-linear-model.qmd) is the case with no smooths, or with smooths reduced to linear terms. [Fisher scoring](fisher-scoring.qmd) is the unpenalised cousin of the penalised iteratively reweighted least squares used here. A [log link](log-link.qmd) turns the additive $0.6$ into the mean ratio $e^{0.6}$.{{cite:hastie_esl2009}} (§5.4, pp. 151–152)
-
-## Check yourself
-
-1. For the additive table, what is $\eta(1,0)-\eta(0,0)$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-$0.8-0.2=0.6$, the same as $1.8-1.2$.
-:::
-
-2. What is $e^{0.6}$ to four decimals?
-
-::: {.callout-tip collapse="true" title="Answer"}
-$1.8221$. On a log link that is the multiplicative change in the mean when $\eta$ increases by $0.6$.
-:::
-
-3. If $k=4$, what usual ceiling is there on the effective degrees of freedom of that smooth?
-
-::: {.callout-tip collapse="true" title="Answer"}
-$k-1=3$. The penalty may choose a smaller value. It does not choose a larger one than the basis allows.
-:::
 
 ## History
 `gam` fits a generalised linear model whose linear predictor is a sum of smooth functions plus a parametric component, with the smooths penalised and, by default, centred on the observed covariates. This implementation differs from Hastie's `gam` and lists tensor-product terms for smooth interactions, which are exactly the non-additive extension the corner contrast detects.

@@ -8,13 +8,11 @@ $$
 P=\begin{pmatrix}0.8&0.2\\0.4&0.6\end{pmatrix}.
 $$
 
-
 Then
 
 $$
 P^2=\begin{pmatrix}0.72&0.28\\0.56&0.44\end{pmatrix}.
 $$
-
 
 The entry $0.28$ is the probability of going from state $1$ to state $2$ in two steps. The route through state $1$ contributes $0.8\times 0.2=0.16$, and the route through state $2$ contributes $0.2\times 0.6=0.12$. The sum is $0.28$, which is the Chapman–Kolmogorov total.{{cite:levin_peres2017}} (§1.1, pp. 2–4, matrix orientation and Chapman–Kolmogorov)
 
@@ -28,7 +26,6 @@ $$
 \mathbb{P}(X_{m+n}=j\mid X_0=i)=\sum_k\mathbb{P}(X_m=k\mid X_0=i)\,\mathbb{P}(X_n=j\mid X_0=k),
 $$
 
-
 or, in matrices, $P^{m+n}=P^m P^n$.{{cite:levin_peres2017}} (§1.1, pp. 2–4, matrix orientation and Chapman–Kolmogorov)
 
 ## Properties — Condition on the intermediate state
@@ -40,7 +37,6 @@ $$
 \mathbb{P}(X_{m+n}=j\mid X_0=i)
 =\sum_k\mathbb{P}(X_{m+n}=j\mid X_m=k,X_0=i)\,\mathbb{P}(X_m=k\mid X_0=i).
 $$
-
 
 Time-homogeneous Markov transitions give $\mathbb{P}(X_{m+n}=j\mid X_m=k,X_0=i)=\mathbb{P}(X_n=j\mid X_0=k)=P^n_{kj}$, and $\mathbb{P}(X_m=k\mid X_0=i)=P^m_{ik}$. The sum is the $(i,j)$ entry of $P^m P^n$. The case $m=n=1$ is the square $P^2$.
 :::
@@ -58,18 +54,3 @@ The probability is $0.56$. The route through state $1$ contributes $0.4\times 0.
 
 ## Connections — The distribution after $n$ steps
 If the row vector $\pi^{(0)}$ is the distribution of $X_0$, the distribution of $X_n$ is $\pi^{(0)}P^n$, and Chapman–Kolmogorov is the reason $P^{m+n}$ can be built from $P^m$ and $P^n$. A [finite-state Markov chain](finite-state-markov-chain.qmd) is the process whose one-step conditional probabilities are the entries of $P$. The [limiting distribution](limiting-distribution.qmd) is a different statement: it asks when the rows of $P^n$ settle, which needs irreducibility and aperiodicity and is not part of the product identity.
-
-## Check yourself
-### After one step
-Starting from state $1$, what is $\mathbb{P}(X_1=1)$? What is $\mathbb{P}(X_2=1)$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-$\mathbb{P}(X_1=1)=0.8$, the $(1,1)$ entry of $P$. $\mathbb{P}(X_2=1)=0.72$, the $(1,1)$ entry of $P^2$. The one-step probability is not the two-step probability.
-:::
-
-### A route of length three
-Using $P^2_{11}=0.72$ and $P_{11}=0.8$, and $P^2_{12}=0.28$ and $P_{21}=0.4$, give $\mathbb{P}(X_3=1\mid X_0=1)$.
-
-::: {.callout-tip collapse="true" title="Answer"}
-Condition on the state at time $2$: $0.72\times 0.8+0.28\times 0.4=0.576+0.112=0.688$. This is the $(1,1)$ entry of $P^2 P$, which Chapman–Kolmogorov identifies with $P^3$.
-:::

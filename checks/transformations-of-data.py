@@ -18,7 +18,6 @@ assert round(math.exp(.2),4)==1.2214 and round(100*(math.exp(.2)-1),2)==22.14
 assert round(math.exp(1.2-.98),4)==1.2461 and round(math.exp(1.2+.98),4)==8.8463
 assert math.isclose(math.exp(2*math.log(1.5)),2.25)
 assert math.isclose(np.median(np.log([1,4,16])),math.log(np.median([1,4,16])))
-from pathlib import Path
 import csv
 heart=next(p for p in Path('sources/stat1301/data').glob('*.csv') if 'heart' in p.name)
 rows=list(csv.DictReader(heart.open()));creat=np.array([float(r['serum_creatinine']) for r in rows])

@@ -36,18 +36,3 @@ The variance is $0.5\cdot 1+(0.5/50)\cdot 1=0.5+0.01=0.51$. Independence would g
 
 ## Connections — What the average is made of
 Each member is a [decision tree](decision-tree.qmd), and the split inside it is often scored by the [Gini index](gini-index.qmd). The row resampling is [bagging](bagging.qmd), which uses the [bootstrap](bootstrap.qmd). [Out-of-bag estimation and variable importance](out-of-bag-estimation-and-variable-importance.qmd) uses the cases a tree did not see. The correlation floor is why a restriction on the predictors is part of the definition, not a cosmetic extra.{{cite:hastie_esl2009}} (Ch. 15, §15.2, pp. 587–589)
-
-## Check yourself
-### Doubling the forest
-In the worked example, replace $B=100$ by $B=200$ and leave $\sigma^2=4$ and $\rho=0.2$. What is the new variance?
-
-::: {.callout-tip collapse="true" title="Answer"}
-$0.8+(0.8/200)\cdot 4=0.8+0.016=0.816$. The floor is unchanged. The second term has halved.
-:::
-
-### A single candidate predictor
-If $m=1$, each split sees only one randomly chosen predictor. What happens to the formula if that choice drives $\rho$ down and $\sigma^2$ up?
-
-::: {.callout-tip collapse="true" title="Answer"}
-Both terms move. A smaller $\rho$ lowers the floor $\rho\sigma^2$, but a larger $\sigma^2$ raises it and also raises the term that still depends on $B$. The formula does not say that the smallest $m$ is the best $m$.
-:::

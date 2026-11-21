@@ -8,7 +8,6 @@ $$
 \frac{e^{1.5}}{1+e^{1.5}}=0.8176
 $$
 
-
 to four decimals. The same number $\eta$ is a legal probability under the logit, a positive mean under the log, and an unrestricted mean under the identity. It is not a probability under the identity, because $1.5>1$.
 
 ## Intuition — Choose the scale on which the covariates act
@@ -40,18 +39,3 @@ The identity mean is $-1$, which is illegal for a probability and for a count me
 
 ## Connections — The GLM pieces around the link
 The link is the middle piece of a [generalised linear model](generalised-linear-model.qmd): a random component supplies the variance function, the [linear predictor](linear-predictor.qmd) builds $\eta$, and $g$ joins them. The [logit link](logit-link.qmd) and the [log link](log-link.qmd) are the two inverses in the example. [Logit, probit and complementary log-log links](logit-probit-and-complementary-log-log-links.qmd) are three maps into a probability; only the first two appear on the ESL page cited here. A canonical link is the choice that makes $\eta$ the natural parameter of a one-parameter exponential family. It is convenient, and it is not the only legal link.
-
-## Check yourself
-### A zero predictor
-Give the identity, log and logit means at $\eta=0$.
-
-::: {.callout-tip collapse="true" title="Answer"}
-The identity mean is $0$. The log-link mean is $e^{0}=1$. The logit mean is $1/2$. Zero is a legal log mean only in the limit $\eta\to-\infty$; at $\eta=0$ the log mean is $1$.
-:::
-
-### A coefficient on the log scale
-Under a log link, $\eta=\beta_0+\beta_1 x$ and $\beta_1=0.2$. By what factor does the mean change when $x$ increases by $1$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The mean is multiplied by $e^{0.2}=1.2214$ to four decimals. The identity link would have added $0.2$ instead of multiplying.
-:::

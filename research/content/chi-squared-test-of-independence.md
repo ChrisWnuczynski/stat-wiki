@@ -36,18 +36,3 @@ Every observed count equals its fitted count, so each contribution is $0$ and $T
 
 ## Connections — The same statistic, several readings
 The reference distribution is the [chi-squared distribution](chi-squared-distribution.qmd) on $(r-1)(c-1)$ degrees of freedom. Estimating the margins, rather than knowing the cell probabilities in advance, is what changes the degrees of freedom; that estimated-parameter case is [Pearson's test with estimated parameters](pearson-test-with-estimated-parameters.qmd). A $2\times 2$ table with a very small fitted count is the setting for [Fisher's exact test](fisher-s-exact-test.qmd), which uses the hypergeometric probabilities instead of the chi-squared tail.{{cite:dodge2008}} (pp. 79–80)
-
-## Check yourself
-### Degrees of freedom
-How many degrees of freedom does a $3\times 4$ table have under this test?
-
-::: {.callout-tip collapse="true" title="Answer"}
-$(3-1)(4-1)=6$. The arithmetic is $12-1-(2+3)=6$.
-:::
-
-### A cell below the warning line
-One fitted count is $3.2$ and the others exceed $5$. What does the small-cell condition say about the chi-squared approximation?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The approximation is unreliable when an estimated frequency is small, and the stated threshold is less than $5$. A fitted count of $3.2$ falls under that warning. Combining categories is the remedy only when the combined categories still make sense.
-:::

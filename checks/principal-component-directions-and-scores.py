@@ -1,12 +1,17 @@
 """Checks for principal-component directions and scores."""
 
-from math import sqrt
+import sys
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from tools.shown import shown
+
+from math import sqrt
 
 import numpy as np
 
 root = Path(__file__).resolve().parents[1]
 prose = (root / "research/content/principal-component-directions-and-scores.md").read_text(encoding="utf-8")
+prose = shown(prose, "principal-component-directions-and-scores")
 article = root / "articles/principal-component-directions-and-scores.qmd"
 target = article.read_text(encoding="utf-8").split("## See also", 1)[0] if article.is_file() else prose
 
