@@ -232,6 +232,53 @@ try {
   const stems = mass.locator("g[clip-path] line");
   const n = spin("n as a number");
   const nSlider = page.locator("#distribution").getByRole("slider", { name: "n", exact: true });
+  const nFeedbackId = await n.getAttribute("aria-describedby");
+  assert.ok(nFeedbackId, "the number field has linked feedback");
+  const nFeedback = page.locator(`[id="${nFeedbackId}"]`);
+  const accessibility = await page.context().newCDPSession(page);
+  await accessibility.send("Accessibility.enable");
+  const statusNodes = new Map();
+  async function assertFeedbackStatus(input, feedback, text) {
+    const id = await feedback.getAttribute("id");
+    assert.equal(await input.getAttribute("aria-describedby"), id);
+    const status = feedback.locator("..");
+    assert.equal(await status.getAttribute("role"), "status");
+    assert.equal(await status.getAttribute("aria-live"), "polite");
+    assert.equal(await status.getAttribute("aria-atomic"), "true");
+    assert.equal(await feedback.getAttribute("aria-live"), null, "only the wrapper is a live region");
+    assert.equal(await status.locator("[aria-live], [role='status'], [role='alert'], input").count(), 0);
+    assert.equal(await status.textContent(), text);
+    assert.notEqual(await status.evaluate((node) => getComputedStyle(node).display), "none");
+    assert.equal(await status.evaluate((node) => getComputedStyle(node).visibility), "visible");
+    const { root } = await accessibility.send("DOM.getDocument");
+    const { nodeId } = await accessibility.send("DOM.querySelector", {
+      nodeId: root.nodeId, selector: `[role="status"]:has(> [id="${id}"])`,
+    });
+    assert.ok(nodeId, "the linked note has a persistent status wrapper");
+    const { nodes } = await accessibility.send("Accessibility.getPartialAXTree", { nodeId });
+    const exposed = nodes.find((node) => node.role?.value === "status" && !node.ignored);
+    assert.ok(exposed, "the status is exposed in Chromium's accessibility tree, even when empty");
+    assert.ok(Number.isInteger(exposed.backendDOMNodeId));
+    if (!statusNodes.has(id)) statusNodes.set(id, exposed.backendDOMNodeId);
+    assert.equal(exposed.backendDOMNodeId, statusNodes.get(id), "the same status survives invalid and valid edits");
+    assert.equal(exposed.properties.find((property) => property.name === "live")?.value.value, "polite");
+    assert.equal(exposed.properties.find((property) => property.name === "atomic")?.value.value, true);
+    const { nodeId: inputId } = await accessibility.send("DOM.querySelector", {
+      nodeId: root.nodeId, selector: `input[aria-describedby="${id}"]`,
+    });
+    const { nodes: inputNodes } = await accessibility.send("Accessibility.getPartialAXTree", { nodeId: inputId });
+    const spinbutton = inputNodes.find((node) => node.role?.value === "spinbutton" && !node.ignored);
+    assert.ok(spinbutton);
+    assert.equal(spinbutton.description?.value ?? "", text, "the field exposes its own feedback");
+  }
+  await assertFeedbackStatus(n, nFeedback, "");
+  assert.equal(await nFeedback.isVisible(), false);
+  const emptyRow = await n.evaluate((input) => {
+    const field = input.closest(".control-field").getBoundingClientRect();
+    const controls = input.closest(".control-slider").getBoundingClientRect();
+    return field.bottom - controls.bottom;
+  });
+  assert.ok(Math.abs(emptyRow) < 1, `empty status adds no visual row: ${emptyRow}px`);
   assert.equal(await stems.count(), 11);
   await n.fill("25");
   await page.waitForFunction(() => document.querySelector("#distribution svg").querySelectorAll("g[clip-path] line").length === 26);
@@ -243,10 +290,6 @@ try {
   const acceptedCharts = await distributionCharts();
   const acceptedReadout = await page.locator("#distribution .readout-line").textContent();
   assert.match(acceptedReadout, /n 25, p 0\.3/);
-  const nFeedbackId = await n.getAttribute("aria-describedby");
-  assert.ok(nFeedbackId, "the number field has linked feedback");
-  const nFeedback = page.locator(`[id="${nFeedbackId}"]`);
-  assert.equal(await nFeedback.getAttribute("aria-live"), "polite");
   async function assertInvalidN(raw) {
     assert.equal(await n.inputValue(), raw);
     assert.equal(await nSlider.inputValue(), "25");
@@ -254,6 +297,7 @@ try {
     assert.equal(await n.getAttribute("aria-invalid"), "true");
     assert.equal(await nFeedback.isVisible(), true);
     assert.match(await nFeedback.textContent(), /from 1 to 40 in steps of 1.*Showing 25/);
+    await assertFeedbackStatus(n, nFeedback, "n must be a number from 1 to 40 in steps of 1. Showing 25.");
     assert.equal(await page.locator("#distribution .readout-line").textContent(), acceptedReadout);
     assert.equal(await stems.count(), 26);
     assert.equal(await mass.locator("circle").count(), 26);
@@ -284,6 +328,7 @@ try {
   assert.equal(await nSlider.inputValue(), "12");
   assert.equal(await n.evaluate((input) => input === document.activeElement), true);
   assert.equal(await nFeedback.isVisible(), false);
+  await assertFeedbackStatus(n, nFeedback, "");
   assert.equal(await stems.count(), 13);
   assert.equal(await mass.locator("circle").count(), 13);
   assert.match(await page.locator("#distribution .readout-line").textContent(), /n 12, p 0\.3/);
@@ -302,6 +347,10 @@ try {
   step("keyboard range input recovers from invalid text and keeps focus");
   await n.fill("12.5");
   assert.equal(await n.getAttribute("aria-invalid"), "true");
+  assert.equal(await n.evaluate((input) => input === document.activeElement), true);
+  assert.equal(await nSlider.inputValue(), "12");
+  assert.deepEqual(await distributionCharts(), twelveCharts);
+  await assertFeedbackStatus(n, nFeedback, "n must be a number from 1 to 40 in steps of 1. Showing 12.");
   await nSlider.focus();
   await nSlider.press("ArrowRight");
   assert.equal(await nSlider.inputValue(), "13");
@@ -309,6 +358,7 @@ try {
   assert.equal(await nSlider.evaluate((input) => input === document.activeElement), true);
   assert.equal(await n.getAttribute("aria-invalid"), null);
   assert.equal(await nFeedback.textContent(), "");
+  await assertFeedbackStatus(n, nFeedback, "");
   assert.equal(await stems.count(), 14);
   assertSpread(await distributionCharts());
 
@@ -319,6 +369,8 @@ try {
   const sigmaFeedbackId = await sigma.getAttribute("aria-describedby");
   assert.ok(sigmaFeedbackId);
   const sigmaFeedback = page.locator(`[id="${sigmaFeedbackId}"]`);
+  assert.notEqual(sigmaFeedbackId, nFeedbackId);
+  await assertFeedbackStatus(sigma, sigmaFeedback, "");
   await sigma.focus();
   await sigma.press("ControlOrMeta+A");
   await sigma.press("Delete");
@@ -337,6 +389,7 @@ try {
     assert.equal(await sigmaSlider.inputValue(), "1.25");
     assert.equal(await sigma.getAttribute("aria-invalid"), "true");
     assert.match(await sigmaFeedback.textContent(), /from 0\.3 to 3 in steps of 0\.05.*Showing 1\.25/);
+    await assertFeedbackStatus(sigma, sigmaFeedback, "σ must be a number from 0.3 to 3 in steps of 0.05. Showing 1.25.");
     assert.deepEqual(await distributionCharts(), decimalCharts);
   }
   await sigmaSlider.focus();

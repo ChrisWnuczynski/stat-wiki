@@ -39,7 +39,12 @@ function sliderPair(spec, onInput) {
   const feedback = document.createElement("span");
   feedback.id = `distribution-input-${++nextInputId}`;
   feedback.className = "control-note";
-  feedback.setAttribute("aria-live", "polite");
+  const status = document.createElement("span");
+  status.setAttribute("role", "status");
+  status.setAttribute("aria-live", "polite");
+  status.setAttribute("aria-atomic", "true");
+  status.style.display = "block";
+  status.appendChild(feedback);
   number.setAttribute("aria-describedby", feedback.id);
   const sync = (input) => {
     const value = input.valueAsNumber;
@@ -61,7 +66,10 @@ function sliderPair(spec, onInput) {
   slider.addEventListener("input", () => sync(slider));
   number.addEventListener("input", () => sync(number));
   wrap.append(slider, number);
-  label.append(wrap, feedback);
+  // Keep the empty live region exposed without adding a row to the label's flex layout.
+  const controls = document.createElement("span");
+  controls.append(wrap, status);
+  label.appendChild(controls);
   return label;
 }
 
