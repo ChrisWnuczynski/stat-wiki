@@ -145,6 +145,49 @@ test("failed calculations do not invent a number", () => {
   assert.equal(kde.kdeAt(0, [0, Number.NaN], 0.3).value, undefined);
 });
 
+test("the selected risk row uses exact h, including outside the curve grid", () => {
+  // Recomputed with reference_kde.py from these exact JavaScript samples.
+  const expected = [
+    { h: 0.005, ise: [0.4525768757965076, 0.4860007201560821], variance: 0.4678070235318315, bias: 5.336275310519056e-10, mise: 0.4678070240654590 },
+    { h: 0.04, ise: [0.0484218071489994, 0.0406944967566849], variance: 0.0564261387452924, bias: 2.1690386033390574e-6, mise: 0.0564283077838957 },
+    { h: 0.1, ise: [0.0195850022439411, 0.0076334565844636], variance: 0.0212023579930217, bias: 8.138767922954981e-5, mise: 0.0212837456722512 },
+    { h: 5, ise: [0.1903993126870547, 0.1905378857055044], variance: 2.2275280845417424e-5, bias: 0.1906515702003279, mise: 0.1906738454811733 },
+  ];
+  const components = kde.population("mixture").components;
+  for (const [index, seed] of [3500, 3501].entries()) {
+    const values = kde.samplePrefix(kde.sequence(seed), "mixture", 120).values;
+    const cache = kde.pairCache(values);
+    for (const row of expected) {
+      const selected = kde.riskAtBandwidth(cache, row.h, components);
+      assert.equal(selected.h, row.h);
+      assert.equal(selected.ise.error, undefined);
+      assert.equal(selected.risk.error, undefined);
+      close(selected.ise.value, row.ise[index], riskAbs, riskRel);
+      close(selected.risk.integratedVariance, row.variance, riskAbs, riskRel);
+      close(selected.risk.integratedSquaredBias, row.bias, riskAbs, riskRel);
+      close(selected.risk.mise, row.mise, riskAbs, riskRel);
+      close(selected.risk.integratedVariance + selected.risk.integratedSquaredBias, selected.risk.mise, decompositionAbs);
+    }
+  }
+});
+
+test("the selected risk row preserves calculation errors", () => {
+  const components = kde.population("mixture").components;
+  const cache = kde.pairCache([0, 1]);
+  for (const h of [0, -1, NaN, Infinity]) {
+    const selected = kde.riskAtBandwidth(cache, h, components);
+    assert.equal(selected.ise.error, kde.ERRORS.bandwidthNotPositive);
+    assert.equal(selected.risk.error, kde.ERRORS.bandwidthNotPositive);
+    assert.equal(selected.ise.value, undefined);
+    assert.equal(selected.risk.mise, undefined);
+  }
+  for (const work of [undefined, kde.pairCache([])]) {
+    const selected = kde.riskAtBandwidth(work, 0.1, components);
+    assert.equal(typeof selected.ise.error, "string");
+    assert.equal(typeof selected.risk.error, "string");
+  }
+});
+
 test("tiny and large bandwidths stay finite, and a flat sample does not collapse the rule", () => {
   const spread = [-1.2, -0.4, 0.2, 0.7, 1.5];
   for (const h of [1e-6, 1e-3, 0.05, 10, 100]) {

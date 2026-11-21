@@ -361,6 +361,16 @@ export function miseParts(n, h, components) {
   return { integratedVariance, integratedSquaredBias, mise, kernelSquare, q0, q1, q2 };
 }
 
+// One exact bandwidth for the readout and selected points, independent of the
+// fixed curve grid. Keep each calculation's error for the readout to report.
+export function riskAtBandwidth(cache, h, components) {
+  return {
+    h,
+    ise: iseFromCache(cache, h, components),
+    risk: miseParts(cache?.n, h, components),
+  };
+}
+
 export function bandwidthGrid(min, max, count) {
   if (!(max > min) || !Number.isInteger(count) || count < 2) {
     return { error: "The bandwidth grid needs a positive span and at least two points." };
