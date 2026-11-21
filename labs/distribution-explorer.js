@@ -14,7 +14,9 @@ function field(labelText) {
   return label;
 }
 
-function sliderPair(spec) {
+let nextInputId = 0;
+
+function sliderPair(spec, onInput) {
   const label = field(spec.label);
   const wrap = document.createElement("span");
   wrap.className = "control-slider";
@@ -25,24 +27,41 @@ function sliderPair(spec) {
   slider.step = String(spec.step);
   slider.value = String(spec.value);
   slider.setAttribute("aria-label", spec.label);
+  const candidate = slider.cloneNode();
   const number = document.createElement("input");
   number.type = "number";
   number.min = String(spec.min);
   number.max = String(spec.max);
   number.step = String(spec.step);
+  number.required = true;
   number.value = String(spec.value);
   number.setAttribute("aria-label", `${spec.label} as a number`);
-  const sync = (raw) => {
-    const value = Math.min(spec.max, Math.max(spec.min, Number(raw)));
-    if (!Number.isFinite(value)) return;
+  const feedback = document.createElement("span");
+  feedback.id = `distribution-input-${++nextInputId}`;
+  feedback.className = "control-note";
+  feedback.setAttribute("aria-live", "polite");
+  number.setAttribute("aria-describedby", feedback.id);
+  const sync = (input) => {
+    const value = input.valueAsNumber;
+    // Number validity tolerates values near a step; the range still rounds them.
+    candidate.value = input.value;
+    if (!Number.isFinite(value) || !input.validity.valid || candidate.valueAsNumber !== value) {
+      number.setAttribute("aria-invalid", "true");
+      feedback.textContent = `${spec.label} must be a number from ${spec.min} to ${spec.max} in steps of ${spec.step}. Showing ${spec.value}.`;
+      return;
+    }
+    number.removeAttribute("aria-invalid");
+    feedback.textContent = "";
     slider.value = String(value);
-    number.value = String(value);
+    // Keep the text being edited, including a decimal point before its digits.
+    if (input === slider) number.value = String(value);
     spec.value = value;
+    onInput();
   };
-  slider.addEventListener("input", () => sync(slider.value));
-  number.addEventListener("input", () => sync(number.value));
+  slider.addEventListener("input", () => sync(slider));
+  number.addEventListener("input", () => sync(number));
   wrap.append(slider, number);
-  label.appendChild(wrap);
+  label.append(wrap, feedback);
   return label;
 }
 
@@ -188,8 +207,7 @@ export function mount(root) {
     });
     selectLabel.appendChild(select);
     const family = familyById(state.id);
-    form.append(selectLabel, ...family.params.map(sliderPair));
-    for (const input of form.querySelectorAll("input")) input.addEventListener("input", redraw);
+    form.append(selectLabel, ...family.params.map((spec) => sliderPair(spec, redraw)));
     redraw();
   };
   renderControls();

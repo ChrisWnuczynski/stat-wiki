@@ -228,10 +228,125 @@ try {
 
   step("a binomial sample size moves the stems");
   await familySelect.selectOption("binomial");
-  const stemsAtTen = await page.locator("#distribution svg").first().locator("circle").count();
-  await spin("n as a number").fill("25");
-  await page.waitForFunction((start) => document.querySelector("#distribution svg").querySelectorAll("circle").length > start, stemsAtTen);
-  assert.ok(await page.locator("#distribution svg").first().locator("circle").count() > stemsAtTen);
+  const mass = page.locator("#distribution svg").first();
+  const stems = mass.locator("g[clip-path] line");
+  const n = spin("n as a number");
+  const nSlider = page.locator("#distribution").getByRole("slider", { name: "n", exact: true });
+  assert.equal(await stems.count(), 11);
+  await n.fill("25");
+  await page.waitForFunction(() => document.querySelector("#distribution svg").querySelectorAll("g[clip-path] line").length === 26);
+  assert.equal(await stems.count(), 26);
+  assert.equal(await mass.locator("circle").count(), 26);
+  assertSpread(await distributionCharts());
+
+  step("invalid binomial edits keep the accepted value and both plots");
+  const acceptedCharts = await distributionCharts();
+  const acceptedReadout = await page.locator("#distribution .readout-line").textContent();
+  assert.match(acceptedReadout, /n 25, p 0\.3/);
+  const nFeedbackId = await n.getAttribute("aria-describedby");
+  assert.ok(nFeedbackId, "the number field has linked feedback");
+  const nFeedback = page.locator(`[id="${nFeedbackId}"]`);
+  assert.equal(await nFeedback.getAttribute("aria-live"), "polite");
+  async function assertInvalidN(raw) {
+    assert.equal(await n.inputValue(), raw);
+    assert.equal(await nSlider.inputValue(), "25");
+    assert.equal(await n.evaluate((input) => input === document.activeElement), true);
+    assert.equal(await n.getAttribute("aria-invalid"), "true");
+    assert.equal(await nFeedback.isVisible(), true);
+    assert.match(await nFeedback.textContent(), /from 1 to 40 in steps of 1.*Showing 25/);
+    assert.equal(await page.locator("#distribution .readout-line").textContent(), acceptedReadout);
+    assert.equal(await stems.count(), 26);
+    assert.equal(await mass.locator("circle").count(), 26);
+    assert.deepEqual(await distributionCharts(), acceptedCharts);
+  }
+  for (const raw of ["10.5", "10.0000000001", "0", "41"]) {
+    await n.fill(raw);
+    await assertInvalidN(raw);
+  }
+  await n.press("ControlOrMeta+A");
+  await n.press("Delete");
+  await assertInvalidN("");
+  await n.press("-");
+  assert.equal(await n.evaluate((input) => input.validity.badInput), true);
+  await assertInvalidN("");
+  await n.press("ControlOrMeta+A");
+  await n.press("Delete");
+  await assertInvalidN("");
+
+  step("keyboard digits accept n = 12, clear feedback and draw the CDF endpoints");
+  await n.press("1");
+  assert.equal(await n.inputValue(), "1");
+  assert.equal(await nSlider.inputValue(), "1");
+  assert.equal(await n.getAttribute("aria-invalid"), null);
+  assert.equal(await nFeedback.textContent(), "");
+  await n.press("2");
+  assert.equal(await n.inputValue(), "12");
+  assert.equal(await nSlider.inputValue(), "12");
+  assert.equal(await n.evaluate((input) => input === document.activeElement), true);
+  assert.equal(await nFeedback.isVisible(), false);
+  assert.equal(await stems.count(), 13);
+  assert.equal(await mass.locator("circle").count(), 13);
+  assert.match(await page.locator("#distribution .readout-line").textContent(), /n 12, p 0\.3/);
+  const twelveCharts = await distributionCharts();
+  assertSpread(twelveCharts);
+  const cdf = twelveCharts[1];
+  const yZero = cdf.yLabels.find((tick) => parseTick(tick.text) === 0).y;
+  const yOne = cdf.yLabels.find((tick) => parseTick(tick.text) === 1).y;
+  const probabilityAt = (point) => (yZero - point[1]) / (yZero - yOne);
+  assert.equal(cdf.points.length, 26);
+  assert.equal(cdf.points[0][0], cdf.points[1][0]);
+  assert.ok(Math.abs(probabilityAt(cdf.points[1]) - 0.7 ** 12) < 0.01 / (yZero - yOne), "F(0) = 0.7^12, within SVG rounding");
+  assert.equal(probabilityAt(cdf.points.at(-1)), 1, "F(12) = 1");
+  assert.equal(cdf.points.at(-1)[0], cdf.xLabels.find((tick) => parseTick(tick.text) === 12).x);
+
+  step("keyboard range input recovers from invalid text and keeps focus");
+  await n.fill("12.5");
+  assert.equal(await n.getAttribute("aria-invalid"), "true");
+  await nSlider.focus();
+  await nSlider.press("ArrowRight");
+  assert.equal(await nSlider.inputValue(), "13");
+  assert.equal(await n.inputValue(), "13");
+  assert.equal(await nSlider.evaluate((input) => input === document.activeElement), true);
+  assert.equal(await n.getAttribute("aria-invalid"), null);
+  assert.equal(await nFeedback.textContent(), "");
+  assert.equal(await stems.count(), 14);
+  assertSpread(await distributionCharts());
+
+  step("a decimal sigma stays editable and obeys its configured step");
+  await familySelect.selectOption("normal");
+  const sigma = spin("σ as a number");
+  const sigmaSlider = page.locator("#distribution").getByRole("slider", { name: "σ", exact: true });
+  const sigmaFeedbackId = await sigma.getAttribute("aria-describedby");
+  assert.ok(sigmaFeedbackId);
+  const sigmaFeedback = page.locator(`[id="${sigmaFeedbackId}"]`);
+  await sigma.focus();
+  await sigma.press("ControlOrMeta+A");
+  await sigma.press("Delete");
+  for (const key of ["1", ".", "2", "5"]) await sigma.press(key);
+  assert.equal(await sigma.inputValue(), "1.25");
+  assert.equal(await sigmaSlider.inputValue(), "1.25");
+  assert.equal(await sigma.evaluate((input) => input === document.activeElement), true);
+  assert.equal(await sigma.getAttribute("aria-invalid"), null);
+  assert.equal(await sigmaFeedback.textContent(), "");
+  assert.match(await page.locator("#distribution .readout-line").textContent(), /σ 1\.25/);
+  const decimalCharts = await distributionCharts();
+  assertSpread(decimalCharts);
+  for (const raw of ["1.23", "1.2500000001"]) {
+    await sigma.fill(raw);
+    assert.equal(await sigma.inputValue(), raw);
+    assert.equal(await sigmaSlider.inputValue(), "1.25");
+    assert.equal(await sigma.getAttribute("aria-invalid"), "true");
+    assert.match(await sigmaFeedback.textContent(), /from 0\.3 to 3 in steps of 0\.05.*Showing 1\.25/);
+    assert.deepEqual(await distributionCharts(), decimalCharts);
+  }
+  await sigmaSlider.focus();
+  await sigmaSlider.press("ArrowRight");
+  assert.equal(await sigmaSlider.inputValue(), "1.3");
+  assert.equal(await sigma.inputValue(), "1.3");
+  assert.equal(await sigmaSlider.evaluate((input) => input === document.activeElement), true);
+  assert.equal(await sigma.getAttribute("aria-invalid"), null);
+  assert.equal(await sigmaFeedback.textContent(), "");
+  assert.match(await page.locator("#distribution .readout-line").textContent(), /σ 1\.3/);
   assertSpread(await distributionCharts());
 
   step("a closed chart keeps a real width, then follows the container");
