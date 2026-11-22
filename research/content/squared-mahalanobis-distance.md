@@ -20,7 +20,9 @@ Squared Mahalanobis distance is dimensionless and unchanged by an invertible aff
 ::: {.proof}
 Let $v=x-\mu$ and let $BB^{\mathsf T}=\Sigma$ with invertible $B$. Then $\Sigma^{-1}=B^{-\mathsf T}B^{-1}$, so $v^{\mathsf T}\Sigma^{-1}v=(B^{-1}v)^{\mathsf T}(B^{-1}v)$, proving the whitening identity and nonnegativity. For $Y=AX+b$ with invertible $A$, its mean is $A\mu+b$ and covariance is $A\Sigma A^{\mathsf T}$; using $(A\Sigma A^{\mathsf T})^{-1}=A^{-\mathsf T}\Sigma^{-1}A^{-1}$ cancels $A$ and proves affine invariance{{cite:dodge2008}} (pp. 325–326, Mahalanobis Distance).
 
-For random $X$, put $Z=B^{-1}(X-\mu)$. It has mean zero and covariance $I_p$, so $\mathbb E(D^2)=\sum_{j=1}^p\mathbb E(Z_j^2)=p$ without assuming normality. If $X$ is multivariate normal, $Z$ is jointly normal with identity covariance; its coordinates are then independent standard normals. Their sum of squares has the $\chi^2_p$ law. Finally, substituting $\Sigma=SRS$ into the quadratic form gives $z^{\mathsf T}R^{-1}z$, with $z=S^{-1}v$. {{cite:dodge2008}} (p. 325, expected squared distance)::::::
+For random $X$, put $Z=B^{-1}(X-\mu)$. It has mean zero and covariance $I_p$, so $\mathbb E(D^2)=\sum_{j=1}^p\mathbb E(Z_j^2)=p$ without assuming normality. If $X$ is multivariate normal, $Z$ is jointly normal with identity covariance; its coordinates are then independent standard normals. Their sum of squares has the $\chi^2_p$ law. Finally, substituting $\Sigma=SRS$ into the quadratic form gives $z^{\mathsf T}R^{-1}z$, with $z=S^{-1}v$. {{cite:dodge2008}} (p. 325, expected squared distance)
+:::
+:::
 
 ## Statistical use
 
