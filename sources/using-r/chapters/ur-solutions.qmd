@@ -22,9 +22,27 @@ The independent unit is the person, not the visit. Drawing visits treats each vi
 
 The label was held out, so the agreement describes these 150 flowers. It is not a rule trained to predict species. The flowers are not a random sample of every iris, and a component that lines up with a species in this table can fail on a new flower. A fit that had been allowed to see the label would be answering a different question. The check is whether the geometry of the measurements recovers a grouping that the algorithm was not given. It is not an error rate for a future flower.
 
-[]{#sol-ur-posterior-mean} **[The posterior mean is not the observed rate](#ex-ur-posterior-mean).**
+[]{#sol-ur-posterior-mean} **[The posterior mean and the observed rate](#ex-ur-posterior-mean).**
 
-The posterior is $\operatorname{Beta}(2+y, 2+n-y)$. Its mean is $(2+y)/(4+n)$. That is a weighted average of the prior mean $1/2$ and the observed rate $y/n$, with the four pseudo-counts from the prior pulling the mean toward $1/2$. The observed rate is the maximum-likelihood estimate. It equals the posterior mean only for a prior that adds no pseudo-counts. The mean of draws from this posterior should agree with $(2+y)/(4+n)$, up to Monte Carlo error. Agreement with $y/n$ would mean the draws had ignored the prior.
+For a $\operatorname{Beta}(a,b)$ prior with $a,b>0$ and $n>0$ trials, the posterior mean is
+$$
+\begin{aligned}
+\frac{a+y}{n+a+b}
+&=\frac{a+b}{n+a+b}\frac{a}{a+b}\\
+&\quad+\frac{n}{n+a+b}\frac{y}{n}.
+\end{aligned}
+$$
+The weights are positive and sum to one. The posterior mean therefore lies between the prior mean and the observed rate. Equality with $y/n$ is equivalent to $n(a+y)=y(n+a+b)$, hence to $na=y(a+b)$, or $y/n=a/(a+b)$. A proper prior can therefore give the same mean as the maximum-likelihood estimate when the prior mean and observed rate agree.
+
+For the $\operatorname{Beta}(2,2)$ prior, the posterior is $\operatorname{Beta}(2+y,2+n-y)$, with mean
+$$
+\frac{2+y}{4+n}=\frac{4}{4+n}\frac12+\frac{n}{4+n}\frac{y}{n}.
+$$
+When $y=2$ and $n=4$, the posterior is $\operatorname{Beta}(4,4)$ and its mean is $1/2$, equal to the observed rate $2/4$. When $y=3$ and $n=4$, the posterior is $\operatorname{Beta}(5,3)$ and its mean is $5/8$, between the prior mean $1/2$ and the observed rate $3/4$. The prior contributes four pseudo-counts in both cases; they shift the mean only when the prior mean differs from the observed rate.
+
+If $n=0$, then $y=0$ and no sample proportion $y/n$ is defined. The posterior remains $\operatorname{Beta}(2,2)$ with mean $1/2$.
+
+The mean of simulated posterior draws should vary around the exact mean $(2+y)/(4+n)$ with Monte Carlo error. Its discrepancy from that exact mean, relative to the expected Monte Carlo variation, provides a check on the simulation. Agreement with $y/n$ alone does not establish whether the draws used the intended prior.
 
 []{#sol-ur-mean-or-new-day} **[An interval for the mean and an interval for a new day](#ex-ur-mean-or-new-day).**
 
