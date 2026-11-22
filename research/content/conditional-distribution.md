@@ -51,7 +51,7 @@ Suppose two binary variables have joint probabilities $\mathbb P(X=0,Y=0)=1/10$,
 The probability of $Y=0$ is $1/10+3/10=4/10$. Therefore $\mathbb P(X=1\mid Y=0)=(3/10)/(4/10)=3/4$. Reversing the conditioning direction changes the denominator.
 :::
 
-**A further exercise.** A shop serves a random number of customers $N$ with mean 4 and variance 2. Given $N=n$, spending values are independent with mean 5 and variance 4, and they are independent of $N$. What are the mean and variance of total spending?
+A shop serves a random number of customers $N$ with mean 4 and variance 2. Given $N=n$, spending values are independent with mean 5 and variance 4, and they are independent of $N$. What are the mean and variance of total spending?
 
 ::: {.callout-tip collapse="true" title="Answer"}
 The mean is $5\times 4=20$. The variance is $4\times 4+2\times 5^2=16+50=66$.

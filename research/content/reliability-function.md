@@ -28,7 +28,7 @@ For contrast, a 2-out-of-3 system with identical component probability $0.9$ has
 The gain is $0.1p_1(1-p_2)=0.1(0.9)(0.2)=0.018000$. Reliability rises from $0.846$ to $0.864$.
 :::
 
-**A further exercise.** Two independent components have reliabilities 0.9 and 0.8. What is the system reliability if they are in series, and if they are in parallel?
+Two independent components have reliabilities 0.9 and 0.8. What is the system reliability if they are in series, and if they are in parallel?
 
 ::: {.callout-tip collapse="true" title="Answer"}
 The series reliability is $0.9\times 0.8=0.72$. The parallel reliability is $1-0.1\times 0.2=0.98$.

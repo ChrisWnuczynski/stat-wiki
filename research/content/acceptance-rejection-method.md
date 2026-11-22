@@ -22,7 +22,7 @@ A particular proposal $X=1/4$ has acceptance threshold $3/4$. Thus a uniform val
 The acceptance probability is $1/2$ and the expected number of proposals is two. Two uniforms per proposal give four uniforms per output.
 :::
 
-**A further exercise.** For the beta target with the tight bound $M=3/2$, what is the probability that the first proposal is accepted, and what is the probability that the first acceptance needs more than two proposals?
+For the beta target with the tight bound $M=3/2$, what is the probability that the first proposal is accepted, and what is the probability that the first acceptance needs more than two proposals?
 
 ::: {.callout-tip collapse="true" title="Answer"}
 The acceptance probability is $1/M=2/3$, so the first proposal is accepted with probability $2/3$. The number of proposals is geometric, and $P(N>2)=(1-2/3)^2=1/9$.

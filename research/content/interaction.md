@@ -39,7 +39,7 @@ Consider hypothetical mean yields for two binary settings. Let $\mu_{00}=10$, $\
 The $A$ effect is $11-8=3$ when $B=0$ and $20-13=7$ when $B=1$, so the interaction contrast is $7-3=4$. The $B$ effect at $A=0$ is $13-8=5$. The model is $\mathbb E(Y\mid A,B)=8+3A+5B+4AB$, which gives 20 at $(1,1)$. Omitting the product term would predict $8+3+5=16$ there. The contrast is on the response-mean scale.
 :::
 
-**A further exercise.** Four cell means are $\mu_{00}=2$, $\mu_{10}=5$, $\mu_{01}=4$ and $\mu_{11}=9$. What is the interaction contrast, and what is the effect of moving $A$ from 0 to 1 when $B=1$?
+Four cell means are $\mu_{00}=2$, $\mu_{10}=5$, $\mu_{01}=4$ and $\mu_{11}=9$. What is the interaction contrast, and what is the effect of moving $A$ from 0 to 1 when $B=1$?
 
 ::: {.callout-tip collapse="true" title="Answer"}
 The contrast is $9-4-5+2=2$. The effect of $A$ when $B=1$ is $9-4=5$.

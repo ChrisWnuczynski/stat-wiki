@@ -43,7 +43,7 @@ Consider a hypothetical record of 200 journeys. It rained on 40, 30 journeys wer
 The rainy-and-on-time count is $45-15=30$; the dry-and-late count is $30-15=15$; the dry-and-on-time count is $120-15-30-15=60$. Hence $\mathbb P(\text{late}\mid\text{rain})=15/45=1/3$, $\mathbb P(\text{rain}\mid\text{late})=15/30=1/2$, and $\mathbb P(\text{late}\mid\text{dry})=15/75=1/5$ in this empirical table. The denominators are the sizes of the rain, late, and dry subgroups respectively.
 :::
 
-**A further exercise.** In Dodge's table of 100 cars, 40 are both fast and comfortable, 10 are comfortable but slow, 20 are fast but uncomfortable, and 30 are neither. What is the probability a car is comfortable, given that it is slow?
+In Dodge's table of 100 cars, 40 are both fast and comfortable, 10 are comfortable but slow, 20 are fast but uncomfortable, and 30 are neither. What is the probability a car is comfortable, given that it is slow?
 
 ::: {.callout-tip collapse="true" title="Answer"}
 The slow cars are the 10 comfortable slow cars and the 30 that are neither, so there are 40 slow cars. Among them, 10 are comfortable, and $10/40=1/4$.

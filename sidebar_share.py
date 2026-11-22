@@ -16,6 +16,7 @@ import json
 import os
 import re
 import sys
+from html.parser import HTMLParser
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
@@ -252,8 +253,25 @@ def script_tag(page: Path) -> str:
     return f'<script src="{src}"></script>\n'
 
 
+class _LoaderParser(HTMLParser):
+    """Recognise the external loader without matching inline source or comments."""
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.found = False
+
+    def handle_starttag(self, tag: str, attrs) -> None:
+        if tag == "script":
+            src = dict(attrs).get("src") or ""
+            path = src.split("?", 1)[0].split("#", 1)[0]
+            if path.rsplit("/", 1)[-1] == "sidebar-nav.js":
+                self.found = True
+
+
 def insert_loader(html: str, page: Path) -> str:
-    if "sidebar-nav.js" in html:
+    parser = _LoaderParser()
+    parser.feed(html)
+    if parser.found:
         return html
     marker = "function sidebarRoot"
     at = html.find(marker)

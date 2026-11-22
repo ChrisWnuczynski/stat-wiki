@@ -37,7 +37,7 @@ The mean is one defect and the variance is $4(1/4)(3/4)(16/19)=12/19\approx0.631
 Exactly five defects are found. The mean is five and the variance is zero; the finite-population correction vanishes when $n=N$.
 :::
 
-**A further exercise.** A lot of 10 items contains 4 defectives, and a sample of 2 is drawn without replacement. What is the probability that both items are defective?
+A lot of 10 items contains 4 defectives, and a sample of 2 is drawn without replacement. What is the probability that both items are defective?
 
 ::: {.callout-tip collapse="true" title="Answer"}
 $P(X=2)=\binom{4}{2}/\binom{10}{2}=6/45=2/15$.

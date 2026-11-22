@@ -49,7 +49,7 @@ Try [signs and their sum](../questions/ex-prob-sign-covariance.qmd), then [where
 For the sign question, $\mathbb E X=1/4$, $\mathbb E Y=-1$, and $\mathbb E(XY)=-1$, so $\operatorname{Cov}(X,Y)=-3/4$. For uncorrelated random vectors with common covariance matrix $\Sigma$, expanding deviations from the population mean gives expected centred scatter $(n-1)\Sigma$. Normality is not needed.{{cite:grinstead_snell1997}} (Ch. 6, Exs. 6.2.23, 6.3.17–20)
 :::
 
-**A further exercise.** Suppose $\operatorname{Var}(X)=4$, $\operatorname{Var}(Y)=9$ and $\operatorname{Cov}(X,Y)=3$. What are the correlation of $X$ and $Y$, and the variance of $X+Y$?
+Suppose $\operatorname{Var}(X)=4$, $\operatorname{Var}(Y)=9$ and $\operatorname{Cov}(X,Y)=3$. What are the correlation of $X$ and $Y$, and the variance of $X+Y$?
 
 ::: {.callout-tip collapse="true" title="Answer"}
 The standard deviations are 2 and 3, so the correlation is $3/(2\times 3)=1/2$. The variance of the sum is $4+9+2\times 3=19$.

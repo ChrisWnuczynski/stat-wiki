@@ -34,7 +34,7 @@ At $\mu=2$, the squared residual sum is two, so $v\mid\mu=2,x\sim\operatorname{I
 The precision is $3/4+1/4=1$, hence variance one. The mean is $(3\cdot2/4)/1=1.5$, so the conditional is $N(1.5,1)$.
 :::
 
-**A further exercise.** For the same data and prior, what is the conditional law of $v$ when $\mu=0$?
+For the same data and prior, what is the conditional law of $v$ when $\mu=0$?
 
 ::: {.callout-tip collapse="true" title="Answer"}
 The residual sum of squares is $1+4+9=14$, so $v\mid\mu=0,x\sim\operatorname{InvGamma}(3.5,8)$. Its mean is $8/(3.5-1)=3.2$.
