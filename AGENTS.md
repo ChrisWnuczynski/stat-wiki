@@ -16,8 +16,8 @@ Cursor, Claude, and the research bots maintain this repository. Every change fol
 - Name the branch `<bot>/<type>/<short-purpose>`, for example `cursor/docs/agent-ground-rules` or `dot/fix/infobox-keyboard`. Use a branch for one pull request only.
 - One pull request, one purpose. The title and the description say what changed and why. Put a bulk content batch in a single pull request that names its range.
 - A pull request that combines or continues others says `Supersedes #N` and recommends that Chris close the originals. Do not close them yourself.
-- Merge only after a separate review approves that exact head SHA, the checks are green, and the pull request is mergeable. Squash-merge, then delete the branch.
-- Do not commit scratch files: handoff notes, run logs, reports, baselines, or to-do lists. Put them in the pull request description, or in a folder already listed in `.gitignore` (research drafts go in `research/pending/`).
+- Merge only after a separate, independent review approves the exact current head SHA, all required checks and CI are green, and the pull request is mergeable. Any new-article or gap-batch merge also requires Chris's explicit approval in advance. Squash-merge, then delete the branch.
+- The requested durable `docs/automation/HANDOVER.md`, plans under `docs/automation/plans/`, and their number-check scripts are checked-in project documentation. This does not permit committing live STATE files, private notes, run logs, reports, baselines, to-do lists, or scratch handoff artifacts. Keep those uncommitted or in a folder already listed in `.gitignore` (research drafts go in `research/pending/`). No other unapproved proposal is adopted by this distinction.
 - A daily repo-manager bot labels, comments, and tidies branches that have been merged. Closing pull requests, and deleting work that has not been merged, is left to Chris.
 - If usage runs out or a tool keeps failing, keep unverified work local, record the state, tell Chris once and pause. Push only if the full applicable checklist already passed.
 
@@ -28,7 +28,7 @@ Run the checks that apply to the diff and fix every failure. Do not weaken or sk
 ```
 python build_wiki.py
 python -m unittest discover -p 'test_*.py'
-for f in checks/*.py; do python "$f" || echo "FAIL $f"; done
+for f in checks/*.py; do python "$f" || { echo "FAIL $f" >&2; exit 1; }; done
 python check_overview_links.py
 python verify_citations.py --offline
 quarto render            # when the change affects rendered output
@@ -42,7 +42,7 @@ Also run the Node tests listed in `.github/workflows/publish.yml` when the chang
 
 Chris has said the following. This heading does not attribute any other note to him. Drafts he has not approved are in `docs/automation/HANDOVER.md` under "Proposed, awaiting Chris's approval", and they are not in force.
 
-- Merge only after Peer Review approves the head SHA and CI is green. Do not deploy except by that approved merge.
+- Merge only after independent Peer Review approves the exact current head SHA, all required checks and CI are green, and the PR is mergeable. Any new-article or gap-batch merge also needs Chris's explicit approval in advance. Do not deploy except by that approved merge.
 - `research/content/`, `sources/`, `build_wiki.py` and `.github/workflows/` may be edited through a pull request. `config`, `checks/`, tests and `tools/` are ordinary changes, reviewed like any other, and are not pre-approved.
 
 # Hard limits
