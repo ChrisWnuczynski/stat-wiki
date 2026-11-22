@@ -1486,10 +1486,46 @@ main,
   font-size: 1rem;
 }
 
-#quarto-document-content div.callout-tip .callout-header[aria-expanded="false"] .callout-title-container::after {
+#quarto-document-content div.callout-tip .callout-header[aria-expanded="false"] .callout-title-container::after,
+#quarto-document-content .statwiki-answer-toggle[aria-expanded="false"] .callout-title-container::after {
   content: " (click to show)";
   color: var(--wiki-muted);
   font-weight: 400;
+}
+
+/* Native controls for generated practice answers; retain Quarto's header
+   spacing and chevron, with Bootstrap state on the button alone. */
+#quarto-document-content div.callout-tip.callout > .statwiki-answer-header {
+  padding: 0;
+  margin-bottom: 0;
+}
+
+.statwiki-answer-toggle {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0 0.5em 0 0.85rem;
+  border: 0;
+  border-radius: inherit;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.statwiki-answer-toggle:focus-visible {
+  outline: 3px solid var(--wiki-link);
+  /* The callout scroll container clips an outside ring. */
+  outline-offset: -3px !important;
+}
+
+.statwiki-answer-toggle[aria-expanded="false"] .callout-toggle::before {
+  transform: rotate(-90deg);
+}
+
+.statwiki-answer-toggle[aria-expanded="true"] .callout-toggle::before {
+  transform: none;
 }
 
 /* Inline code in the text colour on a pale panel, not Bootstrap's purple. */
