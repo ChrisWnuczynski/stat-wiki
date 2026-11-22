@@ -2,7 +2,7 @@
 Stationarity describes a distribution that does not change under the transition rule; convergence asks whether other starting distributions approach it.
 
 ## Motivating example
-A weather model predicts tomorrow from today's weather. The initial forecast may depend heavily on today's state, while a long-range forecast may become almost independent of it. The relevant calculation is the distribution after many transitions, not whether one realised weather sequence becomes constant.{{cite:grinstead_snell1997}} (§11.4, fundamental limit theorem)
+A weather model predicts tomorrow from today's weather. The initial forecast may depend heavily on today's state, while a long-range forecast may become almost independent of it. The relevant calculation is the distribution after many transitions, not whether one realised weather sequence becomes constant.{{cite:grinstead_snell1997}} (§11.4, Thm. 11.13, pp. 448–449)
 
 ## Statement
 []{#property-countable-convergence}
@@ -12,7 +12,7 @@ For a finite irreducible aperiodic transition matrix $P$, a unique stationary pr
 ## Intuition — Forgetting the starting state
 The matrix equation $\pi P=\pi$ is an equilibrium condition. It says nothing on its own about the approach to equilibrium. The deterministic two-state cycle has stationary law $(1/2,1/2)$, while a point start alternates forever. Aperiodicity excludes this obstruction.{{cite:durrett2019}} (§5.6, Ex. 5.6.2, p. 311)
 
-On a finite state space, irreducibility and aperiodicity imply that some power $P^m$ has all entries positive. This provides a uniform amount of mixing in a fixed number of steps, even when individual entries of $P$ are zero. It is the regularity condition in the finite-chain fundamental limit theorem.{{cite:grinstead_snell1997}} (§11.4, regular transition matrices)
+On a finite state space, irreducibility and aperiodicity imply that some power $P^m$ has all entries positive. This provides a uniform amount of mixing in a fixed number of steps, even when individual entries of $P$ are zero. It is the regularity condition in the finite-chain fundamental limit theorem.{{cite:grinstead_snell1997}} (§11.3, Def. 11.5, p. 433; §11.4, Thm. 11.13, pp. 448–449)
 
 ## Proof
 Here is a finite-state contraction argument. Let $Q=P^m$ have strictly positive entries, let $c_j=\min_i Q_{ij}$, and set $\varepsilon=\sum_jc_j>0$. If $\varepsilon<1$, every row decomposes as
@@ -23,7 +23,7 @@ where $R$ is stochastic. For two probability row vectors $\mu,\nu$, the common p
 $$
 \|\mu Q-\nu Q\|_1\le(1-\varepsilon)\|\mu-\nu\|_1.
 $$
-A stochastic matrix cannot increase this norm, by the triangle inequality and row sums. Iteration makes the distributions approach one another geometrically along multiples of $m$; the remaining steps also cannot increase their distance. Existence of a stationary law follows by taking a convergent subsequence of the averaged distributions $n^{-1}\sum_{k<n}\mu P^k$ in the compact probability simplex: multiplying an average by $P$ changes it by $(\mu P^n-\mu)/n$, which tends to zero. The contraction proves uniqueness and convergence to that law. If $\varepsilon=1$, all rows of $Q$ are already identical and the same conclusion follows directly.{{cite:grinstead_snell1997}} (§11.4, finite-chain convergence proof){{cite:durrett2019}} (§5.6, Ex. 5.6.3–5.6.4)
+A stochastic matrix cannot increase this norm, by the triangle inequality and row sums. Iteration makes the distributions approach one another geometrically along multiples of $m$; the remaining steps also cannot increase their distance. Existence of a stationary law follows by taking a convergent subsequence of the averaged distributions $n^{-1}\sum_{k<n}\mu P^k$ in the compact probability simplex: multiplying an average by $P$ changes it by $(\mu P^n-\mu)/n$, which tends to zero. The contraction proves uniqueness and convergence to that law. If $\varepsilon=1$, all rows of $Q$ are already identical and the same conclusion follows directly.{{cite:grinstead_snell1997}} (§11.4, Thm. 11.13, pp. 448–449){{cite:durrett2019}} (§5.6, Thm. 5.6.6, pp. 313–314)
 
 ## Generalizations — Time proportions and infinite spaces
 []{#property-ergodic-proportions}
@@ -43,8 +43,18 @@ a_n-\frac23=0.4^n\left(a_0-\frac23\right).
 $$
 Starting wet means $a_0=0$, so $a_2=0.56$ and $a_5=2062/3125=0.65984$. The total variation distance after five steps is $|a_5-2/3|=64/9375\approx0.006827$.
 
+The factor $0.4$ is this chain's second eigenvalue, and it equals $P_{11}-P_{21}$. Each further day multiplies the distance from the stationary dry-day probability $2/3$ by $0.4$, which is why five steps from a wet start leave a gap of only $64/9375$. The same closed form with a dry start, $a_0=1$, approaches $2/3$ from above. Either state can be reached from the other in one step, and each state can stay put, so the chain is irreducible and aperiodic.
+
+A positive power of $P$ is sufficient for convergence, but is not necessary for every finite chain: the matrix with both rows equal to $(1,0)$ already sends every starting distribution to $(1,0)$ in one step. For a two-state chain, the deviation from stationarity is multiplied by $P_{11}-P_{21}$ at each step. Its absolute value must be less than one for convergence to the same stationary law from every starting distribution; the factor itself may be negative. For example, the positive matrix with rows $(0.2,0.8)$ and $(0.8,0.2)$ has factor $-0.6$, so the deviations alternate in sign while their magnitudes decrease.{{cite:grinstead_snell1997}} (§11.4, Thm. 11.13, pp. 448–449)
+
 **Your turn.** If the chain starts dry instead, find the dry probability after five transitions.
 
 ::: {.callout-tip collapse="true" title="Answer"}
 Use $a_0=1$, giving $a_5=2/3+(1/3)(0.4)^5=0.67008$. Both starts approach the same limit from opposite sides.
+:::
+
+For a second two-state chain, suppose the transition probabilities are $P_{11}=1/2$, $P_{12}=1/2$, $P_{21}=1/5$ and $P_{22}=4/5$. Find the unique stationary distribution.
+
+::: {.callout-tip collapse="true" title="Answer"}
+The balance equation $\pi_1=(1/2)\pi_1+(1/5)\pi_2$ with $\pi_2=1-\pi_1$ gives $(7/10)\pi_1=1/5$, so $\pi=(2/7,5/7)$.
 :::

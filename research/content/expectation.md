@@ -37,10 +37,28 @@ A fair die game costs 2 dollars to enter and pays 8 dollars only when a six is t
 The net gain is $4.50$ with probability $1/3$ and $-1.50$ with probability $2/3$. Thus $\mathbb{E}X=4.50(1/3)-1.50(2/3)=0.50$ dollar.
 :::
 
-Try [the wait for double six](../questions/ex-prob-double-six-wait.qmd), then [a spike that keeps its mean](../questions/ex-sp-spike.qmd). The first uses a geometric waiting time; the second tests whether convergence in probability is enough to force expectations to converge.
+Two fair dice are thrown until both faces are six; the expected number of throws is the mean of that geometric wait. For the spike $X_n=n\mathbf1_{\{U\leq1/n\}}$ with $U$ uniform on $(0,1)$, the probability $\mathrm{P}(X_n>\varepsilon)$, the expectation $\mathbb{E}X_n$, and the second moment $\mathbb{E}X_n^2$ decide which modes of convergence to $0$ hold.
 
 ::: {.callout-tip collapse="true" title="Answers"}
 The chance of double six on each independent throw is $1/36$, so the geometric waiting time has expectation $36$ throws. For the spike $X_n=n\mathbf1_{\{U\leq1/n\}}$ with uniform $U$, $\mathbb{E}X_n=n(1/n)=1$ although $X_n$ converges to zero in probability and almost surely; moreover $\mathbb{E}X_n^2=n$. Thus neither $L^1$ nor $L^2$ convergence holds.{{cite:grinstead_snell1997}} (Ch. 6, §6.1)
+:::
+
+**Your turn.** A fair coin pays 3 dollars on heads and 1 dollar on tails. What is the expected payment?
+
+::: {.callout-tip collapse="true" title="Answer"}
+Each face has probability $1/2$, so the expectation is $(3+1)/2=2$ dollars.
+:::
+
+**Your turn.** An event has probability 0.4. What is the expectation of its indicator?
+
+::: {.callout-tip collapse="true" title="Answer"}
+The indicator equals 1 when the event occurs and 0 otherwise, so its expectation equals the probability, 0.4.
+:::
+
+**Your turn.** Suppose $\mathbb{E}X=2$ and $\mathbb{E}Y=5$. What is $\mathbb{E}(3X-Y)$?
+
+::: {.callout-tip collapse="true" title="Answer"}
+Linearity gives $3\times 2-5=1$. The calculation does not require $X$ and $Y$ to be independent.
 :::
 
 ## Common misconceptions

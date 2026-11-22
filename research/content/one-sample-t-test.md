@@ -24,6 +24,12 @@ The point estimate of the excess is $0.600$ unit. A one-sided 95% lower bound is
 The statistic is $(12.6-12.3)/0.3=1.000$. Its upper-tail probability on 15 degrees of freedom is $0.166585$, so the level-0.05 procedure does not reject.
 :::
 
+Nine independent observations have sample mean 5 and sample standard deviation 3. For an upper-tailed test of mean 4, what are the statistic and its degrees of freedom?
+
+::: {.callout-tip collapse="true" title="Answer"}
+The standard error is $3/\sqrt{9}=1$, so $T=(5-4)/1=1$ on $9-1=8$ degrees of freedom.
+:::
+
 ## Assumptions and limits — Exact calibration is conditional on independence
 The sample standard deviation is not a substitute for checking how observations were generated. Serial dependence, repeated observations on a subject, informative missingness or a selected stopping time can change the distribution of the statistic. Paired observations can often be handled by applying a one-sample test to independent pair differences, whereas a clustered design needs a standard error appropriate to the cluster structure.{{cite:openintro2019}} (§§7.1.2, 7.2.2)
 

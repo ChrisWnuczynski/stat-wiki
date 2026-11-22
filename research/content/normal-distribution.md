@@ -54,3 +54,9 @@ If four independent measurements follow the same $\operatorname N(50,10^2)$ mode
 
 **Answer.** The average has variance $10^2/4$ and standard deviation 5. Thus $P(\overline X>60)=1-\Phi(2)\approx0.02275$. Doubling the number of observations from two to four multiplies the average's standard deviation by $1/\sqrt2$.{{cite:siegrist2022_normals}} (§6.08, “The One Sample Model”)
 :::
+
+Let $X\sim N(10,4)$, so the second parameter is the variance. What is the standard score of 14, and which standard-normal probability equals $P(X\le 14)$?
+
+::: {.callout-tip collapse="true" title="Answer"}
+The standard deviation is 2, so the standard score is $(14-10)/2=2$. Therefore $P(X\le 14)=\Phi(2)$.
+:::

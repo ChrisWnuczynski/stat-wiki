@@ -488,6 +488,8 @@ a.term:hover {
   margin: 0;
   border: 0;
   font-size: 0.85rem;
+  /* Fixed layout keeps the table inside the box. The label column is wide
+     enough for its longest word, and only the value column scrolls. */
   table-layout: fixed;
 }
 
@@ -501,17 +503,33 @@ a.term:hover {
   padding: 0.28rem 0.3rem !important;
   vertical-align: top;
   background: transparent !important;
-  overflow-x: auto;
-  max-width: 0;
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: manual;
+}
+
+.infobox th {
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: manual;
 }
 
 .infobox td:first-child {
   font-weight: 600;
-  width: 34%;
+  width: 8.75rem;
+  min-width: 8.75rem;
   max-width: none;
   white-space: normal;
-  overflow: hidden;
-  overflow-wrap: break-word;
+  overflow: visible;
+  overflow-wrap: normal;
+  word-break: normal;
+  /* lang=en is set on the document, so a long single word can hyphenate. */
+  hyphens: auto;
+}
+
+.infobox td:last-child {
+  overflow-x: auto;
+  max-width: 0;
 }
 
 .infobox .katex {
@@ -542,7 +560,9 @@ a.term:hover {
 .theorem.can-scroll-x,
 .infobox.can-scroll-x,
 .infobox td.can-scroll-x,
-.qtable.can-scroll-x {
+.qtable.can-scroll-x,
+.qtable table.can-scroll-x,
+main table.can-scroll-x {
   box-shadow: inset -18px 0 14px -6px rgba(0, 0, 0, 0.45);
 }
 
@@ -551,8 +571,65 @@ body.quarto-dark .callout.can-scroll-x,
 body.quarto-dark .theorem.can-scroll-x,
 body.quarto-dark .infobox.can-scroll-x,
 body.quarto-dark .infobox td.can-scroll-x,
-body.quarto-dark .qtable.can-scroll-x {
+body.quarto-dark .qtable.can-scroll-x,
+body.quarto-dark .qtable table.can-scroll-x,
+body.quarto-dark main table.can-scroll-x {
   box-shadow: inset -18px 0 14px -6px rgba(255, 255, 255, 0.55);
+}
+
+/* Compact summaries are enabled only after their native control is ready. */
+.infobox.is-compact {
+  float: none;
+  width: 100%;
+  max-width: none;
+  margin: 0 0 0.75rem;
+}
+
+/* Keep the table's width measurable, but remove the closed body's height,
+   visibility and focus targets. The script also applies inert and aria-hidden. */
+.infobox.is-compact:not(.is-open) > .infobox-body {
+  max-height: 0;
+  overflow: hidden;
+  visibility: hidden;
+}
+
+#quarto-document-content .infobox h2.infobox-title {
+  margin: 0;
+  border: 0;
+  font-size: 1.15rem;
+  line-height: inherit;
+}
+
+.infobox-title p {
+  margin: 0;
+}
+
+.infobox-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  color: var(--wiki-text);
+  background: transparent;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.infobox-toggle[hidden],
+.infobox-label[hidden] {
+  display: none;
+}
+
+.infobox-cue {
+  flex: none;
+  color: var(--wiki-text);
+  font-family: -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
 }
 
 /* A 21rem float leaves a readable column only while the article is wide.
