@@ -32,23 +32,37 @@ The divisor $n$ in the variance, rather than $\sum_i\tau_{ik}$, is the maximum-l
 
 Old Faithful's `faithful` table has one row per eruption. `waiting` is the time, in minutes, until the next eruption. The histogram is bimodal. A two-normal mixture is a model for that shape. It is not evidence that the geyser has two mechanisms, and successive eruptions are not independent, so the likelihood treated below as a product is already an approximation. The starting values are for the arithmetic. The iteration may converge to a local rather than global maximum.
 
+Initialise the parameters once.
+
 ```r
 x <- datasets::faithful$waiting
 mu_old <- as.numeric(stats::quantile(x, c(0.25, 0.75)))
 pi_old <- c(0.5, 0.5)
 var_old <- stats::var(x)
-weighted_density <- sapply(1:2, function(k) {
-  pi_old[k] * dnorm(x, mu_old[k], sqrt(var_old))
-})
-tau <- weighted_density / rowSums(weighted_density)
-pi_new <- colMeans(tau)
-mu_new <- colSums(tau * x) / colSums(tau)
-var_new <- sum(tau * cbind((x - mu_new[1])^2, (x - mu_new[2])^2)) / length(x)
-data.frame(component = 1:2, mixing = pi_new, mean = mu_new,
-           shared_sd = sqrt(var_new))
 ```
 
-`rowSums(weighted_density)` is the mixture density at each point, up to the fact that both components use the same variance. Dividing by it produces $\tau_{i1}$ and $\tau_{i2}$ in the two columns, and each row sums to 1. `colMeans(tau)` is the updated weight. The updated means are weighted averages. The updated variance uses every point against both new means, weighted by the responsibilities. Running the block again with `mu_old <- mu_new` and `pi_old <- pi_new` is another iteration. The observed-data likelihood should not decrease. If it does, the update was not the M step written above.
+The loop performs two complete EM iterations. Each iteration displays the updated weights, means and shared standard deviation, then carries all three parameter updates into the next E step.
+
+```r
+for (iteration in 1:2) {
+  weighted_density <- sapply(1:2, function(k) {
+    pi_old[k] * dnorm(x, mu_old[k], sqrt(var_old))
+  })
+  tau <- weighted_density / rowSums(weighted_density)
+  pi_new <- colMeans(tau)
+  mu_new <- colSums(tau * x) / colSums(tau)
+  var_new <- sum(tau * cbind((x - mu_new[1])^2, (x - mu_new[2])^2)) / length(x)
+  print(data.frame(iteration = iteration, component = 1:2,
+                   mixing = pi_new, mean = mu_new, shared_sd = sqrt(var_new)))
+  pi_old <- pi_new
+  mu_old <- mu_new
+  var_old <- var_new
+}
+```
+
+`rowSums(weighted_density)` is exactly the mixture density at each observation under the stated shared-variance model, apart from floating-point rounding. Dividing by it produces $\tau_{i1}$ and $\tau_{i2}$ in the two columns, and each row sums to 1 up to rounding. `colMeans(tau)` gives the updated weights. The updated means are weighted averages. The updated variance uses every point against both new means, weighted by the responsibilities. Rerunning only the loop continues from the current parameters; rerunning the initialisation restarts the calculation.
+
+In exact arithmetic, each complete EM iteration cannot decrease the observed-data likelihood under this model. Equality is possible, so strict improvement is not guaranteed. Floating-point calculations can introduce small numerical variation; a decrease beyond rounding calls for checking the calculation. Non-decreasing likelihood does not guarantee convergence to the global maximum.
 
 A single start can stop at a local mode. Several starts, some of them from random splits of the sample, are part of the fit. A component that receives almost no weight, or a variance that is tiny beside the gap between the means, is a warning, not a discovery of a rare group.
 
