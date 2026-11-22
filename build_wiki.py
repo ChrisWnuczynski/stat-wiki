@@ -3219,7 +3219,7 @@ PREVIEW_JS = r"""<div id="wiki-preview" role="tooltip" hidden></div>
     for (var i = 0; i < nodes.length && used < limit; i++) {
       var n = nodes[i];
       if (n.nodeType !== 1) continue;
-      if (n.matches(".hatnote, .callout, #worked-answer, .qtable, .infobox, .mainarticle, .topic-navbox, .wiki-categories, .cite-this-page, script, nav, details, h1, h2, h3, header, .quarto-title-block, #title-block-header, .glossary-jump, .qfilter")) continue;
+      if (n.matches(".hatnote, .callout, .statwiki-generated-check-answer, #worked-answer, .qtable, .infobox, .mainarticle, .topic-navbox, .wiki-categories, .cite-this-page, script, nav, details, h1, h2, h3, header, .quarto-title-block, #title-block-header, .glossary-jump, .qfilter")) continue;
       if (!n.textContent.trim() && !n.querySelector("img, .math")) continue;
       out.appendChild(n.cloneNode(true));
       used += n.textContent.length;
@@ -5603,8 +5603,9 @@ def self_check_section(article: dict, qmap: dict) -> str:
             parts.append(
                 f"\n### {title} {{#self-check-{article['slug']}-{n}}}\n\n"
                 f"{qid['prompt'].strip()}\n\n"
+                f":::::::::: {{.statwiki-generated-check-answer}}\n\n"
                 f":::::::: {{.callout-tip collapse=\"true\" title=\"Answer\"}}\n\n"
-                f"{qid['answer'].strip()}\n\n::::::::\n"
+                f"{qid['answer'].strip()}\n\n::::::::\n\n::::::::::\n"
             )
             continue
         q = qmap[qid]
@@ -5614,8 +5615,9 @@ def self_check_section(article: dict, qmap: dict) -> str:
             f"\n### {q['title']} {{#self-check-{qid}}}\n\n"
             f"[Question-bank page]({href(path, q['path'])})\n\n"
             f"{body}\n\n"
+            f":::::::::: {{.statwiki-generated-check-answer}}\n\n"
             f":::::::: {{.callout-tip collapse=\"true\" title=\"Answer\"}}\n\n"
-            f"{answer}\n\n::::::::\n"
+            f"{answer}\n\n::::::::\n\n::::::::::\n"
         )
     return "".join(parts)
 
@@ -5828,7 +5830,10 @@ def chapter_infobox(note: dict, part: str, siblings: list[dict], own: list[dict]
 
 
 CHECK_GAPS: list[str] = []
-_CALLOUT_OPEN = re.compile(r"(?m)^(:{3,})[ \t]*\{[^\n]*\bcallout\b[^\n]*\}[ \t]*$")
+_CALLOUT_OPEN = re.compile(
+    r"(?m)^(:{3,})[ \t]*\{[^\n]*\bcallout\b[^\n]*\}[ \t]*$"
+    r"|^(:{10}) \{\.statwiki-generated-check-answer\}$"
+)
 
 
 def _callout_key(body: str) -> str:
@@ -5852,13 +5857,23 @@ def _iter_callouts(text: str):
             break
         if match.start() > pos:
             yield ("text", text[pos : match.start()])
-        fence = match.group(1)
+        fence = match.group(1) or match.group(2)
         close = re.search(rf"(?m)^{re.escape(fence)}[ \t]*$", text[match.end() :])
         if not close:
             yield ("text", text[match.start() :])
             break
         end = match.end() + close.end()
-        yield ("callout", text[match.start() : end], text[match.end() : match.end() + close.start()])
+        body = text[match.end() : match.end() + close.start()]
+        if match.group(2):
+            # Only this generated wrapper is atomic: dedupe the original
+            # inner answer, but keep/drop/park its provenance with it.
+            inner = list(_iter_callouts(body.strip()))
+            if len(inner) != 1 or inner[0][0] != "callout":
+                yield ("text", text[match.start() : end])
+                pos = end
+                continue
+            body = inner[0][2]
+        yield ("callout", text[match.start() : end], body)
         pos = end
 
 
@@ -5879,14 +5894,21 @@ def _strip_duplicate_callouts(text: str, seen: set[str], also_drop: set[str] | N
 
 
 def _split_h3(text: str) -> tuple[str, list[str]]:
-    parts = re.split(r"(?m)^(### [^\n]*)$", text)
-    intro = parts[0]
-    sections: list[str] = []
-    i = 1
-    while i + 1 < len(parts):
-        sections.append(parts[i] + "\n" + parts[i + 1])
-        i += 2
-    return intro, sections
+    headings: list[tuple[int, int]] = []
+    offset = 0
+    for item in _iter_callouts(text):
+        # An answer's own headings are not new practice questions. Keep just
+        # the named generated wrapper atomic; authored blocks keep their split.
+        if not item[1].startswith(":::::::::: {.statwiki-generated-check-answer}\n"):
+            headings.extend((offset + m.start(), offset + m.end())
+                            for m in re.finditer(r"(?m)^### [^\n]*$", item[1]))
+        offset += len(item[1])
+    if not headings:
+        return text, []
+    return text[:headings[0][0]], [
+        text[start:end] + "\n" + text[end:headings[i + 1][0] if i + 1 < len(headings) else len(text)]
+        for i, (start, end) in enumerate(headings)
+    ]
 
 
 _PROMPT_LINE = re.compile(r"^(?:\*\*\d+\.\*\*|\d+\. )")
@@ -5953,8 +5975,9 @@ def _render_bank_check(article: dict, question: dict) -> str:
         f"\n### {question['title']} {{#self-check-{question['id']}}}\n\n"
         f"[Question-bank page]({href(path, question['path'])})\n\n"
         f"{body}\n\n"
+        f":::::::::: {{.statwiki-generated-check-answer}}\n\n"
         f":::::::: {{.callout-tip collapse=\"true\" title=\"Answer\"}}\n\n"
-        f"{answer}\n\n::::::::\n"
+        f"{answer}\n\n::::::::\n\n::::::::::\n"
     )
 
 
@@ -6031,7 +6054,10 @@ def balance_check_yourself(article: dict, blocks: list[tuple[bool, str, str]], q
     blocks = rewritten
     for ids, callout in parked:
         inner = callout.strip()
-        key = _callout_key(inner)
+        comparison = inner
+        if inner.startswith(":::::::::: {.statwiki-generated-check-answer}\n"):
+            comparison = inner.split("\n", 1)[1].rsplit("\n", 1)[0].strip()
+        key = _callout_key(comparison)
         placed = False
         for index, (flag, label, text) in enumerate(blocks):
             if not (label.startswith("example") or label in {"worked-example", "examples"}):
