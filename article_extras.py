@@ -4118,7 +4118,9 @@ $$
 \operatorname{Var}(X_{t+h}-X_t)=2(\gamma_0-\gamma_h).
 $$
 
-The right-hand side depends on the two times only through the lag $h$. A variogram that rises and then levels off at $2\gamma_0$ belongs to a stationary series: at long lags the two values are uncorrelated, and the variance of their difference is twice the marginal variance. Some plots show half of this quantity, so the factor of $2$ has to be checked before two pictures are compared.
+The right-hand side depends on the two times only through the lag $h$. For a weakly stationary series whose autocovariance $\gamma_h$ tends to zero as $|h|$ grows, the increment variance therefore tends to $2\gamma_0$. Weak stationarity alone does not require this decay, and a plateau does not imply stationarity of the levels. Some plots show half of this quantity, so the factor of $2$ has to be checked before two pictures are compared.
+
+For example, let $\{\varepsilon_j:j\in\mathbb{Z}\}$ be independent and identically distributed with mean zero and variance $0<\sigma^2<\infty$, and set $X_t=\varepsilon_0+\varepsilon_t$. For every nonzero integer lag $h$, cancellation gives $X_{t+h}-X_t=\varepsilon_{t+h}-\varepsilon_t$. The two remaining terms are independent, so this increment has mean zero and variance $2\sigma^2$, including when $t=0$ or $t+h=0$. The variogram is thus constant at every nonzero lag. However, $X_0=2\varepsilon_0$ has variance $4\sigma^2$, whereas $X_t$ has variance $2\sigma^2$ for $t\ne0$. The levels are not weakly stationary.
 
 ## A level variance that need not exist
 
