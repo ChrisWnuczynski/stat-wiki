@@ -24,7 +24,9 @@ For one further Bernoulli trial $Y$, the posterior predictive chance of success 
 ::: {.proof}
 The prior density is $p(\theta)=\theta^{\alpha-1}(1-\theta)^{\beta-1}/B(\alpha,\beta)$ for $0<\theta<1$, where $B(a,b)=\int_0^1t^{a-1}(1-t)^{b-1}\,dt$. For $X=x$, the binomial likelihood is ${n\choose x}\theta^x(1-\theta)^{n-x}$. Their product is proportional to $\theta^{\alpha+x-1}(1-\theta)^{\beta+n-x-1}$. Because $\alpha+x>0$ and $\beta+n-x>0$, its integral is the finite beta function $B(\alpha+x,\beta+n-x)$. Dividing by that integral proves that $\theta\mid X=x\sim\operatorname{Beta}(\alpha+x,\beta+n-x)$. The same multiplication with separate likelihoods for two conditionally independent batches adds both sets of exponents and proves the sequential result{{cite:diaconis_ylvisaker1979}} (§1, pp. 269–270, beta-binomial example).
 
-Finally, for one future Bernoulli $Y$, conditional expectation gives $\Pr(Y=1\mid x)=\int_0^1\theta p(\theta\mid x)\,d\theta=B(\alpha+x+1,\beta+n-x)/B(\alpha+x,\beta+n-x)=(\alpha+x)/(\alpha+\beta+n)$. This integral makes clear why a posterior predictive probability averages across uncertain rates. {{cite:dodge2008}} (p. 40, beta mean)::::::
+Finally, for one future Bernoulli $Y$, conditional expectation gives $\Pr(Y=1\mid x)=\int_0^1\theta p(\theta\mid x)\,d\theta=B(\alpha+x+1,\beta+n-x)/B(\alpha+x,\beta+n-x)=(\alpha+x)/(\alpha+\beta+n)$. This integral makes clear why a posterior predictive probability averages across uncertain rates. {{cite:dodge2008}} (p. 40, beta mean)
+:::
+:::
 
 ## Generalizations
 
