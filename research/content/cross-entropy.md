@@ -32,7 +32,9 @@ For a tree split, the parent node's empirical proportions are a weighted average
 ::: {.proof}
 For positive $q_k$ wherever $p_k>0$, subtract $H(P)$ from $H(P,Q)$ to get $D_{\mathrm{KL}}(P\|Q)=\sum_{p_k>0}p_k\log(p_k/q_k)$. The inequality $-\log t\ge1-t$ applied to $t=q_k/p_k$ gives $D_{\mathrm{KL}}\ge\sum_{p_k>0}(p_k-q_k)\ge0$. Equality requires $q_k=p_k$ on the support of $P$ and no $Q$ mass outside it, hence $Q=P$. If a relevant $q_k$ is zero, the loss is infinite. This proves both the decomposition and the minimizing forecast.{{cite:goodfellow_bengio_courville2016}} (Ch. 3, §3.13, pp. 71–73)
 
-For one-hot $y$, $\ell=-\sum_k y_k\log s_k=\log\sum_l e^{z_l}-\sum_k y_k z_k$ because $\sum_k y_k=1$. Differentiating gives $\partial\ell/\partial z_j=e^{z_j}/\sum_l e^{z_l}-y_j=s_j-y_j$. For a tree node, $H(p)$ is concave because each $-p_k\log p_k$ has second derivative $-1/p_k<0$ for positive $p_k$, with continuous boundary values. Jensen's inequality applied to the parent as a weighted mixture of its two children proves nonnegative information gain. A different logarithm base multiplies the entire expression by a positive constant, preserving its ordering. {{cite:goodfellow_bengio_courville2016}} (Ch. 5, §5.5, p. 130)::::::
+For one-hot $y$, $\ell=-\sum_k y_k\log s_k=\log\sum_l e^{z_l}-\sum_k y_k z_k$ because $\sum_k y_k=1$. Differentiating gives $\partial\ell/\partial z_j=e^{z_j}/\sum_l e^{z_l}-y_j=s_j-y_j$. For a tree node, $H(p)$ is concave because each $-p_k\log p_k$ has second derivative $-1/p_k<0$ for positive $p_k$, with continuous boundary values. Jensen's inequality applied to the parent as a weighted mixture of its two children proves nonnegative information gain. A different logarithm base multiplies the entire expression by a positive constant, preserving its ordering. {{cite:goodfellow_bengio_courville2016}} (Ch. 5, §5.5, p. 130)
+:::
+:::
 
 ## Statistical use — Scoring predicted probabilities
 
