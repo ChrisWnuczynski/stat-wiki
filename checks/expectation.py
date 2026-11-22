@@ -13,6 +13,11 @@ if __name__ == "__main__":
     assert sum(range(1, 7)) / 6 == Fraction(7, 2)
     assert Fraction(1, 6) * 6 + Fraction(5, 6) * -2 == Fraction(-2, 3)
     assert Fraction(1, 3) * Fraction(9, 2) + Fraction(2, 3) * Fraction(-3, 2) == Fraction(1, 2)
+    assert Fraction(3, 2) + Fraction(1, 2) == 2
+    assert Fraction(4, 10) == Fraction(2, 5)
+    assert 3 * 2 - 5 == 1
+    for printed in ("(3+1)/2=2", "probability, 0.4", "3\\times 2-5=1"):
+        assert printed in prose, printed
     assert Fraction(1, 36) * 36 == 1
     assert Fraction(1, 36) ** -1 == 36
     assert 2 * Fraction(1, 3) + 5 * Fraction(1, 6) == Fraction(3, 2)
