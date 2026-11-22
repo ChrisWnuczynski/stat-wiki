@@ -41,6 +41,70 @@
 })();
 </script>
 <script>
+/* Quarto 1.6.40 emits a click-only DIV for collapsed callouts. Enhance only
+   generated practice answers in Check yourself and standalone Worked answers.
+   Bootstrap keeps ownership of collapse state and its transition lifecycle. */
+(function () {
+  document.addEventListener("DOMContentLoaded", function () {
+    var callouts = document.querySelectorAll(
+      "#check-yourself .statwiki-generated-check-answer > .callout-tip, #worked-answer.callout-tip"
+    );
+    for (var i = 0; i < callouts.length; i++) {
+      var header = callouts[i].querySelector(':scope > div.callout-header[data-bs-toggle="collapse"]');
+      if (!header) continue;
+      var title = header.querySelector(".callout-title-container");
+      var name = title && title.textContent.replace(/\s+/g, " ").trim();
+      if (!name) continue;
+      // The pinned output uses DIV wrappers and phrasing content. If a future
+      // title contains a link, control, or other content, leave it untouched.
+      var descendants = header.querySelectorAll("*");
+      var safe = true;
+      for (var j = 0; j < descendants.length; j++) {
+        var node = descendants[j];
+        if (!/^(DIV|SPAN|I|B|EM|STRONG|SMALL|SUB|SUP|CODE|ABBR|BR|WBR|S|U|MARK|KBD|SAMP|VAR)$/.test(node.tagName) ||
+            node.hasAttribute("tabindex") || node.hasAttribute("contenteditable") || node.hasAttribute("role")) {
+          safe = false;
+          break;
+        }
+      }
+      if (!safe) continue;
+      var button = document.createElement("button");
+      button.type = "button";
+      button.className = "statwiki-answer-toggle";
+      button.setAttribute("aria-label", name);
+      // Convert only header wrappers, on a detached copy. The answer body,
+      // target ID/class, links and anchors remain in their original nodes.
+      var content = header.cloneNode(true);
+      var wrappers = content.querySelectorAll("div");
+      for (var k = 0; k < wrappers.length; k++) {
+        var span = document.createElement("span");
+        for (var a = 0; a < wrappers[k].attributes.length; a++) {
+          var attr = wrappers[k].attributes[a];
+          span.setAttribute(attr.name, attr.value);
+        }
+        while (wrappers[k].firstChild) span.appendChild(wrappers[k].firstChild);
+        wrappers[k].replaceWith(span);
+      }
+      while (content.firstChild) button.appendChild(content.firstChild);
+      var attributes = ["data-bs-toggle", "data-bs-target", "aria-controls", "aria-expanded"];
+      for (var n = 0; n < attributes.length; n++) {
+        if (header.hasAttribute(attributes[n])) {
+          button.setAttribute(attributes[n], header.getAttribute(attributes[n]));
+          header.removeAttribute(attributes[n]);
+        }
+      }
+      if (header.classList.contains("collapsed")) button.classList.add("collapsed");
+      header.classList.remove("collapsed");
+      header.removeAttribute("aria-label");
+      header.removeAttribute("role");
+      header.removeAttribute("tabindex");
+      header.classList.add("statwiki-answer-header");
+      header.replaceChildren(button);
+    }
+  });
+})();
+</script>
+<script>
 /* The first thing in the body: give it the dark-mode class straight away when
    _theme-head.html found dark mode saved, so the page is drawn dark. */
 if (document.documentElement.classList.contains("wiki-dark")) document.body.classList.add("quarto-dark");
