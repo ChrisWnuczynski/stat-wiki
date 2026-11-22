@@ -84,7 +84,13 @@ class InfoboxKeyboardTests(unittest.TestCase):
         # Resizing a focused body link into the closed compact range moves
         # focus to its control, without leaving focus inside an inert subtree.
         page.set_viewport_size({"width": 1366, "height": 800})
+        page.wait_for_function("""() =>
+            window.innerWidth === 1366 &&
+            !document.querySelector('.infobox').classList.contains('is-compact') &&
+            !document.querySelector('.infobox-body').inert
+        """)
         body.locator('a').focus()
+        self.assertTrue(body.locator('a').evaluate("el => el === document.activeElement"))
         page.set_viewport_size({"width": 1024, "height": 800})
         page.wait_for_function("document.activeElement.matches('.infobox-toggle')")
         page.keyboard.press("Enter")
