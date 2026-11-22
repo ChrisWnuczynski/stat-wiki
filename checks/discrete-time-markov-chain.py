@@ -1,7 +1,12 @@
 """Check the two-state chain arithmetic."""
+
+import sys
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from tools.shown import shown
 root = Path(__file__).resolve().parents[1]
 content = (root / "research/content/discrete-time-markov-chain.md").read_text()
+content = shown(content, "discrete-time-markov-chain")
 article = root / "articles/discrete-time-markov-chain.qmd"
 page = article.read_text().split("## See also", 1)[0] if article.is_file() else content
 

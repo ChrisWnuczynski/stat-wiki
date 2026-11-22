@@ -33,21 +33,8 @@ A random walk observed at $12$ has point forecasts equal to $12$ at every horizo
 **Your turn.** An ARIMA$(1,0,0)$ model with no extra constant is $y_t=0.5 y_{t-1}+\varepsilon_t$. The last observation is $4$. Find the one-step and two-step point forecasts.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The one-step forecast is $0.5\times 4=2$. The two-step forecast replaces the unknown next level by that forecast, giving $0.5\times 2=1$.$)
+The one-step forecast is $0.5\times 4=2$. The two-step forecast replaces the unknown next level by that forecast, giving $0.5\times 2=1$.
 :::
 
 ## Connections
 The autoregressive and moving-average pieces are the stationary ARMA model; the extra order $d$ is what ARIMA adds when the levels wander. A seasonal difference $y_t-y_{t-m}$ is the same idea at lag $m$. Forecasting then rebuilds the level from the differenced forecast, and the prediction variance grows with the horizon because each new step adds innovation variance.{{cite:hyndman_athanasopoulos2021}} (§9.1, seasonal differencing; §9.5){{cite:dodge2008}} (p. 20, AR and MA)
-
-## Check yourself
-**1.** Which ARIMA orders, and what constant, give a random walk with drift $c$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The differences have mean $c$ and no further autoregressive or moving-average terms, so the model is ARIMA$(0,1,0)$ with constant $c$.
-:::
-
-**2.** Second differences of a series satisfy $y''_t=y_t-2y_{t-1}+y_{t-2}$. How many observations are lost relative to the original length $T$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-Each difference drops one time point, so two differences leave $T-2$ values. In practice it is rarely useful to difference more than twice.
-:::

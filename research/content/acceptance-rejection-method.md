@@ -22,6 +22,12 @@ A particular proposal $X=1/4$ has acceptance threshold $3/4$. Thus a uniform val
 The acceptance probability is $1/2$ and the expected number of proposals is two. Two uniforms per proposal give four uniforms per output.
 :::
 
+For the beta target with the tight bound $M=3/2$, what is the probability that the first proposal is accepted, and what is the probability that the first acceptance needs more than two proposals?
+
+::: {.callout-tip collapse="true" title="Answer"}
+The acceptance probability is $1/M=2/3$, so the first proposal is accepted with probability $2/3$. The number of proposals is geometric, and $P(N>2)=(1-2/3)^2=1/9$.
+:::
+
 ## Assumptions and limits — Tail control comes before tuning
 For an unnormalised target $h$, a known bound $h\le Cg$ is enough to implement the acceptance decision. Its acceptance probability becomes $Z/C$, where $Z=\int h$; the sampler need not know $Z$, although a finite positive $Z$ is needed for a target probability law. Multiplying many one-dimensional envelopes in a high-dimensional problem can make the total acceptance probability very small. This concerns efficiency, whereas using an invalid envelope concerns the probability law itself. A transformation method is often preferable when a tractable inverse distribution function is available.{{cite:downey2014_thinkstats2}} (Ch. 5, “Generating random numbers”)
 

@@ -1,8 +1,13 @@
 """Check one AdaBoost round."""
-from math import exp, log, sqrt
+
+import sys
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from tools.shown import shown
+from math import exp, log, sqrt
 root = Path(__file__).resolve().parents[1]
 content = (root / "research/content/adaboost.md").read_text()
+content = shown(content, "adaboost")
 article = root / "articles/adaboost.qmd"
 page = article.read_text().split("## See also", 1)[0] if article.is_file() else content
 

@@ -33,6 +33,12 @@ Suppose three teaching methods produce scores $A=(7,8,9)$, $B=(8,9,10)$ and $C=(
 The group means are $5$ and $7$, and the grand mean is $6$. The treatment sum of squares is $3(5-6)^2+3(7-6)^2=6$. Each group's within sum is $1+0+1=2$, so error sum is $4$ on $6-2=4$ degrees of freedom. Therefore $F=(6/1)/(4/4)=6$. The pooled variance is $s_p^2=1$, so $T=(5-7)/\sqrt{1(1/3+1/3)}=-\sqrt6\approx-2.449490$ and $T^2=6=F$.
 :::
 
+Three groups have observations $(1,3)$, $(2,2)$ and $(5,5)$. Compute the treatment sum of squares, the error sum of squares, and $F$.
+
+::: {.callout-tip collapse="true" title="Answer"}
+The group means are 2, 2 and 5, and the grand mean is 3. The treatment sum of squares is $2(2-3)^2+2(2-3)^2+2(5-3)^2=12$. The error sum of squares is $1+1+0+0+0+0=2$. With 2 and 3 degrees of freedom, $F=(12/2)/(2/3)=9$.
+:::
+
 ## Common misconceptions
 The F test does not show that all group means are different; it only tests the joint equality claim. “Analysis of variance” does not mean the target is a variance difference: the ratio of variance estimates tests mean equality. A small p-value does not quantify the size or importance of a mean contrast. Residual normality and equal spread do not follow from seeing a balanced table, and randomization cannot be inferred from a tidy plot. Finally, ten unadjusted 95% pairwise intervals do not form a 95% simultaneous statement about ten pairs.{{cite:nist_oneway_anova}} (§3.2.3.1, Testing and Assumptions)
 

@@ -23,16 +23,3 @@ The distance from $11$ to $10$ is $1$, so $\{10,11\}$ merges at height $1$, alon
 
 ## Connections — Linkage chooses the height, and the tree is not a model
 [Single linkage](single-linkage.qmd) uses the minimum distance, which is what produced heights $1$, $3$ and $6$. Complete linkage would use the maximum instead, so the height at which $\{0,1\}$ joins $4$ would be $4-0=4$, not $3$. [Average linkage](average-linkage.qmd) uses a mean of the pairwise distances. Different linkages on the same points can produce different trees.{{cite:hastie_esl2009}} (p. 521){{cite:dodge2008}} (p. 157)
-
-## Check yourself
-On the four-point dendrogram, how many clusters does a cut at height $0.5$ return, and how many does a cut at height $7$ return?
-
-::: {.callout-tip collapse="true" title="Answer"}
-Height $0.5$ is below every merge, so there are four clusters, the four points. Height $7$ is above the last merge at $6$, so there is one cluster.
-:::
-
-Why is the single-linkage distance from $\{0,1\}$ to $4$ equal to $3$ rather than $4$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-Single linkage takes the closest pair across the two groups. That pair is $1$ and $4$, at distance $3$. The distance $4$ is the complete-linkage height, using $0$ and $4$.
-:::
