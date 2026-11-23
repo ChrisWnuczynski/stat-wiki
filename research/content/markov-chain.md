@@ -7,19 +7,21 @@ The Markov property is about *conditional* prediction. Once the present state is
 A time-homogeneous chain reuses one transition rule. Writing its possible moves as arrows makes structural questions visible: can all states be reached, can the chain get trapped, and can it oscillate on a fixed schedule? These are separate from the Markov property itself. A chain can have the one-step memory rule while being reducible, periodic, or without a stationary probability on an infinite state space.{{cite:levin_peres2017}} (§§1.1, 1.3, 1.5)
 
 ## Definition
-A sequence $X_0,X_1,\ldots$ on a state space $S$ is a **discrete-time Markov chain** if, whenever the conditioning event has positive probability,
+On a countable state space $S$, a sequence $X_0,X_1,\ldots$ is a **discrete-time Markov chain** if, whenever the conditioning event has positive probability,
 $$
 \Pr(X_{t+1}=j\mid X_t=i,X_{t-1},\ldots,X_0)
 =\Pr(X_{t+1}=j\mid X_t=i).
 $$
-Two descriptions of that one-step law should be kept apart. In the finite case the right-hand side is a matrix entry $P_{ij}$, independent of $t$ when the chain is time-homogeneous, and every row is a probability distribution: $P_{ij}\ge0$ and $\sum_jP_{ij}=1$. In general the one-step law is a transition kernel, a probability distribution $P(i,\cdot)$ on $S$ for each current state $i$; the matrix is that kernel when $S$ is finite. The initial distribution $\mu_0$ and the kernel together specify probabilities for every finite path. The chain can start from a fixed state or from a random initial distribution; neither choice changes the transition rule.{{cite:levin_peres2017}} (§1.1, pp. 2–3, Markov property and kernel)
+That displayed equality is the countable case. When the state space is finite and the chain is time-homogeneous, the right-hand side is a matrix entry $P_{ij}$ and every row is a probability distribution: $P_{ij}\ge0$ and $\sum_jP_{ij}=1$.{{cite:levin_peres2017}} (§1.1, pp. 2–3, finite transition matrix)
+
+On a measurable space the one-step law is a kernel, not an equality of atom probabilities. For each measurable set $A$, the map $x\mapsto P_t(x,A)$ is measurable and $\Pr(X_{t+1}\in A\mid X_0,\ldots,X_t)=P_t(X_t,A)$ almost surely. The matrix is that kernel when $S$ is finite. Using one kernel at every time is time-homogeneity; powers of a single kernel require it. The initial distribution and the kernel together specify the finite-dimensional laws. The chain can start from a fixed state or from a random initial distribution; neither choice changes the transition rule.
 
 ## Properties — From one step to many
 If $\mu_0$ is written as a row vector, the state distribution after one step is $\mu_1=\mu_0P$ and after $n$ steps is $\mu_n=\mu_0P^n$. The entry $(P^n)_{ij}$ is the chance of being in $j$ after $n$ steps when starting from $i$. In particular, to find a two-step probability one sums over the intermediate state, not merely the most likely route. This is the Chapman–Kolmogorov rule:
 $$
 (P^{m+n})_{ij}=\sum_{k\in S}(P^m)_{ik}(P^n)_{kj}.
 $$
-On a general state space the same identity is an integral against the $n$-step kernel, not a matrix product. The sum displayed above is that kernel composition in the finite case.{{cite:levin_peres2017}} (§1.1, pp. 2–4, finite transitions)
+The sum displayed above is Chapman–Kolmogorov on a countable state space.{{cite:levin_peres2017}} (§1.1, pp. 2–4, finite transitions) On a measurable space the matching identity is an integral against the $n$-step kernel, and that kernel is a power of one transition kernel only when the chain is time-homogeneous.
 
 A stationary distribution $\pi$ satisfies $\pi P=\pi$; starting in it leaves the one-time distribution unchanged. Whether it exists, is unique, or attracts distributions from arbitrary starts requires additional conditions. For a finite irreducible aperiodic chain it is unique and $P^n$ approaches rows equal to $\pi$. A deterministic two-state alternation is Markov and irreducible, and has a stationary vector, but its one-time distribution never settles when started from one state.{{cite:levin_peres2017}} (§1.5, Stationary Distributions; §4.3, convergence theorem)
 
@@ -53,7 +55,7 @@ Starting at red, the chance of the particular path $R\to G\to Y$ is $(4/5)(7/10)
 $$
 \mu_2=(1,0,0)P^2=(1/25,\ 2/5,\ 14/25)=(0.04,\ 0.40,\ 0.56).
 $$
-The entries sum to one. If yellow has been reached at time two, the next-step probability of red is $3/5$, regardless of whether the signal came through green or some other earlier history: this is the Markov property in the specified model.{{cite:levin_peres2017}} (§1.1, path and matrix calculations)
+The entries sum to one.{{cite:levin_peres2017}} (§1.1, path and matrix calculations)
 
 **Your turn.** Find the probability of the entire path $R\to G\to Y\to R$ in three steps, and give $\Pr(X_3=R\mid X_2=Y,X_1=G,X_0=R)$.
 
