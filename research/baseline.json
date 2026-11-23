@@ -3466,5 +3466,21 @@
   "levene-s-test": {
     "words": 2911,
     "figures": 0
+  },
+  "variational-inference": {
+    "words": 5661,
+    "figures": 0
+  },
+  "hamiltonian-monte-carlo": {
+    "words": 5590,
+    "figures": 0
+  },
+  "importance-sampling": {
+    "words": 5593,
+    "figures": 0
+  },
+  "dirichlet-process": {
+    "words": 5584,
+    "figures": 0
   }
 }
