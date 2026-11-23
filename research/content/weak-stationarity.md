@@ -10,13 +10,13 @@ A trend violates constant mean; changing volatility violates constant variance e
 
 ## Definition
 
-A real-valued process $(X_t)$ is weakly stationary when each $X_t$ has a finite second moment, $\mathbb E X_t=\mu$ does not depend on $t$, and $\operatorname{Cov}(X_t,X_s)=\gamma(t-s)$ depends only on the lag. In particular $\gamma(0)=\operatorname{Var}(X_t)$ is constant, $\gamma(-h)=\gamma(h)$ for real-valued series, and $\rho(h)=\gamma(h)/\gamma(0)$ is the autocorrelation when $\gamma(0)>0$.
+A real-valued process $(X_t)$ is weakly stationary when each $X_t$ has a finite second moment, $\mathbb E X_t=\mu$ does not depend on $t$, and $\operatorname{Cov}(X_t,X_s)=\gamma(t-s)$ depends only on the lag. In particular $\gamma(0)=\operatorname{Var}(X_t)$ is constant, $\gamma(-h)=\gamma(h)$ for real-valued series, and $\rho(h)=\gamma(h)/\gamma(0)$ is the autocorrelation when $\gamma(0)>0$.{{cite:shumway_stoffer2017}} (§1.4, pp. 20–21)
 
-Strict stationarity is stronger in general: it requires every finite-dimensional joint distribution to be unchanged by a common time shift. Strict stationarity plus finite second moments implies weak stationarity. For a Gaussian process, the mean and covariance determine every finite-dimensional distribution, so weak stationarity also implies strict stationarity. The finite-second-moment condition cannot be skipped merely because a series looks stable in a plot.
+Strict stationarity is stronger in general: it requires every finite-dimensional joint distribution to be unchanged by a common time shift. Strict stationarity plus finite second moments implies weak stationarity. For a Gaussian process, the mean and covariance determine every finite-dimensional distribution, so weak stationarity also implies strict stationarity. The finite-second-moment condition cannot be skipped merely because a series looks stable in a plot.{{cite:shumway_stoffer2017}} (§1.4, p. 20)
 
 ## Properties
 
-For any weakly stationary series, $|\gamma(h)|\leq\gamma(0)$ by Cauchy–Schwarz, so autocorrelations lie between $-1$ and $1$. The variance of a difference is $\operatorname{Var}(X_t-X_{t-h})=2\{\gamma(0)-\gamma(h)\}$. A positive autocovariance makes nearby values move together and reduces the variation of their difference; a negative one has the opposite effect.
+For any weakly stationary series, $|\gamma(h)|\leq\gamma(0)$ by Cauchy–Schwarz, so autocorrelations lie between $-1$ and $1$. The variance of a difference is $\operatorname{Var}(X_t-X_{t-h})=2\{\gamma(0)-\gamma(h)\}$. A positive autocovariance makes nearby values move together and reduces the variation of their difference; a negative one has the opposite effect.{{cite:shumway_stoffer2017}} (§1.4, p. 23)
 
 ::: {.callout-note collapse="true" title="Proof"}
 ::: {.proof}
@@ -28,13 +28,13 @@ Time-shift invariance of all joint distributions, with finite second moments, ma
 
 Weak stationarity does not force identical marginal distributions outside Gaussian models. For example, let independent even-time observations equal $-2$ or $2$ with equal probability, while odd-time observations equal $-2\sqrt2,0,2\sqrt2$ with probabilities $1/4,1/2,1/4$. All means are zero, all variances are four, and nonzero-lag covariances are zero, so the process is weakly stationary. Its one-time distribution changes with parity, so it is not strictly stationary. This counterexample shows exactly what the first two moments leave unidentified.
 
-For an AR(1) with $|\phi|<1$, a stationary solution has autocovariance $\gamma(h)=\phi^{|h|}\sigma_\varepsilon^2/(1-\phi^2)$. The coefficient's sign and magnitude govern how quickly lagged information fades, while the innovation variance sets overall scale. An arbitrary initial value need not place the process in its stationary law immediately, even if $|\phi|<1$; transient startup behaviour then changes its early variances.
+For an AR(1) with $|\phi|<1$, a stationary solution has autocovariance $\gamma(h)=\phi^{|h|}\sigma_\varepsilon^2/(1-\phi^2)$. The coefficient's sign and magnitude govern how quickly lagged information fades, while the innovation variance sets overall scale. An arbitrary initial value need not place the process in its stationary law immediately, even if $|\phi|<1$; transient startup behaviour then changes its early variances.{{cite:shumway_stoffer2017}} (§3.1, p. 80)
 
 ## Statistical use
 
 Inspect a time plot for trend, seasonality and changing volatility before estimating a single mean and autocorrelation function. A roughly stable plot is evidence to investigate, not a mathematical proof. Differences or a model for trend and seasonality can sometimes produce a weakly stationary residual series. When modelling forecast uncertainty, use the covariance structure only over periods where its stability is defensible. Structural breaks or changing measurement rules can make historical lags poor guides to future dependence.
 
-A random walk started at zero with independent innovations of variance $4$ has $\operatorname{Var}(X_t)=4t$, so it is not weakly stationary even though each increment has a stable distribution. A process with a stable mean but volatility that doubles after a policy change also fails constant $\gamma(0)$. Independent Cauchy observations may be strictly stationary, yet lack finite second moments and therefore are not weakly stationary under this definition. These cases separate drift, variance change and moment nonexistence.
+A random walk started at zero with independent innovations of variance $4$ has $\operatorname{Var}(X_t)=4t$, so it is not weakly stationary even though each increment has a stable distribution. A process with a stable mean but volatility that doubles after a policy change also fails constant $\gamma(0)$. Independent Cauchy observations may be strictly stationary, yet lack finite second moments and therefore are not weakly stationary under this definition. These cases separate drift, variance change and moment nonexistence.{{cite:shumway_stoffer2017}} (§1.4, p. 22)
 ## Worked example
 
 Let $X_t=0.6X_{t-1}+\varepsilon_t$ be in its stationary regime, with independent innovations of mean zero and variance $4$. Then $\gamma(0)=4/(1-0.6^2)=6.25$, $\gamma(1)=0.6(6.25)=3.75$, and $\gamma(2)=0.6^2(6.25)=2.25$. The corresponding autocorrelations are $\rho(1)=0.6$ and $\rho(2)=0.36$. The variance of a one-step difference is $2(6.25-3.75)=5$. These values are the same at every time origin under the stationary model.
