@@ -1328,6 +1328,13 @@ ALIASES.update({
     "Brown-Forsythe test": "levene-s-test",
     "Brown–Forsythe test": "levene-s-test",
     "Friedman rank sum test": "friedman-test",
+    "variational inference": "variational-inference",
+    "mean-field approximation": "variational-inference",
+    "Hamiltonian Monte Carlo": "hamiltonian-monte-carlo",
+    "hybrid Monte Carlo": "hamiltonian-monte-carlo",
+    "importance sampling": "importance-sampling",
+    "Dirichlet process": "dirichlet-process",
+    "Bayesian nonparametrics": "dirichlet-process",
 })
 
 
@@ -1621,6 +1628,10 @@ LINKS += [
     link(["Shapiro–Wilk test", "Shapiro-Wilk test"], "shapiro-wilk-test"),
     link(["Friedman rank sum test", "Friedman test"], "friedman-test"),
     link(["Levene's test", "Levene test", "Brown-Forsythe test", "Brown–Forsythe test"], "levene-s-test"),
+    link(["variational inference", "variational Bayes", "mean-field approximation", "evidence lower bound"], "variational-inference"),
+    link(["Hamiltonian Monte Carlo", "hybrid Monte Carlo", "No-U-Turn sampler"], "hamiltonian-monte-carlo"),
+    link(["importance sampling", "self-normalised importance sampling"], "importance-sampling"),
+    link(["Dirichlet process", "Bayesian nonparametrics", "Chinese restaurant process", "stick-breaking"], "dirichlet-process"),
 ]
 
 RELATED += [
@@ -1659,6 +1670,9 @@ RELATED += [
     ("exponential-family", "natural-exponential-family", "natural-parameter", "canonical-link"),
     ("deviance", "residual-deviance", "null-deviance", "scaled-deviance", "saturated-model", "deviance-residual"),
     ("hazard-rate", "proportional-hazards-model", "survival-function"),
+    ("variational-inference", "hamiltonian-monte-carlo", "importance-sampling", "dirichlet-process"),
+    ("gibbs-sampling", "metropolis-hastings-algorithm", "hamiltonian-monte-carlo", "variational-inference"),
+    ("dirichlet-distribution", "dirichlet-multinomial-conjugacy", "dirichlet-process", "finite-mixture-model"),
     ("weibull-distribution", "a-finite-endpoint-and-a-weibull-extreme-value-law"),
     ("principal-component-directions-and-scores", "principal-component-directions", "eigenvalues-and-eigenvectors", "singular-value-decomposition"),
     ("cross-validation", "fold-cross-validation", "leave-one-out-cross-validation", "nested-cross-validation", "cross-validation-of-the-likelihood"),

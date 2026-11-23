@@ -1999,6 +1999,10 @@ ARTICLE_GROUPS: list[tuple[tuple[str, ...], tuple[str, ...]]] = [(('axioms-of-pr
  (('true-value',), ("dodge2008", "nist_glossary2002", "hernan_robins2020",)),
  (('uncertainty',), ("nist_glossary2002", "dodge2008", "hernan_robins2020", "openintro2019",)),
  (('unsupervised-learning',), ("james_islr2021", "hastie_esl2009",)),
+ (('variational-inference',), ('blei_kucukelbir_mcauliffe2017', 'jordan_etal1999_variational', 'hoffman_etal2013_svi')),
+ (('hamiltonian-monte-carlo',), ('neal2011_hmc', 'betancourt2017_hmc', 'hoffman_gelman2014')),
+ (('importance-sampling',), ('hastings1970', 'owen2013_mc', 'tokdar_kass2010')),
+ (('dirichlet-process',), ('ferguson1973', 'sethuraman1994', 'antoniak1974', 'neal2000_dpmm', 'escobar_west1995', 'blackwell_macqueen1973')),
 ]
 
 ARTICLE_REFS: dict[str, tuple[str, ...]] = {
