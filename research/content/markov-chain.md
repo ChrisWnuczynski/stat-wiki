@@ -1,8 +1,8 @@
 ## Motivating example
-A device moves among operating states as it is monitored each minute. To predict the next minute, an engineer might need only its present state, provided that state records everything relevant to the transition rule. If the same rule applies at every minute, a row of transition probabilities tells how it may move next, and repeated application gives probabilities several minutes ahead. This is the appeal of a Markov chain: a long, dependent history can sometimes be summarised by a sufficiently informative current state.{{cite:levin_peres2017}} (§1.1, Markov Chains)
+A device moves among operating states as it is monitored each minute. To predict the next minute, an engineer might need only its present state, provided that state records everything relevant to the transition rule. If the same rule applies at every minute, a row of transition probabilities tells how it may move next, and repeated application gives probabilities several minutes ahead. This is the appeal of a Markov chain: a long, dependent history can sometimes be summarised by a sufficiently informative current state.{{cite:levin_peres2017}} (§1.1, pp. 2–3, Markov Chains)
 
 ## Intuition
-The Markov property is about *conditional* prediction. Once the present state is known, earlier states do not change the conditional distribution of the next one. It does not say that consecutive states are independent: the present state can exert a strong influence. It also depends on how the state is defined. A queue length may be adequate for a memoryless arrival-and-service model, while a machine whose failure risk grows with elapsed time in service may need that elapsed time included in its state.{{cite:levin_peres2017}} (§1.1, Markov Chains)
+The Markov property is about *conditional* prediction. Once the present state is known, earlier states do not change the conditional distribution of the next one. It does not say that consecutive states are independent: the present state can exert a strong influence. It also depends on how the state is defined. A queue length may be adequate for a memoryless arrival-and-service model, while a machine whose failure risk grows with elapsed time in service may need that elapsed time included in its state.{{cite:levin_peres2017}} (§1.1, pp. 2–3, Markov property)
 
 A time-homogeneous chain reuses one transition rule. Writing its possible moves as arrows makes structural questions visible: can all states be reached, can the chain get trapped, and can it oscillate on a fixed schedule? These are separate from the Markov property itself. A chain can have the one-step memory rule while being reducible, periodic, or without a stationary probability on an infinite state space.{{cite:levin_peres2017}} (§§1.1, 1.3, 1.5)
 
@@ -12,14 +12,14 @@ $$
 \Pr(X_{t+1}=j\mid X_t=i,X_{t-1},\ldots,X_0)
 =\Pr(X_{t+1}=j\mid X_t=i).
 $$
-For a time-homogeneous finite-state chain, the right-hand side is $P_{ij}$, independent of $t$. Every row of $P$ is a probability distribution, so $P_{ij}\ge0$ and $\sum_jP_{ij}=1$. The initial distribution $\mu_0$ and the transition matrix together specify probabilities for every finite path. The chain can start from a fixed state or from a random initial distribution; neither choice changes the transition rule.{{cite:levin_peres2017}} (§1.1, Markov Chains)
+Two descriptions of that one-step law should be kept apart. In the finite case the right-hand side is a matrix entry $P_{ij}$, independent of $t$ when the chain is time-homogeneous, and every row is a probability distribution: $P_{ij}\ge0$ and $\sum_jP_{ij}=1$. In general the one-step law is a transition kernel, a probability distribution $P(i,\cdot)$ on $S$ for each current state $i$; the matrix is that kernel when $S$ is finite. The initial distribution $\mu_0$ and the kernel together specify probabilities for every finite path. The chain can start from a fixed state or from a random initial distribution; neither choice changes the transition rule.{{cite:levin_peres2017}} (§1.1, pp. 2–3, Markov property and kernel)
 
 ## Properties — From one step to many
 If $\mu_0$ is written as a row vector, the state distribution after one step is $\mu_1=\mu_0P$ and after $n$ steps is $\mu_n=\mu_0P^n$. The entry $(P^n)_{ij}$ is the chance of being in $j$ after $n$ steps when starting from $i$. In particular, to find a two-step probability one sums over the intermediate state, not merely the most likely route. This is the Chapman–Kolmogorov rule:
 $$
 (P^{m+n})_{ij}=\sum_{k\in S}(P^m)_{ik}(P^n)_{kj}.
 $$
-For infinite $S$ the matrix notation becomes a sum or integral over states, subject to the usual probability-kernel conditions.{{cite:levin_peres2017}} (§1.1, Markov Chains)
+On a general state space the same identity is an integral against the $n$-step kernel, not a matrix product. The sum displayed above is that kernel composition in the finite case.{{cite:levin_peres2017}} (§1.1, pp. 2–4, finite transitions)
 
 A stationary distribution $\pi$ satisfies $\pi P=\pi$; starting in it leaves the one-time distribution unchanged. Whether it exists, is unique, or attracts distributions from arbitrary starts requires additional conditions. For a finite irreducible aperiodic chain it is unique and $P^n$ approaches rows equal to $\pi$. A deterministic two-state alternation is Markov and irreducible, and has a stationary vector, but its one-time distribution never settles when started from one state.{{cite:levin_peres2017}} (§1.5, Stationary Distributions; §4.3, convergence theorem)
 
@@ -33,7 +33,7 @@ Summing these path probabilities over possible intermediate states yields each e
 $(P^{m+n})_{ij}=\sum_k\Pr(X_m=k\mid X_0=i)(P^n)_{kj}=\sum_k(P^m)_{ik}(P^n)_{kj}$.
 The distribution formula $\mu_n=\mu_0P^n$ follows by averaging the $i$th rows over $\mu_0(i)$.{{cite:levin_peres2017}} (§1.1, Markov Chains)
 
-For the simple symmetric walk on all integers, a stationary probability would satisfy $\pi_j=(\pi_{j-1}+\pi_{j+1})/2$ at every integer $j$. Thus successive differences $\pi_{j+1}-\pi_j$ are constant. Nonnegativity for arbitrarily large positive and negative $j$ forces that constant to be zero, leaving $\pi_j$ the same at every integer. A positive constant cannot sum to one, and the zero constant is not a probability, so no stationary probability exists.
+The following calculation is the infinite-state case. For the simple symmetric walk on all integers, a stationary probability would satisfy $\pi_j=(\pi_{j-1}+\pi_{j+1})/2$ at every integer $j$. Thus successive differences $\pi_{j+1}-\pi_j$ are constant. Nonnegativity for arbitrarily large positive and negative $j$ forces that constant to be zero, leaving $\pi_j$ the same at every integer. A positive constant cannot sum to one, and the zero constant is not a probability, so no stationary probability exists.
 :::
 :::
 
