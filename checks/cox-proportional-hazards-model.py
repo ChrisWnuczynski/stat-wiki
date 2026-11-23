@@ -4,7 +4,9 @@ Recomputes, with plain Python arithmetic only (no repo imports):
   * the worked example (5 subjects, 1 binary covariate, 3 event times),
   * the Your-turn exercise (4 subjects, 2 event times; exact root log(sqrt(2))),
   * the hazard-ratio illustration (constant hazards 0.20 vs 0.14 per year),
-  * the tied-event Breslow vs Efron denominators used in Check yourself Q2.
+  * the tied-event Breslow vs Efron denominators used in Check yourself Q2,
+  * the Nelson-Aalen vs Kaplan-Meier contrast (exp(-1/2) vs 1 - 1/2),
+  * the Breslow information at beta = 0 for the tied-event contrast.
 
 Run:  python3 cox-proportional-hazards-model.py
 Exit 0 means every asserted draft number agrees with recomputation
@@ -152,6 +154,29 @@ def main():
     # ------------------------------------------------------------------
     ok &= close("Breslow tied denominator", 10.0 ** 2, 100.0)
     ok &= close("Efron tied denominator", 10.0 * (10.0 - 4.0 / 2), 80.0)
+
+    # ------------------------------------------------------------------
+    # Nelson-Aalen vs Kaplan-Meier contrast (Baseline hazard section):
+    # one event, two subjects at risk. Nelson-Aalen increment is 1/2,
+    # so exp(-1/2) ~= 0.6065 (to 4 dp), whereas the Kaplan-Meier factor
+    # for the same event is 1 - 1/2 = 0.5.
+    # ------------------------------------------------------------------
+    ok &= close("exp(-1/2) to 4 dp", round(math.exp(-0.5), 4), 0.6065, tol=1e-9)
+    ok &= close("Kaplan-Meier factor 1 - 1/2", 1 - 1 / 2, 0.5, tol=1e-9)
+
+    # ------------------------------------------------------------------
+    # Breslow information at beta = 0 for the ties contrast
+    # (Motivating example / Estimation): risk-set covariate values
+    # {1, 1, 0, 0} (2 at risk in each group) with d = 2 tied events.
+    # At beta = 0 all weights are 1, so the risk-set variance of x is
+    # the plain variance 1/4, and I = d * Var(x) = 2 * 1/4 = 1/2.
+    # (The log-rank hypergeometric variance in this case is 1/3.)
+    # ------------------------------------------------------------------
+    xs = [1, 1, 0, 0]
+    mean_x = sum(xs) / len(xs)
+    var_x = sum((x - mean_x) ** 2 for x in xs) / len(xs)
+    ok &= close("risk-set Var(x) for {1,1,0,0}", var_x, 0.25, tol=1e-9)
+    ok &= close("Breslow information at beta=0, d=2", 2 * var_x, 0.5, tol=1e-9)
 
     print("ALL CHECKS PASSED" if ok else "SOME CHECKS FAILED")
     raise SystemExit(0 if ok else 1)

@@ -112,6 +112,31 @@ def main():
           f"p = {p3:.4f} (article states 2, 4, 0.0455)")
     assert z3 == 2.0 and abs(p3 - 0.0455) < 0.0005, p3
 
+    # Ties contrast quoted in the article (Properties, "Relation to the Cox
+    # model"): one event time with n = 4 at risk, n1 = 2 of them in group 1,
+    # and d = 2 tied events, both in group 1.
+    # (a) Hypergeometric (log-rank) variance, exact rational arithmetic:
+    #     V = d * (n1/n) * (1 - n1/n) * (n - d)/(n - 1)
+    #       = 2 * (1/2) * (1/2) * (2/3) = 1/3.
+    n_t, n1_t, d_t = 4, 2, 2
+    v_hyp = F(d_t) * F(n1_t, n_t) * F(n_t - n1_t, n_t) * F(n_t - d_t, n_t - 1)
+    print(f"Ties contrast: hypergeometric variance V = {v_hyp} "
+          f"(article states 1/3)")
+    assert v_hyp == F(1, 3), v_hyp
+
+    # (b) Breslow partial-likelihood information at beta = 0 for the same
+    #     configuration: risk-set group indicators {1, 1, 0, 0},
+    #     I = d * Var(indicator) = 2 * 1/4 = 1/2.
+    risk = [F(1), F(1), F(0), F(0)]
+    mean_r = sum(risk) / len(risk)
+    var_r = sum((x - mean_r) ** 2 for x in risk) / len(risk)
+    info_breslow = F(d_t) * var_r
+    print(f"Ties contrast: Breslow information at beta = 0: "
+          f"Var = {var_r}, I = d * Var = {info_breslow} "
+          f"(article states 1/2)")
+    assert var_r == F(1, 4) and info_breslow == F(1, 2), info_breslow
+    assert v_hyp != info_breslow  # the two variances genuinely differ
+
     print("All checks passed.")
 
 

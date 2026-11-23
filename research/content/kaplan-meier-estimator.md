@@ -11,7 +11,21 @@ Meier in 1958 as the distribution, unrestricted as to form, that maximises
 the likelihood of the incomplete observations {{cite:kaplan_meier1958}}
 (pp. 457–458).
 
-## The problem: follow-up ends before the event
+## Intuition — Two naive proportions, and why both fail
+
+James and colleagues motivate the estimator with the BrainCancer data, and
+the example is worked in full in [survival-analysis](survival-analysis.qmd):
+in a series of 88 patients, the proportion known to have survived past 20
+months is $48/88$, about $55\%$, while restricting to the 71 patients not
+censored by 20 months gives $48/71$, about $68\%$. The first figure
+implicitly assumes every censored patient had the event before 20 months;
+the second discards the censored patients entirely. The Kaplan–Meier
+estimate is $71\%$, higher than either naive figure, because it credits
+each censored patient with survival up to their censoring time and no
+further {{cite:james_islr2021}} (§11.3, pp. 464–465). The rest of this
+article is the machinery behind that correction.
+
+## Definition — Follow-up ends before the event
 
 Let $T$ be the true event time — the time of death, relapse, failure, or
 whatever event is of interest — and let $C$ be the censoring time, the time
@@ -31,21 +45,7 @@ while treating a censoring time as if it were the event time understates
 survival. The Kaplan–Meier estimator avoids both errors by working with
 conditional probabilities among the subjects still at risk.
 
-## Two naive proportions, and why both fail
-
-James and colleagues motivate the estimator with the BrainCancer data, and
-the example is worked in full in [survival-analysis](survival-analysis.qmd):
-in a series of 88 patients, the proportion known to have survived past 20
-months is $48/88$, about $55\%$, while restricting to the 71 patients not
-censored by 20 months gives $48/71$, about $68\%$. The first figure
-implicitly assumes every censored patient had the event before 20 months;
-the second discards the censored patients entirely. The Kaplan–Meier
-estimate is $71\%$, higher than either naive figure, because it credits
-each censored patient with survival up to their censoring time and no
-further {{cite:james_islr2021}} (§11.3, pp. 464–465). The rest of this
-article is the machinery behind that correction.
-
-## The product-limit construction
+### The product-limit construction
 
 Order the distinct event times as $t_1 < t_2 < \dots < t_K$. At event time
 $t_j$, let $n_j$ be the number of subjects at risk just before $t_j$ — those
@@ -86,7 +86,7 @@ data without assuming a particular distribution model such as Weibull or
 lognormal {{cite:nist_kaplan2002}} (§8.2.1.5). Exact event times are
 required; grouped data need the actuarial (life-table) approximation instead.
 
-## What the steps mean
+### What the steps mean
 
 $\widehat{S}$ is a step function: it is constant between event times and
 drops only at event times, by an amount that depends on how many subjects
@@ -94,21 +94,20 @@ are still at risk. A drop of $d_j/n_j$ times the current level is large when
 the risk set is small, which is why Kaplan–Meier curves often look alarming
 in their right-hand tail, where few subjects remain. The curve is usually
 drawn with tick marks at censoring times; the ticks mark information
-exhausted, not events {{cite:bland_altman1998}} (pp. 1572–1580).
+exhausted, not events {{cite:bland_altman1998}} (p. 1572).
 
 The estimate at a time $t$ is a statement about the population from which
 the sample was drawn, not a description of the sample alone: $\widehat{S}(t)$
 estimates the probability that a member of that population survives beyond
 $t$. That interpretation is exactly what the non-informative-censoring
-assumption buys, and it is what fails when the assumption fails (see
-Statistical use, assumptions and limits below).
+assumption buys, and it is what fails when the assumption fails (see Assumptions and limits below).
 
 Because the estimator is a product of conditional probabilities, its
 sampling behaviour is governed by the risk sets, not by the total sample
 size alone. Two studies with the same number of subjects can have very
 different precision at late times if one of them has much heavier censoring.
 
-## Greenwood's formula and confidence intervals
+## Properties — Greenwood's formula and confidence intervals
 
 A point estimate without a measure of uncertainty is of limited use, and
 the uncertainty in $\widehat{S}(t)$ grows as the risk sets shrink. Greenwood's
@@ -154,7 +153,7 @@ side towards which the estimate is less precisely determined. It is a
 pointwise interval — valid, approximately, at the single time $t$ — not a
 simultaneous band for the whole curve. Standard errors and confidence
 intervals for the estimated survival probabilities are found by Greenwood's
-method {{cite:bland_altman1998}} (pp. 1572–1580).
+method {{cite:bland_altman1998}} (p. 1572).
 
 Greenwood's formula needs $d_j < n_j$ at every event time included in the
 sum. If the last subject at risk has the event, so $d_j = n_j$ and
@@ -163,7 +162,7 @@ variance estimate is then not defined at or beyond that time. This is one
 more reason to report Greenwood intervals only where the risk set is not
 degenerate.
 
-## Median survival and restricted mean
+### Median survival and restricted mean
 
 Two summaries are read off the curve more often than any single value
 $\widehat{S}(t)$. The median survival time is the smallest time $t$ at which
@@ -188,7 +187,7 @@ reached. The horizon $L$ must be stated alongside the number; an RMST
 without its $L$ is uninterpretable, and RMSTs with different horizons are
 not comparable.
 
-## Large-sample behaviour
+### Large-sample behaviour
 
 Kaplan and Meier show that the product-limit estimate is consistent and of
 negligible bias: $\widehat{S}(t)$ converges in probability to $S(t)$ provided
@@ -205,7 +204,7 @@ can be poor; the log-log transformation improves the normal approximation
 but does not remove the small-sample problem {{cite:rodriguez2018}}
 (slide 5).
 
-## No censoring, heavy censoring, and the end of follow-up
+### No censoring, heavy censoring, and the end of follow-up
 
 If there is no censoring, the product telescopes: every factor
 $(n_j - d_j)/n_j$ cancels with its neighbours except for the first
@@ -235,7 +234,18 @@ $\widehat{S}$ at that time, "but is not more closely defined"
 "everyone died the next day" from "everyone lived for years", and the
 estimator does not pretend otherwise.
 
-## Worked example: eight patients, four events
+## Statistical use
+
+The Kaplan–Meier estimator is the default first step in a survival analysis:
+it describes one group's survival over time, supplies the curve that the
+[log-rank test](log-rank-test.qmd) compares between groups, and provides the
+nonparametric baseline against which model-based estimates are checked. It
+is used wherever the question is "what fraction survive, and for how long?",
+from clinical trials to reliability testing to customer churn, and it is the
+right tool whenever the data are right-censored and no distributional shape
+is to be assumed.
+
+## Worked example — Eight patients, five events at four distinct times
 
 Eight patients are followed after treatment, with times in months and
 $1 =$ event, $0 =$ censored:
@@ -301,7 +311,7 @@ That is the average event-free time over the first 9 months, not an estimate
 of mean lifetime: the curve is still at $0.225$ at 9 months, so the
 unrestricted mean is not estimable from these data.
 
-## Your turn
+### Your turn — Six further patients
 
 Six further patients are followed, with times in months and $1 =$ event,
 $0 =$ censored:
@@ -341,52 +351,6 @@ that Greenwood's formula cannot be used at 8 months: there $n = d = 1$, so
 the term $d/(n(n-d))$ is undefined.
 
 :::
-
-## Statistical use, assumptions and limits
-
-The Kaplan–Meier estimator is the default first step in a survival analysis:
-it describes one group's survival over time, supplies the curve that the
-[log-rank test](log-rank-test.qmd) compares between groups, and provides the
-nonparametric baseline against which model-based estimates are checked. It
-is used wherever the question is "what fraction survive, and for how long?",
-from clinical trials to reliability testing to customer churn, and it is the
-right tool whenever the data are right-censored and no distributional shape
-is to be assumed.
-
-Its validity rests on the censoring being non-informative: the lifetime $T$
-must be independent of the potential censoring time $C$, at least given any
-features being conditioned on. Kaplan and Meier assume the lifetime to be
-independent of the potential loss time, and warn that "in practice this
-assumption deserves careful scrutiny" {{cite:kaplan_meier1958}}
-(pp. 457–458). James and colleagues make the same point: the censoring
-mechanism must be independent, in the sense that, conditional on the
-features, the event time carries no information about the censoring time,
-and whether that holds "is not possible to determine from the data itself"
-{{cite:james_islr2021}} (§11.2). Bland and Altman list it as the first of
-three assumptions behind the method: at any time, patients who are censored
-must have the same survival prospects as those who continue to be followed
-{{cite:bland_altman1998}} (pp. 1572–1580). If sicker patients drop out early, the
-curve overestimates survival; if healthier patients are the ones lost, it
-underestimates it. Administrative censoring at a fixed end of study is the
-least worrying case; dropout related to prognosis is the most worrying, and
-no calculation on the observed data can detect it.
-
-Two further assumptions are easily overlooked. The survival probabilities
-must be the same for subjects recruited early and late in the study — a
-condition that fails if the case mix or ancillary treatment changes over a
-long recruitment period — and the event must genuinely occur at the recorded
-time, which fails when events are only detected at periodic examinations
-(interval censoring) {{cite:bland_altman1998}} (pp. 1572–1580).
-
-The estimator's limits are the limits of a single-sample description. It
-does not adjust for covariates, so it cannot separate a treatment effect
-from a difference in case mix; it does not compare groups, so a visual gap
-between two curves is not a test (that is the log-rank test's job); it says
-nothing beyond the last observation; and with competing events it answers
-the wrong question if competing events are treated as censoring — see
-[competing-risks](competing-risks.qmd). Its intervals are pointwise and
-approximate, and in small samples or heavy censoring they can be wide
-enough to be uninformative, which is itself a finding worth reporting.
 
 ## Common misconceptions
 
@@ -429,26 +393,42 @@ plotting convention. Beyond the largest observed time, if that time is a
 censoring, the estimator is undefined, and extrapolating the flat line is
 unjustified.
 
-## History
+## Assumptions and limits
 
-The product-limit estimator was published by Edward L. Kaplan and Paul
-Meier in 1958, in "Nonparametric estimation from incomplete observations",
-in the *Journal of the American Statistical Association*
-{{cite:kaplan_meier1958}} (pp. 457–458). The name "product-limit" was
-adopted because the estimate is a limiting case of the older actuarial
-(life-table) estimates, with the intervals made so short that each contains
-at most one death; the idea had in fact been proposed as early as 1912 by
-Bohmer, but "seems to have been lost sight of by later writers and not
-further investigated" {{cite:kaplan_meier1958}} (p. 463). The variance
-formula used with it goes back further still: a very similar formula had
-been derived by Greenwood in 1926 for life tables {{cite:kaplan_meier1958}}
-(p. 466). Kaplan and Meier's paper also gave the mean and variance of the
-estimate, the mean lifetime and its restricted version, and a consistency
-argument {{cite:kaplan_meier1958}} (pp. 465–468, 479). The estimator became
-the standard nonparametric summary of survival data, and the paper one of
-the most cited in statistics. Later work refined its asymptotic theory, but
-the estimator itself, and Greenwood's formula for its variance, are still
-used in essentially their 1958 form.
+Its validity rests on the censoring being non-informative: the lifetime $T$
+must be independent of the potential censoring time $C$, at least given any
+features being conditioned on. Kaplan and Meier assume the lifetime to be
+independent of the potential loss time, and warn that "in practice this
+assumption deserves careful scrutiny" {{cite:kaplan_meier1958}}
+(pp. 457–458). James and colleagues make the same point: the censoring
+mechanism must be independent, in the sense that, conditional on the
+features, the event time carries no information about the censoring time,
+and whether that holds "is not possible to determine from the data itself"
+{{cite:james_islr2021}} (§11.2). Bland and Altman list it as the first of
+three assumptions behind the method: at any time, patients who are censored
+must have the same survival prospects as those who continue to be followed
+{{cite:bland_altman1998}} (p. 1572). If sicker patients drop out early, the
+curve overestimates survival; if healthier patients are the ones lost, it
+underestimates it. Administrative censoring at a fixed end of study is the
+least worrying case; dropout related to prognosis is the most worrying, and
+no calculation on the observed data can detect it.
+
+Two further assumptions are easily overlooked. The survival probabilities
+must be the same for subjects recruited early and late in the study — a
+condition that fails if the case mix or ancillary treatment changes over a
+long recruitment period — and the event must genuinely occur at the recorded
+time, which fails when events are only detected at periodic examinations
+(interval censoring) {{cite:bland_altman1998}} (p. 1572).
+
+The estimator's limits are the limits of a single-sample description. It
+does not adjust for covariates, so it cannot separate a treatment effect
+from a difference in case mix; it does not compare groups, so a visual gap
+between two curves is not a test (that is the log-rank test's job); it says
+nothing beyond the last observation; and with competing events it answers
+the wrong question if competing events are treated as censoring — see
+[competing-risks](competing-risks.qmd). Its intervals are pointwise and
+approximate, and in small samples or heavy censoring they can be wide
+enough to be uninformative, which is itself a finding worth reporting.
 
 ## Connections
 
@@ -473,16 +453,17 @@ used in essentially their 1958 form.
 
 ## Check yourself
 
-1. In the worked example, what is $\widehat{S}(5)$, and why is it the same
-as $\widehat{S}(3)$ even though a patient was censored at 4 months?
+1. Four patients are followed, with times in months and $1 =$ event,
+$0 =$ censored: $(3, 1)$, $(5, 0)$, $(6, 1)$ and $(9, 1)$. What are
+$\widehat{S}(6)$ and $\widehat{S}(9)$?
 
 ::: {.callout-tip collapse="true" title="Answer"}
 
-$\widehat{S}(5) = 0.75$. The Kaplan–Meier estimate changes only at event
-times, and there is no event between 3 and 5 months. The censoring at 4
-months does not change any value of $\widehat{S}$; it only removes that
-patient from the risk set, so the next event, at 6 months, is divided by 5
-rather than 6.
+At 3 months, $n = 4$ and $d = 1$, so $\widehat{S}(3) = 3/4$. The patient
+censored at 5 months has left the risk set, so the risk set at 6 months
+is 2, with $d = 1$, giving
+$\widehat{S}(6) = (3/4)(1/2) = 3/8 = 0.375$. At 9 months the only
+remaining patient has the event, so $\widehat{S}(9) = 0$.
 
 :::
 
@@ -521,3 +502,24 @@ imprecise, so the interval width and the numbers at risk should be shown
 alongside the curve.
 
 :::
+
+## History
+
+The product-limit estimator was published by Edward L. Kaplan and Paul
+Meier in 1958, in "Nonparametric estimation from incomplete observations",
+in the *Journal of the American Statistical Association*
+{{cite:kaplan_meier1958}} (pp. 457–458). The name "product-limit" was
+adopted because the estimate is a limiting case of the older actuarial
+(life-table) estimates, with the intervals made so short that each contains
+at most one death; the idea had in fact been proposed as early as 1912 by
+Bohmer, but "seems to have been lost sight of by later writers and not
+further investigated" {{cite:kaplan_meier1958}} (p. 463). The variance
+formula used with it goes back further still: a very similar formula had
+been derived by Greenwood in 1926 for life tables {{cite:kaplan_meier1958}}
+(p. 466). Kaplan and Meier's paper also gave the mean and variance of the
+estimate, the mean lifetime and its restricted version, and a consistency
+argument {{cite:kaplan_meier1958}} (pp. 465–468, 479). The estimator became
+the standard nonparametric summary of survival data, and the paper one of
+the most cited in statistics. Later work refined its asymptotic theory, but
+the estimator itself, and Greenwood's formula for its variance, are still
+used in essentially their 1958 form.

@@ -151,6 +151,26 @@ def main():
     assert cif(YOUR_TURN, 1, 6) == F(17, 40)       # AJ CIF1(6) = 0.425
     assert cif(YOUR_TURN, 2, 6) == F(11, 40)       # AJ CIF2(6) = 0.275
 
+    # (a) The WORKED dataset has exactly 3 censored subjects
+    # (outcome 0: D, G, J).
+    censored_worked = [name for name, _, outcome in WORKED if outcome == 0]
+    assert censored_worked == ["D", "G", "J"]
+    assert len(censored_worked) == 3
+
+    # S_all(u-) is overall survival over event times < u, i.e.
+    # overall_survival evaluated at the last event time before u.
+    # (b) Overall survival just before month 7 equals 7/12 and the
+    # cause-1 increment at 7 equals 7/60.
+    s_before_7 = overall_survival(WORKED, 6)  # events at 2, 3, 4, 6 are < 7
+    assert s_before_7 == F(7, 12)
+    assert s_before_7 * F(1, risk_set(WORKED, 7)) == F(7, 60)
+
+    # (c) Overall survival just before month 9 equals 7/15 and the
+    # cause-1 increment at 9 equals 7/45.
+    s_before_9 = overall_survival(WORKED, 7)  # events at 2, 3, 4, 6, 7 are < 9
+    assert s_before_9 == F(7, 15)
+    assert s_before_9 * F(1, risk_set(WORKED, 9)) == F(7, 45)
+
     print("All checks passed: every number quoted in the draft is exact.")
 
 

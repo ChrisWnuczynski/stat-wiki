@@ -1331,7 +1331,6 @@ ALIASES.update({
 })
 
 ALIASES.update({
-    "Kaplan-Meier estimator": "kaplan-meier-estimator",
     "product-limit estimator": "kaplan-meier-estimator",
     "Cox model": "cox-proportional-hazards-model",
     "Cox regression": "cox-proportional-hazards-model",
@@ -1725,11 +1724,6 @@ RELATED += [
     ("xor-problem", "a-single-threshold-unit-cannot-compute-xor", "linear-separability"),
     ("pseudo-counts-and-sequential-updating", "two-pseudo-count-conventions", "beta-binomial-conjugacy"),
     ("binomial-test", "test-for-one-proportion", "two-proportion-z-test"),
-]
-
-RELATED += [
-    ("kaplan-meier-estimator", "log-rank-test", "competing-risks", "cox-proportional-hazards-model"),
-    ("hazard-rate", "proportional-hazards-model", "survival-function", "kaplan-meier-estimator", "cox-proportional-hazards-model"),
 ]
 
 

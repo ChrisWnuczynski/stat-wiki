@@ -81,6 +81,10 @@ def approx(a, b, tol=1e-9):
 # ---------------------------------------------------------------- worked example
 # (time in months, 1 = event, 0 = censored)
 worked = [(2, 1), (3, 1), (4, 0), (6, 1), (6, 1), (7, 0), (9, 1), (12, 0)]
+assert sum(e for _t, e in worked) == 5, "worked example has exactly 5 events"
+assert len({t for t, e in worked if e == 1}) == 4, (
+    "worked example has exactly 4 distinct event times"
+)
 w = km_table(worked)
 assert [(r[0], r[1], r[2]) for r in w] == [(2, 8, 1), (3, 7, 1), (6, 5, 2), (9, 2, 1)]
 assert [r[3] for r in w] == [F(7, 8), F(3, 4), F(9, 20), F(9, 40)], "KM curve"
@@ -124,6 +128,16 @@ assert approx(lo4, 0.0559883, tol=1e-6) and approx(hi4, 0.7665267, tol=1e-6)
 plain4 = (s4 - Z * se4, s4 + Z * se4)
 assert plain4[0] < 0, "plain interval crosses below zero, as stated in the answer"
 
+# ------------------------------------------------------- "Check yourself" Q1
+# New dataset, not used elsewhere: (3, event), (5, censored), (6, event),
+# (9, event).
+check1 = [(3, 1), (5, 0), (6, 1), (9, 1)]
+c = km_table(check1)
+assert [(r[0], r[1], r[2]) for r in c] == [(3, 4, 1), (6, 2, 1), (9, 1, 1)]
+assert [r[3] for r in c] == [F(3, 4), F(3, 8), F(0)], (
+    "Check yourself Q1: S(3) = 3/4, S(6) = 3/8, S(9) = 0"
+)
+
 print("Worked example: S = 7/8, 3/4, 9/20, 9/40; G(6) = 7/40 = 0.175;")
 print(f"  Var = {var6}, SE = {se6:.6f}")
 print(f"  log-log 95% CI at 6 months = ({lo6:.3f}, {hi6:.3f})")
@@ -134,4 +148,5 @@ print(f"  Var = {var4:.6f}, SE = {se4:.6f}")
 print(f"  log-log 95% CI at 4 months = ({lo4:.3f}, {hi4:.3f})")
 print(f"  plain 95% CI at 4 months   = ({plain4[0]:.3f}, {plain4[1]:.3f})")
 print(f"  median = 4 months; Greenwood undefined at 8 months (n = d = 1)")
+print("Check yourself Q1: S(3) = 3/4, S(6) = 3/8 = 0.375, S(9) = 0")
 print("All checks passed.")
