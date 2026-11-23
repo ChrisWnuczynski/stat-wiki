@@ -3468,7 +3468,7 @@
     "figures": 0
   },
   "propensity-score": {
-    "words": 5916,
+    "words": 6017,
     "figures": 0
   },
   "potential-outcomes": {
@@ -3476,11 +3476,27 @@
     "figures": 0
   },
   "causal-diagram": {
-    "words": 5721,
+    "words": 5838,
     "figures": 0
   },
   "mediation-analysis": {
-    "words": 6098,
+    "words": 6403,
+    "figures": 0
+  },
+  "kaplan-meier-estimator": {
+    "words": 4816,
+    "figures": 0
+  },
+  "cox-proportional-hazards-model": {
+    "words": 6066,
+    "figures": 0
+  },
+  "log-rank-test": {
+    "words": 5215,
+    "figures": 0
+  },
+  "competing-risks": {
+    "words": 5546,
     "figures": 0
   }
 }

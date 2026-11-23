@@ -7756,6 +7756,112 @@ SIDEBAR_JS = """
   function sidebarRoot() {
     return document.getElementById("quarto-sidebar");
   }
+  var scrollKey = "statwiki-sidebar-navigation";
+  var manualSidebar = false;
+  var pendingNavigation = null;
+  var restoredNavigation = null;
+  var lastSidebarSnapshot = null;
+  var navigation = performance.getEntriesByType("navigation")[0];
+  function historyStorageKey() {
+    var entry = window.navigation && window.navigation.currentEntry;
+    return entry && entry.key ? "statwiki-sidebar-history:" + entry.key : null;
+  }
+  // Native entry keys distinguish repeated visits without changing history.state.
+  // Do not replay on reload, ordinary navigation, or same-document fragments.
+  try {
+    var historyKey = historyStorageKey();
+    var snapshot = historyKey && JSON.parse(sessionStorage.getItem(historyKey));
+    if (navigation && navigation.type === "back_forward" && snapshot &&
+        snapshot.url === location.href && Number.isFinite(snapshot.top) && snapshot.top >= 0 &&
+        Array.isArray(snapshot.open) && snapshot.open.every(function (id) { return typeof id === "string"; })) {
+      restoredNavigation = snapshot;
+    }
+  } catch (_) { /* Missing entry keys or storage leave the normal reveal in place. */ }
+  // Consume once, only on the intended ordinary navigation in this tab.
+  try {
+    var saved = JSON.parse(sessionStorage.getItem(scrollKey));
+    sessionStorage.removeItem(scrollKey);
+    if (saved && navigation && navigation.type === "navigate" &&
+        saved.to === location.href && saved.from === document.referrer &&
+        Date.now() - saved.time >= 0 && Date.now() - saved.time < 30000 &&
+        Number.isFinite(saved.top) && saved.top >= 0 && Array.isArray(saved.open)) {
+      restoredNavigation = saved;
+    }
+  } catch (_) { /* Navigation still works when storage is unavailable. */ }
+  function captureSidebar() {
+    var root = sidebarRoot();
+    // A closed mobile drawer reports zero scrollTop. Keep its last visible view.
+    if (root && root.clientHeight && root.querySelector('ul[data-hydrated="true"]')) {
+      lastSidebarSnapshot = {
+        top: root.scrollTop,
+        open: Array.from(root.querySelectorAll(".sidebar-section.collapse.show"), function (el) { return el.id; })
+      };
+    }
+    return lastSidebarSnapshot || restoredNavigation;
+  }
+  function rememberHistory() {
+    var snapshot = captureSidebar();
+    if (!snapshot) return;
+    try {
+      var key = historyStorageKey();
+      if (key) sessionStorage.setItem(key, JSON.stringify({url: location.href, top: snapshot.top, open: snapshot.open}));
+    } catch (_) { /* A failed snapshot must never interfere with navigation. */ }
+  }
+  function restoreSections() {
+    var root = sidebarRoot();
+    if (!root || !restoredNavigation) return;
+    root.querySelectorAll(".sidebar-section.collapse").forEach(function (section) {
+      var open = restoredNavigation.open.indexOf(section.id) !== -1;
+      section.classList.toggle("show", open);
+      root.querySelectorAll('[data-bs-target="#' + section.id + '"]').forEach(function (toggle) {
+        toggle.classList.toggle("collapsed", !open);
+        toggle.setAttribute("aria-expanded", open ? "true" : "false");
+      });
+    });
+  }
+  function rememberNavigation(event) {
+    pendingNavigation = null;
+    var root = sidebarRoot();
+    var link = event.target.closest && event.target.closest("a.sidebar-link[href]");
+    if (!root || !link || !root.contains(link) || event.defaultPrevented ||
+        event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey ||
+        link.hasAttribute("download") || link.hasAttribute("data-bs-toggle")) return;
+    var base = document.querySelector("base[target]");
+    var target = link.getAttribute("target") || (base && base.getAttribute("target"));
+    if (target && target.toLowerCase() !== "_self") return;
+    var url = new URL(link.href);
+    if (!/^https?:$/.test(url.protocol) || url.origin !== location.origin) return;
+    // A bare link to the current page reloads it; only fragments stay in this document.
+    if (url.pathname === location.pathname && url.search === location.search &&
+        url.href.indexOf("#") !== -1) return;
+    pendingNavigation = {
+      from: location.href.split("#")[0], to: url.href, time: Date.now(),
+      top: root.scrollTop,
+      open: Array.from(root.querySelectorAll(".sidebar-section.collapse.show"), function (el) { return el.id; })
+    };
+  }
+  // Wait for a real departure: modifier clicks and cancelled links leave no record.
+  window.addEventListener("pagehide", function () {
+    rememberHistory();
+    if (!pendingNavigation) return;
+    try { sessionStorage.setItem(scrollKey, JSON.stringify(pendingNavigation)); } catch (_) {}
+    pendingNavigation = null;
+  });
+  window.addEventListener("pageshow", function (event) {
+    pendingNavigation = null;
+    if (event.persisted) manualSidebar = true;
+  });
+  ["pointerdown", "wheel", "keydown"].forEach(function (type) {
+    document.addEventListener(type, function (event) {
+      captureSidebar();
+      pendingNavigation = null;
+      var root = sidebarRoot();
+      if (root && root.contains(event.target)) manualSidebar = true;
+    }, {capture: true, passive: true});
+  });
+  document.addEventListener("scroll", function (event) {
+    if (event.target === sidebarRoot()) captureSidebar();
+  }, {capture: true, passive: true});
   function expandTo(link) {
     var root = sidebarRoot();
     var el = link.parentElement;
@@ -7832,7 +7938,11 @@ SIDEBAR_JS = """
   }
   function revealActive() {
     var root = sidebarRoot();
-    if (!root) return;
+    if (!root || manualSidebar) return;
+    if (restoredNavigation) {
+      root.scrollTop = restoredNavigation.top;
+      return;
+    }
     var link = root.querySelector("a.sidebar-link.active");
     if (!link) return;
     var scroller = scrollerFor(link);
@@ -7995,6 +8105,7 @@ SIDEBAR_JS = """
     armInfoboxes();
     syncCompact();
     function finish() {
+      restoreSections();
       markCurrent();
       markParents();
       schedule();
@@ -8026,6 +8137,7 @@ SIDEBAR_JS = """
     markScrollers();
   });
   document.addEventListener("click", function (event) {
+    rememberNavigation(event);
     var target = event.target;
     if (target && target.closest && target.closest(".quarto-btn-toggle, #quarto-sidebar-toggle, a.sidebar-item-toggle")) {
       setTimeout(schedule, 80);

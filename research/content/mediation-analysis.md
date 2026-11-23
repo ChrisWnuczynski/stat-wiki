@@ -208,7 +208,7 @@ was explicit that the descriptive, natural reading asks what would happen
 while holding a mediating variable at the level it would have attained
 under the reference condition, in contrast to the prescriptive reading in
 which the variable is fixed at a predetermined level
-{{cite:pearl2001}} (pp. 411–420). Whether the mean of such a quantity can
+{{cite:pearl2001}} (§2.2, p. 413). Whether the mean of such a quantity can
 be recovered from ordinary data at all is the identification question
 taken up below; the definitions themselves are meaningful whether or not
 a given data set can identify them.
@@ -225,7 +225,7 @@ blocking, the intermediate variable by a suitable intervention
 {{cite:robins_greenland1992}} (p. 143), and Pearl's prescriptive
 interpretation of direct effects — the response of the outcome to the
 exposure with all other factors held fixed at a specified level — is the
-controlled direct effect {{cite:pearl2001}} (pp. 411–420). The controlled
+controlled direct effect {{cite:pearl2001}} (§3.2, p. 415). The controlled
 and natural direct effects answer different questions. The controlled
 direct effect is a family of quantities, one for each $m$, corresponding
 to a conceivable joint intervention: set the exposure, and set the
@@ -354,14 +354,23 @@ the value it naturally takes under $a$. The decomposition of the total
 effect into natural direct and indirect parts uses exactly this equality.
 **Treatment positivity.** Each exposure level must occur with positive
 probability for every covariate pattern in the population: $0 < P(A = a
-\mid C = c) < 1$ for both levels $a$ and every $c$ that occurs, or the
-contrasts are undefined for units of that type. **Mediator support across
+\mid C = c) < 1$ for both levels $a$ and every $c$ that occurs. Failure
+here does not make the contrasts undefined: the counterfactual contrast
+for units of that type is a perfectly definite quantity, but it is not
+identified from these data, because no unit of that type is ever observed
+under the missing level, so any estimate would be extrapolation rather
+than evidence. **Mediator support across
 treatment levels.** The nested counterfactual $Y^{1, M^{0}}$ evaluates the
 outcome under exposure $1$ at mediator values drawn from the distribution
 under exposure $0$, so those values must be possible under exposure $1$ as
-well: wherever the natural effects evaluate the outcome at $(a, m)$,
-mediator value $m$ must occur with positive probability under exposure
-$a$, given $C$. This cross-level support condition can fail by
+well. The condition is one of support, stated on the values the mediation
+formula integrates over: for a discrete mediator, every value $m$ with
+positive probability under the reference level, given $C$, must also have
+positive probability under the evaluation level; for a continuous
+mediator the probability of any single value is zero even when overlap is
+perfectly adequate, and the condition is instead that every such $m$ lie
+in the support of the mediator under the evaluation level — positive
+density there, given $C$. This cross-level support condition can fail by
 construction, and when it does the failure is fatal in a way confounding
 is not. Suppose binary $A$ is randomised, so the first two confounding
 conditions hold by design, but the mediator simply is the exposure, $M =
@@ -396,20 +405,30 @@ intervention worlds, which no data pattern can verify. Controlled direct
 effects are in a stronger position here, because fixing $M$ to $m$ by
 intervention defines a single-world quantity, and a measured $L$ does not
 by itself block its identification. But the adjustment for $L$ has to be
-the right one, and simply conditioning on $L$ — entering it as one more
-regressor in a pooled outcome regression alongside $A$ and $M$ — is not
-right: $L$ is caused by the exposure, so a pooled regression standardises
-both exposure arms to one common, mixed distribution of $L$, and blocks
-the part of the exposure's effect that runs through $L$ itself. The
-correct adjustment is treatment-specific standardisation, the g-formula
-for this setting: for each exposure level $a$ separately, average the
-outcome mean $E[Y \mid A = a, M = m, L, C]$ over the distribution of $L$
-under that same exposure level, $P(L \mid A = a, C)$, and contrast the two
-standardised means only afterwards. Each arm keeps its own $L$
-distribution, because under the intervention that sets $A = a$ and $M =
-m$, $L$ would still take the values that exposure level $a$ produces. The
-price of the controlled effect remains that it answers the narrower,
-prescriptive question.
+the right one. Simply entering $L$ as one more regressor in a pooled
+outcome regression alongside $A$ and $M$ is not itself the error — a
+fitted regression averages over no distribution of $L$ at all. The error
+is in how the fitted model is then used: reading the controlled effect
+off its coefficients, or averaging its predictions over the sample's
+pooled distribution of $L$, mixes the two arms' $L$ distributions into
+one that belongs to neither arm, and blocks the part of the exposure's
+effect that runs through $L$ itself. Which distribution of $L$ an
+estimate averages over is decided by the prediction and standardisation
+step, not by the regression. The correct adjustment is
+treatment-specific standardisation, the g-formula for this setting: for
+each exposure level $a$ separately, average the outcome mean $E[Y \mid
+A = a, M = m, L, C]$ over the distribution of $L$ under that same
+exposure level, $P(L \mid A = a, C)$, then average the result over the
+target population's distribution of the baseline covariates $C$, and
+contrast the two standardised means only afterwards. Each arm keeps its
+own $L$ distribution, because under the intervention that sets $A = a$
+and $M = m$, $L$ would still take the values that exposure level $a$
+produces. This identifies the population controlled direct effect under
+the sequential exchangeability conditions above — with $L$ among the
+covariates deconfounding the mediator–outcome relation — and the support
+conditions that every combination the formula evaluates occurs with
+positive probability. The price of the controlled effect remains that it
+answers the narrower, prescriptive question.
 
 Because the third and fourth conditions are untestable, sensitivity
 analysis has a standing place in a competent mediation analysis. The
@@ -434,8 +453,17 @@ coefficient is $b$ in one exposure arm and $b + d$ in the other, so the
 indirect effect depends on the arm in which it is evaluated. The natural
 effects remain well defined — the definitions above never assumed
 interaction away — but they now come in two versions of each quantity,
-depending on the reference condition, and the natural direct effect no
-longer equals any single controlled direct effect. The counterfactual
+depending on the reference condition. The natural and controlled direct
+effects also remain different estimands: the controlled effect fixes the
+mediator at a chosen $m$ for everyone, while the natural effect averages
+over the mediator's own distribution under the reference condition. In
+this article's linear model the two can nevertheless take the same
+value: with outcome equation $Y = \beta_0 + c' A + b M + d A M +
+\varepsilon_Y$, the controlled direct effect is $\text{CDE}(m) = c' +
+dm$, while the natural direct effect with reference condition $0$ is
+$c' + d\,E[M^{0}]$ — the controlled direct effect evaluated at $m =
+E[M^{0}]$, whenever that value is a supported mediator level. The
+estimands differ even when the values coincide. The counterfactual
 definitions earn their keep precisely here. VanderWeele's guide presents
 methods from the causal inference literature for conducting mediation
 analysis in the presence of exposure–mediator interactions, alongside

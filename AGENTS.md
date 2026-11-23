@@ -23,7 +23,7 @@ Cursor, Claude, and the research bots maintain this repository. Every change fol
 
 # Before every push
 
-Run the checks that apply to the diff and fix every failure. Do not weaken or skip a test to get green. Rendered and visual checks apply when the change affects rendered pages.
+Run the checks that apply to the diff and fix every failure. Do not weaken or skip a test to get green. A separate full-site Quarto render and visual pass are not a pre-merge gate; the normal GitHub Pages build must still succeed. After each successful deploy, the changed pages get a live check for broken maths, layout and links, with any regression logged on the matching Linear ticket (Grok Bot's auditor duty).
 
 ```
 python build_wiki.py
@@ -31,9 +31,14 @@ python -m unittest discover -p 'test_*.py'
 for f in checks/*.py; do python "$f" || { echo "FAIL $f" >&2; exit 1; }; done
 python check_overview_links.py
 python verify_citations.py --offline
-quarto render            # when the change affects rendered output
-python tools/visual_check.py --site _site
 git diff --check
+```
+
+Optional local verification (not required, and not a pre-merge gate):
+
+```
+quarto render
+python tools/visual_check.py --site _site
 ```
 
 Also run the Node tests listed in `.github/workflows/publish.yml` when the change touches `labs/`, `webr/`, `ask/` or search code. If `STATWIKI_DODGE_DIR` is unavailable, add no new Dodge citations.
@@ -43,6 +48,7 @@ Also run the Node tests listed in `.github/workflows/publish.yml` when the chang
 Chris has said the following. This heading does not attribute any other note to him. Drafts he has not approved are in `docs/automation/HANDOVER.md` under "Proposed, awaiting Chris's approval", and they are not in force.
 
 - Merge only after independent Peer Review approves the exact current head SHA, all required checks and CI are green, and the PR is mergeable. Any new-article or gap-batch merge also needs Chris's explicit approval in advance. Do not deploy except by that approved merge.
+- A separate full-site Quarto render and visual pass are not a pre-merge gate (Chris, confirmed directly 2026-11-23; relayed by Dot to the Slack claim-board thread). The GitHub Pages build must still succeed, and the approval, CI and merge-permission rules above still apply. After each successful deploy, the changed pages get a live check (see "Before every push" for the auditor detail).
 - `research/content/`, `sources/`, `build_wiki.py` and `.github/workflows/` may be edited through a pull request. `config`, `checks/`, tests and `tools/` are ordinary changes, reviewed like any other, and are not pre-approved.
 
 # Hard limits

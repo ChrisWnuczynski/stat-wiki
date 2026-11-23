@@ -210,12 +210,20 @@ matters for what can be checked. Positivity is structural: a property of
 the assignment mechanism in the population, namely whether a unit with
 covariates $x$ could receive either treatment at all. Overlap is
 empirical: a property of the sample in hand, namely whether both groups
-are in fact represented near each score value. A sample can display
-overlap where structural positivity fails, if chance places a few unusual
-units in a group they could not ordinarily join, and it can fail to
-display overlap where positivity holds, if a finite sample leaves a region
-empty. Overlap is therefore evidence about positivity, not a restatement
-of it. Plotting the estimated score separately by group shows where the
+are in fact represented near each score value. A finite sample can fail
+to display overlap where positivity holds, if chance leaves a region of
+the covariate space empty. The reverse direction needs care: chance
+cannot place a unit in a treatment arm that is structurally impossible
+for it at its correctly measured, exact covariate value — a unit observed
+in an arm shows that the arm was possible for that unit as measured. What
+a sample can display is apparent overlap where structural positivity
+fails, and it arises through the measurement and modelling layers, not
+through chance: when covariates are coarsened, so that a unit is pooled
+with others whose exact values differ from its own; when the score is
+estimated, so that a fitted model smooths interior values into a region
+the true score never enters; or when the recorded covariates differ from
+the ones the assignment mechanism actually used. Overlap is therefore
+evidence about positivity, not a restatement of it. Plotting the estimated score separately by group shows where the
 groups share common ground. Stuart emphasises that matching methods
 highlight areas of the covariate distribution with insufficient overlap,
 where estimates would rely heavily on extrapolation, whereas regression
