@@ -1330,6 +1330,17 @@ ALIASES.update({
     "Friedman rank sum test": "friedman-test",
 })
 
+ALIASES.update({
+    "Rubin causal model": "potential-outcomes",
+    "Neyman–Rubin causal model": "potential-outcomes",
+    "counterfactual outcomes": "potential-outcomes",
+    "balancing score": "propensity-score",
+    "directed acyclic graph": "causal-diagram",
+    "causal DAG": "causal-diagram",
+    "DAG": "causal-diagram",
+    "mediated effect": "mediation-analysis",
+})
+
 
 TOPICS += [
     topic("Kernel of a density", "bayes-01-foundations.qmd: recognition of a known density kernel",
@@ -1623,6 +1634,13 @@ LINKS += [
     link(["Levene's test", "Levene test", "Brown-Forsythe test", "Brown–Forsythe test"], "levene-s-test"),
 ]
 
+LINKS += [
+    link(["propensity score", "propensity scores", "balancing score"], "propensity-score"),
+    link(["potential outcomes", "potential outcome", "counterfactual outcomes", "Rubin causal model"], "potential-outcomes"),
+    link(["causal diagram", "causal diagrams", "causal DAG", "directed acyclic graph", "directed acyclic graphs"], "causal-diagram"),
+    link(["mediation analysis", "causal mediation", "mediated effect", "natural direct effect", "natural indirect effect"], "mediation-analysis"),
+]
+
 RELATED += [
     ("markov-chain", "finite-state-markov-chain", "discrete-time-markov-chain", "markov-property"),
     ("stationary-distribution", "stationarity-and-detailed-balance", "limiting-distribution", "stationarity-of-a-time-series"),
@@ -1707,6 +1725,12 @@ RELATED += [
     ("xor-problem", "a-single-threshold-unit-cannot-compute-xor", "linear-separability"),
     ("pseudo-counts-and-sequential-updating", "two-pseudo-count-conventions", "beta-binomial-conjugacy"),
     ("binomial-test", "test-for-one-proportion", "two-proportion-z-test"),
+]
+
+RELATED += [
+    ("propensity-score", "potential-outcomes", "causal-diagram", "mediation-analysis"),
+    ("average-treatment-effect", "causality", "confounding-variable", "propensity-score", "potential-outcomes"),
+    ("causal-diagram", "confounding-variable", "structural-equation-modelling", "mediation-analysis"),
 ]
 
 

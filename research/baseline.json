@@ -3466,5 +3466,21 @@
   "levene-s-test": {
     "words": 2911,
     "figures": 0
+  },
+  "propensity-score": {
+    "words": 5496,
+    "figures": 0
+  },
+  "potential-outcomes": {
+    "words": 5441,
+    "figures": 0
+  },
+  "causal-diagram": {
+    "words": 5499,
+    "figures": 0
+  },
+  "mediation-analysis": {
+    "words": 5496,
+    "figures": 0
   }
 }
