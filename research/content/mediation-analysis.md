@@ -93,8 +93,7 @@ both, with separate coefficients estimated and tested in each
 predicted direction, the effect of the exposure on the outcome must be
 smaller in the third equation than in the second, and mediation was
 declared complete when the exposure had no remaining effect with the
-mediator controlled, and partial otherwise {{cite:baron_kenny1986}}
-(p. 1177).
+mediator controlled, and partial otherwise {{cite:baron_kenny1986}} (p. 1177).
 
 The procedure's influence is not in doubt, and as a heuristic for
 organising a path diagram it remains serviceable. Its defects, however,

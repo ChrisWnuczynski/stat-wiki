@@ -29,8 +29,7 @@ covariates, the propensity towards exposure to treatment 1 given the
 observed covariates $x$ {{cite:rosenbaum_rubin1983}} (pp. 42–43). Hernán
 and Robins write $\pi(L)$ for the same object, with $L$ in place of $X$:
 close to 0 for individuals with a low probability of treatment and close
-to 1 for those with a high probability {{cite:hernan_robins2020}} (p.
-201).
+to 1 for those with a high probability {{cite:hernan_robins2020}} (p. 201).
 
 The score belongs to an assignment process in a population, not to a unit in isolation: the same patient has one score where treatment is routine and another where it is reserved for severe cases. In a randomised experiment it is known by design — 0.5 for every unit in a trial assigning half to treatment — whereas in an observational study it must be estimated {{cite:hernan_robins2020}} (p. 201).
 In the [potential outcomes](potential-outcomes.qmd) framework, let $Y$ be the observed outcome and $Y^{a=1}$ and $Y^{a=0}$ the outcomes the same unit would exhibit under treatment and under the comparison. The target is usually the [average treatment effect](average-treatment-effect.qmd), $\mathrm{E}[Y^{a=1}] - \mathrm{E}[Y^{a=0}]$, where $\mathrm{E}[\cdot]$ denotes a population mean, or the corresponding effect among the treated.

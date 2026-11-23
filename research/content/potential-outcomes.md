@@ -49,8 +49,7 @@ denotes expectation, that is, averaging over the population. Hernán and
 Robins introduce the same objects through a clinical vignette: a patient
 who dies after a transplant has $Y^{a=1} = 1$ for the outcome death, and
 the causal question is the value of $Y^{a=0}$, the outcome the same
-patient would have had without the transplant {{cite:hernan_robins2020}}
-(pp. 3–4).
+patient would have had without the transplant {{cite:hernan_robins2020}} (pp. 3–4).
 
 Three features of the definition should be noted. First, a potential
 outcome is defined by an intervention, not by an observed characteristic:
@@ -202,8 +201,7 @@ chapter, as the equality of the observed outcome with the counterfactual
 outcome under the treatment the individual received
 {{cite:hernan_robins2020}} (p. 4), and return to it at length in their
 chapter on observational studies, where it is listed as one of the three
-conditions on which identification rests {{cite:hernan_robins2020}}
-(p. 33).
+conditions on which identification rests {{cite:hernan_robins2020}} (p. 33).
 
 Consistency looks tautological, and with a precisely specified
 intervention it nearly is. Its content appears when the treatment label
@@ -214,8 +212,8 @@ versions away. Consistency therefore has two components, in Hernán and
 Robins's account: the counterfactual outcome must be well defined,
 which requires the intervention specified precisely enough that "set
 $A$ to $a$" has one meaning, and the well-defined counterfactual must
-be linked to the data by the equality above {{cite:hernan_robins2020}}
-(pp. 33, 38–39). Where no conceivable assignment of units to $a$
+be linked to the data by the equality above {{cite:hernan_robins2020}} (pp. 33, 38–39).
+Where no conceivable assignment of units to $a$
 exists, $Y^a$ is not well defined either. This is the substance behind
 the slogan, associated with Rubin's school, that there is no causation
 without manipulation: a causal effect here is an effect of a
@@ -361,8 +359,7 @@ $\Pr(A = a \mid X = x) > 0$ for all $a$ in the contrast and all values
 $x$ that occur in the population of interest. Hernán and Robins give
 the condition in this form and note that it is required only for the
 covariate values in the population of interest and only for the
-variables needed for exchangeability {{cite:hernan_robins2020}}
-(p. 32).
+variables needed for exchangeability {{cite:hernan_robins2020}} (p. 32).
 
 Positivity failures come in two kinds. A structural failure occurs when
 some kind of unit cannot receive some treatment: patients with a
@@ -419,8 +416,8 @@ $$\mathrm{E}[Y^a] = \sum_x \mathrm{E}[Y \mid A = a, X = x] \, \Pr(X = x).$$
 This is standardisation: the stratum-specific observed means are
 reweighted to the covariate distribution of the whole population.
 Hernán and Robins develop standardisation for conditionally randomised
-experiments in exactly this form {{cite:hernan_robins2020}}
-(pp. 19–20). The formula is stated here because it is the identification
+experiments in exactly this form {{cite:hernan_robins2020}} (pp. 19–20).
+The formula is stated here because it is the identification
 result; the machinery for estimating it when $X$ is high-dimensional —
 modelling treatment assignment through the
 [propensity score](propensity-score.qmd), modelling the outcome, or

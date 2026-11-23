@@ -41,10 +41,9 @@ depression worsening pain — the acyclic representation expands each
 construct into time-indexed copies: depression at time 1, pain at time 1,
 depression at time 2 and pain at time 2 are distinct nodes, and every
 arrow runs from an earlier copy to a later one, as Shrier and Platt note
-for repeated measures of one construct {{cite:shrier_platt2008}}
-(Background). A cyclic graph is in general shorthand for such an acyclic
-graph with time-specific measurements {{cite:greenland_pearl_robins1999}}
-(pp. 46–47).
+for repeated measures of one construct {{cite:shrier_platt2008}} (Background).
+A cyclic graph is in general shorthand for such an acyclic
+graph with time-specific measurements {{cite:greenland_pearl_robins1999}} (pp. 46–47).
 
 Formally, Hernán and Robins define a DAG as a graph whose nodes are
 random variables $V = (V_1, \dots, V_M)$ with directed edges and no
@@ -69,8 +68,7 @@ not whether the effect is harmful or protective, large or negligible,
 linear or nonlinear, and not how $X$ interacts with any other cause of
 $Y$, since a standard causal diagram does not distinguish whether an
 arrow represents a harmful or a protective effect and does not encode
-how two causes of one variable interact {{cite:hernan_robins2020}}
-(Ch. 6, §6.1, p. 75).
+how two causes of one variable interact {{cite:hernan_robins2020}} (Ch. 6, §6.1, p. 75).
 
 The absence of an arrow asserts much more: that $X$ has no direct causal
 effect on $Y$ for any unit. Every absence of a single-headed arrow is a
@@ -80,8 +78,8 @@ through that arrow {{cite:greenland_pearl_robins1999}} (p. 39). Tennant
 and colleagues state the asymmetry as a reporting rule: omitting an arc
 implies precisely no causal effect, a much stronger assumption than
 including an arc, which allows an effect of any sign, magnitude or
-parametric form, including a very small one {{cite:tennant_etal2021}}
-(p. 629). A sparse diagram is therefore not a modest diagram: it makes
+parametric form, including a very small one {{cite:tennant_etal2021}} (p. 629).
+A sparse diagram is therefore not a modest diagram: it makes
 one strong null claim for every ordered pair of nodes it declines to
 connect, whereas a dense diagram makes few claims at all.
 
@@ -127,8 +125,8 @@ Hernán and Robins summarise the three structures in one sentence: two variables
 ### d-separation: when a path is blocked
 
 The rules generalise to paths of any length through d-separation, where
-the “d” stands for directional {{cite:greenland_pearl_robins1999}}
-(p. 45). Fix two variables and a set $S$ being conditioned on. A path
+the “d” stands for directional {{cite:greenland_pearl_robins1999}} (p. 45).
+Fix two variables and a set $S$ being conditioned on. A path
 between them is *blocked* by $S$ if either of two things happens along
 it. The path contains a chain or a fork whose middle node is in $S$:
 conditioning on a non-collider blocks the path, because within strata of
@@ -144,8 +142,7 @@ blocked; a path with a conditioned non-collider is blocked; a conditioned
 collider does not block; and a collider with a conditioned descendant
 does not block — in sum, a path is blocked if and only if it contains a
 conditioned non-collider, or a collider that has not been conditioned on
-and has no conditioned descendants {{cite:hernan_robins2020}} (Ch. 6,
-Fine Point 6.1, p. 82).
+and has no conditioned descendants {{cite:hernan_robins2020}} (Ch. 6, Fine Point 6.1, p. 82).
 
 D-separation is the graphical counterpart of conditional independence: if
 $S$ d-separates two variables, then under the diagram’s assumptions they
@@ -163,8 +160,7 @@ independent, and now condition on $C$ — restrict to one level of it,
 stratify on it, match on it, or model it. Shrier and Platt’s homely version is rain and sprinklers, which both cause a wet field: conditional on the field being wet, knowing the sprinklers were off raises the probability that it rained {{cite:shrier_platt2008}} (Step 4). The child in such a structure is
 called a collider because the two arrows collide at the node, and
 conditioning on the child, or on an effect of the child, creates a
-conditional association between its parents {{cite:shrier_platt2008}}
-(Step 4).
+conditional association between its parents {{cite:shrier_platt2008}} (Step 4).
 
 Conditioning on a descendant of the collider does the same, usually more
 weakly: restricting to a level of a consequence of $C$ is partial
@@ -172,8 +168,7 @@ information about $C$, and partial information opens the path partially.
 Hernán and Robins add a medication caused by heart disease to their
 collider diagram: the two causes of heart disease are associated within
 levels of the medication too, because conditioning on a variable affected
-by a collider also opens the path {{cite:hernan_robins2020}} (Ch. 6,
-§6.3, p. 81). Hence “we did not adjust for the collider itself” is no
+by a collider also opens the path {{cite:hernan_robins2020}} (Ch. 6, §6.3, p. 81). Hence “we did not adjust for the collider itself” is no
 defence: selection into a study, response, or survival to recruitment is
 typically a descendant of its causes, and analysing the selected sample
 at all can be conditioning on such a descendant.
@@ -306,8 +301,7 @@ Hernán and Robins introduce SWIGs as the device unifying the
 counterfactual and graphical approaches, with the equivalence that a
 counterfactual outcome is d-separated from treatment given $L$ on the
 SWIG if and only if $L$ is a non-descendant of treatment blocking all
-backdoor paths in the original DAG {{cite:hernan_robins2020}} (Ch. 7,
-§7.5, pp. 101–102).
+backdoor paths in the original DAG {{cite:hernan_robins2020}} (Ch. 7, §7.5, pp. 101–102).
 
 ## Worked example — A fork that fakes an effect, and a collider that fakes an association
 
@@ -400,6 +394,8 @@ standardised difference is the effect: it agrees with both within-stratum
 differences, as it must when $\{X\}$ satisfies the backdoor criterion.
 The crude $2/5$ overstates the effect by $2/5 - 1/4 = 3/20$.
 
+:::
+
 ## Common misconceptions
 
 **“Adjust for everything associated with exposure and outcome.”**
@@ -441,13 +437,13 @@ differ {{cite:shrier_platt2008}} (Discussion). Tennant and colleagues
 turn the same obligations into reporting standards: state the estimand,
 make the diagram available, state the adjustment set the diagram implies
 — including variables with no available measurement — and report
-alternative adjustment sets separately {{cite:tennant_etal2021}}
-(pp. 628–629). What a diagram cannot show is as important as what it can. It cannot show
+alternative adjustment sets separately {{cite:tennant_etal2021}} (pp. 628–629).
+What a diagram cannot show is as important as what it can. It cannot show
 an effect size, a sign, or a functional form: the assumptions are
 qualitative and nonparametric, implying nothing about the form of the
 relations among the variables, which may be discrete or continuous with
-dose–response relations of any shape {{cite:greenland_pearl_robins1999}}
-(p. 39). It cannot show interaction between two causes of one node {{cite:shrier_platt2008}} (Discussion). It cannot
+dose–response relations of any shape {{cite:greenland_pearl_robins1999}} (p. 39).
+It cannot show interaction between two causes of one node {{cite:shrier_platt2008}} (Discussion). It cannot
 show sampling variation or association strength; a negligible arrow and a
 decisive one are drawn identically. And it cannot show an unmeasured
 variable the analyst has not thought of. One that *is* thought of can and
