@@ -546,8 +546,7 @@ where the target factorises along a chain — as in state-space models —
 the proposal can be built sequentially, one conditional factor at a time,
 with the weight accumulated as a product of one-step ratios. That
 construction is sequential importance sampling, and with resampling added
-it is the basis of particle filtering {{cite:tokdar_kass2010}}
-(pp. 56–58). It manages degeneracy by rebuilding the sample as it goes; it
+it is the basis of particle filtering {{cite:tokdar_kass2010}} (pp. 56–58). It manages degeneracy by rebuilding the sample as it goes; it
 does not repeal the multiplicative mechanism, and the plain, one-shot
 estimator of this article remains a low-to-moderate-dimensional tool
 unless the proposal is very close to the target.

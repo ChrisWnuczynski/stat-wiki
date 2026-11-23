@@ -48,8 +48,7 @@ delivered by the conjugacy proved below. Property (I) holds in this
 sense: for any fixed probability measure $Q$ absolutely continuous with
 respect to the parameter measure, and any finite collection of sets,
 $G$ falls within any stated tolerance of $Q$ on all of them
-simultaneously with positive probability {{cite:ferguson1973}}
-(Proposition 3, pp. 215–216). On the real line,
+simultaneously with positive probability {{cite:ferguson1973}} (Proposition 3, pp. 215–216). On the real line,
 with the topology of convergence in distribution, the support is all
 probability measures supported inside the support of the base measure
 {{cite:ferguson1973}} (pp. 215–216). A base measure with full support
@@ -95,8 +94,7 @@ $$(G(A_1), \dots, G(A_k)) \sim
 
 Ferguson's original definition uses a single finite non-null measure
 $\alpha(\cdot)$ in place of the pair $(\alpha, G_0)$, with Dirichlet
-parameters $(\alpha(A_1), \dots, \alpha(A_k))$ {{cite:ferguson1973}}
-(Definition 1, p. 214). The formulations coincide, with $\alpha(A) =
+parameters $(\alpha(A_1), \dots, \alpha(A_k))$ {{cite:ferguson1973}} (Definition 1, p. 214). The formulations coincide, with $\alpha(A) =
 \alpha G_0(A)$: $\alpha$ is the total mass and $G_0$ the normalised
 measure — where the mass of $G$ is expected to lie, and how strongly
 that expectation is held.
@@ -156,8 +154,7 @@ Sethuraman's abstract records the same property as the second of his
 three basic results {{cite:sethuraman1994}} (p. 639), and Neal states
 it as the starting point for mixture modelling: "Since realizations of
 the Dirichlet process are discrete with probability one, these models
-can be viewed as countably infinite mixtures" {{cite:neal2000_dpmm}}
-(p. 251).
+can be viewed as countably infinite mixtures" {{cite:neal2000_dpmm}} (p. 251).
 
 Discreteness has an immediate consequence for sampling: draws from a
 realised $G$ coincide with positive probability, because two draws may
@@ -236,8 +233,7 @@ and the empirical distribution so far. Blackwell and MacQueen prove
 the converse as well: a Pólya sequence's empirical distribution
 converges with probability one to a limiting discrete measure with
 Ferguson's Dirichlet distribution, and given the limit the observations
-are independent with that distribution {{cite:blackwell_macqueen1973}}
-(Theorem, p. 354). Urn and process are two descriptions of one object:
+are independent with that distribution {{cite:blackwell_macqueen1973}} (Theorem, p. 354). Urn and process are two descriptions of one object:
 a ball is drawn, returned, and a second ball of the same colour added,
 so seen colours become more likely to recur. Neal records the same
 conditional as his equation (2.2) {{cite:neal2000_dpmm}} (p. 251).
@@ -509,16 +505,14 @@ the observable density is smooth. This is a [finite mixture
 model](finite-mixture-model.qmd) with the component count left open:
 the model is also the limit, as $K \to \infty$, of a $K$-component
 mixture whose proportions have a symmetric Dirichlet prior with
-parameter $\alpha/K$ per component {{cite:neal2000_dpmm}}
-(pp. 251–252), and the prior probability that two observations share a
+parameter $\alpha/K$ per component {{cite:neal2000_dpmm}} (pp. 251–252), and the prior probability that two observations share a
 component is $1/(1 + \alpha)$ {{cite:neal2000_dpmm}} (p. 252).
 
 Escobar and West give the canonical instance, a mixture of normals for
 density estimation: $G$ over mean–variance pairs follows a Dirichlet
 process with $E[G] = G_0$, where $G_0$ is a normal/inverse-gamma prior,
 conjugate to the normal kernel, and $\alpha$ is a precision parameter
-for the concentration of $G$ about $G_0$ {{cite:escobar_west1995}}
-(§2, p. 578). The predictive density is a data-adaptive kernel estimate
+for the concentration of $G$ about $G_0$ {{cite:escobar_west1995}} (§2, p. 578). The predictive density is a data-adaptive kernel estimate
 with component parameters shrunk towards the prior, inheriting a kernel
 method's smoothing while letting the data determine the number and
 placement of components {{cite:escobar_west1995}} (p. 578). Inference
@@ -547,16 +541,14 @@ likelihood under each candidate.
 When $G_0$ is conjugate to the kernel, component parameters integrate
 out analytically and allocations are resampled by Gibbs sampling;
 Neal's Algorithm 1, used earlier by Escobar, resamples each $\theta_i$
-given the other allocations and the data {{cite:neal2000_dpmm}}
-(Algorithm 1, p. 253). The conjugate case is the exception in
+given the other allocations and the data {{cite:neal2000_dpmm}} (Algorithm 1, p. 253). The conjugate case is the exception in
 applications, and Neal's contribution is methods for non-conjugate
 $G_0$: Metropolis–Hastings updates of the allocation indicators using
 the conditional prior as the proposal, and Gibbs samplers extended with
 auxiliary parameters drawn from $G_0$ for the unoccupied components a
 new cluster might use — his Algorithm 8, whose equilibrium distribution
 is exactly the posterior for any number of auxiliary parameters
-{{cite:neal2000_dpmm}}
-(Abstract, p. 249; Algorithm 8, p. 262). Escobar and West's earlier
+{{cite:neal2000_dpmm}} (Abstract, p. 249; Algorithm 8, p. 262). Escobar and West's earlier
 sampler follows the same logic {{cite:escobar_west1995}} (§3, pp. 579–580).
 
 A sweep's cost grows with the number of occupied clusters as well as
@@ -689,8 +681,7 @@ in 1973 {{cite:ferguson1973}} (pp. 209–210). The paper defined the
 process by its Dirichlet finite-dimensional distributions, proved the
 posterior is again a Dirichlet process, gave a normalised gamma process
 construction making discreteness explicit, and developed applications
-to distribution functions, means and quantiles {{cite:ferguson1973}}
-(§§3–5, pp. 213–230). In the same issue, Blackwell and MacQueen
+to distribution functions, means and quantiles {{cite:ferguson1973}} (§§3–5, pp. 213–230). In the same issue, Blackwell and MacQueen
 connected Ferguson's distributions to generalised Pólya urn schemes
 {{cite:blackwell_macqueen1973}} (pp. 353–354). Antoniak (1974) extended
 the theory to mixtures of Dirichlet processes and derived the tie and

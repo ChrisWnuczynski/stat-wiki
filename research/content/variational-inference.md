@@ -13,8 +13,7 @@ the posterior mean, its quantiles for posterior quantiles, and so on.
 Blei, Kucukelbir and McAuliffe define the method in exactly these terms:
 "first posit a family of densities and then find the member of that family
 which is close to the target", with closeness measured by
-Kullback–Leibler divergence {{cite:blei_kucukelbir_mcauliffe2017}}
-(§1, pp. 859–860).
+Kullback–Leibler divergence {{cite:blei_kucukelbir_mcauliffe2017}} (§1, pp. 859–860).
 
 Two features of that definition should be fixed at the outset. First, the
 output is an approximation, not the posterior itself, and it carries no
@@ -490,10 +489,13 @@ Carlo sampling" {{cite:blei_kucukelbir_mcauliffe2017}} (abstract, p. 859).
 Scalability: because the objective is a sum over observations, stochastic
 optimisation applies, and the method extends to datasets that do not fit
 in memory {{cite:hoffman_etal2013_svi}} (§2). Diagnostics: the objective
-is a number, computed at every iteration, whose increase certifies
-progress and whose plateau signals convergence of the optimisation — a
-check with no equally direct analogue for a Markov chain, whose
-convergence must be inferred from the behaviour of its draws. The batch
+is a number, computed at every iteration, whose increase tracks
+progress — a check with no equally direct analogue for a Markov chain,
+whose convergence must be inferred from the behaviour of its draws. A
+plateau in the objective is the usual practical signal to stop, but it
+certifies neither a stationary point nor a local optimum: an optimiser
+can stall on a flat region, or crawl along a shallow valley, while the
+objective barely moves. The batch
 algorithm is also deterministic: the same initialisation and data return
 the same answer.
 
@@ -503,14 +505,18 @@ the same answer.
 it. The two are equal only when the fitted $q$ equals the posterior, in
 which case the divergence term in the identity is zero. In worked
 example 1 the gap at the optimum is $0.511$ nats; treating the bound as
-the evidence overstates the model's marginal likelihood by exactly the
-approximation error, and comparing two models by their bounds compares
-evidence minus two different, unknown gaps.
+the evidence understates the model's log marginal likelihood by exactly
+that gap. On the evidence scale itself the understatement is
+multiplicative, not additive: the bound is the evidence times
+$e^{-0.511} \approx 0.60$. And comparing two models by their bounds
+compares log evidence minus two different, unknown gaps.
 
-**"A converged variational fit has found the posterior."** Convergence
-certifies a local optimum of the ELBO within the chosen family. It says
-nothing about whether a better local optimum exists, and nothing about
-how far the family's best member is from the posterior. Both worked
+**"A converged variational fit has found the posterior."** Even where
+an algorithm genuinely reaches a local optimum of the ELBO within the
+chosen family — and a plateau in the objective does not by itself
+certify that it has — the optimum says nothing about whether a better
+local optimum exists, and nothing about how far the family's best
+member is from the posterior. Both worked
 examples converge perfectly; one of them still reports a variance of
 $0.36$ where the truth is $1$.
 
@@ -518,7 +524,9 @@ $0.36$ where the truth is $1$.
 rough device."** The assumption is about the approximating family, not a
 claim about the posterior, and its consequences are precise: posterior
 means are often recovered well — exactly, in worked example 1 — while
-variances and correlations are distorted in a known direction.
+variances and correlations are distorted, the marginal variances
+typically, though not invariably, understated (see Assumptions and
+limits).
 
 **"Variational inference is a faster kind of MCMC."** The two solve
 different problems. Markov chain Monte Carlo simulates from the
@@ -542,23 +550,30 @@ approximated {{cite:hoffman_etal2013_svi}} (abstract, p. 1303).
 
 None of these limits is removed by running the optimisation for longer.
 
-*Variance underestimation.* An approximation fitted by minimising
-$\mathrm{KL}(q \| p)$ is contained within the posterior rather than
-spread across it, and a factorised family compounds the effect by
-replacing marginal spreads with conditional ones. Blei, Kucukelbir and
-McAuliffe state the general fact directly: "variational inference
-generally underestimates the variance of the posterior density; this is
-a consequence of its objective function"
-{{cite:blei_kucukelbir_mcauliffe2017}} (§1, p. 860). Worked example 1 is
-the mechanism in miniature: a marginal variance of $1$ reported as
-$0.36$. Credible intervals built from such an approximation are too
-narrow, and posterior probabilities of tail events are understated,
-systematically and in a direction that flatters the precision of the
-analysis.
+*Variance understatement — a tendency, not a guarantee.* An
+approximation fitted by minimising $\mathrm{KL}(q \| p)$ is typically
+contained within the posterior rather than spread across it, and a
+factorised family compounds the effect by replacing marginal spreads
+with conditional ones. Blei, Kucukelbir and McAuliffe state the usual
+behaviour directly: "variational inference generally underestimates
+the variance of the posterior density; this is a consequence of its
+objective function" {{cite:blei_kucukelbir_mcauliffe2017}} (§1, p. 860).
+Worked example 1 is the mechanism in miniature, an exact calculation:
+a marginal variance of $1$ reported as $0.36$, so intervals built from
+such an approximation are too narrow and tail probabilities
+understated. But the direction is not a theorem. Take a posterior
+placing probabilities $0.3$, $0.3$ and $0.4$ on the three points
+$(-1, 0)$, $(1, 0)$ and $(0, 1)$: a product approximation whose reverse
+divergence is finite must sit on a single slice of constant $Y$, and
+the optimum chooses $Y = 0$, giving $\mathrm{Var}_q(X) = 1$ against
+$\mathrm{Var}_p(X) = 0.6$ and $P_q(|X| > 0.5) = 1$ against $0.6$ — a
+marginal variance and a tail probability *overstated*. Understated
+spread is the common failure, and the one to expect; it is not
+guaranteed.
 
 *Local optima.* The ELBO is generally non-convex in the variational
-parameters, so CAVI and stochastic variants alike converge to local
-optima that depend on initialisation. Comparing two runs' ELBOs
+parameters, so CAVI and stochastic variants alike can converge to
+local optima that depend on initialisation. Comparing two runs' ELBOs
 identifies the better of them but does not certify that either is near
 the family's global optimum.
 
@@ -704,8 +719,10 @@ fitted $q^{*}$ equals the posterior. What can be said is that $-512.3$
 is a lower bound on the log marginal likelihood, and that the size of
 the gap is exactly the divergence of the approximation — which is
 unknown, because computing it would require the evidence itself.
-Reporting the bound as the evidence overstates the marginal likelihood
-by that unknown amount.
+Reporting the bound as the evidence understates the log marginal
+likelihood by that unknown amount — and understates the marginal
+likelihood itself by the multiplicative factor
+$e^{-\mathrm{KL}(q^{*} \| p)}$, not by an additive amount.
 
 :::
 

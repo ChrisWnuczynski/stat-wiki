@@ -13,8 +13,7 @@ can be far from the current point and still have a high probability of
 acceptance. Neal states the purpose directly: Hamiltonian dynamics "can be
 used to produce distant proposals for the Metropolis algorithm, thereby
 avoiding the slow exploration of the state space that results from the
-diffusive behaviour of simple random-walk proposals" {{cite:neal2011_hmc}}
-(pp. 113–114). The price of the construction is that the gradient of the log
+diffusive behaviour of simple random-walk proposals" {{cite:neal2011_hmc}} (pp. 113–114). The price of the construction is that the gradient of the log
 density must be available, and that two tuning quantities — a step size and
 a trajectory length — must be chosen well.
 
@@ -177,23 +176,27 @@ the next combine into a single full momentum step, so the interior of a
 trajectory alternates full position and full momentum updates, with half
 steps only at the two ends {{cite:neal2011_hmc}} (p. 122).
 
-Leapfrog is used, rather than a simpler scheme such as Euler's method, for
-two exact properties it retains despite the discretisation. First, it
-preserves volume exactly: each of the three sub-steps is a shear
-transformation — it shifts one set of coordinates by an amount depending
-only on the other set — and a shear has a Jacobian matrix with determinant
-one {{cite:neal2011_hmc}} (p. 122). Second, it is reversible: negating $p$,
-applying the same number of leapfrog steps, and negating $p$ again undoes
-the trajectory {{cite:neal2011_hmc}} (p. 122). Integrators with these two
-properties are called symplectic integrators in Betancourt's treatment, and
-he makes the same point about why they, specifically, are suitable
-{{cite:betancourt2017_hmc}} (§5.1, p. 37).
+Leapfrog is used, rather than a simpler scheme such as Euler's method,
+because it is a symplectic integrator. Each of its three sub-steps is a
+shear transformation — it shifts one set of coordinates by an amount
+depending only on the other set — and each shear is a symplectic map,
+as is any composition of symplectic maps. Two exact properties follow.
+First, it preserves volume exactly: a symplectic map always does, and
+the shears make this visible directly, since each has a Jacobian matrix
+with determinant one {{cite:neal2011_hmc}} (p. 122). Second, the
+composition is symmetric, so the integrator is reversible: negating
+$p$, applying the same number of leapfrog steps, and negating $p$
+again undoes the trajectory {{cite:neal2011_hmc}} (p. 122).
+Symplecticity is the defining property; volume preservation is a
+consequence of it, not its definition, and in more than two dimensions
+volume preservation alone does not imply it. Betancourt's treatment
+makes the same point about why symplectic integrators, specifically,
+are suitable {{cite:betancourt2017_hmc}} (§5.1, p. 37).
 
 What leapfrog does not retain is exact conservation of energy. Its local
 error is of order $\varepsilon^3$, and its global error over a fixed time
 interval is of order $\varepsilon^2$; Neal attributes the even order of
-the global error to the method's reversibility {{cite:neal2011_hmc}}
-(p. 122). The computed $H$ therefore oscillates around, or drifts from,
+the global error to the method's reversibility {{cite:neal2011_hmc}} (p. 122). The computed $H$ therefore oscillates around, or drifts from,
 its initial value along a trajectory, by an amount that is small when
 $\varepsilon$ is small and the trajectory is stable, but is not zero.
 Betancourt describes the effect geometrically: the numerical trajectory
@@ -214,8 +217,7 @@ starting point and is rejected with probability effectively one.
 ### One HMC iteration
 
 An iteration of HMC consists of two steps, each of which leaves the joint
-canonical distribution of $(q, p)$ invariant {{cite:neal2011_hmc}}
-(p. 124).
+canonical distribution of $(q, p)$ invariant {{cite:neal2011_hmc}} (p. 124).
 
 **Step 1: resample the momentum.** Draw a new $p$ from its Gaussian
 distribution, independently of the current $q$ and of the previous $p$.
@@ -223,9 +225,11 @@ Because $p$ is drawn from its correct conditional distribution given $q$
 — the same as its marginal, by independence — this step leaves the joint
 distribution invariant. It also moves the state between energy surfaces:
 the new $p$ gives a new kinetic energy, hence a new total energy. Neal
-stresses that without this resampling, $H$ would remain (nearly) constant
-and $U(q)$ could never exceed its initial value, so the chain could not
-reach the whole target {{cite:neal2011_hmc}} (p. 124).
+stresses that without this resampling, $H$ would remain (nearly)
+constant along a trajectory: the exact motion trades kinetic for
+potential energy and back, but since $K \ge 0$, $U(q)$ could never
+exceed the initial *total* energy, so the chain could not reach the
+whole target {{cite:neal2011_hmc}} (p. 124).
 
 **Step 2: a Metropolis proposal from a trajectory.** Starting from the
 current $(q, p)$, take $L$ leapfrog steps of size $\varepsilon$, then
@@ -257,8 +261,7 @@ detailed balance. Neal's argument partitions $(q, p)$ space into small
 regions of equal volume, uses reversibility to pair each region with its
 image under the leapfrog-plus-negation mapping, uses volume preservation
 to give the image the same volume, and then checks the detailed balance
-identity directly from the acceptance formula {{cite:neal2011_hmc}}
-(pp. 124–126). Together with the invariance of the resampling step, this
+identity directly from the acceptance formula {{cite:neal2011_hmc}} (pp. 124–126). Together with the invariance of the resampling step, this
 gives a [Markov chain](markov-chain.qmd) for $q$ alone with the target as
 its invariant distribution. Invariance is not convergence from an arbitrary
 starting point: Neal notes that near periodicities of the trajectory — for
@@ -393,8 +396,11 @@ below $\log u - \Delta_{\max}$, the threshold at which the energy error
 is treated as out of control, or when the subtrajectory between the
 endpoints of any balanced subtree begins to make a U-turn — formally,
 when the vector from one endpoint to the other has a negative dot
-product with the momentum at either endpoint, meaning the endpoints are
-starting to approach each other {{cite:hoffman_gelman2014}} (Algorithm 3, p. 1606).
+product with the momentum at either endpoint, meaning the endpoints
+are starting to approach each other {{cite:hoffman_gelman2014}} (Algorithm 3, p. 1606).
+That criterion is stated for an identity mass matrix; with a general
+mass matrix the momenta in the dot products are replaced by the
+velocities $M^{-1} p$, not reused unchanged.
 A candidate is then selected from the admissible
 states in the tree. Hoffman and Gelman also give a dual-averaging
 procedure, based on Nesterov's primal–dual averaging, that adapts
@@ -491,15 +497,17 @@ needed."** The trajectory follows leapfrog dynamics, which conserve neither
 $H$ nor the target density exactly. In the worked example, four steps at
 $\varepsilon = 0.5$ produced an energy error of $+0.008026$ and an
 acceptance probability of $0.992006$, not $1$. The Metropolis step using
-the change in $H$ is part of the algorithm, not an optional refinement;
-omitting it leaves a chain whose invariant distribution is that of the
-perturbed dynamics, not the target.
+the change in $H$ is part of the algorithm, not an optional
+refinement; omitting it leaves a chain with no known invariant
+distribution — the numerical dynamics are not known to preserve the
+target, or any definite perturbation of it, exactly.
 
 **"Resampling the momentum is a minor implementation detail."** It is the
-step that moves the chain between energy surfaces. Without it, $H$ stays
-at its initial value along every trajectory, $U(q)$ can never exceed that
-value, and most of the target is unreachable {{cite:neal2011_hmc}}
-(p. 124).
+step that moves the chain between energy surfaces. Without it, a
+trajectory is confined to a single energy surface: the motion converts
+kinetic into potential energy and back, but since $K \ge 0$, $U(q)$
+can never exceed the initial total energy $H$, and most of the target
+is unreachable {{cite:neal2011_hmc}} (p. 124).
 
 **"A divergent transition is just a rejected proposal."** A rejection at a
 well-behaved endpoint is routine. A divergence signals that the integrator
@@ -590,8 +598,7 @@ The method originated outside statistics. In 1987, Duane, Kennedy,
 Pendleton and Roweth united molecular dynamics simulation with Monte Carlo
 sampling in a paper they called "Hybrid Monte Carlo", applied to lattice
 field theory calculations in quantum chromodynamics; this account of the
-paper's content and application is Neal's {{cite:neal2011_hmc}}
-(pp. 113–114). Its bibliographic details, as given in the reference lists
+paper's content and application is Neal's {{cite:neal2011_hmc}} (pp. 113–114). Its bibliographic details, as given in the reference lists
 of both Neal and Betancourt, are: Duane, S., Kennedy, A. D., Pendleton,
 B. J. and Roweth, D. (1987), "Hybrid Monte Carlo", *Physics Letters B*,
 195, 216–222 {{cite:betancourt2017_hmc}} (p. 59). Neal records that
