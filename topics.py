@@ -1330,6 +1330,17 @@ ALIASES.update({
     "Friedman rank sum test": "friedman-test",
 })
 
+ALIASES.update({
+    "Kaplan-Meier estimator": "kaplan-meier-estimator",
+    "product-limit estimator": "kaplan-meier-estimator",
+    "Cox model": "cox-proportional-hazards-model",
+    "Cox regression": "cox-proportional-hazards-model",
+    "Mantel–Cox test": "log-rank-test",
+    "Mantel-Cox test": "log-rank-test",
+    "competing risk": "competing-risks",
+    "cumulative incidence function": "competing-risks",
+})
+
 
 TOPICS += [
     topic("Kernel of a density", "bayes-01-foundations.qmd: recognition of a known density kernel",
@@ -1623,6 +1634,13 @@ LINKS += [
     link(["Levene's test", "Levene test", "Brown-Forsythe test", "Brown–Forsythe test"], "levene-s-test"),
 ]
 
+LINKS += [
+    link(["Kaplan–Meier estimator", "Kaplan-Meier estimator", "Kaplan–Meier curve", "product-limit estimator"], "kaplan-meier-estimator"),
+    link(["Cox proportional hazards model", "Cox model", "Cox regression"], "cox-proportional-hazards-model"),
+    link(["log-rank test", "Mantel–Cox test", "Mantel-Cox test"], "log-rank-test"),
+    link(["competing risks", "competing risk", "cumulative incidence function"], "competing-risks"),
+]
+
 RELATED += [
     ("markov-chain", "finite-state-markov-chain", "discrete-time-markov-chain", "markov-property"),
     ("stationary-distribution", "stationarity-and-detailed-balance", "limiting-distribution", "stationarity-of-a-time-series"),
@@ -1707,6 +1725,11 @@ RELATED += [
     ("xor-problem", "a-single-threshold-unit-cannot-compute-xor", "linear-separability"),
     ("pseudo-counts-and-sequential-updating", "two-pseudo-count-conventions", "beta-binomial-conjugacy"),
     ("binomial-test", "test-for-one-proportion", "two-proportion-z-test"),
+]
+
+RELATED += [
+    ("kaplan-meier-estimator", "log-rank-test", "competing-risks", "cox-proportional-hazards-model"),
+    ("hazard-rate", "proportional-hazards-model", "survival-function", "kaplan-meier-estimator", "cox-proportional-hazards-model"),
 ]
 
 
