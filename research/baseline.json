@@ -3466,5 +3466,21 @@
   "levene-s-test": {
     "words": 2911,
     "figures": 0
+  },
+  "kaplan-meier-estimator": {
+    "words": 4504,
+    "figures": 0
+  },
+  "cox-proportional-hazards-model": {
+    "words": 5483,
+    "figures": 0
+  },
+  "log-rank-test": {
+    "words": 4758,
+    "figures": 0
+  },
+  "competing-risks": {
+    "words": 4964,
+    "figures": 0
   }
 }
