@@ -96,7 +96,7 @@ _TITLES = """
 02-inference-and-counts.qmd#s-binomial-counts | Binomial counts in a GLM
 02-inference-and-counts.qmd#s-cholesterol-with-standard-errors | Cholesterol and heart disease
 02-inference-and-counts.qmd#s-counts | Count responses
-02-inference-and-counts.qmd#s-mine-injuries | Mine-injury data
+02-inference-and-counts.qmd#s-mine-injuries | Mine fracture counts
 02-inference-and-counts.qmd#s-two-models-with-a-real-distribution | Count models beyond the Poisson
 03-gamma-and-quasi.qmd#s-clotting-times-three-ways | Clotting-time data
 03-gamma-and-quasi.qmd#s-leaf-blotch | Leaf-blotch data
@@ -281,6 +281,7 @@ TITLES = dict(tuple(x.strip() for x in line.split("|")) for line in _TITLES.stri
 
 # The file name is already published. The title can change; this slug stays.
 SLUGS = {
+    "02-inference-and-counts.qmd#s-mine-injuries": "mine-injury-data",
     "sl-18-high-dimensional.qmd#s-regression": "regression-when-p-n",
     "03-gamma-and-quasi.qmd#s-bids-for-a-bankrupt-firm": "bids-for-a-bankrupt-firm",
 }
@@ -1333,6 +1334,16 @@ ALIASES.update({
     "Bayesian nonparametrics": "dirichlet-process",
 })
 
+ALIASES.update({
+    "product-limit estimator": "kaplan-meier-estimator",
+    "Cox model": "cox-proportional-hazards-model",
+    "Cox regression": "cox-proportional-hazards-model",
+    "Mantel–Cox test": "log-rank-test",
+    "Mantel-Cox test": "log-rank-test",
+    "competing risk": "competing-risks",
+    "cumulative incidence function": "competing-risks",
+})
+
 
 TOPICS += [
     topic("Kernel of a density", "bayes-01-foundations.qmd: recognition of a known density kernel",
@@ -1548,7 +1559,7 @@ LINKS += [
     link(["re:clotting(?:[- ]time)? (?:data|times|fit)"], "clotting-time-data"),
     link(["re:lidar(?: data)?"], "lidar-data"),
     link(["re:kyphosis(?: data)?"], "kyphosis-data"),
-    link(["re:mine[- ]injur(?:y|ies)"], "mine-injury-data"),
+    link(["re:mine[- ]injur(?:y|ies)", "mine fracture counts"], "mine-injury-data"),
     link(["re:leaf[- ]blotch"], "leaf-blotch-data"),
     link(["re:warp[- ]breaks"], "warp-breaks-data"),
     link(["re:sleep[- ]deprivation", "sleepstudy"], "sleep-deprivation-data"),
@@ -1628,6 +1639,13 @@ LINKS += [
     link(["Hamiltonian Monte Carlo", "hybrid Monte Carlo", "No-U-Turn sampler"], "hamiltonian-monte-carlo"),
     link(["importance sampling", "self-normalised importance sampling"], "importance-sampling"),
     link(["Dirichlet process", "Bayesian nonparametrics", "Chinese restaurant process", "stick-breaking"], "dirichlet-process"),
+]
+
+LINKS += [
+    link(["Kaplan–Meier estimator", "Kaplan-Meier estimator", "Kaplan–Meier curve", "product-limit estimator"], "kaplan-meier-estimator"),
+    link(["Cox proportional hazards model", "Cox model", "Cox regression"], "cox-proportional-hazards-model"),
+    link(["log-rank test", "Mantel–Cox test", "Mantel-Cox test"], "log-rank-test"),
+    link(["competing risks", "competing risk", "cumulative incidence function"], "competing-risks"),
 ]
 
 RELATED += [

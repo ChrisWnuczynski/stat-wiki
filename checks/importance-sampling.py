@@ -32,8 +32,8 @@ close(math.exp(4.5 - 3 * 4), 0.000553, 1e-6)   # w(4)
 
 # Exact per-draw second moment: E_q[w(X)^2 1(X>3)] = e^9 * (1 - Phi(6))
 second = math.exp(9.0) * (1.0 - Phi(6.0))
-close(second, 7.994403e-6, 1e-9)      # article: 7.9944 x 10^-6
-close(1.0 - Phi(6.0), 9.865877e-10, 1e-15)
+close(second, 7.994402e-6, 1e-9)      # article: 7.994402 x 10^-6 (exact 7.99440249e-6)
+close(1.0 - Phi(6.0), 9.865876e-10, 1e-15)
 
 # Per-draw variance of the importance-sampling contribution
 var_is = second - mu ** 2

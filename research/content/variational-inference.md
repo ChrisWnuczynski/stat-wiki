@@ -200,8 +200,7 @@ variable — and $q$ is required to factorise across the groups,
 $$q(z) = \prod_{j=1}^{m} q_j(z_j),$$
 
 where each factor $q_j$ is a density over its own group, with its own
-variational parameters {{cite:blei_kucukelbir_mcauliffe2017}} (§2.3,
-eq. 15). The name is borrowed from statistical physics, where the same
+variational parameters {{cite:blei_kucukelbir_mcauliffe2017}} (§2.3, eq. 15). The name is borrowed from statistical physics, where the same
 factorisation approximates interacting systems by independent components.
 Under $q$, distinct groups are independent by construction. That is the
 family's strength and its defining defect at once: expectations under a
@@ -293,8 +292,7 @@ Hoffman, Blei, Wang and Paisley, removes that limit by applying
 stochastic optimisation to the same ELBO: instead of computing the exact
 gradient of the ELBO, the algorithm computes a noisy but unbiased
 estimate of it from a subsample of the data, and follows that estimate
-with a decreasing step size {{cite:hoffman_etal2013_svi}} (§2,
-pp. 1303–1305). Their summary of the iteration is to "subsample one or
+with a decreasing step size {{cite:hoffman_etal2013_svi}} (§2, pp. 1303–1305). Their summary of the iteration is to "subsample one or
 more data points", analyse the subsample at the current variational
 parameters, and take a closed-form step for the global parameters
 {{cite:hoffman_etal2013_svi}} (§1).
@@ -540,10 +538,9 @@ and Paisley present it as a method that lets "complex Bayesian models"
 be applied "to massive data sets", not as a change to what is being
 approximated {{cite:hoffman_etal2013_svi}} (abstract, p. 1303).
 
-## Assumptions and limits — The limits are structural
+## Assumptions and limits — Variance, optima, and the chosen family
 
-The limits are equally structural, and none of them is removed by running
-the optimisation for longer.
+None of these limits is removed by running the optimisation for longer.
 
 *Variance underestimation.* An approximation fitted by minimising
 $\mathrm{KL}(q \| p)$ is contained within the posterior rather than

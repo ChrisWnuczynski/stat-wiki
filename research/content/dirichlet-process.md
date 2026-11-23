@@ -60,7 +60,12 @@ probability one, is continuity of the drawn distribution itself.
 This is the sense in which the process is nonparametric: the parameter,
 $G$, is infinite-dimensional, and a fitted model's effective complexity
 — the number of distinct values or components in use — grows with the
-sample size rather than being fixed in advance. The finite-dimensional
+sample size rather than being fixed in advance, provided $G_0$ has
+infinite support. If $G_0$ is carried by finitely many points, the
+picture collapses to the finite analogue: $G$ is then a
+Dirichlet-distributed weight vector on those points, and the number of
+distinct values can never exceed the size of that support, however
+large the sample grows. The finite-dimensional
 analogue is [Dirichlet–multinomial
 conjugacy](dirichlet-multinomial-conjugacy.qmd): counts add to Dirichlet
 parameters on a fixed partition. The Dirichlet process extends that
@@ -118,9 +123,7 @@ to this marginal, give
 $$E[G(A)] = G_0(A), \qquad
 \mathrm{Var}(G(A)) = \frac{G_0(A)(1 - G_0(A))}{\alpha + 1}.$$
 
-The expectation is Ferguson's Proposition 1: $E[P(A)] =
-\alpha(A)/\alpha(\mathcal{X})$ {{cite:ferguson1973}} (Proposition 1,
-pp. 214–215). The variance formula is exact: the prior mean of $G(A)$
+The expectation is Ferguson's Proposition 1: $E[P(A)] = \alpha(A)/\alpha(\mathcal{X})$ {{cite:ferguson1973}} (Proposition 1, pp. 214–215). The variance formula is exact: the prior mean of $G(A)$
 does not depend on $\alpha$, and its variance is the largest possible
 for a probability with that mean, $G_0(A)(1 - G_0(A))$, divided by
 $\alpha + 1$. As $\alpha$ grows, $G$ concentrates around $G_0$; as
@@ -160,8 +163,7 @@ Discreteness has an immediate consequence for sampling: draws from a
 realised $G$ coincide with positive probability, because two draws may
 select the same atom. Antoniak computes the first instance exactly:
 for a nonatomic parameter measure, the probability that the second draw
-equals the first is $1/(\alpha + 1)$ {{cite:antoniak1974}} (§4,
-pp. 1160–1161) — $1/2$ when $\alpha = 1$, $1/3$ when $\alpha = 2$,
+equals the first is $1/(\alpha + 1)$ {{cite:antoniak1974}} (§4, pp. 1160–1161) — $1/2$ when $\alpha = 1$, $1/3$ when $\alpha = 2$,
 against zero under any continuous sampling distribution. Ferguson flags
 the cost: the disadvantage appears "mainly because in sampling from a
 $P$ chosen by a Dirichlet process, we expect eventually to see one
@@ -169,7 +171,8 @@ observation exactly equal to another", and his goodness-of-fit example
 shows such a prior turning a test of uniformity into a test of
 continuity against discreteness {{cite:ferguson1973}} (p. 210). The
 standard remedy, convolving $G$ with a continuous kernel, is the
-Dirichlet process mixture of a later section.
+Dirichlet process mixture treated under 'Dirichlet process mixtures:
+recovering continuous densities' below.
 
 ### The stick-breaking construction
 
@@ -254,9 +257,21 @@ shared value at that table; a new table is a fresh draw from $G_0$.
 The tables are the clusters of the model, with one caveat: a fresh
 draw from $G_0$ can coincide with an existing table's value when
 $G_0$ has atoms, so the number of tables and the number of distinct
-values among the observations can differ. The two counts agree when
-$G_0$ is nonatomic, since a fresh draw then differs from every
-previous value with probability one.
+values among the observations can differ. The implication between
+the two descriptions runs one way only: joining a specific table
+implies sharing that table's value, but sharing a value does not
+imply sharing a table — two tables can carry the same value, opened
+by separate fresh draws that happened to coincide. The two counts
+agree when $G_0$ is nonatomic, since a fresh draw then differs from
+every previous value with probability one. The same distinction
+governs ties: for two draws, the probability of a tie is
+$\frac{1}{\alpha + 1} + \frac{\alpha}{\alpha + 1} \Pr(Y = Y')$,
+where $Y$ and $Y'$ are independent draws from $G_0$ — the first term
+is the chance the second draw joins the first draw's table, the
+second the chance that a fresh draw from $G_0$ lands on the same
+value. For nonatomic $G_0$, $\Pr(Y = Y') = 0$ and the formula
+reduces to the $1/(\alpha + 1)$ computed above; for a point-mass
+$G_0$, $\Pr(Y = Y') = 1$ and a tie is certain.
 Antoniak's sampling calculations are the restaurant arithmetic
 without the metaphor: at step $i$ the draw opens a new table —
 takes a fresh draw from $G_0$ — with probability
@@ -375,12 +390,14 @@ not the data pattern, sets the rate at which new clusters open.
 **Expected number of tables.** Let $K_n$ be the number of occupied
 tables after $n$ customers. Summing the indicators of new tables,
 each with probability $\alpha/(\alpha + i - 1)$ at step $i$, gives
-Antoniak's formula {{cite:antoniak1974}} (§4, pp. 1160–1161). When
-$G_0$ is nonatomic, $K_n$ is also the number of distinct values
-among $X_1, \dots, X_n$; with an atomic $G_0$ the number of
-distinct values is at most $K_n$, and can be strictly smaller.
 
-$$E[K_n] = \sum_{i=1}^{n} \frac{\alpha}{\alpha + i - 1}.$$
+$$E[K_n] = \sum_{i=1}^{n} \frac{\alpha}{\alpha + i - 1},$$
+
+Antoniak's formula for the expected number of tables
+{{cite:antoniak1974}} (§4, pp. 1160–1161). When $G_0$ is nonatomic,
+$K_n$ is also the number of distinct values among $X_1, \dots, X_n$;
+with an atomic $G_0$ the number of distinct values is at most $K_n$,
+and can be strictly smaller.
 
 For $\alpha = 2$ and $n = 5$ this is $2/2 + 2/3 + 2/4 + 2/5 + 2/6 =
 29/10 = 2.9$ exactly. For $\alpha = 1$ the terms simplify to $1/i$, and
@@ -540,8 +557,7 @@ new cluster might use — his Algorithm 8, whose equilibrium distribution
 is exactly the posterior for any number of auxiliary parameters
 {{cite:neal2000_dpmm}}
 (Abstract, p. 249; Algorithm 8, p. 262). Escobar and West's earlier
-sampler follows the same logic {{cite:escobar_west1995}} (§3,
-pp. 579–580).
+sampler follows the same logic {{cite:escobar_west1995}} (§3, pp. 579–580).
 
 A sweep's cost grows with the number of occupied clusters as well as
 with $n$; and because the chain moves one allocation at a time, splits
@@ -569,8 +585,9 @@ G_0(A))/(\alpha + 1)$.
 
 **"$\alpha$ is a minor technical constant."** $\alpha$ is the prior
 sample size. It sets the prior variance of $G(A)$, the tie probability
-$1/(\alpha + 1)$, the expected cluster count $\sum_i \alpha/(\alpha +
-i - 1)$, and the weight of $G_0$ against the data in the posterior.
+— $1/(\alpha + 1)$ when $G_0$ is nonatomic, larger when $G_0$ has
+atoms — the expected table count $\sum_i \alpha/(\alpha + i - 1)$,
+and the weight of $G_0$ against the data in the posterior.
 
 **"The Chinese restaurant process is an alternative to the Dirichlet
 process."** It is the Dirichlet process with $G$ integrated out,
@@ -589,17 +606,18 @@ exchangeability, a base measure whose support contains the truth, a
 concentration parameter, and — in the mixture — a kernel family. It
 removes only the assumption of a named finite-dimensional form.
 
-## Assumptions and limits — The limits are structural
+## Assumptions and limits — Discreteness, concentration, and computation
 
-The limits are structural, and each traces to a result above.
+Each of these limits traces to a result above.
 
 *Discreteness.* Prior and posterior draws are discrete with probability
 one. Any use requiring $G$ itself to be continuous is a misuse; the
 mixture construction exists because of this limit, not as a refinement.
 
 *Sensitivity to $\alpha$.* The concentration parameter controls the
-prior variance of every $G(A)$, the tie probability $1/(\alpha + 1)$,
-the expected number of clusters, and the pull towards $G_0$ in the
+prior variance of every $G(A)$, the tie probability ($1/(\alpha + 1)$
+for a nonatomic base, larger when the base has atoms), the expected
+number of occupied tables, and the pull towards $G_0$ in the
 posterior — one choice seen from four sides. Escobar and West's
 observation that realistic $\alpha$ makes the prior for the component
 count favour single-digit values {{cite:escobar_west1995}} (p. 578) is

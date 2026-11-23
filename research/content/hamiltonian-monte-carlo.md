@@ -36,14 +36,14 @@ more strongly correlated. In high dimensions, probability mass for many
 standard targets concentrates in a comparatively narrow region — Betancourt
 calls the region where mass and density balance the typical set — and a
 proposal that is not informed by the local shape of the density will
-typically propose points outside it {{cite:betancourt2017_hmc}} (§§1.3–1.4).
+typically propose points outside it {{cite:betancourt2017_hmc}} (§§1.3–1.4, pp. 6–8).
 With correlated parameters, an isotropic perturbation must be small enough
 to be accepted across the narrowest direction of the target, which makes
 progress along the widest direction slower still. Hoffman and Gelman
 summarise the comparison in cost terms: for a target of dimension $d$, the
 cost per effectively independent draw is roughly of order $d^{5/4}$ for HMC
 against of order $d^2$ for random-walk Metropolis, a comparison they
-attribute to Creutz {{cite:hoffman_gelman2014}} (§1). These are scaling
+attribute to Creutz {{cite:hoffman_gelman2014}} (§1, p. 1594). These are scaling
 statements about particular analyses, not guarantees for a given target,
 but they identify the mechanism HMC is designed to remove: undirected,
 step-by-step diffusion. [Gibbs sampling](gibbs-sampling.qmd) avoids a
@@ -187,7 +187,7 @@ applying the same number of leapfrog steps, and negating $p$ again undoes
 the trajectory {{cite:neal2011_hmc}} (p. 122). Integrators with these two
 properties are called symplectic integrators in Betancourt's treatment, and
 he makes the same point about why they, specifically, are suitable
-{{cite:betancourt2017_hmc}} (§5.1).
+{{cite:betancourt2017_hmc}} (§5.1, p. 37).
 
 What leapfrog does not retain is exact conservation of energy. Its local
 error is of order $\varepsilon^3$, and its global error over a fixed time
@@ -198,7 +198,7 @@ its initial value along a trajectory, by an amount that is small when
 $\varepsilon$ is small and the trajectory is stable, but is not zero.
 Betancourt describes the effect geometrically: the numerical trajectory
 follows a perturbed energy level set rather than the exact one
-{{cite:betancourt2017_hmc}} (§5.2). Exact simulation is not required,
+{{cite:betancourt2017_hmc}} (§5.2, p. 38). Exact simulation is not required,
 because this error is not ignored — it is measured, through the change in
 $H$, and corrected by the Metropolis step below.
 
@@ -311,18 +311,24 @@ mass matrix addresses: with all masses equal, the step size is limited by
 the narrowest coordinate, while the trajectory must traverse the widest.
 
 The mass matrix $M$ — equivalently, in Betancourt's geometric language,
-the metric that defines the kinetic energy — rescales the problem. Setting
-$m_i$ so that the momentum variance in each direction matches the scale of
-the target in that direction makes the dynamics treat all directions more
-evenly {{cite:neal2011_hmc}} (§4.1). Betancourt develops this as the choice
+the metric that defines the kinetic energy — rescales the problem. The
+convention matters: with kinetic energy $p^\top M^{-1} p / 2$ the momentum
+is drawn with covariance $M$, and for a Gaussian target with covariance
+$\Sigma$ Hamilton's equations give $\ddot{q} = -M^{-1} \Sigma^{-1} q$, so
+the directions evolve on a common timescale when $M^{-1}$ approximates
+$\Sigma$. It is the inverse mass that should match the target's
+covariance — equivalently, the masses themselves should be large where
+the target is narrow and small where it is wide — and setting the $m_i$
+that way makes the dynamics treat all directions more evenly
+{{cite:neal2011_hmc}} (§4.1). Betancourt develops this as the choice
 of a Euclidean metric, notes that the ideal choice makes the inverse metric
 resemble the covariance of the target, and describes estimating that
 covariance during an initial window and then fixing the metric
-{{cite:betancourt2017_hmc}} (§4.2). A single fixed metric can only correct
+{{cite:betancourt2017_hmc}} (§4.2, p. 31). A single fixed metric can only correct
 global scale and correlation: where the target's local scale varies with
 position — the funnel geometry below — no constant $M$ is right everywhere,
 which is the motivation for the position-dependent (Riemannian) kinetic
-energies Betancourt also discusses {{cite:betancourt2017_hmc}} (§4.2).
+energies Betancourt also discusses {{cite:betancourt2017_hmc}} (§4.2, pp. 31–32).
 
 ### Divergences as a diagnostic
 
@@ -334,16 +340,16 @@ funnels, characteristic of hierarchical models — cannot be resolved by a
 leapfrog step of the size that works elsewhere; a trajectory entering such
 a region becomes unstable and diverges, and the sampler then fails to
 explore that region properly, which biases estimates based on the chain
-{{cite:betancourt2017_hmc}} (§6.2). Because the integrator fails exactly
+{{cite:betancourt2017_hmc}} (§6.2, p. 45). Because the integrator fails exactly
 where the geometry is pathological, Betancourt argues that divergent
 transitions are "extremely sensitive identifiers" of those regions, and
 that any divergences should prompt suspicion of the validity of the
-resulting estimates {{cite:betancourt2017_hmc}} (§6.2). Reducing
+resulting estimates {{cite:betancourt2017_hmc}} (§6.2, p. 45). Reducing
 $\varepsilon$ removes divergences when the pathology is mild; when they
 persist at any step size, his recommendation is to change the target
 itself — stronger priors, or a different parametrisation, such as
 alternating between centred and non-centred parametrisations in latent
-Gaussian models {{cite:betancourt2017_hmc}} (§6.2).
+Gaussian models {{cite:betancourt2017_hmc}} (§6.2, p. 45).
 
 A funnel makes this concrete. In a hierarchical model where a group-level
 scale parameter can approach zero, the conditional distribution of the
@@ -356,7 +362,7 @@ concentrated at small values of the scale parameter are the observable
 signature. Betancourt also records the limit of the diagnostic: absence of
 divergences does not certify adequate exploration, since a pathology the
 trajectories never reach produces no divergence to report
-{{cite:betancourt2017_hmc}} (§6.3).
+{{cite:betancourt2017_hmc}} (§6.3, p. 45).
 
 ### The No-U-Turn Sampler
 
@@ -366,34 +372,39 @@ problem is that if $L$ is too small, HMC exhibits random-walk behaviour,
 and if $L$ is too large, it wastes computation; and that, unlike
 $\varepsilon$, $L$ could not then be tuned by the standard adaptive
 methods, so setting it required costly tuning runs
-{{cite:hoffman_gelman2014}} (§1). NUTS eliminates the need to set $L$ by
+{{cite:hoffman_gelman2014}} (§1, p. 1593). NUTS eliminates the need to set $L$ by
 building the trajectory adaptively within each iteration and stopping when
 the trajectory begins to double back on itself.
 
 In outline — a summary of the construction, not a substitute for the
 algorithm as published — NUTS proceeds as follows
-{{cite:hoffman_gelman2014}} (§3). It introduces a slice variable drawn so
+{{cite:hoffman_gelman2014}} (§3, pp. 1597–1606). It introduces a slice variable drawn so
 that the current state lies in the slice it defines, which is used to
 select candidate states along the trajectory in a way that preserves
 detailed balance. It then extends the trajectory by repeated doubling:
 at each stage it adds, in a randomly chosen direction (forwards or
 backwards in time), as many leapfrog steps again as the trajectory built
 so far contains, so the set of states forms a balanced binary tree whose
-leaves are position–momentum states. Doubling stops when the subtrajectory
-between the endpoints of any balanced subtree begins to make a U-turn —
-formally, when the vector from one endpoint to the other has a negative
-dot product with the momentum at either endpoint, meaning the endpoints
-are starting to approach each other — or when a further state falls
-outside the slice. A candidate is then selected from the admissible
+leaves are position–momentum states. Two conditions in this construction
+must not be conflated. A state that falls outside the slice is excluded
+from the candidate set, but doubling does not stop there: a newly
+generated state stops the doubling only when its log joint density falls
+below $\log u - \Delta_{\max}$, the threshold at which the energy error
+is treated as out of control, or when the subtrajectory between the
+endpoints of any balanced subtree begins to make a U-turn — formally,
+when the vector from one endpoint to the other has a negative dot
+product with the momentum at either endpoint, meaning the endpoints are
+starting to approach each other {{cite:hoffman_gelman2014}} (Algorithm 3, p. 1606).
+A candidate is then selected from the admissible
 states in the tree. Hoffman and Gelman also give a dual-averaging
 procedure, based on Nesterov's primal–dual averaging, that adapts
 $\varepsilon$ during an initial phase towards a target average acceptance
 statistic, so that NUTS can be run with no hand-tuning of either quantity
-{{cite:hoffman_gelman2014}} (§§1, 3). Their empirical finding was that
+{{cite:hoffman_gelman2014}} (§3.2, pp. 1607–1609). Their empirical finding was that
 this tuning-free version performed at least as efficiently as, and
 sometimes more efficiently than, a well-tuned standard HMC, per effective
 sample and ignoring the cost of tuning the latter
-{{cite:hoffman_gelman2014}} (§1).
+{{cite:hoffman_gelman2014}} (§1, p. 1593).
 
 ## Worked example — One Gaussian, four leapfrog steps
 
@@ -495,20 +506,20 @@ well-behaved endpoint is routine. A divergence signals that the integrator
 entered a region whose curvature the step size could not resolve, and that
 the region is consequently under-explored; Betancourt's recommendation is
 to treat any divergences as grounds for suspecting the estimates, not as
-wasted iterations to be ignored {{cite:betancourt2017_hmc}} (§6.2).
+wasted iterations to be ignored {{cite:betancourt2017_hmc}} (§6.2, p. 45).
 
 **"NUTS has no tuning parameters, so no checking is needed."** NUTS removes
 the need to set $L$ by hand and adapts $\varepsilon$, but it retains a mass
 matrix, a target acceptance statistic for the adaptation, and maximum
 limits on the doubling; and its output requires the same convergence and
-divergence checks as any HMC run {{cite:hoffman_gelman2014}} (§§1, 3).
+divergence checks as any HMC run {{cite:hoffman_gelman2014}} (§3, Algorithm 6, p. 1611).
 
 **"HMC handles any posterior, including discrete parameters."** It does
 not. The state space must be continuous and the log density differentiable
 (almost everywhere); discrete parameters have to be marginalised out or
 updated by a different method {{cite:neal2011_hmc}} (p. 124).
 
-## Assumptions and limits — The limits are specific
+## Assumptions and limits — Gradients, tuning, and geometry
 
 Its limits are equally specific.
 
@@ -544,7 +555,7 @@ not valid {{cite:neal2011_hmc}} (§4.2). Funnels and other regions of
 extreme, position-dependent curvature produce divergences and biased
 exploration, as described above. Heavy tails can also defeat a poorly
 chosen kinetic energy, a failure Betancourt discusses under geometric
-ergodicity {{cite:betancourt2017_hmc}} (§6.1).
+ergodicity {{cite:betancourt2017_hmc}} (§6.1, p. 44).
 
 **The output is a dependent sample.** As with any MCMC method, the retained
 $q$ values are correlated draws whose averages estimate posterior
@@ -583,7 +594,7 @@ paper's content and application is Neal's {{cite:neal2011_hmc}}
 (pp. 113–114). Its bibliographic details, as given in the reference lists
 of both Neal and Betancourt, are: Duane, S., Kennedy, A. D., Pendleton,
 B. J. and Roweth, D. (1987), "Hybrid Monte Carlo", *Physics Letters B*,
-195, 216–222 {{cite:betancourt2017_hmc}} (References). Neal records that
+195, 216–222 {{cite:betancourt2017_hmc}} (p. 59). Neal records that
 statistical applications began with his own use of the method for neural
 network models, and that he gave a statistically oriented tutorial in a
 1993 review {{cite:neal2011_hmc}} (pp. 113–114). Betancourt adds that
@@ -591,7 +602,7 @@ MacKay's 2003 book first used the name "Hamiltonian Monte Carlo", and
 that Neal's 2011 review brought the method into the mainstream of
 statistical computing, with implementations such as Stan then making it
 pervasive {{cite:betancourt2017_hmc}} (p. 3). The No-U-Turn Sampler
-followed in 2014 {{cite:hoffman_gelman2014}} (§1).
+followed in 2014 {{cite:hoffman_gelman2014}} (§1, p. 1593).
 
 ## Check yourself
 

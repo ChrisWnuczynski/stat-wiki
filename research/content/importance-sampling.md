@@ -53,8 +53,9 @@ $f(x) p(x) \ne 0$, with $f$ in the role of $h$ here
 {{cite:tokdar_kass2010}} (p. 54, eq. (2)). Owen gives the same condition
 and notes the safer sufficient version: choose $q$ positive wherever $p$
 is positive, which covers every $h$ at once {{cite:owen2013_mc}} (§9.1).
-For the self-normalised estimator of a later section the stronger version
-is the one required, because its denominator estimates an integral of $p$
+For the self-normalised estimator (treated under 'The self-normalised
+estimator' below) the stronger version is the one required, because its
+denominator estimates an integral of $p$
 itself, for which the relevant function is the constant $1$, not $h$
 {{cite:owen2013_mc}} (§9.2).
 
@@ -143,14 +144,20 @@ itself, reweighted.
 
 Three requirements compete. The proposal must be easy to sample from; its
 density must be computable at the drawn points; and its shape must follow
-$|h| p$ closely enough that the weights do not vary wildly. The third
-requirement has a tail form: $q$ must not have thinner tails than $|h| p$
-in any direction. If $p(x)^2/q(x)$ grows without bound in a tail that $q$
-still visits, the second moment in the variance formula can diverge, and
-the estimator then has infinite variance even though it remains unbiased
-and consistent. Owen's tail comparison is direct: a normal target with a
-Student $t$ proposal is safe, while a $t$ target with a normal proposal is
-problematic {{cite:owen2013_mc}} (§9.1).
+$|h| p$ closely enough that the weights do not vary wildly. The precise
+form of the third requirement is a moment condition, not a tail
+comparison: the variance is finite exactly when
+$E_q[h(X)^2 w(X)^2] = \int h(x)^2 p(x)^2/q(x)\, dx$ is finite. Tail
+thickness is a heuristic for that integral, no more. A proposal with
+thinner tails than the target can still satisfy it: for $h \equiv 1$,
+a $N(0,1)$ target and a $N(0, 3/4)$ proposal, $p^2/q$ is proportional
+to $\exp(-x^2/3)$ and is integrable, even though the proposal's tails
+are thinner; the same comparison with proposal variance at most $1/2$
+makes the integral diverge. What is fatal is not thinness itself but a
+ratio $p^2/q$ that grows fast enough, in a region $q$ still visits, to
+defeat integrability. Owen's tail comparison is the practical guidance:
+a normal target with a Student $t$ proposal is safe, while a $t$ target
+with a normal proposal is problematic {{cite:owen2013_mc}} (§9.1).
 
 In Bayesian problems a standard construction takes $q$ to be a normal or
 Student $t$ density centred at the posterior mode, with scale from the
@@ -176,10 +183,20 @@ component $q_1$ — in the original defensive construction, the target $p$
 itself — as $q_\alpha = \alpha_1 q_1 + \alpha_2 q_2$ with
 $\alpha_1 + \alpha_2 = 1$ and, for example, $\alpha_1 = 1/10$. Because
 $q_\alpha(x) \ge \alpha_1 p(x)$ everywhere, the weight satisfies
-$w(x) \le 1/\alpha_1$ for all $x$: the weights are bounded, the second
-moment $E_q[w(X)^2]$ is at most $1/\alpha_1$, and infinite variance is
-impossible, at the price of spending a fraction $\alpha_1$ of the draws on
-the safe component. Owen presents defensive mixtures, attributed there to
+$w(x) \le 1/\alpha_1$ for all $x$: the weights are bounded, and the second
+moment of the weights themselves, $E_q[w(X)^2]$, is at most $1/\alpha_1$.
+That bound is a statement about the weights, and it secures finite
+variance for the plain estimator of a bounded integrand — in particular
+for the constant $1$, the normalising-constant problem. It does not by
+itself control $E_q[w(X)^2 h(X)^2]$ for an unbounded $h$: with $p = q$
+uniform on $(0,1)$ the weights are identically $1$, yet $h(x) = x^{-3/4}$
+has finite mean $4$ while $E_q[w(X)^2 h(X)^2] = \int_0^1 x^{-3/2}\, dx$
+is infinite, so that estimator has infinite variance despite perfectly
+bounded weights. The finite-variance condition remains the moment
+condition on the product, $E_q[w(X)^2 h(X)^2] < \infty$; bounded weights
+are a way to meet it for bounded $h$, not a substitute for it. The price
+of the insurance is spending a fraction $\alpha_1$ of the draws on the
+safe component. Owen presents defensive mixtures, attributed there to
 Hesterberg (1995), as the way to bound the importance ratio while keeping
 a tuned component {{cite:owen2013_mc}} (§9.10). Mixtures serve a second
 purpose as well: one component can be placed at each mode, singularity or
@@ -242,18 +259,25 @@ not in general the ratio of the expectations. 'Generally' is the
 correct qualification, not 'always': if $h$ is a constant function,
 $h \equiv c$, the ratio equals $c$ exactly on every sample with a
 positive denominator, so that estimator is exact rather than
-biased. For non-constant $h$ the bias is typically nonzero, and a
-Taylor expansion of the ratio about the limits of its numerator and
-denominator — the delta method — shows that it is of order $1/N$:
-it shrinks proportionally to $1/N$ as the sample grows, with a
-coefficient that depends on the covariance, under $q$, of
-$\tilde{w}(X)$ and $\tilde{w}(X) h(X)$. That expansion has
-hypotheses of its own: it requires the second moments
-$E_q[\tilde{w}(X)^2]$ and $E_q[\tilde{w}(X)^2 h(X)^2]$ to be
-finite, so that both averages have finite variance and the
-covariance in the coefficient exists, and it requires $Z > 0$.
-Without those moments the consistency below still holds, but no
-$1/N$ rate for the bias is guaranteed. Second, the estimator is
+biased. For non-constant $h$ the bias is typically nonzero. A Taylor
+expansion of the ratio about the limits of its numerator and
+denominator — the delta method — produces a formal first-order bias
+term of order $1/N$, with a coefficient depending on the covariance,
+under $q$, of $\tilde{w}(X)$ and $\tilde{w}(X) h(X)$; but that term
+is an asymptotic approximation, and the second moments it needs —
+$E_q[\tilde{w}(X)^2]$ and $E_q[\tilde{w}(X)^2 h(X)^2]$ finite, with
+$Z > 0$ — do not by themselves make the bias genuinely of order
+$1/N$. They do not even guarantee that the bias exists: take $q$
+uniform on $(0,1)$, $\tilde{w}(x) \propto e^{-1/x}$ and
+$h(x) = e^{1/(2x)}$, where both displayed moments and $Z$ are
+finite, yet on the event that all $N$ draws fall below
+$\varepsilon$ — an event of probability $\varepsilon^N$ — the ratio
+is at least $e^{1/(2\varepsilon)}$, so its expectation is infinite
+at every finite $N$. A genuine $1/N$ bias expansion needs stronger
+hypotheses, such as bounded weights, or higher moments together with
+control of the denominator near zero; without them, the consistency
+below is the exact statement and no rate for the bias is claimed.
+Second, the estimator is
 consistent: numerator and denominator each obey the strong law of large
 numbers, converging to $Z\mu$ and $Z$ respectively, so their ratio
 converges to $\mu$ with probability one {{cite:tokdar_kass2010}} (p. 54).
@@ -266,9 +290,11 @@ in which the weights multiply the centred values $h(X) - \mu$
 rather than $h(X)$ itself; Owen obtains this expression by Taylor
 expansion of the ratio {{cite:owen2013_mc}} (§9.2). The central
 limit theorem for the ratio is therefore stated with the centred
-moment condition: $\sqrt{N}(\widetilde{\mu} - \mu)$ is
-approximately normal with the displayed variance when
-$E_q[w(X)^2 (h(X) - \mu)^2]$ is finite. This is a condition on the
+moment condition: when $E_q[w(X)^2 (h(X) - \mu)^2]$ is finite,
+$\sqrt{N}(\widetilde{\mu} - \mu)$ is approximately normal with
+variance $E_q[w(X)^2 (h(X) - \mu)^2]$ — the centred moment itself.
+The factor $1/N$ belongs to the variance of $\widetilde{\mu}$, not
+to the variance of its root-$N$ scaling. This is a condition on the
 centred product $w(X)(h(X) - \mu)$, distinct from the plain
 estimator's condition $E_q[h(X)^2 w(X)^2] < \infty$, and neither
 should be quoted as sufficient for both estimators. One consequence is that the optimal
@@ -336,8 +362,7 @@ calculation {{cite:owen2013_mc}} (§9.3).
 
 Let $Z$ be standard normal and estimate $\mu = P(Z > 3)$ by importance
 sampling. The exact value is $\mu = 1 - \Phi(3) = 0.001349898$, where
-$\Phi$ is the standard normal distribution function; the task uses the
-rounded value $0.0013499$. Under crude Monte Carlo — sampling from
+$\Phi$ is the standard normal distribution function. Under crude Monte Carlo — sampling from
 $p$, the $N(0,1)$ density itself — the per-draw contribution is a
 Bernoulli variable with success probability $\mu$, so the per-draw
 variance is exactly $\mu(1-\mu) = 1.348076 \times 10^{-3}$, and almost
@@ -361,12 +386,12 @@ $w(X) \mathbf{1}\{X > 3\}$ under $q$ also has an exact closed form.
 Squaring the target density and dividing by the proposal density gives
 $\phi(x)^2/\phi(x-3) = e^{9} \phi(x+3)$, so
 
-$$E_q\left[w(X)^2 \mathbf{1}\{X > 3\}\right] = e^{9} \int_3^{\infty} \phi(x+3)\, dx = e^{9} \left(1 - \Phi(6)\right) = 8103.083928 \times 9.865877 \times 10^{-10} \approx 7.994403 \times 10^{-6}.$$
+$$E_q\left[w(X)^2 \mathbf{1}\{X > 3\}\right] = e^{9} \int_3^{\infty} \phi(x+3)\, dx = e^{9} \left(1 - \Phi(6)\right) = 8103.083928 \times 9.865876 \times 10^{-10} \approx 7.994402 \times 10^{-6}.$$
 
 The per-draw variance is therefore exactly this second moment minus
 $\mu^2$:
 
-$$7.994403 \times 10^{-6} - (0.001349898)^2 \approx 6.172178 \times 10^{-6},$$
+$$7.994402 \times 10^{-6} - (0.001349898)^2 \approx 6.172178 \times 10^{-6},$$
 
 against the crude per-draw variance $1.348076 \times 10^{-3}$. The tilted
 proposal reduces the variance per draw by a factor of about $218$. In
@@ -376,8 +401,8 @@ by crude Monte Carlo, against $339$ draws by importance sampling with this
 proposal. Both figures are exact consequences of the two per-draw
 variances, not simulation results.
 
-The example also disciplines the chi-squared discussion of an earlier
-section. For this pair, $E_q[w(X)^2] = e^{9} \approx 8103.08$, so the
+The example also disciplines the chi-squared discussion in 'Variance:
+the weights decide everything' above. For this pair, $E_q[w(X)^2] = e^{9} \approx 8103.08$, so the
 chi-squared divergence $D_{\chi^2}(p \, \| \, q) = e^9 - 1 \approx
 8102.08$ is enormous: estimating the constant $1 = E_p[1]$ from $N(3,1)$
 draws would be very poor, because draws far below $3$ carry weights like
@@ -421,9 +446,11 @@ $$\widetilde{\mu} = \frac{\sum_i \tilde{w}_i \theta_i}{\sum_i \tilde{w}_i} = \fr
 where the numerator is
 $0.0064 \times 0.2 + 0.0384 \times 0.4 + 0.0625 \times 0.5 + 0.0864 \times
 0.6 + 0.1024 \times 0.8 = 0.18165$ exactly. The estimate $0.6135$ is not
-the exact posterior mean $0.6667$: with five draws, the $O(1/N)$ bias and
-the sampling variability of the ratio are both visible, and nothing in the
-method promises otherwise. The same weights estimate the normalising
+the exact posterior mean $0.6667$, and the gap should be read correctly:
+it is the sampling variability of the ratio at $N = 5$ on display. A
+single sample cannot demonstrate bias — bias is a property of the
+estimator's average over repeated samples — and nothing in the method
+promises closeness at this sample size. The same weights estimate the normalising
 constant: the mean unnormalised weight is $0.2961/5 = 0.05922$, against
 the exact $Z = 0.05$ — the marginal-likelihood estimate from this
 calculation, obtained from the same draws at no extra cost.
@@ -432,8 +459,11 @@ The effective sample size of the five weighted draws is
 
 $$N_{\text{eff}} = \frac{(0.2961)^2}{0.0064^2 + 0.0384^2 + 0.0625^2 + 0.0864^2 + 0.1024^2} = \frac{0.08767521}{0.02337249} \approx 3.7512.$$
 
-Five proposal draws carry about as much information about this posterior
-mean as $3.75$ unweighted draws from the posterior itself. The largest
+That number is a statement about the weights alone: they are as uneven
+as about $3.75$ equal weights would be. It is not a measure of the
+information this sample carries about the posterior mean specifically —
+accuracy for that integrand depends on the products
+$\tilde{w}_i \theta_i$, not on the weights in isolation. The largest
 normalised weight is $0.346$: no single draw dominates, which is why the
 effective sample size is a substantial fraction of $5$ rather than a
 number near $1$.
@@ -464,7 +494,7 @@ independent draws and an estimate of the normalising constant, but no
 mechanism for discovering regions of the target that the proposal did not
 already cover.
 
-## Assumptions and limits — Assumptions, limits, and high dimensions
+## Assumptions and limits — Support, moments, and weight degeneracy
 
 Its assumptions are few and sharp. The support condition must hold:
 $q(x) > 0$ wherever $|h(x)| p(x)$ is nonzero, and, for the self-normalised
@@ -540,12 +570,13 @@ enormous weight.
 **"The self-normalised estimator is unbiased because the constant
 cancels."** The constant cancels exactly; unbiasedness does not follow.
 The estimator is a ratio of two random quantities, its bias is in
-general of order $1/N$ (a constant $h$ is the exception: its ratio
-is exact whenever the denominator is positive), and only its
-consistency — convergence to $\mu$ as $N$ grows — is exact. In the second worked example the estimate from five draws is
-$0.6135$ against an exact mean of $0.6667$; that gap is the expected
-behaviour of the ratio estimator at small $N$, not an error in the
-arithmetic.
+general nonzero at finite $N$ and vanishes as $N$ grows, with no
+universal rate (a constant $h$ is the exception: its ratio is exact
+whenever the denominator is positive), and only its consistency —
+convergence to $\mu$ as $N$ grows — is exact. In the second worked example the estimate from five draws is
+$0.6135$ against an exact mean of $0.6667$; that gap is the sampling
+variability of the ratio at small $N$, not an error in the arithmetic,
+and a single sample could not exhibit bias in any case.
 
 **"A large effective sample size certifies the estimate."** The effective
 sample size summarises the weights that were drawn. It is silent about
@@ -583,8 +614,10 @@ grows exponentially with the discrepancy between $p$ and $q$.
   estimates the marginal likelihood.
 - [Variational inference](variational-inference.qmd) — a fitted
   variational approximation is a natural proposal distribution: draws from
-  it, reweighted by the exact unnormalised posterior, correct the
-  approximation's bias in posterior expectations.
+  it, reweighted by the ratio of the unnormalised posterior density to
+  the proposal density, give consistent estimates of posterior
+  expectations under the support condition — the approximation's error
+  is corrected in the limit, not removed at any finite sample size.
 - [Hamiltonian Monte Carlo](hamiltonian-monte-carlo.qmd) — the Markov
   chain alternative for posterior expectations, which needs no proposal
   covering the whole target but returns dependent, unweighted draws and no

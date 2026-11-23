@@ -3482,5 +3482,21 @@
   "dirichlet-process": {
     "words": 5832,
     "figures": 0
+  },
+  "kaplan-meier-estimator": {
+    "words": 4816,
+    "figures": 0
+  },
+  "cox-proportional-hazards-model": {
+    "words": 6066,
+    "figures": 0
+  },
+  "log-rank-test": {
+    "words": 5215,
+    "figures": 0
+  },
+  "competing-risks": {
+    "words": 5546,
+    "figures": 0
   }
 }

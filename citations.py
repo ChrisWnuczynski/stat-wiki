@@ -2003,6 +2003,10 @@ ARTICLE_GROUPS: list[tuple[tuple[str, ...], tuple[str, ...]]] = [(('axioms-of-pr
  (('hamiltonian-monte-carlo',), ('neal2011_hmc', 'betancourt2017_hmc', 'hoffman_gelman2014')),
  (('importance-sampling',), ('hastings1970', 'owen2013_mc', 'tokdar_kass2010')),
  (('dirichlet-process',), ('ferguson1973', 'sethuraman1994', 'antoniak1974', 'neal2000_dpmm', 'escobar_west1995', 'blackwell_macqueen1973')),
+ (('kaplan-meier-estimator',), ('kaplan_meier1958', 'james_islr2021', 'bland_altman1998', 'rodriguez2018', 'nist_kaplan2002')),
+ (('cox-proportional-hazards-model',), ('cox1972', 'james_islr2021', 'rocke2021', 'schoenfeld1982', 'austin2020', 'survival_coxzph')),
+ (('log-rank-test',), ('bland_altman2004', 'james_islr2021', 'peto_peto1972', 'cox1972')),
+ (('competing-risks',), ('austin_lee_fine2016', 'zhang2017', 'coemans2022', 'fine_gray1999', 'aalen_johansen1977', 'cox1972', 'kaplan_meier1958')),
 ]
 
 ARTICLE_REFS: dict[str, tuple[str, ...]] = {
