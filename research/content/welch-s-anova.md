@@ -8,7 +8,7 @@ $$H_0: \mu_1 = \mu_2 = \cdots = \mu_k,$$
 
 against the alternative that at least two of the $\mu_j$ differ. No condition $\sigma_1^2 = \cdots = \sigma_k^2$ is imposed. The test is an omnibus test: rejection establishes that the means are not all equal, and nothing more specific. Which pairs differ is a separate question, answered by a follow-up procedure such as Games–Howell, described below. Like its two-sample counterpart, the test is approximate: its statistic does not have an exact $F$ distribution in finite samples, and the sense in which the $F$ reference is an approximation is stated precisely in the section on the statistic.
 
-## The assumption that the classic test spends, and what its failure costs
+## Intuition — The assumption that the classic test spends, and what its failure costs
 
 The classic one-way analysis of variance writes each observation as a group mean plus an error, estimates one common error variance from the pooled within-group sum of squares, and refers the ratio of the between-group mean square to that pooled estimate to an $F$ distribution on $(k - 1, N - k)$ degrees of freedom {{cite:nist_anova2002}} (§7.4.3.1). The pooling is not a computational convenience. It is the step that makes the reference distribution exact under normal sampling: if every $\sigma_j^2$ equals a common $\sigma^2$, the pooled mean square estimates that $\sigma^2$ whichever group it is computed from, and the numerator and denominator of the $F$ ratio are independent scaled chi-squared variables. If the $\sigma_j^2$ differ, the pooled mean square estimates a sample-size-weighted average of unequal quantities, and neither the size nor the power of the classic test is the value its $F$ table reports.
 
@@ -16,7 +16,7 @@ The damage depends on how the unequal variances are paired with the unequal samp
 
 A preliminary test of equal variances does not repair this. Testing $H_0: \sigma_1^2 = \cdots = \sigma_k^2$ first, for example with Levene's test, and choosing the classic or the Welch procedure according to the outcome, makes the final procedure a two-stage procedure whose error rates are those of neither stage: the preliminary test has low power exactly in the small samples where the choice matters, and conditioning the main test on its outcome distorts the main test's calibration. The defensible practice is to select the procedure from the design and the plausibility of a common variance before examining the test outcomes, or to use the Welch procedure by default when a common variance is not part of the scientific model.
 
-## Definition: precision weights and a weighted grand mean
+## Definition — Precision weights and a weighted grand mean
 
 For group $j$, the variance of the sample mean $\bar Y_j$ is $\sigma_j^2 / n_j$, estimated by $s_j^2 / n_j$. Welch's weight for group $j$ is the reciprocal of that estimated variance,
 
@@ -34,7 +34,7 @@ $$Q = \sum_{j=1}^{k} w_j (\bar Y_j - \bar Y_w)^2.$$
 
 If the variances were known and $H_0$ were true, $Q$, with population weights in place of the $w_j$, would have a chi-squared distribution on $k - 1$ degrees of freedom. With estimated weights it does not, and the statistic below is the correction of $Q$ that Welch constructed for that reason {{cite:welch1951}} (pp. 330–336).
 
-## The Welch statistic, its correction term and its degrees of freedom
+## Properties — The Welch statistic, its correction term and its degrees of freedom
 
 Define the correction quantity
 
@@ -60,7 +60,13 @@ $$\nu_2 = \frac{k^2 - 1}{3A}$$
 
 **Behaviour when the variances are equal.** If the $s_j^2$ are all similar, the weights are approximately proportional to the $n_j$, $\bar Y_w$ is close to the ordinary grand mean, $A$ is small, the correction factor is close to $1$, and $\nu_2$ is large. The Welch statistic then gives a result close to the classic $F$ on the same data, though not identical to it, because the reference degrees of freedom still differ. The cost of using Welch's procedure when the classic assumptions happen to hold is a small loss of power; the cost of using the classic procedure when they fail can be a type I error rate far from the nominal level. That asymmetry is the argument for Welch's procedure as a default in the two-sample case {{cite:delacre2017_welch}} (pp. 95–96), and it carries over to $k$ groups.
 
-## Worked example: three groups, unequal sizes and unequal variances
+### A distinct alternative — the Brown–Forsythe statistic
+
+Welch's statistic is not the only heteroscedastic alternative to the classic $F$, and it should not be conflated with the statistic proposed by Brown and Forsythe in the same problem. Brown and Forsythe examined the small-sample behaviour of several statistics for testing the equality of means and proposed a statistic, conventionally denoted $F^*$, that retains the classic unweighted between-group sum of squares in the numerator and instead replaces the pooled denominator by a weighted combination of the separate group variances, with Satterthwaite-type degrees of freedom {{cite:brown_forsythe1974_means}} (pp. 129–132). The architectural difference is genuine: Welch reweights the numerator around a precision-weighted centre and corrects the result, whereas Brown and Forsythe leave the classic numerator intact and repair only the denominator. The two statistics can therefore disagree on the same data, and a report must name which was computed.
+
+A further naming hazard is specific to this pair of authors. Brown and Forsythe also published, in 1974, robust tests for the equality of *variances*, in which the median-centred form of Levene's test originates {{cite:brown_forsythe1974_variances}} (pp. 364–367). That Brown–Forsythe test answers a question about spread, is treated in the article on [Levene's test](levene-s-test.qmd), and is not an alternative test of equal means. Citing "Brown–Forsythe (1974)" without the journal or the subject leaves the reference ambiguous between two different papers solving two different problems.
+
+## Worked example — Three groups, unequal sizes and unequal variances
 
 Three independent groups are
 
@@ -78,7 +84,7 @@ The weights are
 
 $$w_1 = \frac{5}{2.5} = 2, \qquad w_2 = \frac{4}{8/3} = 1.5, \qquad w_3 = \frac{8}{192/7} \approx 0.2917,$$
 
-with total weight $W \approx 3.7917$. Group 3, despite contributing $8$ of the $17$ observations, receives less than one seventh of the weight of group 1, because its mean is estimated imprecisely. The weighted grand mean is
+with total weight $W \approx 3.7917$. Group 3, despite contributing $8$ of the $17$ observations, receives only $w_3 / w_1 = 0.2917 / 2 = 7/48 \approx 0.1458$ of the weight of group 1 — slightly more than one seventh ($1/7 \approx 0.1429$), but still a small fraction of it — because its mean is estimated imprecisely. The weighted grand mean is
 
 $$\bar Y_w = \frac{2(10) + 1.5(15) + 0.2917(18)}{3.7917} \approx 12.5934,$$
 
@@ -110,7 +116,9 @@ Compute the group means and sample variances, the weights, the weighted grand me
 The sample sizes are $n_A = 4$, $n_B = 5$ and $n_C = 6$. The means are $7$, $11$ and $18$, and the sample variances are $8/3 \approx 2.6667$, $2.5$ and $17.6$. The weights are $w_A = 1.5$, $w_B = 2$ and $w_C \approx 0.3409$, with $W \approx 3.8409$ and weighted grand mean $\bar Y_w \approx 10.0592$. Then $Q \approx 37.3047$ and $A \approx 0.3473$, the correction factor is approximately $1.0868$, and $F_W \approx 17.1622$ on $\nu_1 = 2$ and $\nu_2 \approx 7.6779$ degrees of freedom, giving $p \approx 0.0015$. Reject $H_0$ at the $5\%$ level. Note that the classic $F$ on these data is approximately $17.7132$ on $(2, 12)$ degrees of freedom: here it is slightly larger than the Welch statistic, because the Welch correction factor and the reduced denominator degrees of freedom, not the weighting alone, determine the outcome. Welch's procedure is not a device for obtaining a larger statistic.
 :::
 
-## Follow-up comparisons: the Games–Howell procedure
+## Statistical use
+
+### Follow-up comparisons — the Games–Howell procedure
 
 Rejection of $H_0$ leaves open which pairs of means differ. Applying ordinary pairwise $t$ tests, or Tukey's procedure, after a Welch omnibus test reintroduces the assumption the omnibus test was chosen to avoid, because both pool the variances. The Games–Howell procedure, studied by Games and Howell in 1976 for pairwise comparisons with unequal sample sizes and unequal variances {{cite:games_howell1976}} (pp. 113–125), pools nothing. For groups $i$ and $j$, write $v_i = s_i^2 / n_i$ and $v_j = s_j^2 / n_j$ for the estimated variances of the two sample means. The pair's standard error is $\sqrt{v_i + v_j}$, its degrees of freedom are the pair-specific Welch–Satterthwaite value
 
@@ -120,21 +128,15 @@ and its statistic is referred not to a $t$ distribution but to the studentised r
 
 Two limits deserve emphasis. First, Games–Howell is a follow-up to a mean comparison: it inherits the normality sensitivity of the underlying mean estimates, and with very small groups its pair-specific degrees of freedom can be so low that no comparison has useful power. Second, performing Games–Howell comparisons only after a significant omnibus result, and performing them unconditionally, are different procedures with different error properties; which was done should be stated.
 
-## A distinct alternative: the Brown–Forsythe statistic
-
-Welch's statistic is not the only heteroscedastic alternative to the classic $F$, and it should not be conflated with the statistic proposed by Brown and Forsythe in the same problem. Brown and Forsythe examined the small-sample behaviour of several statistics for testing the equality of means and proposed a statistic, conventionally denoted $F^*$, that retains the classic unweighted between-group sum of squares in the numerator and instead replaces the pooled denominator by a weighted combination of the separate group variances, with Satterthwaite-type degrees of freedom {{cite:brown_forsythe1974_means}} (pp. 129–132). The architectural difference is genuine: Welch reweights the numerator around a precision-weighted centre and corrects the result, whereas Brown and Forsythe leave the classic numerator intact and repair only the denominator. The two statistics can therefore disagree on the same data, and a report must name which was computed.
-
-A further naming hazard is specific to this pair of authors. Brown and Forsythe also published, in 1974, robust tests for the equality of *variances*, in which the median-centred form of Levene's test originates {{cite:brown_forsythe1974_variances}} (pp. 364–367). That Brown–Forsythe test answers a question about spread, is treated in the article on [Levene's test](levene-s-test.qmd), and is not an alternative test of equal means. Citing "Brown–Forsythe (1974)" without the journal or the subject leaves the reference ambiguous between two different papers solving two different problems.
-
-## Statistical use, assumptions and limits
-
 **When to use it.** Welch's ANOVA is the appropriate omnibus test of equal means for $k$ independent groups when a common population variance is not assumed — because the design gives no reason to expect one, because the groups are known to differ in spread, or because group sizes are unequal and even moderate heterogeneity would then distort the classic test. Tomarken and Serlin's simulations support the Welch statistic, among the alternatives they compared, as retaining its nominal error rates under heterogeneity combined with unequal group sizes {{cite:tomarken_serlin1986}} (pp. 90–99), and the review by Lix, Keselman and Keselman recommends heteroscedastic procedures over the classic $F$ in the same circumstances {{cite:lix_keselman_keselman1996}} (pp. 579–619).
+
+**Reporting.** A complete report states $k$, the $n_j$, the group means and standard deviations, $F_W$, both degrees of freedom including the non-integer $\nu_2$, and the approximate $p$-value, and names the procedure as Welch's. Reporting only "$F(2, 8.91) = 14.27$, $p = .002$" without naming the procedure invites a reader to assume the classic test with an inexplicably fractional degrees of freedom. Software defaults differ and must be checked: in R, `oneway.test` defaults to `var.equal = FALSE` and hence to Welch's procedure, while `aov` computes the classic test {{cite:rstats_oneway2026}} (Arguments, `var.equal`).
+
+## Assumptions and limits
 
 **What it still assumes.** Removing the equal-variance assumption removes one assumption, not all of them. The observations must be independent within and between groups. The $F$ approximation is derived under normal sampling in each group, and although the moment-matching gives the procedure some tolerance of non-normality, strongly skewed distributions with small $n_j$ degrade both the Welch and the classic calibrations; the weights themselves are ratios involving $s_j^2$, a statistic whose own sampling variability is large under skewness and heavy tails. Each $n_j$ must be at least $2$, and a group whose sample variance is zero — all observations identical — receives an infinite weight and breaks the construction; such a group is a data problem, not a limiting case of the test. Where normality itself is untenable and the question can be reframed in terms of distributions or ranks rather than means, a rank procedure such as the [Kruskal–Wallis test](kruskal-wallis-test.qmd) answers a different, weaker null hypothesis and should be chosen for that reason, not as a drop-in replacement reporting on means.
 
 **What it does not supply.** The test gives no estimate of any difference and no confidence interval for one; the weighted grand mean $\bar Y_w$ is a computational centre under $H_0$, not an estimate of a population quantity of independent interest, and it changes if the group variances change even when the group means do not. Effect sizes and pairwise intervals must come from the follow-up procedure. Nor does a non-significant result establish that the means are equal: with small denominator degrees of freedom — $\nu_2 \approx 8.91$ in the worked example, against the classic $14$ — the test may have little power against differences of practical size.
-
-**Reporting.** A complete report states $k$, the $n_j$, the group means and standard deviations, $F_W$, both degrees of freedom including the non-integer $\nu_2$, and the approximate $p$-value, and names the procedure as Welch's. Reporting only "$F(2, 8.91) = 14.27$, $p = .002$" without naming the procedure invites a reader to assume the classic test with an inexplicably fractional degrees of freedom. Software defaults differ and must be checked: in R, `oneway.test` defaults to `var.equal = FALSE` and hence to Welch's procedure, while `aov` computes the classic test {{cite:rstats_oneway2026}} (Arguments, `var.equal`).
 
 ## Common misconceptions
 

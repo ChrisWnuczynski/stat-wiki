@@ -44,7 +44,7 @@ for i, (got, want) in enumerate(zip(terms, article_terms), start=1):
     check(f"worked term i={i}", got, want)
 check("worked sum of terms", sum(terms), -86.7451)
 check("worked A^2", a2, 2.8431)
-# Case 0 (fully specified) asymptotic percentage points (Stephens 1974, Table 1):
+# Case 0 (fully specified) asymptotic percentage points (Anderson & Darling 1954, p. 766):
 # 15% 1.610, 10% 1.933, 5% 2.492, 2.5% 3.070, 1% 3.857.
 assert 2.492 < a2 < 3.857, "worked example must reject at 5% but not at 1%"
 print("ok   worked example: 2.492 < A^2 < 3.857 (reject at 5%, not at 1%)")
@@ -70,7 +70,8 @@ check("normal-case A^{2*} (0.947 adjusted)", 0.947 * factor, 1.029, tol=5e-4)
 # Normal case (both parameters estimated) percentage points for A^{2*}:
 # 15% 0.576, 10% 0.656, 5% 0.787, 2.5% 0.918, 1% 1.092.
 assert 0.947 * factor < 1.092, "adjusted value must fall below the 1% point"
-print("ok   adjusted A^{2*} = 1.029 < 1.092 (significant at about the 1% level)")
+assert 0.947 * factor > 0.918, "adjusted value must exceed the 2.5% point"
+print("ok   adjusted A^{2*} = 1.029: 0.918 (2.5%) < 1.029 < 1.092 (1%) - rejects at 2.5%, not at 1%")
 
 if FAILURES:
     print(f"FAIL: {len(FAILURES)} check(s) failed")

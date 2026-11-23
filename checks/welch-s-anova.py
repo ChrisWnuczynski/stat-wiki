@@ -146,6 +146,13 @@ main_quoted = {
     "MSB": 98.4706, "MSW": 15.0, "Fc": 6.5647, "pc": 0.0097,
 }
 gh = analyse(main_groups, "main", main_quoted)
+# Article wording check (review fix): w3/w1 = (8/(192/7)) / (5/2.5) = 7/48
+# = 0.145833..., which is slightly MORE than 1/7 = 0.142857..., not less.
+_w3 = 8 / (192 / 7)
+_w1 = 5 / 2.5
+check("main w3/w1 ratio", _w3 / _w1, 7 / 48)
+assert _w3 / _w1 > 1 / 7, "w3/w1 must exceed 1/7"
+print("ok   main w3/w1 = 7/48 = 0.14583 > 1/7 (slightly more than one seventh)")
 check("main GH df pair 1-2", gh[(0, 1)], 6.4615)
 check("main GH df pair 1-3", gh[(0, 2)], 8.8608)
 check("main GH df pair 2-3", gh[(1, 2)], 9.1773)
