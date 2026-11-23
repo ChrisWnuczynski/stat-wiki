@@ -1328,12 +1328,8 @@ ALIASES.update({
     "Brown-Forsythe test": "levene-s-test",
     "Brown–Forsythe test": "levene-s-test",
     "Friedman rank sum test": "friedman-test",
-    "variational inference": "variational-inference",
     "mean-field approximation": "variational-inference",
-    "Hamiltonian Monte Carlo": "hamiltonian-monte-carlo",
     "hybrid Monte Carlo": "hamiltonian-monte-carlo",
-    "importance sampling": "importance-sampling",
-    "Dirichlet process": "dirichlet-process",
     "Bayesian nonparametrics": "dirichlet-process",
 })
 
@@ -1670,9 +1666,6 @@ RELATED += [
     ("exponential-family", "natural-exponential-family", "natural-parameter", "canonical-link"),
     ("deviance", "residual-deviance", "null-deviance", "scaled-deviance", "saturated-model", "deviance-residual"),
     ("hazard-rate", "proportional-hazards-model", "survival-function"),
-    ("variational-inference", "hamiltonian-monte-carlo", "importance-sampling", "dirichlet-process"),
-    ("gibbs-sampling", "metropolis-hastings-algorithm", "hamiltonian-monte-carlo", "variational-inference"),
-    ("dirichlet-distribution", "dirichlet-multinomial-conjugacy", "dirichlet-process", "finite-mixture-model"),
     ("weibull-distribution", "a-finite-endpoint-and-a-weibull-extreme-value-law"),
     ("principal-component-directions-and-scores", "principal-component-directions", "eigenvalues-and-eigenvectors", "singular-value-decomposition"),
     ("cross-validation", "fold-cross-validation", "leave-one-out-cross-validation", "nested-cross-validation", "cross-validation-of-the-likelihood"),

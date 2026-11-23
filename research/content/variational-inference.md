@@ -24,7 +24,7 @@ long the optimisation runs. Second, everything depends on the family: a
 richer family can come closer to the posterior but is harder to optimise
 over; a poorer family optimises easily and may approximate badly.
 
-## The problem: a posterior that cannot be computed
+## Motivating example — A posterior that cannot be computed
 
 Let $x = (x_1, \dots, x_n)$ denote observed data and let
 $z = (z_1, \dots, z_m)$ denote latent variables: parameters, random
@@ -66,7 +66,9 @@ scale to large data", but "does not enjoy such guarantees \u2014 it can only
 find a density close to the target"
 {{cite:blei_kucukelbir_mcauliffe2017}} (\u00a71, pp. 859\u2013860).
 
-## The approximating family and the direction of the divergence
+## Definition — The approximating family, the evidence lower bound, and the mean-field family
+
+### The approximating family and the direction of the divergence
 
 Let $\mathcal{Q}$ be a family of densities over $z$. Each $q \in
 \mathcal{Q}$ is a candidate approximation to $p(z \mid x)$, and $q$ is
@@ -118,7 +120,7 @@ optimization" {{cite:blei_kucukelbir_mcauliffe2017}} (§1, p. 860).
 Together, divergence direction and family determine what the
 approximation can represent, before any algorithm is run.
 
-## The evidence lower bound
+### The evidence lower bound
 
 The optimisation just stated cannot be carried out as written, because
 the divergence contains the posterior, and expanding the posterior
@@ -188,7 +190,7 @@ on a bound is not justified in theory"
 better approximation to a fixed model's posterior; across models it
 certifies nothing without further argument.
 
-## The mean-field family
+### The mean-field family
 
 The family used most often, and the one for which the classical
 algorithms were developed, is the mean-field family: the latent variables
@@ -228,66 +230,9 @@ expressibility of the variational family", and developing "better
 approximations while maintaining efficient optimization" remains an
 active direction {{cite:blei_kucukelbir_mcauliffe2017}} (§5.4).
 
-## Worked example 1: mean-field for a correlated normal posterior
+## Properties — Coordinate ascent and stochastic optimisation
 
-Suppose the posterior is bivariate normal with mean zero, unit marginal
-variances, and correlation $\rho = 0.8$:
-
-$$p(z \mid x) = \mathrm{N}\!\left(0,\ \Sigma\right), \qquad
-\Sigma = \begin{pmatrix} 1 & 0.8 \\ 0.8 & 1 \end{pmatrix}.$$
-
-This is the example Blei, Kucukelbir and McAuliffe use to display the
-mean-field approximation, in their Figure 1: the approximating density
-"has the same mean as the original density", but "its covariance is, by
-construction, decoupled", and "the marginal variances of the
-approximation under-represent those of the target"
-{{cite:blei_kucukelbir_mcauliffe2017}} (§2.4). Here the numbers can be
-given exactly.
-
-Take the mean-field family $q(z) = q_1(z_1)\, q_2(z_2)$ with
-$q_j = \mathrm{N}(m_j, s_j^2)$. The posterior precision matrix is
-
-$$\Sigma^{-1} = \frac{1}{1 - \rho^2}
-\begin{pmatrix} 1 & -\rho \\ -\rho & 1 \end{pmatrix}
-= \frac{1}{0.36}
-\begin{pmatrix} 1 & -0.8 \\ -0.8 & 1 \end{pmatrix},$$
-
-so each diagonal entry of the precision is $1/(1-\rho^2) = 1/0.36$. For a
-Gaussian target, the optimal mean-field factor for $z_j$ is normal with
-mean equal to the posterior mean and variance equal to the reciprocal of
-that diagonal precision entry. Hence the optimum is $m_1 = m_2 = 0$ and
-
-$$s_1^2 = s_2^2 = 1 - \rho^2 = 0.36, \qquad s_1 = s_2 = 0.6.$$
-
-The mean is recovered exactly; the spread is not. Each true marginal
-standard deviation is $1$, while the approximation reports $0.6$, and
-each true marginal variance is $1$, while the approximation reports
-$0.36$ — $36\%$ of the correct value. The correlation, $0.8$ in the
-posterior, is reported as $0$, because no factorised density can report
-anything else. Note what the number $0.36$ is: $1 - \rho^2$ is the
-conditional variance of $z_1$ given $z_2$ under the posterior. The
-mean-field factor adopts the conditional spread — how tightly $z_1$ is
-pinned down when $z_2$ is known — as if it were the marginal spread,
-discarding the variation that comes through the unknown $z_2$.
-
-The minimised divergence can also be computed exactly. For
-$q^{*} = \mathrm{N}(0, \mathrm{diag}(0.36, 0.36))$,
-
-$$\mathrm{KL}(q^{*} \| p)
-= \tfrac{1}{2}\left[\mathrm{tr}(\Sigma^{-1} \mathrm{diag}(0.36, 0.36))
-- 2 + \log \frac{\det \Sigma}{\det \mathrm{diag}(0.36, 0.36)}\right]
-= \tfrac{1}{2} \log \frac{0.36}{0.1296}
-= -\tfrac{1}{2} \log(1 - \rho^2) \approx 0.511 \text{ nats},$$
-
-where the trace term equals $2$ exactly, cancelling the $-2$. By the ELBO
-identity, this is also the exact gap $\log p(x) - \mathrm{ELBO}(q^{*})$
-for any model with this posterior: the best mean-field bound falls short
-of the log evidence by about $0.511$ nats, and no optimisation within
-the family can reduce that shortfall. Posterior correlation that the
-family cannot express is converted, mechanically, into understated
-marginal variances and a strictly positive divergence at the optimum.
-
-## Coordinate ascent: CAVI
+### Coordinate ascent (CAVI)
 
 Optimising the ELBO over all mean-field factors at once is generally not
 possible in closed form, but optimising one factor while the others are
@@ -340,66 +285,7 @@ involving the likelihood sum over all $n$ data points; for large $n$
 that full pass per iteration is the bottleneck stochastic variational
 inference removes.
 
-## Worked example 2: when the family contains the posterior
-
-Variational inference is exact in one circumstance: when the chosen
-family contains the posterior itself. Then the minimum of the divergence
-is zero, the optimal $q$ is the posterior, and the ELBO equals the log
-marginal likelihood. A one-dimensional normal–normal model shows all
-three statements with checkable numbers; see [normal–normal
-conjugacy](normal-normal-conjugacy.qmd) for the exact posterior used
-here.
-
-Let the prior be $\theta \sim \mathrm{N}(0, \tau^2)$ with
-$\tau^2 = 4$, and let five observations
-$x = (1.1,\ 1.6,\ 2.1,\ 2.6,\ 3.1)$ be drawn independently from
-$\mathrm{N}(\theta, \sigma^2)$ with $\sigma^2 = 1$ known. The sample sum
-is $\sum_i x_i = 10.5$, the sample mean is $\bar{x} = 2.1$, and the sum of
-squared deviations is $\sum_i (x_i - \bar{x})^2 = 2.5$. The exact
-posterior is normal with precision $1/\tau^2 + n/\sigma^2 = 1/4 + 5 =
-21/4$, hence
-
-$$\text{posterior variance} = \frac{4}{21} \approx 0.1905, \qquad
-\text{posterior mean} = \frac{4}{21} \times 10.5 = 2, \qquad
-\text{posterior sd} \approx 0.4364.$$
-
-Choose as variational family all normal densities
-$q(\theta) = \mathrm{N}(m, w)$, with free mean $m$ and variance $w$. This
-family contains the posterior, $\mathrm{N}(2, 4/21)$, so the theory
-predicts $q^{*} = \mathrm{N}(2, 4/21)$ and
-$\mathrm{ELBO}(q^{*}) = \log p(x)$. The log marginal likelihood is
-available in closed form here: marginally,
-$x \sim \mathrm{N}(0,\ \sigma^2 I + \tau^2 \mathbf{1}\mathbf{1}^{\top})$,
-with determinant $21$ and quadratic form $x^{\top} C^{-1} x = 3.55$,
-giving
-
-$$\log p(x) = -\tfrac{5}{2} \log(2\pi) - \tfrac{1}{2} \log 21
-- \tfrac{1}{2}(3.55) \approx -7.8920.$$
-
-Evaluating the ELBO at $q^{*}$ from its decomposition confirms the
-identity term by term:
-$\mathbb{E}_{q^{*}}[\log p(x \mid \theta)] \approx -6.3459$,
-$\mathbb{E}_{q^{*}}[\log p(\theta)] \approx -2.1359$, and the entropy term
-$-\mathbb{E}_{q^{*}}[\log q^{*}(\theta)] \approx 0.5898$, summing to
-$-7.8920$ — equal to $\log p(x)$, as it must be when the divergence term
-in the identity is zero. A suboptimal member shows the gap opening: for
-$q = \mathrm{N}(2, 1)$, which has the correct mean but the prior-scale
-variance in place of the posterior variance, the same computation gives
-$\mathrm{ELBO}(q) \approx -9.1878$, and correspondingly
-$\mathrm{KL}(q \| p(\theta \mid x)) = \log p(x) - \mathrm{ELBO}(q)
-\approx 1.2959$ nats.
-
-The example separates two sources of error that are entangled in real
-applications. Optimisation error is the failure to find the best member
-of the family; approximation error is the divergence of the best member
-from the posterior. Here approximation error is zero by construction, so
-any shortfall of a computed ELBO below $-7.8920$ is optimisation error
-alone. In the bivariate example, by contrast, the entire $0.511$-nat
-shortfall is approximation error. Reporting a fitted approximation
-without asking which of the two errors dominates leaves the quality of
-the inference unassessed.
-
-## Stochastic variational inference and gradient methods
+### Stochastic variational inference and gradient methods
 
 CAVI's full pass through the data at every iteration limits it to
 datasets of moderate size. Stochastic variational inference, developed by
@@ -465,7 +351,127 @@ variance. Both approaches keep the same objective and change only how
 its gradient is estimated; they widen the class of models the method
 reaches without changing what its optimum represents.
 
-## Statistical use, strengths and limits
+## Worked example
+
+### Mean-field for a correlated normal posterior
+
+Suppose the posterior is bivariate normal with mean zero, unit marginal
+variances, and correlation $\rho = 0.8$:
+
+$$p(z \mid x) = \mathrm{N}\!\left(0,\ \Sigma\right), \qquad
+\Sigma = \begin{pmatrix} 1 & 0.8 \\ 0.8 & 1 \end{pmatrix}.$$
+
+This is the example Blei, Kucukelbir and McAuliffe use to display the
+mean-field approximation, in their Figure 1: the approximating density
+"has the same mean as the original density", but "its covariance is, by
+construction, decoupled", and "the marginal variances of the
+approximation under-represent those of the target"
+{{cite:blei_kucukelbir_mcauliffe2017}} (§2.4). Here the numbers can be
+given exactly.
+
+Take the mean-field family $q(z) = q_1(z_1)\, q_2(z_2)$ with
+$q_j = \mathrm{N}(m_j, s_j^2)$. The posterior precision matrix is
+
+$$\Sigma^{-1} = \frac{1}{1 - \rho^2}
+\begin{pmatrix} 1 & -\rho \\ -\rho & 1 \end{pmatrix}
+= \frac{1}{0.36}
+\begin{pmatrix} 1 & -0.8 \\ -0.8 & 1 \end{pmatrix},$$
+
+so each diagonal entry of the precision is $1/(1-\rho^2) = 1/0.36$. For a
+Gaussian target, the optimal mean-field factor for $z_j$ is normal with
+mean equal to the posterior mean and variance equal to the reciprocal of
+that diagonal precision entry. Hence the optimum is $m_1 = m_2 = 0$ and
+
+$$s_1^2 = s_2^2 = 1 - \rho^2 = 0.36, \qquad s_1 = s_2 = 0.6.$$
+
+The mean is recovered exactly; the spread is not. Each true marginal
+standard deviation is $1$, while the approximation reports $0.6$, and
+each true marginal variance is $1$, while the approximation reports
+$0.36$ — $36\%$ of the correct value. The correlation, $0.8$ in the
+posterior, is reported as $0$, because no factorised density can report
+anything else. Note what the number $0.36$ is: $1 - \rho^2$ is the
+conditional variance of $z_1$ given $z_2$ under the posterior. The
+mean-field factor adopts the conditional spread — how tightly $z_1$ is
+pinned down when $z_2$ is known — as if it were the marginal spread,
+discarding the variation that comes through the unknown $z_2$.
+
+The minimised divergence can also be computed exactly. For
+$q^{*} = \mathrm{N}(0, \mathrm{diag}(0.36, 0.36))$,
+
+$$\mathrm{KL}(q^{*} \| p)
+= \tfrac{1}{2}\left[\mathrm{tr}(\Sigma^{-1} \mathrm{diag}(0.36, 0.36))
+- 2 + \log \frac{\det \Sigma}{\det \mathrm{diag}(0.36, 0.36)}\right]
+= \tfrac{1}{2} \log \frac{0.36}{0.1296}
+= -\tfrac{1}{2} \log(1 - \rho^2) \approx 0.511 \text{ nats},$$
+
+where the trace term equals $2$ exactly, cancelling the $-2$. By the ELBO
+identity, this is also the exact gap $\log p(x) - \mathrm{ELBO}(q^{*})$
+for any model with this posterior: the best mean-field bound falls short
+of the log evidence by about $0.511$ nats, and no optimisation within
+the family can reduce that shortfall. Posterior correlation that the
+family cannot express is converted, mechanically, into understated
+marginal variances and a strictly positive divergence at the optimum.
+
+### When the family contains the posterior
+
+Variational inference is exact in one circumstance: when the chosen
+family contains the posterior itself. Then the minimum of the divergence
+is zero, the optimal $q$ is the posterior, and the ELBO equals the log
+marginal likelihood. A one-dimensional normal–normal model shows all
+three statements with checkable numbers; see [normal–normal
+conjugacy](normal-normal-conjugacy.qmd) for the exact posterior used
+here.
+
+Let the prior be $\theta \sim \mathrm{N}(0, \tau^2)$ with
+$\tau^2 = 4$, and let five observations
+$x = (1.1,\ 1.6,\ 2.1,\ 2.6,\ 3.1)$ be drawn independently from
+$\mathrm{N}(\theta, \sigma^2)$ with $\sigma^2 = 1$ known. The sample sum
+is $\sum_i x_i = 10.5$, the sample mean is $\bar{x} = 2.1$, and the sum of
+squared deviations is $\sum_i (x_i - \bar{x})^2 = 2.5$. The exact
+posterior is normal with precision $1/\tau^2 + n/\sigma^2 = 1/4 + 5 =
+21/4$, hence
+
+$$\text{posterior variance} = \frac{4}{21} \approx 0.1905, \qquad
+\text{posterior mean} = \frac{4}{21} \times 10.5 = 2, \qquad
+\text{posterior sd} \approx 0.4364.$$
+
+Choose as variational family all normal densities
+$q(\theta) = \mathrm{N}(m, w)$, with free mean $m$ and variance $w$. This
+family contains the posterior, $\mathrm{N}(2, 4/21)$, so the theory
+predicts $q^{*} = \mathrm{N}(2, 4/21)$ and
+$\mathrm{ELBO}(q^{*}) = \log p(x)$. The log marginal likelihood is
+available in closed form here: marginally,
+$x \sim \mathrm{N}(0,\ \sigma^2 I + \tau^2 \mathbf{1}\mathbf{1}^{\top})$,
+with determinant $21$ and quadratic form $x^{\top} C^{-1} x = 3.55$,
+giving
+
+$$\log p(x) = -\tfrac{5}{2} \log(2\pi) - \tfrac{1}{2} \log 21
+- \tfrac{1}{2}(3.55) \approx -7.8920.$$
+
+Evaluating the ELBO at $q^{*}$ from its decomposition confirms the
+identity term by term:
+$\mathbb{E}_{q^{*}}[\log p(x \mid \theta)] \approx -6.3459$,
+$\mathbb{E}_{q^{*}}[\log p(\theta)] \approx -2.1359$, and the entropy term
+$-\mathbb{E}_{q^{*}}[\log q^{*}(\theta)] \approx 0.5898$, summing to
+$-7.8920$ — equal to $\log p(x)$, as it must be when the divergence term
+in the identity is zero. A suboptimal member shows the gap opening: for
+$q = \mathrm{N}(2, 1)$, which has the correct mean but the prior-scale
+variance in place of the posterior variance, the same computation gives
+$\mathrm{ELBO}(q) \approx -9.1878$, and correspondingly
+$\mathrm{KL}(q \| p(\theta \mid x)) = \log p(x) - \mathrm{ELBO}(q)
+\approx 1.2959$ nats.
+
+The example separates two sources of error that are entangled in real
+applications. Optimisation error is the failure to find the best member
+of the family; approximation error is the divergence of the best member
+from the posterior. Here approximation error is zero by construction, so
+any shortfall of a computed ELBO below $-7.8920$ is optimisation error
+alone. In the bivariate example, by contrast, the entire $0.511$-nat
+shortfall is approximation error. Reporting a fitted approximation
+without asking which of the two errors dominates leaves the quality of
+the inference unassessed.
+
+## Statistical use — Where it is used, and its strengths
 
 Variational inference is used where [Bayesian
 inference](bayesian-inference.qmd) is wanted at a scale, or at a speed,
@@ -492,6 +498,49 @@ check with no equally direct analogue for a Markov chain, whose
 convergence must be inferred from the behaviour of its draws. The batch
 algorithm is also deterministic: the same initialisation and data return
 the same answer.
+
+## Common misconceptions
+
+**"The ELBO is the log marginal likelihood."** It is a lower bound on
+it. The two are equal only when the fitted $q$ equals the posterior, in
+which case the divergence term in the identity is zero. In worked
+example 1 the gap at the optimum is $0.511$ nats; treating the bound as
+the evidence overstates the model's marginal likelihood by exactly the
+approximation error, and comparing two models by their bounds compares
+evidence minus two different, unknown gaps.
+
+**"A converged variational fit has found the posterior."** Convergence
+certifies a local optimum of the ELBO within the chosen family. It says
+nothing about whether a better local optimum exists, and nothing about
+how far the family's best member is from the posterior. Both worked
+examples converge perfectly; one of them still reports a variance of
+$0.36$ where the truth is $1$.
+
+**"Mean-field assumes the posterior is independent, so it is only a
+rough device."** The assumption is about the approximating family, not a
+claim about the posterior, and its consequences are precise: posterior
+means are often recovered well — exactly, in worked example 1 — while
+variances and correlations are distorted in a known direction.
+
+**"Variational inference is a faster kind of MCMC."** The two solve
+different problems. Markov chain Monte Carlo simulates from the
+posterior and is asymptotically exact; variational inference optimises
+over a family and is exact only when the family contains the posterior.
+[Importance sampling](importance-sampling.qmd) belongs to the first
+tradition, variational inference to the second, and their error
+behaviour — decreasing with computation in one case, fixed by the family
+in the other — is the operational difference.
+
+**"Stochastic variational inference fixes the accuracy problems of
+variational inference."** It fixes a computational problem — the cost of
+full data passes — by following noisy gradients of the same ELBO. The
+optimum it approaches is the optimum of the same objective over the same
+family, with the same variance-understating tendency; Hoffman, Blei, Wang
+and Paisley present it as a method that lets "complex Bayesian models"
+be applied "to massive data sets", not as a change to what is being
+approximated {{cite:hoffman_etal2013_svi}} (abstract, p. 1303).
+
+## Assumptions and limits — The limits are structural
 
 The limits are equally structural, and none of them is removed by running
 the optimisation for longer.
@@ -544,83 +593,6 @@ by Blei, Kucukelbir and McAuliffe finds that posterior predictive
 performance need not suffer even when posterior variances are understated
 {{cite:blei_kucukelbir_mcauliffe2017}} (§1).
 
-## Common misconceptions
-
-**"The ELBO is the log marginal likelihood."** It is a lower bound on
-it. The two are equal only when the fitted $q$ equals the posterior, in
-which case the divergence term in the identity is zero. In worked
-example 1 the gap at the optimum is $0.511$ nats; treating the bound as
-the evidence overstates the model's marginal likelihood by exactly the
-approximation error, and comparing two models by their bounds compares
-evidence minus two different, unknown gaps.
-
-**"A converged variational fit has found the posterior."** Convergence
-certifies a local optimum of the ELBO within the chosen family. It says
-nothing about whether a better local optimum exists, and nothing about
-how far the family's best member is from the posterior. Both worked
-examples converge perfectly; one of them still reports a variance of
-$0.36$ where the truth is $1$.
-
-**"Mean-field assumes the posterior is independent, so it is only a
-rough device."** The assumption is about the approximating family, not a
-claim about the posterior, and its consequences are precise: posterior
-means are often recovered well — exactly, in worked example 1 — while
-variances and correlations are distorted in a known direction.
-
-**"Variational inference is a faster kind of MCMC."** The two solve
-different problems. Markov chain Monte Carlo simulates from the
-posterior and is asymptotically exact; variational inference optimises
-over a family and is exact only when the family contains the posterior.
-[Importance sampling](importance-sampling.qmd) belongs to the first
-tradition, variational inference to the second, and their error
-behaviour — decreasing with computation in one case, fixed by the family
-in the other — is the operational difference.
-
-**"Stochastic variational inference fixes the accuracy problems of
-variational inference."** It fixes a computational problem — the cost of
-full data passes — by following noisy gradients of the same ELBO. The
-optimum it approaches is the optimum of the same objective over the same
-family, with the same variance-understating tendency; Hoffman, Blei, Wang
-and Paisley present it as a method that lets "complex Bayesian models"
-be applied "to massive data sets", not as a change to what is being
-approximated {{cite:hoffman_etal2013_svi}} (abstract, p. 1303).
-
-## History
-
-Variational methods entered statistics from statistical physics, where
-mean-field approximations had long been used to replace interacting
-systems by independent components. Peterson and Anderson's 1987
-variational procedure for a neural network is identified by Blei,
-Kucukelbir and McAuliffe as arguably the first such procedure for a
-particular model; work through the 1990s turned these procedures into a
-general method for graphical models, while a parallel line, from Hinton
-and van Camp's 1993 algorithm and Neal and Hinton's connection to the EM
-algorithm, arrived at the same objective from parameter estimation
-{{cite:blei_kucukelbir_mcauliffe2017}} (§1). Jordan, Ghahramani, Jaakkola
-and Saul's 1999 tutorial, "An Introduction to Variational Methods for
-Graphical Models", gave the unified presentation: variational
-transformations, bounds on probabilities of interest, and the derivation,
-through Jensen's inequality and convex duality, of the lower bound on
-the log likelihood whose gap is the Kullback–Leibler divergence
-{{cite:jordan_etal1999_variational}} (§§5–6, pp. 183–185, 213–215).
-
-Hoffman, Blei, Wang and Paisley's stochastic variational inference of
-2013 then changed the scale at which the method operates, replacing
-batch coordinate ascent with stochastic optimisation on natural gradients
-and demonstrating fits on document collections in the millions
-{{cite:hoffman_etal2013_svi}} (§§1–2, pp. 1303–1305). Work in the same
-period on black-box and reparameterisation gradients removed the need for
-model-specific coordinate updates, and Blei, Kucukelbir and McAuliffe's
-2017 review in the *Journal of the American Statistical Association*
-presented the method to a statistical audience and catalogued its open
-problems, among them the absence of a statistical theory comparable to
-that available for Markov chain Monte Carlo
-{{cite:blei_kucukelbir_mcauliffe2017}} (§§5.2–5.4). Nonparametric
-extensions, in which some latent variables are governed by a [Dirichlet
-process](dirichlet-process.qmd), were among the early large-scale
-applications of the stochastic algorithm
-{{cite:hoffman_etal2013_svi}} (abstract, p. 1303).
-
 ## Connections
 
 - [Bayesian inference](bayesian-inference.qmd) — the framework whose
@@ -662,6 +634,42 @@ applications of the stochastic algorithm
 - [Dirichlet process](dirichlet-process.qmd) — the prior in the
   nonparametric topic model that Hoffman, Blei, Wang and Paisley fitted
   with stochastic variational inference.
+
+## History
+
+Variational methods entered statistics from statistical physics, where
+mean-field approximations had long been used to replace interacting
+systems by independent components. Peterson and Anderson's 1987
+variational procedure for a neural network is identified by Blei,
+Kucukelbir and McAuliffe as arguably the first such procedure for a
+particular model; work through the 1990s turned these procedures into a
+general method for graphical models, while a parallel line, from Hinton
+and van Camp's 1993 algorithm and Neal and Hinton's connection to the EM
+algorithm, arrived at the same objective from parameter estimation
+{{cite:blei_kucukelbir_mcauliffe2017}} (§1). Jordan, Ghahramani, Jaakkola
+and Saul's 1999 tutorial, "An Introduction to Variational Methods for
+Graphical Models", gave the unified presentation: variational
+transformations, bounds on probabilities of interest, and the derivation,
+through Jensen's inequality and convex duality, of the lower bound on
+the log likelihood whose gap is the Kullback–Leibler divergence
+{{cite:jordan_etal1999_variational}} (§§5–6, pp. 183–185, 213–215).
+
+Hoffman, Blei, Wang and Paisley's stochastic variational inference of
+2013 then changed the scale at which the method operates, replacing
+batch coordinate ascent with stochastic optimisation on natural gradients
+and demonstrating fits on document collections in the millions
+{{cite:hoffman_etal2013_svi}} (§§1–2, pp. 1303–1305). Work in the same
+period on black-box and reparameterisation gradients removed the need for
+model-specific coordinate updates, and Blei, Kucukelbir and McAuliffe's
+2017 review in the *Journal of the American Statistical Association*
+presented the method to a statistical audience and catalogued its open
+problems, among them the absence of a statistical theory comparable to
+that available for Markov chain Monte Carlo
+{{cite:blei_kucukelbir_mcauliffe2017}} (§§5.2–5.4). Nonparametric
+extensions, in which some latent variables are governed by a [Dirichlet
+process](dirichlet-process.qmd), were among the early large-scale
+applications of the stochastic algorithm
+{{cite:hoffman_etal2013_svi}} (abstract, p. 1303).
 
 ## Check yourself
 

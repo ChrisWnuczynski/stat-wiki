@@ -22,7 +22,7 @@ collection of Monte Carlo methods built on this single identity, used
 together with Markov chain Monte Carlo as a foundation for simulation-based
 numerical integration {{cite:tokdar_kass2010}} (p. 54).
 
-## The identity and the support condition
+## Definition — The identity and the support condition
 
 Let $X$ be a random quantity with density $p$ with respect to a common
 reference measure (Lebesgue measure for a continuous variable, counting
@@ -58,7 +58,9 @@ is the one required, because its denominator estimates an integral of $p$
 itself, for which the relevant function is the constant $1$, not $h$
 {{cite:owen2013_mc}} (§9.2).
 
-## The estimator when $p$ is normalised
+## Properties — The plain estimator, its variance, the proposal, and the self-normalised form
+
+### The estimator when $p$ is normalised
 
 Suppose first that $p$ is a fully specified, normalised density, so that
 $w(x)$ can be computed exactly. Draw $x_1, \dots, x_N$ independently from
@@ -70,12 +72,16 @@ It is exactly unbiased, not merely approximately: each term has expectation
 $E_q[h(X) w(X)] = \mu$ by the identity above, provided the support
 condition holds and $E_p[|h(X)|]$ is finite. Hastings writes the estimator
 in exactly this form, as the average of $h(x_i) p(x_i)/q(x_i)$ over a sample
-drawn from $q$ {{cite:hastings1970}} (§1, p. 97). By the strong law of large
-numbers $\widehat{\mu}$ converges to $\mu$ with probability one as
-$N \to \infty$, and by the central limit theorem its error is approximately
-normal with variance given in the next section, whenever that variance is
-finite; Tokdar and Kass record both limits, for this estimator and for the
-self-normalised ratio form {{cite:tokdar_kass2010}} (p. 54).
+drawn from $q$ {{cite:hastings1970}} (§1, p. 97). By the strong law of large numbers $\widehat{\mu}$ converges to
+$\mu$ with probability one as $N \to \infty$, and by the central
+limit theorem its error is approximately normal with variance given
+in the next section, whenever the second moment
+$E_q[h(X)^2 w(X)^2]$ is finite. That moment condition belongs to
+this estimator. The self-normalised ratio form has its own central
+limit theorem, with a different, centred moment condition, stated
+in its section below; neither condition covers both estimators.
+Tokdar and Kass record the strong law and the central limit results
+for the two forms separately {{cite:tokdar_kass2010}} (p. 54).
 
 Two special cases fix the meaning of the weights. If $q = p$, then
 $w(x) = 1$ for all $x$ and the estimator is the ordinary Monte Carlo
@@ -83,7 +89,7 @@ average of $h$ over draws from $p$. If $h$ is the indicator of a set $A$,
 the estimator is the average of the weights of the draws that fall in $A$;
 draws outside $A$ contribute exactly zero, however large their weights.
 
-## Variance: the weights decide everything
+### Variance: the weights decide everything
 
 Unbiasedness says nothing about precision. Because the terms
 $h(x_i) w(x_i)$ are independent draws from $q$, the exact variance of the
@@ -133,7 +139,7 @@ $q^*$ is the distribution of $X$ under $p$ conditional on $X \in A$: the
 ideal way to estimate a rare-event probability is to sample from the event
 itself, reweighted.
 
-## Choosing the proposal: tails, tilting and defensive mixtures
+### Choosing the proposal: tails, tilting and defensive mixtures
 
 Three requirements compete. The proposal must be easy to sample from; its
 density must be computable at the drawn points; and its shape must follow
@@ -180,7 +186,7 @@ purpose as well: one component can be placed at each mode, singularity or
 failure mechanism that is known about, so that no important region depends
 on a single component having found it {{cite:owen2013_mc}} (§9.10).
 
-## When $p$ is known only up to a constant: the self-normalised estimator
+### The self-normalised estimator
 
 In [Bayesian inference](bayesian-inference.qmd) the target is a posterior
 density, and Bayes' rule supplies it only as an unnormalised density
@@ -193,16 +199,35 @@ cannot be formed. What can be formed is the unnormalised weight
 $\tilde{w}(x) = \tilde{p}(x)/q(x) = Z w(x)$, which differs from the exact
 weight by the same unknown factor $Z$ at every point.
 
-The factor cancels in a ratio. Both $\mu = E_p[h(X)]$ and $1$ are
-expectations that the unnormalised weights can estimate: applied to $h$,
-the plain estimator with $\tilde{w}$ in place of $w$ estimates $Z\mu$;
-applied to the constant function $1$, it estimates $Z$. Dividing the
-first by the second gives the self-normalised estimator
+The factor cancels in a ratio — but the derivation needs the
+stronger support condition, and needs it here, not as a later
+caveat: $q(x) > 0$ wherever $\tilde{p}(x) > 0$, equivalently
+wherever $p(x) > 0$. The denominator of the ratio estimates
+$Z = \int \tilde{p}(x)\, dx$, the expectation of the constant
+function $1$ against the unnormalised target, and the identity for
+that expectation requires $q$ positive wherever $\tilde{p}$ is —
+including where $h$ vanishes. Under only the weaker, $h$-dependent
+condition of the first section, the numerator could still target
+$Z\mu$ while the denominator targets the integral of $\tilde{p}$
+over just the part of the space $q$ reaches, and the ratio would
+converge to a wrong value. Impose the strong condition from the
+start. Both $\mu = E_p[h(X)]$ and $1$ are then expectations that
+the unnormalised weights can estimate: applied to $h$, the plain
+estimator with $\tilde{w}$ in place of $w$ estimates $Z\mu$;
+applied to the constant function $1$, it estimates $Z$. Dividing
+the first by the second gives the self-normalised estimator
 
 $$\widetilde{\mu} = \frac{\sum_{i=1}^{N} \tilde{w}(x_i) h(x_i)}{\sum_{i=1}^{N} \tilde{w}(x_i)} = \frac{\sum_{i=1}^{N} w(x_i) h(x_i)}{\sum_{i=1}^{N} w(x_i)},$$
 
 a weighted average of the values $h(x_i)$ with normalised weights
-$w_i / \sum_j w_j$ that sum to one. Tokdar and Kass give this ratio
+$w_i / \sum_j w_j$ that sum to one — defined only when the
+denominator is positive. The weights are nonnegative, so the
+denominator vanishes exactly when every drawn point has
+$\tilde{w}(x_i) = 0$, an event of positive probability whenever $q$
+can draw points at which $\tilde{p}$ is zero. Every statement about
+$\widetilde{\mu}$ below is conditional on the denominator being
+positive; under the support condition that event has probability
+tending to one, but it is not certain at any finite $N$. Tokdar and Kass give this ratio
 estimate as the standard replacement when the density is known only up to
 a multiplicative constant {{cite:tokdar_kass2010}} (p. 54, eq. (4)), and
 Owen derives it the same way, as the cancellation of the unknown constants
@@ -211,13 +236,24 @@ of both $p$ and $q$ in a ratio of two importance sampling estimates
 
 The ratio form changes the estimator's properties in three ways, and the
 differences from the plain estimator are exact statements, not matters of
-taste. First, $\widetilde{\mu}$ is not unbiased at finite $N$: it is a
-ratio of two random averages, and the expectation of a ratio is not the
-ratio of the expectations. A Taylor expansion of the ratio about the
-limits of its numerator and denominator — the delta method — shows that
-the bias is of order $1/N$: it shrinks proportionally to $1/N$ as the
-sample grows, with a coefficient that depends on the covariance, under
-$q$, of $\tilde{w}(X)$ and $\tilde{w}(X) h(X)$. Second, the estimator is
+taste. First, $\widetilde{\mu}$ is generally biased at finite $N$: it is
+a ratio of two random averages, and the expectation of a ratio is
+not in general the ratio of the expectations. 'Generally' is the
+correct qualification, not 'always': if $h$ is a constant function,
+$h \equiv c$, the ratio equals $c$ exactly on every sample with a
+positive denominator, so that estimator is exact rather than
+biased. For non-constant $h$ the bias is typically nonzero, and a
+Taylor expansion of the ratio about the limits of its numerator and
+denominator — the delta method — shows that it is of order $1/N$:
+it shrinks proportionally to $1/N$ as the sample grows, with a
+coefficient that depends on the covariance, under $q$, of
+$\tilde{w}(X)$ and $\tilde{w}(X) h(X)$. That expansion has
+hypotheses of its own: it requires the second moments
+$E_q[\tilde{w}(X)^2]$ and $E_q[\tilde{w}(X)^2 h(X)^2]$ to be
+finite, so that both averages have finite variance and the
+covariance in the coefficient exists, and it requires $Z > 0$.
+Without those moments the consistency below still holds, but no
+$1/N$ rate for the bias is guaranteed. Second, the estimator is
 consistent: numerator and denominator each obey the strong law of large
 numbers, converging to $Z\mu$ and $Z$ respectively, so their ratio
 converges to $\mu$ with probability one {{cite:tokdar_kass2010}} (p. 54).
@@ -226,9 +262,16 @@ The delta method gives the approximation
 
 $$\text{Var}_q(\widetilde{\mu}) \approx \frac{1}{N} E_q\left[ w(X)^2 (h(X) - \mu)^2 \right],$$
 
-in which the weights multiply the centred values $h(X) - \mu$ rather than
-$h(X)$ itself; Owen obtains this expression by Taylor expansion of the
-ratio {{cite:owen2013_mc}} (§9.2). One consequence is that the optimal
+in which the weights multiply the centred values $h(X) - \mu$
+rather than $h(X)$ itself; Owen obtains this expression by Taylor
+expansion of the ratio {{cite:owen2013_mc}} (§9.2). The central
+limit theorem for the ratio is therefore stated with the centred
+moment condition: $\sqrt{N}(\widetilde{\mu} - \mu)$ is
+approximately normal with the displayed variance when
+$E_q[w(X)^2 (h(X) - \mu)^2]$ is finite. This is a condition on the
+centred product $w(X)(h(X) - \mu)$, distinct from the plain
+estimator's condition $E_q[h(X)^2 w(X)^2] < \infty$, and neither
+should be quoted as sufficient for both estimators. One consequence is that the optimal
 proposal also changes: for the self-normalised estimator it is
 proportional to $p(x) |h(x) - \mu|$, not to $p(x) |h(x)|$, so zero
 variance is unattainable even in the benchmark sense — the best proposal
@@ -248,7 +291,7 @@ inherits the fragility of the plain estimator — it is a plain estimator,
 of the constant function — and can be dominated by a handful of large
 weights when the proposal is poorly matched.
 
-## Effective sample size and the diagnosis of degeneracy
+### Effective sample size and the diagnosis of degeneracy
 
 A set of weighted draws carries less information than the same number of
 unweighted draws. Given weights $w_1, \dots, w_N$ at the drawn points, the
@@ -287,40 +330,9 @@ with those limits in mind — and reported alongside the largest normalised
 weight — it is the standard first check on an importance sampling
 calculation {{cite:owen2013_mc}} (§9.3).
 
-## High dimensions: weight degeneracy
+## Worked example
 
-The method's characteristic failure is already visible in Hastings's 1970
-account: importance sampling "is a difficult method to use in a large
-number of dimensions, since the values of the weights $w(x_i) = p(x_i)/q(x_i)$
-for reasonable values of $N$ may all be extremely small, or a few may be
-extremely large" {{cite:hastings1970}} (§1, p. 97). The mechanism is
-multiplicative. In $d$ dimensions a density ratio is typically a product
-of $d$ one-dimensional factors; the logarithm of the weight is a sum of
-$d$ terms, with variance growing proportionally to $d$, so the weights
-vary over a range exponential in $d$, and the chi-squared divergence
-between product densities compounds across coordinates. The consequence is
-weight degeneracy: as the dimension grows, the largest normalised weight
-tends towards one and the effective sample size towards one, however large
-$N$ is, unless $N$ grows exponentially with the discrepancy between $p$
-and $q$. A nominal sample of ten thousand draws can be, in effect, a
-sample of three.
-
-Tokdar and Kass locate the same difficulty from the approximation side:
-for a high-dimensional target, a proposal that is easy to sample from and
-yet close to $p$ is hard to identify, because the region where $p$ is
-large occupies an extremely small fraction of the volume
-{{cite:tokdar_kass2010}} (p. 55). Their review's response is structural:
-where the target factorises along a chain — as in state-space models —
-the proposal can be built sequentially, one conditional factor at a time,
-with the weight accumulated as a product of one-step ratios. That
-construction is sequential importance sampling, and with resampling added
-it is the basis of particle filtering {{cite:tokdar_kass2010}}
-(pp. 56–58). It manages degeneracy by rebuilding the sample as it goes; it
-does not repeal the multiplicative mechanism, and the plain, one-shot
-estimator of this article remains a low-to-moderate-dimensional tool
-unless the proposal is very close to the target.
-
-## Worked example 1: a rare-event probability
+### A rare-event probability
 
 Let $Z$ be standard normal and estimate $\mu = P(Z > 3)$ by importance
 sampling. The exact value is $\mu = 1 - \Phi(3) = 0.001349898$, where
@@ -376,7 +388,7 @@ $E_q[w(X)^2 h(X)^2]$, is the small number computed above. A divergence is
 a property of the pair of densities; the variance of an estimate is a
 property of the triple $(p, q, h)$.
 
-## Worked example 2: a self-normalised posterior mean in five draws
+### A self-normalised posterior mean in five draws
 
 A coin is tossed four times with three heads and one tail. With a uniform
 prior on the success probability $\theta \in (0,1)$, the posterior density
@@ -426,7 +438,7 @@ normalised weight is $0.346$: no single draw dominates, which is why the
 effective sample size is a substantial fraction of $5$ rather than a
 number near $1$.
 
-## Statistical use, assumptions and limits
+## Statistical use — Where importance sampling is used
 
 Importance sampling is used in three broad settings. The first is
 rare-event simulation: failure probabilities of engineered systems,
@@ -452,6 +464,8 @@ independent draws and an estimate of the normalising constant, but no
 mechanism for discovering regions of the target that the proposal did not
 already cover.
 
+## Assumptions and limits — Assumptions, limits, and high dimensions
+
 Its assumptions are few and sharp. The support condition must hold:
 $q(x) > 0$ wherever $|h(x)| p(x)$ is nonzero, and, for the self-normalised
 estimator, wherever $p(x) > 0$. Both densities must be evaluable at the
@@ -468,11 +482,45 @@ than the target can give infinite variance. A proposal that misses a mode
 gives an estimate wrong by that mode's contribution, with no internal
 signal of the omission: the weights of the draws that occurred cannot
 report on draws that never occurred. In high dimensions the weights
-degenerate unless the proposal is exponentially close to the target. And
-the self-normalised estimator is biased at every finite $N$; reporting it
-as if it were the unbiased plain estimator misstates its properties.
+degenerate unless the proposal is exponentially close to the target. And the self-normalised estimator is generally biased at finite
+$N$ — exact only in special cases such as a constant integrand,
+when its denominator is positive — so reporting it as if it were
+the unbiased plain estimator misstates its properties.
 Diagnostics based on the drawn weights — the effective sample size and
 the largest normalised weight — are necessary checks, not sufficient ones.
+
+### High dimensions: weight degeneracy
+
+The method's characteristic failure is already visible in Hastings's 1970
+account: importance sampling "is a difficult method to use in a large
+number of dimensions, since the values of the weights $w(x_i) = p(x_i)/q(x_i)$
+for reasonable values of $N$ may all be extremely small, or a few may be
+extremely large" {{cite:hastings1970}} (§1, p. 97). The mechanism is
+multiplicative. In $d$ dimensions a density ratio is typically a product
+of $d$ one-dimensional factors; the logarithm of the weight is a sum of
+$d$ terms, with variance growing proportionally to $d$, so the weights
+vary over a range exponential in $d$, and the chi-squared divergence
+between product densities compounds across coordinates. The consequence is
+weight degeneracy: as the dimension grows, the largest normalised weight
+tends towards one and the effective sample size towards one, however large
+$N$ is, unless $N$ grows exponentially with the discrepancy between $p$
+and $q$. A nominal sample of ten thousand draws can be, in effect, a
+sample of three.
+
+Tokdar and Kass locate the same difficulty from the approximation side:
+for a high-dimensional target, a proposal that is easy to sample from and
+yet close to $p$ is hard to identify, because the region where $p$ is
+large occupies an extremely small fraction of the volume
+{{cite:tokdar_kass2010}} (p. 55). Their review's response is structural:
+where the target factorises along a chain — as in state-space models —
+the proposal can be built sequentially, one conditional factor at a time,
+with the weight accumulated as a product of one-step ratios. That
+construction is sequential importance sampling, and with resampling added
+it is the basis of particle filtering {{cite:tokdar_kass2010}}
+(pp. 56–58). It manages degeneracy by rebuilding the sample as it goes; it
+does not repeal the multiplicative mechanism, and the plain, one-shot
+estimator of this article remains a low-to-moderate-dimensional tool
+unless the proposal is very close to the target.
 
 ## Common misconceptions
 
@@ -491,9 +539,10 @@ enormous weight.
 
 **"The self-normalised estimator is unbiased because the constant
 cancels."** The constant cancels exactly; unbiasedness does not follow.
-The estimator is a ratio of two random quantities, its bias is of order
-$1/N$, and only its consistency — convergence to $\mu$ as $N$ grows — is
-exact. In the second worked example the estimate from five draws is
+The estimator is a ratio of two random quantities, its bias is in
+general of order $1/N$ (a constant $h$ is the exception: its ratio
+is exact whenever the denominator is positive), and only its
+consistency — convergence to $\mu$ as $N$ grows — is exact. In the second worked example the estimate from five draws is
 $0.6135$ against an exact mean of $0.6667$; that gap is the expected
 behaviour of the ratio estimator at small $N$, not an error in the
 arithmetic.
@@ -517,30 +566,6 @@ rate $1/N$ when the variance is finite. They do not repair a support
 violation at any $N$, they do not make an infinite variance finite, and in
 high dimensions the number of draws needed to overcome weight degeneracy
 grows exponentially with the discrepancy between $p$ and $q$.
-
-## History
-
-The weighting identity is older than its name in statistics. Importance
-sampling was introduced as a variance reduction device in statistical
-physics in the 1950s — Tokdar and Kass trace its introduction to work of
-Hammersley and Morton (1954) and of Rosenbluth and Rosenbluth (1955) on
-Monte Carlo calculation in physics, and describe it as a variance
-reduction technique from that setting {{cite:tokdar_kass2010}} (p. 54).
-Hastings's 1970 exposition brought the method into the statistician's
-standard toolkit as one of the general strategies for expectations under
-hard distributions, alongside the Markov chain methods that are that
-paper's main subject, and already contained the warning about weights in
-high dimensions quoted above {{cite:hastings1970}} (§1, p. 97). The
-self-normalised, ratio form became central with the growth of Bayesian
-computation, where unnormalised posteriors are the rule; Tokdar and Kass
-record the strong law and central limit results for both forms and cite
-Geweke (1989) for their development in the Bayesian econometric setting
-{{cite:tokdar_kass2010}} (p. 54). Later development ran in the directions
-their review organises: adaptive parametric proposals fitted by optimising
-an efficiency criterion, sequential constructions with resampling for
-chain-structured targets, and combinations with Markov chain sampling
-{{cite:tokdar_kass2010}} (pp. 55–59). Owen's textbook treatment gives the
-method a chapter of its own {{cite:owen2013_mc}} (ch. 9).
 
 ## Connections
 
@@ -567,6 +592,30 @@ method a chapter of its own {{cite:owen2013_mc}} (ch. 9).
 - [Dirichlet process](dirichlet-process.qmd) — inference for Dirichlet
   process mixtures is a setting in which weighted and sequential forms of
   importance sampling handle posteriors that direct sampling cannot reach.
+
+## History
+
+The weighting identity is older than its name in statistics. Importance
+sampling was introduced as a variance reduction device in statistical
+physics in the 1950s — Tokdar and Kass trace its introduction to work of
+Hammersley and Morton (1954) and of Rosenbluth and Rosenbluth (1955) on
+Monte Carlo calculation in physics, and describe it as a variance
+reduction technique from that setting {{cite:tokdar_kass2010}} (p. 54).
+Hastings's 1970 exposition brought the method into the statistician's
+standard toolkit as one of the general strategies for expectations under
+hard distributions, alongside the Markov chain methods that are that
+paper's main subject, and already contained the warning about weights in
+high dimensions quoted above {{cite:hastings1970}} (§1, p. 97). The
+self-normalised, ratio form became central with the growth of Bayesian
+computation, where unnormalised posteriors are the rule; Tokdar and Kass
+record the strong law and central limit results for both forms and cite
+Geweke (1989) for their development in the Bayesian econometric setting
+{{cite:tokdar_kass2010}} (p. 54). Later development ran in the directions
+their review organises: adaptive parametric proposals fitted by optimising
+an efficiency criterion, sequential constructions with resampling for
+chain-structured targets, and combinations with Markov chain sampling
+{{cite:tokdar_kass2010}} (pp. 55–59). Owen's textbook treatment gives the
+method a chapter of its own {{cite:owen2013_mc}} (ch. 9).
 
 ## Check yourself
 

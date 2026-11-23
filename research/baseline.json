@@ -3468,19 +3468,19 @@
     "figures": 0
   },
   "variational-inference": {
-    "words": 5661,
+    "words": 5690,
     "figures": 0
   },
   "hamiltonian-monte-carlo": {
-    "words": 5590,
+    "words": 5621,
     "figures": 0
   },
   "importance-sampling": {
-    "words": 5593,
+    "words": 6030,
     "figures": 0
   },
   "dirichlet-process": {
-    "words": 5584,
+    "words": 5826,
     "figures": 0
   }
 }

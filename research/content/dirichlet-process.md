@@ -24,7 +24,7 @@ conjugate: the posterior of $G$ given a sample is again a Dirichlet
 process, with parameters combining $G_0$ with the empirical
 distribution {{cite:ferguson1973}} (Theorem 1, pp. 217–218).
 
-## Why a prior on distributions?
+## Motivating example — Why a prior on distributions?
 
 Consider estimating an unknown distribution from a sample, without
 assuming it belongs to a named family. A Bayesian answer requires a
@@ -67,7 +67,7 @@ parameters on a fixed partition. The Dirichlet process extends that
 construction to all finite partitions at once, which is why the same
 conjugacy reappears as its posterior result.
 
-## Definition: Dirichlet marginals on every finite partition
+## Definition — Dirichlet marginals on every finite partition
 
 Let the sample space be a set $\mathcal{X}$ with a collection of
 measurable subsets. A random probability measure $G$ is a random object
@@ -132,7 +132,9 @@ when $\alpha = 9$. So $\alpha$ is a prior sample size: $G_0$ enters
 the posterior with the weight of $\alpha$ pseudo-observations, against
 $n$ real ones.
 
-## Draws are discrete: the atoms come first
+## Properties — Discreteness, stick-breaking, the urn, and conjugacy
+
+### Draws are discrete: the atoms come first
 
 A realisation of a Dirichlet process is, with probability one, a
 discrete probability measure: $G$ places all its mass on a countable
@@ -169,7 +171,7 @@ continuity against discreteness {{cite:ferguson1973}} (p. 210). The
 standard remedy, convolving $G$ with a continuous kernel, is the
 Dirichlet process mixture of a later section.
 
-## The stick-breaking construction
+### The stick-breaking construction
 
 The partition definition specifies distributions but does not exhibit a
 realisation. Sethuraman's constructive definition does. Let $V_1, V_2,
@@ -206,47 +208,16 @@ $E[\pi_2] = 2/9$. Large $\alpha$ spreads mass over many atoms; small
 $\alpha$ makes the first few breaks large, so a draw is dominated by a
 handful of atoms.
 
-## Worked example: five breaks of the stick
-
-Suppose the first five break fractions are realised as
-
-$$V_1 = \frac{1}{2}, \quad V_2 = \frac{1}{3}, \quad V_3 = \frac{1}{4},
-\quad V_4 = \frac{1}{5}, \quad V_5 = \frac{1}{6}.$$
-
-| Break $k$ | $V_k$ | Stick remaining before break | Weight $\pi_k$ |
-|---:|---:|---:|---:|
-| 1 | $1/2$ | $1$ | $1/2$ |
-| 2 | $1/3$ | $1/2$ | $1/6$ |
-| 3 | $1/4$ | $1/3$ | $1/12$ |
-| 4 | $1/5$ | $1/4$ | $1/20$ |
-| 5 | $1/6$ | $1/5$ | $1/30$ |
-
-For instance, $\pi_3 = V_3(1 - V_1)(1 - V_2) = (1/4)(1/2)(2/3) =
-1/12$, and the remaining entries follow the same pattern. In decimal
-form the weights are approximately $0.5$, $0.166667$, $0.083333$,
-$0.05$ and $0.033333$. Their sum is $1/2 + 1/6 + 1/12 + 1/20 + 1/30 =
-5/6$, and the mass remaining for all subsequent atoms is the unbroken
-remainder,
-
-$$\prod_{j=1}^{5} (1 - V_j) = \frac{1}{2} \times \frac{2}{3} \times
-\frac{3}{4} \times \frac{4}{5} \times \frac{5}{6} = \frac{1}{6},$$
-
-so $5/6 + 1/6 = 1$, as it must. Here the weights follow the pattern
-$\pi_k = 1/(k(k+1))$, a property of these fractions, not of
-stick-breaking in general. Realised weights need not decrease in
-general, and the remainder $1/6 \approx 0.166667$ is the total weight
-of all later atoms: truncation levels are set by the expected remainder
-$\left(\frac{\alpha}{1 + \alpha}\right)^K$ after $K$ breaks, not by
-the atom count.
-
-## The Pólya urn and the Chinese restaurant process
+### The Pólya urn and the Chinese restaurant process
 
 Integrating out $G$ changes the viewpoint from the random measure to
 the observations, and gives the description most useful for clustering.
-Let $X_1, X_2, \dots$ be drawn independently from $G \sim
-\mathrm{DP}(\alpha, G_0)$. The sequence is
-[exchangeable](exchangeability.qmd), so it can be described by its
-successive conditionals, which have a closed form. Blackwell and
+Let $X_1, X_2, \dots$ be drawn from $G \sim
+\mathrm{DP}(\alpha, G_0)$, independently conditionally on $G$:
+sampling independence holds given the shared random measure, and it
+is the integration over $G$ that makes the sequence dependent. The
+sequence is [exchangeable](exchangeability.qmd), so it can be
+described by its successive conditionals, which have a closed form. Blackwell and
 MacQueen define a Pólya sequence by $P(X_1 \in B) =
 \alpha(B)/\alpha(\mathcal{X})$ and
 
@@ -277,67 +248,39 @@ already seated there, or starts a new table, with probability
 proportional to $\alpha$. If $n$ customers are seated at tables with
 occupancies $n_1, \dots, n_K$, the next joins table $j$ with
 probability $n_j/(\alpha + n)$ and starts a new table with probability
-$\alpha/(\alpha + n)$. These are the urn probabilities grouped by
-value: joining table $j$ is the event $X_{n+1} = \theta_j^{*}$, where
-$\theta_j^{*}$ is the shared value at that table; a new table is a
-fresh draw from $G_0$. The tables are the clusters of the model.
-Antoniak's sampling calculations are the restaurant arithmetic without
-the metaphor: the draw at step $i$ is distinct from all previous draws
-with probability $\alpha/(\alpha + i - 1)$, whatever the pattern of
-repetitions so far {{cite:antoniak1974}} (§4, pp. 1160–1161).
+$\alpha/(\alpha + n)$. These are the urn probabilities grouped by table: joining table $j$
+is the event $X_{n+1} = \theta_j^{*}$, where $\theta_j^{*}$ is the
+shared value at that table; a new table is a fresh draw from $G_0$.
+The tables are the clusters of the model, with one caveat: a fresh
+draw from $G_0$ can coincide with an existing table's value when
+$G_0$ has atoms, so the number of tables and the number of distinct
+values among the observations can differ. The two counts agree when
+$G_0$ is nonatomic, since a fresh draw then differs from every
+previous value with probability one.
+Antoniak's sampling calculations are the restaurant arithmetic
+without the metaphor: at step $i$ the draw opens a new table —
+takes a fresh draw from $G_0$ — with probability
+$\alpha/(\alpha + i - 1)$, whatever the pattern of repetitions so
+far {{cite:antoniak1974}} (§4, pp. 1160–1161). A new table is not
+automatically a new value. When $G_0$ is nonatomic, Antoniak's
+setting, a fresh draw is a new distinct value with probability one,
+and $\alpha/(\alpha + i - 1)$ is also the probability that the draw
+at step $i$ is distinct from all previous draws. When $G_0$ has
+atoms it need not be: if $G_0$ is a point mass, every observation
+has the same value, new tables keep opening at rate
+$\alpha/(\alpha + i - 1)$, and after the first observation the
+probability of a new distinct value is zero.
 
 The seating rule is also the prior on partitions, and it is not
 neutral: arrivals prefer large tables, so partitions with a few large
 clusters are favoured over balanced ones with the same number of
-tables. Its strength is controlled entirely by $\alpha$: Antoniak
-notes the rate of new distinct values depends only on the magnitude
-$\alpha$ of the parameter measure, not on its shape $G_0$
+tables. Its strength is controlled entirely by $\alpha$: the rate of new
+tables depends only on the magnitude $\alpha$ of the parameter
+measure, not on its shape $G_0$, and in the nonatomic case Antoniak
+treats, the same is true of the rate of new distinct values
 {{cite:antoniak1974}} (p. 1161).
 
-## Worked example: the sixth customer, and how many tables to expect
-
-**Seating probabilities.** Let $\alpha = 2$, and suppose the first five
-customers are seated with three at one table and two at another. For
-the sixth customer the denominator is $\alpha + n = 2 + 5 = 7$, so
-
-$$P(\text{join the table of 3}) = \frac{3}{7} \approx 0.428571, \qquad
-P(\text{join the table of 2}) = \frac{2}{7} \approx 0.285714, \qquad
-P(\text{new table}) = \frac{2}{7} \approx 0.285714.$$
-
-The probabilities sum to $3/7 + 2/7 + 2/7 = 1$. A new table is exactly
-as probable as joining the smaller table, because $\alpha = 2$ gives
-the unexplored space the weight of two customers. Under $\alpha = 1$
-the same seating would give a new-table probability of $1/6$: $\alpha$,
-not the data pattern, sets the rate at which new clusters open.
-
-**Expected number of distinct values.** Let $K_n$ be the number of
-distinct values among $X_1, \dots, X_n$ — the occupied tables after $n$
-customers. Summing the indicators of new values, each with probability
-$\alpha/(\alpha + i - 1)$ at step $i$, gives Antoniak's formula
-{{cite:antoniak1974}} (§4, pp. 1160–1161)
-
-$$E[K_n] = \sum_{i=1}^{n} \frac{\alpha}{\alpha + i - 1}.$$
-
-For $\alpha = 2$ and $n = 5$ this is $2/2 + 2/3 + 2/4 + 2/5 + 2/6 =
-29/10 = 2.9$ exactly. For $\alpha = 1$ the terms simplify to $1/i$, and
-for $n = 10$,
-
-$$E[K_{10}] = \sum_{i=1}^{10} \frac{1}{i} = H_{10} =
-\frac{7381}{2520} \approx 2.928968,$$
-
-where $H_{10}$ is the tenth harmonic number. Ten draws under $\alpha =
-1$ thus produce, on average, fewer than three distinct values: the
-discreteness of $G$ is the typical behaviour of the model, not a tail
-event. The expectation grows only logarithmically in $n$ — Escobar and
-West give the approximation $E[K_n] \approx \alpha
-\log\left(\frac{\alpha + n}{\alpha}\right)$, which for $\alpha = 1$
-and $n = 10$ gives $\log 11 \approx 2.397895$, below the exact
-$2.928968$ at this small $n$ {{cite:escobar_west1995}} (p. 578) — yet
-it still tends to infinity with $n$, as Antoniak notes
-{{cite:antoniak1974}} (§4, pp. 1160–1161): new clusters never stop
-arriving, only more and more slowly.
-
-## The posterior: conjugacy
+### The posterior: conjugacy
 
 The conjugacy promised by property (II) is exact. Let $G \sim
 \mathrm{DP}(\alpha, G_0)$ and let $X_1, \dots, X_n$ be a sample from
@@ -378,7 +321,87 @@ Ties enter $\bar{G}$ with multiplicity: a value occurring $m$ times
 receives mass $m/(\alpha + n)$ there. A posterior draw is still
 discrete; smoothing comes from the mixture construction, not the update.
 
-## Worked example: a posterior with ties
+## Worked example
+
+### Five breaks of the stick
+
+Suppose the first five break fractions are realised as
+
+$$V_1 = \frac{1}{2}, \quad V_2 = \frac{1}{3}, \quad V_3 = \frac{1}{4},
+\quad V_4 = \frac{1}{5}, \quad V_5 = \frac{1}{6}.$$
+
+| Break $k$ | $V_k$ | Stick remaining before break | Weight $\pi_k$ |
+|---:|---:|---:|---:|
+| 1 | $1/2$ | $1$ | $1/2$ |
+| 2 | $1/3$ | $1/2$ | $1/6$ |
+| 3 | $1/4$ | $1/3$ | $1/12$ |
+| 4 | $1/5$ | $1/4$ | $1/20$ |
+| 5 | $1/6$ | $1/5$ | $1/30$ |
+
+For instance, $\pi_3 = V_3(1 - V_1)(1 - V_2) = (1/4)(1/2)(2/3) =
+1/12$, and the remaining entries follow the same pattern. In decimal
+form the weights are approximately $0.5$, $0.166667$, $0.083333$,
+$0.05$ and $0.033333$. Their sum is $1/2 + 1/6 + 1/12 + 1/20 + 1/30 =
+5/6$, and the mass remaining for all subsequent atoms is the unbroken
+remainder,
+
+$$\prod_{j=1}^{5} (1 - V_j) = \frac{1}{2} \times \frac{2}{3} \times
+\frac{3}{4} \times \frac{4}{5} \times \frac{5}{6} = \frac{1}{6},$$
+
+so $5/6 + 1/6 = 1$, as it must. Here the weights follow the pattern
+$\pi_k = 1/(k(k+1))$, a property of these fractions, not of
+stick-breaking in general. Realised weights need not decrease in
+general, and the remainder $1/6 \approx 0.166667$ is the total weight
+of all later atoms: truncation levels are set by the expected remainder
+$\left(\frac{\alpha}{1 + \alpha}\right)^K$ after $K$ breaks, not by
+the atom count.
+
+### The sixth customer, and how many tables to expect
+
+**Seating probabilities.** Let $\alpha = 2$, and suppose the first five
+customers are seated with three at one table and two at another. For
+the sixth customer the denominator is $\alpha + n = 2 + 5 = 7$, so
+
+$$P(\text{join the table of 3}) = \frac{3}{7} \approx 0.428571, \qquad
+P(\text{join the table of 2}) = \frac{2}{7} \approx 0.285714, \qquad
+P(\text{new table}) = \frac{2}{7} \approx 0.285714.$$
+
+The probabilities sum to $3/7 + 2/7 + 2/7 = 1$. A new table is exactly
+as probable as joining the smaller table, because $\alpha = 2$ gives
+the unexplored space the weight of two customers. Under $\alpha = 1$
+the same seating would give a new-table probability of $1/6$: $\alpha$,
+not the data pattern, sets the rate at which new clusters open.
+
+**Expected number of tables.** Let $K_n$ be the number of occupied
+tables after $n$ customers. Summing the indicators of new tables,
+each with probability $\alpha/(\alpha + i - 1)$ at step $i$, gives
+Antoniak's formula {{cite:antoniak1974}} (§4, pp. 1160–1161). When
+$G_0$ is nonatomic, $K_n$ is also the number of distinct values
+among $X_1, \dots, X_n$; with an atomic $G_0$ the number of
+distinct values is at most $K_n$, and can be strictly smaller.
+
+$$E[K_n] = \sum_{i=1}^{n} \frac{\alpha}{\alpha + i - 1}.$$
+
+For $\alpha = 2$ and $n = 5$ this is $2/2 + 2/3 + 2/4 + 2/5 + 2/6 =
+29/10 = 2.9$ exactly. For $\alpha = 1$ the terms simplify to $1/i$, and
+for $n = 10$,
+
+$$E[K_{10}] = \sum_{i=1}^{10} \frac{1}{i} = H_{10} =
+\frac{7381}{2520} \approx 2.928968,$$
+
+where $H_{10}$ is the tenth harmonic number. Ten draws under $\alpha = 1$ thus produce, on average, fewer than
+three tables — and, when $G_0$ is nonatomic, fewer than three
+distinct values: the discreteness of $G$ is the typical behaviour
+of the model, not a tail event. The expectation grows only logarithmically in $n$ — Escobar and
+West give the approximation $E[K_n] \approx \alpha
+\log\left(\frac{\alpha + n}{\alpha}\right)$, which for $\alpha = 1$
+and $n = 10$ gives $\log 11 \approx 2.397895$, below the exact
+$2.928968$ at this small $n$ {{cite:escobar_west1995}} (p. 578) — yet
+it still tends to infinity with $n$, as Antoniak notes
+{{cite:antoniak1974}} (§4, pp. 1160–1161): new clusters never stop
+arriving, only more and more slowly.
+
+### A posterior with ties
 
 Let the prior be $\mathrm{DP}(3, G_0)$ with $G_0$ uniform on
 $[0, 1]$, and suppose the sample of size $n = 4$ is $X_1 = 0.2$,
@@ -412,7 +435,22 @@ $0.2$ is random — marginally a beta random variable centred near $3/7$
 — not a fixed $3/7$. Reporting $\bar{G}$ as "the estimated
 distribution" conflates the posterior mean with the random measure.
 
-## Dirichlet process mixtures: recovering continuous densities
+## Statistical use — Mixtures, computation, and uses
+
+Used directly, the Dirichlet process is a prior for an unknown
+distribution when the data are genuinely discrete, or when only set
+probabilities and functionals such as means and quantiles are of
+interest — Ferguson's applications, including a distribution function,
+a mean, quantiles, and a two-sample problem in which the Mann–Whitney
+statistic appears {{cite:ferguson1973}} (§5). Used as a mixing distribution, it gives the mixture: density
+estimation and clustering with the component count inferred rather than
+fixed. Used inside larger [hierarchical Bayesian
+models](hierarchical-bayesian-model.qmd), it gives each group its own
+distribution drawn from a shared prior. In each use the engine is the
+same pair of results: the urn predictive distribution, and the
+conjugate posterior for $G$.
+
+### Dirichlet process mixtures: recovering continuous densities
 
 The discreteness of $G$ is a defect for density estimation and a virtue
 for clustering; the mixture model keeps the virtue while removing the
@@ -475,7 +513,7 @@ the prior for $K$ "heavily favors single-digit values"
 {{cite:escobar_west1995}} (p. 578). A mixture thus counts clusters
 under a prior expecting few of them, not neutrally.
 
-## Computation
+### Computation
 
 Exact posterior computation is not available beyond very small samples.
 Neal states the obstruction plainly: "Exact computation of posterior
@@ -517,20 +555,42 @@ cost. [Importance sampling](importance-sampling.qmd), the earlier
 simulation route, was displaced because its weights degenerate over the
 partition space {{cite:escobar_west1995}} (p. 578).
 
-## Statistical use, assumptions and limits
+## Common misconceptions
 
-Used directly, the Dirichlet process is a prior for an unknown
-distribution when the data are genuinely discrete, or when only set
-probabilities and functionals such as means and quantiles are of
-interest — Ferguson's applications, including a distribution function,
-a mean, quantiles, and a two-sample problem in which the Mann–Whitney
-statistic appears {{cite:ferguson1973}} (§5). Used as a mixing distribution, it gives the mixture: density
-estimation and clustering with the component count inferred rather than
-fixed. Used inside larger [hierarchical Bayesian
-models](hierarchical-bayesian-model.qmd), it gives each group its own
-distribution drawn from a shared prior. In each use the engine is the
-same pair of results: the urn predictive distribution, and the
-conjugate posterior for $G$.
+**"The Dirichlet process is a prior over smooth densities."** It is a
+prior over discrete distributions: every draw is a weighted sum of
+point masses, whatever $G_0$ is. Smooth densities arise only after the
+draw is convolved with a continuous kernel, in a mixture.
+
+**"$G_0$ is the distribution the data came from."** $G_0$ is the prior
+mean, $E[G(A)] = G_0(A)$. A draw $G$ differs from $G_0$ in every
+realisation, by an amount governed by $\alpha$; confusing the mean
+with a draw understates the spread by exactly the variance $G_0(A)(1 -
+G_0(A))/(\alpha + 1)$.
+
+**"$\alpha$ is a minor technical constant."** $\alpha$ is the prior
+sample size. It sets the prior variance of $G(A)$, the tie probability
+$1/(\alpha + 1)$, the expected cluster count $\sum_i \alpha/(\alpha +
+i - 1)$, and the weight of $G_0$ against the data in the posterior.
+
+**"The Chinese restaurant process is an alternative to the Dirichlet
+process."** It is the Dirichlet process with $G$ integrated out,
+described through seating probabilities. Restaurant and urn rules give
+identical probabilities for every partition; neither approximates the
+other.
+
+**"The number of clusters found is the number that are really there."**
+The model has infinitely many components available and finitely many
+occupied. The occupied count is a posterior quantity under a prior
+favouring few, unequal clusters; it counts components used to represent
+the data, not a census of subpopulations.
+
+**"Nonparametric means assumption-free."** The process assumes
+exchangeability, a base measure whose support contains the truth, a
+concentration parameter, and — in the mixture — a kernel family. It
+removes only the assumption of a named finite-dimensional form.
+
+## Assumptions and limits — The limits are structural
 
 The limits are structural, and each traces to a result above.
 
@@ -572,72 +632,6 @@ one-dimensional summaries of $G$, not a guarantee about densities,
 cluster counts or partitions in a mixture model, whose posterior
 behaviour depends on the kernel and on $G_0$ as well.
 
-## Common misconceptions
-
-**"The Dirichlet process is a prior over smooth densities."** It is a
-prior over discrete distributions: every draw is a weighted sum of
-point masses, whatever $G_0$ is. Smooth densities arise only after the
-draw is convolved with a continuous kernel, in a mixture.
-
-**"$G_0$ is the distribution the data came from."** $G_0$ is the prior
-mean, $E[G(A)] = G_0(A)$. A draw $G$ differs from $G_0$ in every
-realisation, by an amount governed by $\alpha$; confusing the mean
-with a draw understates the spread by exactly the variance $G_0(A)(1 -
-G_0(A))/(\alpha + 1)$.
-
-**"$\alpha$ is a minor technical constant."** $\alpha$ is the prior
-sample size. It sets the prior variance of $G(A)$, the tie probability
-$1/(\alpha + 1)$, the expected cluster count $\sum_i \alpha/(\alpha +
-i - 1)$, and the weight of $G_0$ against the data in the posterior.
-
-**"The Chinese restaurant process is an alternative to the Dirichlet
-process."** It is the Dirichlet process with $G$ integrated out,
-described through seating probabilities. Restaurant and urn rules give
-identical probabilities for every partition; neither approximates the
-other.
-
-**"The number of clusters found is the number that are really there."**
-The model has infinitely many components available and finitely many
-occupied. The occupied count is a posterior quantity under a prior
-favouring few, unequal clusters; it counts components used to represent
-the data, not a census of subpopulations.
-
-**"Nonparametric means assumption-free."** The process assumes
-exchangeability, a base measure whose support contains the truth, a
-concentration parameter, and — in the mixture — a kernel family. It
-removes only the assumption of a named finite-dimensional form.
-
-## History
-
-Thomas S. Ferguson introduced the Dirichlet process in "A Bayesian
-analysis of some nonparametric problems", in the *Annals of Statistics*
-in 1973 {{cite:ferguson1973}} (pp. 209–210). The paper defined the
-process by its Dirichlet finite-dimensional distributions, proved the
-posterior is again a Dirichlet process, gave a normalised gamma process
-construction making discreteness explicit, and developed applications
-to distribution functions, means and quantiles {{cite:ferguson1973}}
-(§§3–5, pp. 213–230). In the same issue, Blackwell and MacQueen
-connected Ferguson's distributions to generalised Pólya urn schemes
-{{cite:blackwell_macqueen1973}} (pp. 353–354). Antoniak (1974) extended
-the theory to mixtures of Dirichlet processes and derived the tie and
-distinct-value formulas underlying the restaurant representation
-{{cite:antoniak1974}} (pp. 1152, 1160–1161).
-
-For two decades the process was principally theoretical, because its
-posteriors could not be computed for the mixture models where it was
-most needed. Sethuraman's constructive definition, published in
-*Statistica Sinica* in 1994 after circulating from 1980, rebuilt the
-process from independent beta variables and point masses, with
-self-contained proofs of discreteness and posterior closure
-{{cite:sethuraman1994}} (pp. 639, 642). Escobar and West (1995) made
-mixtures of normals a working method for density estimation
-{{cite:escobar_west1995}} (pp. 577–578), and Neal's 2000 review
-completed the computational picture, systematising Gibbs sampling for
-conjugate priors and adding auxiliary-parameter and Metropolis–Hastings
-methods for non-conjugate priors {{cite:neal2000_dpmm}} (pp. 249–250).
-Stick-breaking has since become the representation through which the
-process is usually implemented.
-
 ## Connections
 
 - [Bayesian inference](bayesian-inference.qmd) — Bayes' rule with a
@@ -669,6 +663,37 @@ process is usually implemented.
   simulation method for these posteriors, displaced by
   allocation-resampling methods because its weights degenerate over
   the partition space.
+
+## History
+
+Thomas S. Ferguson introduced the Dirichlet process in "A Bayesian
+analysis of some nonparametric problems", in the *Annals of Statistics*
+in 1973 {{cite:ferguson1973}} (pp. 209–210). The paper defined the
+process by its Dirichlet finite-dimensional distributions, proved the
+posterior is again a Dirichlet process, gave a normalised gamma process
+construction making discreteness explicit, and developed applications
+to distribution functions, means and quantiles {{cite:ferguson1973}}
+(§§3–5, pp. 213–230). In the same issue, Blackwell and MacQueen
+connected Ferguson's distributions to generalised Pólya urn schemes
+{{cite:blackwell_macqueen1973}} (pp. 353–354). Antoniak (1974) extended
+the theory to mixtures of Dirichlet processes and derived the tie and
+distinct-value formulas underlying the restaurant representation
+{{cite:antoniak1974}} (pp. 1152, 1160–1161).
+
+For two decades the process was principally theoretical, because its
+posteriors could not be computed for the mixture models where it was
+most needed. Sethuraman's constructive definition, published in
+*Statistica Sinica* in 1994 after circulating from 1980, rebuilt the
+process from independent beta variables and point masses, with
+self-contained proofs of discreteness and posterior closure
+{{cite:sethuraman1994}} (pp. 639, 642). Escobar and West (1995) made
+mixtures of normals a working method for density estimation
+{{cite:escobar_west1995}} (pp. 577–578), and Neal's 2000 review
+completed the computational picture, systematising Gibbs sampling for
+conjugate priors and adding auxiliary-parameter and Metropolis–Hastings
+methods for non-conjugate priors {{cite:neal2000_dpmm}} (pp. 249–250).
+Stick-breaking has since become the representation through which the
+process is usually implemented.
 
 ## Check yourself
 
