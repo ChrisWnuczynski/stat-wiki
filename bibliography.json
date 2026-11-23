@@ -13491,6 +13491,35 @@
         "source": "crossref",
         "id": "10.1136/bmj-2022-071349"
       }
+    },
+    "aalen_johansen1977": {
+      "authors": [
+        "Aalen, O. O.",
+        "Johansen, S."
+      ],
+      "year": 1977,
+      "title": "An empirical transition matrix for non-homogeneous Markov chains based on censored observations (Preprint 1977 No. 6)",
+      "kind": "book",
+      "publisher": "Institute of Mathematical Statistics, University of Copenhagen",
+      "url": "https://www.math.ku.dk/bibliotek/arkivet/preprints-fra-ims/1977/preprint_1977_-_no_6_aalen__odd__johansen__s_ren_-_an_empirical_transition_matrix_for_non-homogeneous---.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.math.ku.dk/bibliotek/arkivet/preprints-fra-ims/1977/preprint_1977_-_no_6_aalen__odd__johansen__s_ren_-_an_empirical_transition_matrix_for_non-homogeneous---.pdf"
+      }
+    },
+    "survival_coxzph": {
+      "authors": [
+        "Therneau, T. M."
+      ],
+      "year": 2026,
+      "title": "survival: cox.zph — Test the Proportional Hazards Assumption of a Cox Regression (version 3.8-6)",
+      "kind": "book",
+      "publisher": "R package documentation",
+      "url": "https://stat.ethz.ch/R-manual/R-devel/library/survival/html/cox.zph.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stat.ethz.ch/R-manual/R-devel/library/survival/html/cox.zph.html"
+      }
     }
   }
 }

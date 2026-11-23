@@ -868,7 +868,7 @@
   "levene-s-test": {"field": "statistical inference", "article": "", "term": "Levene's test", "verb": "is", "proper": true, "description": "a test of equal variances formed by an analysis of variance on absolute deviations from each group’s centre"},
   "kaplan-meier-estimator": {"field": "survival analysis", "article": "the", "term": "Kaplan–Meier estimator", "verb": "is", "proper": true, "description": "a nonparametric estimate of the survival function from right-censored data, formed by multiplying conditional survival fractions at observed event times"},
   "cox-proportional-hazards-model": {"field": "survival analysis", "article": "the", "term": "Cox proportional hazards model", "verb": "is", "proper": true, "description": "a semi-parametric regression model for event times whose coefficients are estimated by partial likelihood, leaving the baseline hazard unspecified"},
-  "log-rank-test": {"field": "survival analysis", "article": "the", "term": "Log-rank test", "verb": "is", "description": "a nonparametric test comparing the survival distributions of two or more groups by contrasting observed and expected events at each event time"},
-  "competing-risks": {"field": "survival analysis", "article": "", "term": "Competing risks", "verb": "are", "description": "a setting in which several event types can occur and the first to occur precludes the others"}
+  "log-rank-test": {"field": "survival analysis", "article": "the", "term": "log-rank test", "verb": "is", "description": "a nonparametric test comparing the survival distributions of two or more groups by contrasting observed and expected events at each event time"},
+  "competing-risks": {"field": "survival analysis", "article": "", "term": "competing risks", "verb": "are", "description": "a setting in which several event types can occur and the first to occur precludes the others"}
 
 }

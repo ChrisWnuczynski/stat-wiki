@@ -3468,19 +3468,19 @@
     "figures": 0
   },
   "kaplan-meier-estimator": {
-    "words": 4550,
+    "words": 4816,
     "figures": 0
   },
   "cox-proportional-hazards-model": {
-    "words": 5811,
+    "words": 6066,
     "figures": 0
   },
   "log-rank-test": {
-    "words": 5194,
+    "words": 5215,
     "figures": 0
   },
   "competing-risks": {
-    "words": 5331,
+    "words": 5546,
     "figures": 0
   }
 }

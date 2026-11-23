@@ -3,7 +3,7 @@
 
 Recomputes, from scratch with plain arithmetic (fractions for exactness,
 math for the log-log intervals), every number quoted in
-drafts/kaplan-meier-estimator.md: the worked example (8 patients) and the
+research/content/kaplan-meier-estimator.md: the worked example (8 patients) and the
 "Your turn" exercise (6 patients). No repo code is imported.
 
 Run:  python3 checks/kaplan-meier-estimator.py

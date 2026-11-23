@@ -6,7 +6,7 @@ Recomputes, with plain Python arithmetic only (no repo imports):
   * the hazard-ratio illustration (constant hazards 0.20 vs 0.14 per year),
   * the tied-event Breslow vs Efron denominators used in Check yourself Q2,
   * the Nelson-Aalen vs Kaplan-Meier contrast (exp(-1/2) vs 1 - 1/2),
-  * the Breslow information at beta = 0 for the tied-event contrast.
+  * exact conditional vs Breslow score/information for tied events.
 
 Run:  python3 cox-proportional-hazards-model.py
 Exit 0 means every asserted draft number agrees with recomputation
@@ -14,6 +14,7 @@ to the stated tolerance.
 """
 
 import math
+from itertools import combinations
 
 TOL = 1e-3
 
@@ -177,6 +178,18 @@ def main():
     var_x = sum((x - mean_x) ** 2 for x in xs) / len(xs)
     ok &= close("risk-set Var(x) for {1,1,0,0}", var_x, 0.25, tol=1e-9)
     ok &= close("Breslow information at beta=0, d=2", 2 * var_x, 0.5, tol=1e-9)
+
+    # The exact conditional denominator ranges over failing subsets, so its
+    # log derivatives at the null are their covariate-sum mean and variance.
+    subset_sums = [sum(xs[i] for i in pair) for pair in combinations(range(4), 2)]
+    assert sorted(subset_sums) == [0, 1, 1, 1, 1, 2]
+    expected = sum(subset_sums) / len(subset_sums)
+    exact_info = sum((z - expected) ** 2 for z in subset_sums) / len(subset_sums)
+    score = 2 - expected
+    ok &= close("exact conditional tied score", score, 1, tol=1e-12)
+    ok &= close("exact conditional tied information", exact_info, 1 / 3, tol=1e-12)
+    ok &= close("exact conditional/log-rank score statistic", score ** 2 / exact_info, 3, tol=1e-12)
+    ok &= close("Breslow score statistic", score ** 2 / (2 * var_x), 2, tol=1e-12)
 
     print("ALL CHECKS PASSED" if ok else "SOME CHECKS FAILED")
     raise SystemExit(0 if ok else 1)

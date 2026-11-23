@@ -22,8 +22,7 @@ implicitly assumes every censored patient had the event before 20 months;
 the second discards the censored patients entirely. The Kaplan–Meier
 estimate is $71\%$, higher than either naive figure, because it credits
 each censored patient with survival up to their censoring time and no
-further {{cite:james_islr2021}} (§11.3, pp. 464–465). The rest of this
-article is the machinery behind that correction.
+further {{cite:james_islr2021}} (§11.3, pp. 464–466).
 
 ## Definition — Follow-up ends before the event
 
@@ -52,7 +51,7 @@ $t_j$, let $n_j$ be the number of subjects at risk just before $t_j$ — those
 whose observed time $Y$ is at least $t_j$, so they are known to be alive and
 under observation immediately before $t_j$ — and let $d_j$ be the number of
 events at $t_j$. The set of subjects at risk at $t_j$ is the risk set.
-Survival beyond $t_j$ factorises, by the law of total probability, into
+Survival beyond $t_j$ factorises, by the multiplication rule for conditional probabilities, into
 survival beyond $t_{j-1}$ and then survival from $t_{j-1}$ to $t_j$ given
 survival to $t_{j-1}$. Estimating each conditional survival probability by
 the fraction of the risk set that survives the moment, $(n_j - d_j)/n_j$,
@@ -109,8 +108,7 @@ different precision at late times if one of them has much heavier censoring.
 
 ## Properties — Greenwood's formula and confidence intervals
 
-A point estimate without a measure of uncertainty is of limited use, and
-the uncertainty in $\widehat{S}(t)$ grows as the risk sets shrink. Greenwood's
+Precision depends on the event counts and the sizes of the risk sets. Greenwood's
 formula estimates the variance of the Kaplan–Meier estimator as
 
 $$\widehat{\text{Var}}\{\widehat{S}(t)\} = \widehat{S}(t)^2 \sum_{j: t_j \le t} \frac{d_j}{n_j (n_j - d_j)},$$
@@ -118,8 +116,9 @@ $$\widehat{\text{Var}}\{\widehat{S}(t)\} = \widehat{S}(t)^2 \sum_{j: t_j \le t} 
 a formula derived by Greenwood for life tables in 1926 and given in its
 Kaplan–Meier form by Kaplan and Meier {{cite:kaplan_meier1958}}
 (pp. 465–466). The sum accumulates one term per event time up to $t$; each
-term grows as $n_j$ falls, so the variance accumulates fastest late in
-follow-up. The estimated standard error is
+term increases as $n_j$ decreases with $d_j$ held fixed. The sum is
+nondecreasing, but the variance also contains the decreasing factor
+$\widehat{S}(t)^2$, so the variance itself need not increase over time. The estimated standard error is
 $\widehat{\text{SE}}\{\widehat{S}(t)\} = \widehat{S}(t) \sqrt{\widehat{G}(t)}$,
 where $\widehat{G}(t)$ denotes the sum above. Kaplan and Meier stress that
 this is an asymptotic expression for the variance, so intervals built from
@@ -170,10 +169,8 @@ $\widehat{S}(t) \le 0.5$ — the time by which half the population is estimated
 to have had the event. It is a property of the curve, not of the observed
 event times: a median computed from the observed events alone, ignoring
 censoring, is biased. If the curve never falls to $0.5$ within follow-up,
-the median is not reached and should be reported as not estimable, not
-extrapolated; Rich and colleagues' small example illustrates the reporting,
-with median survival of 3 years in one group and 1 year in the other
-{{cite:rich2010}} (pp. 331–336).
+the median is not reached and should be reported as not estimable within follow-up, not
+extrapolated.
 
 The mean survival time is the area under the survival curve, but the
 unrestricted mean is not estimable when follow-up ends before the curve
@@ -181,16 +178,17 @@ reaches zero — which is the usual case. Kaplan and Meier instead define the
 mean life limited to a time $L$: the mean of $\min(T, L)$, estimated as the
 area under $\widehat{S}$ up to $L$ {{cite:kaplan_meier1958}} (pp. 467–468).
 This is now usually called the restricted mean survival time,
-$\text{RMST}(L) = \int_0^L \widehat{S}(t)\, dt$. It is the average event-free
-time over the window $[0, L]$, and it is defined even when the median is not
-reached. The horizon $L$ must be stated alongside the number; an RMST
+$\text{RMST}(L) = \int_0^L S(t)\, dt$, estimated by
+$\widehat{\text{RMST}}(L) = \int_0^L \widehat{S}(t)\, dt$ over a supported
+follow-up window. It is the average event-free time over $[0,L]$ and can be
+estimated even when the median is not reached. The horizon $L$ must be stated alongside the number; an RMST
 without its $L$ is uninterpretable, and RMSTs with different horizons are
 not comparable.
 
 ### Large-sample behaviour
 
-Kaplan and Meier show that the product-limit estimate is consistent and of
-negligible bias: $\widehat{S}(t)$ converges in probability to $S(t)$ provided
+Under their independent-lifetime and censoring assumptions, Kaplan and
+Meier state that the product-limit estimate is consistent: $\widehat{S}(t)$ converges in probability to $S(t)$ provided
 only that the number of items observable to $t$ grows without bound
 {{cite:kaplan_meier1958}} (p. 479). Consistency is therefore a statement
 about the risk set at $t$, not about the initial sample size: a study can
@@ -304,7 +302,7 @@ values — and both are approximate.
 6 months ($\widehat{S}(6) = 0.45$), so the median survival time is 6 months.
 The restricted mean to 9 months is the area under the curve to 9 months:
 
-$$\text{RMST}(9) = 1 \times 2 + 0.875 \times 1 + 0.75 \times 3 + 0.45 \times 3
+$$\widehat{\text{RMST}}(9) = 1 \times 2 + 0.875 \times 1 + 0.75 \times 3 + 0.45 \times 3
 = 2 + 0.875 + 2.25 + 1.35 = 6.475\ \text{months}.$$
 
 That is the average event-free time over the first 9 months, not an estimate
@@ -357,9 +355,11 @@ the term $d/(n(n-d))$ is undefined.
 **"The curve shows the proportion of the original sample still alive."**
 Only if there is no censoring. With censoring, $\widehat{S}(t)$ is a
 product of conditional fractions over changing risk sets, not a count
-divided by the initial $n$. In the worked example, 3 of 8 patients are
-known alive at 9 months, yet $\widehat{S}(9) = 0.225$, not $3/8 = 0.375$:
-the two patients censored before 9 months are not counted as survivors.
+divided by the initial $n$. In the worked example, three of eight patients
+have no recorded event by nine months, but only one is known to remain
+event-free then; the other two were censored earlier. Neither
+$3/8 = 0.375$ nor $1/8 = 0.125$ is the Kaplan–Meier estimate
+$\widehat{S}(9) = 0.225$.
 
 **"A censored patient counts as a survivor (or as a death)."** Neither. A
 censored patient contributes survival up to the censoring time and then
@@ -378,15 +378,11 @@ high may simply reflect heavy censoring or short follow-up. The height of
 the curve at the end of follow-up, the size of the risk set there, and the
 width of the interval all have to be read together.
 
-**"Non-overlapping confidence intervals at one time point mean the groups
-differ."** Pointwise intervals at a single time are not a comparison of
-curves. Comparing whole curves needs a test that uses the entire follow-up,
-such as the log-rank test, and even then the comparison is of survival
-distributions, not of survival at one chosen time. Rich and colleagues make
-the same point about their small example: despite apparently very different
-curves, the log-rank test was not significant, because the method's "main
-focus is on the entire curve" rather than on isolated points
-{{cite:rich2010}} (pp. 331–336).
+**"Comparing pointwise intervals is the same as comparing survival curves."**
+A pointwise interval quantifies uncertainty at a single time. A comparison
+over follow-up requires a procedure designed for that question, such as
+the log-rank test. A test at one prespecified time and a test across
+follow-up address different hypotheses.
 
 **"The flat tail after the last observation is an estimate."** It is a
 plotting convention. Beyond the largest observed time, if that time is a
@@ -395,16 +391,18 @@ unjustified.
 
 ## Assumptions and limits
 
-Its validity rests on the censoring being non-informative: the lifetime $T$
-must be independent of the potential censoring time $C$, at least given any
-features being conditioned on. Kaplan and Meier assume the lifetime to be
+For an ordinary unadjusted Kaplan–Meier curve, assume independent subjects
+with a common event-time distribution and censoring independent of the
+event time within the population or stratum being estimated. Independence
+only after conditioning on covariates does not by itself justify a pooled
+unadjusted curve. Kaplan and Meier assume the lifetime to be
 independent of the potential loss time, and warn that "in practice this
 assumption deserves careful scrutiny" {{cite:kaplan_meier1958}}
 (pp. 457–458). James and colleagues make the same point: the censoring
 mechanism must be independent, in the sense that, conditional on the
 features, the event time carries no information about the censoring time,
 and whether that holds "is not possible to determine from the data itself"
-{{cite:james_islr2021}} (§11.2). Bland and Altman list it as the first of
+{{cite:james_islr2021}} (§11.2, p. 464). Bland and Altman list it as the first of
 three assumptions behind the method: at any time, patients who are censored
 must have the same survival prospects as those who continue to be followed
 {{cite:bland_altman1998}} (p. 1572). If sicker patients drop out early, the
@@ -417,8 +415,8 @@ Two further assumptions are easily overlooked. The survival probabilities
 must be the same for subjects recruited early and late in the study — a
 condition that fails if the case mix or ancillary treatment changes over a
 long recruitment period — and the event must genuinely occur at the recorded
-time, which fails when events are only detected at periodic examinations
-(interval censoring) {{cite:bland_altman1998}} (p. 1572).
+time, which requires a different observation model when events are only detected
+at periodic examinations (interval censoring) {{cite:bland_altman1998}} (p. 1572).
 
 The estimator's limits are the limits of a single-sample description. It
 does not adjust for covariates, so it cannot separate a treatment effect
@@ -492,7 +490,7 @@ instead?
 
 ::: {.callout-tip collapse="true" title="Answer"}
 
-Nothing can be said about the median: it is not reached, because the curve
+The median is not estimated within observed follow-up: it is not reached, because the curve
 never falls to $0.5$, and it should be reported as not estimable rather than
 extrapolated. Report instead the estimated survival at a stated horizon
 with its confidence interval, and the restricted mean survival time to a
@@ -518,8 +516,7 @@ formula used with it goes back further still: a very similar formula had
 been derived by Greenwood in 1926 for life tables {{cite:kaplan_meier1958}}
 (p. 466). Kaplan and Meier's paper also gave the mean and variance of the
 estimate, the mean lifetime and its restricted version, and a consistency
-argument {{cite:kaplan_meier1958}} (pp. 465–468, 479). The estimator became
-the standard nonparametric summary of survival data, and the paper one of
-the most cited in statistics. Later work refined its asymptotic theory, but
-the estimator itself, and Greenwood's formula for its variance, are still
-used in essentially their 1958 form.
+argument {{cite:kaplan_meier1958}} (pp. 465–468, 479). The product-limit
+construction and Greenwood variance remain the basis of the method
+described in modern survival-analysis teaching {{cite:james_islr2021}}
+(§11.3, pp. 464–466); {{cite:rodriguez2018}} (slide 5).

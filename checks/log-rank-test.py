@@ -4,7 +4,7 @@
 Recomputes, with plain Python arithmetic only (fractions for exactness,
 math.erfc for the chi-squared(1 df) tail probability), every number in the
 Worked example and the Your turn exercise of
-~/workspace/stat-wiki-s1/drafts/log-rank-test.md.
+research/content/log-rank-test.md.
 
 No repo code is imported. No external data. Run: python3 log-rank-test.py
 
@@ -22,6 +22,7 @@ Conventions (matching the article):
 """
 
 import math
+from itertools import combinations
 from fractions import Fraction as F
 
 # ---------------------------------------------------------------- worked example
@@ -136,6 +137,42 @@ def main():
           f"(article states 1/2)")
     assert var_r == F(1, 4) and info_breslow == F(1, 2), info_breslow
     assert v_hyp != info_breslow  # the two variances genuinely differ
+
+    # Enumerate the exact conditional null failing subsets, independently
+    # of the closed-form hypergeometric moments, including all-fail/empty
+    # groups and no-tie configurations. This checks the claimed equality
+    # rather than merely repeating the variance formula.
+    for n in range(2, 9):
+        for n1 in range(n + 1):
+            for d in range(1, n + 1):
+                totals = [sum(i < n1 for i in subset)
+                          for subset in combinations(range(n), d)]
+                mean = F(sum(totals), len(totals))
+                variance = sum((F(z) - mean) ** 2 for z in totals) / len(totals)
+                assert mean == F(d * n1, n)
+                assert variance == F(d) * F(n1, n) * F(n - n1, n) * F(n - d, n - 1)
+    exact_counts = [sum(i < 2 for i in pair) for pair in combinations(range(4), 2)]
+    exact_mean = F(sum(exact_counts), len(exact_counts))
+    exact_info = sum((F(z) - exact_mean) ** 2 for z in exact_counts) / len(exact_counts)
+    assert exact_info == v_hyp == F(1, 3)
+    score = F(2) - exact_mean
+    assert score == 1 and score ** 2 / exact_info == 3
+    assert score ** 2 / info_breslow == 2
+
+    # Three groups, but the third is absent from the informative risk set:
+    # enumerated covariance has rank one, not g-1=2.
+    groups = [0, 0, 1, 1]
+    counts = [[sum(groups[i] == g for i in pair) for g in range(3)]
+              for pair in combinations(range(4), 2)]
+    means = [F(sum(row[g] for row in counts), len(counts)) for g in range(3)]
+    cov = [[sum((F(row[g]) - means[g]) * (F(row[h]) - means[h])
+                for row in counts) / len(counts) for h in range(3)] for g in range(3)]
+    assert cov == [[F(1, 3), -F(1, 3), F(0)],
+                   [-F(1, 3), F(1, 3), F(0)], [F(0), F(0), F(0)]]
+    assert all(sum(row) == 0 for row in cov)
+    # The second row is minus the nonzero first row and the third is zero.
+    assert cov[0][0] > 0 and cov[1] == [-x for x in cov[0]] and not any(cov[2])
+    print("Exact conditional moments and degenerate three-group rank passed.")
 
     print("All checks passed.")
 
