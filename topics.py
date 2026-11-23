@@ -1332,14 +1332,6 @@ ALIASES.update({
 })
 
 ALIASES.update({
-    "Rubin causal model": "potential-outcomes",
-    "Neyman–Rubin causal model": "potential-outcomes",
-    "counterfactual outcomes": "potential-outcomes",
-    "balancing score": "propensity-score",
-    "directed acyclic graph": "causal-diagram",
-    "causal DAG": "causal-diagram",
-    "DAG": "causal-diagram",
-    "mediated effect": "mediation-analysis",
     "product-limit estimator": "kaplan-meier-estimator",
     "Cox model": "cox-proportional-hazards-model",
     "Cox regression": "cox-proportional-hazards-model",
@@ -1643,10 +1635,6 @@ LINKS += [
 ]
 
 LINKS += [
-    link(["propensity score", "propensity scores", "balancing score"], "propensity-score"),
-    link(["potential outcomes", "potential outcome", "counterfactual outcomes", "Rubin causal model"], "potential-outcomes"),
-    link(["causal diagram", "causal diagrams", "causal DAG", "directed acyclic graph", "directed acyclic graphs"], "causal-diagram"),
-    link(["mediation analysis", "causal mediation", "mediated effect", "natural direct effect", "natural indirect effect"], "mediation-analysis"),
     link(["Kaplan–Meier estimator", "Kaplan-Meier estimator", "Kaplan–Meier curve", "product-limit estimator"], "kaplan-meier-estimator"),
     link(["Cox proportional hazards model", "Cox model", "Cox regression"], "cox-proportional-hazards-model"),
     link(["log-rank test", "Mantel–Cox test", "Mantel-Cox test"], "log-rank-test"),
