@@ -19,6 +19,12 @@ Report the null and alternative, the statistic, the direction of the tail, the n
 ## Worked example — Which coin tail?
 Under $H_0:p=0.5$, toss a coin independently $20$ times and observe $15$ heads. For the prechosen alternative $p>0.5$, the exact p-value is $\Pr(K\ge15)=\sum_{j=15}^{20}{20\choose j}/2^{20}=0.020695$ for $K\sim\operatorname{Binomial}(20,0.5)$. This is below $0.05$. If the prechosen alternative was $p\ne0.5$, symmetry gives the exact two-sided tail $\Pr(K\le5\text{ or }K\ge15)=2(0.020695)=0.041389$, also below $0.05$. The two numbers answer different questions; the second tail was not selected after seeing which result looked more favorable. Neither number says the coin is biased with probability $97.9\%$.{{cite:siegrist2022_testing}} (§9.1, P-value)
 
+Now observe $0$ successes in $10$ independent Bernoulli trials with a common success probability $p$, testing $H_0:p=p_0=0.30$ against $p\ne0.30$. Under the null, $K\sim\operatorname{Binomial}(10,0.30)$ has mass $q(j)=\Pr_{H_0}(K=j)={10\choose j}0.3^j0.7^{10-j}$.{{cite:siegrist2022_binomial_distribution}} (§11.2, Distribution Functions, binomial mass formula) Probability-mass ordering includes counts whose null mass is no greater than $q(0)$: exactly $0$ and $7$–$10$. Its exact two-sided p-value is
+$$
+p_{\rm mass}=q(0)+\sum_{j=7}^{10}q(j)=0.0388396033\approx0.03883960.
+$$
+Twice the smaller inclusive tail, capped at one, instead gives $p_{\rm double}=\min\{1,2\min[\Pr_{H_0}(K\le0),\Pr_{H_0}(K\ge0)]\}=2(0.7^{10})=0.0564950498\approx0.05649505$. At level $0.05$, the first test rejects and the second does not. These are different two-sided tests of the same null; discrete, asymmetric distributions need not give the same result under these conventions.{{cite:agresti1992_exact_survey}} (p. 135, §2.1, two-sided conventions) Prespecify the convention: choosing the smaller p-value after seeing the data changes the testing procedure.
+
 **Your turn.** With a fair-coin null, $9$ heads appear in $12$ independent tosses. Calculate the exact p-value for a prechosen excess-heads alternative and, separately, for a two-sided alternative. Would either reject at level $0.05$?
 
 ::: {.callout-tip collapse="true" title="Answer"}
