@@ -146,7 +146,12 @@ def layout_checks(site: Path, screenshots: Path | None) -> list[str]:
                         page.wait_for_timeout(400)
                     page.screenshot(path=str(screenshots / "kurtosis-sidebar-mobile.png"), full_page=False)
         problems.extend(sidebar_scroll_checks(browser, site, screenshots))
+        problems.extend(sidebar_history_checks(browser, site, screenshots))
         browser.close()
+        # The default Playwright launch disables BFCache; exercise the cached path too.
+        cached_browser = playwright.chromium.launch(channel="chromium", ignore_default_args=["--disable-back-forward-cache"])
+        problems.extend(sidebar_history_checks(cached_browser, site, screenshots, bfcache=True))
+        cached_browser.close()
     return problems
 
 
@@ -454,6 +459,232 @@ def sidebar_scroll_checks(browser, site: Path, screenshots: Path | None) -> list
                 print(f"sidebar scroll: toggles, pointer/keyboard leaves, direct links, new tabs, fragments, history and blocked storage passed at {width}px")
             except Exception as exc:
                 problems.append(f"sidebar scroll at {width}: {exc}")
+            finally:
+                context.close()
+        server.shutdown()
+        thread.join()
+    return problems
+
+
+def sidebar_history_checks(browser, site: Path, screenshots: Path | None, *, bfcache=False) -> list[str]:
+    """Back/Forward must restore the departed entry, not another visit to its URL."""
+    from functools import partial
+    from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
+    from threading import Thread
+
+    class QuietHandler(SimpleHTTPRequestHandler):
+        def log_message(self, *args):
+            pass
+
+    problems: list[str] = []
+    with ThreadingHTTPServer(("127.0.0.1", 0), partial(QuietHandler, directory=str(site.resolve()))) as server:
+        thread = Thread(target=server.serve_forever, daemon=True)
+        thread.start()
+        base = f"http://127.0.0.1:{server.server_port}"
+        for width, height in ((1363, 936), (390, 844)):
+            context = browser.new_context(viewport={"width": width, "height": height})
+            context.add_init_script("""window.sidebarHistoryShows = [];
+                addEventListener('pageshow', e => sidebarHistoryShows.push(e.persisted));""")
+            page = context.new_page()
+            errors = []
+            page.on("pageerror", lambda error: errors.append(str(error)))
+            root = page.locator("#quarto-sidebar")
+
+            def settle():
+                page.wait_for_timeout(1100)
+
+            def state():
+                return root.evaluate("""el => ({top: el.scrollTop, body: scrollY,
+                    open: [...el.querySelectorAll('.sidebar-section.collapse.show')].map(e => e.id),
+                    url: location.href, origin: performance.timeOrigin,
+                    type: performance.getEntriesByType('navigation')[0].type,
+                    entry: window.navigation?.currentEntry?.key,
+                    persisted: window.sidebarHistoryShows.at(-1), history: history.state})""")
+
+            def drawer():
+                if width < 992 and not root.is_visible():
+                    rect = page.locator(".quarto-btn-toggle, #quarto-sidebar-toggle").first.bounding_box()
+                    assert rect, "missing mobile drawer toggle"
+                    page.mouse.click(rect["x"] + rect["width"] / 2, rect["y"] + rect["height"] / 2)
+                    settle()
+
+            def wheel(top):
+                rect = root.bounding_box()
+                page.mouse.move(rect["x"] + 100, max(rect["y"] + 50, height / 2))
+                page.mouse.wheel(0, top - state()["top"])
+                page.wait_for_timeout(300)
+
+            def pointer(locator):
+                rect, bounds = locator.bounding_box(), root.bounding_box()
+                assert rect and rect["height"] > 0, "history target is collapsed"
+                y = rect["y"] + rect["height"] / 2
+                assert bounds["y"] <= y < min(height, bounds["y"] + bounds["height"]), "history target needs wheel input"
+                page.mouse.click(rect["x"] + rect["width"] / 2, y)
+
+            def into(locator):
+                rect, bounds = locator.bounding_box(), root.bounding_box()
+                assert rect and rect["height"] > 0, "history target is collapsed"
+                wheel(state()["top"] + rect["y"] - bounds["y"] - 180)
+
+            def follow(path, offset=0):
+                link = root.locator('a[href$="' + path + '"]')
+                into(link)
+                if offset:
+                    wheel(state()["top"] + offset)
+                before = state()
+                pointer(link)
+                page.wait_for_url("**" + path)
+                page.wait_for_load_state("load")
+                settle()
+                assert page.evaluate("document.activeElement.tagName") == "BODY", "history setup moved focus"
+                drawer()
+                after = state()
+                assert abs(after["top"] - before["top"]) <= 2, "ordinary link lost sidebar position"
+                assert set(before["open"]).issubset(after["open"]), "ordinary link lost an open group"
+                return before
+
+            def restored(expected, label):
+                if not bfcache:
+                    page.wait_for_load_state("load")
+                settle()
+                assert page.url == expected["url"], f"{label}: wrong history entry"
+                drawer()
+                actual = state()
+                assert abs(actual["top"] - expected["top"]) <= 2, f"{label}: sidebar {expected['top']} -> {actual['top']}"
+                assert actual["entry"] == expected["entry"], f"{label}: changed history entry identity"
+                assert actual["open"] == expected["open"], f"{label}: open groups changed"
+                assert abs(actual["body"] - expected["body"]) <= 2, f"{label}: body history {expected['body']} -> {actual['body']}"
+                assert actual["persisted"] == bfcache, f"{label}: expected BFCache={bfcache}, got {actual}"
+                if bfcache:
+                    assert actual["origin"] == expected["origin"], f"{label}: document was recreated"
+                else:
+                    assert actual["type"] == "back_forward", f"{label}: not a cold history navigation"
+                    assert actual["origin"] != expected["origin"], f"{label}: document was not recreated"
+                assert actual["history"].get("sidebarTestOwner") == "preserve", "unrelated history state was replaced"
+                assert page.evaluate("history.scrollRestoration") == "manual", "Quarto body restoration changed"
+                assert page.evaluate("sessionStorage.getItem('statwiki-sidebar-navigation')") is None
+                print(f"sidebar history {width}px BFCache={bfcache} {label}: {expected['top']} -> {actual['top']}; groups {len(actual['open'])}; persisted={actual['persisted']}")
+                return actual
+
+            def owner():
+                page.evaluate("history.replaceState({...history.state, sidebarTestOwner: 'preserve'}, '')")
+
+            try:
+                page.goto(base + "/articles/sampling-bias.html", wait_until="networkidle")
+                settle()
+                drawer()
+                owner()
+                sampling1 = follow("/labs/distributions.html")
+                owner()
+                if width >= 992:
+                    page.mouse.move(width - 400, height / 2)
+                    page.mouse.wheel(0, 320)
+                    page.wait_for_timeout(300)
+                    assert state()["body"] > 200, "history fixture did not scroll the body"
+                lab1 = follow("/articles/sampling-bias.html")
+                owner()
+                # This is the same URL as sampling1, with a distinct viewport and group set.
+                extra = root.locator('a.sidebar-link[data-bs-toggle="collapse"]').filter(has_text=re.compile(r"^\s*Descriptive statistics\s*$")).first
+                into(extra)
+                pointer(extra)
+                settle()
+                sampling2 = follow("/labs/distributions.html", offset=70)
+                assert abs(sampling2["top"] - sampling1["top"]) > 20, "repeat-URL fixture needs distinct positions"
+                assert sampling2["open"] != sampling1["open"], "repeat-URL fixture needs distinct groups"
+                assert sampling2["entry"] != sampling1["entry"], "repeated URL did not create distinct entries"
+                owner()
+                wheel(state()["top"] + 91)
+                lab2 = state()
+                page.go_back(wait_until="commit")
+                restored(sampling2, "Back to second Sampling bias")
+                page.go_back(wait_until="commit")
+                restored(lab1, "Back across topic to first Explorer")
+                page.go_back(wait_until="commit")
+                restored(sampling1, "Back to first Sampling bias")
+                page.go_forward(wait_until="commit")
+                restored(lab1, "Forward to first Explorer")
+                page.go_forward(wait_until="commit")
+                restored(sampling2, "Forward to second Sampling bias")
+                page.go_forward(wait_until="commit")
+                restored(lab2, "Forward to second Explorer")
+                if screenshots:
+                    page.screenshot(path=str(screenshots / f"sidebar-history-{width}-{bfcache}.png"))
+
+                # A same-tab active reclick retains the existing one-time transfer behavior.
+                active = root.locator('a.sidebar-link.active[aria-current="page"]')
+                into(active)
+                before = state()
+                with page.expect_navigation(wait_until="load"):
+                    pointer(active)
+                settle()
+                drawer()
+                assert abs(state()["top"] - before["top"]) <= 2, "same-tab reclick lost sidebar position"
+                assert state()["open"] == before["open"], "same-tab reclick lost open groups"
+
+                # Input before the delayed restore callbacks is an explicit manual override.
+                follow("/articles/sampling-bias.html")
+                page.go_back(wait_until="commit")
+                drawer()
+                wheel(state()["top"] + 140)
+                manual = state()
+                settle()
+                assert abs(state()["top"] - manual["top"]) <= 2, "delayed history restore overrode wheel input"
+                if width < 992:
+                    owner()
+                    closed_view = state()
+                    toggle = page.locator(".quarto-btn-toggle, #quarto-sidebar-toggle").first
+                    rect = toggle.bounding_box()
+                    page.mouse.click(rect["x"] + rect["width"] / 2, rect["y"] + rect["height"] / 2)
+                    settle()
+                    assert not root.is_visible(), "drawer fixture did not close"
+                    page.goto(base + "/articles/sampling-bias.html", wait_until="networkidle")
+                    page.go_back(wait_until="commit")
+                    restored(closed_view, "Back with the drawer previously closed")
+                assert not errors, f"history navigation errors: {errors}"
+                if not bfcache:
+                    # Bad or unavailable state must fall back to the ordinary active row.
+                    # These are fault injections, separate from the real input comparisons above.
+                    for fault in ("storage", "entry-api", "json", "malformed", "wrong-page", "primitive"):
+                        fallback = browser.new_context(viewport={"width": width, "height": height})
+                        fault_script = {
+                            "storage": "for (const method of ['getItem', 'setItem', 'removeItem']) { const original = Storage.prototype[method]; Storage.prototype[method] = function(key, ...args) { if (key.startsWith('statwiki-sidebar-')) throw new DOMException('Blocked', 'SecurityError'); return original.call(this, key, ...args); }; }",
+                            "entry-api": "Object.defineProperty(window, 'navigation', {value: undefined});",
+                            "json": "if (performance.getEntriesByType('navigation')[0]?.type === 'back_forward') sessionStorage.setItem('statwiki-sidebar-history:' + navigation.currentEntry.key, '{');",
+                            "malformed": "if (performance.getEntriesByType('navigation')[0]?.type === 'back_forward') sessionStorage.setItem('statwiki-sidebar-history:' + navigation.currentEntry.key, JSON.stringify({url: location.href, top: -1, open: [3]}));",
+                            "wrong-page": "if (performance.getEntriesByType('navigation')[0]?.type === 'back_forward') sessionStorage.setItem('statwiki-sidebar-history:' + navigation.currentEntry.key, JSON.stringify({url: location.origin + '/different.html', top: 500, open: []}));",
+                            "primitive": "history.replaceState('another owner', '');",
+                        }[fault]
+                        fallback.add_init_script(fault_script)
+                        try:
+                            fault_page = fallback.new_page()
+                            fault_errors = []
+                            fault_page.on("pageerror", lambda error: fault_errors.append(str(error)))
+                            fault_page.goto(base + "/labs/distributions.html", wait_until="networkidle")
+                            fault_page.wait_for_timeout(1100)
+                            if width < 992:
+                                rect = fault_page.locator(".quarto-btn-toggle, #quarto-sidebar-toggle").first.bounding_box()
+                                fault_page.mouse.click(rect["x"] + rect["width"] / 2, rect["y"] + rect["height"] / 2)
+                                fault_page.wait_for_timeout(1100)
+                            fallback_top = fault_page.locator("#quarto-sidebar").evaluate("e => e.scrollTop")
+                            fault_page.goto(base + "/articles/sampling-bias.html", wait_until="networkidle")
+                            fault_page.go_back(wait_until="commit")
+                            fault_page.wait_for_timeout(1100)
+                            if width < 992:
+                                rect = fault_page.locator(".quarto-btn-toggle, #quarto-sidebar-toggle").first.bounding_box()
+                                fault_page.mouse.click(rect["x"] + rect["width"] / 2, rect["y"] + rect["height"] / 2)
+                                fault_page.wait_for_timeout(1100)
+                            selected = fault_page.locator('#quarto-sidebar a.active[aria-current="page"]')
+                            assert selected.count() == 1 and selected.get_attribute("href").endswith("/labs/distributions.html"), f"{fault}: lost active page"
+                            assert selected.is_visible(), f"{fault}: active ancestors are closed"
+                            assert abs(fault_page.locator("#quarto-sidebar").evaluate("e => e.scrollTop") - fallback_top) <= 2, f"{fault}: did not fall back to the direct active-row position"
+                            assert not fault_errors, f"{fault}: uncaught errors {fault_errors}"
+                            if fault == "primitive":
+                                assert fault_page.evaluate("history.state") == "another owner", "primitive history state was replaced"
+                        finally:
+                            fallback.close()
+                    print(f"sidebar history fallback at {width}px: blocked storage, unavailable entry API, malformed and mismatched snapshots, primitive state passed")
+            except Exception as exc:
+                problems.append(f"sidebar history at {width}, BFCache={bfcache}: {exc}")
             finally:
                 context.close()
         server.shutdown()

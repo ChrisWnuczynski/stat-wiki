@@ -12048,6 +12048,22 @@
       "volume": "334",
       "issue": "6060"
     },
+    "morters_peres2010": {
+      "authors": [
+        "Mörters, P.",
+        "Peres, Y."
+      ],
+      "year": 2010,
+      "title": "Brownian Motion",
+      "kind": "book",
+      "publisher": "Cambridge University Press",
+      "doi": "10.1017/CBO9780511750489",
+      "url": "https://doi.org/10.1017/CBO9780511750489",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1017/CBO9780511750489"
+      }
+    },
     "moraga2023": {
       "authors": [
         "Moraga, Paula"
