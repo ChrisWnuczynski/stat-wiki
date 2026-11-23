@@ -16,6 +16,11 @@ from pathlib import Path
 
 MATH_RE = re.compile(r"\\\(|\\\[|\^\{|_\{|\(\s*\)|\[\s*,\s*\]")
 SKIP_TAGS = {"script", "style", "katex", "annotation", "code", "pre"}
+# A bare void tag is start-only, so it must not take a stack slot.
+VOID_TAGS = frozenset({
+    "area", "base", "br", "col", "embed", "hr", "img", "input",
+    "link", "meta", "param", "source", "track", "wbr",
+})
 
 
 class VisibleText(HTMLParser):
@@ -26,6 +31,8 @@ class VisibleText(HTMLParser):
         self._stack: list[bool] = []
 
     def handle_starttag(self, tag: str, attrs) -> None:
+        if tag in VOID_TAGS:
+            return
         classes = dict(attrs).get("class", "")
         names = set(str(classes).split())
         skip = tag in SKIP_TAGS or "katex" in names or "math" in names
@@ -34,8 +41,17 @@ class VisibleText(HTMLParser):
             self._skip += 1
 
     def handle_endtag(self, tag: str) -> None:
+        if tag in VOID_TAGS:
+            return
         if self._stack and self._stack.pop() and self._skip:
             self._skip -= 1
+
+    def handle_startendtag(self, tag: str, attrs) -> None:
+        if tag in VOID_TAGS:
+            self.handle_starttag(tag, attrs)
+            return
+        self.handle_starttag(tag, attrs)
+        self.handle_endtag(tag)
 
     def handle_data(self, data: str) -> None:
         if self._skip or not data.strip():
