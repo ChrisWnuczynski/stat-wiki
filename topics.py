@@ -1330,6 +1330,25 @@ ALIASES.update({
     "Friedman rank sum test": "friedman-test",
 })
 
+ALIASES.update({
+    "Kolmogorov-Smirnov test": "kolmogorov-smirnov-test",
+    "K-S test": "kolmogorov-smirnov-test",
+    "KS test": "kolmogorov-smirnov-test",
+    "Welch ANOVA": "welch-s-anova",
+    "Welch's one-way test": "welch-s-anova",
+    "Welch one-way test": "welch-s-anova",
+    "Anderson-Darling test": "anderson-darling-test",
+    "A-D test": "anderson-darling-test",
+    "Anderson–Darling statistic": "anderson-darling-test",
+    "Anderson-Darling statistic": "anderson-darling-test",
+    "Mann-Whitney U test": "wilcoxon-rank-sum-test",
+    "Mann–Whitney U test": "wilcoxon-rank-sum-test",
+    "Mann-Whitney test": "wilcoxon-rank-sum-test",
+    "Mann–Whitney test": "wilcoxon-rank-sum-test",
+    "Mann-Whitney U": "wilcoxon-rank-sum-test",
+    "Mann–Whitney U": "wilcoxon-rank-sum-test",
+})
+
 
 TOPICS += [
     topic("Kernel of a density", "bayes-01-foundations.qmd: recognition of a known density kernel",
@@ -1621,6 +1640,23 @@ LINKS += [
     link(["Shapiro–Wilk test", "Shapiro-Wilk test"], "shapiro-wilk-test"),
     link(["Friedman rank sum test", "Friedman test"], "friedman-test"),
     link(["Levene's test", "Levene test", "Brown-Forsythe test", "Brown–Forsythe test"], "levene-s-test"),
+]
+
+LINKS += [
+    link(["Kolmogorov–Smirnov test", "Kolmogorov-Smirnov test", "K-S test"], "kolmogorov-smirnov-test"),
+    link(["Welch's ANOVA", "Welch ANOVA", "Welch's one-way test", "Welch one-way test"], "welch-s-anova"),
+    link(["Games–Howell", "Games-Howell"], "welch-s-anova"),
+    link(["Anderson–Darling test", "Anderson-Darling test", "Anderson–Darling statistic", "Anderson-Darling statistic"], "anderson-darling-test"),
+    link(["Mann-Whitney U test", "Mann–Whitney U test", "Mann-Whitney test", "Mann–Whitney test"], "wilcoxon-rank-sum-test"),
+]
+
+RELATED += [
+    ("kolmogorov-smirnov-test", "anderson-darling-test", "shapiro-wilk-test", "cumulative-distribution-function"),
+    ("kolmogorov-smirnov-test", "wilcoxon-rank-sum-test", "p-value"),
+    ("welch-s-anova", "welch-interval", "one-way-analysis-of-variance", "levene-s-test", "kruskal-wallis-test", "f-distribution"),
+    ("anderson-darling-test", "kolmogorov-smirnov-test", "shapiro-wilk-test"),
+    ("anderson-darling-test", "normal-quantile-plot", "uniform-distribution"),
+    ("wilcoxon-rank-sum-test", "wilcoxon-signed-rank-test", "kruskal-wallis-test", "sign-test"),
 ]
 
 RELATED += [

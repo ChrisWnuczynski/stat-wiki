@@ -251,6 +251,9 @@ STANDALONE: list[dict[str, str]] = [
     {"slug": "shapiro-wilk-test", "term": "Shapiro–Wilk test", "field": "data analysis", "article": "the", "verb": "is", "description": "a test of whether a complete sample could have come from some normal distribution, based on the match between the ordered values and normal order statistics", "topic": "Data analysis"},
     {"slug": "friedman-test", "term": "Friedman test", "field": "statistical inference", "article": "the", "verb": "is", "description": "a rank test of whether treatments differ when each treatment is observed once inside each block", "topic": "Statistical inference"},
     {"slug": "levene-s-test", "term": "Levene's test", "field": "statistical inference", "article": "", "verb": "is", "description": "a test of equal variances formed by an analysis of variance on absolute deviations from each group’s centre", "topic": "Statistical inference"},
+    {"slug": "kolmogorov-smirnov-test", "term": "Kolmogorov–Smirnov test", "field": "data analysis", "article": "the", "verb": "is", "description": "a goodness-of-fit and two-sample test based on the largest vertical distance between an empirical distribution function and a specified or second empirical distribution function", "topic": "Data analysis"},
+    {"slug": "welch-s-anova", "term": "Welch's ANOVA", "field": "statistical inference", "article": "", "verb": "is", "description": "a test of the equality of several group means that weights each group mean by its estimated precision and does not assume a common population variance", "topic": "Statistical inference"},
+    {"slug": "anderson-darling-test", "term": "Anderson–Darling test", "field": "data analysis", "article": "the", "verb": "is", "description": "a goodness-of-fit test based on the empirical distribution function that weights discrepancies in the tails of the hypothesised distribution more heavily than those near its centre", "topic": "Statistical inference"},
 ]
 
 
