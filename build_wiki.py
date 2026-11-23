@@ -7760,11 +7760,27 @@ SIDEBAR_JS = """
   var manualSidebar = false;
   var pendingNavigation = null;
   var restoredNavigation = null;
+  var lastSidebarSnapshot = null;
+  var navigation = performance.getEntriesByType("navigation")[0];
+  function historyStorageKey() {
+    var entry = window.navigation && window.navigation.currentEntry;
+    return entry && entry.key ? "statwiki-sidebar-history:" + entry.key : null;
+  }
+  // Native entry keys distinguish repeated visits without changing history.state.
+  // Do not replay on reload, ordinary navigation, or same-document fragments.
+  try {
+    var historyKey = historyStorageKey();
+    var snapshot = historyKey && JSON.parse(sessionStorage.getItem(historyKey));
+    if (navigation && navigation.type === "back_forward" && snapshot &&
+        snapshot.url === location.href && Number.isFinite(snapshot.top) && snapshot.top >= 0 &&
+        Array.isArray(snapshot.open) && snapshot.open.every(function (id) { return typeof id === "string"; })) {
+      restoredNavigation = snapshot;
+    }
+  } catch (_) { /* Missing entry keys or storage leave the normal reveal in place. */ }
   // Consume once, only on the intended ordinary navigation in this tab.
   try {
     var saved = JSON.parse(sessionStorage.getItem(scrollKey));
     sessionStorage.removeItem(scrollKey);
-    var navigation = performance.getEntriesByType("navigation")[0];
     if (saved && navigation && navigation.type === "navigate" &&
         saved.to === location.href && saved.from === document.referrer &&
         Date.now() - saved.time >= 0 && Date.now() - saved.time < 30000 &&
@@ -7772,6 +7788,25 @@ SIDEBAR_JS = """
       restoredNavigation = saved;
     }
   } catch (_) { /* Navigation still works when storage is unavailable. */ }
+  function captureSidebar() {
+    var root = sidebarRoot();
+    // A closed mobile drawer reports zero scrollTop. Keep its last visible view.
+    if (root && root.clientHeight && root.querySelector('ul[data-hydrated="true"]')) {
+      lastSidebarSnapshot = {
+        top: root.scrollTop,
+        open: Array.from(root.querySelectorAll(".sidebar-section.collapse.show"), function (el) { return el.id; })
+      };
+    }
+    return lastSidebarSnapshot || restoredNavigation;
+  }
+  function rememberHistory() {
+    var snapshot = captureSidebar();
+    if (!snapshot) return;
+    try {
+      var key = historyStorageKey();
+      if (key) sessionStorage.setItem(key, JSON.stringify({url: location.href, top: snapshot.top, open: snapshot.open}));
+    } catch (_) { /* A failed snapshot must never interfere with navigation. */ }
+  }
   function restoreSections() {
     var root = sidebarRoot();
     if (!root || !restoredNavigation) return;
@@ -7807,6 +7842,7 @@ SIDEBAR_JS = """
   }
   // Wait for a real departure: modifier clicks and cancelled links leave no record.
   window.addEventListener("pagehide", function () {
+    rememberHistory();
     if (!pendingNavigation) return;
     try { sessionStorage.setItem(scrollKey, JSON.stringify(pendingNavigation)); } catch (_) {}
     pendingNavigation = null;
@@ -7817,11 +7853,15 @@ SIDEBAR_JS = """
   });
   ["pointerdown", "wheel", "keydown"].forEach(function (type) {
     document.addEventListener(type, function (event) {
+      captureSidebar();
       pendingNavigation = null;
       var root = sidebarRoot();
       if (root && root.contains(event.target)) manualSidebar = true;
     }, {capture: true, passive: true});
   });
+  document.addEventListener("scroll", function (event) {
+    if (event.target === sidebarRoot()) captureSidebar();
+  }, {capture: true, passive: true});
   function expandTo(link) {
     var root = sidebarRoot();
     var el = link.parentElement;
