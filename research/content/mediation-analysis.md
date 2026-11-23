@@ -375,8 +375,10 @@ construction, and when it does the failure is fatal in a way confounding
 is not. Suppose binary $A$ is randomised, so the first two confounding
 conditions hold by design, but the mediator simply is the exposure, $M =
 A$. The observed data then contain only the combinations $(A, M) = (0, 0)$
-and $(1, 1)$; the crossed combinations $(1, 0)$ and $(0, 1)$ that $Y^{1,
-M^{0}}$ requires never occur. Two outcome models fit the observed triplet
+and $(1, 1)$; the crossed combination $(1, 0)$ that $Y^{1,
+M^{0}}$ requires never occurs — and neither does $(0, 1)$, the crossed
+combination the mirror-image counterfactual $Y^{0, M^{1}}$ would require.
+Two outcome models fit the observed triplet
 $(A, M, Y)$ identically. If $Y = M$, the natural direct effect is $E[Y^{1,
 M^{0}} - Y^{0, M^{0}}] = 0$ and the natural indirect effect is $E[Y^{1,
 M^{1}} - Y^{1, M^{0}}] = 1$: the pair $(0, 1)$. If $Y = A$, the natural
@@ -424,10 +426,18 @@ contrast the two standardised means only afterwards. Each arm keeps its
 own $L$ distribution, because under the intervention that sets $A = a$
 and $M = m$, $L$ would still take the values that exposure level $a$
 produces. This identifies the population controlled direct effect under
-the sequential exchangeability conditions above — with $L$ among the
-covariates deconfounding the mediator–outcome relation — and the support
-conditions that every combination the formula evaluates occurs with
-positive probability. The price of the controlled effect remains that it
+assumptions stated for the controlled effect itself, rather than the
+stronger natural-effect assumptions above: consistency; treatment
+exchangeability given $C$, so that each arm's distribution of $L$ and
+its outcomes are the ones that arm itself would produce; and
+mediator–outcome exchangeability given $A$, $L$ and $C$, with $L$ among
+the covariates deconfounding the mediator–outcome relation. The support
+conditions are arm-specific: treatment positivity given $C$, and the
+mediator value $m$ in the support of $M$ given $A = a$, $L$ and $C$ on
+the histories each arm's standardisation uses — for a continuous
+mediator, positive density at $m$ together with the usual regularity
+there, since the fixed value $m$ itself has probability zero. The price
+of the controlled effect remains that it
 answers the narrower, prescriptive question.
 
 Because the third and fourth conditions are untestable, sensitivity
