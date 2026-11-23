@@ -10,6 +10,7 @@ import { createServer } from "node:http";
 import { createRequire } from "node:module";
 import { dirname, extname, join, normalize } from "node:path";
 import { fileURLToPath } from "node:url";
+import { FAMILIES } from "../distribution-explorer-math.js";
 
 const require = createRequire(import.meta.url);
 const { chromium } = require("playwright");
@@ -117,6 +118,79 @@ function spin(name) {
 }
 
 try {
+  for (const width of [1100, 390]) {
+    step(`family changes preserve native keyboard focus and tab order at ${width}px`);
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto(base + "labs/test/page.html");
+    const select = page.getByRole("combobox", { name: "Distribution family", exact: true });
+    await select.waitFor();
+    const original = await select.elementHandle();
+    // Traverse the real fixture's preceding controls; never focus the selector by script.
+    for (let tabs = 0; tabs < 100 && !await original.evaluate((node) => node === document.activeElement); tabs += 1) {
+      await page.keyboard.press("Tab");
+    }
+    assert.equal(await original.evaluate((node) => node === document.activeElement), true);
+    const options = await select.locator("option").evaluateAll((nodes) => nodes.map((node) => node.value));
+    let index = options.indexOf("normal");
+    assert.ok(index >= 0 && index + 1 < options.length);
+    assert.equal(await select.inputValue(), "normal");
+    const ax = await page.context().newCDPSession(page);
+    const { root } = await ax.send("DOM.getDocument");
+    const { nodeId } = await ax.send("DOM.querySelector", { nodeId: root.nodeId, selector: "#distribution select" });
+    const { node: domNode } = await ax.send("DOM.describeNode", { nodeId });
+    let previousCharts = await distributionCharts();
+    // Normal -> next -> Normal -> next, then the first three options (currently
+    // Bernoulli -> Binomial -> Poisson). Derive expectations from actual option order.
+    for (const keys of [["ArrowDown", "ArrowUp", "ArrowDown"], ["Home", "ArrowDown", "ArrowDown"]]) {
+      for (const key of keys) {
+        index = key === "Home" ? 0 : index + (key === "ArrowDown" ? 1 : -1);
+        const family = FAMILIES.find((item) => item.id === options[index]);
+        assert.ok(family, `option ${index} exists`);
+        await page.keyboard.press(key);
+        assert.equal(await original.evaluate((node) => node.isConnected && node === document.activeElement), true,
+          `${key} keeps the original selector focused for ${family.name}`);
+        assert.equal(await select.inputValue(), family.id);
+        assert.equal(await select.locator("option:checked").textContent(), family.name);
+        const { nodes } = await ax.send("Accessibility.getPartialAXTree", { nodeId });
+        const exposed = nodes.find((node) => node.backendDOMNodeId === domNode.backendNodeId && !node.ignored);
+        assert.equal(exposed?.role?.value, "combobox");
+        assert.equal(exposed.name.value, "Distribution family");
+        assert.equal(exposed.value.value, family.name);
+        assert.equal(exposed.properties.find((property) => property.name === "focused")?.value.value, true);
+        assert.equal(exposed.properties.find((property) => property.name === "expanded")?.value.value, false);
+        const fields = await page.locator("#distribution input").evaluateAll((inputs) => inputs.map((input) => ({
+          type: input.type, name: input.getAttribute("aria-label"), value: input.value,
+        })));
+        assert.deepEqual(fields, family.params.flatMap((spec) => [
+          { type: "range", name: spec.label, value: String(spec.value) },
+          { type: "number", name: `${spec.label} as a number`, value: String(spec.value) },
+        ]));
+        const charts = await distributionCharts();
+        assertSpread(charts);
+        assert.deepEqual(charts.map((chart) => chart.label), [
+          `${family.name} ${family.discrete ? "probability mass" : "density"}`,
+          `${family.name} distribution function`,
+        ]);
+        for (let panel = 0; panel < 2; panel += 1) {
+          assert.notDeepEqual([charts[panel].points, charts[panel].circles],
+            [previousCharts[panel].points, previousCharts[panel].circles], `${family.name} redraws panel ${panel}`);
+        }
+        assert.equal(charts[0].circles.length > 0, family.discrete);
+        assert.ok(charts[1].points.length > 0);
+        previousCharts = charts;
+      }
+      await page.keyboard.press("Tab");
+      assert.equal(await page.locator("#distribution input").first().evaluate((node) => node === document.activeElement), true,
+        "Tab advances to the first parameter slider");
+      await page.keyboard.press("Shift+Tab");
+      assert.equal(await original.evaluate((node) => node === document.activeElement), true,
+        "Shift+Tab returns to the original selector");
+    }
+    assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth + 8));
+    await ax.detach();
+    await original.dispose();
+  }
+  await page.setViewportSize({ width: 1100, height: 900 });
   await page.goto(base + "labs/test/page.html");
   await page.getByRole("button", { name: "Beta(5, 5)" }).waitFor();
   step("default Beta(5, 5) with 3 heads in 10 tosses is Beta(8, 12) with mean 0.4");
