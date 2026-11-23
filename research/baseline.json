@@ -3466,5 +3466,17 @@
   "levene-s-test": {
     "words": 2911,
     "figures": 0
+  },
+  "kolmogorov-smirnov-test": {
+    "words": 5299,
+    "figures": 0
+  },
+  "welch-s-anova": {
+    "words": 4625,
+    "figures": 0
+  },
+  "anderson-darling-test": {
+    "words": 4471,
+    "figures": 0
   }
 }
