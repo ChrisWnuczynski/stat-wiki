@@ -62,9 +62,9 @@ simulation with optimisation, and in return accepts an approximation
 whose error does not disappear with more computation. Blei, Kucukelbir
 and McAuliffe state the trade-off plainly: compared with Markov chain
 Monte Carlo, variational inference "tends to be faster and easier to
-scale to large data", but "does not enjoy such guarantees \u2014 it can only
+scale to large data", but "does not enjoy such guarantees — it can only
 find a density close to the target"
-{{cite:blei_kucukelbir_mcauliffe2017}} (\u00a71, pp. 859\u2013860).
+{{cite:blei_kucukelbir_mcauliffe2017}} (§1, pp. 859–860).
 
 ## Definition — The approximating family, the evidence lower bound, and the mean-field family
 
