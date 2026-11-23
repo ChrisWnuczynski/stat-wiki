@@ -112,3 +112,15 @@ assert att2 == F(2, 3) - F(5, 12) == F(1, 4)
 print(f"Your turn: e=(1/3, 2/3), crude={crude2}, stratum effects=1/4,1/4, "
       f"standardised ATE={ate2}, IPW=({ey1_2}-{ey0_2})={ey1_2-ey0_2}, ATT={att2}")
 print("PASS: all worked-example and Your-turn numbers verified exactly (fractions).")
+
+# ---------- Review-fix additions (2026-11-23) ----------
+# Identification bounds for the worked example's observed table:
+# treated events 28/40, untreated events 12/40; 40 potential outcomes are
+# missing under each arm. Extreme fillings bound the finite-population ATE.
+obs_y1, obs_y0 = 28, 12
+ate_min = F(obs_y1 + 0 - (obs_y0 + 40), 80)
+ate_max = F(obs_y1 + 40 - (obs_y0 + 0), 80)
+assert ate_min == F(-3, 10) and float(ate_min) == -0.30
+assert ate_max == F(7, 10) and float(ate_max) == 0.70
+print(f"Review-fix: observed table allows finite-population ATE in [{ate_min}, {ate_max}] = [-0.30, 0.70]; standardised contrast 1/5 is the ATE only under conditional exchangeability given age.")
+print("PASS: review-fix numbers verified.")

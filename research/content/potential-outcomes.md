@@ -20,7 +20,7 @@ the table, the [average treatment effect](average-treatment-effect.qmd),
 has its own article, as does the broader concept of
 [causality](causality.qmd) that the framework formalises.
 
-## Units, treatments and potential outcomes
+## Definition — Units, treatments and potential outcomes
 
 The primitive objects are units, a treatment and an outcome. A unit is
 the entity to which a treatment could be applied and on which an outcome
@@ -75,7 +75,7 @@ against those who received $A = 0$ — and mixes any effect of treatment
 with any prior difference between the groups. Stating exactly when the
 two comparisons coincide is the work of the assumptions below.
 
-## The science table
+### The science table
 
 It is useful to lay the potential outcomes out in a table with one row
 per unit and one column per treatment value. Such a table is often
@@ -102,7 +102,7 @@ question — "does the programme work?" — has no science table. The
 framework's first contribution is therefore grammatical: it forces a
 causal question into a form in which it could, in principle, be answered.
 
-## The fundamental problem of causal inference
+## Interpretation — The fundamental problem of causal inference
 
 The obstacle is immediate. Each unit receives exactly one treatment
 value. A patient is transplanted or not; a plot is sown with one variety
@@ -135,7 +135,7 @@ under the same treatment {{cite:holland1986}} (pp. 947–948). Modern
 causal inference is built almost entirely on the second response, and
 the assumptions below are its working parts.
 
-## Individual effects and two null hypotheses
+## Properties — Individual effects and two null hypotheses
 
 For unit $i$, the individual causal effect of treatment against the
 comparison condition is $Y_i^1 - Y_i^0$. The definition is exact and the
@@ -184,7 +184,7 @@ probability {{cite:hernan_robins2020}} (p. 7). A report that a study
 and a test of the sharp null and an estimate of the average effect are
 answers to different questions.
 
-## Consistency: linking the table to the observed outcome
+### Consistency
 
 The first assumption connects the science table to the data. Let $A$ be
 the treatment a unit actually received and $Y$ its observed outcome.
@@ -222,7 +222,7 @@ without manipulation: a causal effect here is an effect of a
 [treatment](treatment.qmd), something that could in principle be
 assigned.
 
-## No interference and the stable unit treatment value assumption
+### No interference and the stable unit treatment value assumption
 
 The second assumption is already hidden in the notation. Writing
 $Y_i^a$ with a single superscript asserts that unit $i$'s outcome under
@@ -261,7 +261,7 @@ units' treatments as well, and the estimands become effects of
 allocations. The two-column science table is the special case in which
 SUTVA holds, and every later result here is about that special case.
 
-## Exchangeability: when groups can stand in for each other
+### Exchangeability
 
 Suppose consistency and SUTVA hold, so the observed data reveal one cell
 per row of a well-defined science table. The remaining problem is that
@@ -317,7 +317,7 @@ mixes the effect with that prior difference — the phenomenon treated in
 the article on a [confounding variable](confounding-variable.qmd).
 Exchangeability is the precise name for the absence of that mixing.
 
-## Conditional exchangeability
+### Conditional exchangeability
 
 Exchangeability may fail marginally yet hold within strata of measured
 pre-treatment covariates. Write $X$ for a set of variables measured
@@ -347,7 +347,7 @@ study's own data. Choosing $X$ is a substantive task, for which
 [causal diagrams](causal-diagram.qmd) provide the organising language;
 the present article takes $X$ as given.
 
-## Positivity
+### Positivity
 
 Conditional exchangeability within a stratum is useful only if the
 stratum actually contains both treated and untreated units. Positivity
@@ -377,7 +377,7 @@ covariates only: an empty stratum is visible in the data. What the data
 cannot show is whether an empty cell is structural or a sampling
 accident.
 
-## Identification: from potential outcomes to observed means
+### Identification
 
 The assumptions now assemble into the framework's central result. A
 quantity defined on the science table is identified when it can be
@@ -437,7 +437,7 @@ no precision repairs a failure of identification: a narrow interval
 around an observed contrast whose assumptions fail is a precise answer
 to an associational question.
 
-## The missing-data view
+## Statistical use — The missing-data view
 
 There is a second way to see the whole construction, due to Rubin, which
 unifies causal inference with a familiar statistical problem. Regard
@@ -468,8 +468,7 @@ data. It adds no assumptions; it shows the assumptions already made are
 of a familiar kind, and that the fundamental problem is the extreme
 case of missingness in which exactly one cell of every row is missing.
 
-
-## Worked example: six units, a true effect and a biased contrast
+## Worked example — Six units, a true effect and a biased contrast
 
 Six units have the following science table, where the outcome is binary
 ($1$ is the event) and the last column is the individual effect.
@@ -511,7 +510,7 @@ the difference of observed group means would be an unbiased estimate
 of $1/3$ — not because randomisation reveals any missing cell, but
 because it makes the groups comparable in both columns of the table.
 
-## Your turn
+### Your turn
 
 Keep the science table above, but change the assignment: now only
 units 3 and 4 receive treatment, and units 1, 2, 5 and 6 do not. What
@@ -527,33 +526,6 @@ Its bias is $0 - 1/3 = -1/3$: this assignment makes a treatment with a
 true average effect of $1/3$ appear to have no effect at all.
 
 :::
-
-## History
-
-The framework begins with Jerzy Neyman — published under the name
-Jerzy Splawa-Neyman — whose 1923 Polish essay on agricultural
-experiments, translated by Dabrowska and Speed for *Statistical
-Science* in 1990, introduced a double-indexed array of unknown
-potential yields, one index for the variety and one for the plot, of
-which only one yield per plot would be observed
-{{cite:splawa_neyman1990}} (p. 465). Neyman's setting was the randomised
-experiment, and his problem was the variance of a difference of variety
-means; the correlation between the potential yields of two varieties on
-the same plot could not be estimated, because the pair is never jointly
-observed — an early statement of the fundamental problem in algebraic
-form {{cite:splawa_neyman1990}} (pp. 465–466).
-
-Donald Rubin generalised the framework from 1974 onwards, extending it
-to observational studies and making the assignment mechanism central;
-Ding and Li's review traces it to Neyman (1923) and Rubin's papers of
-1974, 1977 and 1978 {{cite:ding_li2018}} (pp. 214–215). Holland's 1986
-exposition, "Statistics and Causal Inference", presented the model —
-drawn from his joint work with Rubin and Rubin's 1974 paper — to a
-general audience, named the fundamental problem, and presented the
-framework throughout as "Rubin's model"
-{{cite:holland1986}} (pp. 945, 947). Rubin's 2005 summary, "Causal
-Inference Using Potential Outcomes", is a mature statement of the same
-programme {{cite:rubin2005}} (p. 322).
 
 ## Connections
 
@@ -622,3 +594,30 @@ null could have held, with effects in opposite directions cancelling,
 even though the sharp null does not.
 
 :::
+
+## History
+
+The framework begins with Jerzy Neyman — published under the name
+Jerzy Splawa-Neyman — whose 1923 Polish essay on agricultural
+experiments, translated by Dabrowska and Speed for *Statistical
+Science* in 1990, introduced a double-indexed array of unknown
+potential yields, one index for the variety and one for the plot, of
+which only one yield per plot would be observed
+{{cite:splawa_neyman1990}} (p. 465). Neyman's setting was the randomised
+experiment, and his problem was the variance of a difference of variety
+means; the correlation between the potential yields of two varieties on
+the same plot could not be estimated, because the pair is never jointly
+observed — an early statement of the fundamental problem in algebraic
+form {{cite:splawa_neyman1990}} (pp. 465–466).
+
+Donald Rubin generalised the framework from 1974 onwards, extending it
+to observational studies and making the assignment mechanism central;
+Ding and Li's review traces it to Neyman (1923) and Rubin's papers of
+1974, 1977 and 1978 {{cite:ding_li2018}} (pp. 214–215). Holland's 1986
+exposition, "Statistics and Causal Inference", presented the model —
+drawn from his joint work with Rubin and Rubin's 1974 paper — to a
+general audience, named the fundamental problem, and presented the
+framework throughout as "Rubin's model"
+{{cite:holland1986}} (pp. 945, 947). Rubin's 2005 summary, "Causal
+Inference Using Potential Outcomes", is a mature statement of the same
+programme {{cite:rubin2005}} (p. 322).

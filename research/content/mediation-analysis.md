@@ -35,7 +35,8 @@ independent variable is able to influence the dependent variable of
 interest", in contrast to the moderator function, which partitions a
 predictor into subgroups in which its effect is strongest
 {{cite:baron_kenny1986}} (p. 1173).
-## The question: through this pathway, or by other routes?
+
+## Motivating example — Through this pathway, or by other routes?
 
 Consider a training programme, assigned as $A = 1$ against a comparison
 condition $A = 0$, intended to improve an outcome $Y$ by first raising
@@ -69,7 +70,7 @@ separated without special assumptions, because randomising the exposure
 does not randomise the intermediate variable
 {{cite:robins_greenland1992}} (p. 143).
 
-## The Baron and Kenny steps, and what they do not do
+## Intuition — The Baron and Kenny steps, and what they do not do
 
 For roughly two decades, the dominant applied procedure was the sequence
 of regressions proposed by Baron and Kenny. In their path diagram, the
@@ -124,86 +125,20 @@ the overall relation is zero although mediation is present
 The third defect is the deepest. The steps are stated in the language of
 significance and coefficient shrinkage, but the conclusions drawn from
 them were causal: that the mediator is the mechanism. Nothing in the three
-regressions states the assumptions under which a coefficient attached to
-a non-randomised mediator has a causal reading. Imai, Keele and Tingley
-locate the problem in the linear structural equation framework itself:
-it provides no general definition of causal mediation effects independent
-of a particular statistical model, makes it impossible to specify the key
+regressions states the assumptions under which a coefficient attached to a
+non-randomised mediator has a causal reading. Imai, Keele and Tingley
+locate the problem in the linear structural equation framework itself: it
+provides no general definition of causal mediation effects independent of
+a particular statistical model, makes it impossible to specify the key
 identification assumption cleanly, and resists extension to nonlinear
 models {{cite:imai_keele_tingley2010}} (p. 309). The modern treatment
 therefore begins again from potential outcomes, defines the direct and
 indirect effects without reference to any regression, and only then asks
-which regressions, if any, estimate them. The linear case, to which the
-next section turns, is the special case in which the old and new
-approaches coincide.
+which regressions, if any, estimate them. The counterfactual definitions
+come next in this article; the linear case, taken up after them, is the
+special case in which the old and new approaches coincide.
 
-## The linear case: the product of coefficients
-
-Suppose the mediator and outcome are each linear in their inputs, with no
-interaction between exposure and mediator. Write the mediator equation as
-
-$$M = \alpha_0 + a A + \varepsilon_M,$$
-
-where $\alpha_0$ is an intercept, $a$ is the coefficient of the exposure in
-the mediator equation, and $\varepsilon_M$ is an error term with mean zero,
-and write the outcome equation as
-
-$$Y = \beta_0 + c' A + b M + \varepsilon_Y,$$
-
-where $\beta_0$ is an intercept, $c'$ is the coefficient of the exposure in
-the outcome equation with the mediator included, $b$ is the coefficient of
-the mediator in that equation, and $\varepsilon_Y$ is an error term with
-mean zero. MacKinnon and Fairchild present the single-mediator model in
-precisely this three-equation form, with $c$ for the total coefficient,
-$c'$ for the direct coefficient, $b$ for the mediator-to-outcome
-coefficient and $a$ for the exposure-to-mediator coefficient
-{{cite:mackinnon_fairchild2009}} (p. 16).
-
-Substituting the mediator equation into the outcome equation gives
-$\beta_0 + c' A + b(\alpha_0 + a A + \varepsilon_M) + \varepsilon_Y$,
-which collects into an equation for $Y$ in terms of $A$ alone with
-coefficient $c' + ab$ on $A$. Hence, in this model, the total effect of a
-one-unit change in $A$ is
-
-$$c = c' + ab,$$
-
-exactly, with no remainder. The indirect effect is the product of
-coefficients $ab$: the exposure moves the mediator by $a$ units, each unit
-of the mediator moves the outcome by $b$ units, and the composition of the
-two linear steps multiplies. The direct effect is $c'$, the coefficient
-that remains when the mediator is in the equation. MacKinnon and Fairchild
-state the same accounting: a direct effect quantified by $c'$, a mediated
-or indirect effect quantified by $ab$, equivalently by the difference in
-coefficients $c - c'$, and a total effect computed by adding the two parts
-{{cite:mackinnon_fairchild2009}} (p. 16). The two computations of the
-indirect effect — product and difference — agree in this model because
-both are algebraic rearrangements of the same substitution.
-
-Three qualifications convert this tidy algebra into a causal claim, and
-none is delivered by the algebra. First, the coefficients must have
-causal interpretations, which requires the confounding assumptions set
-out below, in particular for the mediator–outcome relation. Second, the
-absence of an $A$-by-$M$ interaction term is load-bearing: if the outcome
-equation contained a term $d A M$, the mediator's effect would be $b + d$
-under exposure and $b$ under no exposure, and no single product $ab$
-would describe the indirect effect. Third, linearity itself is doing
-work: with a binary outcome modelled on a logit scale, coefficients do
-not compose by substitution, the product and difference methods diverge,
-and the decomposition must be defined at the level of potential-outcome
-means. Imai, Keele and Tingley's general framework was built for exactly
-this reason: to give the definition, identification, estimation and
-sensitivity analysis of causal mediation effects without reference to any
-specific statistical model, accommodating linear and nonlinear
-relationships and continuous and discrete mediators and outcomes
-{{cite:imai_keele_tingley2010}} (p. 309).
-
-Inference for the product has one quirk: the sampling distribution of a
-product of two estimated coefficients is not in general normal, so
-normal-based limits for $ab$ can be inaccurate; limits based on the
-distribution of the product, and resampling methods, are more accurate
-{{cite:mackinnon_fairchild2009}} (p. 17).
-
-## Counterfactual definitions: natural direct and indirect effects
+## Definition — Natural direct and indirect effects
 
 The counterfactual framework defines the components before any model is
 fitted. Let $M^{a}$ denote the value the mediator would take for a unit if
@@ -307,23 +242,89 @@ speaks to attribution of an observed total effect between pathways. There
 is no controlled analogue of the natural indirect effect of the same
 standing.
 
+## Interpretation — The linear case: the product of coefficients
 
-## Identification: the four confounding assumptions
+Suppose the mediator and outcome are each linear in their inputs, with no
+interaction between exposure and mediator. Write the mediator equation as
 
-A causal reading of the natural direct and indirect effects requires that
-four confounding conditions hold, conditional on the measured pre-exposure
-covariates, denoted $C$, being adjusted for. VanderWeele's guide gives
-attention throughout to the confounding assumptions required for a causal
+$$M = \alpha_0 + a A + \varepsilon_M,$$
+
+where $\alpha_0$ is an intercept, $a$ is the coefficient of the exposure in
+the mediator equation, and $\varepsilon_M$ is an error term with mean zero,
+and write the outcome equation as
+
+$$Y = \beta_0 + c' A + b M + \varepsilon_Y,$$
+
+where $\beta_0$ is an intercept, $c'$ is the coefficient of the exposure in
+the outcome equation with the mediator included, $b$ is the coefficient of
+the mediator in that equation, and $\varepsilon_Y$ is an error term with
+mean zero. MacKinnon and Fairchild present the single-mediator model in
+precisely this three-equation form, with $c$ for the total coefficient,
+$c'$ for the direct coefficient, $b$ for the mediator-to-outcome
+coefficient and $a$ for the exposure-to-mediator coefficient
+{{cite:mackinnon_fairchild2009}} (p. 16).
+
+Substituting the mediator equation into the outcome equation gives
+$\beta_0 + c' A + b(\alpha_0 + a A + \varepsilon_M) + \varepsilon_Y$,
+which collects into an equation for $Y$ in terms of $A$ alone with
+coefficient $c' + ab$ on $A$. Hence, in this model, the total effect of a
+one-unit change in $A$ is
+
+$$c = c' + ab,$$
+
+exactly, with no remainder. The indirect effect is the product of
+coefficients $ab$: the exposure moves the mediator by $a$ units, each unit
+of the mediator moves the outcome by $b$ units, and the composition of the
+two linear steps multiplies. The direct effect is $c'$, the coefficient
+that remains when the mediator is in the equation. MacKinnon and Fairchild
+state the same accounting: a direct effect quantified by $c'$, a mediated
+or indirect effect quantified by $ab$, equivalently by the difference in
+coefficients $c - c'$, and a total effect computed by adding the two parts
+{{cite:mackinnon_fairchild2009}} (p. 16). The two computations of the
+indirect effect — product and difference — agree in this model because
+both are algebraic rearrangements of the same substitution.
+
+Three qualifications convert this tidy algebra into a causal claim, and
+none is delivered by the algebra. First, the coefficients must have
+causal interpretations, which requires the confounding assumptions set
+out below, in particular for the mediator–outcome relation. Second, the
+absence of an $A$-by-$M$ interaction term is load-bearing: if the outcome
+equation contained a term $d A M$, the mediator's effect would be $b + d$
+under exposure and $b$ under no exposure, and no single product $ab$
+would describe the indirect effect. Third, linearity itself is doing
+work: with a binary outcome modelled on a logit scale, coefficients do
+not compose by substitution, the product and difference methods diverge,
+and the decomposition must be defined at the level of potential-outcome
+means. Imai, Keele and Tingley's general framework was built for exactly
+this reason: to give the definition, identification, estimation and
+sensitivity analysis of causal mediation effects without reference to any
+specific statistical model, accommodating linear and nonlinear
+relationships and continuous and discrete mediators and outcomes
+{{cite:imai_keele_tingley2010}} (p. 309).
+
+Inference for the product has one quirk: the sampling distribution of a
+product of two estimated coefficients is not in general normal, so
+normal-based limits for $ab$ can be inaccurate; limits based on the
+distribution of the product, and resampling methods, are more accurate
+{{cite:mackinnon_fairchild2009}} (p. 17).
+
+## Properties — Identification: the four confounding assumptions
+
+A causal reading of the natural direct and indirect effects requires,
+first, that four confounding conditions hold, conditional on the measured
+pre-exposure covariates, denoted $C$, being adjusted for — and, as set out
+after the four conditions, three further requirements that are not
+confounding conditions at all. VanderWeele's guide gives attention
+throughout to the confounding assumptions required for a causal
 interpretation of direct and indirect effect estimates
 {{cite:vanderweele2016}} (p. 17). Stated plainly, the conditions are as
-follows. There
-must be no unmeasured confounding of the exposure–outcome relation: given
-$C$, no omitted variable may jointly cause $A$ and $Y$. There must be no
-unmeasured confounding of the exposure–mediator relation: given $C$, no
-omitted variable may jointly cause $A$ and $M$. There must be no
-unmeasured confounding of the mediator–outcome relation: given $C$ and
-$A$, no omitted variable may jointly cause $M$ and $Y$. And there must be
-no mediator–outcome confounder that is itself affected by the exposure:
+follows. There must be no unmeasured confounding of the exposure–outcome
+relation: given $C$, no omitted variable may jointly cause $A$ and $Y$.
+There must be no unmeasured confounding of the exposure–mediator relation:
+given $C$, no omitted variable may jointly cause $A$ and $M$. There must
+be no unmeasured confounding of the mediator–outcome relation: given $C$
+and $A$, no omitted variable may jointly cause $M$ and $Y$. And there must
+be no mediator–outcome confounder that is itself affected by the exposure:
 no variable, measured or unmeasured, may be caused by $A$ and also cause
 both $M$ and $Y$, or cause $Y$ in a way that entangles it with the
 mediator's effect in the manner described below.
@@ -337,17 +338,53 @@ ignorability: given observed pre-treatment covariates, the treatment is
 independent of all potential values of the outcome and the mediator; and
 the observed mediator is independent of all potential outcomes given the
 observed treatment and the pre-treatment covariates
-{{cite:imai_keele_tingley2010}} (p. 310). Unlike the ignorability of
+{{cite:imai_keele_tingley2010}} (p. 312). Unlike the ignorability of
 treatment assignment, the ignorability of the mediator may fail even in
 randomised experiments, because randomising the treatment does not
 randomly assign the post-treatment mediator
 {{cite:imai_keele_tingley2010}} (p. 312).
 
+The four confounding conditions, even taken together, are not a complete
+identification recipe; three further requirements must hold, and each can
+fail on its own. **Consistency and composition.** The observed mediator
+and outcome must be the counterfactual ones generated by the exposure
+actually received: for a unit with $A = a$, $M = M^{a}$ and $Y = Y^{a,
+M^{a}}$, and composition must hold, $Y^{a} = Y^{a, M^{a}}$ — the outcome
+under exposure $a$ is the outcome under exposure $a$ with the mediator at
+the value it naturally takes under $a$. The decomposition of the total
+effect into natural direct and indirect parts uses exactly this equality.
+**Treatment positivity.** Each exposure level must occur with positive
+probability for every covariate pattern in the population: $0 < P(A = a
+\mid C = c) < 1$ for both levels $a$ and every $c$ that occurs, or the
+contrasts are undefined for units of that type. **Mediator support across
+treatment levels.** The nested counterfactual $Y^{1, M^{0}}$ evaluates the
+outcome under exposure $1$ at mediator values drawn from the distribution
+under exposure $0$, so those values must be possible under exposure $1$ as
+well: wherever the natural effects evaluate the outcome at $(a, m)$,
+mediator value $m$ must occur with positive probability under exposure
+$a$, given $C$. This cross-level support condition can fail by
+construction, and when it does the failure is fatal in a way confounding
+is not. Suppose binary $A$ is randomised, so the first two confounding
+conditions hold by design, but the mediator simply is the exposure, $M =
+A$. The observed data then contain only the combinations $(A, M) = (0, 0)$
+and $(1, 1)$; the crossed combinations $(1, 0)$ and $(0, 1)$ that $Y^{1,
+M^{0}}$ requires never occur. Two outcome models fit the observed triplet
+$(A, M, Y)$ identically. If $Y = M$, the natural direct effect is $E[Y^{1,
+M^{0}} - Y^{0, M^{0}}] = 0$ and the natural indirect effect is $E[Y^{1,
+M^{1}} - Y^{1, M^{0}}] = 1$: the pair $(0, 1)$. If $Y = A$, the natural
+direct effect is $1$ and the natural indirect effect is $0$: the pair $(1,
+0)$. The observed data cannot distinguish a wholly mediated effect from a
+wholly direct one, because the off-diagonal combinations are missing — so
+the natural effects are not identified, however completely the confounding
+conditions are satisfied. Imai, Keele and Tingley state sequential
+ignorability as their Assumption 1 together with the positivity
+requirements used here {{cite:imai_keele_tingley2010}} (p. 312).
+
 The fourth condition is the one most often omitted from applied reports.
 Suppose a variable $L$ is caused by the exposure and in turn causes both
 the mediator and the outcome — for instance, a side effect of treatment
-that influences both adherence, the mediator, and the health outcome.
-Then $L$ is a mediator–outcome confounder affected by the exposure.
+that influences both adherence, the mediator, and the health outcome. Then
+$L$ is a mediator–outcome confounder affected by the exposure.
 Conditioning on $L$ is necessary to deconfound $M$ and $Y$, but $L$ sits
 on a causal path from $A$, so conditioning on it distorts the exposure's
 contribution; and the nested counterfactual $Y^{1, M^{0}}$ mixes a world
@@ -358,9 +395,22 @@ is measured. This is the cross-world difficulty: identification requires
 an assumption about the joint behaviour of quantities from two different
 intervention worlds, which no data pattern can verify. Controlled direct
 effects are in a stronger position here, because fixing $M$ to $m$ by
-intervention can be handled with standard adjustment for $L$; the price
-is that the controlled effect answers the narrower, prescriptive
-question.
+intervention defines a single-world quantity, and a measured $L$ does not
+by itself block its identification. But the adjustment for $L$ has to be
+the right one, and simply conditioning on $L$ — entering it as one more
+regressor in a pooled outcome regression alongside $A$ and $M$ — is not
+right: $L$ is caused by the exposure, so a pooled regression standardises
+both exposure arms to one common, mixed distribution of $L$, and blocks
+the part of the exposure's effect that runs through $L$ itself. The
+correct adjustment is treatment-specific standardisation, the g-formula
+for this setting: for each exposure level $a$ separately, average the
+outcome mean $E[Y \mid A = a, M = m, L, C]$ over the distribution of $L$
+under that same exposure level, $P(L \mid A = a, C)$, and contrast the two
+standardised means only afterwards. Each arm keeps its own $L$
+distribution, because under the intervention that sets $A = a$ and $M =
+m$, $L$ would still take the values that exposure level $a$ produces. The
+price of the controlled effect remains that it answers the narrower,
+prescriptive question.
 
 Because the third and fourth conditions are untestable, sensitivity
 analysis has a standing place in a competent mediation analysis. The
@@ -375,7 +425,7 @@ introduces sensitivity analysis techniques for unmeasured confounding and
 measurement error as part of the practitioner's toolkit
 {{cite:vanderweele2016}} (p. 17).
 
-## Interaction, and the proportion mediated
+## Statistical use — Interaction, and the proportion mediated
 
 Exposure–mediator interaction means that the effect of the mediator on
 the outcome differs by exposure level. In the outcome equation it appears
@@ -415,34 +465,7 @@ scale. The safe practice is to report the total, direct and indirect
 effects themselves, with intervals, and to add the proportion mediated
 only when the signs align and the total is estimated well away from zero.
 
-## Mediation is not moderation
-
-The closing distinction is the one with which Baron and Kenny began.
-Mediation concerns a variable on the causal path: the exposure causes the
-mediator, and the mediator causes the outcome, so the mediator answers
-the question of how or why an effect occurs. Baron and Kenny's summary is
-that mediators speak to how or why effects occur, whereas moderator
-variables specify when certain effects will hold
-{{cite:baron_kenny1986}} (p. 1176). Moderation, in current usage effect
-modification, concerns a variable across whose levels the effect itself
-differs. A moderator is typically a pre-exposure characteristic — a
-baseline severity, an age band, a genotype — that the exposure does not
-cause; it is not on the path, and the analysis asks whether the effect of
-$A$ on $Y$ is larger in one stratum than another. Statistically, mediation
-in the linear case is a product of coefficients along a chain, whereas
-moderation is a product term inside a single equation, an interaction.
-The two can coexist, but they answer different questions. A [causal diagram](causal-diagram.qmd)
-makes the distinction visual: the mediator is a node with an arrow in
-from $A$ and an arrow out to $Y$, while a moderator has no arrow from $A$
-into it. Methods for adjusting total effects, such as the
-[propensity score](propensity-score.qmd), do not transfer automatically to
-mediation: weighting that balances the exposure groups does nothing to
-deconfound the mediator, which is assigned by no one. The
-[potential outcomes](potential-outcomes.qmd) framing used throughout this
-article is what keeps the three roles — confounder, mediator, moderator —
-from collapsing into the single vague category of "third variable".
-
-## Worked example: a linear system and its counterfactual check
+## Worked example — A linear system and its counterfactual check
 
 A programme is evaluated with $A = 1$ for participation and $A = 0$ for
 the comparison condition. The mediator $M$ is a skill score and the
@@ -491,7 +514,7 @@ model, not of mediation in general: the counterfactual quantities remain
 defined when the model is enriched, while the coefficients then cease to
 suffice.
 
-## Your turn
+### Your turn
 
 A second programme has mediator and outcome equations with no interaction
 and coefficients $a = 0.8$, $b = 0.5$ and $c' = 0.1$. Its nested
@@ -513,44 +536,32 @@ as they must in a linear model with no interaction.
 
 :::
 
-## History
+## Common misconceptions — Mediation is not moderation
 
-The vocabulary of mediation in the social sciences was fixed by Baron and
-Kenny's 1986 article in the *Journal of Personality and Social
-Psychology*, volume 51, issue 6, pages 1173–1182, which distinguished the
-moderator and mediator functions of third variables at conceptual,
-strategic and statistical levels {{cite:baron_kenny1986}} (p. 1173). The
-causal-steps procedure in that article dominated applied practice for
-many years, and the path-analytic tradition behind it supplied the
-product-of-coefficients formula that MacKinnon and others developed into
-a testing literature, including work on the non-normal distribution of
-the product and on the low power of the causal steps
-{{cite:mackinnon_fairchild2009}} (pp. 16–17).
-
-The counterfactual turn came from epidemiology and computer science
-independently. Robins and Greenland, in *Epidemiology* in 1992, volume 3,
-issue 2, pages 143–155, asked when direct and indirect effects are
-identifiable at all, and showed that adjusting for the intermediate
-variable — the most common method of estimating direct effects — can be
-biased, and that direct and indirect effects are not separately
-identifiable when only the exposure is randomised
-{{cite:robins_greenland1992}} (p. 143). Pearl's 2001 paper "Direct and
-indirect effects", in the *Proceedings of the Seventeenth Conference on
-Uncertainty in Artificial Intelligence*, pages 411–420, gave the natural
-direct and indirect effects their structural counterfactual formulation,
-distinguishing the descriptive natural effects from the prescriptive
-controlled effects and establishing conditions under which the natural
-effects can be estimated from experimental and non-experimental data
-{{cite:pearl2001}} (pp. 411–420). Imai, Keele and Tingley then unified
-definition, identification, estimation and sensitivity analysis in a
-model-free framework in 2010, with sequential ignorability as the
-identifying assumption {{cite:imai_keele_tingley2010}} (pp. 309–312).
-VanderWeele's work, including his 2015 book and the 2016 practitioner's
-guide in the *Annual Review of Public Health*, volume 37, pages 17–32,
-carried the counterfactual definitions into routine epidemiological
-practice, with regression-based methods for interactions, binary variables
-and sensitivity analysis presented for direct implementation
-{{cite:vanderweele2016}} (p. 17).
+The closing distinction is the one with which Baron and Kenny began.
+Mediation concerns a variable on the causal path: the exposure causes the
+mediator, and the mediator causes the outcome, so the mediator answers
+the question of how or why an effect occurs. Baron and Kenny's summary is
+that mediators speak to how or why effects occur, whereas moderator
+variables specify when certain effects will hold
+{{cite:baron_kenny1986}} (p. 1176). Moderation, in current usage effect
+modification, concerns a variable across whose levels the effect itself
+differs. A moderator is typically a pre-exposure characteristic — a
+baseline severity, an age band, a genotype — that the exposure does not
+cause; it is not on the path, and the analysis asks whether the effect of
+$A$ on $Y$ is larger in one stratum than another. Statistically, mediation
+in the linear case is a product of coefficients along a chain, whereas
+moderation is a product term inside a single equation, an interaction.
+The two can coexist, but they answer different questions. A [causal diagram](causal-diagram.qmd)
+makes the distinction visual: the mediator is a node with an arrow in
+from $A$ and an arrow out to $Y$, while a moderator has no arrow from $A$
+into it. Methods for adjusting total effects, such as the
+[propensity score](propensity-score.qmd), do not transfer automatically to
+mediation: weighting that balances the exposure groups does nothing to
+deconfound the mediator, which is assigned by no one. The
+[potential outcomes](potential-outcomes.qmd) framing used throughout this
+article is what keeps the three roles — confounder, mediator, moderator —
+from collapsing into the single vague category of "third variable".
 
 ## Connections
 
@@ -623,3 +634,42 @@ components — a direct effect of $0.5$, an indirect effect of $-0.3$ and a
 total effect of $0.2$.
 
 :::
+
+## History
+
+The vocabulary of mediation in the social sciences was fixed by Baron and
+Kenny's 1986 article in the *Journal of Personality and Social
+Psychology*, volume 51, issue 6, pages 1173–1182, which distinguished the
+moderator and mediator functions of third variables at conceptual,
+strategic and statistical levels {{cite:baron_kenny1986}} (p. 1173). The
+causal-steps procedure in that article dominated applied practice for
+many years, and the path-analytic tradition behind it supplied the
+product-of-coefficients formula that MacKinnon and others developed into
+a testing literature, including work on the non-normal distribution of
+the product and on the low power of the causal steps
+{{cite:mackinnon_fairchild2009}} (pp. 16–17).
+
+The counterfactual turn came from epidemiology and computer science
+independently. Robins and Greenland, in *Epidemiology* in 1992, volume 3,
+issue 2, pages 143–155, asked when direct and indirect effects are
+identifiable at all, and showed that adjusting for the intermediate
+variable — the most common method of estimating direct effects — can be
+biased, and that direct and indirect effects are not separately
+identifiable when only the exposure is randomised
+{{cite:robins_greenland1992}} (p. 143). Pearl's 2001 paper "Direct and
+indirect effects", in the *Proceedings of the Seventeenth Conference on
+Uncertainty in Artificial Intelligence*, pages 411–420, gave the natural
+direct and indirect effects their structural counterfactual formulation,
+distinguishing the descriptive natural effects from the prescriptive
+controlled effects and establishing conditions under which the natural
+effects can be estimated from experimental and non-experimental data
+{{cite:pearl2001}} (pp. 411–420). Imai, Keele and Tingley then unified
+definition, identification, estimation and sensitivity analysis in a
+model-free framework in 2010, with sequential ignorability as the
+identifying assumption {{cite:imai_keele_tingley2010}} (pp. 309–312).
+VanderWeele's work, including his 2015 book and the 2016 practitioner's
+guide in the *Annual Review of Public Health*, volume 37, pages 17–32,
+carried the counterfactual definitions into routine epidemiological
+practice, with regression-based methods for interactions, binary variables
+and sensitivity analysis presented for direct implementation
+{{cite:vanderweele2016}} (p. 17).

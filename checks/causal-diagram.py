@@ -105,3 +105,14 @@ if failures:
     print(f"FAIL: {len(failures)} check(s) failed: {failures}")
     raise SystemExit(1)
 print("PASS: all numbers in causal-diagram.md verified")
+
+# ---------- Review-fix additions (2026-11-23) ----------
+# Collider example: marginal conditional proportions are 100/200, not 200/400.
+assert F(100, 200) == F(1, 2)
+# Within C=1: risks 100/200 (A=1) and 100/100 (A=0); RD=-1/2, RR=1/2, OR=0.
+r_a1, r_a0 = F(100, 200), F(100, 100)
+assert r_a1 - r_a0 == F(-1, 2)
+assert r_a1 / r_a0 == F(1, 2)
+assert F(100 * 0, 100 * 100) == 0
+print("Review-fix: collider marginal proportions 100/200; within C=1 RD=-1/2, RR=1/2, OR=0 (maximal only on the odds-ratio scale).")
+print("PASS: review-fix numbers verified.")

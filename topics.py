@@ -1727,12 +1727,6 @@ RELATED += [
     ("binomial-test", "test-for-one-proportion", "two-proportion-z-test"),
 ]
 
-RELATED += [
-    ("propensity-score", "potential-outcomes", "causal-diagram", "mediation-analysis"),
-    ("average-treatment-effect", "causality", "confounding-variable", "propensity-score", "potential-outcomes"),
-    ("causal-diagram", "confounding-variable", "structural-equation-modelling", "mediation-analysis"),
-]
-
 
 # ---------------------------------------------------------------------------
 # Search shorthand aliases and structured disambiguation

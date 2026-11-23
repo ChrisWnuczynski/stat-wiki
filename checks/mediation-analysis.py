@@ -81,3 +81,20 @@ if failures:
     print(f"FAIL ({len(failures)} checks failed)")
     raise SystemExit(1)
 print("PASS: all numbers in mediation-analysis.md verified")
+
+# ---- Review-fix additions (2026-11-23) -------------------------------
+# M = A counterexample: A randomised, M identical to A, so only (0,0) and
+# (1,1) occur. Model 1, Y = M: Y^{a,m} = m.
+nde1 = F(0) - F(0)          # E[Y^{1,M0}] - E[Y^{0,M0}] with M0 = 0
+nie1 = F(1) - F(0)          # E[Y^{1,M1}] - E[Y^{1,M0}]
+check("M=A model Y=M: (NDE, NIE)", (nde1, nie1), (F(0), F(1)))
+# Model 2, Y = A: Y^{a,m} = a.
+nde2 = F(1) - F(0)
+nie2 = F(1) - F(1)
+check("M=A model Y=A: (NDE, NIE)", (nde2, nie2), (F(1), F(0)))
+# Both models give the same observed Y (= A = M) yet opposite decompositions.
+print()
+if failures:
+    print(f"FAIL ({len(failures)} checks failed)")
+    raise SystemExit(1)
+print("PASS: review-fix M=A counterexample verified: (NDE, NIE) = (0,1) under Y=M and (1,0) under Y=A, same observed data.")

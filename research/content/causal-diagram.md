@@ -22,7 +22,7 @@ common cause that makes a null effect look large, and a common effect
 that makes two independent causes look associated once the analysis
 conditions on their effect.
 
-## What a causal diagram is
+## Definition
 
 A causal diagram, in the sense used here, is a directed acyclic graph, or
 DAG. It consists of nodes and directed edges. Each node represents a
@@ -58,7 +58,7 @@ second condition is easy to miss: an unmeasured common cause belongs on
 the diagram, drawn as an unmeasured node, because leaving it off would
 assert falsely that the variables it causes share no such cause.
 
-## Reading an arrow, and reading a missing arrow
+## Interpretation — Reading an arrow, and reading a missing arrow
 
 An arrow and a missing arrow assert very different strengths of claim.
 The presence of an arrow $X \rightarrow Y$ asserts that $X$ has a direct
@@ -97,7 +97,7 @@ variable set drawn: adding a mediator would split one arrow into two
 without changing the underlying claim
 {{cite:greenland_pearl_robins1999}} (pp. 38–39).
 
-## Paths, and the three elementary structures
+## Properties — Paths, and the three elementary structures
 
 A *path* between two nodes is any unbroken route traced along edges, whether with or against the arrows — $A \leftarrow X \rightarrow Y$, for example. Paths, not individual arrows, are the unit of associational reasoning. Every path is built from three elementary three-node structures.
 
@@ -124,7 +124,7 @@ before.
 
 Hernán and Robins summarise the three structures in one sentence: two variables may be associated because one causes the other, because they share common causes, or because they share a common effect and the analysis is restricted to some level of that effect or of its descendants {{cite:hernan_robins2020}} (Ch. 6, §6.3, pp. 80–81). Chance is a fourth, non-structural reason, set aside here.
 
-## d-separation: when a path is blocked
+### d-separation: when a path is blocked
 
 The rules generalise to paths of any length through d-separation, where
 the “d” stands for directional {{cite:greenland_pearl_robins1999}}
@@ -156,7 +156,41 @@ associations along different open paths can in principle cancel — an
 effect hidden by confounding of the opposite sign is the standard example
 {{cite:greenland_pearl_robins1999}} (p. 40). Logically, d-separation implies independence, while independence in data does not imply d-separation in the true diagram.
 
-## Backdoor paths and the backdoor criterion
+### Colliders, conditioning, and selection bias
+
+Return to $A \rightarrow C \leftarrow Y$, with $A$ and $Y$ marginally
+independent, and now condition on $C$ — restrict to one level of it,
+stratify on it, match on it, or model it. Shrier and Platt’s homely version is rain and sprinklers, which both cause a wet field: conditional on the field being wet, knowing the sprinklers were off raises the probability that it rained {{cite:shrier_platt2008}} (Step 4). The child in such a structure is
+called a collider because the two arrows collide at the node, and
+conditioning on the child, or on an effect of the child, creates a
+conditional association between its parents {{cite:shrier_platt2008}}
+(Step 4).
+
+Conditioning on a descendant of the collider does the same, usually more
+weakly: restricting to a level of a consequence of $C$ is partial
+information about $C$, and partial information opens the path partially.
+Hernán and Robins add a medication caused by heart disease to their
+collider diagram: the two causes of heart disease are associated within
+levels of the medication too, because conditioning on a variable affected
+by a collider also opens the path {{cite:hernan_robins2020}} (Ch. 6,
+§6.3, p. 81). Hence “we did not adjust for the collider itself” is no
+defence: selection into a study, response, or survival to recruitment is
+typically a descendant of its causes, and analysing the selected sample
+at all can be conditioning on such a descendant.
+
+That observation reorganises the taxonomy of bias. In the structural
+approach Shrier and Platt adopt, biases divide into two graphical kinds:
+confounding bias, from failing to condition on a common cause, and
+selection bias, from conditioning on a common effect
+{{cite:shrier_platt2008}} (Discussion). Berkson’s bias is the canonical instance: two diseases
+independent in the general population both affect hospital admission, so
+among admitted patients — the stratum defined by the common effect — the
+diseases are associated, and an inpatient-only study may mistake that
+association for a fact about the diseases. Recognising it as biased requires the diagram for the entire population; nothing in the hospital data alone announces that selection manufactured it {{cite:greenland_pearl_robins1999}} (p. 41).
+
+The symmetric failure also exists: where exposure and outcome share no common cause, conditioning on a common effect of the two biases a clean comparison — Greenland, Pearl and Robins’ instance is stratifying on uterine bleeding, caused by both oestrogen and endometrial cancer, in studies of oestrogen and endometrial cancer, where adjustment for the common effect was irremediably harmful {{cite:greenland_pearl_robins1999}} (pp. 42–43).
+
+## Statistical use — Backdoor paths and the backdoor criterion
 
 Fix an exposure $A$, an outcome $Y$, and the total effect of $A$ on $Y$ —
 the effect transmitted along all directed paths from $A$ to $Y$, the
@@ -186,20 +220,30 @@ open backdoor path through $L$, blocked by conditioning on $L$
 
 The *backdoor criterion* states precisely when a set of variables removes
 the problem. Let $S$ be a set of variables, and the target the total
-effect of $A$ on $Y$. Then $S$ satisfies the backdoor criterion for
-$(A, Y)$ if: (i) no variable in $S$ is a descendant of $A$; and (ii) $S$
-blocks every backdoor path from $A$ to $Y$ — every path beginning with an
-arrow into $A$ is blocked given $S$, counting both paths blocked by
-conditioning on non-colliders in $S$ and any paths opened by conditioning
-on colliders in $S$ or their descendants. When $S$ satisfies the
-criterion, conditioning on $S$ makes the treated and untreated
-exchangeable within levels of $S$, and the conditional association,
-standardised over the distribution of $S$, gives the effect. Hernán and
-Robins state the sufficient-set version: a set of measured
-non-descendants of $A$ is a sufficient set for confounding adjustment
-when conditioning on it blocks all backdoor paths, so that the treated
-and the untreated are exchangeable within its levels
-{{cite:hernan_robins2020}} (Ch. 7, §7.3, p. 94).
+effect of $A$ on $Y$. Then $S$ satisfies the backdoor criterion for $(A,
+Y)$ if: (i) no variable in $S$ is a descendant of $A$; and (ii) $S$ blocks
+every backdoor path from $A$ to $Y$ — every path beginning with an arrow
+into $A$ is blocked given $S$, counting both paths blocked by conditioning
+on non-colliders in $S$ and any paths opened by conditioning on colliders
+in $S$ or their descendants. When $S$ satisfies the criterion,
+conditioning on $S$ makes the treated and untreated exchangeable within
+levels of $S$, and the conditional association, standardised over the
+distribution of $S$, gives the effect — provided two further conditions
+hold, which no diagram can supply. The first is consistency: a unit
+observed with $A = a$ shows the outcome it would show under the
+intervention that sets $A = a$, so the observed outcome is the relevant
+counterfactual outcome. The second is positivity, or overlap: within every
+level of $S$ that occurs in the population, both treatment values actually
+occur, so the conditional associations being standardised are defined by
+observation rather than by extrapolation. The backdoor criterion settles
+which set to condition on; consistency and positivity are what allow the
+standardised conditional association to be read as an effect at all. This
+qualification applies at the first adjustment result in this article and
+at every later use of the criterion. Hernán and Robins state the
+sufficient-set version: a set of measured non-descendants of $A$ is a
+sufficient set for confounding adjustment when conditioning on it blocks
+all backdoor paths, so that the treated and the untreated are exchangeable
+within its levels {{cite:hernan_robins2020}} (Ch. 7, §7.3, p. 94).
 
 Neither clause is redundant. Clause (i) excludes mediators, such as $M$
 in $A \rightarrow M \rightarrow Y$ — conditioning on a mediator blocks
@@ -237,41 +281,35 @@ the design, or use a method built on a different assumption. An
 every backdoor path with an exclusion and independence structure of its
 own. A second route, mentioned briefly because its conditions are rarely available, is the front-door criterion: if the entire effect of $A$ on $Y$ is mediated by a variable $M$ sharing no unmeasured causes with either $A$ or $Y$, the counterfactual risk is identified by the front-door formula even though $A$ and $Y$ share an unmeasured cause whose backdoor path cannot be blocked, because identification runs forwards through the mediator rather than backwards through the confounder {{cite:hernan_robins2020}} (Ch. 7, Technical Point 7.4, p. 107).
 
-## Colliders, conditioning, and selection bias
+### Using a diagram
 
-Return to $A \rightarrow C \leftarrow Y$, with $A$ and $Y$ marginally
-independent, and now condition on $C$ — restrict to one level of it,
-stratify on it, match on it, or model it. Shrier and Platt’s homely version is rain and sprinklers, which both cause a wet field: conditional on the field being wet, knowing the sprinklers were off raises the probability that it rained {{cite:shrier_platt2008}} (Step 4). The child in such a structure is
-called a collider because the two arrows collide at the node, and
-conditioning on the child, or on an effect of the child, creates a
-conditional association between its parents {{cite:shrier_platt2008}}
-(Step 4).
+At the design stage the diagram decides what to measure: any variable on
+a backdoor path the analyst hopes to block must be measured, or
+identification fails before the data arrive. At the analysis stage it
+decides what to condition on, through the backdoor criterion applied to
+the stated estimand — the total effect, or a direct effect, whose
+adjustment set is a different and deliberate object, as
+[mediation analysis](mediation-analysis.qmd) discusses. A
+[propensity score](propensity-score.qmd) is not an alternative to the
+diagram but an implementation of it: whether conditioning on a score
+recovers an effect depends on whether the set it is built from satisfies
+the backdoor criterion, a question the score cannot answer.
 
-Conditioning on a descendant of the collider does the same, usually more
-weakly: restricting to a level of a consequence of $C$ is partial
-information about $C$, and partial information opens the path partially.
-Hernán and Robins add a medication caused by heart disease to their
-collider diagram: the two causes of heart disease are associated within
-levels of the medication too, because conditioning on a variable affected
-by a collider also opens the path {{cite:hernan_robins2020}} (Ch. 6,
-§6.3, p. 81). Hence “we did not adjust for the collider itself” is no
-defence: selection into a study, response, or survival to recruitment is
-typically a descendant of its causes, and analysing the selected sample
-at all can be conditioning on such a descendant.
+### Counterfactual graphs — SWIGs
 
-That observation reorganises the taxonomy of bias. In the structural
-approach Shrier and Platt adopt, biases divide into two graphical kinds:
-confounding bias, from failing to condition on a common cause, and
-selection bias, from conditioning on a common effect
-{{cite:shrier_platt2008}} (Discussion). Berkson’s bias is the canonical instance: two diseases
-independent in the general population both affect hospital admission, so
-among admitted patients — the stratum defined by the common effect — the
-diseases are associated, and an inpatient-only study may mistake that
-association for a fact about the diseases. Recognising it as biased requires the diagram for the entire population; nothing in the hospital data alone announces that selection manufactured it {{cite:greenland_pearl_robins1999}} (p. 41).
+A single-world intervention graph, or SWIG, is obtained from a causal DAG
+by splitting the treatment node into the treatment actually received and
+the fixed value to which treatment is set, and relabelling every
+descendant of treatment with its counterfactual version under that
+intervention, so the graph displays counterfactual variables directly.
+Hernán and Robins introduce SWIGs as the device unifying the
+counterfactual and graphical approaches, with the equivalence that a
+counterfactual outcome is d-separated from treatment given $L$ on the
+SWIG if and only if $L$ is a non-descendant of treatment blocking all
+backdoor paths in the original DAG {{cite:hernan_robins2020}} (Ch. 7,
+§7.5, pp. 101–102).
 
-The symmetric failure also exists: where exposure and outcome share no common cause, conditioning on a common effect of the two biases a clean comparison — Greenland, Pearl and Robins’ instance is stratifying on uterine bleeding, caused by both oestrogen and endometrial cancer, in studies of oestrogen and endometrial cancer, where adjustment for the common effect was irremediably harmful {{cite:greenland_pearl_robins1999}} (pp. 42–43).
-
-## Worked example: a fork that fakes an effect, and a collider that fakes an association
+## Worked example — A fork that fakes an effect, and a collider that fakes an association
 
 Both examples use populations, not samples, so every proportion is exact
 and no sampling variation obscures the arithmetic.
@@ -297,17 +335,17 @@ $130/200 = 13/20$; $200$ people have $A = 0$, of whom $30 + 40 = 70$ have
 the outcome, a crude risk of $70/200 = 7/20$. The crude risk difference
 is $13/20 - 7/20 = 3/10$. The entire $3/10$ is the fork at work: the exposed group is drawn disproportionately from $X = 1$ ($150$ of its $200$ members), where the outcome is common for reasons unrelated to $A$. Standardising over $X$ with weights $1/2$ and $1/2$ gives a risk under exposure of $(1/2)(1/5) + (1/2)(4/5) = 1/2$ and under no exposure of $(1/2)(1/5) + (1/2)(4/5) = 1/2$ — an adjusted difference of $0$, the truth the backdoor criterion predicted before any numbers were computed.
 
-**(b) The collider.** A population of $400$ has two binary causes, $A$
-and $B$, independent of each other: each combination $(A, B) = (0, 0)$,
-$(1, 0)$, $(0, 1)$ and $(1, 1)$ occurs in exactly $100$ people.
-Marginally, the risk of $B = 1$ is $200/400 = 1/2$ given $A = 1$ and
-$200/400 = 1/2$ given $A = 0$, and the marginal odds ratio is $1$. The
-diagram, in words, has nodes $A$, $B$ and $C$ and edges
-$A \rightarrow C$ and $B \rightarrow C$, with no edge between $A$ and
-$B$: $C$ is a common effect, a collider on the only path between $A$ and
-$B$. Let $C = 1$ whenever at least one of $A$ and $B$ equals $1$, and
-$C = 0$ only when both equal $0$ — admission, say, triggered by either of
-two independent conditions.
+**(b) The collider.** A population of $400$ has two binary causes, $A$ and
+$B$, independent of each other: each combination $(A, B) = (0, 0)$, $(1,
+0)$, $(0, 1)$ and $(1, 1)$ occurs in exactly $100$ people. Marginally, the
+risk of $B = 1$ given $A = 1$ is $100/200 = 1/2$ — of the $200$ people
+with $A = 1$, $100$ have $B = 1$ — and given $A = 0$ it is likewise
+$100/200 = 1/2$, and the marginal odds ratio is $1$. The diagram, in
+words, has nodes $A$, $B$ and $C$ and edges $A \rightarrow C$ and $B
+\rightarrow C$, with no edge between $A$ and $B$: $C$ is a common effect,
+a collider on the only path between $A$ and $B$. Let $C = 1$ whenever at
+least one of $A$ and $B$ equals $1$, and $C = 0$ only when both equal $0$
+— admission, say, triggered by either of two independent conditions.
 
 Condition on $C = 1$, as a study recruited through admission would: only
 $300$ people remain. The table of $A$ against $B$ within $C = 1$ is:
@@ -318,18 +356,24 @@ $300$ people remain. The table of $A$ against $B$ within $C = 1$ is:
 | $A = 0$ | $100$ | $0$ | $100$ |
 | Total | $200$ | $100$ | $300$ |
 
-The bottom-right cell is empty by construction: nobody with $A = 0$ and
-$B = 0$ has $C = 1$. Within the selected population the risk of $B = 1$
-is $100/200 = 1/2$ given $A = 1$ but $100/100 = 1$ given $A = 0$, a risk
-difference of $1/2 - 1 = -1/2$, and the odds ratio is
-$(100 \times 0)/(100 \times 100) = 0$. Two variables exactly independent
-in $400$ people are as strongly negatively associated as a $2 \times 2$
-table permits: among the selected, knowing $A = 0$ settles $B = 1$ with
-certainty. The association is a pure artefact of conditioning on their
-common effect — the arithmetic inside Berkson’s bias, with selection made
-deterministic so the fractions stay simple.
+The bottom-right cell is empty by construction: nobody with $A = 0$ and $B
+= 0$ has $C = 1$. Within the selected population the risk of $B = 1$ is
+$100/200 = 1/2$ given $A = 1$ but $100/100 = 1$ given $A = 0$, a risk
+difference of $1/2 - 1 = -1/2$, and the odds ratio is $(100 \times 0)/(100
+\times 100) = 0$. Two variables exactly independent in $400$ people are
+now negatively associated, but how extreme the association is depends on
+the scale on which it is measured. On the odds-ratio scale it is as
+extreme as possible: the odds ratio is $0$, the smallest value an odds
+ratio can take. On the risk-difference scale the association is $-1/2$,
+and on the risk-ratio scale it is $(1/2)/1 = 1/2$, not $0$ — so a claim of
+maximal negative association is a statement about the odds ratio in this
+example, not a property the table has on every scale. What holds on every
+scale is the qualitative fact: among the selected, knowing $A = 0$ settles
+$B = 1$ with certainty. The association is a pure artefact of conditioning
+on their common effect — the arithmetic inside Berkson’s bias, with
+selection made deterministic so the fractions stay simple.
 
-## Your turn
+### Your turn
 
 A second fork, with a genuine effect. A population of $400$ is divided by
 a common cause $X$ into two groups of $200$, with edges
@@ -356,7 +400,28 @@ standardised difference is the effect: it agrees with both within-stratum
 differences, as it must when $\{X\}$ satisfies the backdoor criterion.
 The crude $2/5$ overstates the effect by $2/5 - 1/4 = 3/20$.
 
-## A diagram is an assumption, not a discovery
+## Common misconceptions
+
+**“Adjust for everything associated with exposure and outcome.”**
+Association does not reveal position. A variable associated with both may
+be a confounder that must be conditioned on, a mediator that must not be
+(for a total effect), or a collider whose conditioning creates the
+association it is meant to remove. Position, not association, decides.
+
+**“If adding a variable changes the estimate, it was a confounder.”**
+Change in estimate is neither necessary nor sufficient: conditioning on a
+collider changes an estimate by manufacturing bias, and genuine
+confounding can leave an estimate nearly unchanged when opposing paths
+cancel.
+
+**“The diagram was learned from the data.”** The diagrams here encode
+assumptions supplied by the analyst. Algorithms that search for graphs
+compatible with observed independencies rest on further assumptions and
+deliver at best a class of compatible diagrams; Greenland, Pearl and
+Robins caution that such structure-inference methods are controversial
+{{cite:greenland_pearl_robins1999}} (p. 47).
+
+## Assumptions and limits — A diagram is an assumption, not a discovery
 
 Everything above is conditional on the diagram itself. A DAG does not
 summarise data; it states, in advance of the data, what the analyst is
@@ -400,72 +465,9 @@ requires [potential outcomes](potential-outcomes.qmd), standardisation or
 weighting, and positivity and consistency conditions no diagram can
 supply.
 
-## Counterfactual graphs in one paragraph: SWIGs
-
-A single-world intervention graph, or SWIG, is obtained from a causal DAG
-by splitting the treatment node into the treatment actually received and
-the fixed value to which treatment is set, and relabelling every
-descendant of treatment with its counterfactual version under that
-intervention, so the graph displays counterfactual variables directly.
-Hernán and Robins introduce SWIGs as the device unifying the
-counterfactual and graphical approaches, with the equivalence that a
-counterfactual outcome is d-separated from treatment given $L$ on the
-SWIG if and only if $L$ is a non-descendant of treatment blocking all
-backdoor paths in the original DAG {{cite:hernan_robins2020}} (Ch. 7,
-§7.5, pp. 101–102). ## Statistical use, assumptions and limits
-
-## Statistical use, assumptions and limits
-
-At the design stage the diagram decides what to measure: any variable on
-a backdoor path the analyst hopes to block must be measured, or
-identification fails before the data arrive. At the analysis stage it
-decides what to condition on, through the backdoor criterion applied to
-the stated estimand — the total effect, or a direct effect, whose
-adjustment set is a different and deliberate object, as
-[mediation analysis](mediation-analysis.qmd) discusses. A
-[propensity score](propensity-score.qmd) is not an alternative to the
-diagram but an implementation of it: whether conditioning on a score
-recovers an effect depends on whether the set it is built from satisfies
-the backdoor criterion, a question the score cannot answer.
+### The assumptions, collected
 
 The assumptions, collected, are: the diagram is right in its arrows and, more demandingly, in its missing arrows; all common causes are on the graph; nothing is conditioned on without checking what that conditioning does to every path it touches; and the temporal order is the real one. None is testable from the data being analysed, although the independencies implied by a diagram’s d-separations are testable implications whose failure is evidence against it.
-
-## Common misconceptions
-
-**“Adjust for everything associated with exposure and outcome.”**
-Association does not reveal position. A variable associated with both may
-be a confounder that must be conditioned on, a mediator that must not be
-(for a total effect), or a collider whose conditioning creates the
-association it is meant to remove. Position, not association, decides.
-
-**“If adding a variable changes the estimate, it was a confounder.”**
-Change in estimate is neither necessary nor sufficient: conditioning on a
-collider changes an estimate by manufacturing bias, and genuine
-confounding can leave an estimate nearly unchanged when opposing paths
-cancel.
-
-**“The diagram was learned from the data.”** The diagrams here encode
-assumptions supplied by the analyst. Algorithms that search for graphs
-compatible with observed independencies rest on further assumptions and
-deliver at best a class of compatible diagrams; Greenland, Pearl and
-Robins caution that such structure-inference methods are controversial
-{{cite:greenland_pearl_robins1999}} (p. 47).
-
-## History
-
-Path diagrams were an integral component of path analysis and structural equation modelling; the modern formal theory came from directed acyclic graphs in expert-systems research {{cite:greenland_pearl_robins1999}} (p. 37). Greenland, Pearl and Robins’ 1999 paper carried the theory into
-epidemiology, showing where traditional criteria for confounding fail
-when several potential confounders are considered simultaneously, and
-supplying the graphical criteria — the backdoor test and d-separation —
-that repair them {{cite:greenland_pearl_robins1999}} (pp. 37, 43–45).
-Shrier and Platt’s 2008 paper addressed usability, setting out a six-step
-algorithm, due to Pearl, for testing whether a proposed covariate set
-would reduce or increase bias {{cite:shrier_platt2008}} (Background).
-Tennant and colleagues’ 2021 review of $234$ applied articles then
-documented wide variation in whether diagrams, estimands and implied
-adjustment sets were reported at all, and converted the theory’s
-obligations into eight recommendations for transparent reporting
-{{cite:tennant_etal2021}} (pp. 620–621, 628–629).
 
 ## Connections
 
@@ -537,3 +539,19 @@ about, vary and report the diagram, not to discard it for unstated
 assumptions of the same kind.
 
 :::
+
+## History
+
+Path diagrams were an integral component of path analysis and structural equation modelling; the modern formal theory came from directed acyclic graphs in expert-systems research {{cite:greenland_pearl_robins1999}} (p. 37). Greenland, Pearl and Robins’ 1999 paper carried the theory into
+epidemiology, showing where traditional criteria for confounding fail
+when several potential confounders are considered simultaneously, and
+supplying the graphical criteria — the backdoor test and d-separation —
+that repair them {{cite:greenland_pearl_robins1999}} (pp. 37, 43–45).
+Shrier and Platt’s 2008 paper addressed usability, setting out a six-step
+algorithm, due to Pearl, for testing whether a proposed covariate set
+would reduce or increase bias {{cite:shrier_platt2008}} (Background).
+Tennant and colleagues’ 2021 review of $234$ applied articles then
+documented wide variation in whether diagrams, estimands and implied
+adjustment sets were reported at all, and converted the theory’s
+obligations into eight recommendations for transparent reporting
+{{cite:tennant_etal2021}} (pp. 620–621, 628–629).
