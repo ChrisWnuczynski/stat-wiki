@@ -1,0 +1,182 @@
+## Lead context
+
+The **Kolmogorov–Smirnov test** is a non-parametric test based on the largest vertical distance between an empirical distribution function and a distribution function it is compared with. In its one-sample form it tests whether a sample could have come from a fully specified continuous distribution; in its two-sample form it tests whether two samples could have come from a common continuous distribution. Massey's exposition, still the clearest short account of the one-sample test, describes it as a test "based on the maximum difference between an empirical and a hypothetical cumulative distribution" {{cite:massey1951}} (p. 68).
+
+Let $X_1, \ldots, X_n$ be independent observations from an unknown continuous distribution function $F$, where a distribution function is defined by $F(x) = P(X \le x)$ for a random variable $X$. The one-sample null hypothesis is $H_0: F = F_0$, where $F_0$ is a continuous distribution function specified completely before the data are examined: every parameter of $F_0$ is given a numerical value, not estimated from the sample. The statistic measures the worst disagreement, anywhere on the line, between the sample and $F_0$. Because that disagreement is a distance between two curves rather than a discrepancy in one chosen summary, the test is omnibus: it can in principle detect a difference in location, in spread, in shape, or in any combination of these, but it reports none of them separately. It is a test of significance only. It estimates no parameter and supplies no confidence interval for any feature of $F$, although the same critical values can be inverted to give a confidence band for $F$, as the section on statistical use explains.
+
+The construction originates with Kolmogorov, who in 1933 studied the distribution of the largest deviation of an empirical distribution function from the true distribution function {{cite:kolmogorov1933_ks}} (pp. 83–91). The test is distribution-free under $H_0$ in a precise sense explained below: when $F_0$ is continuous, the null distribution of the statistic does not depend on which continuous $F_0$ was specified. That property, and not any assumption of normality, is what makes a single table of critical values possible.
+
+## The empirical distribution function and the one-sample statistic
+
+The **empirical distribution function** (ECDF) of the sample is
+
+$$F_n(x) = \frac{1}{n} \sum_{i=1}^{n} I(X_i \le x),$$
+
+where $I(X_i \le x)$ is the indicator that takes the value $1$ when $X_i \le x$ and $0$ otherwise. Thus $F_n(x)$ is simply the proportion of observations less than or equal to $x$. It is a step function: it is flat between consecutive ordered observations and jumps by $1/n$ at each observation, or by $k/n$ at a value shared by $k$ observations. Massey, using the notation $S_N(x)$ for the same object, defines it as $k/N$, where $k$ is the number of observations less than or equal to $x$ {{cite:massey1951}} (p. 69).
+
+Write $X_{(1)} \le X_{(2)} \le \cdots \le X_{(n)}$ for the ordered observations. The one-sample Kolmogorov–Smirnov statistic is
+
+$$D_n = \sup_x |F_n(x) - F_0(x)|,$$
+
+where $\sup_x$ denotes the supremum, the least upper bound, of the absolute difference over all real $x$. The supremum is not an abstraction that requires searching the whole line point by point. Because $F_n$ changes only at the observations and $F_0$ is continuous, the largest absolute difference is attained either just after a jump of $F_n$ at an observation or just before one. Evaluating both sides of every jump gives the computing form
+
+$$D_n = \max_{1 \le i \le n} \max\left\{ \frac{i}{n} - F_0(X_{(i)}), \; F_0(X_{(i)}) - \frac{i-1}{n} \right\}.$$
+
+The two quantities inside the maximum have separate names and separate uses. The **upper one-sided statistic** is
+
+$$D_n^+ = \max_{1 \le i \le n} \left\{ \frac{i}{n} - F_0(X_{(i)}) \right\},$$
+
+the largest amount by which the ECDF rises above $F_0$, and the **lower one-sided statistic** is
+
+$$D_n^- = \max_{1 \le i \le n} \left\{ F_0(X_{(i)}) - \frac{i-1}{n} \right\},$$
+
+the largest amount by which $F_0$ rises above the ECDF, measured just before the jump at $X_{(i)}$. Then $D_n = \max(D_n^+, D_n^-)$. A large $D_n^+$ means the sample accumulates probability faster than $F_0$ somewhere, as happens when the observations are systematically smaller than $F_0$ predicts; a large $D_n^-$ means the sample accumulates probability more slowly, as happens when the observations are systematically larger. The two-sided statistic discards that directional information, which is why the one-sided statistics are reported in their own right when a directional alternative was specified in advance.
+
+## Why the null distribution does not depend on $F_0$
+
+Suppose $H_0$ is true and $F_0$ is continuous. The probability integral transform states that $U_i = F_0(X_i)$ then has a uniform distribution on $[0, 1]$, for each $i$, and the $U_i$ remain independent. Applying $F_0$ to both curves converts the comparison into a comparison between the ECDF of a uniform sample and the diagonal line, and the vertical distances are unchanged. Consequently the distribution of $D_n$ under $H_0$ is the same for every continuous $F_0$: it depends on $n$ alone. Massey states the same conclusion in his original notation: the sampling distribution of the maximum deviation "is known, and is independent of $F_0(x)$ if $F_0(x)$ is continuous" {{cite:massey1951}} (p. 69). The NIST/SEMATECH e-Handbook lists this independence as the test's first attractive feature {{cite:nist_ks_gof2002}} (§1.3.5.16).
+
+Continuity is doing real work in that argument. If $F_0$ has jumps, the transformed values $U_i$ are not uniform, the null distribution does depend on $F_0$, and the standard tables no longer apply exactly. That qualification governs everything said later about discrete distributions and ties.
+
+## The null distribution: exact, limiting, and computed
+
+Three different objects are often conflated under the single phrase "the distribution of $D_n$", and they must be kept apart.
+
+**The exact finite-sample distribution.** For each fixed $n$, $P(D_n \le d)$ under $H_0$ is a definite number that can in principle be computed exactly, with no appeal to large samples. Smirnov published a table for estimating the goodness of fit of empirical distributions, giving values of the limiting distribution and related percentage points {{cite:smirnov1948}} (pp. 279–281). For small $n$ the exact distribution is noticeably discrete: $D_n$ can take only finitely many values for a given $n$, because the ECDF moves in steps of $1/n$.
+
+**The Kolmogorov limiting distribution.** As $n$ increases, $\sqrt{n}\, D_n$ converges in distribution to a random variable whose distribution function, called the **Kolmogorov distribution**, is
+
+$$K(x) = 1 - 2 \sum_{k=1}^{\infty} (-1)^{k-1} e^{-2 k^2 x^2}, \qquad x > 0,$$
+
+with $K(x) = 0$ for $x \le 0$. The asymptotic two-sided $p$-value for an observed value $d$ is therefore approximated by $1 - K(\sqrt{n}\, d)$. The series converges quickly for moderate and large $x$ and slowly for small $x$, where an equivalent series in the complementary form is preferred; either way, the number produced by the series is a limiting probability, not the exact finite-sample probability, and the two can differ appreciably when $n$ is small. The limiting percentage points are the source of the familiar constants: the upper $5\%$ point of $K$ is approximately $1.36$ and the upper $1\%$ point approximately $1.63$, so the asymptotic critical values for $D_n$ are $1.36/\sqrt{n}$ at the $5\%$ level and $1.63/\sqrt{n}$ at the $1\%$ level. Massey's Table 1 gives exactly these constants, in the row for samples of size over $35$, as $1.36$ and $1.63$ respectively {{cite:massey1951}} (Table 1, p. 70).
+
+**Computation of the exact distribution.** For most of the test's history the exact distribution was set aside in favour of one-sided statistics or the limiting form, because no practical algorithm for $P(D_n < d)$ was available. Marsaglia, Tsang and Wang supplied one in 2003: a procedure that, in their words, provides $P(D_n < d)$ "with 13–15 digit accuracy for $n$ ranging from 2 to at least 16000" {{cite:marsaglia_tsang_wang2003}} (p. 1). They also assessed how slowly the exact distribution approaches its limiting form, and provided a rapid approximation for the extreme upper tail when $n$ is large {{cite:marsaglia_tsang_wang2003}} (p. 1). Modern software that reports an "exact" Kolmogorov–Smirnov $p$-value is reporting a computation of this kind; software that reports an asymptotic $p$-value is reporting $1 - K(\sqrt{n}\, d)$, possibly with a finite-sample adjustment to the argument of $K$. The two labels are not interchangeable, and a reported $p$-value should say which it is.
+
+**Critical values in practice.** Massey's Table 1 remains a serviceable check on software for the one-sample test: for $n = 5$ the exact critical values are $0.446$ at the $20\%$ level, $0.510$ at the $10\%$ level, $0.565$ at the $5\%$ level and $0.669$ at the $1\%$ level, and for $n = 10$ the $20\%$ point is $0.322$ {{cite:massey1951}} (Table 1, p. 70). Note the comparison at $n = 5$: the exact $5\%$ value, $0.565$, is smaller than the asymptotic value $1.36/\sqrt{5} \approx 0.608$, so at $n = 5$ the asymptotic test is slightly conservative at the $5\%$ level, rejecting only for $D_n$ above $0.608$ where the exact test already rejects above $0.565$. The direction and size of the discrepancy between exact and asymptotic critical values vary with $n$ and with the level; neither should be assumed to bound the other without checking.
+
+## The two-sample test
+
+Let $X_1, \ldots, X_n$ be a sample from a continuous distribution function $F$ and $Y_1, \ldots, Y_m$ an independent sample from a continuous distribution function $G$, and let $F_n$ and $G_m$ be their ECDFs. The two-sample null hypothesis is $H_0: F = G$, with neither distribution specified. The two-sample statistic is
+
+$$D_{n,m} = \sup_x |F_n(x) - G_m(x)|,$$
+
+and its one-sided counterparts are $D_{n,m}^+ = \sup_x (F_n(x) - G_m(x))$ and $D_{n,m}^- = \sup_x (G_m(x) - F_n(x))$, so that $D_{n,m} = \max(D_{n,m}^+, D_{n,m}^-)$. As in the one-sample case, the supremum is attained at an observation of one sample or the other, so the statistic is computed by evaluating both ECDFs at every pooled observation. A large $D_{n,m}^+$ means that at some point the first sample has accumulated a larger fraction of its observations than the second sample has, which is the pattern expected when the first population's values tend to be smaller.
+
+Under $H_0$, with $F = G$ continuous, the same probability integral transform argument applies to the pooled data, and $\sqrt{n_e}\, D_{n,m}$, where $n_e = nm/(n+m)$ is the **effective sample size**, has approximately the Kolmogorov distribution $K$ above when both $n$ and $m$ are large. The asymptotic $5\%$ critical value is therefore $1.36 \sqrt{(n+m)/(nm)}$. Exact two-sample $p$-values, obtained by enumerating or recursing over the possible orderings of the pooled sample, are a separate computation from this limiting approximation and are preferable when either sample is small. The two-sample test inherits the one-sample test's character: it is sensitive to any difference between $F$ and $G$ — location, spread or shape — and identifies none of them. If the scientific question is specifically whether one population's values tend to be larger than the other's, a rank test aimed at that alternative will usually be more powerful; the Connections section returns to this point.
+
+## Worked example: five values against a specified uniform distribution
+
+Five independent values, recorded as proportions, are to be tested against the fully specified hypothesis that they come from a uniform distribution on $[0, 1]$, for which $F_0(x) = x$ for $0 \le x \le 1$. The ordered sample is
+
+$$0.05, \quad 0.12, \quad 0.18, \quad 0.25, \quad 0.90.$$
+
+Four of the five values lie in the lowest quarter of the interval. The question is whether that crowding is larger than uniform sampling ordinarily produces. The calculation evaluates both sides of each jump of $F_n$:
+
+| $i$ | $X_{(i)}$ | $F_0(X_{(i)})$ | $i/n$ | $(i-1)/n$ | $i/n - F_0(X_{(i)})$ | $F_0(X_{(i)}) - (i-1)/n$ |
+|---:|---:|---:|---:|---:|---:|---:|
+| 1 | 0.05 | 0.05 | 0.20 | 0.00 | 0.15 | 0.05 |
+| 2 | 0.12 | 0.12 | 0.40 | 0.20 | 0.28 | $-0.08$ |
+| 3 | 0.18 | 0.18 | 0.60 | 0.40 | 0.42 | $-0.22$ |
+| 4 | 0.25 | 0.25 | 0.80 | 0.60 | 0.55 | $-0.35$ |
+| 5 | 0.90 | 0.90 | 1.00 | 0.80 | 0.10 | 0.10 |
+
+Reading the maxima from the last two columns,
+
+$$D_n^+ = 0.55, \qquad D_n^- = 0.10, \qquad D_n = \max(0.55, 0.10) = 0.55.$$
+
+The maximum occurs at the fourth observation: by $x = 0.25$ the ECDF has already reached $0.80$, whereas $F_0$ has reached only $0.25$. The negative entries in the final column are not errors; that column is a list of candidates for a maximum, and candidates below zero simply record points at which the ECDF, just before its jump, was already above $F_0$.
+
+Now the decision, stated three ways so that the exact and the approximate are not confused. First, against Massey's exact critical values for $n = 5$, $D_n = 0.55$ exceeds the $10\%$ point $0.510$ but does not exceed the $5\%$ point $0.565$ {{cite:massey1951}} (Table 1, p. 70): the exact test rejects at the $10\%$ level and does not reject at the $5\%$ level. Second, the asymptotic $p$-value from the Kolmogorov series is $1 - K(\sqrt{5} \times 0.55) = 1 - K(1.2298) \approx 0.0971$, which tells the same story to two decimal places but is a limiting probability, not the exact one. Third, the asymptotic $5\%$ critical value is $1.36/\sqrt{5} \approx 0.608$, which $0.55$ does not exceed. All three readings agree on the $5\%$ decision for these data. The example sits close to the boundary, however: $D_n = 0.55$ is above the exact $10\%$ point and below both $5\%$ points, and the exact and asymptotic $5\%$ points themselves differ by $0.043$, so a slightly larger statistic could have separated the exact and asymptotic decisions. With five observations the honest summary is that the crowding in the lowest quarter is suggestive but not decisive at the $5\%$ level, and that the one-sided statistic $D_n^+ = 0.55$ correctly locates the departure: the sample accumulates far faster than $F_0$, and $D_n^- = 0.10$ shows there is no corresponding lag anywhere. All numbers in this example were recomputed independently in the accompanying check script.
+
+## Your turn
+
+Two independent samples of four observations each are
+
+- Sample X: $1.2, \; 1.5, \; 2.1, \; 2.8$.
+- Sample Y: $1.8, \; 2.4, \; 3.0, \; 3.6$.
+
+Compute both ECDFs at each of the eight pooled values, and hence $D_{n,m}$, $D_{n,m}^+$ and $D_{n,m}^-$. Compare $D_{n,m}$ with the asymptotic $5\%$ critical value $1.36\sqrt{(n+m)/(nm)}$, and compute the asymptotic $p$-value from the Kolmogorov series using the effective sample size $n_e = nm/(n+m)$. Do you reject the null hypothesis of a common distribution at the $5\%$ level?
+
+::: {.callout-tip collapse="true" title="Answer"}
+At the pooled values $1.2, 1.5, 1.8, 2.1, 2.4, 2.8, 3.0, 3.6$, the differences $F_n(x) - G_m(x)$ are $0.25, 0.50, 0.25, 0.50, 0.25, 0.50, 0.25, 0.00$. Hence $D_{n,m}^+ = 0.50$, $D_{n,m}^- = 0$, and $D_{n,m} = 0.50$. The asymptotic $5\%$ critical value is $1.36\sqrt{8/16} \approx 0.9617$, which $0.50$ does not approach. With $n_e = 2$, the scaled statistic is $\sqrt{2} \times 0.50 \approx 0.7071$ and the asymptotic $p$-value is $1 - K(0.7071) \approx 0.6994$. We do not reject the null hypothesis at the $5\%$ level. With only four observations per sample this asymptotic $p$-value is a rough guide only; an exact two-sample calculation would be the appropriate reference at this size, and the visible tendency of the X values to fall below the Y values is far from established by samples this small.
+:::
+
+## Ties, discrete distributions, and grouping
+
+The standard test assumes a continuous $F_0$ and, in the two-sample case, a continuous common distribution. Three common departures all push in the same direction.
+
+**Ties.** With genuinely continuous data, ties occur with probability zero. Observed ties therefore signal rounding, grouping, or a discrete underlying variable. A tie makes the ECDF jump by more than $1/n$ at one point, the set of values $D_n$ can take becomes coarser, and the exact null distribution computed for the continuous case no longer holds; using the standard critical values then gives a conservative test, one whose true rejection probability under $H_0$ is below the nominal level, so $p$-values are too large and real departures are missed more often than they should be.
+
+**Discrete $F_0$.** If the hypothesised distribution is itself discrete, the probability integral transform fails outright, for the reason given in the section on the null distribution. Massey's account is explicit that only the continuous case is discussed, "which, of course, excludes discrete populations" {{cite:massey1951}} (p. 68), and his comparison with the chi-squared test repeats that the $d$ test "cannot be applied to discrete populations, whereas the $\chi^2$ can be" {{cite:massey1951}} (p. 76). Purpose-built variants for discrete distributions exist, in which the null distribution is computed for the specified discrete $F_0$ itself, by recursion or simulation; they are different procedures from the standard test with its universal table, and a standard-table $p$-value for a discrete hypothesis should be reported, if at all, as conservative.
+
+**Grouping.** Recording continuous data in intervals can only shrink the statistic, because the largest deviation within an interval is never examined. Massey makes the point directly: "Grouping observations into intervals tends to lower the value of $d$" and the appropriate significance levels for grouped data are smaller than those tabled {{cite:massey1951}} (p. 72). The NIST/SEMATECH e-Handbook likewise notes that although the test is typically developed for continuous, uncensored and ungrouped data, extensions to discrete distributions and to censored and grouped data exist and are not the standard procedure {{cite:nist_ks_gof2002}} (§1.3.5.16).
+
+## Parameters estimated from the data: the Lilliefors problem
+
+The most consequential misuse of the test is also the most natural one: fitting a family such as the normal distribution by estimating its mean and variance from the very sample being tested, and then referring the resulting $D_n$ to the standard Kolmogorov–Smirnov table. That table was built for a completely specified $F_0$. Estimation changes the null distribution, because the fitted $F_0$ has been pulled towards the sample: the ECDF and the fitted curve are no longer independent objects being compared, and $D_n$ is systematically smaller than it would be against a prespecified curve of the same family. Referring that shrunken statistic to the standard table is therefore conservative, often severely: the test fails to reject distributions it should reject.
+
+Massey already warned that the test "is correctly used only if the distribution is completely specified" and that "the distribution of the maximum deviation is not known when certain parameters of the population have been estimated from the sample" {{cite:massey1951}} (p. 73). Lilliefors supplied the remedy for the normal case in 1967. His opening statement is the definitive one: "The standard tables used for the Kolmogorov-Smirnov test are valid when testing whether a set of observations are from a completely specified continuous distribution. If one or more parameters must be estimated from the sample then the tables are no longer valid" {{cite:lilliefors1967}} (p. 399). Lilliefors tabulated critical values, obtained by Monte Carlo calculation, for the statistic computed against a normal distribution whose mean and variance are the sample mean and sample variance {{cite:lilliefors1967}} (Table 1, p. 400). The test using those values — same statistic, different reference distribution — is the **Lilliefors test**. Its critical values are much smaller than the standard ones at the same $n$, which quantifies how much estimation shrinks $D_n$. Two qualifications matter. First, Lilliefors's table is specific to the normal family with both parameters estimated; other families, and other estimators, need their own reference distributions, nowadays usually obtained by parametric simulation: simulate many samples from the fitted distribution, refit and recompute $D_n$ for each, and refer the observed statistic to that simulated distribution. Second, a test that does not reject under the Lilliefors reference distribution has still not shown the data to be normal; it has shown only that the largest ECDF deviation is within the range that fitted normal samples commonly produce.
+
+## Sensitivity: the centre against the tails
+
+$D_n$ is a supremum of an unweighted difference, $|F_n(x) - F_0(x)|$. The sampling variability of $F_n(x)$ is largest near the median of $F_0$, where $F_0(x)$ is near $1/2$, and smallest in the tails, where $F_0(x)$ is near $0$ or $1$. An unweighted supremum is therefore dominated, in practice, by discrepancies in the centre of the distribution: a deviation of a given absolute size in a tail, where the null variability is small and the deviation may be relatively enormous, counts for no more than the same absolute deviation at the centre, where such deviations arise by chance far more readily. The NIST/SEMATECH e-Handbook states the limitation plainly: the test "tends to be more sensitive near the center of the distribution than at the tails" {{cite:nist_ks_gof2002}} (§1.3.5.16).
+
+The Anderson–Darling test, treated in a companion article in this batch, is the standard response to exactly this limitation. It replaces the unweighted difference by a weighted integrated squared difference, with a weight function that grows without bound as $F_0(x)$ approaches $0$ or $1$, so tail discrepancies are charged at something closer to their relative size. The e-Handbook groups the Anderson–Darling and Cramér–von Mises tests together as refinements of the Kolmogorov–Smirnov test that are generally considered more powerful {{cite:nist_ks_gof2002}} (§1.3.5.16). Neither refinement is uniformly better for every alternative: a discrepancy concentrated in the centre is the Kolmogorov–Smirnov test's home ground. The choice between them is a choice about where a departure would matter, and it should be made before the data are inspected.
+
+## Statistical use, assumptions and limits
+
+**When to use it.** The one-sample test is appropriate when a single continuous distribution has been specified in advance, in full, and the question is whether the sample is compatible with it: checking a claimed measurement distribution, a simulation's output distribution, or a probability integral transform's uniformity. The two-sample test is appropriate when two independent samples are to be compared without specifying their common form and when any kind of distributional difference is of interest. In both forms the ECDF plot should accompany the test: the statistic reports the size of the largest gap but not its location, whereas the plot shows both, and shows whether a significant gap sits in the centre or in a tail.
+
+**A confidence band, from the same numbers.** Inverting the one-sample test gives simultaneous confidence limits for the whole unknown $F$: the band $F_n(x) - d_\alpha(n)$ to $F_n(x) + d_\alpha(n)$, where $d_\alpha(n)$ is the critical value at level $\alpha$, contains the true $F(x)$ for all $x$ simultaneously with probability $1 - \alpha$ under the same continuity assumptions. Massey presents this use explicitly, with limits of the form $S_N(x) - d_\alpha(N) < F(x) < S_N(x) + d_\alpha(N)$ {{cite:massey1951}} (pp. 76–77). The band is wide — for a sample of size $100$ its half-width at the $5\%$ level is $1.36/\sqrt{100} = 0.136$ {{cite:massey1951}} (p. 77) — which is an honest reflection of how little a sample of that size pins down an entire distribution function.
+
+**Assumptions.** Independence within each sample, and between samples in the two-sample form; a continuous distribution, fully specified in the one-sample form; and ungrouped observations, are the assumptions on which the exact tables and the limiting distribution rest. Each assumption that fails — estimated parameters, ties, grouping, discreteness — has been shown above to move the procedure in the conservative direction or to invalidate its reference distribution outright. Conservatism is not a harmless failure mode: it is lost power, silently, and it can make a fitted family appear compatible with data that a correctly referenced test would reject.
+
+**What it cannot do.** The test does not estimate an effect, does not locate a difference except through the sign of $D_n^+$ against $D_n^-$, and does not adjust for covariates. A non-significant result does not establish that $F = F_0$; with small $n$ the critical values are so large — $0.565$ at the $5\%$ level when $n = 5$ — that substantial departures pass undetected. Conversely, with very large $n$ the critical value $1.36/\sqrt{n}$ becomes tiny, and departures too small to matter for any practical purpose are correctly and uselessly detected. The statistic measures compatibility with a specified curve, not the importance of the incompatibility.
+
+## Common misconceptions
+
+**"The Kolmogorov–Smirnov test tests normality."** It does not, in its standard form. It tests a completely specified distribution, which may happen to be a normal distribution with a stated mean and variance. Testing "normality" with the mean and variance estimated from the sample is the Lilliefors problem, and using the standard table for it is invalid {{cite:lilliefors1967}} (p. 399).
+
+**"A large $p$-value shows the sample came from $F_0$."** It does not. It shows that the largest ECDF deviation is within the range that samples from $F_0$ commonly produce. At small $n$ that range is very wide, so compatibility is a weak statement.
+
+**"The asymptotic $p$-value is the exact $p$-value."** It is not. One is a limiting probability from the series for $K$; the other is a finite-sample probability that, since 2003, can be computed to many digits {{cite:marsaglia_tsang_wang2003}} (p. 1). At small $n$ they can support different decisions at a stated level, as the worked example nearly does.
+
+**"Ties can be broken at random and the usual table applied."** Randomly breaking ties fabricates an ordering the data do not contain and destroys the conservatism in an uncontrolled direction: the resulting $p$-value is neither the exact one nor a bound on it. Tied data call for a reference distribution computed for the tied, grouped or discrete structure actually observed.
+
+**"The two-sample test shows which distribution is larger."** The two-sided statistic does not. Direction is carried by $D_{n,m}^+$ and $D_{n,m}^-$ separately, and even a large one-sided statistic establishes a gap between ECDFs at some point, not a uniform ordering of the two distributions at every point.
+
+## History
+
+Kolmogorov introduced the statistic and its limiting distribution in 1933, in a paper on the empirical determination of a distribution law, published in the *Giornale dell'Istituto Italiano degli Attuari* {{cite:kolmogorov1933_ks}} (pp. 83–91). Smirnov then developed the theory in the late 1930s and, in 1948, published in *The Annals of Mathematical Statistics* the table for estimating the goodness of fit of empirical distributions on which practical use long depended {{cite:smirnov1948}} (pp. 279–281). Massey's 1951 exposition in the *Journal of the American Statistical Association* records this lineage directly — the test "has been suggested by Kolmogorov, Smirnov, Scheffé, and Wolfowitz", with the limiting distribution derived by Kolmogorov and by Smirnov — and added exact critical values for small samples together with the confidence-band construction {{cite:massey1951}} (pp. 68–69). It is from the pairing of Kolmogorov's one-sample statistic with Smirnov's work on empirical distributions, including the two-sample problem, that the joint name derives.
+
+For half a century the test was used through tables: exact values for small $n$, Smirnov's limiting values for large $n$, and an uncomfortable gap in between. Lilliefors's 1967 Monte Carlo table for the estimated-parameter normal case was an early admission that simulation, not analysis, would settle the reference distributions the tables could not reach {{cite:lilliefors1967}} (Table 1, p. 400). The computational chapter closed in 2003, when Marsaglia, Tsang and Wang published an algorithm for the exact distribution of $D_n$ accurate to 13–15 digits over a wide range of $n$, remarking that no easy way to compute that distribution had been provided in the more than 70 years since Kolmogorov's paper {{cite:marsaglia_tsang_wang2003}} (p. 1). The test in current software is thus Kolmogorov's statistic with a twenty-first-century reference distribution, and the distinction between its exact and asymptotic $p$-values is a distinction between two eras of its use.
+
+## Connections
+
+- [Cumulative distribution function](cumulative-distribution-function.qmd): the test is a comparison between distribution functions, and $F_0$ and $F$ in every hypothesis above are objects of this kind.
+- [P-value](p-value.qmd): the Kolmogorov–Smirnov $p$-value is the null probability of a statistic at least as large as the one observed, and this article's insistence on separating exact from asymptotic values is a separation between two different computations of that probability.
+- [Shapiro–Wilk test](shapiro-wilk-test.qmd): a test of the composite normal hypothesis, in which location and scale are unspecified. Where a Kolmogorov–Smirnov test of normality with estimated parameters requires Lilliefors's reference distribution, the Shapiro–Wilk statistic is built for the composite hypothesis from the start.
+- [Anderson–Darling test](anderson-darling-test.qmd): the weighted refinement discussed above, in the same batch as this article. It charges tail discrepancies more heavily than the unweighted supremum $D_n$ does, and is generally preferred when tail fit is the question.
+- [Wilcoxon rank-sum test](wilcoxon-rank-sum-test.qmd): a two-sample test aimed specifically at a tendency for one population's values to exceed the other's. Against pure location-shift alternatives it is typically more powerful than the omnibus two-sample Kolmogorov–Smirnov test, which spends its sensitivity on every kind of difference at once.
+- [Chi-squared test of independence](chi-squared-test-of-independence.qmd): the chi-squared goodness-of-fit test is the older grouped-data alternative. Massey's comparison found the $d$ test able to detect smaller cumulative deviations at the $50\%$ power level, in part because it treats individual observations separately and loses no information by grouping {{cite:massey1951}} (pp. 75–76).
+- [Normal distribution](normal-distribution.qmd): the family most often, and most often incorrectly, placed in the role of $F_0$ with its parameters estimated from the sample under test; the Lilliefors section above gives the correctly referenced version of that use.
+
+## Check yourself
+
+1. A researcher standardises a sample using its own sample mean and sample standard deviation, computes $D_n$ against the standard normal distribution function, and refers the result to the standard Kolmogorov–Smirnov table, obtaining a $p$-value of $0.40$. A colleague says the data are therefore comfortably compatible with normality. Identify the two distinct errors in the colleague's statement.
+
+::: {.callout-tip collapse="true" title="Answer"}
+First, the reference distribution is wrong: the mean and variance were estimated from the sample under test, so the standard table does not apply, and the $p$-value of $0.40$ is not the probability it purports to be. The correctly referenced test is the Lilliefors test, whose critical values are much smaller; the standard-table calculation is conservative, so a correct $p$-value would be smaller, possibly much smaller. Second, even a valid large $p$-value would not show compatibility in any strong sense: it would show only that the largest ECDF deviation lies within the range fitted normal samples commonly produce, which at small sample sizes is a wide range. The statement errs once about which probability was computed, and once about what a large probability of that kind can establish.
+:::
+
+2. Why is $D_n$ computed from both $i/n - F_0(X_{(i)})$ and $F_0(X_{(i)}) - (i-1)/n$, rather than from $i/n - F_0(X_{(i)})$ alone?
+
+::: {.callout-tip collapse="true" title="Answer"}
+The ECDF jumps at each observation, from $(i-1)/n$ just before $X_{(i)}$ to $i/n$ just after it, while the continuous $F_0$ takes the single value $F_0(X_{(i)})$ at that point. The vertical gap between the curves therefore has two candidate values at each observation, one on each side of the jump, and the supremum of the absolute gap may be attained on either side. Using only $i/n - F_0(X_{(i)})$ examines only the gaps just after the jumps, takes no account of sign, and can miss the largest gap entirely: in the worked pattern of a sample lagging behind $F_0$, the dominant gap sits just before a jump and is captured only by the second expression. The maximum of both expressions, over all $i$, is $D_n$; the separate maxima are $D_n^+$ and $D_n^-$.
+:::
+
+3. For a one-sample test with $n = 8$, an observed statistic is $D_n = 0.50$. Massey's exact critical values at $n = 8$ are $0.457$ at the $5\%$ level and $0.543$ at the $1\%$ level. State the decision at each level, and whether the asymptotic $5\%$ critical value $1.36/\sqrt{8}$ gives the same $5\%$ decision.
+
+::: {.callout-tip collapse="true" title="Answer"}
+Since $0.50 > 0.457$, the exact test rejects the null hypothesis at the $5\%$ level. Since $0.50 < 0.543$, it does not reject at the $1\%$ level. The asymptotic $5\%$ critical value is $1.36/\sqrt{8} \approx 0.481$, and $0.50$ exceeds it, so the asymptotic comparison gives the same $5\%$ decision here, rejection, although the asymptotic critical value is larger than the exact one and the agreement is a feature of these particular numbers rather than a general equivalence.
+:::
