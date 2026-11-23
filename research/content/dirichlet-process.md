@@ -462,11 +462,10 @@ a mixture of Dirichlet processes, with a closure property: sampling
 from a mixture of Dirichlet processes, with the sample distorted by
 random error, returns a posterior in the same class
 {{cite:antoniak1974}} (Abstract, p. 1152; Theorem 3, pp. 1158–1159).
-Corollary 3.1 states the single-model version: if $\theta$ is a sample
+His corollary to Theorem 3 states the single-model version: if $\theta$ is a sample
 from a Dirichlet process $P$ and $X$ is drawn from a transition
 probability $F(\theta, \cdot)$ given $\theta$, then $P$ given $X$ is
-a mixture of Dirichlet processes {{cite:antoniak1974}} (Corollary 3.1,
-pp. 1159–1160). Neal dates the models the same way: "Dirichlet process
+a mixture of Dirichlet processes {{cite:antoniak1974}} (pp. 1159–1160, the corollary to Theorem 3). Neal dates the models the same way: "Dirichlet process
 mixture models go back to Antoniak (1974) and Ferguson (1983)"
 {{cite:neal2000_dpmm}} (§2, p. 250).
 

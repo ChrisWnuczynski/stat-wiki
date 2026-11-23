@@ -614,7 +614,7 @@ Geweke (1989) for their development in the Bayesian econometric setting
 their review organises: adaptive parametric proposals fitted by optimising
 an efficiency criterion, sequential constructions with resampling for
 chain-structured targets, and combinations with Markov chain sampling
-{{cite:tokdar_kass2010}} (pp. 55–59). Owen's textbook treatment gives the
+{{cite:tokdar_kass2010}} (pp. 55–59). Owen gives the
 method a chapter of its own {{cite:owen2013_mc}} (ch. 9).
 
 ## Check yourself

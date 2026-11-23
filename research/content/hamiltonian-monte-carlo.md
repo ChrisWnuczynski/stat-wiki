@@ -587,7 +587,7 @@ B. J. and Roweth, D. (1987), "Hybrid Monte Carlo", *Physics Letters B*,
 statistical applications began with his own use of the method for neural
 network models, and that he gave a statistically oriented tutorial in a
 1993 review {{cite:neal2011_hmc}} (pp. 113–114). Betancourt adds that
-MacKay's 2003 textbook first used the name "Hamiltonian Monte Carlo", and
+MacKay's 2003 book first used the name "Hamiltonian Monte Carlo", and
 that Neal's 2011 review brought the method into the mainstream of
 statistical computing, with implementations such as Stan then making it
 pervasive {{cite:betancourt2017_hmc}} (p. 3). The No-U-Turn Sampler
