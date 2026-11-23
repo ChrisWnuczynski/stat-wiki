@@ -197,26 +197,31 @@ export function mount(root) {
     readout.replaceChildren(readoutLine([{ label: family.name, value: bits.map((bit) => `${bit.label} ${bit.value}`).join(", ") }]));
   };
 
-  const renderControls = () => {
-    form.replaceChildren();
-    const selectLabel = field("Family");
-    const select = document.createElement("select");
-    select.setAttribute("aria-label", "Distribution family");
-    for (const family of FAMILIES) {
-      const option = document.createElement("option");
-      option.value = family.id;
-      option.textContent = family.name;
-      select.appendChild(option);
-    }
-    select.value = state.id;
-    select.addEventListener("change", () => {
-      state.id = select.value;
-      renderControls();
-    });
-    selectLabel.appendChild(select);
+  const selectLabel = field("Family");
+  const select = document.createElement("select");
+  select.setAttribute("aria-label", "Distribution family");
+  for (const family of FAMILIES) {
+    const option = document.createElement("option");
+    option.value = family.id;
+    option.textContent = family.name;
+    select.appendChild(option);
+  }
+  select.value = state.id;
+  selectLabel.appendChild(select);
+  form.appendChild(selectLabel);
+
+  let parameterControls = [];
+  const renderParameters = () => {
+    // Keep the native selector attached and focused throughout keyboard changes.
+    for (const control of parameterControls) control.remove();
     const family = familyById(state.id);
-    form.append(selectLabel, ...family.params.map((spec) => sliderPair(spec, redraw)));
+    parameterControls = family.params.map((spec) => sliderPair(spec, redraw));
+    form.append(...parameterControls);
     redraw();
   };
-  renderControls();
+  select.addEventListener("change", () => {
+    state.id = select.value;
+    renderParameters();
+  });
+  renderParameters();
 }
