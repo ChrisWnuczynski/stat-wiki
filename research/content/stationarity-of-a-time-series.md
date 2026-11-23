@@ -40,7 +40,7 @@ Plot the series against time before fitting a stationary model. A rising level, 
 
 Weak stationarity is the working assumption for many covariance and ARMA calculations; it does not by itself say sample averages converge to population quantities. Long-range dependence or a common latent random level can leave a process stationary while a single path remains uninformative about part of the ensemble law. A practitioner should separate the stationarity assumption from ergodicity and from forecast-model adequacy.
 
-Consider independent $X_t$ that are $-1$ or $1$ with equal probability at even times, but are $0$ with probability $1/2$ and $-\sqrt2$ or $\sqrt2$ with probability $1/4$ each at odd times. Every time has mean $0$ and variance $1$, and cross-time covariance is zero, so the series is weakly stationary. Its one-time distribution alternates, so it is not strictly stationary. In another concrete failure, a random walk with innovation variance $4$ has variance $4t$: its early and late levels have different spreads even though its increments have the same distribution. These examples show why the desired level of stationarity must be stated{{cite:hyndman_athanasopoulos2021}} (Ch. 9 §9.1, Differencing and Random walk model).
+A random walk with innovation variance $4$ has variance $4t$: its early and late levels have different spreads even though its increments have the same distribution, so the level fails weak stationarity while its increments satisfy it. The alternating construction of the Interpretation fails in the opposite direction, with stable first two moments but a one-time distribution that changes with time. Together they show why the desired level of stationarity must be stated{{cite:hyndman_athanasopoulos2021}} (Ch. 9 §9.1, Differencing and Random walk model).
 ## Worked example
 
 Let $X_t=\varepsilon_t+0.5\varepsilon_{t-1}$, where the innovations are independent, identically distributed, mean zero and variance $4$. Then $\gamma(0)=4(1+0.5^2)=5$, $\gamma(1)=4(0.5)=2$, and $\rho(1)=2/5=0.4$. The variance of a one-step change is $2(5-2)=6$. The same values apply at every date, so this model is weakly stationary. A plot can still show runs of large or small values by chance; those runs do not change its theoretical moments{{cite:hyndman_athanasopoulos2021}} (Ch. 9 §9.1, Stationarity and differencing).
@@ -48,7 +48,7 @@ Let $X_t=\varepsilon_t+0.5\varepsilon_{t-1}$, where the innovations are independ
 **Your turn.** Keep innovation variance $4$ but set $\theta=-0.25$. Find $\gamma(0)$, $\gamma(1)$, $\rho(1)$ and the variance of a one-step change. Does the negative adjacent correlation make the series nonstationary?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The variance is $\gamma(0)=4(1+0.25^2)=4.25$, and lag-one covariance is $\gamma(1)=4(-0.25)=-1$. Thus $\rho(1)=-1/4.25\approx-0.2353$ and $\operatorname{Var}(X_t-X_{t-1})=2(4.25-(-1))=10.5$. The negative correlation describes alternating tendency at adjacent times; the mean and lag covariance remain time invariant, so the process is weakly stationary. covariance)
+The variance is $\gamma(0)=4(1+0.25^2)=4.25$, and lag-one covariance is $\gamma(1)=4(-0.25)=-1$. Thus $\rho(1)=-1/4.25\approx-0.2353$ and $\operatorname{Var}(X_t-X_{t-1})=2(4.25-(-1))=10.5$. The negative correlation describes alternating tendency at adjacent times; the mean and lag covariance remain time invariant, so the process is weakly stationary.
 :::
 
 ## Common misconceptions

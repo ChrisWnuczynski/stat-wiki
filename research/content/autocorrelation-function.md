@@ -21,6 +21,8 @@ r_k=\frac{\sum_{t=k+1}^{T}(y_t-\bar y)(y_{t-k}-\bar y)}
 $$
 This uses all $T$ observations in the denominator and $T-k$ lagged pairs in the numerator. Other normalisations exist, so small numerical differences between software packages can reflect a convention rather than a disagreement about the data.{{cite:hyndman_athanasopoulos2021}} (§2.8, sample autocorrelation formula)
 
+The formula centres every observation at the single overall mean $\bar y$, so it presumes a roughly constant level. For nonconstant data — a trending or level-shifting series — those level changes enter every lagged product and inflate $r_k$ across many lags at once: the estimator then reports the changing level as if it were lag dependence. That is why the series is plotted first and, where the level is not stable, differenced or otherwise stabilised before the sample ACF is read as an estimate of a population ACF.{{cite:hyndman_athanasopoulos2021}} (§2.8, trend and seasonality in ACF plots; ch. 9, differencing)
+
 ## Interpretation
 For stationary white noise with positive variance, $\rho(k)=0$ at every nonzero lag. For a stationary autoregression of order one, $X_t=\phi X_{t-1}+\varepsilon_t$ with $|\phi|<1$ and innovations uncorrelated with the past, $\rho(k)=\phi^k$ for positive $k$. Positive $\phi$ gives a geometric decay, whereas negative $\phi$ gives alternating signs. A moving average of finite order $q$ has no population autocorrelation beyond lag $q$, because observations more than $q$ steps apart have no shared innovations. These clean patterns describe population models; a finite sample ACF will rarely become exactly zero after a cutoff.{{cite:hyndman_athanasopoulos2021}} (ch. 9, ACF and PACF plots)
 

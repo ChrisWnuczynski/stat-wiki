@@ -18,7 +18,11 @@ An ARMA model includes both terms. The *model* called MA($q$) must be distinguis
 ## Properties — Persistence and short memory
 For an AR(1), $X_t-\mu=\phi(X_{t-1}-\mu)+\varepsilon_t$. If $|\phi|<1$ and the innovations have finite variance, the stationary variance is $\sigma^2/(1-\phi^2)$ and the lag-$h$ autocorrelation is $\phi^{|h|}$. A positive coefficient preserves the direction of a departure from the mean; a negative one tends to alternate it. If $\phi=1$, the model is a random walk, whose variance grows with time rather than remaining stationary.{{cite:hyndman_athanasopoulos2021}} (§9.3)
 
-For an MA(1), $X_t=\mu+\varepsilon_t+\theta\varepsilon_{t-1}$, the variance is $\sigma^2(1+\theta^2)$ and the lag-one covariance is $\theta\sigma^2$. All covariances beyond lag one are zero because the two observations share no innovation. This finite *linear* memory does not mean the observations are independent unless stronger assumptions, such as independent innovations, are imposed. The usual invertibility restriction $|\theta|<1$ chooses a representation whose innovations can be recovered stably from the observed past; an MA(1) remains stationary even when this restriction fails.{{cite:hyndman_athanasopoulos2021}} (§9.4)
+For an MA(1), $X_t=\mu+\varepsilon_t+\theta\varepsilon_{t-1}$, the variance is $\sigma^2(1+\theta^2)$ and the lag-one covariance is $\theta\sigma^2$. All covariances beyond lag one are zero because the two observations share no innovation. This finite *linear* memory does not mean the observations are independent unless stronger assumptions, such as independent innovations, are imposed. Inverting the MA(1) recursion expresses the current innovation through the observed past: for any finite $J$,
+$$
+\varepsilon_t=\sum_{j=0}^{J}(-\theta)^j(X_{t-j}-\mu)+(-\theta)^{J+1}\varepsilon_{t-J-1}.
+$$
+The final term is the remainder left by truncating the inversion at depth $J$. Its mean-square size is $\theta^{2(J+1)}\sigma^2$, which vanishes as $J$ grows exactly when $|\theta|<1$. That decay is the usual invertibility restriction: it is what makes the innovations recoverable from the observed past in mean square. An MA(1) remains stationary even when this restriction fails.{{cite:hyndman_athanasopoulos2021}} (§9.4)
 
 ::: {.callout-note collapse="true" title="Proof"}
 ::: {.proof}
@@ -36,13 +40,15 @@ First inspect the series for trend or seasonality, because a changing mean can p
 With $\phi=1$ and nonzero innovation variance, an AR(1) becomes a random walk; its variance increases each step, so stationary AR formulas such as $\sigma^2/(1-\phi^2)$ are invalid. A series whose mean rises through a season cannot be described adequately by one stationary mean without accounting for that trend or seasonality. If residuals retain strong correlation after fitting, the chosen lag orders have left dependence unexplained. And if innovations are merely uncorrelated rather than independent, the covariance calculations above still work, but stronger claims about independent distant observations do not follow.{{cite:hyndman_athanasopoulos2021}} (§§9.1, 9.3–9.7)
 
 ## Worked example
+The forecasts in this example treat the mean, the coefficients and the innovation variance as known, and give every future innovation conditional mean zero given the observed past: a shock itself is never forecast, only averaged over.
+
 Suppose demand has long-run mean $\mu=10$, follows a stationary AR(1) with $\phi=3/5=0.6$, and has innovation variance $\sigma^2=4$. If today's value is $X_t=12$, the one-step conditional forecast is
 $$
 \widehat X_{t+1\mid t}=10+(3/5)(12-10)=56/5=11.2.
 $$
 One more step with no new shock gives $\widehat X_{t+2\mid t}=10+(3/5)^2(12-10)=268/25=10.72$. The forecast moves toward ten, and the stationary variance is $4/[1-(3/5)^2]=25/4=6.25$.
 
-For comparison, give an MA(1) the same mean and innovation variance but set $\theta=1/2$. Its variance is $4[1+(1/2)^2]=5$, lag-one covariance is $(1/2)4=2$, and lag-one correlation is $2/5=0.4$. If the latest estimated innovation is $\varepsilon_t=2$, the one-step forecast is $10+(1/2)2=11$; with no later information, the two-step forecast is already $10$. The AR level deviation fades geometrically, while the MA shock expires after one more observation.{{cite:hyndman_athanasopoulos2021}} (§§9.3–9.4, model-based calculations)
+For comparison, give an MA(1) the same mean and innovation variance but set $\theta=1/2$. Its variance is $4[1+(1/2)^2]=5$, lag-one covariance is $(1/2)4=2$, and lag-one correlation is $2/5=0.4$. If the latest estimated innovation is $\varepsilon_t=2$, the one-step forecast is $10+(1/2)2=11$; with no later information, the two-step forecast is already $10$. That $\varepsilon_t=2$ is a plug-in in practice: an innovation is not observed, so a fitted model supplies the residual from its own fitted equation in place of the innovation of the invertible representation, and the forecast inherits the error of that substitution. The AR forecasts above need no such plug-in, because they condition on observed values rather than on a recovered shock. The AR level deviation fades geometrically, while the MA shock expires after one more observation.{{cite:hyndman_athanasopoulos2021}} (§§9.3–9.4, model-based calculations)
 
 **Your turn.** In the MA(1) example, change $\theta$ to $-1/2$ while keeping $\mu=10$, $\sigma^2=4$, and the latest innovation $\varepsilon_t=2$. Find the next forecast, the forecast two steps ahead, and the lag-one correlation.
 
