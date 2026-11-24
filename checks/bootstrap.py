@@ -4,6 +4,7 @@ from collections import Counter
 from itertools import product
 from math import isclose, sqrt, e
 from pathlib import Path
+import re
 
 ROOT = Path(__file__).resolve().parents[1]
 page = (ROOT / "articles/bootstrap.qmd").read_text()
@@ -39,4 +40,29 @@ assert '::: {.callout-tip collapse="true" title="Answer"}' in page
 assert '## Worked example {#worked-example}' in page
 assert '{#assumptions-and-limits}' in page
 assert 'Lead context' not in content
+
+# The chapter's occupancy calculation is copied into Definition, separately
+# from the authored Properties proof. Both the calculation and its limit must
+# survive there, inside a closed Proof rather than above the self-check.
+definition = page.split('## Definition {#definition}', 1)[1].split('\n## ', 1)[0]
+folded_proof = re.compile(
+    r'^::: \{\.callout-note collapse="true" title="Proof"\}\n'
+    r'::: \{\.proof\}\n(.*?)^:::\n:::', re.M | re.S)
+proofs = folded_proof.findall(definition)
+assert len(proofs) == 1, 'Definition needs one folded source proof'
+visible_definition = folded_proof.sub('', definition)
+for formula in (
+    r'1-\Bigl(1-\frac1n\Bigr)^n',
+    r'\log(1-1/n)=-1/n-1/(2n^2)+O(n^{-3})',
+    r'\to 1-e^{-1}\approx 0.632',
+):
+    assert formula in proofs[0], ('missing source derivation', formula)
+    assert formula not in visible_definition, ('visible source derivation', formula)
+
+# The scoring definition is outside the proof; the source question still has
+# its own folded answer, so hiding the derivation does not swallow either one.
+assert '#def-sl-09-bootstrap-error' in visible_definition
+assert r'=0.368\,' in visible_definition and r'+0.632\,' in visible_definition
+self_check = page.split('### The $0.632$ rule {#self-check-ex-sl-09-3}', 1)[1]
+assert 'collapse="true" title="Answer"' in self_check.split('\n### ', 1)[0]
 print("bootstrap enumeration, inclusion numbers and structure passed")
