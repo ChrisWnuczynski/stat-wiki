@@ -35,21 +35,33 @@ size = binomial_tail(range(13, 16), 3, 5)
 tail_from_12 = binomial_tail(range(12, 16), 3, 5)
 atom_12 = binomial_tail((12,), 3, 5)
 power = binomial_tail(range(13, 16), 9, 10)
+gamma = (0.05 - size) / atom_12
 assert round(size, 6) == 0.027114
+assert size != 0.027114
 assert round(size * 100, 4) == 2.7114
 assert round(tail_from_12, 6) == 0.090502
 assert round(atom_12, 6) == 0.063388
 assert round(power, 4) == 0.8159
+assert round(gamma, 5) == 0.36105
 assert abs(sum(binom.pmf(k, 15, 0.6) for k in (13, 14, 15)) - size) < 1e-12
 assert round(1.635 * 1.1 / 6, 4) == 0.2998
+assert round(t.ppf(0.975, n - 1), 4) == 1.9723
+assert t.ppf(0.975, n - 1) != 1.9723
 
 for printed in (
     "9.261460", "0.022789", "1.9723", "9.258241", "9.264679", "1.6527",
     "0.6965", "1.365", "125.635", "128.365", "0.027114", "2.7114",
     "0.090502", "0.063388", "0.8159", "0.2998", "1.960", "1.635", "2611",
+    "0.36105",
 ):
     assert printed in body, printed
+assert "approximately $0.027114$" in body
+assert "approximately $0.36105$" in body
 assert "about 5%" not in body
+visible, _, answers = body.partition("## Check yourself")
+for spoiled in ("0.027114", "2.7114", "0.8159", "0.090502", "0.063388"):
+    assert spoiled not in visible, spoiled
+assert "0.36105" in visible
 assert body.count('title="Proof"') == 1
 assert "**Your turn.**" in body and "## Check yourself" in body
 assert body.count('title="Answer"') >= 3
