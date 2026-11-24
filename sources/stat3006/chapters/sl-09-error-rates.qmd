@@ -306,6 +306,8 @@ $$
 Q\bigl(y_i,\eta_b(x_i)\bigr).
 $$
 
+This estimator is defined only when every case is omitted from at least one bootstrap resample.
+
 Each case is tested only by rules that did not see it, the same discipline as cross-validation. Because each bootstrap training set contains only about $0.632n$ distinct observations, their prediction error often reflects the smaller number of distinct training cases, and $\widehat{\mathrm{Err}}^{(\mathrm{BOOT})}$ is generally biased upward{{cite:efron_tibshirani1997_632plus}} (§§2–3, pp. 550–552).
 
 The $.632$ estimator pulls that upward bias back toward the apparent error, with weights taken from the limiting inclusion probability and its complement:
