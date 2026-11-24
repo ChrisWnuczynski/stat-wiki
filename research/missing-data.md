@@ -22,6 +22,6 @@ Rank 329. Type: concept. Tier: lighter.
 
 ## Skipped
 
-- Rubin 1976 was not opened, so missingness mechanisms such as missing at random are not stated.
+- None for the missingness-mechanism qualification. Rubin (1976) was opened: Definition 1 is on printed p. 584, Definition 3 on p. 585, and Theorem 7.1 on p. 586. Printed p. 587 continues the proof of Theorem 7.2 and is not cited for Theorem 7.1.
 
 Generated body words 494 to 1052. Figures 0 to 0.
