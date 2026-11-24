@@ -12,14 +12,14 @@ Durrett records Cauchy–Schwarz as the case $p=q=2$ of Hölder's inequality: if
 $$
 \bigl(\E|XY|\bigr)^2\le\E(X^2)\,\E(Y^2).
 $$
-The vector form is: for vectors $x$ and $y$, $|x^\top y|\le\|x\|\,\|y\|$, where $\|x\|=\sqrt{x^\top x}$. Applied to the centred variables $X-\E X$ and $Y-\E Y$, the random-variable form becomes
+The displayed bound is the absolute-product form. The signed form $(\E XY)^2\le\E(X^2)\,\E(Y^2)$ holds too, but the two forms have different equality cases, set out in the Interpretation below. The vector form is: for vectors $x$ and $y$, $|x^\top y|\le\|x\|\,\|y\|$, where $\|x\|=\sqrt{x^\top x}$. Applied to the centred variables $X-\E X$ and $Y-\E Y$, the random-variable form becomes
 $$
 \bigl(\Cov(X,Y)\bigr)^2\le\Var(X)\Var(Y),
 $$
 whenever those variances are finite. If both variances are positive, dividing gives $|\rho(X,Y)|\le 1$.{{cite:durrett2019}} (p. 26, Remark after Hölder's inequality){{cite:dodge2008}} (p. 378, Cauchy–Schwarz inequality)
 
 ## Interpretation — What equality is saying
-Equality holds when one variable is a scalar multiple of the other, almost surely, including the possibility that one of them is zero. For centred variables that means $Y-\E Y=c(X-\E X)$ almost surely, so the pair sits on a straight line. A correlation of exactly 1 is that line with positive slope. A correlation of exactly $-1$ is the line with negative slope. A correlation of 0 is not independence. It is the absence of a linear association. The variables $X$ uniform on $\{-1,0,1\}$ and $Y=X^2$ have covariance 0, because $XY=X^3=X$ and $\E X=0$, while $Y$ is a function of $X$. Cauchy–Schwarz is silent about that curved dependence. It only caps the linear one.{{cite:durrett2019}} (p. 26, the quadratic touches zero at one root when equality holds)
+For the signed form, equality holds when one variable is a scalar multiple of the other, almost surely. For the absolute-product form displayed in the Definition, equality holds when $|X|$ and $|Y|$ are proportional almost surely, with no condition on how their signs are related. The distinction needs both second moments positive: if one variable is zero almost surely, both forms hold with equality trivially, but a zero variance does not define a correlation. For centred variables, proportionality means $Y-\E Y=c(X-\E X)$ almost surely, so the pair sits on a straight line. A correlation of exactly 1 is that line with positive slope. A correlation of exactly $-1$ is the line with negative slope. A correlation of 0 is not independence. It is the absence of a linear association. The variables $X$ uniform on $\{-1,0,1\}$ and $Y=X^2$ have covariance 0, because $XY=X^3=X$ and $\E X=0$, while $Y$ is a function of $X$. Cauchy–Schwarz is silent about that curved dependence. It only caps the linear one.{{cite:durrett2019}} (p. 26, the quadratic touches zero at one root when equality holds)
 
 ## Properties — The covariance bound and the vector norm
 The vector $(12,15,16)$ has squared length $144+225+256=625$ and length $\sqrt{625}=25$. Its inner product with the unit vector $(0.48,0.60,0.64)$ is $12\times0.48+15\times0.60+16\times0.64=5.76+9+10.24=25$, which equals the product of the lengths $25\times1$. The two vectors are parallel: the second is the first divided by 25. A second vector that is not parallel falls strictly inside the bound. For $(12,15,16)$ and $(1,0,0)$ the inner product is 12 and the product of lengths is $25\times1=25$, and $12<25$.
@@ -36,7 +36,7 @@ provided the second moments exist. The right-hand side is a quadratic $a\theta^2
 $$
 4\bigl(\E(XY)\bigr)^2-4\E(X^2)\E(Y^2)\le0.
 $$
-That is Cauchy–Schwarz. If $\E Y^2=0$ then $Y=0$ almost surely and both sides are zero. If $\E Y^2>0$, equality holds when the quadratic touches zero, hence when $X+\theta Y=0$ almost surely for $\theta=-b/(2a)$, so $X$ is a multiple of $Y$.
+That is Cauchy–Schwarz. The same quadratic argument applied to $|X|$ and $|Y|$ instead of $X$ and $Y$ gives the displayed absolute-product form $(\E|XY|)^2\le\E(X^2)\,\E(Y^2)$, because $|X|^2=X^2$ and $|XY|=|X|\,|Y|$. If $\E Y^2=0$ then $Y=0$ almost surely and both sides are zero. If $\E Y^2>0$, equality holds when the quadratic touches zero, hence when $X+\theta Y=0$ almost surely for $\theta=-b/(2a)$, so $X$ is a multiple of $Y$.
 
 Replace $X$ and $Y$ by $X-\E X$ and $Y-\E Y$. The cross term becomes the covariance and the squared lengths become the variances. If either variance is zero the covariance is zero as well, because a constant has covariance zero with every variable.{{cite:durrett2019}} (p. 26, discriminant of the quadratic)
 :::
