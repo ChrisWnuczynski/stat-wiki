@@ -1329,6 +1329,9 @@ ALIASES.update({
     "Brown-Forsythe test": "levene-s-test",
     "Brown–Forsythe test": "levene-s-test",
     "Friedman rank sum test": "friedman-test",
+    "mean-field approximation": "variational-inference",
+    "hybrid Monte Carlo": "hamiltonian-monte-carlo",
+    "Bayesian nonparametrics": "dirichlet-process",
 })
 
 ALIASES.update({
@@ -1632,6 +1635,10 @@ LINKS += [
     link(["Shapiro–Wilk test", "Shapiro-Wilk test"], "shapiro-wilk-test"),
     link(["Friedman rank sum test", "Friedman test"], "friedman-test"),
     link(["Levene's test", "Levene test", "Brown-Forsythe test", "Brown–Forsythe test"], "levene-s-test"),
+    link(["variational inference", "variational Bayes", "mean-field approximation", "evidence lower bound"], "variational-inference"),
+    link(["Hamiltonian Monte Carlo", "hybrid Monte Carlo", "No-U-Turn sampler"], "hamiltonian-monte-carlo"),
+    link(["importance sampling", "self-normalised importance sampling"], "importance-sampling"),
+    link(["Dirichlet process", "Bayesian nonparametrics", "Chinese restaurant process", "stick-breaking"], "dirichlet-process"),
 ]
 
 LINKS += [

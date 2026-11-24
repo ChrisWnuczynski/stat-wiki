@@ -155,6 +155,23 @@
         "id": "/works/OL2972902W"
       }
     },
+    "antoniak1974": {
+      "authors": [
+        "Antoniak, C. E."
+      ],
+      "year": 1974,
+      "title": "Mixtures of Dirichlet Processes with Applications to Bayesian Nonparametric Problems",
+      "kind": "article",
+      "venue": "The Annals of Statistics",
+      "volume": "2",
+      "issue": "6",
+      "pages": "1152–1174",
+      "doi": "10.1214/aos/1176342871",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1214/aos/1176342871"
+      }
+    },
     "arbuthnot1710": {
       "authors": [
         "Arbuthnot, J."
@@ -2350,6 +2367,24 @@
         "id": "https://archive.org/details/solution-of-some-problems-in-the-theory-of-probabilities-of-significance-in-auto"
       }
     },
+    "escobar_west1995": {
+      "authors": [
+        "Escobar, M. D.",
+        "West, M."
+      ],
+      "year": 1995,
+      "title": "Bayesian Density Estimation and Inference Using Mixtures",
+      "kind": "article",
+      "venue": "Journal of the American Statistical Association",
+      "volume": "90",
+      "issue": "430",
+      "pages": "577–588",
+      "doi": "10.1080/01621459.1995.10476550",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1080/01621459.1995.10476550"
+      }
+    },
     "evans2025_graphical": {
       "authors": [
         "Evans, R. J."
@@ -2424,6 +2459,23 @@
       "verification": {
         "source": "openlibrary",
         "id": "/works/OL146759W"
+      }
+    },
+    "ferguson1973": {
+      "authors": [
+        "Ferguson, T. S."
+      ],
+      "year": 1973,
+      "title": "A Bayesian Analysis of Some Nonparametric Problems",
+      "kind": "article",
+      "venue": "The Annals of Statistics",
+      "volume": "1",
+      "issue": "2",
+      "pages": "209–230",
+      "doi": "10.1214/aos/1176342360",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1214/aos/1176342360"
       }
     },
     "fisher1912_curve": {
@@ -3692,6 +3744,42 @@
         "id": "https://www2.stat.duke.edu/~pdh10/Teaching/581/LectureNotes/Static/bayes.pdf"
       }
     },
+    "hoffman_etal2013_svi": {
+      "authors": [
+        "Hoffman, M. D.",
+        "Blei, D. M.",
+        "Wang, C.",
+        "Paisley, J."
+      ],
+      "year": 2013,
+      "title": "Stochastic Variational Inference",
+      "kind": "article",
+      "venue": "Journal of Machine Learning Research",
+      "volume": "14",
+      "pages": "1303–1347",
+      "url": "https://jmlr.org/papers/v14/hoffman13a.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://jmlr.org/papers/v14/hoffman13a.html"
+      }
+    },
+    "hoffman_gelman2014": {
+      "authors": [
+        "Hoffman, M. D.",
+        "Gelman, A."
+      ],
+      "year": 2014,
+      "title": "The No-U-Turn Sampler: Adaptively Setting Path Lengths in Hamiltonian Monte Carlo",
+      "kind": "article",
+      "venue": "Journal of Machine Learning Research",
+      "volume": "15",
+      "pages": "1593–1623",
+      "url": "https://jmlr.org/papers/v15/hoffman14a.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://jmlr.org/papers/v15/hoffman14a.html"
+      }
+    },
     "hojsgaard2006_geepack": {
       "authors": [
         "Halekoh, U.",
@@ -4110,6 +4198,26 @@
       "verification": {
         "source": "crossref",
         "id": "10.1080/03461238.1953.10419459"
+      }
+    },
+    "jordan_etal1999_variational": {
+      "authors": [
+        "Jordan, M. I.",
+        "Ghahramani, Z.",
+        "Jaakkola, T. S.",
+        "Saul, L. K."
+      ],
+      "year": 1999,
+      "title": "An Introduction to Variational Methods for Graphical Models",
+      "kind": "article",
+      "venue": "Machine Learning",
+      "volume": "37",
+      "issue": "2",
+      "pages": "183–233",
+      "doi": "10.1023/A:1007665907178",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1023/A:1007665907178"
       }
     },
     "kaplan_meier1958": {
@@ -5337,6 +5445,39 @@
       "verification": {
         "source": "crossref",
         "id": "10.1002/9780470556986"
+      }
+    },
+    "neal2000_dpmm": {
+      "authors": [
+        "Neal, R. M."
+      ],
+      "year": 2000,
+      "title": "Markov Chain Sampling Methods for Dirichlet Process Mixture Models",
+      "kind": "article",
+      "venue": "Journal of Computational and Graphical Statistics",
+      "volume": "9",
+      "issue": "2",
+      "pages": "249–265",
+      "doi": "10.1080/10618600.2000.10474879",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1080/10618600.2000.10474879"
+      }
+    },
+    "neal2011_hmc": {
+      "authors": [
+        "Neal, R. M."
+      ],
+      "year": 2011,
+      "title": "MCMC using Hamiltonian Dynamics",
+      "kind": "incollection",
+      "venue": "Handbook of Markov Chain Monte Carlo",
+      "publisher": "Chapman and Hall/CRC",
+      "pages": "113–162",
+      "url": "https://arxiv.org/pdf/1206.1901",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://arxiv.org/pdf/1206.1901"
       }
     },
     "nelder_wedderburn1972": {
@@ -7501,6 +7642,23 @@
       "verification": {
         "source": "crossref",
         "id": "10.1080/00031305.1975.10479121"
+      }
+    },
+    "sethuraman1994": {
+      "authors": [
+        "Sethuraman, J."
+      ],
+      "year": 1994,
+      "title": "A Constructive Definition of Dirichlet Priors",
+      "kind": "article",
+      "venue": "Statistica Sinica",
+      "volume": "4",
+      "issue": "2",
+      "pages": "639–650",
+      "url": "https://www3.stat.sinica.edu.tw/statistica/oldpdf/A4n26.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www3.stat.sinica.edu.tw/statistica/oldpdf/A4n26.pdf"
       }
     },
     "shafer_vovk2018_grundbegriffe": {
@@ -9865,6 +10023,20 @@
         "id": "https://www.randomservices.org/random/point/Likelihood.html"
       }
     },
+    "owen2013_mc": {
+      "authors": [
+        "Owen, A. B."
+      ],
+      "year": 2013,
+      "title": "Monte Carlo Theory, Methods and Examples",
+      "kind": "book",
+      "publisher": "Stanford University",
+      "url": "https://artowen.su.domains/mc/",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://artowen.su.domains/mc/"
+      }
+    },
     "owen2017_thinning": {
       "authors": [
         "Owen, A. B."
@@ -10123,6 +10295,24 @@
       "verification": {
         "source": "archival_url",
         "id": "https://d2l.ai/"
+      }
+    },
+    "tokdar_kass2010": {
+      "authors": [
+        "Tokdar, S. T.",
+        "Kass, R. E."
+      ],
+      "year": 2010,
+      "title": "Importance Sampling: A Review",
+      "kind": "article",
+      "venue": "Wiley Interdisciplinary Reviews: Computational Statistics",
+      "volume": "2",
+      "issue": "1",
+      "pages": "54–60",
+      "doi": "10.1002/wics.56",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1002/wics.56"
       }
     },
     "treil2026_linear_algebra": {
@@ -10714,6 +10904,25 @@
       "verification": {
         "source": "archival_url",
         "id": "https://mml-book.github.io/book/mml-book.pdf"
+      }
+    },
+    "blei_kucukelbir_mcauliffe2017": {
+      "authors": [
+        "Blei, D. M.",
+        "Kucukelbir, A.",
+        "McAuliffe, J. D."
+      ],
+      "year": 2017,
+      "title": "Variational Inference: A Review for Statisticians",
+      "kind": "article",
+      "venue": "Journal of the American Statistical Association",
+      "volume": "112",
+      "issue": "518",
+      "pages": "859–877",
+      "doi": "10.1080/01621459.2017.1285773",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1080/01621459.2017.1285773"
       }
     },
     "blei_ng_jordan2003": {
@@ -12348,6 +12557,24 @@
         "id": "10.1051/ps:2006014"
       }
     },
+    "blackwell_macqueen1973": {
+      "authors": [
+        "Blackwell, D.",
+        "MacQueen, J. B."
+      ],
+      "year": 1973,
+      "title": "Ferguson Distributions via Pólya Urn Schemes",
+      "kind": "article",
+      "venue": "The Annals of Statistics",
+      "volume": "1",
+      "issue": "2",
+      "pages": "353–355",
+      "doi": "10.1214/aos/1176342372",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1214/aos/1176342372"
+      }
+    },
     "blanchard_roquain2009": {
       "authors": [
         "Blanchard, Gilles",
@@ -12681,6 +12908,20 @@
       "verification": {
         "source": "archival_url",
         "id": "https://stat.ethz.ch/R-manual/R-devel/library/base/html/Random.html"
+      }
+    },
+    "betancourt2017_hmc": {
+      "authors": [
+        "Betancourt, M."
+      ],
+      "year": 2017,
+      "title": "A Conceptual Introduction to Hamiltonian Monte Carlo",
+      "kind": "article",
+      "venue": "arXiv",
+      "url": "https://arxiv.org/pdf/1701.02434",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://arxiv.org/pdf/1701.02434"
       }
     },
     "biau_devroye2015": {

@@ -3467,6 +3467,22 @@
     "words": 2911,
     "figures": 0
   },
+  "variational-inference": {
+    "words": 5689,
+    "figures": 0
+  },
+  "hamiltonian-monte-carlo": {
+    "words": 5621,
+    "figures": 0
+  },
+  "importance-sampling": {
+    "words": 6028,
+    "figures": 0
+  },
+  "dirichlet-process": {
+    "words": 5832,
+    "figures": 0
+  },
   "kaplan-meier-estimator": {
     "words": 4816,
     "figures": 0
