@@ -1,5 +1,5 @@
 ## Lead context
-Its sign distinguishes variables that tend to rise together from variables that tend to move in opposite directions. It also tells us how much dependence changes the spread of a sum, which matters when combining measurements, risks, or prediction errors.{{cite:nist_error_propagation2002}} (§3.1.3.3)
+Its sign is the sign of the expected signed product of the variables' deviations from their own means. Positive covariance means this average product is positive; the magnitudes of the products matter as well as how often they occur. It also tells us how much dependence changes the spread of a sum, which matters when combining measurements, risks, or prediction errors.{{cite:nist_error_propagation2002}} (§3.1.3.3)
 
 ## Motivating example
 Two stages of a job may both run late on difficult days. Adding their separate delay variances would understate the uncertainty in total completion time if large delays tend to occur together. Covariance records that shared movement, so it enters the variance of the combined delay.{{cite:nist_error_propagation2002}} (§3.1.3.3)
@@ -46,7 +46,7 @@ The [sample-covariance divisor exercise](../questions/ex-sl-02-1.qmd) applies th
 Try [signs and their sum](../questions/ex-prob-sign-covariance.qmd), then [where the $n-1$ comes from](../questions/ex-sl-02-1.qmd). The first asks for a joint law before computing covariance; the second extends the centred-product calculation to a covariance matrix.
 
 ::: {.callout-tip collapse="true" title="Answers"}
-For the sign question, $\mathbb E X=1/4$, $\mathbb E Y=-1$, and $\mathbb E(XY)=-1$, so $\operatorname{Cov}(X,Y)=-3/4$. For uncorrelated random vectors with common covariance matrix $\Sigma$, expanding deviations from the population mean gives expected centred scatter $(n-1)\Sigma$. Normality is not needed.{{cite:grinstead_snell1997}} (Ch. 6, Exs. 6.2.23, 6.3.17–20)
+For the sign question, $\mathbb E X=1/4$, $\mathbb E Y=-1$, and $\mathbb E(XY)=-1$, so $\operatorname{Cov}(X,Y)=-3/4$. For uncorrelated random vectors with common covariance matrix $\Sigma$, expanding deviations from the population mean gives expected centred scatter $(n-1)\Sigma$. Normality is not needed.
 :::
 
 Suppose $\operatorname{Var}(X)=4$, $\operatorname{Var}(Y)=9$ and $\operatorname{Cov}(X,Y)=3$. What are the correlation of $X$ and $Y$, and the variance of $X+Y$?
@@ -56,7 +56,7 @@ The standard deviations are 2 and 3, so the correlation is $3/(2\times 3)=1/2$. 
 :::
 
 ## Common misconceptions
-A covariance of zero means no linear association as measured by centred products; it does not rule out nonlinear dependence. A positive covariance also does not say that both variables are positive: it says their *deviations from their own means* tend to share a sign. Raw covariance magnitudes cannot be compared across different measurement scales; multiplying $X$ by ten multiplies its covariance with $Y$ by ten.{{cite:grinstead_snell1997}} (Ch. 6, Exs. 6.2.23, 6.3.17–20)
+A covariance of zero means no linear association as measured by centred products; it does not rule out nonlinear dependence. A positive covariance also does not say that both variables are positive: it says the expected signed product of their *deviations from their own means* is positive. Equal-sign deviations need not occur more often than opposite-sign deviations: large positive products can outweigh more frequent negative products. Raw covariance magnitudes cannot be compared across different measurement scales; multiplying $X$ by ten multiplies its covariance with $Y$ by ten.{{cite:grinstead_snell1997}} (Ch. 6, Exs. 6.2.23, 6.3.17–20)
 
 ## Assumptions and limits
 The familiar finite covariance requires sufficient integrability. Finite second moments guarantee it, but a heavy-tailed pair need not have a finite covariance. Sample covariance can be sensitive to a single extreme pair. Its sign and size summarize linear co-movement, so inspect the joint pattern, not just one number. Even a reliable positive covariance in observational data does not establish that changing one variable would cause the other to change.{{cite:grinstead_snell1997}} (Ch. 6, Exs. 6.2.23, 6.3.17–20) {{cite:nist_covariance2002}} (§6.5.4.1) {{cite:dicker2025_cdc}} (Ch. “Analyzing and Interpreting Data”)
