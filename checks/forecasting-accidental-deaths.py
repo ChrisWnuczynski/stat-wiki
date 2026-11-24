@@ -68,6 +68,13 @@ cat("OP", max(abs(op)), "\n")
 cat("REPEAT", rep, "\n")
 cat("INC0", inc[1], "\n")
 cat("INCSPAN", max(abs(c(inc, inc2) - inc[1])), "\n")
+y2 <- x
+y2[length(y2)] <- y2[length(y2)] + 500
+held <- arima(y2, order=c(0,1,1), seasonal=list(order=c(0,1,1), period=12), fixed=coef(fit))
+refit <- arima(y2, order=c(0,1,1), seasonal=list(order=c(0,1,1), period=12))
+base48 <- as.numeric(predict(fit, n.ahead=48)$pred[48])
+cat("SHIFT48", as.numeric(predict(held, n.ahead=48)$pred[48]) - base48, "\n")
+cat("REFIT48", as.numeric(predict(refit, n.ahead=48)$pred[48]) - base48, "\n")
 has <- requireNamespace("forecast", quietly=TRUE)
 cat("HAS_FORECAST", as.integer(has), "\n")
 if (has) {
@@ -79,6 +86,8 @@ if (has) {
     cat("AUTO_JAN", as.numeric(forecast(auto, h=1)$mean[1]), "\n")
     cat("IC", deparse(formals(auto.arima)$ic), "\n")
     cat("DRIFT_TRACE", as.integer(any(grepl("with drift", tr))), "\n")
+    cat("DTEST", nsdiffs(x, test="seas"), "\n")
+    cat("KPSS", ndiffs(diff(x, lag=12), test="kpss"), "\n")
     cat("VERSION", as.character(packageVersion("forecast")), "\n")
 }
 """
@@ -128,10 +137,13 @@ if vals["HAS_FORECAST"] == "1":
     assert abs(fnum("AUTO_JAN") - jan) < 0.02
     assert vals["IC"].replace(" ", "").startswith('c("aicc","aic","bic")')
     assert vals["DRIFT_TRACE"] == "0"
+    assert vals["DTEST"] == "1" and vals["KPSS"] == "1"
 assert fnum("OP") < 1e-6
 assert fnum("REPEAT") < 1e-6
 assert abs(fnum("INC0") - 186.523) < 0.01
 assert fnum("INCSPAN") < 1e-6
+assert abs(fnum("SHIFT48") - 892.0396) < 0.05
+assert abs(fnum("REFIT48") - 1321.7475) < 0.05
 
 def poly(t):
     return t * t
@@ -162,6 +174,16 @@ required = [
     "straight line plus a seasonal pattern",
     "does not follow a quadratic",
     "no drift",
+    "seasonal-strength test",
+    "KPSS unit-root test",
+    "$D=1$",
+    "$d=1$",
+    "autoregressive and moving-average orders",
+    "stepwise search",
+    "no longer enter the forecast equation directly",
+    "level, the slope and the seasonal pattern",
+    "coefficients fixed",
+    "$892$",
     "auto.arima(USAccDeaths, seasonal = TRUE)",
     "{#fig-deaths-fc}",
     "{#fig-deaths-corr}",
@@ -180,6 +202,8 @@ rejected = [
     "on top of the quadratic",
     "The AIC is what the function used",
     "read as behaviour",
+    "They leave the point forecast after lag",
+    "chooses the orders given the frequency",
 ]
 for token in rejected:
     assert token not in text, token
