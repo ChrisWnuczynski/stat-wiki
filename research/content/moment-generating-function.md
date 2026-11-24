@@ -6,7 +6,7 @@ If four independent trials each succeed with probability $0.3$, the expected num
 
 The transform $e^{tX}$ gives more weight to large values when $t>0$ and to small values when $t<0$. Taking its expectation records how the distribution responds to that tilt. Near zero, the exponential's power series contains $1$, $X$, $X^2/2!$ and higher powers, which explains the name: derivatives of the transform reveal ordinary moments. This picture is valid only where the expectation exists. A random variable always has $M(0)=1$, but that single value says almost nothing about its law.
 
-Independence is the other useful ingredient. Exponentiating a sum turns it into a product, $e^{t(X+Y)}=e^{tX}e^{tY}$. Only for independent $X,Y$ can the expectation be split into $M_X(t)M_Y(t)$. A product of transforms can therefore identify a sum distribution when a known family's transform has the same form. This often avoids a convolution integral.
+Independence is the other useful ingredient. Exponentiating a sum turns it into a product, $e^{t(X+Y)}=e^{tX}e^{tY}$. When $X$ and $Y$ are independent, the expectation splits into $M_X(t)M_Y(t)$. The implication runs one way only: a sum whose transform happens to factor does not prove the variables independent, so factorisation alone is never evidence of independence. A product of transforms can therefore identify a sum distribution when a known family's transform has the same form. This often avoids a convolution integral.
 
 ## Definition
 
@@ -47,7 +47,7 @@ The MGF is $M_N(t)=\exp\{2(e^t-1)\}$. Its first derivative at zero is $2$, and t
 
 ## Common misconceptions
 
-The existence of all moments does not guarantee an MGF on a neighbourhood of zero, as the lognormal example shows. Writing down a rational expression beyond the transform's domain does not extend the expectation there. A transform for a sum is a product of individual transforms only under independence. Finally, equality of the first two derivatives says only that two distributions share a mean and variance; it does not identify their entire laws.
+The existence of all moments does not guarantee an MGF on a neighbourhood of zero, as the lognormal example shows. Writing down a rational expression beyond the transform's domain does not extend the expectation there. Independence makes a sum's transform a product of the individual transforms, but the implication runs one way only: a product form does not prove independence. Finally, equality of the first two derivatives says only that two distributions share a mean and variance; it does not identify their entire laws.
 
 ## Connections
 
