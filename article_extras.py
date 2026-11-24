@@ -2554,7 +2554,7 @@ $$
 \tau_2=0.2.
 $$
 
-The M step then treats the point as $0.8$ of an observation from component $1$ and $0.2$ of an observation from component $2$. A value that was intended to be measured and was not, such as a dropped coordinate, is a different missingness mechanism. The same EM idea applies when the complete-data problem would have been easy, but the conditional distribution of the missing piece must match the mechanism that deleted it. Inventing a latent label and ignoring a coordinate that failed to record are different models.
+The M step then treats the point as $0.8$ of an observation from component $1$ and $0.2$ of an observation from component $2$. Those two numbers are conditional probabilities at the weights and densities just used. They are not recovered labels: a label would have been $0$ or $1$, and the same observation would receive a different pair if the current parameter changed. A value that was intended to be measured and was not, such as a dropped coordinate, is a different missingness mechanism. The same EM idea applies when the complete-data problem would have been easy, but the conditional distribution of the missing piece must match the mechanism that deleted it. Inventing a latent label and ignoring a coordinate that failed to record are different models.
 """,
     "modes-of-convergence": r"""
 ## Four different things a limit can mean
