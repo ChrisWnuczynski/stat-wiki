@@ -69,6 +69,30 @@ assert close(p - p_exact, -0.000542), p - p_exact
 allowed_mass = math.erf(math.sqrt(1.25) / math.sqrt(2))
 assert round(allowed_mass, 4) == 0.7364, allowed_mass
 
+# Ergodicity passage (Neal SS5.3.2.3): resonance is a property of the
+# leapfrog steps, not of the exact flow. With L*eps exactly 2*pi the exact
+# flow returns to its start, but leapfrog does not: from (q, p) = (1, 0)
+# with L = 4, eps = pi/2, the final q is about 0.586936, not 1.
+def leapfrog(q, p, eps, steps):
+    for _ in range(steps):
+        p_half = p - (eps / 2) * q
+        q = q + eps * p_half
+        p = p_half - (eps / 2) * q
+    return q, p
+
+
+q_res, _ = leapfrog(1.0, 0.0, math.pi / 2, 4)
+assert close(q_res, 0.586936), q_res
+assert not close(q_res, 1.0), q_res
+
+# One leapfrog step rotates by theta with cos(theta) = 1 - eps^2 / 2, so
+# theta > eps: for L = 20, eps = 2*pi/20, L*theta is 6.3093, not 2*pi,
+# and the leapfrog period is 2*pi/theta, about 19.92 steps, not 20.
+eps20 = 2 * math.pi / 20
+theta20 = math.acos(1 - eps20 * eps20 / 2)
+assert round(20 * theta20, 4) == 6.3093, 20 * theta20
+assert round(2 * math.pi / theta20, 2) == 19.92, 2 * math.pi / theta20
+
 # Reversibility check used in the article's Check yourself, question 1:
 # negate p, run the same 4 steps, negate p again -> back to the start.
 q2, p2 = q, -p

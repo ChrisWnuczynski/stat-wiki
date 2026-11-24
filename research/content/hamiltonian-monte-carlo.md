@@ -274,12 +274,12 @@ to give the image the same volume, and then checks the detailed balance
 identity directly from the acceptance formula {{cite:neal2011_hmc}} (§5.3.2.2, pp. 126–127). Together with the invariance of the resampling step, this
 gives a [Markov chain](markov-chain.qmd) for $q$ alone with the target as
 its invariant distribution. Invariance is not convergence from an arbitrary
-starting point, and Neal separates two cases {{cite:neal2011_hmc}} (§5.3.2.3, p. 127): if the trajectory length is an exact multiple
-of a period of the dynamics — for the one-dimensional Gaussian,
-$L\varepsilon$ exactly $2\pi$ — the trajectory returns to its starting
-point and the chain is not ergodic at all; for nearby values the chain is
-ergodic in principle, but may take a very long time to move about the full
-state space. Randomising $\varepsilon$ or $L$ over a small interval is his
+starting point, and Neal separates two cases {{cite:neal2011_hmc}} (§5.3.2.3, p. 127): if the $L$ leapfrog steps produce an exact periodicity
+— for the one-dimensional Gaussian, whose exact solutions have period
+$2\pi$, this happens when $L\varepsilon$ is approximately $2\pi$ — the
+trajectory returns to its starting position and the chain is not ergodic;
+for nearby values the chain may be ergodic in principle, but can still
+take a very long time to move about the full state space. Randomising $\varepsilon$ or $L$ over a small interval is his
 safeguard against both.
 
 ## Properties — Tuning, divergences, and the No-U-Turn sampler
@@ -335,7 +335,7 @@ $\Sigma$. It is the inverse mass that should match the target's
 covariance — equivalently, the masses themselves should be large where
 the target is narrow and small where it is wide — and setting the $m_i$
 that way makes the dynamics treat all directions more evenly
-{{cite:neal2011_hmc}} (§5.4.1, p. 133). Betancourt develops this as the choice
+{{cite:neal2011_hmc}} (§5.4.1, pp. 133–134). Betancourt develops this as the choice
 of a Euclidean metric, notes that the ideal choice makes the inverse metric
 resemble the covariance of the target, and describes estimating that
 covariance during an initial window and then fixing the metric
@@ -682,10 +682,11 @@ offers $z$ again; reject it, and the chain stays at $z$. Either way the
 chain never leaves the two-point orbit $\{z, T(z)\}$, so it cannot
 visit other energy levels or converge to the target from where it
 started. The Metropolis-corrected numerical chain is not confined to
-the single energy of the initial draw — it can move between the two
-energies of its orbit, $H(z)$ and $H(T(z))$, as acceptances and
-rejections alternate — but it can never reach a third energy, because
-no other state is ever proposed. The Metropolis step is not a hard
+the single energy of the initial draw: it can move between the two
+energies of its orbit, $H(z)$ and $H(T(z))$ — an acceptance switches
+the chain to the other state of the orbit, a rejection leaves it where
+it is, and acceptances and rejections need not alternate — but it can
+never reach a third energy, because no other state is ever proposed. The Metropolis step is not a hard
 energy tube — it accepts every proposal that lowers $H$, and one that
 raises $H$ by $\Delta H$ with probability $\exp(-\Delta H)$ — but the
 only energy changes ever on offer are the integration errors within
