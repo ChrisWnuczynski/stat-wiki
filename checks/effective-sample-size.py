@@ -1,6 +1,7 @@
 """Check effective-sample-size inflation factors."""
 
 import math
+from fractions import Fraction
 from pathlib import Path
 
 root = Path(__file__).resolve().parents[1]
@@ -47,6 +48,16 @@ inf_factor = (1 + (-0.5)) / (1 - (-0.5))
 assert abs(inf_factor - (1 / 3)) < 1e-12
 assert abs(5 / inf_factor - 15) < 1e-12
 
+# Alternating the signs of centered variables multiplies lag-k correlation by (-1)^k.
+# A global sign flip would not. Perfect alternation rho_k = (-1)^k makes the
+# finite-n multiplier exactly zero for every even n, so no finite ESS exists.
+flipped = [((-1) ** k) * (Fraction(1, 2) ** k) for k in range(1, 5)]
+assert flipped == [Fraction(-1, 2) ** k for k in range(1, 5)]
+for n in range(2, 22, 2):
+    exact = 1 + 2 * sum((1 - Fraction(k, n)) * ((-1) ** k) for k in range(1, n))
+    assert exact == 0, (n, exact)
+    assert sum((-1) ** t for t in range(1, n + 1)) == 0
+
 for printed in (
     "0.6125", "2.225", "2.247", "111.11", "0.03162", "0.09487",
     "1.492", "450", "133.33", "0.8",
@@ -55,6 +66,11 @@ for printed in (
     assert printed in body, printed
 assert "survived the dependence" not in body
 assert "survived" not in body
+assert "signs reversed" not in body
+assert "(-1)^t" in body
+assert "multiplier is therefore zero" in body
+assert "variance of the mean is also positive" in body
+assert r"0<\sigma^2<\infty" in body
 assert 'data-cite-key="stan_reference_analysis2026"' in body
 assert body.count('title="Proof"') == 1
 assert "**Your turn.**" in body and "## Check yourself" in body
