@@ -19,7 +19,7 @@ $$
 $$
 
 
-For a normal distribution the centred moments satisfy $\mu_s=(s-1)\sigma^2\mu_{s-2}$, with $\mu_0=1$ and $\mu_1=0$, so $\mu_2=\sigma^2$ and $\mu_4=3\sigma^4$. Therefore $\beta_2=3$. A curve with $\beta_2<3$ is called platykurtic, flatter than the normal curve. A curve with $\beta_2>3$ is called leptokurtic, more sharply peaked, in Dodge’s wording, than the normal curve. NIST’s reading of the same inequality is in terms of tails: high kurtosis goes with heavy tails or outliers, and low kurtosis with light tails. {{cite:dodge2008}} (pp. 91–92) {{cite:nist_skewness2002}} (§1.3.5.11, “Definition of Kurtosis”)
+For a normal distribution the centred moments satisfy $\mu_s=(s-1)\sigma^2\mu_{s-2}$, with $\mu_0=1$ and $\mu_1=0$, so $\mu_2=\sigma^2$ and $\mu_4=3\sigma^4$. Therefore $\beta_2=3$. A distribution with $\beta_2<3$ is called platykurtic. A distribution with $\beta_2>3$ is called leptokurtic. NIST’s reading of the same inequality is in terms of tails: high kurtosis goes with heavy tails or outliers, and low kurtosis with light tails. {{cite:dodge2008}} (pp. 91–92) {{cite:nist_skewness2002}} (§1.3.5.11, “Definition of Kurtosis”) These labels compare standardised fourth moments with the normal benchmark; they do not determine the height, shape or modality of a density peak.
 
 For a sample $y_1,\ldots,y_N$ the moment kurtosis uses the divisor $N$ both in the central moments and in the standard deviation:
 
