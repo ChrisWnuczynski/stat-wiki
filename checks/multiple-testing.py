@@ -64,7 +64,13 @@ thr = [0.10 * k / 4 for k in range(1, 5)]
 assert [round(t, 3) for t in thr] == [0.025, 0.050, 0.075, 0.100]
 k = max((i for i, (p, t) in enumerate(zip(ps, thr), 1) if p <= t), default=0)
 assert k == 3
-assert abs(0.10 / 4 - 0.025) < 1e-12
+bonferroni_level = 0.10 / 4
+assert abs(bonferroni_level - 0.025) < 1e-12
+bonferroni = [p for p in ps if p <= bonferroni_level]
+assert bonferroni == [0.004, 0.018]
+ordered = ps[:k]
+assert ordered == [0.004, 0.018, 0.040]
+assert [p for p in ordered if p not in bonferroni] == [0.040]
 assert abs(0.05 / 20 - 0.0025) < 1e-12
 for printed in ("0.6415", "0.77378", "0.22622", "0.004", "0.018", "0.040",
                 "0.200", "0.025", "0.050", "0.075", "0.100", "0.0025"):
@@ -77,4 +83,13 @@ for required in ("independent of all the other", "0.009216", "0.041472",
     assert required in body, required
 assert "When the test statistics of the true nulls are independent" not in raw
 assert "When the test statistics of the true nulls are independent" not in body
+for required in ("rejects $0.004$ and $0.018$", "one further hypothesis, $0.040$",
+                 r"level-$\alpha/m$ test", r"uniform on $(0,1)$, hence valid",
+                 "no larger than that rate when some nulls are false"):
+    assert required in raw, required
+    assert required in body, required
+for forbidden in ("rejects only $0.004$", "two further", "uncorrected level-$\\alpha$",
+                  "it is smaller when some nulls are false"):
+    assert forbidden not in raw, forbidden
+    assert forbidden not in body, forbidden
 print("multiple testing checks passed")
