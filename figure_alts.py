@@ -218,9 +218,10 @@ FIGURE_ALTS: dict[str, str] = {
         "rejecting at 13 or more, at the cost of raising null size at p = 0.6 from 0.027 to 0.091."
     ),
     "inf-ppv-prevalence.png": (
-        "Curves of positive predictive value (0 to 1) against disease prevalence (0 to 1) for two diagnostic tests "
+        "Curves of positive predictive value (0 to 1) against disease prevalence (0 to 0.2) for two diagnostic tests "
         "(95% and 99% sensitivity and specificity), rising steeply from near zero at rare prevalence (at prevalence "
-        "0.005, PPV around 0.33 for the 99% test and 0.087 for the 95% test) toward 1 as prevalence increases."
+        "0.005, PPV around 0.33 for the 99% test and 0.087 for the 95% test), rising toward 1 (about 0.96 and 0.83 "
+        "at prevalence 0.2)."
     ),
     "inf-regression-effect.png": (
         "Scatterplot of 1,078 simulated father-son height pairs in inches (correlation 0.5) comparing the shallower "
