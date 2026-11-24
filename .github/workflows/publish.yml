@@ -289,7 +289,20 @@ jobs:
       - name: Install forecast 8.21.1 for the seasonal ARIMA check
         run: |
           sudo apt-get update && sudo apt-get install -y libcurl4-openssl-dev
-          Rscript -e 'repos <- "https://packagemanager.posit.co/cran/2023-09-15"; install.packages("forecast", repos = repos, type = "source", dependencies = c("Depends", "Imports", "LinkingTo")); stopifnot(packageVersion("forecast") == "8.21.1")'
+          Rscript - <<'RS'
+          repos_old <- "https://packagemanager.posit.co/cran/2023-09-15"
+          deps <- c("colorspace", "fracdiff", "generics", "ggplot2", "lmtest", "magrittr",
+                    "nnet", "Rcpp", "RcppArmadillo", "timeDate", "urca", "zoo")
+          install.packages(deps, repos = repos_old, type = "source",
+                           dependencies = c("Depends", "Imports", "LinkingTo"))
+          # tseries 0.10-54 from that snapshot does not compile on R 4.5.
+          install.packages("tseries", repos = "https://cloud.r-project.org", type = "source",
+                           dependencies = c("Depends", "Imports", "LinkingTo"))
+          install.packages(
+            "https://cran.r-project.org/src/contrib/Archive/forecast/forecast_8.21.1.tar.gz",
+            repos = NULL, type = "source")
+          stopifnot(packageVersion("forecast") == "8.21.1")
+          RS
 
       - name: Install poppler
         run: sudo apt-get update && sudo apt-get install -y poppler-utils fonts-liberation
