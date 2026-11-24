@@ -1,7 +1,7 @@
 ## Motivating example
 A positive waiting-time model may have a rate parameter but no immediate regression structure. If its mean is $1/\lambda$, the observed average suggests the equation $\bar x=1/\lambda$. Solving gives $\widetilde\lambda=1/\bar x$. The method of moments generalises this idea by matching a sufficient number of distributional moments to their empirical counterparts. It starts with selected population features, rather than maximising the probability of the observed sample.{{cite:dodge2008}} (pp. 348–349, Method of Moments)
 
-## Definition — Match raw moments with empirical moments
+## Definition
 For a $k$-parameter family, write $m_j=n^{-1}\sum_i X_i^j$ and $\mu_j'(\theta)=\mathbb E_\theta X^j$. A basic moment estimator solves $m_j=\mu_j'(\theta)$ for $j=1,\ldots,k$, using moments that exist and identify the parameters. The prime denotes a raw moment about zero; a central moment instead measures powers of $X-\mathbb EX$. Counting equations is necessary but not sufficient: different parameter values may share the chosen moments, or sample moments may lie outside the model's feasible moment region.{{cite:dodge2008}} (pp. 348–349)
 
 Moment matching can also use other estimating functions. In the classical construction, however, the first $k$ raw moments give a concrete default and explain the name. The resulting estimate must lie in the parameter space. Algebraically solving the equations and then ignoring a negative variance, invalid probability or noninteger count parameter would change the problem. A constrained alternative needs an explicitly stated discrepancy criterion.{{cite:nist_method_of_moments}} (§1.3.6.5.1, Method of Moments)
@@ -19,16 +19,16 @@ The fitted Gamma mean is exactly $3$ and its variance is exactly $3.5$, because 
 **Your turn.** Multiply every observation by two. What happens to the fitted Gamma shape and rate?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The mean doubles and the central second moment multiplies by four. The fitted shape stays $18/7$ and the fitted rate halves to $3/7$. The mean therefore doubles while the variance multiplies by four.
+The mean doubles and the central second moment multiplies by four. The fitted shape stays $18/7$ and the fitted rate halves to $3/7$. The shape is a scale-free ratio of those two moments, while the rate has the dimension of one over the observations and therefore halves.
 :::
 
-## Assumptions and limits — A moment equation can point outside the model
+## Assumptions and limits — When the moment equations have no admissible root
 For a binomial model with unknown count $K$ and success probability $p$, let $m=\bar x>0$ and $v=n^{-1}\sum_i(x_i-m)^2$. Matching $m=Kp$ and $v=Kp(1-p)$ gives $\widetilde p=1-v/m$ and $\widetilde K=m/\widetilde p$ when the denominator is positive. If $v>m$, the implied probability is negative; if $v=m$, the solution has no finite positive count; and even a positive solution may give a noninteger $K$. Sample variation can therefore prevent an exact feasible moment solution.{{cite:dodge2008}} (p. 349, parameter constraints and existence of solutions)
 
 Heavy-tailed models supply another limitation. A Cauchy law has no finite first moment, so matching the sample average to a theoretical mean is undefined even though the sample average can be computed for each finite dataset. Robust location or quantile-based methods may still be available. The ability to calculate a finite-sample statistic does not establish existence of the population quantity it is supposed to estimate.{{cite:durrett2019}} (§2.4, strong law and integrability assumptions)
 
 ## Connections
+The [gamma distribution](gamma-distribution.qmd) is the two-moment illustration above: its mean and variance determine a shape and a rate. The [binomial distribution](binomial-distribution.qmd) is the case in which the moment map can return a probability outside $[0,1]$, so that no exact root lies in the model. [Maximum likelihood](maximum-likelihood.qmd) maximises a different function and need not solve these moment equations.
 
-Matching the first $k$ population raw moments to the corresponding empirical moments produces $k$ equations. A root inside the parameter space is a method-of-moments estimator when the map from parameters to moments has a continuous inverse at the true value. The strong law carries empirical moments to population moments whenever those moments exist, and the continuous inverse carries the estimates to the parameter. [Gamma distribution](gamma-distribution.qmd) is a two-moment illustration: the mean and the variance determine a shape and a rate. Replacing the divisor-$n$ central moment by the unbiased sample variance changes the equations. [Binomial distribution](binomial-distribution.qmd) shows a boundary failure: the moment map can return a probability outside $[0,1]$, and then no exact solution lies in the model. [Maximum likelihood](maximum-likelihood.qmd) maximises a different function and need not solve the moment equations.
-
-The empirical central second moment equals the second raw moment minus the square of the first, provided both raw moments use the divisor $n$. Mixing a divisor-$n$ raw moment with a divisor $n-1$ variance inserts a factor the population identity does not have. The resulting number is still a summary of the sample. It is not the plug-in moment the population formula was written to match.{{cite:dodge2008}} (pp. 348–349){{cite:dodge2008}} (p. 349, parameter constraints and existence of solutions){{cite:durrett2019}} (§2.4, strong law and integrability assumptions){{cite:nist_method_of_moments}} (§1.3.6.5.1, Method of Moments)
+## History
+In 1894 Karl Pearson set out to dissect an asymmetrical frequency curve into two normal components, on the view that the measurements might mix two homogeneous groups. The component means, scales and weights are recovered by matching moments of the observed curve to moments of that mixture; in the symmetrical case the second, fourth and sixth moments determine the component parameters.{{cite:pearson1894_mixture}} (pp. 71–72, 92–93)
