@@ -71,7 +71,9 @@ assert "(-1)^t" in body
 assert "multiplier is therefore zero" in body
 assert "variance of the mean is also positive" in body
 assert r"0<\sigma^2<\infty" in body
-assert 'data-cite-key="stan_reference_analysis2026"' in body
+assert body.count('data-cite-key="stan_reference_analysis2026"') >= 2
+assert 'data-locator="§16.4, p. 196"' in body
+assert 'data-locator="§16.4, p. 197"' in body
 assert body.count('title="Proof"') == 1
 assert "**Your turn.**" in body and "## Check yourself" in body
 assert body.count('title="Answer"') >= 3

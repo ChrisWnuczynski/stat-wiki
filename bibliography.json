@@ -8447,13 +8447,13 @@
         "Stan Development Team"
       ],
       "year": 2026,
-      "title": "Stan Reference Manual, Posterior Analysis",
+      "title": "Stan Reference Manual, Version 2.39",
       "kind": "book",
       "publisher": "Stan Development Team",
-      "url": "https://mc-stan.org/docs/reference-manual/analysis.html#effective-sample-size",
+      "url": "https://mc-stan.org/docs/2_39/reference-manual-2_39.pdf",
       "verification": {
         "source": "archival_url",
-        "id": "https://mc-stan.org/docs/reference-manual/analysis.html#effective-sample-size"
+        "id": "https://mc-stan.org/docs/2_39/reference-manual-2_39.pdf"
       }
     },
     "stan_reference_mcmc2026": {
