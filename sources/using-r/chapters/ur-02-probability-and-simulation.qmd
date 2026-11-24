@@ -36,7 +36,7 @@ The second value is the probability that a standard normal draw falls in $[-1.96
 
 The same four letters apply to every family R ships: `dpois`, `pbeta`, `qgamma`, `rt`, `rf`, `rchisq`. The parameterisation has to match the page that states the law. For the gamma, `dgamma(x, shape, rate)` uses a rate, which is the parameterisation on the [distribution sheet](../reference/distributions.qmd). `scale` is the reciprocal of `rate`, and passing one where the other was intended multiplies the mean by the wrong factor.
 
-The [gamma distribution](../articles/gamma-distribution.qmd#worked-example) calculates the wait for a third call. Calls arrive as a Poisson process at rate 2 per hour, so the waiting time $T_3$ is gamma with shape 3 and that rate. The waiting time to the third call exceeds 2 exactly when there are at most 2 calls in time 2. For a window of length `hours`, that count is Poisson with mean `rate * hours`, so the gamma upper tail and the Poisson sum are one probability.
+The worked example on the [gamma distribution](../articles/gamma-distribution.qmd#worked-example) is the waiting time for the third call. Calls arrive as a Poisson process at rate 2 per hour, so the waiting time $T_3$ is gamma with shape 3 and that rate. The waiting time to the third call exceeds 2 hours exactly when there are at most 2 calls in those 2 hours. For a window of length `hours`, that count is Poisson with mean `rate * hours`, so the gamma upper tail and the Poisson sum are one probability.
 
 ```r
 hours <- 2
