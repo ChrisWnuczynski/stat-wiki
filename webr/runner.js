@@ -186,6 +186,7 @@ export function install({ startEngine } = {}) {
   let installing = [];
   let downloaded = [];
   let statusBlock = null;
+  let activeRun = null;
   const session = new PageSession({
     codeOf,
     count: blocks.length,
@@ -204,17 +205,19 @@ export function install({ startEngine } = {}) {
     "The R blocks on this page run in your browser. Run executes a block after any block above it that has not run yet, in one R session for the page. The first Run downloads R and the packages the page uses, which takes a while once.";
   blocks[0].holder.before(intro);
 
-  function setStatus(block, text) {
-    block.bar.querySelector(".r-run-status").textContent = text;
+  function setStatus(block, text, kind = "") {
+    const status = block.bar.querySelector(".r-run-status");
+    status.dataset.kind = kind;
+    status.textContent = text;
   }
 
   function setBusy(busy, active) {
     for (const block of blocks) {
       block.bar.querySelector(".r-run-go").disabled = busy;
       block.bar.querySelector(".r-run-stop").hidden = !(busy && block === active);
-      if (!busy || block !== active) {
+      if (!busy) {
         const status = block.bar.querySelector(".r-run-status");
-        if (busy && status.dataset.kind === "running") status.textContent = "";
+        if (status.dataset.kind === "running") setStatus(block, "");
       }
     }
   }
@@ -317,6 +320,10 @@ export function install({ startEngine } = {}) {
   }
 
   async function run(block) {
+    // Control+Enter can reach here while the Run buttons are disabled.
+    if (session.busy) return;
+    const owner = {};
+    activeRun = owner;
     statusBlock = block;
     setBusy(true, block);
     const outcome = await session.run(block.index, {
@@ -329,11 +336,9 @@ export function install({ startEngine } = {}) {
         }
         if (kind === "run") {
           const target = blocks[detail];
-          const status = block.bar.querySelector(".r-run-status");
-          status.dataset.kind = "running";
-          status.textContent = detail === block.index ? "Running…" : `Running block ${detail + 1} above first…`;
+          setStatus(block, detail === block.index ? "Running…" : `Running block ${detail + 1} above first…`, "running");
           if (target !== block) {
-            target.bar.querySelector(".r-run-status").textContent = "Running…";
+            setStatus(target, "Running…", "running");
           }
         }
         if (kind === "failed") setStatus(block, `R did not start or stopped working: ${detail}. Press Run to try again.`);
@@ -341,7 +346,10 @@ export function install({ startEngine } = {}) {
       },
       blockDone: (i, result) => showResult(blocks[i], result),
     });
-    if (outcome === "busy") return;
+    // Stop releases the controls before the engine promise necessarily settles.
+    // Only the current run may release controls that a later Run has acquired.
+    if (activeRun !== owner || outcome === "busy") return;
+    activeRun = null;
     statusBlock = null;
     setBusy(false, null);
   }
@@ -363,6 +371,7 @@ export function install({ startEngine } = {}) {
     bar.querySelector(".r-run-reset").addEventListener("click", () => resetEdit(block));
     bar.querySelector(".r-run-stop").addEventListener("click", () => {
       session.stop();
+      activeRun = null;
       statusBlock = null;
       setBusy(false, null);
       setStatus(block, "R stopped. The next Run starts R again and reruns the blocks above.");

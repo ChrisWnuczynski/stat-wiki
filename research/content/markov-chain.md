@@ -1,25 +1,27 @@
 ## Motivating example
-A device moves among operating states as it is monitored each minute. To predict the next minute, an engineer might need only its present state, provided that state records everything relevant to the transition rule. If the same rule applies at every minute, a row of transition probabilities tells how it may move next, and repeated application gives probabilities several minutes ahead. This is the appeal of a Markov chain: a long, dependent history can sometimes be summarised by a sufficiently informative current state.{{cite:levin_peres2017}} (§1.1, Markov Chains)
+A device moves among operating states as it is monitored each minute. To predict the next minute, an engineer might need only its present state, provided that state records everything relevant to the transition rule. If the same rule applies at every minute, a row of transition probabilities tells how it may move next, and repeated application gives probabilities several minutes ahead. This is the appeal of a Markov chain: a long, dependent history can sometimes be summarised by a sufficiently informative current state.{{cite:levin_peres2017}} (§1.1, pp. 2–3, Markov Chains)
 
 ## Intuition
-The Markov property is about *conditional* prediction. Once the present state is known, earlier states do not change the conditional distribution of the next one. It does not say that consecutive states are independent: the present state can exert a strong influence. It also depends on how the state is defined. A queue length may be adequate for a memoryless arrival-and-service model, while a machine whose failure risk grows with elapsed time in service may need that elapsed time included in its state.{{cite:levin_peres2017}} (§1.1, Markov Chains)
+The Markov property is about *conditional* prediction. Once the present state is known, earlier states do not change the conditional distribution of the next one. It does not say that consecutive states are independent: the present state can exert a strong influence. It also depends on how the state is defined. A queue length may be adequate for a memoryless arrival-and-service model, while a machine whose failure risk grows with elapsed time in service may need that elapsed time included in its state.{{cite:levin_peres2017}} (§1.1, pp. 2–3, Markov property)
 
 A time-homogeneous chain reuses one transition rule. Writing its possible moves as arrows makes structural questions visible: can all states be reached, can the chain get trapped, and can it oscillate on a fixed schedule? These are separate from the Markov property itself. A chain can have the one-step memory rule while being reducible, periodic, or without a stationary probability on an infinite state space.{{cite:levin_peres2017}} (§§1.1, 1.3, 1.5)
 
 ## Definition
-A sequence $X_0,X_1,\ldots$ on a state space $S$ is a **discrete-time Markov chain** if, whenever the conditioning event has positive probability,
+On a countable state space $S$, a sequence $X_0,X_1,\ldots$ is a **discrete-time Markov chain** if, whenever the conditioning event has positive probability,
 $$
 \Pr(X_{t+1}=j\mid X_t=i,X_{t-1},\ldots,X_0)
 =\Pr(X_{t+1}=j\mid X_t=i).
 $$
-For a time-homogeneous finite-state chain, the right-hand side is $P_{ij}$, independent of $t$. Every row of $P$ is a probability distribution, so $P_{ij}\ge0$ and $\sum_jP_{ij}=1$. The initial distribution $\mu_0$ and the transition matrix together specify probabilities for every finite path. The chain can start from a fixed state or from a random initial distribution; neither choice changes the transition rule.{{cite:levin_peres2017}} (§1.1, Markov Chains)
+That displayed equality is the countable case. When the state space is finite and the chain is time-homogeneous, the right-hand side is a matrix entry $P_{ij}$ and every row is a probability distribution: $P_{ij}\ge0$ and $\sum_jP_{ij}=1$.{{cite:levin_peres2017}} (§1.1, pp. 2–3, finite transition matrix)
+
+On a measurable space the one-step law is a kernel, not an equality of atom probabilities. For each state $x$ and each measurable set $A$, $A\mapsto P_t(x,A)$ is a probability measure, the map $x\mapsto P_t(x,A)$ is measurable, and $\Pr(X_{t+1}\in A\mid X_0,\ldots,X_t)=P_t(X_t,A)$ almost surely. The matrix is that kernel when $S$ is finite. Using one kernel at every time is time-homogeneity. For a time-homogeneous chain the initial distribution and that one kernel determine the finite-dimensional laws. For a time-varying chain, the sequence of kernels and the initial law determine them. The chain can start from a fixed state or from a random initial distribution; neither choice changes the transition rule.
 
 ## Properties — From one step to many
-If $\mu_0$ is written as a row vector, the state distribution after one step is $\mu_1=\mu_0P$ and after $n$ steps is $\mu_n=\mu_0P^n$. The entry $(P^n)_{ij}$ is the chance of being in $j$ after $n$ steps when starting from $i$. In particular, to find a two-step probability one sums over the intermediate state, not merely the most likely route. This is the Chapman–Kolmogorov rule:
+If the chain is time-homogeneous and $\mu_0$ is written as a row vector, the state distribution after one step is $\mu_1=\mu_0P$ and after $n$ steps is $\mu_n=\mu_0P^n$. These powers are the homogeneous case, not the time-varying sequence of kernels. The entry $(P^n)_{ij}$ is the chance of being in $j$ after $n$ steps when starting from $i$. In particular, to find a two-step probability one sums over the intermediate state, not merely the most likely route. This is the Chapman–Kolmogorov rule:
 $$
 (P^{m+n})_{ij}=\sum_{k\in S}(P^m)_{ik}(P^n)_{kj}.
 $$
-For infinite $S$ the matrix notation becomes a sum or integral over states, subject to the usual probability-kernel conditions.{{cite:levin_peres2017}} (§1.1, Markov Chains)
+The sum displayed above is Chapman–Kolmogorov on a countable state space.{{cite:levin_peres2017}} (§1.1, pp. 2–4, finite transitions) On a measurable space the matching identity is an integral against the $n$-step kernel, and that kernel is a power of one transition kernel only when the chain is time-homogeneous.
 
 A stationary distribution $\pi$ satisfies $\pi P=\pi$; starting in it leaves the one-time distribution unchanged. Whether it exists, is unique, or attracts distributions from arbitrary starts requires additional conditions. For a finite irreducible aperiodic chain it is unique and $P^n$ approaches rows equal to $\pi$. A deterministic two-state alternation is Markov and irreducible, and has a stationary vector, but its one-time distribution never settles when started from one state.{{cite:levin_peres2017}} (§1.5, Stationary Distributions; §4.3, convergence theorem)
 
@@ -33,7 +35,7 @@ Summing these path probabilities over possible intermediate states yields each e
 $(P^{m+n})_{ij}=\sum_k\Pr(X_m=k\mid X_0=i)(P^n)_{kj}=\sum_k(P^m)_{ik}(P^n)_{kj}$.
 The distribution formula $\mu_n=\mu_0P^n$ follows by averaging the $i$th rows over $\mu_0(i)$.{{cite:levin_peres2017}} (§1.1, Markov Chains)
 
-For the simple symmetric walk on all integers, a stationary probability would satisfy $\pi_j=(\pi_{j-1}+\pi_{j+1})/2$ at every integer $j$. Thus successive differences $\pi_{j+1}-\pi_j$ are constant. Nonnegativity for arbitrarily large positive and negative $j$ forces that constant to be zero, leaving $\pi_j$ the same at every integer. A positive constant cannot sum to one, and the zero constant is not a probability, so no stationary probability exists.
+The following calculation is the infinite-state case. For the simple symmetric walk on all integers, a stationary probability would satisfy $\pi_j=(\pi_{j-1}+\pi_{j+1})/2$ at every integer $j$. Thus successive differences $\pi_{j+1}-\pi_j$ are constant. Nonnegativity for arbitrarily large positive and negative $j$ forces that constant to be zero, leaving $\pi_j$ the same at every integer. A positive constant cannot sum to one, and the zero constant is not a probability, so no stationary probability exists.
 :::
 :::
 
@@ -53,7 +55,7 @@ Starting at red, the chance of the particular path $R\to G\to Y$ is $(4/5)(7/10)
 $$
 \mu_2=(1,0,0)P^2=(1/25,\ 2/5,\ 14/25)=(0.04,\ 0.40,\ 0.56).
 $$
-The entries sum to one. If yellow has been reached at time two, the next-step probability of red is $3/5$, regardless of whether the signal came through green or some other earlier history: this is the Markov property in the specified model.{{cite:levin_peres2017}} (§1.1, path and matrix calculations)
+The entries sum to one.{{cite:levin_peres2017}} (§1.1, path and matrix calculations)
 
 **Your turn.** Find the probability of the entire path $R\to G\to Y\to R$ in three steps, and give $\Pr(X_3=R\mid X_2=Y,X_1=G,X_0=R)$.
 
