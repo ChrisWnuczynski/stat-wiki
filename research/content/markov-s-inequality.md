@@ -28,7 +28,7 @@ The comparison extends from $X$ itself to a nonnegative function of $X$.
 
 ::: {.callout-note collapse="true" title="Proof"}
 ::: {.proof}
-Let $X\ge 0$ and $a>0$. Then $X\ge a\,1_{\{X\ge a\}}$, because the two sides agree on $\{X\ge a\}$ and the right-hand side is $0$ elsewhere while $X$ is nonnegative. Taking expectations and using monotonicity yields $a\,\mathrm{P}(X\ge a)\le\mathrm{E} X$.{{cite:durrett2019}} (Thm. 1.6.4)
+Let $X\ge 0$ and $a>0$. On $\{X\ge a\}$, the indicator expression satisfies $a\,1_{\{X\ge a\}}=a\le X$; elsewhere it is $0\le X$. Hence $X\ge a\,1_{\{X\ge a\}}$. The comparison is strict when $X>a$: for example, when $X=2a$, the left-hand side is $2a$ and the right-hand side is $a$. Taking expectations and using monotonicity yields $a\,\mathrm{P}(X\ge a)\le\mathrm{E} X$.{{cite:durrett2019}} (Thm. 1.6.4)
 
 Durrett's general form replaces $X$ by $\varphi(X)$ for $\varphi\ge 0$ and replaces $a$ by the infimum of $\varphi$ on a set $A$. The proof is the same comparison of $\varphi(X)$ with that infimum times the indicator of $\{X\in A\}$. Chebyshev's inequality is $\varphi(x)=x^2$ and $A=\{|x|\ge\varepsilon\}$, after centring. The second-moment form $\varepsilon^2\mathrm{P}(|X|\ge\varepsilon)\le\mathrm{E} X^2$ is the case recorded as (1.6.1) in that section.{{cite:durrett2019}} (Thm. 1.6.4, pp. 29–30)
 
@@ -66,7 +66,17 @@ The bound is one-sided and uses nonnegativity. Applying $\mathrm{E} X/a$ to a si
 A bound of $1/6$ is not an estimate of the probability. For the exponential law with the same mean the probability is about $0.0025$. Quoting $1/6$ as if it were the chance of a long job overstates the tail by a large factor whenever the true law is much lighter than the two-point equality case.
 
 ## Assumptions and limits — Where the mean is not enough
-If $\mathrm{E} X=\infty$ the ratio is not a real number and the inequality, as stated, does not apply. A nonnegative variable can have an infinite mean and $\mathrm{P}(X\ge a)=1$ for every finite $a$, or a lighter tail. The mean no longer separates those cases.
+If $\mathrm{E} X=\infty$, the finite-mean statement does not apply; interpreting the ratio in the extended real numbers gives only the vacuous bound $\mathrm{P}(X\ge a)\le\infty$. Nevertheless, if $X$ is finite almost surely, the events $\{X\ge n\}$ decrease to an event of probability zero. By continuity from above, $\mathrm{P}(X\ge n)\to 0$, and monotonicity of the tail gives $\mathrm{P}(X\ge a)\to 0$ as $a\to\infty$. This limit requires no finite-moment assumption.
+
+At any fixed positive threshold, an infinite mean alone supplies no uniform upper bound smaller than $1$. To see this, fix $b>0$, let $U\sim\operatorname{Uniform}(0,1)$, and set $X=b/U$. This variable is finite almost surely, but
+$$
+\mathrm{E} X=b\int_0^1\frac{1}{u}\,du=\infty.
+$$
+For $a>0$, its tail is
+$$
+\mathrm{P}(X\ge a)=\mathrm{P}(U\le b/a)=\min\{1,b/a\}.
+$$
+In particular, $\mathrm{P}(X\ge b)=1$ and $\mathrm{P}(X\ge 2b)=1/2$, while the tail tends to zero as the threshold increases. Because $b$ can be any positive number, the tail at a prescribed positive threshold can equal $1$ even for a variable that is finite almost surely. This absence of a uniform bound at a fixed threshold is compatible with a vanishing tail for each fixed distribution.
 
 If $a\le\mathrm{E} X$, the ratio is at least $1$ and the bound is vacuous. A mean of $6$ says nothing about $\mathrm{P}(X\ge 4)$ through this inequality, even though that event may be likely or unlikely.
 
