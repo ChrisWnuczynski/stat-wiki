@@ -36,6 +36,20 @@ The second value is the probability that a standard normal draw falls in $[-1.96
 
 The same four letters apply to every family R ships: `dpois`, `pbeta`, `qgamma`, `rt`, `rf`, `rchisq`. The parameterisation has to match the page that states the law. For the gamma, `dgamma(x, shape, rate)` uses a rate, which is the parameterisation on the [distribution sheet](../reference/distributions.qmd). `scale` is the reciprocal of `rate`, and passing one where the other was intended multiplies the mean by the wrong factor.
 
+The worked example on the [gamma distribution](../articles/gamma-distribution.qmd#worked-example) is the waiting time for the third call. Calls arrive as a Poisson process at rate 2 per hour, so the waiting time $T_3$ is gamma with shape 3 and that rate. The waiting time to the third call exceeds 2 hours exactly when there are at most 2 calls in those 2 hours. For a window of length `hours`, that count is Poisson with mean `rate * hours`, so the gamma upper tail and the Poisson sum are one probability.
+
+```r
+hours <- 2
+rate <- 2
+mean_count <- rate * hours
+c(
+  waiting_exceeds_hours = pgamma(hours, shape = 3, rate = rate, lower.tail = FALSE),
+  at_most_two_calls = ppois(2, lambda = mean_count)
+)
+```
+
+`hours` starts at 2, so `mean_count` is $2\times 2=4$. Both entries equal $13e^{-4}$, printed as 0.2381033. `pgamma` with `lower.tail = FALSE` is $\mathrm{P}(T_3>2)$. `ppois(2, lambda = mean_count)` adds the masses at 0, 1 and 2. `shape`, `rate`, `lower.tail` and `lambda` are named, so the rate is not taken by position and is not read as a scale. Setting `hours` to 1 makes the mean count $2\times 1=2$, and both entries equal $e^{-2}(1+2+2^{2}/2)=5e^{-2}$, printed as 0.6766764. That Poisson mean is computed from `rate * hours`, so changing the window keeps the two commands on the same event. Omitting `lower.tail = FALSE` returns $\mathrm{P}(T_3\le 2)$ instead, and passing `scale` where `rate` belongs moves only the gamma entry.
+
 ## A permutation test {#s-a-permutation-test}
 
 `InsectSprays` records insect counts on agricultural units, each sprayed with one of six treatments. Restrict to sprays A and B. The observed contrast is the difference of mean counts. Under a null that says the spray labels are exchangeable, any reassignment of those labels to the same counts is as plausible as the observed assignment. The permutation test compares the observed difference with the differences obtained by shuffling the labels.{{cite:fisher1935_doe}}
