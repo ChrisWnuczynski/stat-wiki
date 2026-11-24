@@ -110,7 +110,7 @@ $$
 \qquad h=1,\ldots,H.
 $$
 
-where $\tau_h(\mathbf{x}_i;\widehat\Psi)$ is the conditional probability of component $h$ given $\mathbf{x}_i$, computed at the whole stationary parameter $\widehat\Psi$. The weight $\widehat\pi_h$ stands on the right-hand side because that probability depends on every mixing weight and every component parameter. An E-step responsibility is that same conditional probability at the current parameter. It is not a recovered label. With current weights $1/2$ and component densities $0.4$ and $0.1$ at one observation, the responsibilities are $0.8$ and $0.2$. Those fractions are Bayes' rule at the plugged-in parameters. They are not the indicators $0$ and $1$, and a different current parameter would have produced a different pair. The equation does identify the missing data only as these conditional probabilities. The fitted weights are their averages, and the unobserved indicators remain unobserved.{{cite:dempster_laird_rubin1977}} (§4.3, pp. 15–16){{cite:fraley_raftery2002}} (§§2–4, pp. 613–616, mixture fitting){{cite:bishop2006}}
+where $\tau_h(\mathbf{x}_i;\widehat\Psi)$ is the conditional probability of component $h$ given $\mathbf{x}_i$, computed at the whole stationary parameter $\widehat\Psi$. The weight $\widehat\pi_h$ stands on the right-hand side because that probability depends on every mixing weight and every component parameter. The fixed point equates the stationary weights with the means of those fitted responsibilities. It identifies neither the unobserved indicators nor the component label that realised them. An E-step responsibility is that same conditional probability at the current parameter. It is not a recovered indicator.{{cite:dempster_laird_rubin1977}} (§4.3, pp. 15–16){{cite:fraley_raftery2002}} (§§2–4, pp. 613–616, mixture fitting){{cite:bishop2006}}
 
 ## The complete-data likelihood
 
@@ -188,7 +188,7 @@ $$
 {\sum_{m=1}^{H}\pi_m^{(k)}f_m\bigl(\mathbf{x}_i;\theta_m^{(k)}\bigr)}.
 $$
 
-This ratio is a conditional probability at $\Psi^{(k)}$. It is not a recovered label. Current weights $1/2$ and component densities $0.4$ and $0.1$ give responsibilities $0.8$ and $0.2$, which lie strictly between the indicators $0$ and $1$ and move if the current parameter moves.{{cite:dempster_laird_rubin1977}} (§4.3, p. 16)
+This ratio is a conditional probability at $\Psi^{(k)}$. It is not a recovered indicator, and it is not the realised component label. Current weights $1/2$ and component densities $0.4$ and $0.1$ give responsibilities $0.8$ and $0.2$, strictly between the indicator values $0$ and $1$. A change in the current parameter can change that pair.{{cite:dempster_laird_rubin1977}} (§4.3, p. 16)
 
 ### The M step
 
