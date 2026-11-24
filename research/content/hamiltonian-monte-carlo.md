@@ -375,7 +375,7 @@ problem is that if $L$ is too small, HMC exhibits random-walk behaviour,
 and if $L$ is too large, it wastes computation; and that, unlike
 $\varepsilon$, $L$ could not then be tuned by the standard adaptive
 methods, so setting it required costly tuning runs
-{{cite:hoffman_gelman2014}} (§1, p. 1593). NUTS eliminates the need to set $L$ by
+{{cite:hoffman_gelman2014}} (§1, p. 1594). NUTS eliminates the need to set $L$ by
 building the trajectory adaptively within each iteration and stopping when
 the trajectory begins to double back on itself.
 
@@ -410,7 +410,7 @@ statistic, so that NUTS can be run with no hand-tuning of either quantity
 this tuning-free version performed at least as efficiently as, and
 sometimes more efficiently than, a well-tuned standard HMC, per effective
 sample and ignoring the cost of tuning the latter
-{{cite:hoffman_gelman2014}} (§1, p. 1593).
+{{cite:hoffman_gelman2014}} (§4.4, pp. 1616–1618).
 
 ## Worked example — One Gaussian, four leapfrog steps
 
@@ -503,11 +503,15 @@ distribution — the numerical dynamics are not known to preserve the
 target, or any definite perturbation of it, exactly.
 
 **"Resampling the momentum is a minor implementation detail."** It is the
-step that moves the chain between energy surfaces. Without it, a
-trajectory is confined to a single energy surface: the motion converts
-kinetic into potential energy and back, but since $K \ge 0$, $U(q)$
-can never exceed the initial total energy $H$, and most of the target
-is unreachable {{cite:neal2011_hmc}} (p. 124).
+step that moves the chain between energy levels. Confinement by energy
+is a statement about the exact flow: exact dynamics conserve $H$, and
+since $K \ge 0$ a position with $U(q) > H$ is then ruled out by energy
+alone. That excludes less than is often assumed — in the worked example
+below, with $H = 0.625$, the energetically allowed interval
+$|q| \le \sqrt{1.25}$ already carries about $0.7364$ of the target
+probability. Without resampling, nothing redraws the momentum, so the
+chain cannot move between energy levels with the frequencies the
+canonical distribution assigns them {{cite:neal2011_hmc}} (p. 124).
 
 **"A divergent transition is just a rejected proposal."** A rejection at a
 well-behaved endpoint is routine. A divergence signals that the integrator
@@ -609,7 +613,7 @@ MacKay's 2003 book first used the name "Hamiltonian Monte Carlo", and
 that Neal's 2011 review brought the method into the mainstream of
 statistical computing, with implementations such as Stan then making it
 pervasive {{cite:betancourt2017_hmc}} (p. 3). The No-U-Turn Sampler
-followed in 2014 {{cite:hoffman_gelman2014}} (§1, p. 1593).
+followed in 2014 {{cite:hoffman_gelman2014}} (abstract, p. 1593).
 
 ## Check yourself
 
@@ -643,14 +647,20 @@ correctly, however long it runs?
 
 ::: {.callout-tip collapse="true" title="Answer"}
 
-Every trajectory, exact or leapfrog, keeps the total energy $H(q, p)$
-constant or nearly constant, and the Metropolis step only accepts states
-whose $H$ is close to the current value. The chain is therefore confined,
-approximately, to the single energy surface determined by the initial draw
-of $p$. Since $U(q) \le H(q, p)$ when $K(p) \ge 0$, the position can never
-reach any state whose potential energy exceeds that initial total energy,
-which excludes most of the target. Resampling $p$ at each iteration is
-what changes $H$ and lets the chain move between energy surfaces.
+Under the exact dynamics the total energy $H(q, p)$ is conserved, so a
+trajectory stays on the energy surface of the initial draw; leapfrog
+dynamics conserve $H$ only approximately. The Metropolis step is not a
+hard energy tube either: for a finite energy change it accepts every
+proposal that lowers $H$, and accepts one that raises $H$ by $\Delta H$
+with probability $\exp(-\Delta H)$. But those accepted energy changes are
+only integration errors — nothing in the modified algorithm ever redraws
+the momentum, so the chain cannot visit energy levels with the
+frequencies the canonical distribution assigns them, and the position
+marginal is not the target. (Energy alone also rules out less than one
+might think: a position with $U(q) > H$ is unreachable at energy $H$,
+since $K(p) \ge 0$, but how much of the target that excludes depends on
+the draw.) Resampling $p$ at each iteration is what changes $H$ and lets
+the chain move between energy surfaces.
 
 :::
 

@@ -266,14 +266,18 @@ draws {{cite:blei_kucukelbir_mcauliffe2017}} (§2.4).
 
 Three properties of CAVI matter for practice. First, every update
 increases the ELBO or leaves it unchanged, so the ELBO sequence is
-monotone and convergence can be monitored directly from the objective:
-run until its change falls below a small threshold
-{{cite:blei_kucukelbir_mcauliffe2017}} (§2.4). Second, the optimum
-reached is in general only local. The ELBO is typically non-convex in
-the variational parameters, and different initialisations can lead CAVI
-to different local optima; Blei, Kucukelbir and McAuliffe illustrate
-this with ten random initialisations of a mixture model reaching
-visibly different solutions
+monotone and its progress can be monitored directly from the objective.
+Running until the change falls below a small threshold is a common
+stopping rule {{cite:blei_kucukelbir_mcauliffe2017}} (§2.4), but it is a
+heuristic, not a certificate: a small change, like a plateau in the
+objective, does not by itself certify that a stationary point, let
+alone a local optimum, has been reached. Second, even where CAVI does
+reach a local optimum, that optimum is in general only local. The ELBO
+is typically non-convex in the variational parameters, global
+optimality is not guaranteed, and different initialisations can lead
+CAVI to different local optima; Blei, Kucukelbir and McAuliffe
+illustrate this with ten random initialisations of a mixture model
+reaching visibly different solutions
 {{cite:blei_kucukelbir_mcauliffe2017}} (§2.4, Figure 2). The standard
 response is to run from several starting points, keeping the run with
 the highest ELBO — for a fixed model, the run with the smallest
@@ -317,9 +321,12 @@ gradient has a simple form that makes the update above exact rather than
 approximate {{cite:hoffman_etal2013_svi}} (§2.3). Step sizes follow a
 Robbins–Monro schedule, $\rho_t = (t + \tau)^{-\kappa}$ with delay
 $\tau \ge 0$ and forgetting rate $\kappa \in (0.5, 1]$, satisfying
-$\sum_t \rho_t = \infty$ and $\sum_t \rho_t^2 < \infty$, the conditions
-under which stochastic optimisation converges to a local optimum
-{{cite:hoffman_etal2013_svi}} (§§2–4).
+$\sum_t \rho_t = \infty$ and $\sum_t \rho_t^2 < \infty$
+{{cite:hoffman_etal2013_svi}} (§§2–4). Those two sum conditions are not
+by themselves sufficient for convergence to a local optimum: the
+standard results, under additional regularity assumptions on the
+objective and the gradient noise, give convergence to a stationary
+point of the ELBO, and a stationary point need not be a local optimum.
 
 The scale achieved is the point of the method. Hoffman, Blei, Wang and
 Paisley applied it to topic models on collections of 300,000 articles
@@ -328,8 +335,9 @@ million articles from Wikipedia — data sizes at which batch coordinate
 ascent "can only handle a smaller subset"
 {{cite:hoffman_etal2013_svi}} (abstract, p. 1303). The costs are those of
 any stochastic optimisation: the objective is no longer monotone along
-the iterates, and convergence is to a local optimum whose quality
-depends on the step-size schedule and initialisation.
+the iterates, and the point the iterates approach is at best a
+stationary point of the ELBO — in practice usually a local optimum,
+whose quality depends on the step-size schedule and initialisation.
 
 Two further developments extend variational inference beyond models with
 tractable complete conditionals. Black-box variational inference writes
