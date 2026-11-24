@@ -193,6 +193,22 @@ check_true("worked D below exact 5% point 0.5632752", d < 0.5632752)
 check("exact CDF at 5% point n=8", float(ks_cdf_exact(8, "0.4542666")), 0.95, tol=2e-6)
 check("exact CDF at 1% point n=8", float(ks_cdf_exact(8, "0.5417925")), 0.99, tol=2e-6)
 
+# Ties/rounding counterexample (article, "Your turn"): five latent iid
+# U(0,1) draws rounded to 0 or 1, tested against the latent continuous CDF,
+# give D = max(K/5, 1 - K/5) >= 0.6 for every count K of ones - always above
+# the exact 5% point 0.5632752, so the coarsened test is anti-conservative
+# against the latent null (conservatism holds only against the coarsened
+# null itself).
+for k_ones in range(6):
+    d_round = max(k_ones / 5, 1 - k_ones / 5)
+    check_true(f"rounded D for K={k_ones} is >= 0.6", d_round >= 0.6)
+    check_true(f"rounded D for K={k_ones} exceeds exact 5% point 0.5632752",
+               d_round > 0.5632752)
+# Worked example: the exact p (0.0597) and the asymptotic p (0.0971) agree on
+# the 5% decision but NOT to two decimal places.
+check_true("exact and asymptotic p differ by more than 0.01",
+           abs(p_worked - float(p_exact)) > 0.01)
+
 # ---------------------------------------------------------------------- report
 if FAILURES:
     print("FAIL")

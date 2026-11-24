@@ -2002,6 +2002,10 @@ ARTICLE_GROUPS: list[tuple[tuple[str, ...], tuple[str, ...]]] = [(('axioms-of-pr
  (('kolmogorov-smirnov-test',), ('kolmogorov1933_ks', 'smirnov1948', 'massey1951', 'marsaglia_tsang_wang2003', 'lilliefors1967', 'nist_ks_gof2002')),
  (('welch-s-anova',), ('welch1951', 'welch1947', 'satterthwaite1946', 'games_howell1976', 'brown_forsythe1974_means', 'brown_forsythe1974_variances', 'tomarken_serlin1986', 'lix_keselman_keselman1996', 'delacre2017_welch', 'nist_anova2002', 'nist_levene2002', 'rstats_oneway2026')),
  (('anderson-darling-test',), ('anderson_darling1952', 'anderson_darling1954', 'stephens1974', 'nist_anderson_darling2002', 'marsaglia_marsaglia2004', 'scholz_stephens1987', 'razali_wah2011')),
+ (('kaplan-meier-estimator',), ('kaplan_meier1958', 'james_islr2021', 'bland_altman1998', 'rodriguez2018', 'nist_kaplan2002')),
+ (('cox-proportional-hazards-model',), ('cox1972', 'james_islr2021', 'rocke2021', 'schoenfeld1982', 'austin2020', 'survival_coxzph')),
+ (('log-rank-test',), ('bland_altman2004', 'james_islr2021', 'peto_peto1972', 'cox1972')),
+ (('competing-risks',), ('austin_lee_fine2016', 'zhang2017', 'coemans2022', 'fine_gray1999', 'aalen_johansen1977', 'cox1972', 'kaplan_meier1958')),
 ]
 
 ARTICLE_REFS: dict[str, tuple[str, ...]] = {

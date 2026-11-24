@@ -62,16 +62,48 @@ assert a2y < 1.610, "your-turn sample must not reject even at the 15% level"
 print("ok   your turn: A^2 < 1.610 (no rejection even at 15%)")
 
 # --- Stephens' normal-case adjustment, as quoted in the article ---------------
-# Stephens' illustration: A^2 = 0.947 at n = 11, adjustment factor
-# 1 + 0.75/11 + 2.25/121 = 1.0868, giving A^{2*} = 1.029.
-factor = 1.0 + 0.75 / 11 + 2.25 / 121
-check("normal-case adjustment factor (n=11)", factor, 1.0868)
-check("normal-case A^{2*} (0.947 adjusted)", 0.947 * factor, 1.029, tol=5e-4)
+# Stephens (1974), Case 3 (normal, both parameters estimated): sample variance
+# with divisor n - 1 (pp. 730-731), adjustment factor 1 + 4/n - 25/n^2, and the
+# Table 1.3 (p. 732) points 0.576 / 0.656 / 0.787 / 0.918 / 1.092.
+# His sec. 3.3 Illustration 2 (n = 11 weights): recomputing the computing
+# formula from the listed weights (mean 172, sample SD 24.95195) gives raw
+# A^2 = 0.946772, which Stephens prints rounded as 0.947; the adjusted value
+# is 0.946772 * 1.157025 = 1.09544, printed by Stephens as 1.095.
+raw_stephens = 0.946772
+check("Stephens raw A^2 rounds to his printed 0.947", round(raw_stephens, 3), 0.947, tol=0)
+factor = 1.0 + 4.0 / 11 - 25.0 / 121
+check("normal-case adjustment factor (n=11)", factor, 1.1570)
+adjusted = raw_stephens * factor
+check("normal-case A^{2*} (recomputed)", adjusted, 1.0954)
+check("normal-case A^{2*} (article's 0.9468 chain)", 0.9468 * factor, 1.0954)
+check("Stephens printed adjusted value", round(adjusted, 3), 1.095, tol=0)
 # Normal case (both parameters estimated) percentage points for A^{2*}:
 # 15% 0.576, 10% 0.656, 5% 0.787, 2.5% 0.918, 1% 1.092.
-assert 0.947 * factor < 1.092, "adjusted value must fall below the 1% point"
-assert 0.947 * factor > 0.918, "adjusted value must exceed the 2.5% point"
-print("ok   adjusted A^{2*} = 1.029: 0.918 (2.5%) < 1.029 < 1.092 (1%) - rejects at 2.5%, not at 1%")
+assert adjusted > 1.092, "adjusted value must exceed the 1% point"
+print("ok   adjusted A^{2*} = 1.0954 > 1.092 (1% point) - rejects at 1%, narrowly")
+
+# Factor properties quoted in the article and used in Check-yourself 3:
+# f(5) = 0.8 is the minimum over n >= 5; f < 1 at n = 6; f > 1 for n >= 7;
+# maximum about 1.16 near n = 12; f decreases towards 1 thereafter.
+def adj_factor(n):
+    return 1.0 + 4.0 / n - 25.0 / n ** 2
+
+check("adjustment factor f(5)", adj_factor(5), 0.8, tol=1e-12)
+check("adjustment factor f(6)", adj_factor(6), 0.9722)
+check("adjustment factor f(7)", adj_factor(7), 1.0612)
+check("adjustment factor f(12)", adj_factor(12), 1.1597)
+check("adjustment factor f(13)", adj_factor(13), 1.1598)
+check("adjustment factor f(100)", adj_factor(100), 1.0375)
+assert min(adj_factor(n) for n in range(5, 2001)) == adj_factor(5), \
+    "f(5) = 0.8 must be the minimum factor over n >= 5"
+assert all(adj_factor(n) > 1.0 for n in range(7, 2001)), \
+    "factor must exceed 1 for every n >= 7"
+# Check-yourself 3: A^2 = 1.40, so A^{2*} >= 1.40 * 0.8 = 1.12 > 1.092 at
+# every n >= 5 - the correct test rejects at the 1% level.
+check("check3 lower bound 1.40 * 0.8", 1.40 * adj_factor(5), 1.12)
+assert 1.40 * adj_factor(5) > 1.092
+print("ok   factor: min 0.8 at n=5, >1 for n>=7, max ~1.16 near n=12; "
+      "check3 bound 1.12 > 1.092")
 
 if FAILURES:
     print(f"FAIL: {len(FAILURES)} check(s) failed")

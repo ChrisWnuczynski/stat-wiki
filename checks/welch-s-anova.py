@@ -205,6 +205,22 @@ check("check3 A", a_q, 0.2778)
 check("check3 df2", (9 - 1) / (3 * a_q), 9.6)
 check("check3 correction", 1 + 2 * (3 - 2) / (9 - 1) * a_q, 1.0694)
 
+# ---- Weight-share behaviour of the A summands (article, Definition) --------
+# At fixed n_j = 5 the summand (1 - w_j/W)^2 / (n_j - 1) DECREASES as the
+# weight share grows: 0.2025 at share 0.1, 0.0025 at share 0.9.
+check("summand at share 0.1, n=5", (1 - 0.1) ** 2 / 4, 0.2025)
+check("summand at share 0.9, n=5", (1 - 0.9) ** 2 / 4, 0.0025)
+
+# ---- Equal variances do not by themselves make A small --------------------
+# Three groups of size two with exactly equal sample variances: equal
+# weights, A = (k-1)^2 / (k (n-1)) = 4/3 and df2 = (k^2-1) / (3A) = 2.
+w_eq = [2.0, 2.0, 2.0]  # w_j = n_j / s_j^2 with n_j = 2, s_j^2 = 1
+n_eq = [2, 2, 2]
+weq = sum(w_eq)
+a_eq = sum((1 - wi / weq) ** 2 / (n - 1) for wi, n in zip(w_eq, n_eq))
+check("equal-variance A (k=3, n=2)", a_eq, round(4 / 3, 4))
+check("equal-variance df2 (k=3, n=2)", (9 - 1) / (3 * a_eq), 2.0)
+
 if failures:
     print("FAIL:", failures)
     sys.exit(1)

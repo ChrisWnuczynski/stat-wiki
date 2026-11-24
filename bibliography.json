@@ -13485,6 +13485,318 @@
         "source": "archival_url",
         "id": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda35e.htm"
       }
+    },
+    "bland_altman1998": {
+      "authors": [
+        "Bland, J. M.",
+        "Altman, D. G."
+      ],
+      "year": 1998,
+      "title": "Survival probabilities (the Kaplan-Meier method)",
+      "kind": "article",
+      "venue": "BMJ",
+      "volume": "317",
+      "issue": "7172",
+      "pages": "1572",
+      "doi": "10.1136/bmj.317.7172.1572",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1136/bmj.317.7172.1572"
+      }
+    },
+    "rich2010": {
+      "authors": [
+        "Rich, J. T.",
+        "Neely, J. G.",
+        "Paniello, R. C.",
+        "Voelker, C. C. J.",
+        "Nussenbaum, B.",
+        "Wang, E. W."
+      ],
+      "year": 2010,
+      "title": "A practical guide to understanding Kaplan-Meier curves",
+      "kind": "article",
+      "venue": "Otolaryngology–Head and Neck Surgery",
+      "volume": "143",
+      "issue": "3",
+      "pages": "331–336",
+      "doi": "10.1016/j.otohns.2010.05.007",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1016/j.otohns.2010.05.007"
+      }
+    },
+    "rodriguez2018": {
+      "authors": [
+        "Rodríguez, G."
+      ],
+      "year": 2018,
+      "title": "Survival Analysis: 2. Non-Parametric Estimation",
+      "kind": "book",
+      "publisher": "Princeton University, POP 509",
+      "url": "https://grodri.github.io/survival/pop509slides2.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://grodri.github.io/survival/pop509slides2.pdf"
+      }
+    },
+    "rocke2021": {
+      "authors": [
+        "Rocke, D. M."
+      ],
+      "year": 2021,
+      "title": "Survival Regression Models",
+      "kind": "book",
+      "publisher": "University of California, Davis, EPI 204",
+      "url": "https://dmrocke.ucdavis.edu/Class/EPI204-Spring-2021/Lecture11SurvivalRegression.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://dmrocke.ucdavis.edu/Class/EPI204-Spring-2021/Lecture11SurvivalRegression.pdf"
+      }
+    },
+    "schoenfeld1982": {
+      "authors": [
+        "Schoenfeld, D."
+      ],
+      "year": 1982,
+      "title": "Partial residuals for the proportional hazards regression model",
+      "kind": "article",
+      "venue": "Biometrika",
+      "volume": "69",
+      "issue": "1",
+      "pages": "239–241",
+      "doi": "10.1093/biomet/69.1.239",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1093/biomet/69.1.239"
+      }
+    },
+    "austin2020": {
+      "authors": [
+        "Austin, P. C.",
+        "Latouche, A.",
+        "Fine, J. P."
+      ],
+      "year": 2020,
+      "title": "A review of the use of time-varying covariates in the Fine–Gray subdistribution hazard competing risk regression model",
+      "kind": "article",
+      "venue": "Statistics in Medicine",
+      "volume": "39",
+      "issue": "2",
+      "pages": "103–113",
+      "doi": "10.1002/sim.8399",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1002/sim.8399"
+      }
+    },
+    "mantel1966": {
+      "authors": [
+        "Mantel, N."
+      ],
+      "year": 1966,
+      "title": "Evaluation of survival data and two new rank order statistics arising in its consideration",
+      "kind": "article",
+      "venue": "Cancer Chemotherapy Reports",
+      "volume": "50",
+      "issue": "3",
+      "pages": "163–170",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/5910392/",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://pubmed.ncbi.nlm.nih.gov/5910392/"
+      }
+    },
+    "peto_peto1972": {
+      "authors": [
+        "Peto, R.",
+        "Peto, J."
+      ],
+      "year": 1972,
+      "title": "Asymptotically efficient rank invariant test procedures (with discussion)",
+      "kind": "article",
+      "venue": "Journal of the Royal Statistical Society, Series A",
+      "volume": "135",
+      "issue": "2",
+      "pages": "185–207",
+      "doi": "10.2307/2344317",
+      "verification": {
+        "source": "crossref",
+        "id": "10.2307/2344317"
+      }
+    },
+    "bland_altman2004": {
+      "authors": [
+        "Bland, J. M.",
+        "Altman, D. G."
+      ],
+      "year": 2004,
+      "title": "The logrank test",
+      "kind": "article",
+      "venue": "BMJ",
+      "volume": "328",
+      "issue": "7447",
+      "pages": "1073",
+      "doi": "10.1136/bmj.328.7447.1073",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1136/bmj.328.7447.1073"
+      }
+    },
+    "gehan1965": {
+      "authors": [
+        "Gehan, E. A."
+      ],
+      "year": 1965,
+      "title": "A generalized Wilcoxon test for comparing arbitrarily singly-censored samples",
+      "kind": "article",
+      "venue": "Biometrika",
+      "volume": "52",
+      "issue": "1–2",
+      "pages": "203–224",
+      "doi": "10.1093/biomet/52.1-2.203",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1093/biomet/52.1-2.203"
+      }
+    },
+    "zhang2017": {
+      "authors": [
+        "Zhang, Z."
+      ],
+      "year": 2017,
+      "title": "Survival analysis in the presence of competing risks",
+      "kind": "article",
+      "venue": "Annals of Translational Medicine",
+      "volume": "5",
+      "issue": "3",
+      "pages": "47",
+      "doi": "10.21037/atm.2016.08.62",
+      "verification": {
+        "source": "crossref",
+        "id": "10.21037/atm.2016.08.62"
+      }
+    },
+    "austin_lee_fine2016": {
+      "authors": [
+        "Austin, P. C.",
+        "Lee, D. S.",
+        "Fine, J. P."
+      ],
+      "year": 2016,
+      "title": "Introduction to the analysis of survival data in the presence of competing risks",
+      "kind": "article",
+      "venue": "Circulation",
+      "volume": "133",
+      "issue": "6",
+      "pages": "601–609",
+      "doi": "10.1161/CIRCULATIONAHA.115.017719",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1161/CIRCULATIONAHA.115.017719"
+      }
+    },
+    "fine_gray1999": {
+      "authors": [
+        "Fine, J. P.",
+        "Gray, R. J."
+      ],
+      "year": 1999,
+      "title": "A proportional hazards model for the subdistribution of a competing risk",
+      "kind": "article",
+      "venue": "Journal of the American Statistical Association",
+      "volume": "94",
+      "issue": "446",
+      "pages": "496–509",
+      "doi": "10.1080/01621459.1999.10474144",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1080/01621459.1999.10474144"
+      }
+    },
+    "aalen_johansen1978": {
+      "authors": [
+        "Aalen, O. O.",
+        "Johansen, S."
+      ],
+      "year": 1978,
+      "title": "An empirical transition matrix for non-homogeneous Markov chains based on censored observations",
+      "kind": "article",
+      "venue": "Scandinavian Journal of Statistics",
+      "volume": "5",
+      "issue": "3",
+      "pages": "141–150",
+      "url": "https://www.jstor.org/stable/4615704",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.jstor.org/stable/4615704"
+      }
+    },
+    "kalbfleisch_prentice2002": {
+      "authors": [
+        "Kalbfleisch, J. D.",
+        "Prentice, R. L."
+      ],
+      "year": 2002,
+      "title": "The Statistical Analysis of Failure Time Data",
+      "kind": "book",
+      "edition": "2nd ed.",
+      "publisher": "Wiley",
+      "isbn": "9780471363576",
+      "doi": "10.1002/9781118032985",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1002/9781118032985"
+      }
+    },
+    "coemans2022": {
+      "authors": [
+        "Coemans, M.",
+        "Verbeke, G.",
+        "Döhler, B.",
+        "Süsal, C.",
+        "Naesens, M."
+      ],
+      "year": 2022,
+      "title": "Bias by censoring for competing events in survival analysis",
+      "kind": "article",
+      "venue": "BMJ",
+      "volume": "378",
+      "pages": "e071349",
+      "doi": "10.1136/bmj-2022-071349",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1136/bmj-2022-071349"
+      }
+    },
+    "aalen_johansen1977": {
+      "authors": [
+        "Aalen, O. O.",
+        "Johansen, S."
+      ],
+      "year": 1977,
+      "title": "An empirical transition matrix for non-homogeneous Markov chains based on censored observations (Preprint 1977 No. 6)",
+      "kind": "book",
+      "publisher": "Institute of Mathematical Statistics, University of Copenhagen",
+      "url": "https://www.math.ku.dk/bibliotek/arkivet/preprints-fra-ims/1977/preprint_1977_-_no_6_aalen__odd__johansen__s_ren_-_an_empirical_transition_matrix_for_non-homogeneous---.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.math.ku.dk/bibliotek/arkivet/preprints-fra-ims/1977/preprint_1977_-_no_6_aalen__odd__johansen__s_ren_-_an_empirical_transition_matrix_for_non-homogeneous---.pdf"
+      }
+    },
+    "survival_coxzph": {
+      "authors": [
+        "Therneau, T. M."
+      ],
+      "year": 2026,
+      "title": "survival: cox.zph — Test the Proportional Hazards Assumption of a Cox Regression (version 3.8-6)",
+      "kind": "book",
+      "publisher": "R package documentation",
+      "url": "https://stat.ethz.ch/R-manual/R-devel/library/survival/html/cox.zph.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stat.ethz.ch/R-manual/R-devel/library/survival/html/cox.zph.html"
+      }
     }
   }
 }
