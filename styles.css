@@ -1520,6 +1520,12 @@ main,
   outline-offset: -3px !important;
 }
 
+.callout .statwiki-answer-toggle .callout-toggle::before {
+  /* Quarto animates this chevron for 0.2s. The open answer can finish
+     before that transition, so the computed transform is still a matrix. */
+  transition: none;
+}
+
 .statwiki-answer-toggle[aria-expanded="false"] .callout-toggle::before {
   transform: rotate(-90deg);
 }
