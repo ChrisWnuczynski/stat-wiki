@@ -1074,6 +1074,23 @@
         "id": "10.1007/978-1-4419-0320-4"
       }
     },
+    "brockwell_davis2016": {
+      "authors": [
+        "Brockwell, P. J.",
+        "Davis, R. A."
+      ],
+      "year": 2016,
+      "title": "Introduction to Time Series and Forecasting",
+      "kind": "book",
+      "edition": "3rd ed.",
+      "publisher": "Springer",
+      "doi": "10.1007/978-3-319-29854-2",
+      "url": "https://doi.org/10.1007/978-3-319-29854-2",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1007/978-3-319-29854-2"
+      }
+    },
     "brown1964_sufficiency": {
       "authors": [
         "Brown, L."
@@ -7780,6 +7797,23 @@
         "id": "https://catalogimages.wiley.com/images/db/pdf/9781118943526.excerpt.pdf"
       }
     },
+    "shumway_stoffer2017": {
+      "authors": [
+        "Shumway, R. H.",
+        "Stoffer, D. S."
+      ],
+      "year": 2017,
+      "title": "Time Series Analysis and Its Applications: With R Examples",
+      "kind": "book",
+      "edition": "4th ed.",
+      "publisher": "Springer",
+      "doi": "10.1007/978-3-319-52452-8",
+      "url": "https://doi.org/10.1007/978-3-319-52452-8",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1007/978-3-319-52452-8"
+      }
+    },
     "siegrist2020_poisson_process": {
       "authors": [
         "Siegrist, K."
@@ -12236,6 +12270,22 @@
       },
       "volume": "334",
       "issue": "6060"
+    },
+    "morters_peres2010": {
+      "authors": [
+        "Mörters, P.",
+        "Peres, Y."
+      ],
+      "year": 2010,
+      "title": "Brownian Motion",
+      "kind": "book",
+      "publisher": "Cambridge University Press",
+      "doi": "10.1017/CBO9780511750489",
+      "url": "https://doi.org/10.1017/CBO9780511750489",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1017/CBO9780511750489"
+      }
     },
     "moraga2023": {
       "authors": [
