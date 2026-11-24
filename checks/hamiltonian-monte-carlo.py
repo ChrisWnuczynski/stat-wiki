@@ -63,6 +63,12 @@ assert close(H(q_exact, p_exact), 0.625)  # exact dynamics conserves H
 assert close(q - q_exact, 0.010690), q - q_exact
 assert close(p - p_exact, -0.000542), p - p_exact
 
+# Misconception passage: at H = 0.625 the energetically allowed interval is
+# |q| <= sqrt(2H) = sqrt(1.25), which carries about 0.7364 of the standard
+# normal target: P(|Z| <= sqrt(1.25)) = erf(sqrt(1.25) / sqrt(2)).
+allowed_mass = math.erf(math.sqrt(1.25) / math.sqrt(2))
+assert round(allowed_mass, 4) == 0.7364, allowed_mass
+
 # Reversibility check used in the article's Check yourself, question 1:
 # negate p, run the same 4 steps, negate p again -> back to the start.
 q2, p2 = q, -p

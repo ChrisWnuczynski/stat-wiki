@@ -97,4 +97,17 @@ assert abs(kl2 - kl2_direct) < 1e-9
 print(f"Ex2: ELBO(q = N(2,1)) = {elbo2:.6f};  KL = {kl2:.6f}")
 assert abs(elbo2 - (-9.187840)) < 1e-6 and abs(kl2 - 1.295886) < 1e-6
 
+# ---------- CAVI saddle example (Properties) ----------
+# Target proportional to exp(2 s1 s2) on s in {-1, +1}^2, product factors
+# q1, q2 with means m1, m2, started at m1 = m2 = 0. The CAVI update for q1
+# is proportional to exp(2 s1 m2); at m2 = 0 it is uniform, so m1 stays 0
+# (and symmetrically m2 stays 0): the iteration stalls at the origin.
+# The ELBO Hessian there is [[-1, 2], [2, -1]]; for a matrix [[a, b], [b, a]]
+# the eigenvalues are a + b and a - b, here 1 and -3, so the stall point is
+# a saddle, not a local optimum.
+a, b = -1.0, 2.0
+eigs = sorted([a + b, a - b])
+assert eigs == [-3.0, 1.0], eigs
+print(f"Saddle: ELBO Hessian eigenvalues = {eigs} (stall at m1 = m2 = 0 is a saddle)")
+
 print("All variational-inference checks passed.")

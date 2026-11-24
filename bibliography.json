@@ -5474,10 +5474,10 @@
       "venue": "Handbook of Markov Chain Monte Carlo",
       "publisher": "Chapman and Hall/CRC",
       "pages": "113–162",
-      "url": "https://arxiv.org/pdf/1206.1901",
+      "url": "https://sites.stat.columbia.edu/gelman/bayescomputation/Neal2011.pdf",
       "verification": {
         "source": "archival_url",
-        "id": "https://arxiv.org/pdf/1206.1901"
+        "id": "https://sites.stat.columbia.edu/gelman/bayescomputation/Neal2011.pdf"
       }
     },
     "nelder_wedderburn1972": {

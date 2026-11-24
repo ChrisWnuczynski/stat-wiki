@@ -124,7 +124,7 @@ trajectory therefore does not simply run downhill and stop: as $q$ moves
 into a region of lower $U$, $p$ grows, and the motion carries $q$ through
 that region and up the far side, trading kinetic for potential energy and
 back. Neal's physical picture is a frictionless puck sliding on a surface
-whose height is $U(q)$ {{cite:neal2011_hmc}} (§2).
+whose height is $U(q)$ {{cite:neal2011_hmc}} (§5.2, p. 114).
 
 Three properties of the exact dynamics do the work in the algorithm.
 
@@ -210,7 +210,7 @@ Gaussian Hamiltonian $H(q, p) = q^2/(2\sigma^2) + p^2/2$, Neal shows that
 leapfrog trajectories are stable when $\varepsilon < 2\sigma$ and unstable
 when $\varepsilon > 2\sigma$, with $H$ then growing without bound; in
 several dimensions the limit is governed, roughly, by the width of the
-target in its most constrained direction {{cite:neal2011_hmc}} (§4.2). An
+target in its most constrained direction {{cite:neal2011_hmc}} (§5.4.2.2, p. 136). An
 unstable trajectory's endpoint has an enormously larger $H$ than its
 starting point and is rejected with probability effectively one.
 
@@ -239,7 +239,7 @@ initial *total* energy is unreachable), and with fixed integrator
 settings the proposal from a state $z$ only ever offers the single
 image point $T(z)$, so the chain can only bounce within the two-point
 orbit $\{z, T(z)\}$. Resampling $p$ redraws the energy and breaks out
-of the orbit {{cite:neal2011_hmc}} (§5.3.2.1, p. 124).
+of the orbit {{cite:neal2011_hmc}} (§5.3.2.1, pp. 124–125).
 
 **Step 2: a Metropolis proposal from a trajectory.** Starting from the
 current $(q, p)$, take $L$ leapfrog steps of size $\varepsilon$, then
@@ -271,14 +271,16 @@ detailed balance. Neal's argument partitions $(q, p)$ space into small
 regions of equal volume, uses reversibility to pair each region with its
 image under the leapfrog-plus-negation mapping, uses volume preservation
 to give the image the same volume, and then checks the detailed balance
-identity directly from the acceptance formula {{cite:neal2011_hmc}} (pp. 124–126). Together with the invariance of the resampling step, this
+identity directly from the acceptance formula {{cite:neal2011_hmc}} (§5.3.2.2, pp. 126–127). Together with the invariance of the resampling step, this
 gives a [Markov chain](markov-chain.qmd) for $q$ alone with the target as
 its invariant distribution. Invariance is not convergence from an arbitrary
-starting point: Neal notes that near periodicities of the trajectory — for
-the one-dimensional Gaussian, a trajectory length near a multiple of the
-period $2\pi$ — can make the chain slow or non-ergodic, and recommends
-randomising $\varepsilon$ or $L$ over a small interval as a safeguard
-{{cite:neal2011_hmc}} (§§5.3.2.2–5.3.2.3, pp. 126–127).
+starting point, and Neal separates two cases {{cite:neal2011_hmc}} (§5.3.2.3, p. 127): if the trajectory length is an exact multiple
+of a period of the dynamics — for the one-dimensional Gaussian,
+$L\varepsilon$ exactly $2\pi$ — the trajectory returns to its starting
+point and the chain is not ergodic at all; for nearby values the chain is
+ergodic in principle, but may take a very long time to move about the full
+state space. Randomising $\varepsilon$ or $L$ over a small interval is his
+safeguard against both.
 
 ## Properties — Tuning, divergences, and the No-U-Turn sampler
 
@@ -286,18 +288,18 @@ randomising $\varepsilon$ or $L$ over a small interval as a safeguard
 
 HMC has two tuning quantities that ordinary use cannot avoid, $\varepsilon$
 and $L$, and their roles are different and nearly separable
-{{cite:neal2011_hmc}} (§4.2).
+{{cite:neal2011_hmc}} (§5.4.2, p. 134).
 
 The step size $\varepsilon$ controls accuracy. Too large, and trajectories
 become unstable or accumulate enough energy error that almost every
 proposal is rejected; Neal notes that the error in $H$ usually does not
 grow with the number of steps, provided $\varepsilon$ is small enough for
 stability, so the choice of $\varepsilon$ is almost independent of $L$
-{{cite:neal2011_hmc}} (§4.2). Too small, and computation is wasted: halving
+{{cite:neal2011_hmc}} (§5.4.2.2, p. 135). Too small, and computation is wasted: halving
 $\varepsilon$ doubles the number of gradient evaluations needed to cover
 the same integration time. In Neal's scaling analysis for high-dimensional
 targets, the acceptance probability that minimises cost at fixed accuracy
-is about $0.65$ {{cite:neal2011_hmc}} (§4.4) — a figure for the setting
+is about $0.65$ {{cite:neal2011_hmc}} (§5.4.4.3, pp. 141–142) — a figure for the setting
 analysed there, not a universal target, but the reason practical tuning
 aims for a high, not a near-one, acceptance rate.
 
@@ -314,12 +316,12 @@ $\exp(-0.41) \approx 0.66$ {{cite:neal2011_hmc}} (pp. 128–129). Neal's
 practical advice is trial and error from preliminary runs — $L = 100$ as
 a starting trial for a difficult problem, $L = 1000$ if autocorrelation
 remains high — judged by trace plots and autocorrelation of slowly moving
-quantities {{cite:neal2011_hmc}} (§4.2). In his 100-dimensional Gaussian
+quantities {{cite:neal2011_hmc}} (§5.4.2.3, p. 137). In his 100-dimensional Gaussian
 illustration, with coordinate standard deviations from $0.01$ to $1.00$,
 HMC used $L = 150$ with $\varepsilon$ drawn uniformly from
 $(0.0104, 0.0156)$ per iteration, and its rejection rate was $0.13$
 against $0.75$ for a comparably tuned random-walk Metropolis
-{{cite:neal2011_hmc}} (§3.3). That example also shows the constraint the
+{{cite:neal2011_hmc}} (§5.3.3.4, pp. 131–132). That example also shows the constraint the
 mass matrix addresses: with all masses equal, the step size is limited by
 the narrowest coordinate, while the trajectory must traverse the widest.
 
@@ -333,7 +335,7 @@ $\Sigma$. It is the inverse mass that should match the target's
 covariance — equivalently, the masses themselves should be large where
 the target is narrow and small where it is wide — and setting the $m_i$
 that way makes the dynamics treat all directions more evenly
-{{cite:neal2011_hmc}} (§4.1). Betancourt develops this as the choice
+{{cite:neal2011_hmc}} (§5.4.1, p. 133). Betancourt develops this as the choice
 of a Euclidean metric, notes that the ideal choice makes the inverse metric
 resemble the covariance of the target, and describes estimating that
 covariance during an initial window and then fixing the metric
@@ -500,7 +502,7 @@ $\varepsilon L$ very short, at the cost of wasting gradient evaluations or
 reintroducing random-walk behaviour. The relevant measure is cost per
 effectively independent draw, and Neal's analysis puts the cost-minimising
 acceptance probability near $0.65$ in the high-dimensional setting
-analysed, well below one {{cite:neal2011_hmc}} (§4.4).
+analysed, well below one {{cite:neal2011_hmc}} (§5.4.4.3, pp. 141–142).
 
 **"The trajectory follows the exact dynamics, so no correction is
 needed."** The trajectory follows leapfrog dynamics, which conserve neither
@@ -527,7 +529,7 @@ never leave the initial energy surface, and with fixed integrator
 settings the proposal from $z$ is always the same point $T(z)$ — so
 instead of converging to the target from its starting point, the chain
 oscillates inside the two-point orbit $\{z, T(z)\}$
-{{cite:neal2011_hmc}} (§§5.3.2.2–5.3.2.3, pp. 126–127).
+{{cite:neal2011_hmc}} (§5.3.2.2, pp. 126–127).
 
 **"A divergent transition is just a rejected proposal."** A rejection at a
 well-behaved endpoint is routine. A divergence signals that the integrator
@@ -566,12 +568,12 @@ within a larger scheme, or the model must be reformulated. There is no
 leapfrog update for a parameter that takes values in a finite set.
 
 **Tuning is costly, and bad tuning is not benign.** Performance depends
-critically on $\varepsilon$ and $L$ {{cite:neal2011_hmc}} (§5.6), and the
+critically on $\varepsilon$ and $L$ {{cite:neal2011_hmc}} (§5.5.6, p. 156), and the
 best values can differ between regions of the target: a step size stable
 in one region can be unstable in another that preliminary runs never
 reached, in which case the chain may fail to visit that region and produce
 a drastically wrong result while appearing well behaved
-{{cite:neal2011_hmc}} (§4.2). NUTS and dual averaging reduce this burden;
+{{cite:neal2011_hmc}} (§5.4.2.2, p. 136). NUTS and dual averaging reduce this burden;
 they do not remove the need to choose a mass matrix, nor fix a target
 whose geometry defeats a constant metric.
 
@@ -579,7 +581,7 @@ whose geometry defeats a constant metric.
 by Hamiltonian trajectories any more readily than by other local updates;
 Neal notes that HMC is neither more nor less vulnerable here than other
 local MCMC methods, and that combining runs each confined to one mode is
-not valid {{cite:neal2011_hmc}} (§4.2). Funnels and other regions of
+not valid {{cite:neal2011_hmc}} (§5.4.2.1, p. 135). Funnels and other regions of
 extreme, position-dependent curvature produce divergences and biased
 exploration, as described above. Heavy tails can also defeat a poorly
 chosen kinetic energy, a failure Betancourt discusses under geometric
@@ -656,11 +658,13 @@ Hamiltonian dynamics would conserve $H$ and always be accepted.
 :::
 
 2. Suppose an HMC implementation is modified so that the momentum is drawn
-once, at the start of the run, and never resampled: each iteration simply
-continues the trajectory from where the previous one ended, with the
-Metropolis step retained. Why does this chain fail to explore the target,
-however long it runs — and why is the problem *not* that its invariant
-distribution is wrong?
+once, at the start of the run, and never resampled: each iteration runs
+$L$ leapfrog steps of fixed size $\varepsilon$ from the current state,
+negates the momentum, and applies the Metropolis accept/reject step,
+keeping the proposed state if it is accepted and the current state if it
+is not. Why does this chain fail to explore the target, however long it
+runs — and why is the problem *not* that its invariant distribution is
+wrong?
 
 ::: {.callout-tip collapse="true" title="Answer"}
 
@@ -671,18 +675,23 @@ distribution — that is the detailed-balance argument given earlier — so
 a chain started in that distribution would keep the correct marginals.
 The failure is convergence from an actual starting point. Under the
 exact dynamics the total energy $H(q, p)$ is conserved, so a trajectory
-stays on the energy surface of the initial draw. With leapfrog at fixed
-step size and trajectory length, the proposal from a state $z$ is
+stays on the energy surface of the initial draw forever. With leapfrog
+at fixed step size and trajectory length, the proposal from a state $z$ is
 always the same single point $T(z)$: accept it, and the next proposal
 offers $z$ again; reject it, and the chain stays at $z$. Either way the
 chain never leaves the two-point orbit $\{z, T(z)\}$, so it cannot
 visit other energy levels or converge to the target from where it
-started. The Metropolis step is not a hard energy tube — it accepts
-every proposal that lowers $H$, and one that raises $H$ by $\Delta H$
-with probability $\exp(-\Delta H)$ — but the only energy changes ever on
-offer are the integration errors within that orbit. Resampling $p$ at
-each iteration redraws the kinetic energy, changes $H$, and is what
-lets the chain move between energy surfaces and explore.
+started. The Metropolis-corrected numerical chain is not confined to
+the single energy of the initial draw — it can move between the two
+energies of its orbit, $H(z)$ and $H(T(z))$, as acceptances and
+rejections alternate — but it can never reach a third energy, because
+no other state is ever proposed. The Metropolis step is not a hard
+energy tube — it accepts every proposal that lowers $H$, and one that
+raises $H$ by $\Delta H$ with probability $\exp(-\Delta H)$ — but the
+only energy changes ever on offer are the integration errors within
+that orbit. Resampling $p$ at each iteration redraws the kinetic
+energy, changes $H$, and is what lets the chain move between energy
+surfaces and explore.
 
 :::
 
