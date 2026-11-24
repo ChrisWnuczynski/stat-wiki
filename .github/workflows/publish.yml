@@ -286,6 +286,10 @@ jobs:
         run: |
           Rscript -e 'install.packages(c("https://cran.r-project.org/src/contrib/Archive/proxy/proxy_0.4-27.tar.gz", "https://cran.r-project.org/src/contrib/Archive/e1071/e1071_1.7-13.tar.gz", "https://cran.r-project.org/src/contrib/Archive/gee/gee_4.13-25.tar.gz"), repos = NULL, type = "source"); stopifnot(packageVersion("proxy") == "0.4.27", packageVersion("e1071") == "1.7.13", packageVersion("gee") == "4.13.25")'
 
+      - name: Install forecast 8.21.1 for the seasonal ARIMA check
+        run: |
+          Rscript -e 'repos <- "https://packagemanager.posit.co/cran/2023-09-15"; install.packages("forecast", repos = repos, type = "source", dependencies = TRUE); stopifnot(packageVersion("forecast") == "8.21.1")'
+
       - name: Install poppler
         run: sudo apt-get update && sudo apt-get install -y poppler-utils fonts-liberation
 
