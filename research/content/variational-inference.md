@@ -241,7 +241,11 @@ increasing. Blei, Kucukelbir and McAuliffe describe it as the most
 commonly used algorithm for the problem: it "iteratively optimizes each
 factor of the mean-field variational density, while holding the others
 fixed", and "climbs the ELBO to a local optimum"
-{{cite:blei_kucukelbir_mcauliffe2017}} (§2.4).
+{{cite:blei_kucukelbir_mcauliffe2017}} (§2.4). The quoted phrase should
+not be read as a guarantee: each update is an exact conditional optimum
+and the ELBO never decreases, but monotone ascent alone does not
+certify that the point CAVI stops at is a local optimum — as the
+properties below show, it can stall at a saddle point.
 
 The conditional optimum has an explicit form. Write $z_{-j}$ for all
 latent variables except $z_j$. Holding $q_\ell$ fixed for $\ell \ne j$,
@@ -271,7 +275,15 @@ Running until the change falls below a small threshold is a common
 stopping rule {{cite:blei_kucukelbir_mcauliffe2017}} (§2.4), but it is a
 heuristic, not a certificate: a small change, like a plateau in the
 objective, does not by itself certify that a stationary point, let
-alone a local optimum, has been reached. Second, even where CAVI does
+alone a local optimum, has been reached. Exact CAVI can even stop at a
+saddle point: take a target on two signs $s_1, s_2 \in \{-1, +1\}$ with
+$p(s_1, s_2) \propto \exp(2 s_1 s_2)$ and product (mean-field) factors
+with means $m_1, m_2$. Started at $m_1 = m_2 = 0$, each coordinate
+update leaves the other mean at zero — the conditional optimum given a
+zero mean is the uniform factor — so CAVI never moves; yet the ELBO's
+Hessian there is $\begin{pmatrix} -1 & 2 \\ 2 & -1 \end{pmatrix}$, with
+eigenvalues $1$ and $-3$, so the point is a saddle, not a local
+optimum. Second, even where CAVI does
 reach a local optimum, that optimum is in general only local. The ELBO
 is typically non-convex in the variational parameters, global
 optimality is not guaranteed, and different initialisations can lead
@@ -336,8 +348,10 @@ ascent "can only handle a smaller subset"
 {{cite:hoffman_etal2013_svi}} (abstract, p. 1303). The costs are those of
 any stochastic optimisation: the objective is no longer monotone along
 the iterates, and the point the iterates approach is at best a
-stationary point of the ELBO — in practice usually a local optimum,
-whose quality depends on the step-size schedule and initialisation.
+stationary point of the ELBO. Nothing in the method guarantees that
+such a point is a local optimum; which stationary point is reached,
+and how good the resulting approximation is, depends on the step-size
+schedule and initialisation.
 
 Two further developments extend variational inference beyond models with
 tractable complete conditionals. Black-box variational inference writes

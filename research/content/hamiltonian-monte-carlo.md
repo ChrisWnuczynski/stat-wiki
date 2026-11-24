@@ -224,12 +224,22 @@ distribution, independently of the current $q$ and of the previous $p$.
 Because $p$ is drawn from its correct conditional distribution given $q$
 — the same as its marginal, by independence — this step leaves the joint
 distribution invariant. It also moves the state between energy surfaces:
-the new $p$ gives a new kinetic energy, hence a new total energy. Neal
-stresses that without this resampling, $H$ would remain (nearly)
-constant along a trajectory: the exact motion trades kinetic for
-potential energy and back, but since $K \ge 0$, $U(q)$ could never
-exceed the initial *total* energy, so the chain could not reach the
-whole target {{cite:neal2011_hmc}} (p. 124).
+the new $p$ gives a new kinetic energy, hence a new total energy. It is
+this resampling that makes the chain *explore*, and the point is
+convergence, not invariance. Without it, Step 2's Metropolis kernel
+would still preserve the canonical distribution — the
+leapfrog-plus-negation proposal is a volume-preserving involution, and
+the detailed-balance argument below shows the corrected kernel leaves
+the joint law invariant, so a chain started in that law would keep the
+correct marginals. But a real run starts from one fixed point, and from
+there the unrefreshed chain cannot converge to the target: exact
+dynamics conserve $H$, so the state could never leave its initial
+energy surface (since $K \ge 0$, a position with $U(q)$ above the
+initial *total* energy is unreachable), and with fixed integrator
+settings the proposal from a state $z$ only ever offers the single
+image point $T(z)$, so the chain can only bounce within the two-point
+orbit $\{z, T(z)\}$. Resampling $p$ redraws the energy and breaks out
+of the orbit {{cite:neal2011_hmc}} (§5.3.2.1, p. 124).
 
 **Step 2: a Metropolis proposal from a trajectory.** Starting from the
 current $(q, p)$, take $L$ leapfrog steps of size $\varepsilon$, then
@@ -268,7 +278,7 @@ starting point: Neal notes that near periodicities of the trajectory — for
 the one-dimensional Gaussian, a trajectory length near a multiple of the
 period $2\pi$ — can make the chain slow or non-ergodic, and recommends
 randomising $\varepsilon$ or $L$ over a small interval as a safeguard
-{{cite:neal2011_hmc}} (p. 127).
+{{cite:neal2011_hmc}} (§§5.3.2.2–5.3.2.3, pp. 126–127).
 
 ## Properties — Tuning, divergences, and the No-U-Turn sampler
 
@@ -509,9 +519,15 @@ since $K \ge 0$ a position with $U(q) > H$ is then ruled out by energy
 alone. That excludes less than is often assumed — in the worked example
 below, with $H = 0.625$, the energetically allowed interval
 $|q| \le \sqrt{1.25}$ already carries about $0.7364$ of the target
-probability. Without resampling, nothing redraws the momentum, so the
-chain cannot move between energy levels with the frequencies the
-canonical distribution assigns them {{cite:neal2011_hmc}} (p. 124).
+probability. The defect of skipping resampling is not a wrong invariant
+distribution: the Metropolis-corrected proposal preserves the canonical
+law, as the detailed-balance argument above shows. The defect is that
+the chain cannot explore. Nothing redraws the momentum, exact dynamics
+never leave the initial energy surface, and with fixed integrator
+settings the proposal from $z$ is always the same point $T(z)$ — so
+instead of converging to the target from its starting point, the chain
+oscillates inside the two-point orbit $\{z, T(z)\}$
+{{cite:neal2011_hmc}} (§§5.3.2.2–5.3.2.3, pp. 126–127).
 
 **"A divergent transition is just a rejected proposal."** A rejection at a
 well-behaved endpoint is routine. A divergence signals that the integrator
@@ -642,25 +658,31 @@ Hamiltonian dynamics would conserve $H$ and always be accepted.
 2. Suppose an HMC implementation is modified so that the momentum is drawn
 once, at the start of the run, and never resampled: each iteration simply
 continues the trajectory from where the previous one ended, with the
-Metropolis step retained. Why can this chain not sample the target
-correctly, however long it runs?
+Metropolis step retained. Why does this chain fail to explore the target,
+however long it runs — and why is the problem *not* that its invariant
+distribution is wrong?
 
 ::: {.callout-tip collapse="true" title="Answer"}
 
-Under the exact dynamics the total energy $H(q, p)$ is conserved, so a
-trajectory stays on the energy surface of the initial draw; leapfrog
-dynamics conserve $H$ only approximately. The Metropolis step is not a
-hard energy tube either: for a finite energy change it accepts every
-proposal that lowers $H$, and accepts one that raises $H$ by $\Delta H$
-with probability $\exp(-\Delta H)$. But those accepted energy changes are
-only integration errors — nothing in the modified algorithm ever redraws
-the momentum, so the chain cannot visit energy levels with the
-frequencies the canonical distribution assigns them, and the position
-marginal is not the target. (Energy alone also rules out less than one
-might think: a position with $U(q) > H$ is unreachable at energy $H$,
-since $K(p) \ge 0$, but how much of the target that excludes depends on
-the draw.) Resampling $p$ at each iteration is what changes $H$ and lets
-the chain move between energy surfaces.
+The invariant distribution is not the problem. The
+leapfrog-plus-momentum-negation map is a volume-preserving involution,
+and the Metropolis kernel built on it preserves the joint canonical
+distribution — that is the detailed-balance argument given earlier — so
+a chain started in that distribution would keep the correct marginals.
+The failure is convergence from an actual starting point. Under the
+exact dynamics the total energy $H(q, p)$ is conserved, so a trajectory
+stays on the energy surface of the initial draw. With leapfrog at fixed
+step size and trajectory length, the proposal from a state $z$ is
+always the same single point $T(z)$: accept it, and the next proposal
+offers $z$ again; reject it, and the chain stays at $z$. Either way the
+chain never leaves the two-point orbit $\{z, T(z)\}$, so it cannot
+visit other energy levels or converge to the target from where it
+started. The Metropolis step is not a hard energy tube — it accepts
+every proposal that lowers $H$, and one that raises $H$ by $\Delta H$
+with probability $\exp(-\Delta H)$ — but the only energy changes ever on
+offer are the integration errors within that orbit. Resampling $p$ at
+each iteration redraws the kinetic energy, changes $H$, and is what
+lets the chain move between energy surfaces and explore.
 
 :::
 
