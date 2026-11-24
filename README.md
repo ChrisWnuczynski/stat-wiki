@@ -77,10 +77,16 @@ exact versions in `.github/workflows/publish.yml`; match them locally:
 - Quarto 1.6.40, the exact version CI uses, so pages render the same way.
 - Node 22 for the `labs/`, `webr/` and search `node --test` suites and the
   Ask widget.
-- Playwright with Chromium. The Ask widget's browser tests use Node
-  Playwright 1.63.0 (`npx playwright install --with-deps chromium` in
-  `ask/widget`); `tools/visual_check.py` uses Python Playwright
-  (`pip install playwright`, then `playwright install chromium`).
+- Playwright with Chromium, in two separate flavours. CI installs
+  Chromium only for the Ask widget's browser tests, using Node
+  Playwright 1.63.0 from the widget lockfile (`npx playwright install
+  --with-deps chromium` in `ask/widget`); it does not pin or install
+  Python Playwright. The Python Playwright used by the browser tests
+  and `tools/visual_check.py` is a local requirement: `pip install
+  playwright`, then `python -m playwright install --with-deps
+  chromium`. The `--with-deps` step matters on Linux — it installs
+  Chromium's system libraries, without which the browser download
+  succeeds but `chromium.launch()` fails on a fresh host.
 - Poppler (`poppler-utils`: `pdfinfo`, `pdftocairo`) and `fonts-liberation`.
 
 Run this preflight before the full suite; it fails fast with a clear message
@@ -91,8 +97,8 @@ Rscript -e 'for (p in c("mgcv", "rpart", "e1071", "gee", "proxy")) if (!requireN
 python -c "from playwright.sync_api import sync_playwright; p = sync_playwright().start(); b = p.chromium.launch(); print('Chromium OK', b.version); b.close(); p.stop()"
 ```
 
-The commands to run before every push are listed in `AGENTS.md` under
-"Before every push".
+The commands to run before every push are listed in
+[AGENTS.md](AGENTS.md) under "Before every push".
 
 ## Desktop app
 
