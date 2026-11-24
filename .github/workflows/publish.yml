@@ -288,7 +288,8 @@ jobs:
 
       - name: Install forecast 8.21.1 for the seasonal ARIMA check
         run: |
-          Rscript -e 'repos <- "https://packagemanager.posit.co/cran/2023-09-15"; install.packages("forecast", repos = repos, type = "source", dependencies = TRUE); stopifnot(packageVersion("forecast") == "8.21.1")'
+          sudo apt-get update && sudo apt-get install -y libcurl4-openssl-dev
+          Rscript -e 'repos <- "https://packagemanager.posit.co/cran/2023-09-15"; install.packages("forecast", repos = repos, type = "source", dependencies = c("Depends", "Imports", "LinkingTo")); stopifnot(packageVersion("forecast") == "8.21.1")'
 
       - name: Install poppler
         run: sudo apt-get update && sudo apt-get install -y poppler-utils fonts-liberation
