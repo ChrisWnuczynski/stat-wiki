@@ -1150,7 +1150,7 @@ TOPICS += [
           r"An iterative method for maximum likelihood with missing or latent data. The E step computes the expected complete-data log-likelihood given the current parameters; the M step maximises it. No iteration decreases the observed-data likelihood, but the limit can be a local maximum, so several starts are used.",
           also=["sl-05-mixtures-em.qmd#s-why-the-likelihood-never-decreases"],
           links=["EM algorithms?", "expectation[–-]maximi[sz]ation", "EM"]),
-    topic("Missing data", "sl-05-mixtures-em.qmd: The equation does identify the missing data",
+    topic("Missing data", "sl-05-mixtures-em.qmd: Each mixing weight then equals the mean fitted responsibility",
           r"Values that were meant to be observed and were not. The EM algorithm treats a mixture's component labels as missing data: with them the complete-data likelihood is easy to maximise, and the E step replaces them by their conditional probabilities.",
           links=["missing data", "missing values?", "latent variables?"]),
     topic("Identifiability", "sl-05-mixtures-em.qmd: Finite Gaussian mixtures with distinct components",
