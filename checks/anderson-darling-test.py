@@ -4,7 +4,7 @@ Plain Python standard library only. Recomputes, term by term:
   * the worked example (n = 8 against a fully specified Uniform(0, 1)),
   * the "Your turn" sample (n = 8 against the same distribution),
   * Stephens' normal-case adjustment arithmetic quoted in the article
-    (A^2 = 0.947, n = 11 -> A^{2*} = 1.029), and
+    (A^2 = 0.947, n = 11 -> A^{2*} = 1.095), and
   * every critical-value comparison made in the article.
 Prints PASS and exits 0 when all recomputed values match the article.
 """
@@ -82,7 +82,7 @@ check("Stephens printed adjusted value", round(adjusted, 3), 1.095, tol=0)
 assert adjusted > 1.092, "adjusted value must exceed the 1% point"
 print("ok   adjusted A^{2*} = 1.0954 > 1.092 (1% point) - rejects at 1%, narrowly")
 
-# Factor properties quoted in the article and used in Check-yourself 3:
+# Factor properties quoted in the article:
 # f(5) = 0.8 is the minimum over n >= 5; f < 1 at n = 6; f > 1 for n >= 7;
 # maximum about 1.16 near n = 12; f decreases towards 1 thereafter.
 def adj_factor(n):
@@ -98,12 +98,13 @@ assert min(adj_factor(n) for n in range(5, 2001)) == adj_factor(5), \
     "f(5) = 0.8 must be the minimum factor over n >= 5"
 assert all(adj_factor(n) > 1.0 for n in range(7, 2001)), \
     "factor must exceed 1 for every n >= 7"
-# Check-yourself 3: A^2 = 1.40, so A^{2*} >= 1.40 * 0.8 = 1.12 > 1.092 at
-# every n >= 5 - the correct test rejects at the 1% level.
-check("check3 lower bound 1.40 * 0.8", 1.40 * adj_factor(5), 1.12)
-assert 1.40 * adj_factor(5) > 1.092
+# Check-yourself 3: at n = 10 the factor is 1 + 4/10 - 25/100 = 1.15, so
+# A^{2*} = 1.40 * 1.15 = 1.610 > 1.092 - the correct test rejects at the
+# 1% level.
+check("check3 A2* at n = 10: 1.40 * 1.15", 1.40 * adj_factor(10), 1.61)
+assert 1.40 * adj_factor(10) > 1.092
 print("ok   factor: min 0.8 at n=5, >1 for n>=7, max ~1.16 near n=12; "
-      "check3 bound 1.12 > 1.092")
+      "check3 A2* 1.61 > 1.092")
 
 if FAILURES:
     print(f"FAIL: {len(FAILURES)} check(s) failed")
