@@ -682,7 +682,7 @@ $$
 
 for $|k|\le n$ with $n+k$ even, and $0$ otherwise. $X_n=2K-n$ has the same parity as $n$, so an odd number of steps can never end at $0$.
 
-[]{#sol-prob-k-out-of-n} **[Structure of a $k$-out-of-$n$ system](#ex-prob-k-out-of-n).**
+[]{#sol-prob-k-out-of-n} **[Structure of a system with a minimum number of working components](#ex-prob-k-out-of-n).**
 
 $$
 \varphi(\mathbf x)=\begin{cases}1,&\sum_{i=1}^nx_i\ge k,\\0,&\text{otherwise}.\end{cases}

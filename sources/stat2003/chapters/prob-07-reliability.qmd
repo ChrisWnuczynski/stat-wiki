@@ -195,7 +195,7 @@ Components 1, 2 and 3 fail independently with probability $0.1$ each. The system
 :::
 
 ::: {#ex-prob-k-out-of-n .exercise}
-## Structure of a $k$-out-of-$n$ system
+## Structure of a system with a minimum number of working components
 
 Write the structure function of a system that works if and only if at least $k$ of its $n$ components work.
 

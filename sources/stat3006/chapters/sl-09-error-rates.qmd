@@ -490,7 +490,7 @@ For an error rate near $0.10$, how many test observations are needed so that the
 :::
 
 ::: {#ex-sl-09-3 .exercise}
-## The $0.632$ rule
+## The 0.632 bootstrap rule
 
 Compute $1-(1-1/n)^n$ for $n=5$ and $n=20$, and show that it tends to $1-1/e$. If $\mathrm{err}=0.05$ and $\widehat{\mathrm{Err}}^{(\mathrm{BOOT})}=0.20$, compute the $.632$ estimate.
 
