@@ -8,7 +8,7 @@ A fair coin selects one of two experiments. In the first, two answers are indepe
 Conditional independence is independence inside each slice of the conditioning variable. The slice can change with the conditioning value. What must not change, inside a slice, is the relevance of one variable to the other. Marginal correlation looks at the slices piled on top of one another, so a shared slice label can create dependence that disappears as soon as the label is known. The opposite can also happen: variables that are independent overall can be dependent inside a slice. The two statements answer different questions.{{cite:dawid1979}} (§§3–4)
 
 ## Definition
-Let $X$, $Y$ and $Z$ be random variables. Write $X\perp Y\mid Z$ when, for every value $z$ with positive probability in the discrete case, the conditional distribution of $(X,Y)$ given $Z=z$ is a product distribution. Equivalently, for positive conditional probabilities,
+Let $X$, $Y$ and $Z$ be random variables. Write $X\perp Y\mid Z$ when, for every value $z$ with positive probability in the discrete case, the conditional distribution of $(X,Y)$ given $Z=z$ is a product distribution. Equivalently, for every $x$ and every pair $(y,z)$ with $\mathbb P(Y=y,Z=z)>0$,
 
 $$
 \mathbb P(X=x\mid Y=y,Z=z)=\mathbb P(X=x\mid Z=z).

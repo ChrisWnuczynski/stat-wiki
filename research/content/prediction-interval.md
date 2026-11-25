@@ -8,7 +8,7 @@ A weather model can pin down the mean ozone at a stated temperature and still be
 The fitted value at a chosen covariate is an estimate of a mean. A new response at that covariate equals the mean plus a new error. The interval for the mean can shrink toward a point as the sample grows. The interval for the new response cannot: the new error keeps a variance of its own, so the forecast interval levels off at a width set by that residual scale.{{cite:hyndman_athanasopoulos2021}} (§5.5, One-step prediction intervals){{cite:nist_prediction_interval}} (§4.5.1.2, prediction intervals)
 
 ## Definition — A future response on a straight line
-Suppose $Y_1,\ldots,Y_n$ are independent, $Y_i=\beta_0+\beta_1 x_i+\varepsilon_i$, with fixed predictors and $\varepsilon_i\sim N(0,\sigma^2)$. Let $\widehat Y(x)$ be the least-squares fitted value at a new predictor $x$, and let $Y_{\mathrm{new}}$ be a new response at that $x$, independent of the sample and using the same line. A $100(1-\alpha)\%$ prediction interval is
+Suppose $Y_1,\ldots,Y_n$ are independent, $Y_i=\beta_0+\beta_1 x_i+\varepsilon_i$, with fixed predictors and $\varepsilon_i\sim N(0,\sigma^2)$. Let $\widehat Y(x)$ be the least-squares fitted value at a new predictor $x$, and let $Y_{\mathrm{new}}=\beta_0+\beta_1 x+\varepsilon_{\mathrm{new}}$ be a new response at that $x$, where the new error $\varepsilon_{\mathrm{new}}\sim N(0,\sigma^2)$ has the same law as the sample errors and is independent of them. A $100(1-\alpha)\%$ prediction interval is
 $$
 \widehat Y(x)\pm t_{n-2,\,1-\alpha/2}\,S\sqrt{1+\frac1n+\frac{(x-\overline x)^2}{S_{xx}}},
 $$
@@ -38,7 +38,7 @@ The $0.975$ quantile of $t_9$ is $2.26216$, and the margin is $2.26216\times 1.6
 **Your turn.** At the same fit, move the new predictor to $x=5$, the centre of the sample. Compute the 95% prediction standard error and the margin, still with $t_{9,0.975}=2.26216$ and $s=1.5$.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The leverage term vanishes, so the factor under the square root is $1+1/11=1.09091$. The prediction standard error is $1.5\sqrt{1.09091}=1.56670$, and the margin, using the unrounded $t_9$ quantile, is $3.54412$. The interval is shorter than at $x=8$ because the slope is not being extrapolated, and it is still much wider than an interval for the mean.
+The leverage term vanishes, so the factor under the square root is $1+1/11=1.09091$. The prediction standard error is $1.5\sqrt{1.09091}=1.56670$, and the margin, using the unrounded $t_9$ quantile, is $3.54412$. The interval is shorter than at $x=8$ not because of extrapolation — both $x=5$ and $x=8$ lie inside the observed range $0$ to $10$ — but because the slope-uncertainty term $\sigma^2(x-\overline x)^2/S_{xx}$ vanishes at the centre $x=\overline x=5$. The new response's own variance $\sigma^2$ still enters through the leading $1$, so the interval remains much wider than an interval for the mean.
 :::
 
 ## Connections — Means, forecasts, and coverage

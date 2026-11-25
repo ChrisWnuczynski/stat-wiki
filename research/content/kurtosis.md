@@ -12,14 +12,14 @@ The fourth power makes a deviation of 4 count as much as 256 deviations of 1, be
 
 ## Definition
 
-For a random variable with mean $\mu$ and standard deviation $\sigma$, the coefficient of kurtosis is the standardised fourth central moment
+For a random variable with mean $\mu$, a finite fourth central moment and positive standard deviation $\sigma$, the population coefficient of kurtosis is the standardised fourth central moment
 
 $$
 \beta_2=\frac{\mu_4}{\sigma^4},\qquad \mu_4=\mathrm{E}(X-\mu)^4.
 $$
 
 
-For a normal distribution the centred moments satisfy $\mu_s=(s-1)\sigma^2\mu_{s-2}$, with $\mu_0=1$ and $\mu_1=0$, so $\mu_2=\sigma^2$ and $\mu_4=3\sigma^4$. Therefore $\beta_2=3$. A curve with $\beta_2<3$ is called platykurtic, flatter than the normal curve. A curve with $\beta_2>3$ is called leptokurtic, more sharply peaked, in Dodge’s wording, than the normal curve. NIST’s reading of the same inequality is in terms of tails: high kurtosis goes with heavy tails or outliers, and low kurtosis with light tails. {{cite:dodge2008}} (pp. 91–92) {{cite:nist_skewness2002}} (§1.3.5.11, “Definition of Kurtosis”)
+For a normal distribution the centred moments satisfy $\mu_s=(s-1)\sigma^2\mu_{s-2}$, with $\mu_0=1$ and $\mu_1=0$, so $\mu_2=\sigma^2$ and $\mu_4=3\sigma^4$. Therefore $\beta_2=3$. A distribution with $\beta_2<3$ is called platykurtic. A distribution with $\beta_2>3$ is called leptokurtic. NIST’s reading of the same inequality is in terms of tails: high kurtosis goes with heavy tails or outliers, and low kurtosis with light tails. {{cite:dodge2008}} (pp. 91–92) {{cite:nist_skewness2002}} (§1.3.5.11, “Definition of Kurtosis”) These labels compare standardised fourth moments with the normal benchmark; they do not determine the height, shape or modality of a density peak.
 
 For a sample $y_1,\ldots,y_N$ the moment kurtosis uses the divisor $N$ both in the central moments and in the standard deviation:
 
@@ -28,7 +28,7 @@ $$
 $$
 
 
-where $s^2=\sum_i(y_i-\bar y)^2/N$. Some software subtracts 3 and calls the result kurtosis, so that a normal sample is centred at 0. That excess convention is a shift of the same ratio. The handbook uses the unshifted definition, with normal benchmark 3. {{cite:nist_skewness2002}} (§1.3.5.11, “Alternative Definition of Kurtosis”) {{cite:dodge2008}} (p. 91)
+where $s^2=\sum_i(y_i-\bar y)^2/N$. Some software subtracts 3 and calls the result kurtosis. This excess convention gives a population normal benchmark of 0; subtracting 3 from the displayed sample ratio does not make it an unbiased estimator of population excess kurtosis, even for independent observations from a normal distribution. The handbook uses the unshifted definition, with population normal benchmark 3. {{cite:nist_skewness2002}} (§1.3.5.11, “Alternative Definition of Kurtosis”) {{cite:dodge2008}} (p. 91)
 
 ## Properties
 

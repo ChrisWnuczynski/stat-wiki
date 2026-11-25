@@ -2554,7 +2554,7 @@ $$
 \tau_2=0.2.
 $$
 
-The M step then treats the point as $0.8$ of an observation from component $1$ and $0.2$ of an observation from component $2$. A value that was intended to be measured and was not, such as a dropped coordinate, is a different missingness mechanism. The same EM idea applies when the complete-data problem would have been easy, but the conditional distribution of the missing piece must match the mechanism that deleted it. Inventing a latent label and ignoring a coordinate that failed to record are different models.
+The M step then treats the point as $0.8$ of an observation from component $1$ and $0.2$ of an observation from component $2$. Those numbers are conditional probabilities of the binary indicators at the weights and densities just used. A recovered indicator would be $0$ or $1$; the component label in this two-component example would be $1$ or $2$. A change in the current parameter can change the probabilities. A dropped coordinate is a different gap. Direct likelihood inference for the data parameter can ignore the process that removed the coordinate when the realised pattern is missing at random and the parameters are distinct. Those conditions are sufficient, not necessary: if the mechanism depends on the unobserved values, the factorisation need not hold, and ignoring the mechanism can change likelihood ratios. A sampling distribution can still depend on the mechanism.{{cite:rubin1976_missing}} (§5, Def. 1, p. 584; §7, Thm. 7.1, p. 586; Thm. 7.2, pp. 586–587; §6, p. 585)
 """,
     "modes-of-convergence": r"""
 ## Four different things a limit can mean
@@ -2763,7 +2763,7 @@ A histogram suggests skew only after a bin width has been chosen. A normal quant
 
 ## A right tail that leaves the line
 
-For $n=5$ the positions $0.1,0.3,0.5,0.7,0.9$ have normal scores about $-1.28,-0.52,0,0.52,1.28$. A normal sample with mean $10$ and standard deviation $2$ should sit near $7.4,9.0,10,11.0,12.6$. The sample $7,9,10,11,18$ matches that line at the bottom and in the middle, and then the largest point is $18$ rather than about $12.6$. The plot bends upward: a long right tail. A long left tail bends the other way, and heavy tails at both ends make an S shape. With only five points a single unusual value moves the picture, so the plot is a diagnostic rather than a formal test. Curvature can also be a clue about the scale of a later model. A logarithm that straightens a positive right-skewed measurement is information about that scale, which a yes-or-no test on the original numbers does not supply.
+For $n=5$ the positions $0.1,0.3,0.5,0.7,0.9$ have normal scores about $-1.28,-0.52,0,0.52,1.28$. A normal sample with mean $10$ and standard deviation $2$ should sit near $7.4,9.0,10,11.0,12.6$. The sample $7,9,10,11,18$ matches that line at the bottom and in the middle, and then the largest point is $18$ rather than about $12.6$. The largest observation lies unusually high relative to the reference line. A long left tail bends the other way, and heavy tails at both ends make an S shape. With only five points a single unusual value moves the picture and does not establish a population tail shape, so the plot is a diagnostic rather than a formal test. Curvature can also be a clue about the scale of a later model. A logarithm that straightens a positive right-skewed measurement is information about that scale, which a yes-or-no test on the original numbers does not supply.
 """,
     "normal-sample-theorem": r"""
 ## Three facts that hold together
@@ -4171,11 +4171,11 @@ $$
 \mathbb{P}(T>t)=\exp\{-(t/\lambda)^k\},\qquad t>0.
 $$
 
-The density is $f(t)=(k/\lambda)(t/\lambda)^{k-1}\exp\{-(t/\lambda)^k\}$. Dividing $f$ by the survival function gives the [hazard](hazard-rate.qmd) $h(t)=(k/\lambda)(t/\lambda)^{k-1}$. Shape decides the ageing. If $k>1$ the hazard increases. If $k<1$ it decreases. If $k=1$ the hazard is the constant $1/\lambda$, and $T$ is [exponential](exponential-distribution.qmd) with rate $1/\lambda$, hence memoryless. The mean is $\mathbb{E} T=\lambda\Gamma(1+1/k)$, where $\Gamma$ is the gamma function. In particular $\Gamma(1/2)=\sqrt{\pi}$ and $\Gamma(3/2)=\sqrt{\pi}/2\approx 0.886$.{{cite:forbes2011}}
+The density is $f(t)=(k/\lambda)(t/\lambda)^{k-1}\exp\{-(t/\lambda)^k\}$. Dividing $f$ by the survival function gives the [hazard](hazard-rate.qmd) $h(t)=(k/\lambda)(t/\lambda)^{k-1}$. Shape describes the direction of the model's hazard. A fitted hazard shape alone does not identify a physical cause. If $k>1$ the hazard increases. If $k<1$ it decreases. If $k=1$ the hazard is the constant $1/\lambda$, and $T$ is [exponential](exponential-distribution.qmd) with rate $1/\lambda$, hence memoryless. The mean is $\mathbb{E} T=\lambda\Gamma(1+1/k)$, where $\Gamma$ is the gamma function. In particular $\Gamma(1/2)=\sqrt{\pi}$ and $\Gamma(3/2)=\sqrt{\pi}/2\approx 0.886$.{{cite:forbes2011}}
 
 ## Eight hundred and eighty-six hours
 
-Take $k=2$ and $\lambda=1000$ hours. The mean is about $1000\times0.886=886$ hours. The hazard is $h(t)=2t/\lambda^2=2\times10^{-6}t$ per hour, linear in time. At $500$ hours it is $0.001$ per hour; at $1000$ hours it is $0.002$ per hour. Twice the age, twice the hazard. A uniform $U$ on $(0,1)$ produces a draw by inverting the survival function: $(T/\lambda)^k=-\log U$, so $T=\lambda(-\log U)^{1/k}$. A single shape cannot make a bathtub hazard that falls and later rises. That pattern needs a mixture, or separate pieces, rather than one Weibull term.{{cite:ross2019}}
+Take $k=2$ and $\lambda=1000$ hours. The mean is about $1000\times0.886=886$ hours. The hazard is $h(t)=2t/\lambda^2=2\times10^{-6}t$ per hour, linear in time. At $500$ hours it is $0.001$ per hour; at $1000$ hours it is $0.002$ per hour. Twice the age, twice the hazard. A uniform $U$ on $(0,1)$ produces a draw by inverting the survival function: $(T/\lambda)^k=-\log U$, so $T=\lambda(-\log U)^{1/k}$. A single two-parameter Weibull cannot make a bathtub hazard that falls and later rises. Other models can allow this pattern without mixtures or separate pieces: for example, the smooth hazard $h(t)=1+(t-1)^2$ for $t\geq0$ falls then rises, and its cumulative hazard $t^3/3-t^2+2t$ diverges, so it defines a proper lifetime distribution.{{cite:ross2019}}
 """,
     "white-noise": r"""
 ## Innovations with nothing left for a linear forecast

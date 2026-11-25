@@ -11,6 +11,8 @@ A one-sided alternative with odds ratio greater than one treats larger top-left 
 
 For fixed margins, an exact nonrandomised test can have rejection probability below its nominal level. Its attainable probabilities jump between table configurations. Increasing the nominal level slightly need not change the rejection set. That discreteness is compatible with finite-sample control.{{cite:agresti1992_exact_survey}} (§§2.1–2.2, pp. 134–135)
 
+For a $2\times2$ table, R's `fisher.test` reports the conditional maximum-likelihood estimate of the odds ratio, rather than the sample cross-product ratio $ad/(bc)$.
+
 ## Worked example — A probability ordering for twenty people
 For rows $(8,2)$ and $(3,7)$, the margins give $n=20$, $r=10$ and $s=11$. The top-left count ranges from one to ten. The observed table's probability is $0.0321505$, and the upper tail from eight through ten has probability $0.0348893$. Including every table with probability no greater than the observed one gives counts $1,2,3,8,9,10$ and two-sided probability $0.0697785$. At level $0.05$, the upper-tail test rejects while this two-sided test does not. Choosing the direction after seeing the table would change the testing procedure.
 
@@ -18,6 +20,8 @@ For rows $(8,2)$ and $(3,7)$, the margins give $n=20$, $r=10$ and $s=11$. The to
 
 ::: {.callout-tip collapse="true" title="Answer"}
 The sample cross-product ratio is $(8\cdot7)/(2\cdot3)=28/3$. It measures observed association on an odds scale. The $p$-value is a tail probability under a specified null distribution.
+
+For this table, R's `fisher.test` reports a conditional maximum-likelihood odds-ratio estimate of approximately $8.1531$, compared with the sample cross-product ratio $28/3\approx9.3333$. The conditional estimate uses the likelihood with the margins held fixed.
 :::
 
 ## Check yourself

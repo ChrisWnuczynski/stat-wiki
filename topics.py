@@ -569,7 +569,7 @@ TOPICS += [
           r"The condition an experimenter assigns to a unit: a drug, a dose, a fertiliser, a teaching method. Comparing responses across treatments, with the assignment randomised, is what lets a designed experiment support a causal conclusion from the assignment; observational studies need additional assumptions to interpret a treatment contrast causally.",
           links=["treatment groups?", "treatments?"], scope=[D, I], late=True),
     topic("Significance level", "inf-04-hypothesis-tests.qmd: The size, or significance level",
-          r"The probability $\alpha$ of a type I error that a test allows: the null hypothesis is rejected when the test statistic falls in a critical region of probability $\alpha$ under the null. It is chosen before the data are seen, conventionally $\alpha=0.05$.",
+          r"The probability $\alpha$ of a type I error that a test allows: the null hypothesis is rejected when the test statistic falls in a critical region of probability at most $\alpha$ under every null distribution. It is chosen before the data are seen, conventionally $\alpha=0.05$.",
           links=["significance levels?", "levels? of significance", "size of (?:a|the) test"]),
     topic("Degrees of freedom", "inf-01-statistical-inference.qmd: has the chi-squared distribution with $m$ degrees of freedom",
           r"The parameter of the chi-squared, $t$ and $F$ families, and the number of independent pieces of information behind a variance estimate: $n-1$ for a sample variance, $n-p$ for a regression with $p$ coefficients, $(r-1)(c-1)$ for a test of independence in an $r\times c$ table.",
@@ -1150,7 +1150,7 @@ TOPICS += [
           r"An iterative method for maximum likelihood with missing or latent data. The E step computes the expected complete-data log-likelihood given the current parameters; the M step maximises it. No iteration decreases the observed-data likelihood, but the limit can be a local maximum, so several starts are used.",
           also=["sl-05-mixtures-em.qmd#s-why-the-likelihood-never-decreases"],
           links=["EM algorithms?", "expectation[–-]maximi[sz]ation", "EM"]),
-    topic("Missing data", "sl-05-mixtures-em.qmd: The equation does identify the missing data",
+    topic("Missing data", "sl-05-mixtures-em.qmd: Each mixing weight then equals the mean fitted responsibility",
           r"Values that were meant to be observed and were not. The EM algorithm treats a mixture's component labels as missing data: with them the complete-data likelihood is easy to maximise, and the E step replaces them by their conditional probabilities.",
           links=["missing data", "missing values?", "latent variables?"]),
     topic("Identifiability", "sl-05-mixtures-em.qmd: Finite Gaussian mixtures with distinct components",
@@ -1329,6 +1329,9 @@ ALIASES.update({
     "Brown-Forsythe test": "levene-s-test",
     "Brown–Forsythe test": "levene-s-test",
     "Friedman rank sum test": "friedman-test",
+    "mean-field approximation": "variational-inference",
+    "hybrid Monte Carlo": "hamiltonian-monte-carlo",
+    "Bayesian nonparametrics": "dirichlet-process",
 })
 
 ALIASES.update({
@@ -1642,6 +1645,10 @@ LINKS += [
     link(["Shapiro–Wilk test", "Shapiro-Wilk test"], "shapiro-wilk-test"),
     link(["Friedman rank sum test", "Friedman test"], "friedman-test"),
     link(["Levene's test", "Levene test", "Brown-Forsythe test", "Brown–Forsythe test"], "levene-s-test"),
+    link(["variational inference", "variational Bayes", "mean-field approximation", "evidence lower bound"], "variational-inference"),
+    link(["Hamiltonian Monte Carlo", "hybrid Monte Carlo", "No-U-Turn sampler"], "hamiltonian-monte-carlo"),
+    link(["importance sampling", "self-normalised importance sampling"], "importance-sampling"),
+    link(["Dirichlet process", "Bayesian nonparametrics", "Chinese restaurant process", "stick-breaking"], "dirichlet-process"),
 ]
 
 LINKS += [

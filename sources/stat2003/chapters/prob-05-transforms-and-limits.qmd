@@ -86,7 +86,7 @@ $$
 f_Z(z)=\begin{cases}z,&0\le z\le1,\\ 2-z,&1\le z\le2.\end{cases}
 $$
 
-The sum of two flat densities is a triangle. Adding more uniforms rounds the shape off further, towards the normal curve of the central limit theorem below.
+The sum of two independent continuous uniforms has a triangular density when their support intervals have equal widths; unequal widths give a flat-topped trapezoid. For independent, identically distributed terms with finite positive variance, the central limit theorem below gives a standard normal limit for the standardised sum as the number of terms grows. Standardising means subtracting the sum's mean and dividing by its standard deviation; the raw sum does not have that limit.
 
 :::
 
