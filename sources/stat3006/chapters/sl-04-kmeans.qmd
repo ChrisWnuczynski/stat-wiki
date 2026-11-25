@@ -340,7 +340,7 @@ For $k=1,\ldots,5$ the gap values are $0.30$, $0.70$, $1.10$, $1.15$, $1.00$ and
 :::
 
 ::: {#ex-sl-04-6 .exercise}
-## The within-cluster sum cannot choose $K$
+## Why within-cluster sum of squares alone cannot choose the number of clusters
 
 A student reports that $K=10$ is best because it gives the smallest total within-cluster sum of squares among $K=1,\ldots,10$. Explain what is wrong with the argument and what to compute instead.
 

@@ -185,7 +185,7 @@ Joint normality turns this zero covariance into independence.
 
 ## Chapter 2
 
-[]{#sol-sl-02-1} **[Where the $n-1$ comes from](#ex-sl-02-1).**
+[]{#sol-sl-02-1} **[Why sample covariance uses one fewer degree of freedom](#ex-sl-02-1).**
 
 The sample mean is random, so centring at it changes the expected scatter. Isolate that change before taking expectations.
 
@@ -327,7 +327,7 @@ $$
 
 The two sides agree.
 
-[]{#sol-sl-02-5} **[A small $T^2$ test](#ex-sl-02-5).**
+[]{#sol-sl-02-5} **[A small-sample Hotelling test](#ex-sl-02-5).**
 
 The quadratic form measures the observed displacement. Its reference distribution belongs to the random statistic under the null, rather than to the numerical value obtained after observing the sample.
 
@@ -661,7 +661,7 @@ Check $\operatorname{Gap}(k)\ge\operatorname{Gap}(k+1)-s'(k+1)$ in order.
 
 So $k^*=3$, even though the gap is numerically largest at $k=4$. The increase from $3$ to $4$ is only $0.05$, which is smaller than $s'(4)=0.06$.
 
-[]{#sol-sl-04-6} **[The within-cluster sum cannot choose $K$](#ex-sl-04-6).**
+[]{#sol-sl-04-6} **[Why within-cluster sum of squares alone cannot choose the number of clusters](#ex-sl-04-6).**
 
 Ask what the unpenalised objective would prefer if every observation were allowed its own cluster. That limiting case shows why raw training fit cannot select complexity.
 
@@ -824,7 +824,7 @@ Swapping the labels and the weights, $\pi\leftrightarrow 1-\pi$, reorders the tw
 
 If two bootstrap fits have swapped labels, an average of their parameters, for example of the two values called $\mu_1$, mixes the means of different components and lands between them. The bootstrap covariance is inflated by that artificial spread. Components must be matched across fits first.
 
-[]{#sol-sl-05-7} **[Mixtures versus $K$-means](#ex-sl-05-7).**
+[]{#sol-sl-05-7} **[Gaussian mixtures versus k-means](#ex-sl-05-7).**
 
 (a) One distinction is hard nearest-centre assignment against probabilistic membership from a density model. The mixture reports a responsibility for an observation that sits between components, so an overlap is visible as a probability rather than as a forced label. Another distinction is Euclidean nearest-centre geometry against component-specific covariances and mixing weights. The mixture can give the components different orientations, spreads, and prevalences, and the maximum-a-posteriori boundary can be curved.
 
@@ -1218,7 +1218,7 @@ $$
 
 so about $865$ observations. The requirement grows like the inverse square of the half-width.
 
-[]{#sol-sl-09-3} **[The $0.632$ rule](#ex-sl-09-3).**
+[]{#sol-sl-09-3} **[The 0.632 bootstrap rule](#ex-sl-09-3).**
 
 A point is absent from a bootstrap sample only if every draw misses it. For $n=5$,
 
@@ -1458,7 +1458,7 @@ $$
 
 which is $1.8$ times the Bayes error and below the factor-two bound. The multiplier $1+\sqrt{2/k}$ is $2.41$ for $k=1$, $1.53$ for $k=7$, and $1.20$ for $k=50$. For $k=1$ the sharper Cover–Hart bound $2R^*(1-R^*)$ is tighter than $1+\sqrt{2}$. This is a large-sample comparison for the stated nearest-neighbour setting. Bayes consistency of a sequence $k_n$ requires conditions such as $k_n\to\infty$ and $k_n/n\to 0$. Increasing $k$ to the full sample size is not that regime.
 
-[]{#sol-sl-11-5} **[A training point cannot be its own neighbour when choosing $k$](#ex-sl-11-5).**
+[]{#sol-sl-11-5} **[Self-matches when choosing the number of neighbours](#ex-sl-11-5).**
 
 If each training point may be its own neighbour, then for $k=1$ each point with a unique predictor vector is classified correctly, at distance $0$ from itself, so the training error is $0$. Then $k=1$ is always chosen. The apparent error is minimised by the most flexible classifier and says nothing about performance on new data. Use leave-one-out or $K$-fold cross-validation, with the $i$th point excluded from its own neighbour list, or a separate validation set, to choose $k$. For a final error estimate use a test set or nested cross-validation.
 

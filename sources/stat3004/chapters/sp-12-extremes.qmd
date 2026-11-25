@@ -79,7 +79,7 @@ For independent copies, $\mathrm{P}(M_n\le x)=F(x)^n$. An exponential tail produ
 ## Exercises
 
 ::: {#ex-sp-uniform-max .exercise}
-## The expected maximum of $n$ uniforms
+## Expected maximum of independent uniform draws
 
 For $n$ independent $\mathrm{Uniform}(0,1)$ variables, find $\E M_n$ and show that it tends to the upper endpoint.
 
