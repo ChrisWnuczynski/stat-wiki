@@ -32,7 +32,7 @@ Taking logarithms maps this family back to the normal family, but it does not ma
 
 ## Statistical inference
 
-For iid positive observations, fit the normal model to $Y_i=\log X_i$ when its assumptions are credible. Exponentiating the fitted log mean estimates the original-scale median under that model. An original-scale mean estimate instead needs the log variance as well, through $e^{\mu+\sigma^2/2}$. A mean prediction without this adjustment is systematically below the lognormal mean, although it can be a useful estimate of a typical or median outcome. Inspect the log observations for strong non-normality and investigate zeros before applying the transformation.{{cite:siegrist2022_lognormal_distribution}} (§5.12, Definition and Moments)
+For iid positive observations, fit the normal model to $Y_i=\log X_i$ when its assumptions are credible. Exponentiating the fitted log mean estimates the original-scale median under that model. An original-scale mean estimate instead needs the log variance as well, through $e^{\mu+\sigma^2/2}$. Within the fitted model, $e^{\hat\mu}$ is the fitted median and $e^{\hat\mu+\hat\sigma^2/2}$ is the fitted mean, which is larger whenever $\hat\sigma^2>0$. That is a comparison of two fitted quantities: a particular sample's $e^{\hat\mu}$ can still fall above the true population mean, and the fitted mean is a plug-in estimate, not an unbiased estimator of that mean. Inspect the log observations for strong non-normality and investigate zeros before applying the transformation.{{cite:siegrist2022_lognormal_distribution}} (§5.12, Definition and Moments)
 
 ## Generating random samples
 
