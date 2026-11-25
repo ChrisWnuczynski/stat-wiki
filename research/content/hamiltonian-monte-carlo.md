@@ -519,7 +519,7 @@ step that moves the chain between energy levels. Confinement by energy
 is a statement about the exact flow: exact dynamics conserve $H$, and
 since $K \ge 0$ a position with $U(q) > H$ is then ruled out by energy
 alone. That excludes less than is often assumed — in the worked example
-below, with $H = 0.625$, the energetically allowed interval
+above, with $H = 0.625$, the energetically allowed interval
 $|q| \le \sqrt{1.25}$ already carries about $0.7364$ of the target
 probability. The defect of skipping resampling is not a wrong invariant
 distribution: the Metropolis-corrected proposal preserves the canonical
