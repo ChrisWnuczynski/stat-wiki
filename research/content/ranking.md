@@ -9,14 +9,14 @@ Four finishing times, in minutes, are $8$, $3$, $8$, and $1$. The clock readings
 ## Definition
 Order the sample from smallest to largest. If all $n$ values are distinct, the ranks are $1, 2, \ldots, n$ in that order, written back against the original positions. If several observations have exactly the same value, each of them receives the average of the ranks those positions would have taken. For two values tied at the top of a list of four, the places $3$ and $4$ average to $3.5$, and both tied values are ranked $3.5$.
 
-Spearman's coefficient uses two such rankings. If there are many average ranks, the coefficient uses a correction. With $g$ tied groups in the first sample, of sizes $t_i$,
+Spearman's coefficient is the Pearson correlation of the two rank vectors, using average ranks (midranks) whenever values are tied. With $g$ tied groups in the first sample, of sizes $t_i$, the centred sum of squares of its rank vector is
 
 $$
 S_x=\frac{n(n^2-1)-\sum_{i=1}^{g}(t_i^3-t_i)}{12},
 $$
 
 
-and likewise $S_y$ for the second sample. The coefficient is then built from $S_x$, $S_y$, and the sum of squared rank differences. When there are no ties, each observation is a group of size $1$, and $t^3-t=0$, so the correction vanishes.{{cite:dodge2008}} (p. 502)
+and likewise $S_y$ for the second sample. Each is the sum of squared deviations of the ranks from their mean, $(n+1)/2$. The same Pearson correlation can be expressed using $S_x$, $S_y$, and the sum of squared rank differences. The tie-group terms account for any ties, even a single tied pair. When there are no ties, each observation is a group of size $1$, and $t^3-t=0$, so both centred sums of squares reduce to $n(n^2-1)/12$.{{cite:dodge2008}} (p. 502)
 
 ## Properties
 The ranks of $n$ observations, with average ranks for ties, still sum to $n(n+1)/2$, the sum of the first $n$ positive integers. Averaging the shared places is what keeps that identity. Giving every member of a tie the lowest place in the tie, or the highest, would change the sum.
