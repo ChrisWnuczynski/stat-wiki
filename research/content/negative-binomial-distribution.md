@@ -4,7 +4,7 @@ A help desk may receive an average of three calls per hour yet have quiet hours 
 
 ## Intuition — Gamma mixing creates extra count variation
 
-Think of the conditional Poisson rate as a hidden feature of each hour. Conditional on a low rate, zero calls are common; conditional on a high rate, large counts are more common. Combining these hours creates both more zeros and a heavier upper tail than a single-rate Poisson law with the same average. The dispersion parameter $\nu$ controls how much the hidden rates vary: a small $\nu$ allows substantial variation, while a large $\nu$ concentrates the rate around $\mu$. The mass function and the cumulative distribution function describe that shape; neither summary says why the variation arose.{{cite:zeileis_kleiber_jackman2008}} (§2, pp. 4–5, mean–variance relation and mixture)
+Think of the conditional Poisson rate as a hidden feature of each hour. Conditional on a low rate, zero calls are common; conditional on a high rate, large counts are more common. With a nondegenerate mixing rate, combining these hours creates more zeros than a single-rate Poisson law with the same mean and a heavier upper tail for sufficiently large counts, though the upper-tail probability need not be larger at every cutoff. The dispersion parameter $\nu$ controls how much the hidden rates vary: a small $\nu$ allows substantial variation, while a large $\nu$ concentrates the rate around $\mu$. The mass function and the cumulative distribution function describe that shape; neither summary says why the variation arose.{{cite:zeileis_kleiber_jackman2008}} (§2, pp. 4–5, mean–variance relation and mixture)
 
 ## Definition
 
