@@ -96,11 +96,22 @@ export async function turnstileToken(container: HTMLElement, sitekey: string): P
 
 const markdown = new MarkdownIt({ html: false, linkify: false, typographer: false, breaks: false })
 
+// The same commands the page prerender defines. An answer is new TeX, not a
+// second pass over HTML that is already typeset.
+const KATEX_MACROS = { "\\E": "\\mathbb{E}", "\\Var": "\\operatorname{Var}", "\\Cov": "\\operatorname{Cov}" }
+
 function mathHtml(piece: MathPiece | undefined, katex: Katex | null): string {
   if (!piece) return ""
   if (katex) {
     try {
-      return katex.renderToString(piece.tex, { displayMode: piece.display, throwOnError: false, trust: false, strict: "ignore" })
+      return katex.renderToString(piece.tex, {
+        displayMode: piece.display,
+        throwOnError: false,
+        trust: false,
+        strict: "ignore",
+        output: "htmlAndMathml",
+        macros: KATEX_MACROS,
+      })
     } catch {
       // Fall through to the source.
     }
@@ -213,13 +224,28 @@ export async function loadPassage(href: string): Promise<Passage> {
   return { title, url: target.href, node }
 }
 
-/** Render the page's own maths spans, as the hover previews do. */
+/** Render only spans that are still TeX.
+
+A prerendered formula is already a `.katex` tree with MathML inside `span.math`.
+Its text is the spoken form plus the TeX annotation, so handing that text back
+to KaTeX replaces the formula and reads it twice. Spans that already contain
+KaTeX or MathML are left untouched. A raw span is typeset once, with MathML.
+*/
 export function renderPageMath(root: HTMLElement, katex: Katex | null): void {
   if (!katex) return
   root.querySelectorAll<HTMLElement>("span.math").forEach((el) => {
+    if (el.querySelector(".katex, math")) return
     const tex = (el.textContent ?? "").trim().replace(/^\\[([]/, "").replace(/\\[)\]]$/, "")
+    if (!tex) return
     try {
-      katex.render(tex, el, { displayMode: el.classList.contains("display"), throwOnError: false })
+      katex.render(tex, el, {
+        displayMode: el.classList.contains("display"),
+        throwOnError: false,
+        trust: false,
+        strict: "ignore",
+        output: "htmlAndMathml",
+        macros: KATEX_MACROS,
+      })
     } catch {
       // Leave the source.
     }

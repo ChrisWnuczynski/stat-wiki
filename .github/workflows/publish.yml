@@ -348,6 +348,6 @@ jobs:
           npm ci
           npm run typecheck
           npm run build
-          npm test
           npx playwright install --with-deps chromium
+          npm test
           npm run e2e

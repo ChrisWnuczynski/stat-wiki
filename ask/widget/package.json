@@ -7,7 +7,7 @@
   },
   "scripts": {
     "build": "vite build",
-    "test": "node --experimental-strip-types --test src/text.test.ts",
+    "test": "node --experimental-strip-types --test src/text.test.ts src/passage.test.ts",
     "e2e": "node --test test/e2e.test.mjs",
     "typecheck": "tsc --noEmit -p tsconfig.json"
   },
