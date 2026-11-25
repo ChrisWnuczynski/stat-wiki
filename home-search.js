@@ -144,6 +144,9 @@ if (form && input && list && note) {
       choose(next);
       input.setAttribute("aria-activedescendant", "home-search-result-" + next);
     } else if (event.key === "Enter") {
+      // An input method uses Enter to commit composed text. keyCode 229 is the
+      // composition signal some browsers send without isComposing.
+      if (event.isComposing || event.keyCode === 229) return;
       event.preventDefault();
       goToResults();
     } else if (event.key === "Escape") {

@@ -698,16 +698,209 @@ test("short query ba leads with title and alias matches, ahead of body text", ()
   assert.ok(sandwich > global && hidden > global, "body text follows title and alias matches");
 });
 
+class HomeSearchEl {
+  constructor(tag) {
+    this.tagName = tag;
+    this.children = [];
+    this.listeners = new Map();
+    this.attributes = {};
+    this.hidden = false;
+    this.className = "";
+    this.id = "";
+    this.text = "";
+    this.href = "";
+    this.value = "";
+    this.classList = {
+      add: (name) => {
+        const names = new Set(this.className.split(" ").filter(Boolean));
+        names.add(name);
+        this.className = [...names].join(" ");
+      },
+      toggle: (name, on) => {
+        const names = new Set(this.className.split(" ").filter(Boolean));
+        if (on) names.add(name);
+        else names.delete(name);
+        this.className = [...names].join(" ");
+      },
+    };
+  }
+
+  set textContent(value) {
+    this.text = String(value ?? "");
+  }
+
+  get textContent() {
+    return this.text;
+  }
+
+  set innerHTML(value) {
+    if (value === "") this.children = [];
+  }
+
+  setAttribute(name, value) {
+    this.attributes[name] = String(value);
+  }
+
+  getAttribute(name) {
+    return this.attributes[name];
+  }
+
+  addEventListener(type, fn) {
+    if (!this.listeners.has(type)) this.listeners.set(type, []);
+    this.listeners.get(type).push(fn);
+  }
+
+  dispatch(event) {
+    for (const fn of this.listeners.get(event.type) || []) fn(event);
+  }
+
+  appendChild(child) {
+    this.children.push(child);
+    return child;
+  }
+
+  append(...children) {
+    children.forEach((child) => this.appendChild(child));
+  }
+
+  querySelectorAll(selector) {
+    if (selector === "[role='option']") {
+      return this.children.filter((child) => child.attributes.role === "option");
+    }
+    return [];
+  }
+
+  focus() {}
+
+  scrollIntoView() {}
+}
+
+function pressKey(target, fields) {
+  let prevented = false;
+  target.dispatch({
+    type: "keydown",
+    preventDefault() {
+      prevented = true;
+    },
+    ...fields,
+  });
+  return prevented;
+}
+
 test("homepage Enter navigates to the search results page", async () => {
   assert.equal(resultsPageHref("ba"), "search.html?q=ba");
   assert.equal(resultsPageHref(" Bayes theorem "), "search.html?q=Bayes%20theorem");
   assert.equal(resultsPageHref("p&q"), "search.html?q=p%26q");
-  const fs = await import("node:fs");
-  const src = fs.readFileSync(new URL("./home-search.js", import.meta.url), "utf8");
-  assert.match(src, /resultsPageHref\(q\)/);
-  assert.match(src, /Press Enter for a results page/);
-  assert.doesNotMatch(src, /openSelected/);
-  assert.doesNotMatch(src, /Enter opens the highlighted result/);
+
+  const previous = {
+    window: globalThis.window,
+    document: globalThis.document,
+    location: globalThis.location,
+    fetch: globalThis.fetch,
+  };
+  const home = "https://www.statwiki.io/index.html";
+  const location = { href: home };
+  const form = new HomeSearchEl("form");
+  const input = new HomeSearchEl("input");
+  const list = new HomeSearchEl("ul");
+  const note = new HomeSearchEl("p");
+  const byId = {
+    "home-search": form,
+    "home-search-q": input,
+    "home-search-results": list,
+    "home-search-note": note,
+  };
+  globalThis.location = location;
+  globalThis.window = {
+    matchMedia: () => ({ matches: false }),
+    location,
+    setTimeout: globalThis.setTimeout.bind(globalThis),
+    clearTimeout: globalThis.clearTimeout.bind(globalThis),
+  };
+  globalThis.document = {
+    getElementById: (id) => byId[id] || null,
+    createElement: (tag) => new HomeSearchEl(tag),
+  };
+  globalThis.fetch = async (url) => {
+    const href = String(url);
+    if (href.endsWith("search-aliases.json")) {
+      return { ok: true, json: async () => ({ pages: {}, aliases: {} }) };
+    }
+    if (href.endsWith("search.json")) {
+      return {
+        ok: true,
+        json: async () => [
+          {
+            href: "articles/bayes-rule.html",
+            title: "Bayes' rule",
+            section: "",
+            text: "Posterior odds.",
+          },
+        ],
+      };
+    }
+    return { ok: false, json: async () => ({}) };
+  };
+
+  try {
+    await import("./home-search.js");
+    assert.equal(note.textContent, "Results appear as you type. Press Enter for a results page.");
+
+    input.value = "Bayes & odds";
+    assert.equal(pressKey(input, { key: "Enter", isComposing: true }), false);
+    assert.equal(location.href, home, "composing Enter leaves the page alone");
+    assert.equal(pressKey(input, { key: "Enter", keyCode: 229 }), false);
+    assert.equal(location.href, home, "composition keyCode 229 leaves the page alone");
+
+    assert.equal(pressKey(input, { key: "Enter" }), true);
+    assert.equal(location.href, "search.html?q=Bayes%20%26%20odds");
+
+    location.href = home;
+    input.value = "variance";
+    assert.equal(pressKey(input, { key: "Enter" }), true);
+    assert.equal(location.href, "search.html?q=variance");
+
+    location.href = home;
+    input.value = "bayes";
+    input.dispatch({ type: "input" });
+    await new Promise((resolve) => setTimeout(resolve, 80));
+    const suggestion = list.children[0];
+    const link = suggestion.children[0];
+    assert.equal(link.tagName, "a");
+    assert.equal(link.href, "articles/bayes-rule.html");
+    link.dispatch({ type: "click" });
+    suggestion.dispatch({ type: "click" });
+    suggestion.dispatch({ type: "mousemove" });
+    assert.equal(location.href, home, "clicking or tapping a suggestion does not open the results page");
+
+    input.value = "median";
+    assert.equal(pressKey(input, { key: "Enter" }), true);
+    assert.equal(location.href, "search.html?q=median");
+
+    location.href = home;
+    input.value = "likelihood";
+    pressKey(input, { key: "Escape" });
+    assert.equal(location.href, home);
+    assert.equal(pressKey(input, { key: "Enter" }), true);
+    assert.equal(location.href, "search.html?q=likelihood");
+
+    location.href = home;
+    input.value = "posterior";
+    let submitted = false;
+    form.dispatch({
+      type: "submit",
+      preventDefault() {
+        submitted = true;
+      },
+    });
+    assert.equal(submitted, true);
+    assert.equal(location.href, "search.html?q=posterior");
+  } finally {
+    globalThis.window = previous.window;
+    globalThis.document = previous.document;
+    globalThis.location = previous.location;
+    globalThis.fetch = previous.fetch;
+  }
 });
 
 test("a normal multi-word query keeps its current top results", () => {
