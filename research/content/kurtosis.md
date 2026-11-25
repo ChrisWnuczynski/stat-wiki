@@ -12,7 +12,7 @@ The fourth power makes a deviation of 4 count as much as 256 deviations of 1, be
 
 ## Definition
 
-For a random variable with mean $\mu$ and standard deviation $\sigma$, the coefficient of kurtosis is the standardised fourth central moment
+For a random variable with mean $\mu$, a finite fourth central moment and positive standard deviation $\sigma$, the population coefficient of kurtosis is the standardised fourth central moment
 
 $$
 \beta_2=\frac{\mu_4}{\sigma^4},\qquad \mu_4=\mathrm{E}(X-\mu)^4.
@@ -28,7 +28,7 @@ $$
 $$
 
 
-where $s^2=\sum_i(y_i-\bar y)^2/N$. Some software subtracts 3 and calls the result kurtosis, so that a normal sample is centred at 0. That excess convention is a shift of the same ratio. The handbook uses the unshifted definition, with normal benchmark 3. {{cite:nist_skewness2002}} (§1.3.5.11, “Alternative Definition of Kurtosis”) {{cite:dodge2008}} (p. 91)
+where $s^2=\sum_i(y_i-\bar y)^2/N$. Some software subtracts 3 and calls the result kurtosis. This excess convention gives a population normal benchmark of 0; subtracting 3 from the displayed sample ratio does not make it an unbiased estimator of population excess kurtosis, even for independent observations from a normal distribution. The handbook uses the unshifted definition, with population normal benchmark 3. {{cite:nist_skewness2002}} (§1.3.5.11, “Alternative Definition of Kurtosis”) {{cite:dodge2008}} (p. 91)
 
 ## Properties
 
