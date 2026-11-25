@@ -2,12 +2,35 @@
 
 from math import isclose, sqrt
 from pathlib import Path
+import re
+
+
+def check_authored_passages(text: str) -> None:
+    """Keep exercise results out of the two explanatory passages in STA-35."""
+    for title in ("Properties", "Statistical use"):
+        section = re.search(
+            rf"^## {re.escape(title)}(?: \{{#[^}}\n]+\}})?\n(.*?)(?=^## |\Z)",
+            text, re.M | re.S,
+        )
+        assert section is not None, f"Missing {title} section"
+        body = section.group(1)
+        assert not re.search(r"safety[\s-]+programme", body, re.I), (
+            f"Stale safety-programme reference in {title}"
+        )
+        # Check the old safety result and the readings exercise's answer; the
+        # latter must remain in its folded answer, not replace the old spoiler.
+        spoiler = re.search(
+            r"[-−]\s*17(?![\d.])|(?<![\d.])(?:2\.84|5\.99|2\.83|1\.41)(?![\d.])",
+            body,
+        )
+        assert spoiler is None, f"Exercise result disclosed in {title}: {spoiler.group()}"
 
 
 if __name__ == "__main__":
     root = Path(__file__).resolve().parents[1]
     prose = (root / "research/content/standard-error.md").read_text()
-    for printed in ("20 grams", "2 grams", "10/\\sqrt{25}=2.0", "2.064", "45.87", "54.13", "2.83", "1.41", "-5.99", "68.3%"):
+    check_authored_passages(prose)
+    for printed in ("20 grams", "2 grams", "10/\\sqrt{25}=2.0", "2.064", "45.87", "54.13", "2.83", "1.41", "68.3%"):
         assert printed in prose, f"Worked value missing from article source: {printed}"
     checks = [
         isclose(20 / sqrt(100), 2),
@@ -27,6 +50,7 @@ if __name__ == "__main__":
     generated = root / "articles/standard-error.qmd"
     if generated.exists():
         page = generated.read_text()
+        check_authored_passages(page)
         definition = page.split("## Definition {#definition}", 1)[1].split("\n## ", 1)[0]
         chapter_import = definition.split("::: {.mainarticle}", 1)[0]
         for printed in (
