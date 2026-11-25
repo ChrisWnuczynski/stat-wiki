@@ -3206,9 +3206,18 @@ PREVIEW_JS = r"""<div id="wiki-preview" role="tooltip" hidden></div>
 
   function renderMath(root) {
     root.querySelectorAll("span.math").forEach(function (el) {
+      // Build-time rendering already left MathML in the span. Rendering again
+      // would parse the MathML text and wipe the accessible copy.
+      if (el.querySelector(".katex, math")) return;
       var tex = el.textContent.trim().replace(/^\\[\(\[]/, "").replace(/\\[\)\]]$/, "");
       try {
-        window.katex.render(tex, el, { displayMode: el.classList.contains("display"), throwOnError: false });
+        window.katex.render(tex, el, {
+          displayMode: el.classList.contains("display"),
+          throwOnError: false,
+          output: "htmlAndMathml",
+          strict: "ignore",
+          macros: /*__KATEX_MACROS__*/{}
+        });
       } catch (e) {}
     });
   }
@@ -8152,15 +8161,26 @@ SIDEBAR_JS = """
 """
 
 
+def katex_macros_literal() -> str:
+    """The shared KaTeX macro table as a JavaScript object literal."""
+    data = json.loads((WIKI / "katex_macros.json").read_text(encoding="utf-8"))
+    if not isinstance(data, dict) or not data:
+        raise SystemExit("katex_macros.json must be a non-empty object")
+    return json.dumps(data, ensure_ascii=False)
+
+
 def write_config(chapters, final_notes, questions) -> None:
     share = WIKI / SHARE_IMAGE
     width, height = png_size(share)
     if (width, height) != (SHARE_WIDTH, SHARE_HEIGHT):
         raise SystemExit(f"{SHARE_IMAGE} must be {SHARE_WIDTH} by {SHARE_HEIGHT}, not {width} by {height}")
 
+    preview_js = PREVIEW_JS.replace("/*__KATEX_MACROS__*/{}", katex_macros_literal(), 1)
+    if "/*__KATEX_MACROS__*/{}" in preview_js:
+        raise SystemExit("The hover preview did not receive the KaTeX macros")
     (WIKI / "_random.html").write_text(
         RANDOM_AND_FILTER_JS
-        + PREVIEW_JS
+        + preview_js
         + FILE_LINK_JS
         + SIDEBAR_JS
         + ASK_JS
