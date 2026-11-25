@@ -271,6 +271,15 @@ jobs:
         with:
           python-version: "3.12"
 
+      # Added maths only. The merge-base diff leaves the existing backlog,
+      # and generated articles, out of this check. Fetch the base so a
+      # shallow checkout can still see that diff.
+      - name: Check expectation notation
+        run: |
+          git fetch --no-tags origin "${GITHUB_BASE_REF}"
+          python checks/expectation-notation.py
+          python -m unittest test_expectation_notation.py
+
       - name: Install distribution plotting packages
         run: python -m pip install matplotlib==3.10.8 scipy==1.17.0 sympy==1.14.0 scikit-learn==1.6.1
 
