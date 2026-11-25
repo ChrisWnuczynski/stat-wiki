@@ -4,7 +4,7 @@ A summary or a fit is robust when a small fraction of the data, moved a long way
 
 ## Motivating example
 
-Five interest rates sit near 10%, and one loan is recorded at 26.3%. Replacing that one rate by 15%, or by 35%, leaves the median and the interquartile range where they were and shifts the mean and the standard deviation. In the published comparison the median stays at 9.93% and the interquartile range stays at 5.76 percentage points, while the mean moves from 11.57% to 11.34% or to 11.74% and the standard deviation moves from 5.05 to 4.61 or to 5.68. The two robust summaries describe the centre and the spread of the bulk of the loans. The mean describes a centre that has been pulled toward the extreme loan. Which description is wanted depends on the question. A typical loan is closer to the median. A total amount of money, added up across many loans, follows the mean.{{cite:openintro2019}} (Ch. 2, §2.1.6)
+In a sample of 50 Lending Club loans, one had an interest rate of 26.3%. Replacing that one rate by 15%, or by 35%, leaves the median and the interquartile range where they were and shifts the mean and the standard deviation. In the published comparison the median stays at 9.93% and the interquartile range stays at 5.76 percentage points, while the mean moves from 11.57% to 11.34% or to 11.74% and the standard deviation moves from 5.05 to 4.61 or to 5.68. The two robust summaries describe the centre and the spread of the bulk of the loans. The mean describes a centre that has been pulled toward the extreme loan. Which description is wanted depends on the question. A typical loan is closer to the median. A total amount of money, added up across many loans, follows the mean.{{cite:openintro2019}} (Ch. 2, §2.1.6)
 
 ## Intuition
 
