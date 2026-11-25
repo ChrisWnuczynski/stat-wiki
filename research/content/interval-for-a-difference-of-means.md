@@ -2,6 +2,8 @@
 Comparing two population means requires uncertainty for their difference, rather than two separate intervals inspected for overlap. In the unequal-sample-size example below, a positive difference means the first population mean is estimated to be larger than the second. The two-sample formula addresses sampling variation under independence.{{cite:openintro2019}} (§7.3.1, confidence interval for a difference of means)
 
 ## Definition
+The hypothetical rod-length calculation above uses two independent samples of 25 rods each, with sample means 94 and 100 mm and sample standard deviations 8 and 6 mm, respectively.
+
 The pooled interval is exact for independent normal samples with a common positive population variance and sizes at least two. The means may differ. Equality of variances is a modelling assumption; a nonsignificant variance test alone provides little assurance in small samples. If a common variance lacks substantive support, a Welch interval estimates the standard error as $\sqrt{s_1^2/n_1+s_2^2/n_2}$ and uses approximate degrees of freedom.{{cite:openintro2019}} (§7.3, “Pooled standard deviation estimate”)
 
 ## Properties — From independent pieces to a pivot
