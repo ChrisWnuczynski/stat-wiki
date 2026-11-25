@@ -569,7 +569,7 @@ TOPICS += [
           r"The condition an experimenter assigns to a unit: a drug, a dose, a fertiliser, a teaching method. Comparing responses across treatments, with the assignment randomised, is what lets a designed experiment support a causal conclusion from the assignment; observational studies need additional assumptions to interpret a treatment contrast causally.",
           links=["treatment groups?", "treatments?"], scope=[D, I], late=True),
     topic("Significance level", "inf-04-hypothesis-tests.qmd: The size, or significance level",
-          r"The probability $\alpha$ of a type I error that a test allows: the null hypothesis is rejected when the test statistic falls in a critical region of probability $\alpha$ under the null. It is chosen before the data are seen, conventionally $\alpha=0.05$.",
+          r"The probability $\alpha$ of a type I error that a test allows: the null hypothesis is rejected when the test statistic falls in a critical region of probability at most $\alpha$ under every null distribution. It is chosen before the data are seen, conventionally $\alpha=0.05$.",
           links=["significance levels?", "levels? of significance", "size of (?:a|the) test"]),
     topic("Degrees of freedom", "inf-01-statistical-inference.qmd: has the chi-squared distribution with $m$ degrees of freedom",
           r"The parameter of the chi-squared, $t$ and $F$ families, and the number of independent pieces of information behind a variance estimate: $n-1$ for a sample variance, $n-p$ for a regression with $p$ coefficients, $(r-1)(c-1)$ for a test of independence in an $r\times c$ table.",

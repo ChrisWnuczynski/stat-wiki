@@ -7211,6 +7211,24 @@
         "id": "10.1093/biomet/63.3.581"
       }
     },
+    "rudloff_karatzas2010": {
+      "authors": [
+        "Rudloff, B.",
+        "Karatzas, I."
+      ],
+      "year": 2010,
+      "title": "Testing composite hypotheses via convex duality",
+      "kind": "article",
+      "venue": "Bernoulli",
+      "volume": "16",
+      "issue": "4",
+      "pages": "1224–1239",
+      "doi": "10.3150/10-BEJ249",
+      "verification": {
+        "source": "crossref",
+        "id": "10.3150/10-BEJ249"
+      }
+    },
     "ruggles_brodie1947": {
       "authors": [
         "Ruggles, R.",
