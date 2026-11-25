@@ -4,8 +4,8 @@ The Weibull distribution is a lifetime law whose shape lets the hazard rise, sta
 ## Motivating example
 A Weibull law with shape $1.5$ and scale $20$ hours has median about $15.66$ hours and mean about $18.05$ hours. At $t=20$ the survival probability is $e^{-1}$ and the hazard is $0.075$ per hour.
 
-## Intuition — Ageing is a power of time
-An exponential lifetime has a constant hazard, so it does not age. The Weibull family keeps a simple survival function and lets that hazard be a power of time. Shape above one means wear-out. Shape below one means early failures that then become rarer. Shape one returns the exponential law.{{cite:nist_weibull_handbook}} (§8.1.6.2, failure-rate shapes and the exponential case)
+## Intuition — Hazard is a power of time
+An exponential lifetime has a constant hazard. The Weibull family keeps a simple survival function and lets that hazard be a power of time. Shape above one gives a rising hazard among survivors; shape below one gives a falling hazard. Neither pattern alone identifies a physical mechanism, such as wear-out or early defects. Shape one returns the exponential law.{{cite:nist_weibull_handbook}} (§8.1.6.2, failure-rate shapes and the exponential case)
 
 ## Definition
 **Shape and scale.** In the shape–scale form used here, a lifetime $T$ with shape $k>0$ and scale $\lambda>0$ has survival function $\Pr(T>t)=\exp\{-(t/\lambda)^k\}$ for $t>0$, density $(k/\lambda)(t/\lambda)^{k-1}\exp\{-(t/\lambda)^k\}$, and hazard $(k/\lambda)(t/\lambda)^{k-1}$. The mean is $\lambda\Gamma(1+1/k)$ and the median is $\lambda(\log 2)^{1/k}$. The same law is often written with shape $\gamma$ and characteristic life $\alpha$ in place of $k$ and $\lambda$.{{cite:nist_weibull_handbook}} (§8.1.6.2, reliability, hazard, mean and median)
@@ -41,7 +41,7 @@ Shape $0.5$ is below one, so the hazard $(k/\lambda)(t/\lambda)^{k-1}$ has a neg
 :::
 
 ## Connections
-Shape one is the [exponential distribution](exponential-distribution.qmd) with rate $1/\lambda$, the lifetime with the [memoryless property](memoryless-property.qmd). The hazard formula is the general [hazard rate](hazard-rate.qmd) $f(t)/R(t)$ specialised to this survival function. A single shape cannot fall and later rise; a bathtub hazard needs more than one Weibull term. Shape two is the Rayleigh law for the length of a bivariate normal vector with independent coordinates of mean zero and equal variance.{{cite:nist_weibull_handbook}} (§8.1.6.2, exponential and Rayleigh cases)
+Shape one is the [exponential distribution](exponential-distribution.qmd) with rate $1/\lambda$, the lifetime with the [memoryless property](memoryless-property.qmd). The hazard formula is the general [hazard rate](hazard-rate.qmd) $f(t)/R(t)$ specialised to this survival function. A single two-parameter Weibull has a monotone or constant hazard, so it cannot produce a bathtub hazard that falls and later rises. Models that allow such a hazard need not use Weibull components. Shape two is the Rayleigh law for the length of a bivariate normal vector with independent coordinates of mean zero and equal variance.{{cite:nist_weibull_handbook}} (§8.1.6.2, exponential and Rayleigh cases)
 
 ::: {.callout-tip collapse="true" title="Answer"}
 $(10/10)^2=1$, so the survival probability is $e^{-1}\approx 0.3679$. The median is $10\sqrt{\log 2}\approx 8.33$, which is below the scale.
