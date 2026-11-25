@@ -66,6 +66,6 @@ assert r'=0.368\,' in visible_definition and r'+0.632\,' in visible_definition
 self_check_headings = list(re.finditer(
     r'^### [^\n]+ \{#self-check-ex-sl-09-3\}$', page, re.M))
 assert len(self_check_headings) == 1, 'Expected exactly one bootstrap self-check heading'
-self_check = page[self_check_headings[0].end():]
+self_check = page[self_check_headings[0].end():].split('\n## ', 1)[0]
 assert 'collapse="true" title="Answer"' in self_check.split('\n### ', 1)[0]
 print("bootstrap enumeration, inclusion numbers and structure passed")
