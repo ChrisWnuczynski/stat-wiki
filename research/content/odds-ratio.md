@@ -10,7 +10,7 @@ $$
 \operatorname{OR}_{E:U}
 =\frac{p_E/(1-p_E)}{p_U/(1-p_U)}.
 $$
-For a two-by-two sample table with event and non-event counts $(a,b)$ in the exposed row and $(c,d)$ in the unexposed row, the plug-in estimate is $\widehat{\operatorname{OR}}=ad/(bc)$ when all relevant denominators are positive. The cross-product form makes clear that the odds ratio compares *within-group* event odds. It is an association measure; the table alone does not show that exposure caused the event.{{cite:dodge2008}} (p. 391, mathematical aspects)
+For a two-by-two sample table with event and non-event counts $(a,b)$ in the exposed row and $(c,d)$ in the unexposed row, the plug-in estimate is the cross-product ratio $\widehat{\operatorname{OR}}=ad/(bc)$. The ratio is finite, and possibly zero, whenever $bc>0$. When $bc=0$ and $ad>0$ it takes the boundary value $+\infty$: one group's sample odds are infinite or the other group's are zero. When both products are zero the ratio is undefined, because the table then determines neither group's odds. The cross-product form makes clear that the odds ratio compares *within-group* event odds. It is an association measure; the table alone does not show that exposure caused the event.{{cite:dodge2008}} (p. 391, mathematical aspects)
 
 ## Interpretation — Odds, risks, and coding
 The risk ratio is $\operatorname{RR}=p_E/p_U$, and the risk difference is $p_E-p_U$. Algebra gives $\operatorname{OR}=\operatorname{RR}(1-p_U)/(1-p_E)$. Thus the odds ratio is close to the risk ratio when both event probabilities are small, but the two can differ substantially for a common event. For example, if $p_U=1/2$ and $p_E=3/4$, then $\operatorname{RR}=3/2=1.5$ while $\operatorname{OR}=3$. Saying “three times as likely” for this odds ratio would overstate the probability ratio.{{cite:dodge2008}} (pp. 391–392, domains and limitations){{cite:agresti_tarantola_varriale2023}} (§5.1, p. 156)
@@ -34,7 +34,7 @@ $$
 This approaches one when both probabilities are near zero. Interchanging the rows changes $ad/(bc)$ to $bc/(ad)$. Interchanging event and non-event columns does the same; doing both changes it twice and restores the original value. If event counts are multiplied by $s_1$ and non-event counts by $s_0$, the sampled ratio is $(s_1a)(s_0d)/[(s_0b)(s_1c)]=ad/(bc)$.
 
 For logistic regression, subtraction of the two linear predictors at a fixed $x$ gives $\log\{\operatorname{odds}(z=1,x)/\operatorname{odds}(z=0,x)\}=\beta$, hence the ratio is $e^\beta$. The conditional-to-marginal distinction can also be checked directly. Suppose a binary stratum is equally frequent in both groups. In its first level, $(p_U,p_E)=(1/10,1/4)$, so OR is $(1/3)/(1/9)=3$. In the second, $(p_U,p_E)=(1/2,3/4)$, giving OR $3$ again. After averaging equally over strata, $p_U=3/10$ and $p_E=1/2$, giving marginal OR $1/(3/7)=7/3\approx2.3333$. Equal conditional odds ratios do not force the same marginal odds ratio, even when stratum membership is balanced across exposure groups.{{cite:agresti_tarantola_varriale2023}} (§5.2, p. 158, collapsibility discussion)
-Solving $r=p_E(1-p_U)/[p_U(1-p_E)]$ for $p_E$ yields $p_E=rp_U/(1-p_U+rp_U)$, the baseline-risk conversion used above.
+Solving $r=p_E(1-p_U)/[p_U(1-p_E)]$ for $p_E$ yields $p_E=rp_U/(1-p_U+rp_U)$, the baseline-risk conversion of the Interpretation section.
 :::
 :::
 
