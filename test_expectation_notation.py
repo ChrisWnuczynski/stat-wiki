@@ -154,39 +154,49 @@ class DiffFilterTests(unittest.TestCase):
         self.assertEqual(added["articles/foo.qmd"], {1})
         self.assertEqual(added["labs/demo.qmd"], {1, 2})
 
-    def test_untouched_line_in_an_edited_file_does_not_fail(self) -> None:
-        text = "Backlog $E(X)$ stays.\nA new quantity $E_i$.\n"
-        messages = expectation_notation.violations_on_added_lines(
-            text, {2}, "research/content/old.md"
-        )
-        self.assertEqual(messages, [])
-        fired = expectation_notation.violations_on_added_lines(
-            text, {1}, "research/content/old.md"
-        )
+    def test_untouched_formula_survives_a_prose_edit(self) -> None:
+        old = "Intro.\nBacklog $E(X)$ stays.\n"
+        new = "A rewritten introduction.\nBacklog $E(X)$ stays.\n"
+        self.assertEqual(expectation_notation.violations_in_changed_spans(old, new), [])
+        changed = "Intro.\nBacklog $E(Y)$ stays.\n"
+        fired = expectation_notation.violations_in_changed_spans(old, changed)
         self.assertEqual(len(fired), 1)
-        self.assertIn("research/content/old.md:1:", fired[0])
-        self.assertIn(r"\E", fired[0])
+        self.assertEqual(fired[0].line, 2)
+        self.assertIn(r"\E", fired[0].message("research/content/old.md"))
+
+    def test_new_maths_region_flags_an_unchanged_operator_line(self) -> None:
+        old = "See E(X) in the paragraph.\n"
+        new = "$$\nSee E(X) in the paragraph.\n$$\n"
+        fired = expectation_notation.violations_in_changed_spans(old, new)
+        self.assertEqual([item.line for item in fired], [2])
+        self.assertEqual(fired[0].block_first, 1)
+        self.assertEqual(fired[0].block_last, 3)
+        self.assertIn(r"\E", fired[0].message("research/content/old.md"))
+
+    def test_argument_on_the_next_line_flags_a_bare_e(self) -> None:
+        old = "$$\nE\n$$\n"
+        new = "$$\nE\n[X]\n$$\n"
+        fired = expectation_notation.violations_in_changed_spans(old, new)
+        self.assertEqual([item.line for item in fired], [2])
+        self.assertIn(r"\E", fired[0].message("research/content/old.md"))
+
+    def test_unchanged_lab_shorthand_is_not_a_failure(self) -> None:
+        text = (ROOT / "labs" / "kernel-density.qmd").read_text(encoding="utf-8")
+        self.assertEqual(expectation_notation.violations_in_changed_spans(text, text), [])
+        self.assertEqual(expectation_notation.violations_touching(text, set()), [])
 
     def test_real_expected_counts_page_has_no_hit(self) -> None:
         text = (ROOT / "research/content/observed-and-expected-counts.md").read_text(encoding="utf-8")
         self.assertEqual(_hits(text), [])
 
-    def test_real_backlog_is_visible_but_silent_when_no_line_is_added(self) -> None:
+    def test_real_backlog_is_visible_but_silent_when_the_file_is_unchanged(self) -> None:
         backlog = 0
         for path in sorted((ROOT / "research" / "content").glob("*.md")):
-            hits = _hits(path.read_text(encoding="utf-8"))
-            backlog += len(hits)
-            self.assertEqual(
-                expectation_notation.violations_on_added_lines(path.read_text(encoding="utf-8"), set(), path.name),
-                [],
-            )
-        self.assertGreater(backlog, 0)
-        for path in (ROOT / "labs").rglob("*.qmd"):
             text = path.read_text(encoding="utf-8")
-            self.assertEqual(
-                expectation_notation.violations_on_added_lines(text, set(), str(path)),
-                [],
-            )
+            hits = _hits(text)
+            backlog += len(hits)
+            self.assertEqual(expectation_notation.violations_in_changed_spans(text, text), [])
+        self.assertGreater(backlog, 0)
 
 
 class GuardCliTests(unittest.TestCase):
@@ -241,6 +251,48 @@ class GuardCliTests(unittest.TestCase):
                     )
                     proc = self._run(repo, base)
                     self.assertEqual(proc.returncode, 0, proc.stdout + proc.stderr)
+
+    def test_cli_flags_spans_that_touch_a_changed_line(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            repo = Path(tmp)
+            self._git(repo, ["init", "-b", "main"])
+            content = repo / "research" / "content"
+            content.mkdir(parents=True)
+            page = content / "old.md"
+            page.write_text("See E(X) in the paragraph.\n", encoding="utf-8")
+            self._commit(repo, "base")
+            base = self._git(repo, ["rev-parse", "HEAD"]).stdout.strip()
+            page.write_text("$$\nSee E(X) in the paragraph.\n$$\n", encoding="utf-8")
+            wrapped = self._run(repo, base)
+            self.assertEqual(wrapped.returncode, 1, wrapped.stdout + wrapped.stderr)
+            self.assertIn("research/content/old.md:2:", wrapped.stdout)
+
+            page.write_text("$$\nE\n$$\n", encoding="utf-8")
+            self._commit(repo, "display")
+            base = self._git(repo, ["rev-parse", "HEAD"]).stdout.strip()
+            page.write_text("$$\nE\n[X]\n$$\n", encoding="utf-8")
+            argument = self._run(repo, base)
+            self.assertEqual(argument.returncode, 1, argument.stdout + argument.stderr)
+            self.assertIn("research/content/old.md:2:", argument.stdout)
+
+            page.write_text("Intro.\n$E(X)$ stays.\n", encoding="utf-8")
+            self._commit(repo, "legacy")
+            base = self._git(repo, ["rev-parse", "HEAD"]).stdout.strip()
+            page.write_text("Rewritten introduction.\n$E(X)$ stays.\n", encoding="utf-8")
+            prose = self._run(repo, base)
+            self.assertEqual(prose.returncode, 0, prose.stdout + prose.stderr)
+
+            labs = repo / "labs"
+            labs.mkdir()
+            lab = labs / "kernel-density.qmd"
+            lab.write_text((ROOT / "labs" / "kernel-density.qmd").read_text(encoding="utf-8"), encoding="utf-8")
+            self._commit(repo, "lab")
+            base = self._git(repo, ["rev-parse", "HEAD"]).stdout.strip()
+            lab_lines = lab.read_text(encoding="utf-8").splitlines()
+            lab_lines[6] = "A rewritten opening sentence."
+            lab.write_text("\n".join(lab_lines) + "\n", encoding="utf-8")
+            edited = self._run(repo, base)
+            self.assertEqual(edited.returncode, 0, edited.stdout + edited.stderr)
 
     def test_research_prose_is_expanded_before_it_is_copied(self) -> None:
         import build_wiki

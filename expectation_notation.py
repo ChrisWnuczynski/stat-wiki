@@ -12,19 +12,18 @@ and the page checks still look for those commands. ``prepare`` expands the
 whole shorthand table for chapter, question, and answer sources, and
 article-extra notes call ``expand_macros`` directly.
 
-Laboratories are authored ``labs/*.qmd`` files. This build does not rewrite
-them, because doing so would change the files on every run. ``\\E`` there
-renders when KaTeX is given the shorthand table. That header is pull request
-#170 (STA-140), which is still open. Until it merges, the one ``\\E`` in
-``labs/kernel-density.qmd`` is not expanded. This guard still requires
-``\\E`` in both trees.
+Laboratories stay in scope. This change does not add pull request #170's
+KaTeX header, and it does not rewrite ``labs/*.qmd``. The lab sources that
+exist today use ``\\E``, which this guard accepts, so they are not failures.
+``\\E`` in a laboratory still reaches KaTeX raw until #170 merges. Merge that
+pull request first. A new non-standard form in a lab still fails here.
 
 Not guarded, and still carrying the old forms: ``distributions.json``,
 ``research/self-checks.json``, ``article_extras.py``, and ``sources/**/*.qmd``.
 Those inputs are left to the normalisation pass.
 
 This module reports three other forms inside maths in ``research/content/*.md``
-or ``labs/**/*.qmd``:
+and ``labs/**/*.qmd``:
 
 - bare italic ``E`` used as the operator
 - ``\\mathrm{E}``
@@ -34,16 +33,20 @@ Generated ``articles/*.qmd`` are not read. ``\\E`` and ``\\mathbb{E}``
 pass, including ``\\mathbb E`` and ``\\mathbb EX`` (the font applies to E
 and X is its argument).
 
-The check is diff-scoped. It parses ``git diff`` against the merge-base with
-the pull-request base (``GITHUB_BASE_REF``, otherwise ``origin/main``) and
-reports a hit only when the line that contains it is added. A file the diff
-does not add lines to can keep its current notation. On ``main`` the diff is
-empty, so the suite stays green. Untracked in-scope files count as added.
+The check is diff-scoped against the pull-request base (``GITHUB_BASE_REF``,
+otherwise ``origin/main``). A maths block includes its delimiters. If any
+added or replaced line touches that block, every non-standard operator inside
+the block fails, including one that sits on a line the diff did not change.
+Wrapping prose ``E(X)`` in new ``$$`` lines, or adding ``[X]`` after a bare
+``E`` in a display, is therefore a failure. A formula whose block the diff
+does not touch is left alone, and so is a file the diff does not touch. On
+``main`` the diff is empty, so the suite stays green. Untracked in-scope
+files count as entirely added.
 On a pull request, Actions checks out the merge commit. With
-``fetch-depth: 2`` the diff is against that commit's first parent, the base
-GitHub merged, so a later push to the base cannot make an untouched backlog
-line look added. A checkout that has no parent falls back to the merge-base,
-then to a direct diff against the base ref.
+``fetch-depth: 2`` the comparison is against that commit's first parent, the
+base GitHub merged, so a later push to the base cannot make an untouched
+backlog formula look added. A checkout that has no parent falls back to the
+merge-base, then to a direct diff against the base ref.
 
 Ambiguous italic E
 ------------------
@@ -124,6 +127,8 @@ class Violation:
     line: int
     offset: int
     snippet: str
+    block_first: int = 0
+    block_last: int = 0
 
     def message(self, path: str) -> str:
         return (
@@ -133,7 +138,7 @@ class Violation:
 
 
 def in_scope(path: str) -> bool:
-    """Research prose and lab sources. Generated articles are out of scope.
+    """Research prose and laboratory sources. Generated articles are out of scope.
 
     ``distributions.json``, ``research/self-checks.json``, ``article_extras.py``,
     and ``sources/**/*.qmd`` are not included.
@@ -144,33 +149,63 @@ def in_scope(path: str) -> bool:
     return path.startswith("labs/") and path.endswith((".qmd", ".md"))
 
 
+def _line_span(text: str, start: int, end: int) -> tuple[int, int]:
+    """1-based inclusive line numbers covering offsets ``[start, end)``."""
+    if end <= start:
+        line = text.count("\n", 0, start) + 1
+        return line, line
+    return text.count("\n", 0, start) + 1, text.count("\n", 0, end - 1) + 1
+
+
 def find_violations(text: str) -> list[Violation]:
     """Non-standard expectation operators in ``text``, with 1-based lines."""
     found: list[Violation] = []
     seen: set[int] = set()
-    for start, end in math_spans(text):
-        inner = text[start:end]
+    for inner_start, inner_end, block_start, block_end in math_spans(text):
+        inner = text[inner_start:inner_end]
+        block_first, block_last = _line_span(text, block_start, block_end)
         for rel, length in scan_math(inner):
-            offset = start + rel
+            offset = inner_start + rel
             if offset in seen:
                 continue
             seen.add(offset)
             snippet = _snippet(inner, rel, rel + length)
             line = text.count("\n", 0, offset) + 1
-            found.append(Violation(line, offset, snippet))
+            found.append(Violation(line, offset, snippet, block_first, block_last))
     found.sort(key=lambda item: item.offset)
     return found
 
 
-def violations_on_added_lines(
-    text: str,
-    added: set[int],
-    path: str,
-) -> list[str]:
-    """Messages for hits whose own line is in ``added``."""
-    if not added:
+def changed_new_lines(old: str, new: str) -> set[int]:
+    """1-based line numbers in ``new`` that were inserted or replaced."""
+    import difflib
+
+    matcher = difflib.SequenceMatcher(a=old.splitlines(), b=new.splitlines())
+    changed: set[int] = set()
+    for tag, _i1, _i2, j1, j2 in matcher.get_opcodes():
+        if tag in {"insert", "replace"}:
+            changed.update(range(j1 + 1, j2 + 1))
+    return changed
+
+
+def violations_touching(text: str, changed: set[int]) -> list[Violation]:
+    """Operators whose maths block includes an added or replaced line.
+
+    The block includes its opening and closing delimiters, so a new ``$$``
+    line counts as touching the formula it wraps.
+    """
+    if not changed:
         return []
-    return [item.message(path) for item in find_violations(text) if item.line in added]
+    return [
+        item
+        for item in find_violations(text)
+        if any(line in changed for line in range(item.block_first, item.block_last + 1))
+    ]
+
+
+def violations_in_changed_spans(old: str, new: str) -> list[Violation]:
+    """Operators in maths blocks that ``new`` added or edited relative to ``old``."""
+    return violations_touching(new, changed_new_lines(old, new))
 
 
 def parse_added_lines(diff: str) -> dict[str, set[int]]:
@@ -205,10 +240,15 @@ def parse_added_lines(diff: str) -> dict[str, set[int]]:
     return added
 
 
-def math_spans(text: str) -> list[tuple[int, int]]:
-    """Interiors of maths, skipping fenced and inline code. Offsets into ``text``."""
+def math_spans(text: str) -> list[tuple[int, int, int, int]]:
+    """Maths regions as ``(inner_start, inner_end, block_start, block_end)``.
+
+    The block offsets include the delimiters. Interiors skip fenced and inline
+    code. All four values are offsets into ``text``, and ``block_end`` is
+    exclusive.
+    """
     blanked = _blank_code(text)
-    spans: list[tuple[int, int]] = []
+    spans: list[tuple[int, int, int, int]] = []
     i = 0
     n = len(blanked)
     while i < n:
@@ -221,14 +261,14 @@ def math_spans(text: str) -> list[tuple[int, int]]:
                 if close < 0:
                     i += 2
                     continue
-                spans.append((i + 2, close))
+                spans.append((i + 2, close, i, close + 2))
                 i = close + 2
                 continue
             close = _find_single_dollar(blanked, i + 1)
             if close < 0:
                 i += 1
                 continue
-            spans.append((i + 1, close))
+            spans.append((i + 1, close, i, close + 1))
             i = close + 1
             continue
         if blanked[i] == "\\":
@@ -241,7 +281,7 @@ def math_spans(text: str) -> list[tuple[int, int]]:
                 if end is None:
                     i = j
                     continue
-                spans.append((i + 2, end - 2))
+                spans.append((i + 2, end - 2, i, end))
                 i = end
                 continue
             if run == 1:
@@ -250,7 +290,7 @@ def math_spans(text: str) -> list[tuple[int, int]]:
                     closer = "\\end{" + match.group(1) + "}"
                     close = blanked.find(closer, match.end())
                     if close >= 0:
-                        spans.append((match.end(), close))
+                        spans.append((match.end(), close, i, close + len(closer)))
                         i = close + len(closer)
                         continue
             i = j if j > i else i + 1
@@ -328,14 +368,23 @@ def resolve_base(root: Path) -> str:
 
 
 def messages_for_repo(root: Path) -> list[str]:
-    """Failure lines for added maths in ``root``. Empty when nothing new is wrong."""
+    """Failure lines for expectation operators introduced since the base."""
+    base = resolve_base(root)
+    target = _diff_target(root, base)
     messages: list[str] = []
-    for path, lines in sorted(collect_added_lines(root).items()):
+    for path, old_path in _changed_files(root, target):
+        if not in_scope(path):
+            continue
         file = root / path
-        if not file.is_file() or not lines:
+        if not file.is_file():
             continue
         text = file.read_text(encoding="utf-8")
-        messages.extend(violations_on_added_lines(text, lines, path))
+        changed = set(range(1, text.count("\n") + 2)) if old_path is None else None
+        if changed is None:
+            old_text = _file_at(root, target, old_path or path)
+            changed = changed_new_lines(old_text, text)
+        for item in violations_touching(text, changed):
+            messages.append(item.message(path))
     return messages
 
 
@@ -673,6 +722,43 @@ def _diff_path(raw: str) -> str | None:
     if name.startswith("b/"):
         name = name[2:]
     return name.replace("\\", "/")
+
+
+def _changed_files(root: Path, target: str) -> list[tuple[str, str | None]]:
+    """``(new path, old path)`` for files that differ from ``target``.
+
+    The old path is ``None`` when the file is new or untracked, so the whole
+    file is compared with empty text.
+    """
+    diff = _git(root, ["diff", "--name-status", "--find-renames", "-z", target], check=True)
+    parts = diff.stdout.split("\0")
+    pairs: list[tuple[str, str | None]] = []
+    index = 0
+    while index < len(parts) and parts[index]:
+        status = parts[index]
+        index += 1
+        if status.startswith(("R", "C")):
+            old_path, new_path = parts[index], parts[index + 1]
+            index += 2
+            pairs.append((new_path, old_path))
+            continue
+        path = parts[index]
+        index += 1
+        if status.startswith("D"):
+            continue
+        pairs.append((path, None if status.startswith("A") else path))
+    untracked = _git(root, ["ls-files", "--others", "--exclude-standard", "-z"], check=True)
+    for rel in untracked.stdout.split("\0"):
+        if rel:
+            pairs.append((rel, None))
+    return pairs
+
+
+def _file_at(root: Path, target: str, path: str) -> str:
+    shown = _git(root, ["show", f"{target}:{path}"], check=False)
+    if shown.returncode != 0:
+        return ""
+    return shown.stdout
 
 
 def _diff_target(root: Path, base: str) -> str:
