@@ -12,11 +12,10 @@ and the page checks still look for those commands. ``prepare`` expands the
 whole shorthand table for chapter, question, and answer sources, and
 article-extra notes call ``expand_macros`` directly.
 
-Laboratories stay in scope. This change does not add pull request #170's
-KaTeX header, and it does not rewrite ``labs/*.qmd``. The lab sources that
-exist today use ``\\E``, which this guard accepts, so they are not failures.
-``\\E`` in a laboratory still reaches KaTeX raw until #170 merges. Merge that
-pull request first. A new non-standard form in a lab still fails here.
+Laboratories are not rewritten. ``\\E``, ``\\Var`` and ``\\Cov`` in
+``labs/*.qmd`` render through the ``_katex-macros.html`` header that
+``build_wiki.write_katex_macro_header`` adds to every page (STA-140, #170).
+The guard accepts ``\\E`` and still fails a new non-standard form in a lab.
 
 Not guarded, and still carrying the old forms: ``distributions.json``,
 ``research/self-checks.json``, ``article_extras.py``, and ``sources/**/*.qmd``.
