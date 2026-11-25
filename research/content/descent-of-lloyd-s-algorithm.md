@@ -39,7 +39,7 @@ Each accepted step produces a value of $J$ no larger than the previous value, an
 
 Empty clusters are a specification detail the descent identity does not settle. If a centre loses every point, there is no mean to compute. A rule that leaves the centre where it was, or that reseeds it at a distant point, has to be stated before two implementations can be compared. A tie on the assignment boundary, an observation equally distant from two centres, can be given to either index without changing $J$. The next centre update can still differ. A deterministic tie break makes the map from centres to the next centres a function.
 
-### Common misconceptions
+### Cluster count, scaling and initialisation
 A small final value of $J$ is sometimes read as evidence that the data contain $K$ well separated groups. The singleton partition has $J=0$ for any data set in which each point may have its own centre. The raw minimum over $K$ is therefore a poor selector of $K$. Lloyd's algorithm, run at a fixed $K$, finds a stationary partition for that $K$. The choice of $K$ is an input. Scaling a coordinate multiplies the squared gaps on that coordinate and can change both the assignments and the means. Standardising before clustering is a modelling choice. It is not implied by the descent theorem, and skipping it is also a modelling choice.
 
 Stopping when the drop in $J$ falls below a tolerance ends the computation. It does not certify a global optimum, and it does not certify that a nearby start would have produced the same partition. Several random starts, with the attained costs recorded, are a probe of that sensitivity. The lowest cost among them is the best cost found, not a proof that no better partition exists.{{cite:lloyd1982}} (§VI, local and absolute minima)
