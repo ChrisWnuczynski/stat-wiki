@@ -16,7 +16,7 @@ No page exists at the requested address. If you followed an old link or typed a 
   <button type="submit">Search</button>
 </form>
 
-<p id="nf-note"></p>
+<p id="nf-note" role="status" aria-live="polite" aria-atomic="true"></p>
 <ol id="nf-results"></ol>
 
 <script type="module">
@@ -54,6 +54,9 @@ const directEl = document.getElementById("nf-direct");
 const form = document.getElementById("nf-search");
 const input = document.getElementById("nf-search-q");
 const note = document.getElementById("nf-note");
+note.setAttribute("role", "status");
+note.setAttribute("aria-live", "polite");
+note.setAttribute("aria-atomic", "true");
 const list = document.getElementById("nf-results");
 
 const initial = slugFromLocation();

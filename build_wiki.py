@@ -6683,7 +6683,7 @@ Press Enter in the search box at the top to open this page. Each page appears on
   <button type="submit">Search</button>
 </form>
 <div id="site-search-exact" class="search-exact" hidden></div>
-<p id="site-search-note"></p>
+<p id="site-search-note" role="status" aria-live="polite" aria-atomic="true"></p>
 <ol id="site-search-results"></ol>
 <script type="module">
 import {
@@ -6700,6 +6700,9 @@ const form = document.getElementById("site-search");
 const input = document.getElementById("site-search-q");
 const exactBox = document.getElementById("site-search-exact");
 const note = document.getElementById("site-search-note");
+note.setAttribute("role", "status");
+note.setAttribute("aria-live", "polite");
+note.setAttribute("aria-atomic", "true");
 const list = document.getElementById("site-search-results");
 const params = new URLSearchParams(location.search);
 const hashParams = new URLSearchParams(location.hash.startsWith("#") ? location.hash.slice(1) : "");
@@ -7324,7 +7327,7 @@ toc: false
   <label class="home-search-label" for="home-search-q">Search</label>
   <input id="home-search-q" class="home-search-input" type="search" name="q" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Concepts, chapters, questions" role="combobox" aria-autocomplete="list" aria-controls="home-search-results" aria-expanded="false">
 </form>
-<p id="home-search-note" class="home-search-note"></p>
+<p id="home-search-note" class="home-search-note" role="status" aria-live="polite" aria-atomic="true"></p>
 <ul id="home-search-results" class="home-search-results" role="listbox" hidden></ul>
 <script type="module" src="home-search.js"></script>
 ```
