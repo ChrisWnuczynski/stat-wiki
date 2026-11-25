@@ -36,7 +36,7 @@ A 5% level does not mean a 5% probability that a rejected null was true: level c
 
 ## Assumptions and limits — When the nominal errors fail
 
-If serves come in dependent streaks, $X$ is not binomial and the quoted $0.0271$ size need not hold. If the normal $z$ test uses a standard error that is too small, its actual null tail can exceed $0.05$. Testing twenty independent nulls separately at level $0.05$ gives a chance $1-0.95^{20}\approx0.642$ of at least one false rejection, so a single-test level is not a familywise guarantee. Even with a valid model, the 15-serve rule's type II probability at $p=0.8$ is about $0.602$: a nonrejection is weak evidence when the test has such limited power.{{cite:siegrist2022_testing}} (§9.1, Errors and Power)
+If serves come in dependent streaks, binomial calibration can fail and the quoted $0.0271$ size need not hold. If the normal $z$ test uses a standard error that is too small, its actual null tail can exceed $0.05$. For twenty independent tests of true null hypotheses, each at level $0.05$, the chance of at least one false rejection is at most $1-0.95^{20}\approx0.642$; equality holds if and only if every test's actual rejection probability at its tested null is $0.05$. Thus a single-test level is not a familywise guarantee. Even with a valid model, the 15-serve rule's type II probability at $p=0.8$ is about $0.602$: a nonrejection is weak evidence when the test has such limited power.{{cite:siegrist2022_testing}} (§9.1, Errors and Power)
 
 ## Connections
 
