@@ -1,5 +1,5 @@
 ## Motivating example
-A manufacturer's overall defect rate combines the defect rates of its factories with their production shares. Averaging the factory rates equally is appropriate only when the production shares are equal. Total probability supplies the weights by dividing the experiment into mutually exclusive possibilities.{{cite:pishro_nik2014}} (§1.4.2)
+A manufacturer's overall defect rate combines the defect rates of its factories with their production shares. Equal production shares make the unweighted average valid automatically; unequal shares call for weighting by production share, even though the two averages can coincide. Total probability supplies the weights by dividing the experiment into mutually exclusive possibilities.{{cite:pishro_nik2014}} (§1.4.2)
 
 ## Statement
 Let $(B_i)$ be a finite or countable measurable partition of the sample space. For every event $A$,
