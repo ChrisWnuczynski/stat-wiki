@@ -27,7 +27,18 @@ if __name__ == "__main__":
     generated = root / "articles/standard-error.qmd"
     if generated.exists():
         page = generated.read_text()
-        for printed in ("91-108=-17", "14.20/5=2.84", "0.683", "0.954"):
+        definition = page.split("## Definition {#definition}", 1)[1].split("\n## ", 1)[0]
+        chapter_import = definition.split("::: {.mainarticle}", 1)[0]
+        for printed in (
+            "hypothetical comparison of rod lengths", "Two independent groups of 25 rods",
+            "divisor $n-1$", "94-100=-6",
+            r"s_p^2=(24\times8^2+24\times6^2)/48=50",
+            r"\sqrt{50(1/25+1/25)}=2",
+        ):
+            assert printed in chapter_import, f"Worked value missing from chapter import: {printed}"
+        for leaked in ("91-108=-17", "14.20/5=2.84", r"-17\pm2.84"):
+            assert leaked not in chapter_import, f"Exercise solution leaked into chapter import: {leaked}"
+        for printed in ("0.683", "0.954"):
             assert printed in page, f"Earlier value missing from generated page: {printed}"
     assert round(50 - 2.064 * 2, 2) == 45.87
     assert round(50 + 2.064 * 2, 2) == 54.13
