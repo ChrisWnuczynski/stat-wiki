@@ -9,6 +9,7 @@ import {
   parseQuery,
   rankDocuments,
   resolveComparison,
+  resultsPageHref,
   resolveDisambiguation,
   resolveExactMatch,
   scoreDocument,
@@ -603,6 +604,154 @@ test("conversational questions, comparisons, and live Quarto augmentation synthe
   assert.deepEqual(
     varItems.slice(0, 2).map((i) => i.href),
     ["articles/variance.html", "articles/sample-variance-and-standard-deviation.html"]
+  );
+});
+
+test("short query ba leads with title and alias matches, ahead of body text", () => {
+  const corpus = [
+    {
+      href: "articles/sandwich-estimator.html",
+      title: "Sandwich estimator",
+      section: "Definition",
+      text: "The estimator has the form a^{-1} ba a^{-1}, with bread a around an empirical ba.",
+    },
+    {
+      href: "articles/hidden-layer.html",
+      title: "Hidden layer",
+      section: "",
+      text: "The body mentions ba and nothing in the title does.",
+    },
+    {
+      href: "articles/odds-ratio.html",
+      title: "Odds ratio",
+      section: "",
+      text: "A ratio of two odds.",
+    },
+    {
+      href: "articles/bagging.html",
+      title: "Bagging",
+      section: "",
+      text: "Bootstrap aggregation of fitted models.",
+    },
+    {
+      href: "articles/bar-chart.html",
+      title: "Bar chart",
+      section: "",
+      text: "Category counts drawn as bars.",
+    },
+    {
+      href: "articles/bayes-rule.html",
+      title: "Bayes theorem",
+      section: "",
+      text: "Posterior probability is proportional to likelihood times prior.",
+    },
+    {
+      href: "articles/bayesian-inference.html",
+      title: "Bayesian inference",
+      section: "",
+      text: "A prior is updated by the likelihood.",
+    },
+    {
+      href: "notes/bayesian-foundations.html",
+      title: "Bayesian foundations",
+      section: "",
+      text: "A chapter on the same idea.",
+    },
+    {
+      href: "articles/prior-odds.html",
+      title: "Prior odds",
+      section: "",
+      text: "Odds before seeing the data.",
+    },
+    {
+      href: "articles/global-test.html",
+      title: "Global test",
+      section: "",
+      text: "A title substring, with no leading ba word.",
+    },
+  ];
+  const meta = {
+    pages: {
+      "articles/odds-ratio.html": { title: "Odds ratio", aliases: ["ba"] },
+      "articles/prior-odds.html": { title: "Prior odds", aliases: ["baseline odds"] },
+    },
+    aliases: {
+      ba: "articles/odds-ratio.html",
+      "baseline-odds": "articles/prior-odds.html",
+    },
+  };
+  const found = rankDocuments(corpus, "ba", meta).map((doc) => doc.href);
+  assert.deepEqual(found.slice(0, 6), [
+    "articles/odds-ratio.html",
+    "articles/bagging.html",
+    "articles/bar-chart.html",
+    "articles/bayes-rule.html",
+    "articles/bayesian-inference.html",
+    "notes/bayesian-foundations.html",
+  ]);
+  const prior = found.indexOf("articles/prior-odds.html");
+  const global = found.indexOf("articles/global-test.html");
+  const sandwich = found.indexOf("articles/sandwich-estimator.html");
+  const hidden = found.indexOf("articles/hidden-layer.html");
+  assert.ok(prior > found.indexOf("articles/bayesian-inference.html"));
+  assert.ok(global > prior, "title substring follows an alias prefix");
+  assert.ok(sandwich > global && hidden > global, "body text follows title and alias matches");
+});
+
+test("homepage Enter navigates to the search results page", async () => {
+  assert.equal(resultsPageHref("ba"), "search.html?q=ba");
+  assert.equal(resultsPageHref(" Bayes theorem "), "search.html?q=Bayes%20theorem");
+  assert.equal(resultsPageHref("p&q"), "search.html?q=p%26q");
+  const fs = await import("node:fs");
+  const src = fs.readFileSync(new URL("./home-search.js", import.meta.url), "utf8");
+  assert.match(src, /resultsPageHref\(q\)/);
+  assert.match(src, /Press Enter for a results page/);
+  assert.doesNotMatch(src, /openSelected/);
+  assert.doesNotMatch(src, /Enter opens the highlighted result/);
+});
+
+test("a normal multi-word query keeps its current top results", () => {
+  assert.deepEqual(hrefs("sample mean"), [
+    "articles/summary-statistics.html",
+    "notes/da-02-descriptive-statistics.html",
+    "notes/queues.html",
+    "questions/q-07.html",
+    "files/prob-coin-averages.html",
+  ]);
+  const clt = [
+    {
+      href: "articles/central-limit-theorem.html",
+      title: "Central limit theorem",
+      section: "",
+      text: "Standardised sums converge to a normal law.",
+    },
+    {
+      href: "articles/multivariate-central-limit-theorem.html",
+      title: "Multivariate central limit theorem",
+      section: "",
+      text: "The vector of standardised means converges to a multivariate normal.",
+    },
+    {
+      href: "articles/binomial-distribution.html",
+      title: "Binomial distribution",
+      section: "",
+      text: "A sum of independent Bernoulli trials, with a central limit theorem approximation.",
+    },
+    {
+      href: "articles/large-sample-intervals.html",
+      title: "Large-sample intervals",
+      section: "",
+      text: "Intervals that use the central limit theorem.",
+    },
+  ];
+  assert.deepEqual(
+    rankDocuments(clt, "central limit theorem").map((doc) => doc.href),
+    [
+      "articles/central-limit-theorem.html",
+      "articles/multivariate-central-limit-theorem.html",
+      "articles/binomial-distribution.html",
+      "articles/large-sample-intervals.html",
+    ]
   );
 });
 

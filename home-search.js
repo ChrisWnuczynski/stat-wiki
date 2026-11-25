@@ -1,5 +1,5 @@
 // Homepage search. Uses Quarto's search.json and the same ranker as the search page.
-import { documentsFromIndex, rankDocuments, tierOf } from "./search-rank.js";
+import { documentsFromIndex, rankDocuments, resultsPageHref, tierOf } from "./search-rank.js";
 
 const form = document.getElementById("home-search");
 const input = document.getElementById("home-search-q");
@@ -68,9 +68,12 @@ if (form && input && list && note) {
     });
   }
 
-  function openSelected() {
-    const doc = shown[selected] || shown[0];
-    if (doc) window.location.href = doc.href;
+  const hint = "Results appear as you type. Press Enter for a results page.";
+
+  function goToResults() {
+    const q = input.value.trim();
+    if (!q) return;
+    window.location.href = resultsPageHref(q);
   }
 
   function render(query) {
@@ -79,7 +82,7 @@ if (form && input && list && note) {
     shown = [];
     selected = 0;
     if (!q) {
-      note.textContent = "Results appear as you type. Arrow keys move, and Enter opens the highlighted result.";
+      note.textContent = hint;
       setExpanded(false);
       return;
     }
@@ -127,11 +130,7 @@ if (form && input && list && note) {
 
   form.addEventListener("submit", (event) => {
     event.preventDefault();
-    if (!shown.length) {
-      schedule();
-      return;
-    }
-    openSelected();
+    goToResults();
   });
 
   input.addEventListener("input", schedule);
@@ -145,9 +144,8 @@ if (form && input && list && note) {
       choose(next);
       input.setAttribute("aria-activedescendant", "home-search-result-" + next);
     } else if (event.key === "Enter") {
-      if (!shown.length) return;
       event.preventDefault();
-      openSelected();
+      goToResults();
     } else if (event.key === "Escape") {
       setExpanded(false);
       note.textContent = "";
@@ -155,5 +153,5 @@ if (form && input && list && note) {
   });
 
   if (desktop.matches) input.focus();
-  note.textContent = "Results appear as you type. Arrow keys move, and Enter opens the highlighted result.";
+  note.textContent = hint;
 }
