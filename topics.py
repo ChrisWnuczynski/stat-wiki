@@ -1335,6 +1335,16 @@ ALIASES.update({
 })
 
 ALIASES.update({
+    "K-S test": "kolmogorov-smirnov-test",
+    "KS test": "kolmogorov-smirnov-test",
+    "Welch ANOVA": "welch-s-anova",
+    "Welch's one-way test": "welch-s-anova",
+    "Welch one-way test": "welch-s-anova",
+    "A-D test": "anderson-darling-test",
+    "Anderson–Darling statistic": "anderson-darling-test",
+    "Mann–Whitney U test": "wilcoxon-rank-sum-test",
+    "Mann–Whitney test": "wilcoxon-rank-sum-test",
+    "Mann–Whitney U": "wilcoxon-rank-sum-test",
     "product-limit estimator": "kaplan-meier-estimator",
     "Cox model": "cox-proportional-hazards-model",
     "Cox regression": "cox-proportional-hazards-model",
@@ -1642,6 +1652,11 @@ LINKS += [
 ]
 
 LINKS += [
+    link(["Kolmogorov–Smirnov test", "Kolmogorov-Smirnov test", "K-S test"], "kolmogorov-smirnov-test"),
+    link(["Welch's ANOVA", "Welch ANOVA", "Welch's one-way test", "Welch one-way test"], "welch-s-anova"),
+    link(["Games–Howell", "Games-Howell"], "welch-s-anova"),
+    link(["Anderson–Darling test", "Anderson-Darling test", "Anderson–Darling statistic", "Anderson-Darling statistic"], "anderson-darling-test"),
+    link(["Mann-Whitney U test", "Mann–Whitney U test", "Mann-Whitney test", "Mann–Whitney test"], "wilcoxon-rank-sum-test"),
     link(["Kaplan–Meier estimator", "Kaplan-Meier estimator", "Kaplan–Meier curve", "product-limit estimator"], "kaplan-meier-estimator"),
     link(["Cox proportional hazards model", "Cox model", "Cox regression"], "cox-proportional-hazards-model"),
     link(["log-rank test", "Mantel–Cox test", "Mantel-Cox test"], "log-rank-test"),

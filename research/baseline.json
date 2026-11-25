@@ -3467,6 +3467,18 @@
     "words": 2911,
     "figures": 0
   },
+  "kolmogorov-smirnov-test": {
+    "words": 5535,
+    "figures": 0
+  },
+  "welch-s-anova": {
+    "words": 4639,
+    "figures": 0
+  },
+  "anderson-darling-test": {
+    "words": 4566,
+    "figures": 0
+  },
   "variational-inference": {
     "words": 5689,
     "figures": 0
