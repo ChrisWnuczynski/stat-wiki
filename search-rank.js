@@ -776,12 +776,15 @@ function shortQueryNeedle(query) {
 }
 
 function fieldLead(text, needle) {
-  const hay = fold(text).replace(/^(?:the|a|an)[^a-z0-9]+/, "");
+  // Drop TeX control words first. fold() would otherwise turn \bar into the
+  // word "bar". A lead is the whole title or a word that starts with the
+  // query. Letters inside a longer word ("what", "controls") do not lead.
+  const withoutTex = String(text || "").replace(/\\[A-Za-z]+/g, " ");
+  const hay = fold(withoutTex).replace(/^(?:the|a|an)[^a-z0-9]+/, "");
   if (!hay || !needle) return 0;
   if (hay.startsWith(needle)) return 3;
   const words = hay.split(/[^a-z0-9]+/).filter(Boolean);
   if (words.some((word) => word.startsWith(needle))) return 2;
-  if (hay.includes(needle)) return 1;
   return 0;
 }
 

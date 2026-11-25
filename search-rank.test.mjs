@@ -694,8 +694,56 @@ test("short query ba leads with title and alias matches, ahead of body text", ()
   const sandwich = found.indexOf("articles/sandwich-estimator.html");
   const hidden = found.indexOf("articles/hidden-layer.html");
   assert.ok(prior > found.indexOf("articles/bayesian-inference.html"));
-  assert.ok(global > prior, "title substring follows an alias prefix");
-  assert.ok(sandwich > global && hidden > global, "body text follows title and alias matches");
+  assert.ok(global > prior, "letters inside global do not join the alias-prefix band");
+  assert.ok(sandwich > prior && hidden > prior, "body text follows title and alias matches");
+});
+
+test("short queries ignore letters inside words and TeX control words", () => {
+  const hat = rankDocuments(
+    [
+      { href: "overview.html", title: "What statistics is", section: "", text: "An overview of the field." },
+      { href: "articles/a-coefficient-that-cancels.html", title: "A coefficient that cancels", section: "", text: "A cancellation." },
+      { href: "articles/pearson-residual.html", title: "Pearson residual", section: "", text: "The hat matrix diagonal is the leverage." },
+      { href: "articles/hat-matrix.html", title: "Hat matrix", section: "", text: "The projection matrix." },
+    ],
+    "hat"
+  ).map((doc) => doc.href);
+  assert.equal(hat[0], "articles/hat-matrix.html");
+  assert.ok(hat.includes("articles/pearson-residual.html"));
+  assert.ok(!hat.includes("overview.html"));
+  assert.ok(!hat.includes("articles/a-coefficient-that-cancels.html"));
+
+  const ols = rankDocuments(
+    [
+      { href: "articles/ordinary-least-squares.html", title: "Ordinary least squares", section: "", text: "Minimises the residual sum of squares." },
+      { href: "articles/benjamini.html", title: "Benjamini–Hochberg controls the false discovery rate", section: "", text: "A step-up procedure." },
+      { href: "articles/residual-sum-of-squares.html", title: "Residual sum of squares", section: "", text: "The OLS fit minimises this sum." },
+    ],
+    "ols",
+    {
+      pages: {
+        "articles/ordinary-least-squares.html": { title: "Ordinary least squares", aliases: ["OLS"] },
+      },
+      aliases: { ols: "articles/ordinary-least-squares.html" },
+    }
+  ).map((doc) => doc.href);
+  assert.equal(ols[0], "articles/ordinary-least-squares.html");
+  assert.ok(ols.includes("articles/residual-sum-of-squares.html"));
+  assert.ok(ols.indexOf("articles/residual-sum-of-squares.html") > 0);
+  assert.ok(!ols.includes("articles/benjamini.html"));
+
+  const bar = rankDocuments(
+    [
+      { href: "questions/hotelling.html", title: "When p=1, n=5, \\bar x=2 and s=1, what is T^2?", section: "", text: "A Hotelling question." },
+      { href: "questions/weights.html", title: "With n=4, \\sigma^2=4 and \\sigma_0^2=1, what are the weights on \\bar x and on \\mu_0?", section: "", text: "Precision weights." },
+      { href: "questions/density-bar.html", title: "A density bar taller than one", section: "", text: "A bin drawn above one." },
+      { href: "articles/histogram.html", title: "Histogram", section: "", text: "A bar chart of counts." },
+    ],
+    "bar"
+  ).map((doc) => doc.href);
+  assert.deepEqual(bar.slice(0, 2), ["questions/density-bar.html", "articles/histogram.html"]);
+  assert.ok(bar.indexOf("questions/hotelling.html") > bar.indexOf("articles/histogram.html"));
+  assert.ok(bar.indexOf("questions/weights.html") > bar.indexOf("articles/histogram.html"));
 });
 
 class HomeSearchEl {
