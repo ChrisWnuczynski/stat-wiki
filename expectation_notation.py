@@ -1,14 +1,30 @@
 """Fail new non-standard expectation notation, and leave the backlog alone.
 
-The house standard is the ``\\E`` shorthand. ``build_wiki.expand_macros``
-rewrites it to ``\\mathbb{E}`` inside ``prepare`` (chapter, question and
-answer sources) and in article-extra notes. It does not rewrite the two
-trees this guard reads. ``read_research_content`` copies ``research/content``
-into the article with only delimiter conversion, and ``labs/*.qmd`` are Quarto
-inputs. The generated Quarto config loads KaTeX with no macros, so a shorthand
-in those trees is what the browser receives until that expansion lands.
-This module still requires ``\\E``. It reports three other forms inside
-maths in ``research/content/*.md`` or ``labs/**/*.qmd``:
+The house standard is the ``\\E`` shorthand, which ``build_wiki.expand_macros``
+rewrites to ``\\mathbb{E}``.
+
+``read_research_content`` expands ``\\E``, ``\\Var``, and ``\\Cov`` when it
+copies ``research/content/*.md`` into an article, after the delimiter
+conversion. Those three are not KaTeX commands, so a raw copy is red. A new
+or edited ``\\E`` in that tree is blackboard bold on the published page.
+The other shorthand is left as written: ``\\Pr`` is already a KaTeX operator,
+and the page checks still look for those commands. ``prepare`` expands the
+whole shorthand table for chapter, question, and answer sources, and
+article-extra notes call ``expand_macros`` directly.
+
+Laboratories are authored ``labs/*.qmd`` files. This build does not rewrite
+them, because doing so would change the files on every run. ``\\E`` there
+renders when KaTeX is given the shorthand table. That header is pull request
+#170 (STA-140), which is still open. Until it merges, the one ``\\E`` in
+``labs/kernel-density.qmd`` is not expanded. This guard still requires
+``\\E`` in both trees.
+
+Not guarded, and still carrying the old forms: ``distributions.json``,
+``research/self-checks.json``, ``article_extras.py``, and ``sources/**/*.qmd``.
+Those inputs are left to the normalisation pass.
+
+This module reports three other forms inside maths in ``research/content/*.md``
+or ``labs/**/*.qmd``:
 
 - bare italic ``E`` used as the operator
 - ``\\mathrm{E}``
@@ -23,9 +39,11 @@ the pull-request base (``GITHUB_BASE_REF``, otherwise ``origin/main``) and
 reports a hit only when the line that contains it is added. A file the diff
 does not add lines to can keep its current notation. On ``main`` the diff is
 empty, so the suite stays green. Untracked in-scope files count as added.
-A shallow checkout that cannot compute a merge-base falls back to a direct
-diff against the base ref, which is the pull-request diff when Actions has
-checked out the merge commit.
+On a pull request, Actions checks out the merge commit. With
+``fetch-depth: 2`` the diff is against that commit's first parent, the base
+GitHub merged, so a later push to the base cannot make an untouched backlog
+line look added. A checkout that has no parent falls back to the merge-base,
+then to a direct diff against the base ref.
 
 Ambiguous italic E
 ------------------
@@ -51,7 +69,8 @@ reported, because it has the same shape as ``E(X)``.
 
 ``\\mathrm{E}`` and ``\\operatorname{E}`` are reported wherever they occur,
 including with a subscript. They are the named non-standard forms, not italic
-quantity names. Other fonts (``\\mathcal{E}``, ``\\mathbf{E}``) are out of scope.
+quantity names. ``\\text{E}``, ``\\textrm{E}``, ``\\mathsf{E}``, and ``E^*(X)``
+are not reported. ``\\mathcal{E}`` and ``\\mathbf{E}`` are out of scope.
 """
 
 from __future__ import annotations
@@ -114,7 +133,11 @@ class Violation:
 
 
 def in_scope(path: str) -> bool:
-    """Author sources only. Generated articles are out of scope."""
+    """Research prose and lab sources. Generated articles are out of scope.
+
+    ``distributions.json``, ``research/self-checks.json``, ``article_extras.py``,
+    and ``sources/**/*.qmd`` are not included.
+    """
     path = path.replace("\\", "/").lstrip("./")
     if path.startswith("research/content/") and path.endswith(".md") and path.count("/") == 2:
         return True
@@ -653,6 +676,13 @@ def _diff_path(raw: str) -> str | None:
 
 
 def _diff_target(root: Path, base: str) -> str:
+    # The pull-request checkout is a merge commit. Its first parent is the
+    # base at the moment GitHub built that merge, which stays stable if the
+    # base branch moves before this step fetches it.
+    if os.environ.get("GITHUB_EVENT_NAME") == "pull_request":
+        parent = _git(root, ["rev-parse", "--verify", "--quiet", "HEAD^1"], check=False)
+        if parent.returncode == 0 and parent.stdout.strip():
+            return parent.stdout.strip()
     merged = _git(root, ["merge-base", "HEAD", base], check=False)
     if merged.returncode == 0 and merged.stdout.strip():
         return merged.stdout.strip()

@@ -242,6 +242,60 @@ class GuardCliTests(unittest.TestCase):
                     proc = self._run(repo, base)
                     self.assertEqual(proc.returncode, 0, proc.stdout + proc.stderr)
 
+    def test_research_prose_is_expanded_before_it_is_copied(self) -> None:
+        import build_wiki
+
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "sample.md"
+            path.write_text(
+                "## Definition\nThe mean is $\\E(X)$, $\\Var(X)$, and $\\Pr(A)$.\n```\n\\E\n```\n",
+                encoding="utf-8",
+            )
+            researched, _titles = build_wiki.read_research_content(path, {"Definition"})
+        body = researched["Definition"]
+        self.assertIn(r"\mathbb{E}(X)", body)
+        self.assertIn(r"\operatorname{Var}(X)", body)
+        self.assertIn(r"\Pr(A)", body)
+        self.assertIn("```\n\\E\n```", body)
+
+    def test_pull_request_diff_uses_the_merge_parent_when_the_base_moves(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            repo = Path(tmp)
+            self._git(repo, ["init", "-b", "main"])
+            content = repo / "research" / "content"
+            content.mkdir(parents=True)
+            page = content / "old.md"
+            page.write_text("Backlog $E(X)$ stays.\n", encoding="utf-8")
+            self._commit(repo, "base")
+            old_base = self._git(repo, ["rev-parse", "HEAD"]).stdout.strip()
+            self._git(repo, ["checkout", "-b", "feature"])
+            page.write_text("Backlog $E(X)$ stays.\nNew $\\mathrm{E}(Y)$.\n", encoding="utf-8")
+            self._commit(repo, "add notation")
+            feature = self._git(repo, ["rev-parse", "HEAD"]).stdout.strip()
+            self._git(repo, ["checkout", "main"])
+            page.write_text("Main moved the backlog $E(X)$ line.\n", encoding="utf-8")
+            self._commit(repo, "main moves")
+            moved = self._git(repo, ["rev-parse", "HEAD"]).stdout.strip()
+            self._git(repo, ["checkout", "--detach", old_base])
+            self._git(
+                repo,
+                [
+                    "-c",
+                    "user.email=expectation-guard@example.com",
+                    "-c",
+                    "user.name=Expectation Guard",
+                    "merge",
+                    "--no-ff",
+                    feature,
+                    "-m",
+                    "merge",
+                ],
+            )
+            proc = self._run(repo, moved, {"GITHUB_EVENT_NAME": "pull_request"})
+            self.assertEqual(proc.returncode, 1, proc.stdout + proc.stderr)
+            self.assertIn("research/content/old.md:2:", proc.stdout)
+            self.assertNotIn("research/content/old.md:1:", proc.stdout)
+
     def test_missing_merge_base_still_flags_only_the_new_line(self) -> None:
         # A shallow checkout cannot compute a merge-base. The fallback diffs
         # the two trees, so an untouched backlog line still passes.
@@ -282,11 +336,18 @@ class GuardCliTests(unittest.TestCase):
         self.assertEqual(proc.returncode, 0, proc.stdout + proc.stderr)
         self.assertIn("no new non-standard", proc.stdout)
 
-    def _run(self, repo: Path, base: str) -> subprocess.CompletedProcess[str]:
+    def _run(
+        self,
+        repo: Path,
+        base: str,
+        extra: dict[str, str] | None = None,
+    ) -> subprocess.CompletedProcess[str]:
         env = os.environ.copy()
-        for key in ("GIT_DIR", "GIT_WORK_TREE", "GITHUB_BASE_REF"):
+        for key in ("GIT_DIR", "GIT_WORK_TREE", "GITHUB_BASE_REF", "GITHUB_EVENT_NAME"):
             env.pop(key, None)
         env["EXPECTATION_NOTATION_BASE"] = base
+        if extra:
+            env.update(extra)
         return subprocess.run(
             [sys.executable, str(SCRIPT)],
             cwd=repo,

@@ -266,14 +266,16 @@ jobs:
       cancel-in-progress: false
     steps:
       - uses: actions/checkout@v5
+        with:
+          # Two commits so the pull-request merge ref still has its base parent.
+          fetch-depth: 2
 
       - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
 
-      # Added maths only. The merge-base diff leaves the existing backlog,
-      # and generated articles, out of this check. Fetch the base so a
-      # shallow checkout can still see that diff.
+      # Added maths only. Diff against the merge commit's first parent so a
+      # base branch that moves during the run does not revive untouched backlog.
       - name: Check expectation notation
         run: |
           git fetch --no-tags origin "${GITHUB_BASE_REF}"
