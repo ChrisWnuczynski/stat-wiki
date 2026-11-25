@@ -17,23 +17,41 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 
-PROBE = """
+PROBE = r"""
 () => {
   const problems = [];
   const errors = document.querySelectorAll(".katex-error");
   if (errors.length) problems.push(errors.length + " .katex-error");
+  const rawCommand = /\\[A-Za-z]+/g;
+  function withoutTexSource(node) {
+    const copy = node.cloneNode(true);
+    copy.querySelectorAll("annotation").forEach((ann) => {
+      if ((ann.getAttribute("encoding") || "").toLowerCase() === "application/x-tex") ann.remove();
+    });
+    return copy;
+  }
+  function commandsIn(text) {
+    return [...String(text || "").matchAll(rawCommand)].map((match) => match[0]);
+  }
   const spans = document.querySelectorAll("span.math");
   let raw = 0;
   let bare = 0;
+  const leaked = new Set();
   spans.forEach((el) => {
     const mathml = el.querySelector("math");
     const rendered = el.querySelector(".katex");
     const label = el.getAttribute("aria-label");
     if (!rendered && !mathml) raw += 1;
     else if (!mathml && !label) bare += 1;
+    const visualRoot = el.querySelector(".katex-html") || el;
+    const visual = withoutTexSource(visualRoot).textContent || "";
+    let spoken = label || "";
+    if (mathml) spoken += " " + (withoutTexSource(mathml).textContent || "");
+    for (const command of commandsIn(visual).concat(commandsIn(spoken))) leaked.add(command);
   });
   if (raw) problems.push(raw + " untransformed TeX span(s)");
   if (bare) problems.push(bare + " formula(s) without MathML or aria-label");
+  if (leaked.size) problems.push("raw command visible or spoken: " + [...leaked].join(", "));
   return problems;
 }
 """

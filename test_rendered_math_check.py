@@ -2,11 +2,21 @@
 
 from __future__ import annotations
 
+import subprocess
 import tempfile
 import unittest
 from pathlib import Path
 
 from tools.rendered_math_check import check_pages
+
+ROOT = Path(__file__).resolve().parent
+# The kernel-density laboratory writes this expectation. KaTeX paints a literal
+# red \\E when the command is undefined, still with a .katex wrapper and MathML
+# and with no .katex-error element.
+MISE = (
+    r"\mathrm{MISE}(h)=\mathrm{IVar}(h)+\mathrm{IBias}^2(h)="
+    r"\E\int_{-\infty}^{\infty}\bigl(\widehat f_h(x)-f(x)\bigr)^2\,\mathrm{d}x."
+)
 
 
 GOOD = """<!DOCTYPE html><html><body>
@@ -44,6 +54,42 @@ class RenderedMathCheckTests(unittest.TestCase):
             self.assertTrue(any("untransformed" in item for item in raw), raw)
             broken = check_pages(site, ["error.html"])
             self.assertTrue(any("katex-error" in item for item in broken), broken)
+
+    def test_visible_raw_command_fails_and_colour_and_tex_source_do_not(self) -> None:
+        script = r"""
+import { createRequire } from "node:module";
+import { writeFileSync } from "node:fs";
+const require = createRequire(import.meta.url);
+const katex = require(process.argv[1]);
+const tex = process.argv[2];
+const out = process.argv[3];
+const bad = katex.renderToString(tex, { throwOnError: false, output: "htmlAndMathml", strict: "ignore" });
+const good = katex.renderToString(tex, {
+  throwOnError: true, output: "htmlAndMathml", strict: "ignore",
+  macros: { "\\E": "\\mathbb{E}" },
+});
+const red = katex.renderToString("\\textcolor{red}{x+y}", { throwOnError: true, output: "htmlAndMathml" });
+const page = (body) => "<!DOCTYPE html><html><body><span class=\"math inline\">" + body + "</span></body></html>";
+writeFileSync(out + "/bad-e.html", page(bad));
+writeFileSync(out + "/good-e.html", page(good));
+writeFileSync(out + "/red.html", page(red));
+if (bad.includes("katex-error")) throw new Error("the gap is a raw command with no katex-error");
+"""
+        with tempfile.TemporaryDirectory() as tmp:
+            site = Path(tmp)
+            subprocess.run(
+                ["node", "--input-type=module", "-e", script, str(ROOT / "katex" / "katex.min.js"), MISE, str(site)],
+                check=True,
+                cwd=ROOT,
+            )
+            bad = check_pages(site, ["bad-e.html"])
+            self.assertTrue(any(r"\E" in item and "raw command" in item for item in bad), bad)
+            self.assertFalse(any("katex-error" in item for item in bad), bad)
+            self.assertEqual(check_pages(site, ["good-e.html"]), [])
+            self.assertEqual(check_pages(site, ["red.html"]), [])
+            good = (site / "good-e.html").read_text(encoding="utf-8")
+            self.assertIn('encoding="application/x-tex"', good)
+            self.assertIn(r"\E", good)
 
 
 if __name__ == "__main__":
