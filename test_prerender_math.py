@@ -54,7 +54,11 @@ window.Quarto = { typesetMath };
 </script>
 </head><body>
 <p>Inline <span class="math inline">a&lt;b</span> and <span class="math display">\\E[X]</span></p>
+<span class="math-example">not a formula</span>
+<span data-class="math">data class only</span>
+<!-- <span class="math">comment formula</span> -->
 <script>
+var example = '<span class="math">script formula</span>';
 function ensureKatex() {}
 function renderMath(root) {
   root.querySelectorAll("span.math").forEach(function (el) {
@@ -94,6 +98,10 @@ class PrerenderMathTests(unittest.TestCase):
             self.assertNotIn("katex.min.js", html)
             self.assertIn("katex.min.css", html)
             self.assertIn("function ensureKatex()", html)
+            self.assertIn(">not a formula</span>", html)
+            self.assertIn(">data class only</span>", html)
+            self.assertIn("comment formula", html)
+            self.assertIn("script formula", html)
             self.assertNotIn('getElementsByClassName("math");', html.split("typesetMath", 1)[0])
             self.assertIn('querySelector(".katex, math")', html)
             again = subprocess.run(

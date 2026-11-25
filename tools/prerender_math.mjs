@@ -44,37 +44,111 @@ function decode(text) {
     .replace(/&amp;/g, "&");
 }
 
-function classOf(openTag) {
-  const match = /class\s*=\s*"([^"]*)"/i.exec(openTag);
-  return match ? match[1] : "";
+const VOID_TAGS = new Set("area,base,br,col,embed,hr,img,input,link,meta,param,source,track,wbr".split(","));
+
+function findTagEnd(html, start) {
+  let quote = "";
+  for (let i = start + 1; i < html.length; i += 1) {
+    const char = html[i];
+    if (quote) {
+      if (char === quote) quote = "";
+      continue;
+    }
+    if (char === '"' || char === "'") quote = char;
+    else if (char === ">") return i;
+  }
+  return -1;
 }
 
-// Depth-matched spans. A rendered formula contains nested spans, so the first
-// </span> is not the end of the math span.
-function mathSpans(html) {
-  const opener = /<span\b[^>]*\bclass="[^"]*\bmath\b[^"]*"[^>]*>/gi;
-  const found = [];
+function parseAttributes(inner) {
+  const attrs = {};
+  const pattern = /([^\s=\/>]+)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'=<>`]+)))?/g;
   let match;
-  while ((match = opener.exec(html))) {
-    const start = match.index;
-    const openEnd = start + match[0].length;
+  while ((match = pattern.exec(inner))) {
+    const name = match[1].toLowerCase();
+    if (name in attrs) continue;
+    attrs[name] = match[2] ?? match[3] ?? match[4] ?? "";
+  }
+  return attrs;
+}
+
+function classTokens(value) {
+  return String(value || "").trim().split(/\s+/).filter(Boolean);
+}
+
+// Real tags only. Comments, script text, and style text are not elements,
+// and `math` has to be its own class token (`math-example` is not maths).
+function walkTags(html, onTag) {
+  let i = 0;
+  while (i < html.length) {
+    const lt = html.indexOf("<", i);
+    if (lt < 0) break;
+    if (html.startsWith("<!--", lt)) {
+      const end = html.indexOf("-->", lt + 4);
+      i = end < 0 ? html.length : end + 3;
+      continue;
+    }
+    if (html.startsWith("<!", lt) || html.startsWith("<?", lt)) {
+      const end = html.indexOf(">", lt + 2);
+      i = end < 0 ? html.length : end + 1;
+      continue;
+    }
+    const gt = findTagEnd(html, lt);
+    if (gt < 0) break;
+    const raw = html.slice(lt, gt + 1);
+    const nameMatch = /^<\/?\s*([A-Za-z][\w:-]*)/.exec(raw);
+    if (!nameMatch) {
+      i = gt + 1;
+      continue;
+    }
+    const name = nameMatch[1].toLowerCase();
+    const closing = raw.startsWith("</");
+    const selfClosing = !closing && (/\/>\s*$/.test(raw) || VOID_TAGS.has(name));
+    const attrSource = raw.slice(nameMatch[0].length, raw.endsWith("/>") ? raw.length - 2 : raw.length - 1);
+    onTag({
+      name,
+      closing,
+      selfClosing,
+      start: lt,
+      end: gt + 1,
+      raw,
+      attrs: closing ? {} : parseAttributes(attrSource),
+    });
+    if (!closing && !selfClosing && (name === "script" || name === "style")) {
+      const closer = new RegExp(`</${name}\\s*>`, "i");
+      const found = closer.exec(html.slice(gt + 1));
+      i = found ? gt + 1 + found.index + found[0].length : html.length;
+      continue;
+    }
+    i = gt + 1;
+  }
+}
+
+function mathSpans(html) {
+  const tags = [];
+  walkTags(html, (tag) => tags.push(tag));
+  const found = [];
+  for (let i = 0; i < tags.length; i += 1) {
+    const tag = tags[i];
+    if (tag.closing || tag.selfClosing || tag.name !== "span") continue;
+    if (!classTokens(tag.attrs.class).includes("math")) continue;
     let depth = 1;
-    let cursor = openEnd;
-    let close = -1;
-    while (cursor < html.length && depth > 0) {
-      const nextOpen = html.indexOf("<span", cursor);
-      const nextClose = html.indexOf("</span>", cursor);
-      if (nextClose < 0) break;
-      if (nextOpen >= 0 && nextOpen < nextClose) {
-        depth += 1;
-        cursor = nextOpen + 5;
-      } else {
+    let close = null;
+    for (let j = i + 1; j < tags.length; j += 1) {
+      const next = tags[j];
+      if (next.name !== "span") continue;
+      if (next.closing) {
         depth -= 1;
-        if (depth === 0) close = nextClose;
-        cursor = nextClose + 7;
+        if (depth === 0) {
+          close = next;
+          break;
+        }
+      } else if (!next.selfClosing) {
+        depth += 1;
       }
     }
-    if (close >= 0) found.push({ start, openEnd, close, end: close + 7, open: match[0] });
+    if (!close) continue;
+    found.push({ start: tag.start, openEnd: tag.end, close: close.start, end: close.end, open: tag.raw });
   }
   return found;
 }
@@ -87,7 +161,7 @@ function renderInner(openTag, inner) {
     .replace(/^\\\[([\s\S]*)\\\]$/, "$1")
     .trim();
   if (!tex) return null;
-  const display = /\bdisplay\b/.test(classOf(openTag));
+  const display = classTokens(parseAttributes(openTag).class).includes("display");
   return katex.renderToString(tex, {
     displayMode: display,
     throwOnError: true,
