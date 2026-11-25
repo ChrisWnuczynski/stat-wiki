@@ -33,7 +33,7 @@ Changing units by $X'=a+bX$ and $Y'=c+dY$ leaves the magnitude of correlation un
 
 Correlation also controls the best *linear* prediction of $Y$ from $X$ in mean squared error. Its slope is $b=\rho\sigma_Y/\sigma_X$, its intercept is $\mu_Y-b\mu_X$, and its remaining mean squared prediction error is $\sigma_Y^2(1-\rho^2)$. With an intercept in this one-predictor population calculation, $\rho^2$ is the fraction of $Y$ variance captured by the linear predictor. The conditional mean equals this line in the jointly normal case.{{cite:hannay2019_statsdata}} (Ch. 11, §11.4) {{cite:wang2025_foundations}} (Ch. 6 Extra, Example 27)
 
-Independence implies zero correlation when the variances exist, while a symmetric $X$ and $Y=X^2$ give a dependent pair with zero covariance. For a *jointly normal* pair, zero correlation does imply independence. These statements distinguish linear association from general dependence.{{cite:wang2025_foundations}} (Ch. 6 Extra, Example 27)
+Independence implies zero correlation when both variances are finite and positive, while a standard normal $X$ and $Y=X^2$ give a dependent pair with zero correlation. For a *jointly normal* pair, zero correlation does imply independence. These statements distinguish linear association from general dependence.{{cite:wang2025_foundations}} (Ch. 6 Extra, Example 27)
 
 ::: {.callout-note collapse="true" title="Proof"}
 ::: {.proof}

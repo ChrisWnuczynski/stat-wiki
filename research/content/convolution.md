@@ -16,7 +16,11 @@ If they are independent with densities $f_X$ and $f_Y$,
 $$
 f_{X+Y}(z)=\int_{-\infty}^{\infty} f_X(x)\,f_Y(z-x)\,dx.
 $$
-The integral is the convolution $(f_X*f_Y)(z)$. Without independence the product of marginals is replaced by the joint density along the line $x+y=z$.{{cite:pishro_nik2014}} (§5.2, convolution formula)
+The integral is the convolution $(f_X*f_Y)(z)$. If the pair $(X,Y)$ has a joint density $f_{X,Y}$, independence is not required for the formula
+$$
+f_{X+Y}(z)=\int_{-\infty}^{\infty} f_{X,Y}(x,z-x)\,dx.
+$$
+Marginal densities alone do not ensure a joint density. For example, if $X$ is uniform on $[0,1]$ and $Y=1-X$, both marginals are uniform, but $X+Y=1$ almost surely. The pair is supported on a line and has no joint density, so this integral formula does not apply.{{cite:pishro_nik2014}} (§5.2, convolution formula)
 
 ::: {.callout-note collapse="true" title="Proof"}
 ::: {.proof}
@@ -42,4 +46,4 @@ The pairs are $(1,4)$, $(2,3)$, $(3,2)$ and $(4,1)$. Each has probability $1/36$
 :::
 
 ## Connections — Named families and the central limit
-The convolution of two independent Poisson mass functions with means $\lambda$ and $\mu$ is Poisson with mean $\lambda+\mu$, which is why the sum stays in the family. Independent normal densities convolve to a normal density whose mean and variance add.{{cite:pishro_nik2014}} (§5.2, sum of independent normals) Repeated convolution of a fixed density is the distribution of a longer sum, and under a finite variance that shape approaches the normal curve of the [central limit theorem](central-limit-theorem.qmd). [Independent random variables](independent-random-variables.qmd) are the hypothesis that lets the joint probability factor inside the sum.
+The convolution of two independent Poisson mass functions with means $\lambda$ and $\mu$ is Poisson with mean $\lambda+\mu$, which is why the sum stays in the family. Independent normal densities convolve to a normal density whose mean and variance add.{{cite:pishro_nik2014}} (§5.2, sum of independent normals) Repeated convolution of a fixed density gives the density of the sum of independent observations with that common density. For independent and identically distributed observations with finite mean $\mu$ and finite positive variance $\sigma^2$, write $S_n=X_1+\cdots+X_n$. The [central limit theorem](central-limit-theorem.qmd) states that the standardised sum $(S_n-n\mu)/(\sigma\sqrt n)$ converges in distribution to the standard normal distribution as $n\to\infty$. [Independent random variables](independent-random-variables.qmd) are the hypothesis that lets the joint probability factor inside the sum.

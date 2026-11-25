@@ -6,7 +6,7 @@ A filling machine produces bottles whose mean content is $500$ mL and standard d
 
 Variance is the average squared distance from the mean. If many outcomes were far away, those large squares would force the average upward. Therefore a small variance limits how much probability can sit far from the mean. The argument makes no normality or symmetry assumption. Its price for that generality is a broad bound: information about the distribution's shape can yield a much tighter answer.
 
-The threshold must be read literally. With standard deviation $\sigma$ and a cutoff $k\sigma$, the bound is $1/k^2$ for $k>0$. At two standard deviations it promises at least $75\%$ of outcomes within the *open* central interval; it does not promise the familiar normal-model percentage. The bound can exceed one for $k<1$, in which case the trivial probability bound one is more useful.
+The threshold must be read literally. With standard deviation $\sigma>0$ and a cutoff $k\sigma$, the bound is $1/k^2$ for $k>0$. At two standard deviations it promises at least $75\%$ of outcomes within the *open* central interval; it does not promise the familiar normal-model percentage. The bound can exceed one for $k<1$, in which case the trivial probability bound one is more useful. A constant variable has $\sigma=0$ and instead satisfies $\Pr(|X-\mu|\geq a)=0$ for every positive absolute cutoff $a$.
 
 ## Definition
 

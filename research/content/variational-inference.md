@@ -474,8 +474,8 @@ $\mathbb{E}_{q^{*}}[\log p(\theta)] \approx -2.1359$, and the entropy term
 $-\mathbb{E}_{q^{*}}[\log q^{*}(\theta)] \approx 0.5898$, summing to
 $-7.8920$ — equal to $\log p(x)$, as it must be when the divergence term
 in the identity is zero. A suboptimal member shows the gap opening: for
-$q = \mathrm{N}(2, 1)$, which has the correct mean but the prior-scale
-variance in place of the posterior variance, the same computation gives
+$q = \mathrm{N}(2, 1)$, which has the correct mean but the single-observation noise
+variance $\sigma^2 = 1$ in place of the posterior variance $4/21$, the same computation gives
 $\mathrm{ELBO}(q) \approx -9.1878$, and correspondingly
 $\mathrm{KL}(q \| p(\theta \mid x)) = \log p(x) - \mathrm{ELBO}(q)
 \approx 1.2959$ nats.

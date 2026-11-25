@@ -26,10 +26,10 @@ with $\lambda>0$ and $\nu\ge 0$, and with $\lambda<1$ when $\nu=0$ so that the s
 At $\nu=1$ the normalising series is $\sum_{j\ge 0}1/j!=e$, so $P(X=0)=e^{-1}\approx 0.3679$. The law is Poisson with mean $1$, and the variance equals the mean rather than falling below it.
 :::
 
-**Check yourself.** At $\lambda=1$ and $\nu=2$, the probability $P(X=0)\approx 0.4387$ exceeds the Poisson probability $e^{-1}\approx 0.3679$. Why does a larger probability at zero go with a smaller variance?
+**Check yourself.** At $\lambda=1$ and $\nu=2$, the probability $P(X=0)\approx 0.4387$ exceeds the Poisson probability $e^{-1}\approx 0.3679$. What changes in the right tail and the variance in this example?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The factor $(x!)^{2}$ in the denominator cuts off the right tail faster than $x!$ does. Probability moves toward zero and the small counts, so the mean falls below $1$ and the spread falls further, to about $0.5131$. A higher atom at zero is the left-hand sign of that tightening, not a second phenomenon.
+The factor $(x!)^{2}$ in the denominator cuts off the right tail faster than $x!$ does. In this example the mean is about $0.6978$ and the variance is about $0.5131$, compared with variance $1$ for Poisson$(1)$ or $0.6978$ for a Poisson law with the same mean. The zero probability alone does not determine dispersion. For example, a count equal to $0$ with probability $3/4$ and $4$ with probability $1/4$ has mean $1$ and $P(X=0)=0.75>e^{-1}$, but variance $3>1$, the opposite variance comparison with Poisson$(1)$.
 :::
 
 **Check yourself.** Why is a regression coefficient attached to $\log\lambda$ in this parameterisation not yet a statement about the mean count?
