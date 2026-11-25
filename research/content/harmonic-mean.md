@@ -15,7 +15,7 @@ A buyer who spends the same amount, 200 euros, on coffee at 3, 2, and 1.5 euros 
 
 ## Definition
 
-For nonzero numbers $x_1,\ldots,x_n$, the harmonic mean is
+For positive numbers $x_1,\ldots,x_n$, the harmonic mean is
 
 $$
 H=\frac{n}{\sum_{i=1}^n 1/x_i}.
@@ -74,7 +74,7 @@ The harmonic mean is undefined, because a reciprocal of zero is not a number.
 
 ## Connections
 
-The arithmetic mean is the sum divided by the count. The geometric mean is the exponential of the average log, and for positive numbers it lies between the harmonic mean and the arithmetic mean. A [median](median.qmd) resists large and small outliers by using rank rather than reciprocals. The harmonic mean is the right average when the scientific quantity is a ratio of a fixed total to a sum of reciprocals: equal investments at different rates, or equal expenditure at different prices. It is the wrong average when the scientific quantity is the ordinary total of the observations. {{cite:dodge2008}} (pp. 239–240) {{cite:nist_location2002}} (§1.3.5.1)
+The arithmetic mean is the sum divided by the count. The geometric mean is the exponential of the average log, and for positive numbers it lies between the harmonic mean and the arithmetic mean. A [median](median.qmd) resists large and small outliers by using rank rather than reciprocals. The harmonic mean is the right average when the scientific quantity is a ratio of a fixed total to a sum of reciprocals: investments producing equal income at different rates, or equal expenditure at different prices. It is the wrong average when the scientific quantity is the ordinary total of the observations. {{cite:dodge2008}} (pp. 239–240) {{cite:nist_location2002}} (§1.3.5.1)
 
 ## History
 
