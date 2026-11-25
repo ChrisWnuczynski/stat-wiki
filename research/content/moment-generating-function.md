@@ -6,7 +6,7 @@ If four independent trials each succeed with probability $0.3$, the expected num
 
 The transform $e^{tX}$ gives more weight to large values when $t>0$ and to small values when $t<0$. Taking its expectation records how the distribution responds to that tilt. Near zero, the exponential's power series contains $1$, $X$, $X^2/2!$ and higher powers, which explains the name: derivatives of the transform reveal ordinary moments. This picture is valid only where the expectation exists. A random variable always has $M(0)=1$, but that single value says almost nothing about its law.
 
-Independence is the other useful ingredient. Exponentiating a sum turns it into a product, $e^{t(X+Y)}=e^{tX}e^{tY}$. When $X$ and $Y$ are independent, the expectation splits into $M_X(t)M_Y(t)$. The implication runs one way only: a sum whose transform happens to factor does not prove the variables independent, so factorisation alone is never evidence of independence. A product of transforms can therefore identify a sum distribution when a known family's transform has the same form. This often avoids a convolution integral.
+Independence is the other useful ingredient. Exponentiating a sum turns it into a product, $e^{t(X+Y)}=e^{tX}e^{tY}$. When $X$ and $Y$ are independent, the expectation splits into $M_X(t)M_Y(t)$. The implication runs one way only: a sum whose transform happens to factor does not prove the variables independent, so factorisation alone does not establish independence. A product of transforms can therefore identify a sum distribution when a known family's transform has the same form. This often avoids a convolution integral.
 
 ## Definition
 
