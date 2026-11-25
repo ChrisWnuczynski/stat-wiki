@@ -31,7 +31,7 @@ measured. Each directed edge is an arrow from one node to another,
 written here as $X \rightarrow A$ and read as “$X$ is a direct cause of
 $A$”, where “direct” means direct relative to the other variables on the
 graph: the effect is not mediated through any other variable the diagram
-includes. A variable with an arrow into another is its parent; the variable at the head of the arrow is its child 
+includes. A variable with an arrow into another is its parent; the variable at the head of the arrow is its child
 
 The graph is *directed* because every edge has a direction, and *acyclic* because no directed path forms a closed loop: following arrows in their direction, one can never return to a node already visited — no variable can cause itself at an instantaneous moment, and the future cannot cause the past {{cite:tennant_etal2021}} (p. 622).
 

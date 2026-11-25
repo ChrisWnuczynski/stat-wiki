@@ -51,9 +51,9 @@ signs, so the total effect can be small even though both components are
 large, a configuration called inconsistent mediation.
 
 The total effect itself is the familiar [average treatment effect](average-treatment-effect.qmd):
-for binary $A$, it is $E[Y^{1}] - E[Y^{0}]$, where $Y^{1}$ denotes the
+for binary $A$, it is $\E[Y^{1}] - \E[Y^{0}]$, where $Y^{1}$ denotes the
 outcome a unit would show under $A = 1$, $Y^{0}$ the outcome under
-$A = 0$, and $E[\cdot]$ denotes expectation over the population in
+$A = 0$, and $\E[\cdot]$ denotes expectation over the population in
 question. Mediation analysis refines this single number into a pair of
 numbers, defined using potential outcomes involving the mediator, that
 add back to the total. Everything difficult about the subject is
@@ -159,11 +159,11 @@ status fixed {{cite:imai_keele_tingley2010}} (pp. 311–312).
 With $a = 1$ for the active exposure and $a = 0$ for the comparison, the
 natural direct effect is
 
-$$\text{NDE} = E[Y^{1, M^{0}} - Y^{0, M^{0}}],$$
+$$\text{NDE} = \E[Y^{1, M^{0}} - Y^{0, M^{0}}],$$
 
 and the natural indirect effect is
 
-$$\text{NIE} = E[Y^{1, M^{1}} - Y^{1, M^{0}}].$$
+$$\text{NIE} = \E[Y^{1, M^{1}} - Y^{1, M^{0}}].$$
 
 Each definition rewards slow reading. In the natural direct effect, the
 exposure changes from $0$ to $1$ in the first superscript, while the
@@ -176,10 +176,10 @@ first superscript is $1$ in both terms, so the exposure itself does not
 change; only the mediator moves, from $M^{0}$ to $M^{1}$. That contrast
 captures exactly the part transmitted by the exposure's action on the
 mediator, evaluated in the treated condition. Adding the two definitions,
-the shared term $E[Y^{1, M^{0}}]$ cancels, leaving
+the shared term $\E[Y^{1, M^{0}}]$ cancels, leaving
 
-$$\text{NDE} + \text{NIE} = E[Y^{1, M^{1}}] - E[Y^{0, M^{0}}]
-= E[Y^{1}] - E[Y^{0}],$$
+$$\text{NDE} + \text{NIE} = \E[Y^{1, M^{1}}] - \E[Y^{0, M^{0}}]
+= \E[Y^{1}] - \E[Y^{0}],$$
 
 where the last equality uses the composition property that the outcome
 under exposure $a$ with the mediator at its natural value under $a$ is
@@ -216,7 +216,7 @@ a given data set can identify them.
 A companion definition avoids one layer of nesting by fixing the mediator
 outright. The controlled direct effect at mediator level $m$ is
 
-$$\text{CDE}(m) = E[Y^{1, m} - Y^{0, m}],$$
+$$\text{CDE}(m) = \E[Y^{1, m} - Y^{0, m}],$$
 
 the mean effect of the exposure when every unit's mediator is set, by
 intervention, to the same value $m$. Robins and Greenland's early
@@ -379,8 +379,8 @@ and $(1, 1)$; the crossed combination $(1, 0)$ that $Y^{1,
 M^{0}}$ requires never occurs — and neither does $(0, 1)$, the crossed
 combination the mirror-image counterfactual $Y^{0, M^{1}}$ would require.
 Two outcome models fit the observed triplet
-$(A, M, Y)$ identically. If $Y = M$, the natural direct effect is $E[Y^{1,
-M^{0}} - Y^{0, M^{0}}] = 0$ and the natural indirect effect is $E[Y^{1,
+$(A, M, Y)$ identically. If $Y = M$, the natural direct effect is $\E[Y^{1,
+M^{0}} - Y^{0, M^{0}}] = 0$ and the natural indirect effect is $\E[Y^{1,
 M^{1}} - Y^{1, M^{0}}] = 1$: the pair $(0, 1)$. If $Y = A$, the natural
 direct effect is $1$ and the natural indirect effect is $0$: the pair $(1,
 0)$. The observed data cannot distinguish a wholly mediated effect from a
@@ -418,7 +418,7 @@ effect that runs through $L$ itself. Which distribution of $L$ an
 estimate averages over is decided by the prediction and standardisation
 step, not by the regression. The correct adjustment is
 treatment-specific standardisation, the g-formula for this setting: for
-each exposure level $a$ separately, average the outcome mean $E[Y \mid
+each exposure level $a$ separately, average the outcome mean $\E[Y \mid
 A = a, M = m, L, C]$ over the distribution of $L$ under that same
 exposure level, $P(L \mid A = a, C)$, then average the result over the
 target population's distribution of the baseline covariates $C$, and
@@ -471,8 +471,8 @@ this article's linear model the two can nevertheless take the same
 value: with outcome equation $Y = \beta_0 + c' A + b M + d A M +
 \varepsilon_Y$, the controlled direct effect is $\text{CDE}(m) = c' +
 dm$, while the natural direct effect with reference condition $0$ is
-$c' + d\,E[M^{0}]$ — the controlled direct effect evaluated at $m =
-E[M^{0}]$, whenever that value is a supported mediator level. The
+$c' + d\,\E[M^{0}]$ — the controlled direct effect evaluated at $m =
+\E[M^{0}]$, whenever that value is a supported mediator level. The
 estimands differ even when the values coincide. The counterfactual
 definitions earn their keep precisely here. VanderWeele's guide presents
 methods from the causal inference literature for conducting mediation
@@ -531,12 +531,12 @@ does not depend on $m$.
 
 The same numbers can be recovered, and checked, from the counterfactual
 definitions. The mean mediator values under the two conditions are
-$E[M^{0}] = 2$ and $E[M^{1}] = 2 + 1/2 = 5/2 = 2.5$. The nested
+$\E[M^{0}] = 2$ and $\E[M^{1}] = 2 + 1/2 = 5/2 = 2.5$. The nested
 counterfactual means, computed from the outcome equation by inserting the
 relevant exposure value and the relevant mean mediator value, are
-$E[Y^{0, M^{0}}] = 1 + 0.8 \times 2 = 13/5 = 2.6$,
-$E[Y^{1, M^{0}}] = 1 + 0.3 + 0.8 \times 2 = 29/10 = 2.9$, and
-$E[Y^{1, M^{1}}] = 1 + 0.3 + 0.8 \times 2.5 = 33/10 = 3.3$. Therefore
+$\E[Y^{0, M^{0}}] = 1 + 0.8 \times 2 = 13/5 = 2.6$,
+$\E[Y^{1, M^{0}}] = 1 + 0.3 + 0.8 \times 2 = 29/10 = 2.9$, and
+$\E[Y^{1, M^{1}}] = 1 + 0.3 + 0.8 \times 2.5 = 33/10 = 3.3$. Therefore
 
 $$\text{NDE} = \frac{29}{10} - \frac{13}{5} = \frac{3}{10} = 0.3,
 \qquad
@@ -544,7 +544,7 @@ $$\text{NDE} = \frac{29}{10} - \frac{13}{5} = \frac{3}{10} = 0.3,
 
 and $\text{NDE} + \text{NIE} = 3/10 + 2/5 = 7/10 = 0.7$, matching the
 total effect from the coefficient calculation and the direct contrast
-$E[Y^{1}] - E[Y^{0}] = 33/10 - 13/5 = 7/10$. The natural direct effect
+$\E[Y^{1}] - \E[Y^{0}] = 33/10 - 13/5 = 7/10$. The natural direct effect
 agrees with $c'$ and the natural indirect effect agrees with $ab$, as the
 no-interaction linear model requires. The agreement is a property of this
 model, not of mediation in general: the counterfactual quantities remain
@@ -555,8 +555,8 @@ suffice.
 
 A second programme has mediator and outcome equations with no interaction
 and coefficients $a = 0.8$, $b = 0.5$ and $c' = 0.1$. Its nested
-counterfactual means are $E[Y^{0, M^{0}}] = 1.0$,
-$E[Y^{1, M^{0}}] = 1.1$ and $E[Y^{1, M^{1}}] = 1.5$. Compute the indirect
+counterfactual means are $\E[Y^{0, M^{0}}] = 1.0$,
+$\E[Y^{1, M^{0}}] = 1.1$ and $\E[Y^{1, M^{1}}] = 1.5$. Compute the indirect
 effect as a product of coefficients, the total effect, the proportion
 mediated, and the natural direct and indirect effects, and confirm that
 the two routes agree.

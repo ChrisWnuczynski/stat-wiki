@@ -32,7 +32,7 @@ close to 0 for individuals with a low probability of treatment and close
 to 1 for those with a high probability {{cite:hernan_robins2020}} (p. 201).
 
 The score belongs to an assignment process in a population, not to a unit in isolation: the same patient has one score where treatment is routine and another where it is reserved for severe cases. In a randomised experiment it is known by design — 0.5 for every unit in a trial assigning half to treatment — whereas in an observational study it must be estimated {{cite:hernan_robins2020}} (p. 201).
-In the [potential outcomes](potential-outcomes.qmd) framework, let $Y$ be the observed outcome and $Y^{a=1}$ and $Y^{a=0}$ the outcomes the same unit would exhibit under treatment and under the comparison. The target is usually the [average treatment effect](average-treatment-effect.qmd), $\mathrm{E}[Y^{a=1}] - \mathrm{E}[Y^{a=0}]$, where $\mathrm{E}[\cdot]$ denotes a population mean, or the corresponding effect among the treated.
+In the [potential outcomes](potential-outcomes.qmd) framework, let $Y$ be the observed outcome and $Y^{a=1}$ and $Y^{a=0}$ the outcomes the same unit would exhibit under treatment and under the comparison. The target is usually the [average treatment effect](average-treatment-effect.qmd), $\E[Y^{a=1}] - \E[Y^{a=0}]$, where $\E[\cdot]$ denotes a population mean, or the corresponding effect among the treated.
 
 ## Interpretation — The balancing property
 
@@ -91,7 +91,7 @@ The fourth use includes the estimated score as a covariate in an outcome regress
 
 ### Weights for the average effect and for the effect among the treated
 
-The weights above target the average effect in the whole population, where each group must be reweighted up to that population: treated units by $1/e(X)$, untreated by $1/(1 - e(X))$. The weighted treated mean then estimates $\mathrm{E}[Y^{a=1}]$, the weighted untreated mean estimates $\mathrm{E}[Y^{a=0}]$, and their difference is the average treatment effect. A different target requires different weights, and confusing the two is a common, consequential error.
+The weights above target the average effect in the whole population, where each group must be reweighted up to that population: treated units by $1/e(X)$, untreated by $1/(1 - e(X))$. The weighted treated mean then estimates $\E[Y^{a=1}]$, the weighted untreated mean estimates $\E[Y^{a=0}]$, and their difference is the average treatment effect. A different target requires different weights, and confusing the two is a common, consequential error.
 
 For the average treatment effect among the treated (ATT), the target is the treated themselves. Treated units receive weight $1$ — the treated sample already represents them — while untreated units are reweighted to match the treated covariate distribution: an untreated unit with covariates $x$ receives weight $e(x)/(1 - e(x))$, the odds of treatment, so untreated units resembling treated units count for more and those unlike any treated unit count for almost nothing. Austin gives the same form: the average-effect weights are replaced by 1 for treated subjects and $e/(1 - e)$, in his notation, for untreated subjects to estimate the effect among the treated {{cite:austin2011}} (p. 409). Neither scheme corrects the other; they answer different questions, and reporting one estimand's estimate under the other's name is mislabelling. Matching and stratification make the same choice in other clothing: retaining all treated units targets the ATT, while pooling stratum contrasts by total stratum size targets the whole-population effect and pooling by treated count per stratum targets the ATT.
 
@@ -146,8 +146,8 @@ exchangeability assumption — a distinction the simple arithmetic can hide.
 
 Weighting gives the same number, and estimates the same counterfactual
 means under the same conditional-exchangeability assumption. The estimate
-of $\mathrm{E}[Y^{a=1}]$ is $(1/80)\{4/(1/4) + 24/(3/4)\} = (1/80)(16 +
-32) = 48/80 = 3/5$, and of $\mathrm{E}[Y^{a=0}]$ is $(1/80)\{6/(3/4) +
+of $\E[Y^{a=1}]$ is $(1/80)\{4/(1/4) + 24/(3/4)\} = (1/80)(16 +
+32) = 48/80 = 3/5$, and of $\E[Y^{a=0}]$ is $(1/80)\{6/(3/4) +
 6/(1/4)\} = (1/80)(8 + 24) = 32/80 = 2/5$, a difference of $1/5$. For the
 effect among the treated, treated patients keep weight 1 and their risk
 $28/40 = 7/10$. Untreated patients are weighted by $e/(1 - e)$: $1/3$ if

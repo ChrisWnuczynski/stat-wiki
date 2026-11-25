@@ -43,8 +43,8 @@ potential outcomes: $Y_i^1$, the outcome under treatment, and $Y_i^0$,
 the outcome under the comparison condition. When the unit is not in
 focus, the subscript is dropped and $Y^a$ denotes the potential outcome
 of a generic unit drawn from the population, so that
-$\mathrm{E}[Y^a]$ is the mean outcome that would be seen if every unit in
-the population received treatment value $a$, where $\mathrm{E}[\cdot]$
+$\E[Y^a]$ is the mean outcome that would be seen if every unit in
+the population received treatment value $a$, where $\E[\cdot]$
 denotes expectation, that is, averaging over the population. Hernán and
 Robins introduce the same objects through a clinical vignette: a patient
 who dies after a transplant has $Y^{a=1} = 1$ for the outcome death, and
@@ -65,7 +65,7 @@ separate question, taken up under positivity below.
 
 A causal effect, in this framework, is any comparison of potential
 outcomes for a common set of units: unit by unit, as in $Y_i^1 - Y_i^0$,
-or after averaging, as in $\mathrm{E}[Y^1] - \mathrm{E}[Y^0]$, or
+or after averaging, as in $\E[Y^1] - \E[Y^0]$, or
 through another summary of the two distributions. What makes it causal
 is that the units, and everything about them except the superscript,
 are held fixed. An associational comparison, by contrast, compares
@@ -150,10 +150,10 @@ averages of potential outcomes; it does not reveal any unit's missing
 cell.
 
 Averages behave differently because averaging can be done column by
-column. The mean $\mathrm{E}[Y^1]$ uses only the $Y^1$ column of the
-science table, and $\mathrm{E}[Y^0]$ only the $Y^0$ column; neither
+column. The mean $\E[Y^1]$ uses only the $Y^1$ column of the
+science table, and $\E[Y^0]$ only the $Y^0$ column; neither
 requires knowing both entries of any single row. The average treatment
-effect, $\mathrm{E}[Y^1] - \mathrm{E}[Y^0]$, is the mean of the
+effect, $\E[Y^1] - \E[Y^0]$, is the mean of the
 individual effects — the two orders of operations agree for a
 difference — but its identification does not require identifying any
 individual effect, only the two column means separately. This is why
@@ -171,7 +171,7 @@ observed data and exact randomisation tests become possible. Ding and
 Li present the Fisherian randomisation test in exactly these terms: the
 null is sharp because it allows all the missing potential outcomes to be
 imputed {{cite:ding_li2018}} (§4.1). The average null hypothesis is
-weaker: it states only that $\mathrm{E}[Y^1] = \mathrm{E}[Y^0]$, that
+weaker: it states only that $\E[Y^1] = \E[Y^0]$, that
 the two column means agree. The average null can hold while the sharp
 null fails — treatment may help some units and harm others in exactly
 offsetting amounts — and the sharp null implies the average null, but
@@ -265,7 +265,7 @@ Suppose consistency and SUTVA hold, so the observed data reveal one cell
 per row of a well-defined science table. The remaining problem is that
 the revealed cells are not a random sample of each column. The treated
 units reveal their $Y^1$ values; the untreated reveal their $Y^0$
-values. To learn the column mean $\mathrm{E}[Y^1]$ from the treated
+values. To learn the column mean $\E[Y^1]$ from the treated
 units' outcomes, the treated must be representative of the whole
 population with respect to $Y^1$ — and similarly for the untreated and
 $Y^0$. The condition that makes this legitimate is exchangeability.
@@ -277,9 +277,9 @@ vice versa — without changing the distribution of $Y^1$ or of $Y^0$.
 Formally, $Y^a$ is independent of $A$ for each treatment value $a$,
 written $Y^a \perp\!\!\!\perp A$, where $\perp\!\!\!\perp$ denotes
 statistical independence. For the identification of means, the weaker
-mean version suffices: $\mathrm{E}[Y^a \mid A = 1] =
-\mathrm{E}[Y^a \mid A = 0] = \mathrm{E}[Y^a]$ for each $a$, where
-$\mathrm{E}[\cdot \mid \cdot]$ denotes a conditional expectation, the
+mean version suffices: $\E[Y^a \mid A = 1] =
+\E[Y^a \mid A = 0] = \E[Y^a]$ for each $a$, where
+$\E[\cdot \mid \cdot]$ denotes a conditional expectation, the
 mean within the group named after the conditioning bar. Hernán and
 Robins develop exchangeability in their chapter on randomised
 experiments, where it is the property randomisation is designed to
@@ -385,21 +385,21 @@ computed without ever seeing a missing cell.
 Under consistency, exchangeability and positivity, each mean potential
 outcome is identified by the corresponding observed group mean:
 
-$$\mathrm{E}[Y^a] = \mathrm{E}[Y \mid A = a].$$
+$$\E[Y^a] = \E[Y \mid A = a].$$
 
 The derivation has two steps, and each step is one assumption at work.
 First, by exchangeability, the mean of $Y^a$ among units with $A = a$
 equals the mean of $Y^a$ in the whole population:
-$\mathrm{E}[Y^a \mid A = a] = \mathrm{E}[Y^a]$. Second, by consistency,
+$\E[Y^a \mid A = a] = \E[Y^a]$. Second, by consistency,
 units with $A = a$ have observed outcome $Y = Y^a$, so
-$\mathrm{E}[Y^a \mid A = a] = \mathrm{E}[Y \mid A = a]$. Positivity is
+$\E[Y^a \mid A = a] = \E[Y \mid A = a]$. Positivity is
 what guarantees that the conditioning event $A = a$ occurs, so that the
 right-hand side is defined. Hernán and Robins give this argument in
 their technical treatment of exchangeability, noting that mean
 exchangeability is sufficient for the equality of the counterfactual
 mean with the observed group mean {{cite:hernan_robins2020}} (p. 15).
 The average treatment effect is then identified by the difference of
-observed group means, $\mathrm{E}[Y \mid A = 1] - \mathrm{E}[Y \mid
+observed group means, $\E[Y \mid A = 1] - \E[Y \mid
 A = 0]$, and this is the precise sense in which a randomised experiment
 estimates a causal effect: randomisation warrants exchangeability, the
 protocol warrants consistency and positivity, and the algebra does the
@@ -411,7 +411,7 @@ population distribution of $X$. Writing $\Pr(X = x)$ for the proportion
 of the population with covariates $X = x$, and summing over all values
 $x$ that occur, the identified form is
 
-$$\mathrm{E}[Y^a] = \sum_x \mathrm{E}[Y \mid A = a, X = x] \, \Pr(X = x).$$
+$$\E[Y^a] = \sum_x \E[Y \mid A = a, X = x] \, \Pr(X = x).$$
 
 This is standardisation: the stratum-specific observed means are
 reweighted to the covariate distribution of the whole population.
@@ -479,8 +479,8 @@ Six units have the following science table, where the outcome is binary
 | 5 | 1 | 1 | 0 |
 | 6 | 0 | 0 | 0 |
 
-The $Y^1$ column sums to $4$, so $\mathrm{E}[Y^1] = 4/6 = 2/3$; the
-$Y^0$ column sums to $2$, so $\mathrm{E}[Y^0] = 2/6 = 1/3$. The true
+The $Y^1$ column sums to $4$, so $\E[Y^1] = 4/6 = 2/3$; the
+$Y^0$ column sums to $2$, so $\E[Y^0] = 2/6 = 1/3$. The true
 average treatment effect is $2/3 - 1/3 = 1/3$, also the mean of the
 individual effects, $(0 + 1 + 1 + 0 + 0 + 0)/6 = 1/3$. Neither null
 holds: the average null fails because $2/3 \ne 1/3$, and the sharp null
@@ -493,7 +493,7 @@ outcomes are $Y = 1, 1, 0, 0, 1, 0$ respectively — each unit shows the
 potential outcome for the treatment it received, and the other cell of
 its row is missing. The naive observed contrast is
 
-$$\mathrm{E}[Y \mid A = 1] - \mathrm{E}[Y \mid A = 0] = \frac{1 + 1 + 1}{3} - \frac{0 + 0 + 0}{3} = 1 - 0 = 1,$$
+$$\E[Y \mid A = 1] - \E[Y \mid A = 0] = \frac{1 + 1 + 1}{3} - \frac{0 + 0 + 0}{3} = 1 - 0 = 1,$$
 
 which overstates the true effect of $1/3$ by $1 - 1/3 = 2/3$. The bias
 is exactly the failure of exchangeability. Among the treated, the mean
@@ -585,7 +585,7 @@ the average null hypothesis hold?
 
 Neither holds. The sharp null requires $Y_i^1 = Y_i^0$ for every unit,
 but units 2 and 3 have $Y^1 = 1$ and $Y^0 = 0$. The average null
-requires $\mathrm{E}[Y^1] = \mathrm{E}[Y^0]$, but the column means are
+requires $\E[Y^1] = \E[Y^0]$, but the column means are
 $2/3$ and $1/3$. The two nulls are different statements: the average
 null could have held, with effects in opposite directions cancelling,
 even though the sharp null does not.
