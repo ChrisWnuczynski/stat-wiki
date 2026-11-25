@@ -1,10 +1,11 @@
 """Captions, column scope, and row headers for rendered tables.
 
-Pandoc turns markdown tables into HTML with no caption and no scope, and it
-puts the row label in a ``td``. A screen reader then hears the numbers
-without the label that gives them a meaning. This pass runs on the pages
-Quarto has already written, so it covers chapter tables, research tables,
-question tables, the glossary, and infoboxes together.
+Pandoc turns markdown tables into HTML with no caption and no scope. This
+pass adds a caption, and ``scope="col"`` only on a single row of ordinary
+column headers. The infobox key column is the one place the generator marks
+a real row label, so those cells become ``th scope="row"``. A first data
+cell, and a header that spans columns or occupies a second header row, are
+left as they were written.
 
 A synthesised caption is visually hidden. The page already shows a heading
 or the infobox title, and the caption repeats that for assistive technology.
@@ -25,6 +26,12 @@ SITE_DIR = ROOT / "_site"
 _SKIP_TAGS = {"nav", "footer"}
 _HEADING = {"h1", "h2", "h3", "h4", "h5", "h6"}
 _SECTION = {"thead", "tbody", "tfoot"}
+# A bare <br> or <img> is a start tag only. Counting it as an open element
+# leaves the heading capture open, so the caption stops at the break.
+_VOID = {
+    "area", "base", "br", "col", "embed", "hr", "img", "input",
+    "link", "meta", "source", "track", "wbr",
+}
 
 
 def _classes(attrs) -> set[str]:
@@ -79,6 +86,15 @@ class _Tables(HTMLParser):
             self.capture.append(text)
 
     def handle_starttag(self, tag: str, attrs) -> None:
+        if tag in _VOID:
+            if self.capture is not None and not self.skip:
+                if tag == "br":
+                    self.capture.append(" ")
+                elif tag == "img":
+                    alt = _attr(attrs, "alt")
+                    if alt:
+                        self.capture.append(f" {alt} ")
+            return
         position = self._pos()
         classes = _classes(attrs)
         if tag == "main":
@@ -109,6 +125,8 @@ class _Tables(HTMLParser):
         self._open.append((position, hint, bool(self.infobox)))
 
     def handle_endtag(self, tag: str) -> None:
+        if tag in _VOID:
+            return
         if tag == "table" and self._open:
             start, hint, infobox = self._open.pop()
             if start >= 0:
@@ -248,8 +266,39 @@ def _caption_text(hint: str, headers: list[str], infobox: bool) -> str:
     return text
 
 
+def _span_count(cell: dict, name: str) -> int | None:
+    raw = _attr(cell["attrs"], name)
+    if raw is None:
+        return 1
+    try:
+        return int(raw)
+    except ValueError:
+        return None
+
+
+def _simple_column_headers(rows: list[dict]) -> bool:
+    """One header row of single cells. A colspan, rowspan, or second header row is grouped."""
+    header_rows = [row for row in rows if row["section"] == "thead"]
+    if len(header_rows) != 1:
+        return False
+    cells = header_rows[0]["cells"]
+    if not cells or any(cell["tag"] != "th" for cell in cells):
+        return False
+    for cell in cells:
+        if _span_count(cell, "colspan") != 1 or _span_count(cell, "rowspan") != 1:
+            return False
+    return True
+
+
 def rewrite_table(table_html: str, hint: str, infobox: bool) -> str:
-    """Return the table with a caption, column scope, and row headers."""
+    """Return the table with a caption and only the header scope that is unambiguous.
+
+    The infobox generator's first column is the row label (Fact, then Mean,
+    Taught in, and so on). Any other first cell is data: a residual of 3 is
+    not a header just because it is on the left. A header that spans columns
+    or sits in a second header row already has a structure this pass cannot
+    name, so those cells keep whatever scope the author wrote.
+    """
     parsed = _Cells(table_html)
     parsed.feed(table_html)
     parsed.close()
@@ -266,27 +315,31 @@ def rewrite_table(table_html: str, hint: str, infobox: bool) -> str:
         caption = escape(_caption_text(hint, headers, infobox))
         snippet = f'\n<caption class="a11y-caption">{caption}</caption>'
         edits.append((parsed.table_end, parsed.table_end, snippet))
+    simple_headers = _simple_column_headers(parsed.rows)
     for row in parsed.rows:
         cells = row["cells"]
-        header_row = row["section"] == "thead" or bool(cells) and all(cell["tag"] == "th" for cell in cells)
         for index, cell in enumerate(cells):
             tag = cell["tag"]
             scope = _attr(cell["attrs"], "scope")
+            if scope:
+                continue
             open_end = cell["open_end"]
-            if header_row and tag == "th" and not scope:
+            if simple_headers and row["section"] == "thead" and tag == "th":
                 edits.append((open_end, open_end, ' scope="col"'))
-            elif not header_row and index == 0 and len(cells) > 1:
-                if tag == "td":
-                    if table_html[cell["start"] + 1 : cell["start"] + 3].lower() != "td":
-                        continue
-                    edits.append((cell["start"] + 1, cell["start"] + 3, "th"))
-                    close = cell["close"]
-                    if table_html[close : close + 5].lower() == "</td>":
-                        edits.append((close, close + 5, "</th>"))
-                    if not scope:
-                        edits.append((open_end, open_end, ' scope="row"'))
-                elif tag == "th" and not scope:
-                    edits.append((open_end, open_end, ' scope="row"'))
+                continue
+            # Only the infobox key column is a known row label.
+            if not infobox or row["section"] == "thead" or index != 0 or len(cells) < 2:
+                continue
+            if tag == "td":
+                if table_html[cell["start"] + 1 : cell["start"] + 3].lower() != "td":
+                    continue
+                edits.append((cell["start"] + 1, cell["start"] + 3, "th"))
+                close = cell["close"]
+                if table_html[close : close + 5].lower() == "</td>":
+                    edits.append((close, close + 5, "</th>"))
+                edits.append((open_end, open_end, ' scope="row"'))
+            elif tag == "th":
+                edits.append((open_end, open_end, ' scope="row"'))
     if not edits:
         return table_html
     # A scope insertion shifts the close tag of that cell. Apply from the right.
