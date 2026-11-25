@@ -28,6 +28,8 @@ $$
 $$
 which sum to $30/7=4.286$ to three decimal places. There is $(2-1)(2-1)=1$ degree of freedom. The $0.95$ quantile of $\chi^2_1$ is $3.841$ to three decimal places, and $4.286>3.841$, so the comparison rejects independence at level $5\%$. The upper-tail probability past $30/7$ is $0.0384$ to four decimal places.{{cite:dodge2008}} (pp. 79–80)
 
+**R note.** With `m <- matrix(c(18, 12, 10, 20), nrow = 2, byrow = TRUE)`, `chisq.test(m, correct = FALSE)` reproduces the uncorrected Pearson statistic $30/7$ and $p\approx 0.0384$. For a $2\times 2$ table, R's default `chisq.test(m)` applies Yates's continuity correction, giving $3.28125$ and $p\approx 0.0701$. Thus the default does not reject independence at the unadjusted $5\%$ level, explaining why it differs from the calculation above.
+
 **Your turn.** Keep the same margins and suppose the treated row had been $14$ and $16$. What is $T$?
 
 ::: {.callout-tip collapse="true" title="Answer"}
