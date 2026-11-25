@@ -291,7 +291,7 @@ def read_macro_argument(text: str, j: int) -> tuple[str, int] | None:
     return text[k], k + 1
 
 
-def expand_once(text: str) -> str:
+def expand_once(text: str, only: frozenset[str] | None = None) -> str:
     out: list[str] = []
     i = 0
     n = len(text)
@@ -308,14 +308,14 @@ def expand_once(text: str) -> str:
         while j < n and text[j].isalpha():
             j += 1
         name = text[i + 1 : j]
-        if name in ONE_ARG:
+        if name in ONE_ARG and (only is None or name in only):
             arg = read_macro_argument(text, j)
             if arg is not None:
                 body, k = arg
                 out.append(ONE_ARG[name](body))
                 i = k
                 continue
-        if name in ZERO_ARG:
+        if name in ZERO_ARG and (only is None or name in only):
             out.append(ZERO_ARG[name])
             i = j
             continue
@@ -337,16 +337,146 @@ def protect_code(text: str, fn) -> str:
     return "".join(built)
 
 
-def expand_macros(text: str) -> str:
+def expand_macros(text: str, only: frozenset[str] | None = None) -> str:
     def run(segment: str) -> str:
         for _ in range(8):
-            nxt = expand_once(segment)
+            nxt = expand_once(segment, only)
             if nxt == segment:
                 return segment
             segment = nxt
         return segment
 
     return protect_code(text, run)
+
+
+# KaTeX 0.16 already paints these. Passing the site expansion would replace
+# them: \Pr would become \mathbb{P}, and the beta-binomial laboratory uses the
+# native operator. The checker probes the vendored KaTeX so this set cannot
+# silently drift.
+KATEX_NATIVE = frozenset({"R", "Pr", "argmax", "argmin"})
+KATEX_MACRO_HEADER = "_katex-macros.html"
+
+
+def katex_macro_definitions() -> dict[str, str]:
+    """Site shorthand KaTeX does not already implement, for laboratory pages.
+
+    Articles are rewritten by expand_macros before Quarto runs. Laboratories
+    are authored qmd that Quarto hands to KaTeX unchanged, so the same
+    ZERO_ARG and ONE_ARG definitions are supplied as KaTeX macros. Commands
+    in KATEX_NATIVE are omitted.
+    """
+    macros = {
+        "\\" + name: body
+        for name, body in ZERO_ARG.items()
+        if name not in KATEX_NATIVE
+    }
+    macros[r"\vect"] = r"{\boldsymbol{#1}}"
+    macros[r"\mat"] = r"{\color{blue}\boldsymbol{#1}}"
+    return macros
+
+
+def katex_macro_header() -> str:
+    """Header script that merges the shared shorthand into every katex.render."""
+    payload = json.dumps(katex_macro_definitions(), ensure_ascii=False, sort_keys=True)
+    return f"""<script>
+/* Laboratories skip expand_macros, so KaTeX has to know the site shorthand.
+   The object is generated from ZERO_ARG and ONE_ARG. A caller's own macros
+   win, which keeps a later explicit table intact. Capture runs before
+   Quarto's DOMContentLoaded renderer. */
+document.addEventListener("DOMContentLoaded", function () {{
+  if (!window.katex || window.katex.__statwikiMacros) return;
+  var extra = {payload};
+  function withMacros(opts) {{
+    var next = Object.assign({{}}, opts || {{}});
+    var macros = next.macros;
+    if (!macros || typeof macros !== "object" || Array.isArray(macros)) macros = {{}};
+    next.macros = Object.assign({{}}, extra, macros);
+    return next;
+  }}
+  var render = window.katex.render.bind(window.katex);
+  window.katex.render = function (tex, el, opts) {{
+    return render(tex, el, withMacros(opts));
+  }};
+  if (typeof window.katex.renderToString === "function") {{
+    var toString = window.katex.renderToString.bind(window.katex);
+    window.katex.renderToString = function (tex, opts) {{
+      return toString(tex, withMacros(opts));
+    }};
+  }}
+  window.katex.__statwikiMacros = true;
+}}, true);
+</script>
+"""
+
+
+def write_katex_macro_header() -> None:
+    definitions = katex_macro_definitions()
+    if definitions.get(r"\E") != r"\mathbb{E}":
+        raise SystemExit("The shared KaTeX table must define \\E as \\mathbb{E}")
+    if r"\Pr" in definitions:
+        raise SystemExit("The shared KaTeX table must leave the native \\Pr operator alone")
+    text = katex_macro_header()
+    for key, body in definitions.items():
+        if json.dumps(key) not in text or json.dumps(body) not in text:
+            raise SystemExit(f"The KaTeX header dropped {key}")
+    (WIKI / KATEX_MACRO_HEADER).write_text(text, encoding="utf-8")
+
+
+def _unprotected_regions(text: str) -> list[tuple[int, int]]:
+    """Spans outside fenced and inline code, which KaTeX never sees."""
+    covered = [match.span() for match in re.finditer(r"```.*?```|`[^`\n]*`", text, flags=re.S)]
+    regions: list[tuple[int, int]] = []
+    cursor = 0
+    for start, end in covered:
+        if cursor < start:
+            regions.append((cursor, start))
+        cursor = end
+    if cursor < len(text):
+        regions.append((cursor, len(text)))
+    return regions
+
+
+def shorthand_pattern() -> re.Pattern[str]:
+    names = sorted(set(ZERO_ARG) | set(ONE_ARG), key=len, reverse=True)
+    return re.compile(r"\\(" + "|".join(names) + r")(?![A-Za-z])")
+
+
+def unhandled_lab_shorthand(
+    text: str,
+    macros: dict[str, str],
+    native: frozenset[str],
+    *,
+    code_aware: bool = True,
+) -> list[tuple[int, str]]:
+    """Shorthand uses KaTeX would paint in red: not native, and not in macros."""
+    pattern = shorthand_pattern()
+    native_tokens = {"\\" + name for name in native}
+    hits: list[tuple[int, str]] = []
+    regions = _unprotected_regions(text) if code_aware else [(0, len(text))]
+    for start, end in regions:
+        for match in pattern.finditer(text, start, end):
+            token = "\\" + match.group(1)
+            if token in macros or token in native_tokens:
+                continue
+            hits.append((text.count("\n", 0, match.start()) + 1, token))
+    return hits
+
+
+def lab_shorthand_problems(root: Path | None = None) -> list[str]:
+    """Lab sources that still send KaTeX a shorthand it cannot render."""
+    root = root or WIKI
+    macros = katex_macro_definitions()
+    problems: list[str] = []
+    labs = root / "labs"
+    paths = sorted(labs.glob("*.qmd")) + sorted(labs.glob("*.js"))
+    for path in paths:
+        if not path.is_file():
+            continue
+        text = path.read_text(encoding="utf-8")
+        code_aware = path.suffix == ".qmd"
+        for line, token in unhandled_lab_shorthand(text, macros, KATEX_NATIVE, code_aware=code_aware):
+            problems.append(f"{path.relative_to(root)}:{line}: {token} is not a KaTeX command and is not in the shared macro table")
+    return problems
 
 
 def convert_enumerates(text: str) -> str:
@@ -1221,6 +1351,13 @@ def self_test() -> None:
     assert "\n     x   y\n" in fixed and ":::" not in fixed, fixed
     fenced = "```\n\\xvec\n```"
     assert expand_macros(fenced) == fenced
+    assert katex_macro_definitions()[r"\E"] == r"\mathbb{E}"
+    assert katex_macro_definitions()[r"\Var"] == r"\operatorname{Var}"
+    assert katex_macro_definitions()[r"\vect"] == r"{\boldsymbol{#1}}"
+    assert r"\Pr" not in katex_macro_definitions()
+    assert unhandled_lab_shorthand(r"$$\E[X]$$", {}, KATEX_NATIVE) == [(1, r"\E")]
+    assert unhandled_lab_shorthand(r"$$\Pr(A)$$", {}, KATEX_NATIVE) == []
+    assert unhandled_lab_shorthand("```\n\\E\n```", {}, frozenset()) == []
     sample = (
         r"\begin{enumerate}[label=(\alph*)]"
         r"\item First"
@@ -3819,6 +3956,7 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
         todo = merged
     (WIKI / "proofs-todo.json").write_text(json.dumps(todo, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     write_glossary(questions)
+    write_katex_macro_header()
     write_config(chapters, final_notes, questions)
     write_overview()
     citations.write_sheet_and_static_references(WIKI)
@@ -4407,9 +4545,15 @@ def read_research_content(path: Path, allowed: set[str]) -> tuple[dict[str, str]
         key, separator, title = heading_spec.partition(" — ")
         if key not in allowed or key in researched or not prose or (separator and not title.strip()):
             raise ValueError(f"{path}: unknown, repeated or empty section {heading_spec!r}")
-        researched[key] = prose
+        # \E, \Var, and \Cov are not KaTeX commands, so a raw copy is painted red.
+        # The rest of the shorthand stays: \Pr is already a KaTeX operator, and
+        # the page checks still look for the command as it was written.
+        researched[key] = expand_macros(prose, only=frozenset({"E", "Var", "Cov"}))
         if separator:
-            display_titles[key] = tex_math.convert_tex_delimiters(title.strip())
+            display_titles[key] = expand_macros(
+                tex_math.convert_tex_delimiters(title.strip()),
+                only=frozenset({"E", "Var", "Cov"}),
+            )
     if not researched:
         raise ValueError(f"{path}: no sections")
     return researched, display_titles
@@ -8301,7 +8445,10 @@ format:
     code-overflow: scroll
     link-external-newwindow: true
     # In dark mode, apply the theme before the page is drawn; see _theme-head.html.
-    include-in-header: _theme-head.html
+    # _katex-macros.html teaches KaTeX the site shorthand used by laboratories.
+    include-in-header:
+      - _theme-head.html
+      - _katex-macros.html
     include-before-body: _theme-body.html
     include-after-body: _random.html
     # One canonical link per page, on the public host, so every page can be indexed.

@@ -1,7 +1,9 @@
 ## Motivating example
-Comparing before-and-after averages requires uncertainty for their difference, rather than two separate intervals inspected for overlap. For the safety example, a negative difference means fewer lost working hours after the change. Whether that association estimates an effect of the safety measures depends on the design and on other changes over time. The two-sample formula addresses sampling variation under independence.{{cite:openintro2019}} (§7.3.1, confidence interval for a difference of means)
+Comparing two population means requires uncertainty for their difference, rather than two separate intervals inspected for overlap. In the unequal-sample-size example below, a positive difference means the first population mean is estimated to be larger than the second. The two-sample formula addresses sampling variation under independence.{{cite:openintro2019}} (§7.3.1, confidence interval for a difference of means)
 
 ## Definition
+The hypothetical rod-length calculation above uses two independent samples of 25 rods each, with sample means 94 and 100 mm and sample standard deviations 8 and 6 mm, respectively.
+
 The pooled interval is exact for independent normal samples with a common positive population variance and sizes at least two. The means may differ. Equality of variances is a modelling assumption; a nonsignificant variance test alone provides little assurance in small samples. If a common variance lacks substantive support, a Welch interval estimates the standard error as $\sqrt{s_1^2/n_1+s_2^2/n_2}$ and uses approximate degrees of freedom.{{cite:openintro2019}} (§7.3, “Pooled standard deviation estimate”)
 
 ## Properties — From independent pieces to a pivot
@@ -20,8 +22,8 @@ Using $t_{23,0.975}=2.0687$ gives $3\pm2.2413$, or $(0.7587,5.2413)$. The positi
 Here $s_p=2$ and $SE=2\sqrt{1/10+1/10}=0.8944$. The multiplier is $t_{18,0.975}=2.1009$, giving $1\pm1.8791=(-0.8791,2.8791)$, which includes zero.
 :::
 
-## Interpretation — The safety summaries
-The two reported standard deviations give $s_p^2=(14.1^2+14.3^2)/2=201.65$, so the unrounded standard error is $2.8401$ hours. The 95% interval is approximately $(-22.64,-11.36)$. These summaries support a reduction in mean hours under the independent-samples model. Consecutive months can be correlated, and before-and-after periods can differ in workforce or workload, so the interval's narrowness cannot settle those design questions.{{cite:openintro2019}} (§7.3.1, independence conditions)
+## Interpretation — Study design
+In a before-and-after safety comparison, consecutive months can be correlated and the periods can differ in workforce or workload. Whether an association estimates an effect of the safety measures depends on the design and on other changes over time; the interval's narrowness cannot settle those design questions.{{cite:openintro2019}} (§7.3.1, independence conditions)
 
 ### When Welch changes the calculation
 For independent normal samples with different variances, the mean difference remains normal, but dividing by its estimated standard error no longer produces an exact ordinary $t$ pivot. Welch's approximation uses

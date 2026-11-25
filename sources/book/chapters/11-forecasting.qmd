@@ -20,7 +20,7 @@ removes a twelve-month cycle and, as a side effect, a linear trend. The differen
 
 ![Autocorrelation and partial autocorrelation, in months. The top row is the raw series: neither plot dies, and the year shows up at lags 12 and 24. The bottom row is the series after a seasonal difference and a first difference. What remains is a spike at lag 1 and a spike near lag 12.](../figures/deaths-corr.pdf){#fig-deaths-corr}
 
-`auto.arima`, with the seasonal option left on, fits a seasonal ARIMA model, an autoregressive integrated moving average after differencing.{{cite:box_jenkins1970}}{{cite:hyndman_khandakar2008}}{{cite:hyndman_athanasopoulos2021}} It finds this without being told that the data are monthly.
+`auto.arima`, with the seasonal option left on, fits a seasonal ARIMA model, an autoregressive integrated moving average after differencing.{{cite:box_jenkins1970}}{{cite:hyndman_khandakar2008}} The series it receives is already monthly. The documentation of `USAccDeaths` describes monthly totals of accidental deaths in the United States, and it lists the first six months of 1979 apart from the series that is stored.{{cite:r_usaccdeaths_ah}} (Description) That stored object is a `ts` series of length $72$, from January 1973 through December 1978, with frequency $12$. Frequency $12$ means twelve observations in each year, and it is an attribute of the series. `auto.arima` reads the attribute. The call does not estimate a seasonal period, and it does not discover that the counts are monthly.
 ```r
 need <- function(pkg) {
   if (!requireNamespace(pkg, quietly = TRUE)) {
@@ -35,13 +35,33 @@ fc <- forecast(fit, h = 12)
 fc$mean[1]
 sum(fc$mean)
 ```
-The selected model differences once at lag $12$, keeps a seasonal MA(1) on that yearly lag, differences once more at lag $1$, and keeps an ordinary MA(1). There is no AR term. Both MA coefficients are negative. They are read as behaviour rather than as algebra. If last month was worse than the month before, this month is more careful, and the coefficient on that surprise is negative. If last year was worse than the year before, this year is more careful, and the seasonal coefficient is negative too. A good year, by the same arithmetic, is followed by a slack one. The AIC is what the function used to choose the orders. BIC is available and was not the default.
+The model selected for this series is ARIMA$(0,1,1)(0,1,1)_{12}$ with no constant. It differences once at lag $12$, keeps a seasonal MA(1) on that lag, differences once more at lag $1$, and keeps an ordinary MA(1). There is no autoregressive term. Both moving-average coefficients are negative. A moving-average coefficient weights a lagged innovation, the one-step forecast error.{{cite:hyndman_athanasopoulos2021}} (Ch. 9, §9.4) It does not record a change in behaviour. Let $B$ denote the backshift operator, so that $BX_t=X_{t-1}$, and let $\varepsilon_t$ denote the innovation at time $t$. With no constant, the fitted equation is
+$$
+(1-B)(1-B^{12})X_t=(1+\theta B)(1+\Theta B^{12})\varepsilon_t,
+$$
+where $\theta$ is the ordinary moving-average coefficient and $\Theta$ is the seasonal coefficient.{{cite:hyndman_athanasopoulos2021}} (Ch. 9, §9.9) Expanding the right-hand side also places the product $\theta\Theta$ on $\varepsilon_{t-13}$. A negative $\Theta$ multiplies the innovation from twelve months earlier: a positive innovation contributes a negative amount, and a negative innovation contributes a positive amount. The sign is the sign of that weight. Taking the same sign as evidence that a worse year is followed by more careful conduct, or that a quieter year is followed by a slack one, treats a forecast error as a measurement of behaviour. The series records deaths. An innovation is the model's one-step error, not the change from one January to the next, and the fit contains no measurement of conduct.
+
+The differences are fixed before AICc is computed. The default seasonal test measures seasonal strength and, for this series, sets one seasonal difference, $D=1$.{{cite:r_forecast_auto_arima_ah}} (Usage, argument seasonal.test; Details) The KPSS unit-root test is then applied to that seasonally differenced series and sets one ordinary difference, $d=1$.{{cite:r_forecast_auto_arima_ah}} (Usage, argument test) With $d$ and $D$ held fixed, the stepwise search compares candidate autoregressive and moving-average orders by AICc and selects the model with the lowest AICc among those it visits. It need not find the lowest AICc among all allowed models.{{cite:hyndman_athanasopoulos2021}} (Ch. 9, §9.6 and §9.7) It does not choose the differences. AICc is the small-sample correction of AIC. In `forecast::auto.arima` the argument `ic` defaults to `"aicc"`, the first value in `c("aicc", "aic", "bic")`.{{cite:r_forecast_auto_arima_ah}} (Usage, argument ic) AIC and BIC can be requested. Neither is the default. The missing constant is a restriction of the search. A drift term is admitted only when the total number of differences is one, and a mean only when the series is not differenced. This fit has one ordinary difference and one seasonal difference, so the candidates have no drift. The printed model has a coefficient for each moving-average term and no other coefficient.
 
 ![The forecast from January 1979. The darker band is the 80% interval and the lighter band is the 95% interval. The red point is the reported January total, 7798, inside the wider band and below the point forecast.](../figures/deaths-forecast.pdf){#fig-deaths-fc}
 
-The series stops in December 1978. One step ahead, January 1979, the point forecast is $8336$ deaths, with an 80% interval and a wider 95% interval. @fig-deaths-fc is that forecast. The same step, read more roughly, is about $8400$. The two figures are the same forecast read at two moments. The reported January total is $7798$, inside the 95% band and low relative to the point forecast. Twelve steps ahead, the forecasts trace one more seasonal shape, and the sum of those twelve monthly forecasts was about $109{,}000$. A reported annual total for 1979 is near $105{,}000$. Further out, past a few years, the local MA terms die and the forecast repeats the seasonal shape on top of the quadratic trend. A long-range forecast from this model is the mean structure. A short-range forecast still feels the last surprise.
+The fit uses the series through December 1978. One step ahead, the January 1979 point forecast is $8336$ deaths, the fitted mean rounded to the nearest death. @fig-deaths-fc is that forecast. The darker band is the 80% interval and the lighter band is the 95% interval. The documented January 1979 total is $7798$.{{cite:r_usaccdeaths_ah}} (Description) That count is not one of the seventy-two months used to fit the model. It lies below the point forecast, inside the 95% interval, and outside the 80% interval. The interval treats future innovations as Gaussian and leaves the uncertainty in the estimated coefficients out of the variance.{{cite:hyndman_athanasopoulos2021}} (Ch. 9, §9.8) It is a band for the fitted model. It does not establish that a counted death meant the same thing in 1979 as in the fitted years. The twelve point forecasts from January 1979 through December 1979 sum to $109{,}953$ after the monthly means are added and the total is rounded to the nearest death. That sum adds forecasts. It is not an observed annual total. The documentation records the first six months of 1979 and does not record a total for the year, so there is no reported 1979 annual count to place beside $109{,}953$.
 
-The function was not told the period. It found $12$. That is the part worth trusting the automation for: it matched the differencing the seasonal plot would have suggested.
+The moving-average polynomial reaches lag $13$. Once the horizon is past that lag, every innovation on the right-hand side lies in the future, and the point forecast sets future innovations to zero.{{cite:hyndman_athanasopoulos2021}} (Ch. 9, §9.8) The forecast then satisfies
+$$
+(1-B)(1-B^{12})\hat X_{n+h}=0.
+$$
+Equivalently, the first differences repeat every twelve months,
+$$
+\hat X_{n+h}-\hat X_{n+h-1}=\hat X_{n+h-12}-\hat X_{n+h-13}.
+$$
+The level therefore changes by the same amount from one year to the next in every calendar month. The path is a straight line plus a seasonal pattern. A quadratic is a different path. For $X_t=ct^2$,
+$$
+(1-B)(1-B^{12})X_t=24c,
+$$
+a nonzero constant whenever $c\neq 0$. Carrying that constant would require a drift on the twice-differenced scale. This fit has no drift, so the long-run point forecast does not follow a quadratic. The same distinction, in a non-seasonal model, is the degree of the polynomial: a constant together with $d$ differences produces a forecast polynomial of degree $d$, and omitting the constant produces degree $d-1$.{{cite:hyndman_athanasopoulos2021}} (Ch. 9, §9.5) A short-range forecast still depends on the latest innovations through the moving-average terms. Once the horizon passes lag $13$, those innovations no longer enter the forecast equation directly. They still set the level, the slope and the seasonal pattern of the path that equation leaves behind. Holding the estimated coefficients fixed, and adding $500$ to the December 1978 count, raises the point forecast forty-eight months ahead by $892$ deaths. That comparison does not refit the coefficients. What the forecast equation itself retains is the linear-plus-seasonal mean structure.
+
+The call passes no period of its own. Frequency $12$ is already stored on `USAccDeaths`, and the seasonal difference and the seasonal moving average use that period. The stepwise search compares candidate autoregressive and moving-average orders by AICc and selects the best model it visits, which need not be the best allowed model. The seasonal-strength test and the KPSS unit-root test have already fixed $D=1$ and $d=1$, and the period is the frequency the series already carries.
 
 ## A hundred minutes of traffic
 
@@ -74,8 +94,8 @@ Autoregressive conditional heteroscedasticity, and its generalisations, put a ti
 
 1. A linear trend, differenced at lag $12$, leaves a constant. A quadratic trend, differenced at lag $12$, leaves a linear trend. Explain why, for $X_t=a+bt+ct^2$, the seasonal difference $X_t-X_{t-12}$ still depends on $t$.
 
-2. Both MA coefficients in the accidental-death model are negative. State what a negative seasonal MA coefficient says about a year that was worse than the year before it.
+2. Both moving-average coefficients in the accidental-death model are negative. What does the seasonal coefficient multiply, and how does its sign enter the contribution of the innovation from twelve months earlier?
 
 3. Why is exponentiating a forecast made on the log scale not the same object as a forecast of the mean on the original scale?
 
-4. `auto.arima` was not told that `USAccDeaths` is monthly. Which feature of the selected model shows that it found the season anyway?
+4. The call `auto.arima(USAccDeaths, seasonal = TRUE)` passes no period as a separate argument. What supplies the seasonal period, and where does that period appear in the selected model?

@@ -14,21 +14,24 @@ Replace each measurement by its place in line: rank 1 for the smallest, rank 2 f
 
 ## Definition
 
-For paired samples $(X_1, Y_1), \ldots, (X_n, Y_n)$, let $R_{X_i}$ be the rank of $X_i$ among the $X$ values, with rank 1 on the smallest, and let $R_{Y_i}$ be the rank of $Y_i$. The difference is $d_i = R_{X_i} - R_{Y_i}$. Spearman's rank correlation coefficient is
+For paired samples $(X_1, Y_1), \ldots, (X_n, Y_n)$, let $R_{X_i}$ be the rank of $X_i$ among the $X$ values, with rank 1 on the smallest, and let $R_{Y_i}$ be the rank of $Y_i$. Tied values receive the average of the ranks they share, so every rank is a midrank. Spearman's rank correlation coefficient is the Pearson correlation of the two rank vectors: the ordinary correlation computed on the $R_{X_i}$ and the $R_{Y_i}$ in place of the original values.
+
+When neither sample has ties, the ranks are a permutation of $1, \ldots, n$ and that correlation reduces to the shortcut
 
 $$
-\rho = 1 - \frac{6 \sum_{i=1}^{n} d_i^2}{n(n^2 - 1)}.
+\rho = 1 - \frac{6 \sum_{i=1}^{n} d_i^2}{n(n^2 - 1)},
 $$
 
+where $d_i = R_{X_i} - R_{Y_i}$. The shortcut is justified only in that no-ties case. A single tie group already breaks it: for $X$ values $1, 1, 2$ and $Y$ values $1, 2, 3$, the midranks of $X$ are $1.5, 1.5, 3$, their correlation with the $Y$ ranks is $\sqrt{3}/2 \approx 0.866$, and the shortcut gives $0.875$.
 
-Tied values receive the average of the ranks they share. When many ties are present, a correction replaces the plain formula by
+With ties, the midrank correlation can be written
 
 $$
 \rho = \frac{S_x+S_y-\sum_i d_i^2}{2\sqrt{S_x S_y}},
 $$
 
 
-where $S_x$ and $S_y$ subtract a term in the cubed tie-group sizes from $n(n^2-1)/12$. With no ties, each observation is a group of size 1 and $S_x=S_y=n(n^2-1)/12$, which brings the corrected expression back to the plain formula. Charles Spearman, a psychologist, introduced the rank coefficient in 1904. It is one of the oldest rank statistics, and it is often called Spearman's $\rho$.{{cite:dodge2008}} (p. 502)
+where $S_x$ and $S_y$ subtract a term in the cubed tie-group sizes from $n(n^2-1)/12$; they are the sums of squared deviations of the two midrank vectors about their mean. With no ties, each observation is a group of size 1 and $S_x=S_y=n(n^2-1)/12$, which brings this expression back to the shortcut. If one sample is constant, its rank vector is constant too, the correlation has a zero denominator, and the coefficient is undefined. Charles Spearman, a psychologist, introduced the rank coefficient in 1904. It is one of the oldest rank statistics, and it is often called Spearman's $\rho$.{{cite:dodge2008}} (p. 502)
 
 ## Properties
 
@@ -55,7 +58,7 @@ The differences are $-3, -1, 1, 3$. The squared differences sum to $9 + 1 + 1 + 
 
 ## Assumptions and limits
 
-The simple formula treats the ranks as a permutation, with average ranks inserted when there are ties. A large number of ties calls for the correction in $S_x$ and $S_y$. The coefficient is then no longer the plain function of the $d_i$ alone. Independence of the two rankings is the null of the test, not a finding the coefficient reports by itself. The coefficient does not estimate a slope in the original units. A transformation that preserves order does not change it. A transformation that changes order does. Observations that cannot be placed in an order at all, with no criterion that says which comes first, are outside the construction: the ranks have to be defined before $d_i$ is.{{cite:dodge2008}} (pp. 502–503)
+The shortcut formula treats the ranks as a permutation, which they are only when there are no ties. With ties, average ranks are inserted and the coefficient is the correlation of those midranks, the $S_x$ and $S_y$ expression in the Definition; it is then no longer the plain function of the $d_i$ alone, and even one tie group is enough to move it off the shortcut value. A sample whose values are all equal has a constant rank vector, and for it the coefficient is undefined rather than zero. Independence of the two rankings is the null of the test, not a finding the coefficient reports by itself. The coefficient does not estimate a slope in the original units. A transformation that preserves order does not change it. A transformation that changes order can change the coefficient, but need not: reversing just one nonconstant rank vector negates $\rho$, so a zero coefficient stays zero. Observations that cannot be placed in an order at all, with no criterion that says which comes first, are outside the construction: the ranks have to be defined before $d_i$ is.{{cite:dodge2008}} (pp. 502–503)
 
 ## Connections
 

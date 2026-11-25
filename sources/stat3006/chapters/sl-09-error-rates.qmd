@@ -264,7 +264,9 @@ The same pattern appears when $k$ for nearest neighbours is chosen on one sample
 
 ## The bootstrap
 
-A holdout and a cross-validation fold both train on a subset and test on the complement. The bootstrap builds the training set differently{{cite:shalizi2025_truth_regression}} (Ch. 24, §§24.2–24.3, pp. 390–393). A non-parametric bootstrap sample of size $n$ is drawn with replacement from the observed $n$ cases, that is, from the empirical distribution{{cite:shalizi2025_truth_regression}} (Ch. 24, §§24.2–24.3, pp. 390–393). Some observations are missing from the draw and others appear more than once.
+A holdout and a cross-validation fold both train on a subset and test on the complement. The bootstrap builds the training set differently{{cite:shalizi2025_truth_regression}} (Ch. 24, §§24.2–24.3, pp. 390–393). A non-parametric bootstrap sample of size $n$ is drawn with replacement from the observed $n$ cases, that is, from the empirical distribution{{cite:shalizi2025_truth_regression}} (Ch. 24, §§24.2–24.3, pp. 390–393). Some observations are missing from the draw and others appear more than once. The cases left out are a test set that the draw itself created.
+
+::: {.proof}
 
 The probability that a given observation enters a bootstrap sample is one minus the probability that it is left out of all $n$ draws,
 
@@ -287,7 +289,9 @@ $$
 1-\Bigl(1-\frac1n\Bigr)^n\to 1-e^{-1}\approx 0.632
 $$
 
-as $n\to\infty$. For $n=10$ the inclusion probability is $0.651$. For $n=100$ it is $0.634$. The expected number of distinct observations in a bootstrap sample is therefore about $0.632n$. The cases left out are a test set that the draw itself created. The right-hand panel of that limit is the curve of inclusion probability against sample size: it has already fallen close to $0.632$ by $n=50$.
+as $n\to\infty$. For $n=10$ the inclusion probability is $0.651$. For $n=100$ it is $0.634$. The expected number of distinct observations in a bootstrap sample is therefore about $0.632n$. The right-hand panel of that limit is the curve of inclusion probability against sample size: it has already fallen close to $0.632$ by $n=50$.
+
+:::
 
 ::: {#def-sl-09-bootstrap-error .definition}
 ## Bootstrap error and the $.632$ correction
@@ -301,6 +305,8 @@ $$
 \sum_{b\in C_{-i}}
 Q\bigl(y_i,\eta_b(x_i)\bigr).
 $$
+
+This estimator is defined only when every case is omitted from at least one bootstrap resample.
 
 Each case is tested only by rules that did not see it, the same discipline as cross-validation. Because each bootstrap training set contains only about $0.632n$ distinct observations, their prediction error often reflects the smaller number of distinct training cases, and $\widehat{\mathrm{Err}}^{(\mathrm{BOOT})}$ is generally biased upward{{cite:efron_tibshirani1997_632plus}} (§§2–3, pp. 550–552).
 

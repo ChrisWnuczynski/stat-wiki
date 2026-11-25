@@ -9,6 +9,7 @@ import {
   parseQuery,
   rankDocuments,
   resolveComparison,
+  resultsPageHref,
   resolveDisambiguation,
   resolveExactMatch,
   scoreDocument,
@@ -603,6 +604,395 @@ test("conversational questions, comparisons, and live Quarto augmentation synthe
   assert.deepEqual(
     varItems.slice(0, 2).map((i) => i.href),
     ["articles/variance.html", "articles/sample-variance-and-standard-deviation.html"]
+  );
+});
+
+test("short query ba leads with title and alias matches, ahead of body text", () => {
+  const corpus = [
+    {
+      href: "articles/sandwich-estimator.html",
+      title: "Sandwich estimator",
+      section: "Definition",
+      text: "The estimator has the form a^{-1} ba a^{-1}, with bread a around an empirical ba.",
+    },
+    {
+      href: "articles/hidden-layer.html",
+      title: "Hidden layer",
+      section: "",
+      text: "The body mentions ba and nothing in the title does.",
+    },
+    {
+      href: "articles/odds-ratio.html",
+      title: "Odds ratio",
+      section: "",
+      text: "A ratio of two odds.",
+    },
+    {
+      href: "articles/bagging.html",
+      title: "Bagging",
+      section: "",
+      text: "Bootstrap aggregation of fitted models.",
+    },
+    {
+      href: "articles/bar-chart.html",
+      title: "Bar chart",
+      section: "",
+      text: "Category counts drawn as bars.",
+    },
+    {
+      href: "articles/bayes-rule.html",
+      title: "Bayes theorem",
+      section: "",
+      text: "Posterior probability is proportional to likelihood times prior.",
+    },
+    {
+      href: "articles/bayesian-inference.html",
+      title: "Bayesian inference",
+      section: "",
+      text: "A prior is updated by the likelihood.",
+    },
+    {
+      href: "notes/bayesian-foundations.html",
+      title: "Bayesian foundations",
+      section: "",
+      text: "A chapter on the same idea.",
+    },
+    {
+      href: "articles/prior-odds.html",
+      title: "Prior odds",
+      section: "",
+      text: "Odds before seeing the data.",
+    },
+    {
+      href: "articles/global-test.html",
+      title: "Global test",
+      section: "",
+      text: "A title substring, with no leading ba word.",
+    },
+  ];
+  const meta = {
+    pages: {
+      "articles/odds-ratio.html": { title: "Odds ratio", aliases: ["ba"] },
+      "articles/prior-odds.html": { title: "Prior odds", aliases: ["baseline odds"] },
+    },
+    aliases: {
+      ba: "articles/odds-ratio.html",
+      "baseline-odds": "articles/prior-odds.html",
+    },
+  };
+  const found = rankDocuments(corpus, "ba", meta).map((doc) => doc.href);
+  assert.deepEqual(found.slice(0, 6), [
+    "articles/odds-ratio.html",
+    "articles/bagging.html",
+    "articles/bar-chart.html",
+    "articles/bayes-rule.html",
+    "articles/bayesian-inference.html",
+    "notes/bayesian-foundations.html",
+  ]);
+  const prior = found.indexOf("articles/prior-odds.html");
+  const global = found.indexOf("articles/global-test.html");
+  const sandwich = found.indexOf("articles/sandwich-estimator.html");
+  const hidden = found.indexOf("articles/hidden-layer.html");
+  assert.ok(prior > found.indexOf("articles/bayesian-inference.html"));
+  assert.ok(global > prior, "letters inside global do not join the alias-prefix band");
+  assert.ok(sandwich > prior && hidden > prior, "body text follows title and alias matches");
+});
+
+test("short queries ignore letters inside words and TeX control words", () => {
+  const hat = rankDocuments(
+    [
+      { href: "overview.html", title: "What statistics is", section: "", text: "An overview of the field." },
+      { href: "articles/a-coefficient-that-cancels.html", title: "A coefficient that cancels", section: "", text: "A cancellation." },
+      { href: "articles/pearson-residual.html", title: "Pearson residual", section: "", text: "The hat matrix diagonal is the leverage." },
+      { href: "articles/hat-matrix.html", title: "Hat matrix", section: "", text: "The projection matrix." },
+    ],
+    "hat"
+  ).map((doc) => doc.href);
+  assert.equal(hat[0], "articles/hat-matrix.html");
+  assert.ok(hat.includes("articles/pearson-residual.html"));
+  assert.ok(!hat.includes("overview.html"));
+  assert.ok(!hat.includes("articles/a-coefficient-that-cancels.html"));
+
+  const ols = rankDocuments(
+    [
+      { href: "articles/ordinary-least-squares.html", title: "Ordinary least squares", section: "", text: "Minimises the residual sum of squares." },
+      { href: "articles/benjamini.html", title: "Benjamini–Hochberg controls the false discovery rate", section: "", text: "A step-up procedure." },
+      { href: "articles/residual-sum-of-squares.html", title: "Residual sum of squares", section: "", text: "The OLS fit minimises this sum." },
+    ],
+    "ols",
+    {
+      pages: {
+        "articles/ordinary-least-squares.html": { title: "Ordinary least squares", aliases: ["OLS"] },
+      },
+      aliases: { ols: "articles/ordinary-least-squares.html" },
+    }
+  ).map((doc) => doc.href);
+  assert.equal(ols[0], "articles/ordinary-least-squares.html");
+  assert.ok(ols.includes("articles/residual-sum-of-squares.html"));
+  assert.ok(ols.indexOf("articles/residual-sum-of-squares.html") > 0);
+  assert.ok(!ols.includes("articles/benjamini.html"));
+
+  const bar = rankDocuments(
+    [
+      { href: "questions/hotelling.html", title: "When p=1, n=5, \\bar x=2 and s=1, what is T^2?", section: "", text: "A Hotelling question." },
+      { href: "questions/weights.html", title: "With n=4, \\sigma^2=4 and \\sigma_0^2=1, what are the weights on \\bar x and on \\mu_0?", section: "", text: "Precision weights." },
+      { href: "questions/density-bar.html", title: "A density bar taller than one", section: "", text: "A bin drawn above one." },
+      { href: "articles/histogram.html", title: "Histogram", section: "", text: "A bar chart of counts." },
+    ],
+    "bar"
+  ).map((doc) => doc.href);
+  assert.deepEqual(bar.slice(0, 2), ["questions/density-bar.html", "articles/histogram.html"]);
+  assert.ok(bar.indexOf("questions/hotelling.html") > bar.indexOf("articles/histogram.html"));
+  assert.ok(bar.indexOf("questions/weights.html") > bar.indexOf("articles/histogram.html"));
+});
+
+class HomeSearchEl {
+  constructor(tag) {
+    this.tagName = tag;
+    this.children = [];
+    this.listeners = new Map();
+    this.attributes = {};
+    this.hidden = false;
+    this.className = "";
+    this.id = "";
+    this.text = "";
+    this.href = "";
+    this.value = "";
+    this.classList = {
+      add: (name) => {
+        const names = new Set(this.className.split(" ").filter(Boolean));
+        names.add(name);
+        this.className = [...names].join(" ");
+      },
+      toggle: (name, on) => {
+        const names = new Set(this.className.split(" ").filter(Boolean));
+        if (on) names.add(name);
+        else names.delete(name);
+        this.className = [...names].join(" ");
+      },
+    };
+  }
+
+  set textContent(value) {
+    this.text = String(value ?? "");
+  }
+
+  get textContent() {
+    return this.text;
+  }
+
+  set innerHTML(value) {
+    if (value === "") this.children = [];
+  }
+
+  setAttribute(name, value) {
+    this.attributes[name] = String(value);
+  }
+
+  getAttribute(name) {
+    return this.attributes[name];
+  }
+
+  addEventListener(type, fn) {
+    if (!this.listeners.has(type)) this.listeners.set(type, []);
+    this.listeners.get(type).push(fn);
+  }
+
+  dispatch(event) {
+    for (const fn of this.listeners.get(event.type) || []) fn(event);
+  }
+
+  appendChild(child) {
+    this.children.push(child);
+    return child;
+  }
+
+  append(...children) {
+    children.forEach((child) => this.appendChild(child));
+  }
+
+  querySelectorAll(selector) {
+    if (selector === "[role='option']") {
+      return this.children.filter((child) => child.attributes.role === "option");
+    }
+    return [];
+  }
+
+  focus() {}
+
+  scrollIntoView() {}
+}
+
+function pressKey(target, fields) {
+  let prevented = false;
+  target.dispatch({
+    type: "keydown",
+    preventDefault() {
+      prevented = true;
+    },
+    ...fields,
+  });
+  return prevented;
+}
+
+test("homepage Enter navigates to the search results page", async () => {
+  assert.equal(resultsPageHref("ba"), "search.html?q=ba");
+  assert.equal(resultsPageHref(" Bayes theorem "), "search.html?q=Bayes%20theorem");
+  assert.equal(resultsPageHref("p&q"), "search.html?q=p%26q");
+
+  const previous = {
+    window: globalThis.window,
+    document: globalThis.document,
+    location: globalThis.location,
+    fetch: globalThis.fetch,
+  };
+  const home = "https://www.statwiki.io/index.html";
+  const location = { href: home };
+  const form = new HomeSearchEl("form");
+  const input = new HomeSearchEl("input");
+  const list = new HomeSearchEl("ul");
+  const note = new HomeSearchEl("p");
+  const byId = {
+    "home-search": form,
+    "home-search-q": input,
+    "home-search-results": list,
+    "home-search-note": note,
+  };
+  globalThis.location = location;
+  globalThis.window = {
+    matchMedia: () => ({ matches: false }),
+    location,
+    setTimeout: globalThis.setTimeout.bind(globalThis),
+    clearTimeout: globalThis.clearTimeout.bind(globalThis),
+  };
+  globalThis.document = {
+    getElementById: (id) => byId[id] || null,
+    createElement: (tag) => new HomeSearchEl(tag),
+  };
+  globalThis.fetch = async (url) => {
+    const href = String(url);
+    if (href.endsWith("search-aliases.json")) {
+      return { ok: true, json: async () => ({ pages: {}, aliases: {} }) };
+    }
+    if (href.endsWith("search.json")) {
+      return {
+        ok: true,
+        json: async () => [
+          {
+            href: "articles/bayes-rule.html",
+            title: "Bayes' rule",
+            section: "",
+            text: "Posterior odds.",
+          },
+        ],
+      };
+    }
+    return { ok: false, json: async () => ({}) };
+  };
+
+  try {
+    await import("./home-search.js");
+    assert.equal(note.textContent, "Results appear as you type. Press Enter for a results page.");
+
+    input.value = "Bayes & odds";
+    assert.equal(pressKey(input, { key: "Enter", isComposing: true }), false);
+    assert.equal(location.href, home, "composing Enter leaves the page alone");
+    assert.equal(pressKey(input, { key: "Enter", keyCode: 229 }), false);
+    assert.equal(location.href, home, "composition keyCode 229 leaves the page alone");
+
+    assert.equal(pressKey(input, { key: "Enter" }), true);
+    assert.equal(location.href, "search.html?q=Bayes%20%26%20odds");
+
+    location.href = home;
+    input.value = "variance";
+    assert.equal(pressKey(input, { key: "Enter" }), true);
+    assert.equal(location.href, "search.html?q=variance");
+
+    location.href = home;
+    input.value = "bayes";
+    input.dispatch({ type: "input" });
+    await new Promise((resolve) => setTimeout(resolve, 80));
+    const suggestion = list.children[0];
+    const link = suggestion.children[0];
+    assert.equal(link.tagName, "a");
+    assert.equal(link.href, "articles/bayes-rule.html");
+    link.dispatch({ type: "click" });
+    suggestion.dispatch({ type: "click" });
+    suggestion.dispatch({ type: "mousemove" });
+    assert.equal(location.href, home, "clicking or tapping a suggestion does not open the results page");
+
+    input.value = "median";
+    assert.equal(pressKey(input, { key: "Enter" }), true);
+    assert.equal(location.href, "search.html?q=median");
+
+    location.href = home;
+    input.value = "likelihood";
+    pressKey(input, { key: "Escape" });
+    assert.equal(location.href, home);
+    assert.equal(pressKey(input, { key: "Enter" }), true);
+    assert.equal(location.href, "search.html?q=likelihood");
+
+    location.href = home;
+    input.value = "posterior";
+    let submitted = false;
+    form.dispatch({
+      type: "submit",
+      preventDefault() {
+        submitted = true;
+      },
+    });
+    assert.equal(submitted, true);
+    assert.equal(location.href, "search.html?q=posterior");
+  } finally {
+    globalThis.window = previous.window;
+    globalThis.document = previous.document;
+    globalThis.location = previous.location;
+    globalThis.fetch = previous.fetch;
+  }
+});
+
+test("a normal multi-word query keeps its current top results", () => {
+  assert.deepEqual(hrefs("sample mean"), [
+    "articles/summary-statistics.html",
+    "notes/da-02-descriptive-statistics.html",
+    "notes/queues.html",
+    "questions/q-07.html",
+    "files/prob-coin-averages.html",
+  ]);
+  const clt = [
+    {
+      href: "articles/central-limit-theorem.html",
+      title: "Central limit theorem",
+      section: "",
+      text: "Standardised sums converge to a normal law.",
+    },
+    {
+      href: "articles/multivariate-central-limit-theorem.html",
+      title: "Multivariate central limit theorem",
+      section: "",
+      text: "The vector of standardised means converges to a multivariate normal.",
+    },
+    {
+      href: "articles/binomial-distribution.html",
+      title: "Binomial distribution",
+      section: "",
+      text: "A sum of independent Bernoulli trials, with a central limit theorem approximation.",
+    },
+    {
+      href: "articles/large-sample-intervals.html",
+      title: "Large-sample intervals",
+      section: "",
+      text: "Intervals that use the central limit theorem.",
+    },
+  ];
+  assert.deepEqual(
+    rankDocuments(clt, "central limit theorem").map((doc) => doc.href),
+    [
+      "articles/central-limit-theorem.html",
+      "articles/multivariate-central-limit-theorem.html",
+      "articles/binomial-distribution.html",
+      "articles/large-sample-intervals.html",
+    ]
   );
 });
 

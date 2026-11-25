@@ -10,14 +10,14 @@ The density $1/[\pi(1+x^{2})]$ decays only like $1/x^{2}$. That is heavy enough 
 ## Definition
 In the location-scale parameterisation, $X\sim\operatorname{Cauchy}(x_0,\gamma)$ has density $\gamma/[\pi((x-x_0)^{2}+\gamma^{2})]$ and distribution function $1/2+\arctan((x-x_0)/\gamma)/\pi$. The same law is also written with location $\alpha$ and dispersion $\theta$, so $\gamma$ here is his $\theta$. The median and the mode are the location. The quartiles are $x_0\pm\gamma$. The mean and the variance are undefined for every $\gamma>0$. Setting the degrees of freedom of a Student $t$ law equal to $1$ recovers the standard Cauchy density, which is the case $\alpha=0$, $\theta=1$.{{cite:dodge2008}} (p. 60)
 
-The quantile function inverts the distribution function in closed form: the $p$-quantile is $x_0+\gamma\tan(\pi(p-1/2))$. That is why a uniform draw $U$ produces a Cauchy draw by $x_0+\gamma\tan(\pi(U-1/2))$, provided $U$ is kept away from the endpoints where the tangent is undefined.
+The quantile function inverts the distribution function in closed form: the $p$-quantile is $x_0+\gamma\tan(\pi(p-1/2))$. That is why a uniform draw $U$ produces a Cauchy draw by $x_0+\gamma\tan(\pi(U-1/2))$. Draw $U$ uniformly on the open interval $(0,1)$: only the exact endpoints $0$ and $1$ are excluded, where the tangent is undefined. The default R `runif()` call never returns either endpoint, so no draw needs treatment there. A generator on $[0,1)$, such as Python's `random.random()`, can return an exact $0$: discard and redraw that draw, not nearby values. Do not push the draw away from the endpoints: rejecting near-endpoint draws, or clipping them into a narrower range, changes the heavy tails. For the standard law, discarding every $U$ outside $[0.01, 0.99]$ would make $|X|>\tan(0.49\pi)$ impossible — that cutoff is about $31.8205$ — although those outcomes carry probability exactly $0.02$ under the original law.
 
 ## Worked example
 For a standard Cauchy random variable, $F(5)-F(-5)=2\arctan(5)/\pi$. Therefore
 $$
 P(|X|>5)=1-\frac{2\arctan(5)}{\pi}\approx 0.1257.
 $$
-About one observation in eight falls outside $[-5,5]$, even though half the probability already sits in $[-1,1]$. A normal law with any finite variance puts far less probability that far out. The Cauchy calculation uses only the distribution function; it does not require a mean.
+About one observation in eight falls outside $[-5,5]$, even though half the probability already sits in $[-1,1]$. The standard normal law puts far less probability that far out: its probability outside $[-5,5]$ is about $5.7\times10^{-7}$. The comparison is specific to the standard normal law — a normal law centred at zero with standard deviation $10$ assigns probability $0.617$ to the same region, more than the Cauchy law itself. The Cauchy calculation uses only the distribution function; it does not require a mean.
 
 **Your turn.** For location $2$ and scale $3$, state the median and the two quartiles.
 

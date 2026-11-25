@@ -14,7 +14,7 @@ For distinct draw positions, $P(I_i=I_j=1)=r(r-1)/[N(N-1)]$, and subtraction of 
 $$
 \operatorname{Cov}(I_i,I_j)=-\frac{p(1-p)}{N-1}.
 $$
-The negative covariance is the reason the finite-population variance is smaller than the binomial variance. Summing all $n$ variances and $n(n-1)$ ordered cross-covariances proves the correction factor $(N-n)/(N-1)$. The formula assumes $N>1$; for a one-item population every possible sample count is deterministic.{{cite:siegrist_hypergeometric2022}} (§ “Basic Theory, Moments”)
+This covariance is nonpositive, and strictly negative only when $0<p<1$, where $p=r/N$. For $N>1$, the finite-population variance is no larger than the variance of a binomial variable with the same $n$ and $p$. It is strictly smaller when $n\ge2$ and $0<p<1$; equality holds when $n=0$, $n=1$, or $p\in\{0,1\}$. At $n=1$ both laws are Bernoulli, so for $N=20$ and $r=5$ both variances are $3/16$. Summing all $n$ variances and $n(n-1)$ ordered cross-covariances proves the correction factor $(N-n)/(N-1)$. The formula assumes $N>1$; for a one-item population every possible sample count is deterministic.{{cite:siegrist_hypergeometric2022}} (§ “Basic Theory, Moments”)
 
 ## Related distributions
 

@@ -59,7 +59,13 @@ if __name__ == "__main__":
     ratio = (Fraction(6, 5) ** 3) * (Fraction(4, 5) ** 2)
     assert ratio == Fraction(3456, 3125)
     assert isclose(float(ratio), 1.10592)
-    need("maximum-likelihood", "3456/3125=1.10592")
+    # The unlabelled five-Bernoulli block repeated the likelihood page, so the
+    # point-estimation polish removed it. The censored-exponential exercise stays.
+    mle = prose("maximum-likelihood")
+    assert "3456/3125=1.10592" not in mle
+    assert "Five independent Bernoulli trials" not in mle
+    assert "2/11\\approx0.1818" in mle
+    assert "3/12=0.25" in mle
 
     assert (14 - 10) / sqrt(4) == 2
     need("normal-distribution", "(14-10)/2=2", "P(X\\le 14)=\\Phi(2)")

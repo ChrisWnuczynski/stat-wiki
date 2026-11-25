@@ -155,6 +155,23 @@
         "id": "/works/OL2972902W"
       }
     },
+    "antoniak1974": {
+      "authors": [
+        "Antoniak, C. E."
+      ],
+      "year": 1974,
+      "title": "Mixtures of Dirichlet Processes with Applications to Bayesian Nonparametric Problems",
+      "kind": "article",
+      "venue": "The Annals of Statistics",
+      "volume": "2",
+      "issue": "6",
+      "pages": "1152–1174",
+      "doi": "10.1214/aos/1176342871",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1214/aos/1176342871"
+      }
+    },
     "arbuthnot1710": {
       "authors": [
         "Arbuthnot, J."
@@ -1090,6 +1107,23 @@
       "verification": {
         "source": "crossref",
         "id": "10.1007/978-1-4419-0320-4"
+      }
+    },
+    "brockwell_davis2016": {
+      "authors": [
+        "Brockwell, P. J.",
+        "Davis, R. A."
+      ],
+      "year": 2016,
+      "title": "Introduction to Time Series and Forecasting",
+      "kind": "book",
+      "edition": "3rd ed.",
+      "publisher": "Springer",
+      "doi": "10.1007/978-3-319-29854-2",
+      "url": "https://doi.org/10.1007/978-3-319-29854-2",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1007/978-3-319-29854-2"
       }
     },
     "brown1964_sufficiency": {
@@ -2403,6 +2437,24 @@
         "id": "https://archive.org/details/solution-of-some-problems-in-the-theory-of-probabilities-of-significance-in-auto"
       }
     },
+    "escobar_west1995": {
+      "authors": [
+        "Escobar, M. D.",
+        "West, M."
+      ],
+      "year": 1995,
+      "title": "Bayesian Density Estimation and Inference Using Mixtures",
+      "kind": "article",
+      "venue": "Journal of the American Statistical Association",
+      "volume": "90",
+      "issue": "430",
+      "pages": "577–588",
+      "doi": "10.1080/01621459.1995.10476550",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1080/01621459.1995.10476550"
+      }
+    },
     "evans2025_graphical": {
       "authors": [
         "Evans, R. J."
@@ -2477,6 +2529,23 @@
       "verification": {
         "source": "openlibrary",
         "id": "/works/OL146759W"
+      }
+    },
+    "ferguson1973": {
+      "authors": [
+        "Ferguson, T. S."
+      ],
+      "year": 1973,
+      "title": "A Bayesian Analysis of Some Nonparametric Problems",
+      "kind": "article",
+      "venue": "The Annals of Statistics",
+      "volume": "1",
+      "issue": "2",
+      "pages": "209–230",
+      "doi": "10.1214/aos/1176342360",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1214/aos/1176342360"
       }
     },
     "fisher1912_curve": {
@@ -3764,6 +3833,42 @@
         "id": "https://www2.stat.duke.edu/~pdh10/Teaching/581/LectureNotes/Static/bayes.pdf"
       }
     },
+    "hoffman_etal2013_svi": {
+      "authors": [
+        "Hoffman, M. D.",
+        "Blei, D. M.",
+        "Wang, C.",
+        "Paisley, J."
+      ],
+      "year": 2013,
+      "title": "Stochastic Variational Inference",
+      "kind": "article",
+      "venue": "Journal of Machine Learning Research",
+      "volume": "14",
+      "pages": "1303–1347",
+      "url": "https://jmlr.org/papers/v14/hoffman13a.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://jmlr.org/papers/v14/hoffman13a.html"
+      }
+    },
+    "hoffman_gelman2014": {
+      "authors": [
+        "Hoffman, M. D.",
+        "Gelman, A."
+      ],
+      "year": 2014,
+      "title": "The No-U-Turn Sampler: Adaptively Setting Path Lengths in Hamiltonian Monte Carlo",
+      "kind": "article",
+      "venue": "Journal of Machine Learning Research",
+      "volume": "15",
+      "pages": "1593–1623",
+      "url": "https://jmlr.org/papers/v15/hoffman14a.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://jmlr.org/papers/v15/hoffman14a.html"
+      }
+    },
     "hojsgaard2006_geepack": {
       "authors": [
         "Halekoh, U.",
@@ -4218,6 +4323,26 @@
       "verification": {
         "source": "crossref",
         "id": "10.1080/03461238.1953.10419459"
+      }
+    },
+    "jordan_etal1999_variational": {
+      "authors": [
+        "Jordan, M. I.",
+        "Ghahramani, Z.",
+        "Jaakkola, T. S.",
+        "Saul, L. K."
+      ],
+      "year": 1999,
+      "title": "An Introduction to Variational Methods for Graphical Models",
+      "kind": "article",
+      "venue": "Machine Learning",
+      "volume": "37",
+      "issue": "2",
+      "pages": "183–233",
+      "doi": "10.1023/A:1007665907178",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1023/A:1007665907178"
       }
     },
     "kaplan_meier1958": {
@@ -5463,6 +5588,39 @@
       "verification": {
         "source": "crossref",
         "id": "10.1002/9780470556986"
+      }
+    },
+    "neal2000_dpmm": {
+      "authors": [
+        "Neal, R. M."
+      ],
+      "year": 2000,
+      "title": "Markov Chain Sampling Methods for Dirichlet Process Mixture Models",
+      "kind": "article",
+      "venue": "Journal of Computational and Graphical Statistics",
+      "volume": "9",
+      "issue": "2",
+      "pages": "249–265",
+      "doi": "10.1080/10618600.2000.10474879",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1080/10618600.2000.10474879"
+      }
+    },
+    "neal2011_hmc": {
+      "authors": [
+        "Neal, R. M."
+      ],
+      "year": 2011,
+      "title": "MCMC using Hamiltonian Dynamics",
+      "kind": "incollection",
+      "venue": "Handbook of Markov Chain Monte Carlo",
+      "publisher": "Chapman and Hall/CRC",
+      "pages": "113–162",
+      "url": "https://sites.stat.columbia.edu/gelman/bayescomputation/Neal2011.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://sites.stat.columbia.edu/gelman/bayescomputation/Neal2011.pdf"
       }
     },
     "nelder_wedderburn1972": {
@@ -7230,6 +7388,24 @@
         "id": "10.1093/biomet/63.3.581"
       }
     },
+    "rudloff_karatzas2010": {
+      "authors": [
+        "Rudloff, B.",
+        "Karatzas, I."
+      ],
+      "year": 2010,
+      "title": "Testing composite hypotheses via convex duality",
+      "kind": "article",
+      "venue": "Bernoulli",
+      "volume": "16",
+      "issue": "4",
+      "pages": "1224–1239",
+      "doi": "10.3150/10-BEJ249",
+      "verification": {
+        "source": "crossref",
+        "id": "10.3150/10-BEJ249"
+      }
+    },
     "rubin2005": {
       "authors": [
         "Rubin, D. B."
@@ -7697,6 +7873,23 @@
         "id": "10.1080/00031305.1975.10479121"
       }
     },
+    "sethuraman1994": {
+      "authors": [
+        "Sethuraman, J."
+      ],
+      "year": 1994,
+      "title": "A Constructive Definition of Dirichlet Priors",
+      "kind": "article",
+      "venue": "Statistica Sinica",
+      "volume": "4",
+      "issue": "2",
+      "pages": "639–650",
+      "url": "https://www3.stat.sinica.edu.tw/statistica/oldpdf/A4n26.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www3.stat.sinica.edu.tw/statistica/oldpdf/A4n26.pdf"
+      }
+    },
     "shafer_vovk2018_grundbegriffe": {
       "authors": [
         "Shafer, G.",
@@ -7814,6 +8007,23 @@
       "verification": {
         "source": "archival_url",
         "id": "https://catalogimages.wiley.com/images/db/pdf/9781118943526.excerpt.pdf"
+      }
+    },
+    "shumway_stoffer2017": {
+      "authors": [
+        "Shumway, R. H.",
+        "Stoffer, D. S."
+      ],
+      "year": 2017,
+      "title": "Time Series Analysis and Its Applications: With R Examples",
+      "kind": "book",
+      "edition": "4th ed.",
+      "publisher": "Springer",
+      "doi": "10.1007/978-3-319-52452-8",
+      "url": "https://doi.org/10.1007/978-3-319-52452-8",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1007/978-3-319-52452-8"
       }
     },
     "shrier_platt2008": {
@@ -8671,6 +8881,20 @@
       "verification": {
         "source": "archival_url",
         "id": "https://mc-stan.org/docs/functions-reference/positive_continuous_distributions.html#inverse-gamma-distribution"
+      }
+    },
+    "stan_reference_analysis2026": {
+      "authors": [
+        "Stan Development Team"
+      ],
+      "year": 2026,
+      "title": "Stan Reference Manual, Version 2.39",
+      "kind": "book",
+      "publisher": "Stan Development Team",
+      "url": "https://mc-stan.org/docs/2_39/reference-manual-2_39.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://mc-stan.org/docs/2_39/reference-manual-2_39.pdf"
       }
     },
     "stan_reference_mcmc2026": {
@@ -10159,6 +10383,20 @@
         "id": "https://www.randomservices.org/random/point/Likelihood.html"
       }
     },
+    "owen2013_mc": {
+      "authors": [
+        "Owen, A. B."
+      ],
+      "year": 2013,
+      "title": "Monte Carlo Theory, Methods and Examples",
+      "kind": "book",
+      "publisher": "Stanford University",
+      "url": "https://artowen.su.domains/mc/",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://artowen.su.domains/mc/"
+      }
+    },
     "owen2017_thinning": {
       "authors": [
         "Owen, A. B."
@@ -10417,6 +10655,24 @@
       "verification": {
         "source": "archival_url",
         "id": "https://d2l.ai/"
+      }
+    },
+    "tokdar_kass2010": {
+      "authors": [
+        "Tokdar, S. T.",
+        "Kass, R. E."
+      ],
+      "year": 2010,
+      "title": "Importance Sampling: A Review",
+      "kind": "article",
+      "venue": "Wiley Interdisciplinary Reviews: Computational Statistics",
+      "volume": "2",
+      "issue": "1",
+      "pages": "54–60",
+      "doi": "10.1002/wics.56",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1002/wics.56"
       }
     },
     "treil2026_linear_algebra": {
@@ -11008,6 +11264,25 @@
       "verification": {
         "source": "archival_url",
         "id": "https://mml-book.github.io/book/mml-book.pdf"
+      }
+    },
+    "blei_kucukelbir_mcauliffe2017": {
+      "authors": [
+        "Blei, D. M.",
+        "Kucukelbir, A.",
+        "McAuliffe, J. D."
+      ],
+      "year": 2017,
+      "title": "Variational Inference: A Review for Statisticians",
+      "kind": "article",
+      "venue": "Journal of the American Statistical Association",
+      "volume": "112",
+      "issue": "518",
+      "pages": "859–877",
+      "doi": "10.1080/01621459.2017.1285773",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1080/01621459.2017.1285773"
       }
     },
     "blei_ng_jordan2003": {
@@ -12308,6 +12583,22 @@
       "volume": "334",
       "issue": "6060"
     },
+    "morters_peres2010": {
+      "authors": [
+        "Mörters, P.",
+        "Peres, Y."
+      ],
+      "year": 2010,
+      "title": "Brownian Motion",
+      "kind": "book",
+      "publisher": "Cambridge University Press",
+      "doi": "10.1017/CBO9780511750489",
+      "url": "https://doi.org/10.1017/CBO9780511750489",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1017/CBO9780511750489"
+      }
+    },
     "moraga2023": {
       "authors": [
         "Moraga, Paula"
@@ -12640,6 +12931,24 @@
       "verification": {
         "source": "crossref",
         "id": "10.1051/ps:2006014"
+      }
+    },
+    "blackwell_macqueen1973": {
+      "authors": [
+        "Blackwell, D.",
+        "MacQueen, J. B."
+      ],
+      "year": 1973,
+      "title": "Ferguson Distributions via Pólya Urn Schemes",
+      "kind": "article",
+      "venue": "The Annals of Statistics",
+      "volume": "1",
+      "issue": "2",
+      "pages": "353–355",
+      "doi": "10.1214/aos/1176342372",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1214/aos/1176342372"
       }
     },
     "blanchard_roquain2009": {
@@ -12975,6 +13284,20 @@
       "verification": {
         "source": "archival_url",
         "id": "https://stat.ethz.ch/R-manual/R-devel/library/base/html/Random.html"
+      }
+    },
+    "betancourt2017_hmc": {
+      "authors": [
+        "Betancourt, M."
+      ],
+      "year": 2017,
+      "title": "A Conceptual Introduction to Hamiltonian Monte Carlo",
+      "kind": "article",
+      "venue": "arXiv",
+      "url": "https://arxiv.org/pdf/1701.02434",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://arxiv.org/pdf/1701.02434"
       }
     },
     "biau_devroye2015": {
@@ -13501,6 +13824,283 @@
       "verification": {
         "source": "archival_url",
         "id": "https://www.itl.nist.gov/div898/handbook/prc/section4/prc471.htm"
+      }
+    },
+    "massey1951": {
+      "authors": [
+        "Massey, F. J."
+      ],
+      "year": 1951,
+      "title": "The Kolmogorov-Smirnov Test for Goodness of Fit",
+      "kind": "article",
+      "venue": "Journal of the American Statistical Association",
+      "volume": "46",
+      "issue": "253",
+      "pages": "68–78",
+      "doi": "10.1080/01621459.1951.10500769",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1080/01621459.1951.10500769"
+      }
+    },
+    "marsaglia_tsang_wang2003": {
+      "authors": [
+        "Marsaglia, G.",
+        "Tsang, W. W.",
+        "Wang, J."
+      ],
+      "year": 2003,
+      "title": "Evaluating Kolmogorov's Distribution",
+      "kind": "article",
+      "venue": "Journal of Statistical Software",
+      "volume": "8",
+      "issue": "18",
+      "pages": "1–4",
+      "doi": "10.18637/jss.v008.i18",
+      "verification": {
+        "source": "crossref",
+        "id": "10.18637/jss.v008.i18"
+      }
+    },
+    "lilliefors1967": {
+      "authors": [
+        "Lilliefors, H. W."
+      ],
+      "year": 1967,
+      "title": "On the Kolmogorov-Smirnov Test for Normality with Mean and Variance Unknown",
+      "kind": "article",
+      "venue": "Journal of the American Statistical Association",
+      "volume": "62",
+      "issue": "318",
+      "pages": "399–402",
+      "doi": "10.1080/01621459.1967.10482916",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1080/01621459.1967.10482916"
+      }
+    },
+    "nist_ks_gof2002": {
+      "authors": [
+        "NIST/SEMATECH"
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §1.3.5.16: Kolmogorov-Smirnov Goodness-of-Fit Test",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda35g.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda35g.htm"
+      }
+    },
+    "welch1951": {
+      "authors": [
+        "Welch, B. L."
+      ],
+      "year": 1951,
+      "title": "On the Comparison of Several Mean Values: An Alternative Approach",
+      "kind": "article",
+      "venue": "Biometrika",
+      "volume": "38",
+      "issue": "3-4",
+      "pages": "330–336",
+      "doi": "10.1093/biomet/38.3-4.330",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1093/biomet/38.3-4.330"
+      }
+    },
+    "games_howell1976": {
+      "authors": [
+        "Games, P. A.",
+        "Howell, J. F."
+      ],
+      "year": 1976,
+      "title": "Pairwise Multiple Comparison Procedures with Unequal N's and/or Variances: A Monte Carlo Study",
+      "kind": "article",
+      "venue": "Journal of Educational Statistics",
+      "volume": "1",
+      "issue": "2",
+      "pages": "113–125",
+      "doi": "10.3102/10769986001002113",
+      "verification": {
+        "source": "crossref",
+        "id": "10.3102/10769986001002113"
+      }
+    },
+    "brown_forsythe1974_means": {
+      "authors": [
+        "Brown, M. B.",
+        "Forsythe, A. B."
+      ],
+      "year": 1974,
+      "title": "The Small Sample Behavior of Some Statistics Which Test the Equality of Several Means",
+      "kind": "article",
+      "venue": "Technometrics",
+      "volume": "16",
+      "issue": "1",
+      "pages": "129–132",
+      "doi": "10.1080/00401706.1974.10489158",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1080/00401706.1974.10489158"
+      }
+    },
+    "brown_forsythe1974_variances": {
+      "authors": [
+        "Brown, M. B.",
+        "Forsythe, A. B."
+      ],
+      "year": 1974,
+      "title": "Robust Tests for the Equality of Variances",
+      "kind": "article",
+      "venue": "Journal of the American Statistical Association",
+      "volume": "69",
+      "issue": "346",
+      "pages": "364–367",
+      "doi": "10.1080/01621459.1974.10482955",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1080/01621459.1974.10482955"
+      }
+    },
+    "tomarken_serlin1986": {
+      "authors": [
+        "Tomarken, A. J.",
+        "Serlin, R. C."
+      ],
+      "year": 1986,
+      "title": "Comparison of ANOVA Alternatives Under Variance Heterogeneity and Specific Noncentrality Structures",
+      "kind": "article",
+      "venue": "Psychological Bulletin",
+      "volume": "99",
+      "issue": "1",
+      "pages": "90–99",
+      "doi": "10.1037/0033-2909.99.1.90",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1037/0033-2909.99.1.90"
+      }
+    },
+    "lix_keselman_keselman1996": {
+      "authors": [
+        "Lix, L. M.",
+        "Keselman, J. C.",
+        "Keselman, H. J."
+      ],
+      "year": 1996,
+      "title": "Consequences of Assumption Violations Revisited: A Quantitative Review of Alternatives to the One-Way Analysis of Variance F Test",
+      "kind": "article",
+      "venue": "Review of Educational Research",
+      "volume": "66",
+      "issue": "4",
+      "pages": "579–619",
+      "doi": "10.3102/00346543066004579",
+      "verification": {
+        "source": "crossref",
+        "id": "10.3102/00346543066004579"
+      }
+    },
+    "anderson_darling1952": {
+      "authors": [
+        "Anderson, T. W.",
+        "Darling, D. A."
+      ],
+      "year": 1952,
+      "title": "Asymptotic Theory of Certain \"Goodness of Fit\" Criteria Based on Stochastic Processes",
+      "kind": "article",
+      "venue": "The Annals of Mathematical Statistics",
+      "volume": "23",
+      "issue": "2",
+      "pages": "193–212",
+      "doi": "10.1214/aoms/1177729437",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1214/aoms/1177729437"
+      }
+    },
+    "anderson_darling1954": {
+      "authors": [
+        "Anderson, T. W.",
+        "Darling, D. A."
+      ],
+      "year": 1954,
+      "title": "A Test of Goodness of Fit",
+      "kind": "article",
+      "venue": "Journal of the American Statistical Association",
+      "volume": "49",
+      "issue": "268",
+      "pages": "765–769",
+      "doi": "10.1080/01621459.1954.10501232",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1080/01621459.1954.10501232"
+      }
+    },
+    "stephens1974": {
+      "authors": [
+        "Stephens, M. A."
+      ],
+      "year": 1974,
+      "title": "EDF Statistics for Goodness of Fit and Some Comparisons",
+      "kind": "article",
+      "venue": "Journal of the American Statistical Association",
+      "volume": "69",
+      "issue": "347",
+      "pages": "730–737",
+      "doi": "10.1080/01621459.1974.10480196",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1080/01621459.1974.10480196"
+      }
+    },
+    "scholz_stephens1987": {
+      "authors": [
+        "Scholz, F. W.",
+        "Stephens, M. A."
+      ],
+      "year": 1987,
+      "title": "K-Sample Anderson-Darling Tests",
+      "kind": "article",
+      "venue": "Journal of the American Statistical Association",
+      "volume": "82",
+      "issue": "399",
+      "pages": "918–924",
+      "doi": "10.1080/01621459.1987.10478517",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1080/01621459.1987.10478517"
+      }
+    },
+    "marsaglia_marsaglia2004": {
+      "authors": [
+        "Marsaglia, G.",
+        "Marsaglia, J."
+      ],
+      "year": 2004,
+      "title": "Evaluating the Anderson-Darling Distribution",
+      "kind": "article",
+      "venue": "Journal of Statistical Software",
+      "volume": "9",
+      "issue": "2",
+      "doi": "10.18637/jss.v009.i02",
+      "verification": {
+        "source": "crossref",
+        "id": "10.18637/jss.v009.i02"
+      }
+    },
+    "nist_anderson_darling2002": {
+      "authors": [
+        "NIST/SEMATECH"
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §1.3.5.14: Anderson-Darling Test",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda35e.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda35e.htm"
       }
     },
     "bland_altman1998": {

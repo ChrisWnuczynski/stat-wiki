@@ -761,6 +761,46 @@ export function resolveExactMatch(query, meta = null, docs = null) {
   return null;
 }
 
+// Queries of 2–3 letters are prefixes people type while they are still
+// spelling a name ("ba" for Bayes, Bayesian, bar). A whole-word match is
+// too strict for those, and a 4-letter cutoff would treat "mean" as a
+// prefix of "meaning", which this ranker rejects. Exact concept and alias
+// hits stay on exactRank, above this band.
+const SHORT_QUERY_LEAD_BONUS = 1000;
+
+function shortQueryNeedle(query) {
+  const q = fold(query);
+  if (!q || q.length < 2 || q.length > 3) return "";
+  if (/[^a-z0-9]/.test(q)) return "";
+  return q;
+}
+
+function fieldLead(text, needle) {
+  // Drop TeX control words first. fold() would otherwise turn \bar into the
+  // word "bar". A lead is the whole title or a word that starts with the
+  // query. Letters inside a longer word ("what", "controls") do not lead.
+  const withoutTex = String(text || "").replace(/\\[A-Za-z]+/g, " ");
+  const hay = fold(withoutTex).replace(/^(?:the|a|an)[^a-z0-9]+/, "");
+  if (!hay || !needle) return 0;
+  if (hay.startsWith(needle)) return 3;
+  const words = hay.split(/[^a-z0-9]+/).filter(Boolean);
+  if (words.some((word) => word.startsWith(needle))) return 2;
+  return 0;
+}
+
+function shortQueryLead(title, aliases, query) {
+  const needle = shortQueryNeedle(query);
+  if (!needle) return 0;
+  let lead = fieldLead(title, needle);
+  for (const alias of aliases || []) {
+    const aliasLead = fieldLead(alias, needle);
+    // A partial alias leads the body, and it stays behind a title that
+    // itself starts with the query. An exact alias is exactRank.
+    lead = Math.max(lead, aliasLead >= 3 ? 2 : aliasLead);
+  }
+  return lead;
+}
+
 function headerScoreForPage(title, aliases, coreQuery, terms, coreTokens, fullTokens) {
   let score = 0;
   const qFold = fold(coreQuery);
@@ -888,7 +928,8 @@ export function scoreDocument(doc, query, meta = null) {
 
   const headScore = headerScoreForPage(doc.title, aliases, coreQuery, terms, coreTokens, fullTokens);
   const chunkScore = scoreChunkFields(doc, coreQuery, terms, coreTokens, fullTokens).score;
-  return exactRank * 5000 + headScore + chunkScore;
+  const leadRank = shortQueryLead(doc.title, aliases, coreQuery);
+  return exactRank * 5000 + leadRank * SHORT_QUERY_LEAD_BONUS + headScore + chunkScore;
 }
 
 export function rankDocuments(docs, query, meta = null) {
@@ -1089,7 +1130,8 @@ export function rankDocuments(docs, query, meta = null) {
     const disambigBonus = disambigOrder.has(group.key)
       ? Math.max(0, 600 - disambigOrder.get(group.key).idx * 80)
       : 0;
-    const totalScore = exactRank * 5000 + disambigBonus + headScore + rawBest + depthBonus;
+    const leadRank = shortQueryLead(group.title, group.aliases, coreQuery);
+    const totalScore = exactRank * 5000 + leadRank * SHORT_QUERY_LEAD_BONUS + disambigBonus + headScore + rawBest + depthBonus;
     if (totalScore <= 0) continue;
 
     const showSection =
@@ -1142,6 +1184,7 @@ export function rankDocuments(docs, query, meta = null) {
       score: totalScore,
       tier,
       exactRank,
+      leadRank,
       disambigRank: disambigOrder.has(group.key) ? disambigOrder.get(group.key).idx : 999,
       nWords: titleWordsCount(resultDoc.title),
     });
@@ -1154,9 +1197,17 @@ export function rankDocuments(docs, query, meta = null) {
     if (a.disambigRank !== 999 || b.disambigRank !== 999) {
       if (a.disambigRank !== b.disambigRank) return a.disambigRank - b.disambigRank;
     }
+    // Short-query title and alias leads outrank body text across tiers.
+    // Within a lead band, the shorter title wins. Other queries keep the
+    // previous tier, score, then length order.
+    if (a.leadRank !== b.leadRank) return b.leadRank - a.leadRank;
     if (a.tier !== b.tier) return a.tier - b.tier;
-    if (b.score !== a.score) return b.score - a.score;
-    if (a.nWords !== b.nWords) return a.nWords - b.nWords;
+    if (a.leadRank > 0) {
+      if (a.nWords !== b.nWords) return a.nWords - b.nWords;
+    } else {
+      if (b.score !== a.score) return b.score - a.score;
+      if (a.nWords !== b.nWords) return a.nWords - b.nWords;
+    }
     return (
       fold(a.doc.title).localeCompare(fold(b.doc.title)) ||
       String(a.doc.href).localeCompare(String(b.doc.href))
@@ -1200,6 +1251,10 @@ export function augmentQuartoSearchItems(fuseItems, query, meta = null, allDocs 
     });
   }
   return out;
+}
+
+export function resultsPageHref(query) {
+  return "search.html?q=" + encodeURIComponent(String(query ?? "").trim());
 }
 
 export function documentsFromIndex(payload) {

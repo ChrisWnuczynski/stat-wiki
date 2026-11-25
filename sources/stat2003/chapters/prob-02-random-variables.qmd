@@ -568,7 +568,7 @@ A random variable takes the values $0$, $2$ and $5$ with probabilities $1/2$, $1
 :::
 
 ::: {#ex-prob-second-moment .exercise}
-## Recovering the second moment
+## Finding the second moment from the mean and variance
 
 A random variable has expectation $2$ and variance $1$. Find $\E X^2$.
 

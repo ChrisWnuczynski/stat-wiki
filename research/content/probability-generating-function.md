@@ -9,12 +9,12 @@ $$
 The series converges absolutely on the closed unit disc. Its coefficients recover the probabilities: $P(N=k)=G_N^{(k)}(0)/k!$. For a proper distribution, $G_N(1)=1$, and $G_N(0)=P(N=0)$ with the convention $0^0=1$.{{cite:grinstead_snell1997}} (§10.1, ordinary generating functions, pp. 369–370)
 
 ## Properties — Derivatives and independent totals
-Differentiation at the boundary gives factorial moments when they are finite:
+The first two identities below give factorial moments as extended nonnegative values, possibly $+\infty$:
 $$
 E(N)=G_N'(1),\quad E\{N(N-1)\}=G_N''(1),\quad
 \operatorname{Var}(N)=G_N''(1)+G_N'(1)-G_N'(1)^2.
 $$
-A derivative at $1$ is understood as a limit from below; it can diverge. Inside the unit disc, termwise differentiation is justified by the power-series representation.{{cite:grinstead_snell1997}} (§10.1, pp. 369–371)
+Here $G_N'(1)$ and $G_N''(1)$ denote the respective limits of the derivatives as $z\uparrow1$. The variance identity is an ordinary finite subtraction when the second moment is finite. If the mean is infinite, the displayed subtraction is indeterminate. Inside the unit disc, termwise differentiation is justified by the power-series representation.{{cite:grinstead_snell1997}} (§10.1, pp. 369–371)
 
 If $N$ and $M$ are independent, $G_{N+M}=G_NG_M$. For $N$ independent of iid counts $Y_i$, a random sum $S=\sum_{i=1}^NY_i$ has $G_S(z)=G_N\{G_Y(z)\}$ for $0\le z\le1$. Condition on $N=n$ to obtain $G_Y(z)^n$, then average over $N$. This composition is the basis of generating-function calculations in branching models.{{cite:grinstead_snell1997}} (§§10.1–10.2){{cite:durrett2019}} (§4.3.4, branching-process generating functions)
 
