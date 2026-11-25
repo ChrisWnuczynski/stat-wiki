@@ -37,9 +37,11 @@ The check is diff-scoped against the pull-request base (``GITHUB_BASE_REF``,
 otherwise ``origin/main``). A maths block includes its delimiters. If any
 added or replaced line touches that block, every non-standard operator inside
 the block fails, including one that sits on a line the diff did not change.
-Wrapping prose ``E(X)`` in new ``$$`` lines, or adding ``[X]`` after a bare
-``E`` in a display, is therefore a failure. A formula whose block the diff
-does not touch is left alone, and so is a file the diff does not touch. On
+Wrapping prose ``E(X)`` in new ``$$`` lines, adding ``[X]`` after a bare
+``E`` in a display, or deleting a line inside a display so that ``E`` and
+``[X]`` become one operator, is therefore a failure. A formula whose block
+the diff does not touch is left alone, and so is a file the diff does not
+touch. Deleting a prose line outside a formula does not touch that formula. On
 ``main`` the diff is empty, so the suite stays green. Untracked in-scope
 files count as entirely added.
 On a pull request, Actions checks out the merge commit. With
@@ -176,15 +178,37 @@ def find_violations(text: str) -> list[Violation]:
     return found
 
 
+def _block_line_ranges(text: str) -> list[tuple[int, int]]:
+    return [_line_span(text, block_start, block_end) for _a, _b, block_start, block_end in math_spans(text)]
+
+
+def _lines_meet_a_block(first: int, last: int, blocks: list[tuple[int, int]]) -> bool:
+    return any(start <= last and first <= end for start, end in blocks)
+
+
 def changed_new_lines(old: str, new: str) -> set[int]:
-    """1-based line numbers in ``new`` that were inserted or replaced."""
+    """1-based lines in ``new`` that edit a maths block.
+
+    Inserts and replacements count directly. A pure deletion counts when the
+    removed lines sat inside a maths block: the surviving lines on either side
+    of the gap are marked, so the block that remains is checked even though
+    none of its own lines were rewritten.
+    """
     import difflib
 
-    matcher = difflib.SequenceMatcher(a=old.splitlines(), b=new.splitlines())
+    old_lines = old.splitlines()
+    new_lines = new.splitlines()
+    matcher = difflib.SequenceMatcher(a=old_lines, b=new_lines)
     changed: set[int] = set()
-    for tag, _i1, _i2, j1, j2 in matcher.get_opcodes():
+    old_blocks = _block_line_ranges(old)
+    for tag, i1, i2, j1, j2 in matcher.get_opcodes():
         if tag in {"insert", "replace"}:
             changed.update(range(j1 + 1, j2 + 1))
+        if tag == "delete" and _lines_meet_a_block(i1 + 1, i2, old_blocks):
+            if j1 > 0:
+                changed.add(j1)
+            if j1 < len(new_lines):
+                changed.add(j1 + 1)
     return changed
 
 

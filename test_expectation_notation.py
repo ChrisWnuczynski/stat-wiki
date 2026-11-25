@@ -173,6 +173,19 @@ class DiffFilterTests(unittest.TestCase):
         self.assertEqual(fired[0].block_last, 3)
         self.assertIn(r"\E", fired[0].message("research/content/old.md"))
 
+    def test_deleting_a_separator_inside_a_display_flags_the_operator(self) -> None:
+        old = "$$\nE\n+\n[X]\n$$\n"
+        new = "$$\nE\n[X]\n$$\n"
+        self.assertEqual(expectation_notation.find_violations(old), [])
+        fired = expectation_notation.violations_in_changed_spans(old, new)
+        self.assertEqual([item.line for item in fired], [2])
+        self.assertIn(r"\E", fired[0].message("research/content/old.md"))
+        legacy = "A note.\n$E(X)$ stays.\n"
+        self.assertEqual(
+            expectation_notation.violations_in_changed_spans(legacy, "$E(X)$ stays.\n"),
+            [],
+        )
+
     def test_argument_on_the_next_line_flags_a_bare_e(self) -> None:
         old = "$$\nE\n$$\n"
         new = "$$\nE\n[X]\n$$\n"
