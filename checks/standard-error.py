@@ -30,7 +30,7 @@ if __name__ == "__main__":
     root = Path(__file__).resolve().parents[1]
     prose = (root / "research/content/standard-error.md").read_text()
     check_authored_passages(prose)
-    for printed in ("20 grams", "2 grams", "10/\\sqrt{25}=2.0", "2.064", "45.87", "54.13", "2.83", "1.41", "68.3%"):
+    for printed in ("20 grams", "2 grams", "10/\\sqrt{25}=2.0", "2.064", "45.87", "54.13", "2.83", "1.41", "67.27%", "68.27%"):
         assert printed in prose, f"Worked value missing from article source: {printed}"
     checks = [
         isclose(20 / sqrt(100), 2),
