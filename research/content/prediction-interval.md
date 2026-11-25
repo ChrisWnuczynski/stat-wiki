@@ -8,11 +8,11 @@ A weather model can pin down the mean ozone at a stated temperature and still be
 The fitted value at a chosen covariate is an estimate of a mean. A new response at that covariate equals the mean plus a new error. The interval for the mean can shrink toward a point as the sample grows. The interval for the new response cannot: the new error keeps a variance of its own, so the forecast interval levels off at a width set by that residual scale.{{cite:hyndman_athanasopoulos2021}} (§5.5, One-step prediction intervals){{cite:nist_prediction_interval}} (§4.5.1.2, prediction intervals)
 
 ## Definition — A future response on a straight line
-Suppose $Y_1,\ldots,Y_n$ are independent, $Y_i=\beta_0+\beta_1 x_i+\varepsilon_i$, with fixed predictors and $\varepsilon_i\sim N(0,\sigma^2)$. Let $\widehat Y(x)$ be the least-squares fitted value at a new predictor $x$, and let $Y_{\mathrm{new}}=\beta_0+\beta_1 x+\varepsilon_{\mathrm{new}}$ be a new response at that $x$, where the new error $\varepsilon_{\mathrm{new}}\sim N(0,\sigma^2)$ has the same law as the sample errors and is independent of them. A $100(1-\alpha)\%$ prediction interval is
+Suppose $Y_1,\ldots,Y_n$ are independent, $Y_i=\beta_0+\beta_1 x_i+\varepsilon_i$, with fixed predictors and $\varepsilon_i\sim N(0,\sigma^2)$. Assume $n>2$ and $S_{xx}>0$; repeated predictor values are allowed. Let $\widehat Y(x)$ be the least-squares fitted value at a new predictor $x$, and let $Y_{\mathrm{new}}=\beta_0+\beta_1 x+\varepsilon_{\mathrm{new}}$ be a new response at that $x$, where the new error $\varepsilon_{\mathrm{new}}\sim N(0,\sigma^2)$ has the same law as the sample errors and is independent of them. A $100(1-\alpha)\%$ prediction interval is
 $$
 \widehat Y(x)\pm t_{n-2,\,1-\alpha/2}\,S\sqrt{1+\frac1n+\frac{(x-\overline x)^2}{S_{xx}}},
 $$
-where $S^2$ is the residual mean square on $n-2$ degrees of freedom and $S_{xx}=\sum_i(x_i-\overline x)^2$. The leading $1$ under the square root is the new residual. The other two terms are the variance of the fitted mean.{{cite:nist_prediction_interval}} (§4.5.1.2, $\hat\sigma_p=\sqrt{\hat\sigma^2+\hat\sigma_f^2}$)
+where $S^2$ is the residual mean square on $n-2$ degrees of freedom and $S_{xx}=\sum_i(x_i-\overline x)^2$. The leading $1$ and the remaining two terms under the square root are variance multipliers. After multiplication by $\sigma^2$, they contribute the independent new-error variance $\sigma^2$ and the fitted-mean variance $\sigma^2\{1/n+(x-\overline x)^2/S_{xx}\}$, respectively.{{cite:nist_prediction_interval}} (§4.5.1.2, $\hat\sigma_p=\sqrt{\hat\sigma^2+\hat\sigma_f^2}$)
 
 ::: {.callout-note collapse="true" title="Proof"}
 ::: {.proof}
