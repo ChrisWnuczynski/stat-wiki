@@ -72,14 +72,21 @@ function renderMath(root) {
 
 class PrerenderMathTests(unittest.TestCase):
     def test_shared_macros_reach_the_hover_preview(self) -> None:
-        macros = json.loads((ROOT / "katex_macros.json").read_text(encoding="utf-8"))
-        self.assertEqual(set(macros), {"\\E", "\\Var", "\\Cov"})
-        literal = build_wiki.katex_macros_literal()
-        self.assertIn('"\\\\E"', literal)
-        preview = build_wiki.PREVIEW_JS.replace("/*__KATEX_MACROS__*/{}", literal, 1)
-        self.assertIn("htmlAndMathml", preview)
-        self.assertIn('querySelector(".katex, math")', preview)
-        self.assertIn(literal, preview)
+        definitions = build_wiki.katex_macro_definitions()
+        on_disk = json.loads((ROOT / "katex_macros.json").read_text(encoding="utf-8"))
+        preview = json.loads(build_wiki.katex_macros_literal())
+        self.assertEqual(on_disk, definitions)
+        self.assertEqual(preview, definitions)
+        reader = (ROOT / "ask" / "widget" / "src" / "browser.ts").read_text(encoding="utf-8")
+        self.assertIn('from "../../../katex_macros.json"', reader)
+        self.assertIn("katexMacrosForFormula()", reader)
+        self.assertNotIn('"\\\\Bin"', reader)
+        rendered = build_wiki.PREVIEW_JS.replace("/*__KATEX_MACROS__*/{}", build_wiki.katex_macros_literal(), 1)
+        self.assertIn("htmlAndMathml", rendered)
+        self.assertIn('querySelector(".katex, math")', rendered)
+        self.assertIn(build_wiki.katex_macros_literal(), rendered)
+        for name in (r"\given", r"\Bin", r"\vect"):
+            self.assertIn(name, definitions)
 
     def test_page_gains_mathml_and_loses_the_client_renderer(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -112,6 +119,63 @@ class PrerenderMathTests(unittest.TestCase):
             )
             self.assertEqual((site / "index.html").read_text(encoding="utf-8"), html)
             self.assertEqual(again.returncode, 0)
+
+    def test_given_bin_and_vect_prerender_and_gdef_does_not_leak(self) -> None:
+        page = """<!DOCTYPE html><html><body>
+<span class="math inline">\\given</span>
+<span class="math inline">\\Bin(n,p)</span>
+<span class="math inline">\\vect{x}</span>
+</body></html>
+"""
+        leak = """<!DOCTYPE html><html><body>
+<span class="math inline">\\gdef\\foo{9}</span>
+<span class="math inline">\\foo</span>
+</body></html>
+"""
+        with tempfile.TemporaryDirectory() as tmp:
+            site = Path(tmp)
+            (site / "ok.html").write_text(page, encoding="utf-8")
+            subprocess.run(
+                ["node", str(ROOT / "tools" / "prerender_math.mjs"), "--site", str(site)],
+                cwd=ROOT,
+                check=True,
+                text=True,
+            )
+            html = (site / "ok.html").read_text(encoding="utf-8")
+            self.assertNotIn("katex-error", html)
+            self.assertEqual(html.count("<math"), 3)
+            self.assertIn(">Bin<", html)
+            isolated = subprocess.run(
+                ["node", "--input-type=module", "-e", r"""
+import { formulaMacros } from "./tools/prerender_math.mjs";
+import { createRequire } from "node:module";
+const katex = createRequire(import.meta.url)("./katex/katex.min.js");
+const used = formulaMacros();
+katex.renderToString("\\gdef\\foo{9}", { throwOnError: true, strict: "ignore", macros: used });
+const next = formulaMacros();
+if (Object.prototype.hasOwnProperty.call(next, "\\foo")) process.exit(2);
+try {
+  katex.renderToString("\\foo", { throwOnError: true, strict: "ignore", macros: next });
+  process.exit(3);
+} catch (error) {
+  if (!String(error.message).includes("Undefined control sequence")) throw error;
+}
+"""],
+                cwd=ROOT,
+                text=True,
+                capture_output=True,
+                check=False,
+            )
+            self.assertEqual(isolated.returncode, 0, isolated.stdout + isolated.stderr)
+            (site / "leak.html").write_text(leak, encoding="utf-8")
+            leaked = subprocess.run(
+                ["node", str(ROOT / "tools" / "prerender_math.mjs"), "--site", str(site)],
+                cwd=ROOT,
+                text=True,
+                capture_output=True,
+                check=False,
+            )
+            self.assertNotEqual(leaked.returncode, 0, leaked.stdout + leaked.stderr)
 
 
 if __name__ == "__main__":

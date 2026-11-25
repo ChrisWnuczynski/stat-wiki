@@ -355,6 +355,7 @@ def expand_macros(text: str) -> str:
 # silently drift.
 KATEX_NATIVE = frozenset({"R", "Pr", "argmax", "argmin"})
 KATEX_MACRO_HEADER = "_katex-macros.html"
+KATEX_MACROS_JSON = "katex_macros.json"
 
 
 def katex_macro_definitions() -> dict[str, str]:
@@ -420,6 +421,8 @@ def write_katex_macro_header() -> None:
         if json.dumps(key) not in text or json.dumps(body) not in text:
             raise SystemExit(f"The KaTeX header dropped {key}")
     (WIKI / KATEX_MACRO_HEADER).write_text(text, encoding="utf-8")
+    # The pre-render and the Ask reader load this file. It is the same table.
+    (WIKI / KATEX_MACROS_JSON).write_text(katex_macros_json_text(), encoding="utf-8")
 
 
 def _unprotected_regions(text: str) -> list[tuple[int, int]]:
@@ -3353,6 +3356,7 @@ PREVIEW_JS = r"""<div id="wiki-preview" role="tooltip" hidden></div>
           throwOnError: false,
           output: "htmlAndMathml",
           strict: "ignore",
+          // A new object on every formula. KaTeX writes \gdef into the table it is given.
           macros: /*__KATEX_MACROS__*/{}
         });
       } catch (e) {}
@@ -8299,12 +8303,14 @@ SIDEBAR_JS = """
 """
 
 
+def katex_macros_json_text() -> str:
+    """The shared shorthand table, sorted, for katex_macros.json."""
+    return json.dumps(katex_macro_definitions(), ensure_ascii=False, indent=2, sort_keys=True) + "\n"
+
+
 def katex_macros_literal() -> str:
-    """The shared KaTeX macro table as a JavaScript object literal."""
-    data = json.loads((WIKI / "katex_macros.json").read_text(encoding="utf-8"))
-    if not isinstance(data, dict) or not data:
-        raise SystemExit("katex_macros.json must be a non-empty object")
-    return json.dumps(data, ensure_ascii=False)
+    """The same table as a JavaScript object literal for the hover preview."""
+    return json.dumps(katex_macro_definitions(), ensure_ascii=False, sort_keys=True)
 
 
 def write_config(chapters, final_notes, questions) -> None:

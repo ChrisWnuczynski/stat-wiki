@@ -4,7 +4,15 @@
 import DOMPurify from "dompurify"
 import MarkdownIt from "markdown-it"
 
+import katexMacros from "../../../katex_macros.json"
+
 import { ANCHOR, dashProse, extractMath, escapeHtml, linkCitations, mapOutsideCode, MATH_TOKEN, normalizeDelimiters, safePage, type MathPiece, type Msg } from "./text.ts"
+
+// One table, generated from build_wiki.katex_macro_definitions(). KaTeX writes
+// \gdef into the object it is given, so every formula gets a copy.
+function katexMacrosForFormula(): Record<string, string> {
+  return { ...katexMacros }
+}
 
 type Katex = {
   render(tex: string, el: HTMLElement, options: Record<string, unknown>): void
@@ -96,10 +104,6 @@ export async function turnstileToken(container: HTMLElement, sitekey: string): P
 
 const markdown = new MarkdownIt({ html: false, linkify: false, typographer: false, breaks: false })
 
-// The same commands the page prerender defines. An answer is new TeX, not a
-// second pass over HTML that is already typeset.
-const KATEX_MACROS = { "\\E": "\\mathbb{E}", "\\Var": "\\operatorname{Var}", "\\Cov": "\\operatorname{Cov}" }
-
 function mathHtml(piece: MathPiece | undefined, katex: Katex | null): string {
   if (!piece) return ""
   if (katex) {
@@ -110,7 +114,7 @@ function mathHtml(piece: MathPiece | undefined, katex: Katex | null): string {
         trust: false,
         strict: "ignore",
         output: "htmlAndMathml",
-        macros: KATEX_MACROS,
+        macros: katexMacrosForFormula(),
       })
     } catch {
       // Fall through to the source.
@@ -244,7 +248,7 @@ export function renderPageMath(root: HTMLElement, katex: Katex | null): void {
         trust: false,
         strict: "ignore",
         output: "htmlAndMathml",
-        macros: KATEX_MACROS,
+        macros: katexMacrosForFormula(),
       })
     } catch {
       // Leave the source.

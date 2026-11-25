@@ -13,7 +13,13 @@ const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, "..");
 const require = createRequire(import.meta.url);
 const katex = require(join(root, "katex", "katex.min.js"));
-const macros = JSON.parse(readFileSync(join(root, "katex_macros.json"), "utf8"));
+const sharedMacros = JSON.parse(readFileSync(join(root, "katex_macros.json"), "utf8"));
+
+// KaTeX writes \gdef into the object it is given, so the next formula would
+// see the previous one's definitions. Each formula gets its own copy.
+export function formulaMacros() {
+  return { ...sharedMacros };
+}
 
 function siteFromArgs(argv) {
   const flag = argv.indexOf("--site");
@@ -167,7 +173,7 @@ function renderInner(openTag, inner) {
     throwOnError: true,
     output: "htmlAndMathml",
     strict: "ignore",
-    macros,
+    macros: formulaMacros(),
     fleqn: false,
   });
 }
