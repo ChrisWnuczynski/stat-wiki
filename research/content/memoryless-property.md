@@ -7,7 +7,7 @@ A workshop replaces hard drives whose lifetimes are modelled as exponential with
 ## Statement
 For a positive waiting time $X$, the memoryless property is the identity $\Pr(X>s+t\mid X>s)=\Pr(X>t)$ whenever $s,t>0$ and $\Pr(X>s)>0$. The exponential laws are the continuous distributions with this property, and the geometric laws are the discrete distributions on the positive integers with the matching identity at integer times.{{cite:grinstead_snell1997}} (pp. 68, 186, 206–207)
 
-Write $S(u)=\Pr(X>u)$. The identity is $S(s+t)=S(s)S(t)$. An exponential rate $\lambda>0$ has density $\lambda e^{-\lambda x}$ on $x>0$ and survival $S(u)=e^{-\lambda u}$, so both sides equal $e^{-\lambda t}$.{{cite:dodge2008}} (p. 194, exponential density and distribution function){{cite:grinstead_snell1997}} (pp. 206–207, exponential survival)
+Write $S(u)=\Pr(X>u)$. The identity is $S(s+t)=S(s)S(t)$. An exponential rate $\lambda>0$ has density $\lambda e^{-\lambda x}$ on $x>0$ and survival $S(u)=e^{-\lambda u}$, so both sides equal $e^{-\lambda(s+t)}$. The value $e^{-\lambda t}$ is instead the ratio $S(s+t)/S(s)$, the conditional survival probability.{{cite:dodge2008}} (p. 194, exponential density and distribution function){{cite:grinstead_snell1997}} (pp. 206–207, exponential survival)
 
 ## Intuition
 The exponential density falls at a constant proportional rate. The hazard, density divided by survival, equals $\lambda$ at every age, so the chance of failing in a short interval does not rise as the device gets older. Conditioning on survival to age $s$ cuts the left tail away and renormalises what remains; for this density the renormalised tail is a copy of the original law, shifted to start at $s$.{{cite:grinstead_snell1997}} (pp. 206–207)
