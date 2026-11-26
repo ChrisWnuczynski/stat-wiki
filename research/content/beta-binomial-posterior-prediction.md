@@ -29,7 +29,7 @@ A $\operatorname{Beta}(2,2)$ prior and eight successes in ten trials give $\oper
 $$
 (0.006536,0.040850,0.128385,0.256769,0.333800,0.233660).
 $$
-They sum to one. Thus $P(\widetilde X\ge4\mid x)=0.5674603$ and $\E(\widetilde X\mid x)=25/7$. The variance is $190/147=1.292517$, compared with plug-in binomial variance $50/49=1.020408$. Here the inflation factor is $19/15$, and the correlation between any two future indicators is $1/15$.{{cite:siegrist2022_beta_bernoulli}} (§10.7, beta-binomial distribution)
+They sum to one. Thus $\mathbb{P}(\widetilde X\ge4\mid x)=0.5674603$ and $\E(\widetilde X\mid x)=25/7$. The variance is $190/147=1.292517$, compared with plug-in binomial variance $50/49=1.020408$. Here the inflation factor is $19/15$, and the correlation between any two future indicators is $1/15$.{{cite:siegrist2022_beta_bernoulli}} (§10.7, beta-binomial distribution)
 
 **Your turn.** What is the posterior predictive probability that two future tosses are both heads? Compare it with squaring the one-toss prediction.
 
