@@ -7,18 +7,18 @@ A continuous parameter posterior places most mass above a scientific threshold. 
 ## Definition — Posterior mass on a subset
 Within a likelihood family $L(\theta)$ and proper prior density $\pi(\theta)$, posterior probability of a measurable region $H$ is
 $$
-P(H\mid x)=\frac{\int_H L(\theta)\pi(\theta)d\theta}{\int_\Theta L(\theta)\pi(\theta)d\theta},
+\mathbb{P}(H\mid x)=\frac{\int_H L(\theta)\pi(\theta)d\theta}{\int_\Theta L(\theta)\pi(\theta)d\theta},
 $$
 assuming the denominator is finite and positive. Calling $H$ a hypothesis does not change this integral. A continuous posterior assigns zero mass to individual points, so moving a single boundary point from one region to its complement changes neither probability.{{cite:kass_raftery1995}} (§5.1, pp. 781–782)
 
 ## Connections — Regions can induce explicitly specified models
-The distinction does not prohibit model comparison between regions. If $H_0,H_1$ partition $\Theta$ and $w_k=P(H_k)>0$, define conditional priors
+The distinction does not prohibit model comparison between regions. If $H_0,H_1$ partition $\Theta$ and $w_k=\mathbb{P}(H_k)>0$, define conditional priors
 $$
 \pi_k(\theta)=\pi(\theta)\mathbf1_{H_k}(\theta)/w_k.
 $$
 Their marginal likelihoods are $m_k=\int L\pi_k$. Direct substitution gives
 $$
-\frac{P(H_1\mid x)}{P(H_0\mid x)}=\frac{m_1}{m_0}\frac{w_1}{w_0}.
+\frac{\mathbb{P}(H_1\mid x)}{\mathbb{P}(H_0\mid x)}=\frac{m_1}{m_0}\frac{w_1}{w_0}.
 $$
 Thus a partition of one proper prior can induce two models with Bayes factor equal to posterior odds divided by prior odds. Their priors and odds are specified by the conditioning construction. Choosing different within-region priors defines a different comparison.{{cite:kass_raftery1995}} (§3.1, pp. 776–777)
 
@@ -30,8 +30,8 @@ A model-index construction instead gives positive prior weight to the independen
 ## Worked example
 Observe seven successes in ten independent Bernoulli trials and use a uniform prior for success probability $\theta$. Multiplying likelihood by prior gives a Beta$(8,4)$ posterior. For $H_1=\{\theta>1/2\}$,
 $$
-P(H_1\mid x)=\frac{227}{256}=0.88671875,\qquad
-P(H_0\mid x)=\frac{29}{256}.
+\mathbb{P}(H_1\mid x)=\frac{227}{256}=0.88671875,\qquad
+\mathbb{P}(H_0\mid x)=\frac{29}{256}.
 $$
 The uniform prior gives equal mass to the two half-intervals. Conditioning that prior on each interval therefore produces a region-model Bayes factor $B_{10}=227/29\approx7.827586$. The equality between this factor and posterior odds uses those equal prior region probabilities.{{cite:kass_raftery1995}} (§3.1, pp. 776–777)
 
@@ -39,7 +39,7 @@ Now compare the exact point model $M_0:\theta=1/2$ with a uniform-prior alternat
 $$
 B_{01}=11\binom{10}{7}2^{-10}=\frac{165}{128}\approx1.289063.
 $$
-With equal prior model probabilities, $P(M_0\mid x)=165/293\approx0.563140$. This point-model probability differs from both the posterior probability above one half and the zero probability of an exact point under the continuous Beta posterior. The models and their prior measures determine the question.{{cite:schwarz1978}} (§2, p. 462){{cite:kass_raftery1995}} (§5.1, pp. 781–782)
+With equal prior model probabilities, $\mathbb{P}(M_0\mid x)=165/293\approx0.563140$. This point-model probability differs from both the posterior probability above one half and the zero probability of an exact point under the continuous Beta posterior. The models and their prior measures determine the question.{{cite:schwarz1978}} (§2, p. 462){{cite:kass_raftery1995}} (§5.1, pp. 781–782)
 
 **Your turn.** Under the continuous Beta posterior, does assigning $\theta=1/2$ to $H_1$ instead of $H_0$ change the answer? What if the posterior has an atom there?
 
@@ -59,5 +59,5 @@ The prior kernel is $\theta^{11}e^{-\theta}$ and the likelihood contributes $\th
 [Who owns the boundary?](../questions/exr-who-owns-the-boundary.qmd): prove the continuous result and give a discrete contrast.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-A density integrates to zero over a singleton, so the continuous posterior gives $P(\theta=10\mid x)=0$. Adding or removing that point changes a region integral by zero. In contrast, if a discrete posterior assigns probability $0.3$ to $\theta=10$, changing which hypothesis contains ten changes each region probability by $0.3$ in opposite directions.
+A density integrates to zero over a singleton, so the continuous posterior gives $\mathbb{P}(\theta=10\mid x)=0$. Adding or removing that point changes a region integral by zero. In contrast, if a discrete posterior assigns probability $0.3$ to $\theta=10$, changing which hypothesis contains ten changes each region probability by $0.3$ in opposite directions.
 :::
