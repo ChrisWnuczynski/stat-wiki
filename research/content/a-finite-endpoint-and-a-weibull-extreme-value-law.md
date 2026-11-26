@@ -3,13 +3,13 @@ For independent uniform observations between zero and one, a sample maximum appr
 
 ## Definition — Start with the exact maximum distribution
 Let $M_n=\max(X_1,\ldots,X_n)$ for iid uniform observations on $(0,1)$. For $0\le x\le1$,
-$$P(M_n\le x)=P(X_1\le x,\ldots,X_n\le x)=x^n.$$
+$$\mathbb{P}(M_n\le x)=\mathbb{P}(X_1\le x,\ldots,X_n\le x)=x^n.$$
 Independence gives the product. Put $Y_n=n(1-M_n)$. For fixed $y\ge0$ and $n>y$,
-$$P(Y_n>y)=P(M_n<1-y/n)=(1-y/n)^n.$$
+$$\mathbb{P}(Y_n>y)=\mathbb{P}(M_n<1-y/n)=(1-y/n)^n.$$
 Continuity makes the strict-versus-nonstrict endpoint irrelevant in this model. A statement about convergence of these distribution functions determines the limiting law at continuity points.
 
 ## Properties — Derive the gap limit and its sign
-Take logarithms: $n\log(1-y/n)\to-y$. Exponentiation gives $P(Y_n>y)\to e^{-y}$. For negative $y$, $Y_n\ge0$ gives a zero lower tail. Thus $Y_n$ converges in distribution to a rate-one exponential variable $E$. Equivalently $n(M_n-1)\Rightarrow-E$, whose distribution function is $e^x$ for $x\le0$ and one for $x>0$. The positive gap and the centred maximum have opposite signs and opposite supports; confusing them reverses a tail probability.
+Take logarithms: $n\log(1-y/n)\to-y$. Exponentiation gives $\mathbb{P}(Y_n>y)\to e^{-y}$. For negative $y$, $Y_n\ge0$ gives a zero lower tail. Thus $Y_n$ converges in distribution to a rate-one exponential variable $E$. Equivalently $n(M_n-1)\Rightarrow-E$, whose distribution function is $e^x$ for $x\le0$ and one for $x>0$. The positive gap and the centred maximum have opposite signs and opposite supports; confusing them reverses a tail probability.
 
 The reversed exponential is a finite-endpoint extreme-value law of Weibull type. The word *Weibull* here describes the extreme-value shape after normalisation; the positive gap in this uniform example has exponential shape one. Extreme-value terminology depends on whether maxima, minima or reflected variables are being described.{{cite:nist_extreme_value}} (§8.1.6.3, maxima/minima and bounded support)
 
@@ -25,7 +25,7 @@ The exact probability is $0.98^{100}\approx0.132620$, and the approximation is $
 :::
 
 ## Interpretation — A finite endpoint alone does not choose the scaling
-More generally, suppose $F$ has upper endpoint $x_F$ and satisfies $1-F(x_F-t)\sim c t^a$ as $t\downarrow0$, with $c,a>0$. Put $a_n=(cn)^{-1/a}$. Then $n\{1-F(x_F-a_n y)\}\to y^a$, giving $P((x_F-M_n)/a_n>y)\to e^{-y^a}$. This follows from the same product-and-log calculation. The uniform example has $c=a=1$. Different endpoint tails produce different scaling exponents; a finite endpoint by itself supplies neither $a$ nor this regularity condition.; {{cite:nist_extreme_value}} (§8.1.6.3)
+More generally, suppose $F$ has upper endpoint $x_F$ and satisfies $1-F(x_F-t)\sim c t^a$ as $t\downarrow0$, with $c,a>0$. Put $a_n=(cn)^{-1/a}$. Then $n\{1-F(x_F-a_n y)\}\to y^a$, giving $\mathbb{P}((x_F-M_n)/a_n>y)\to e^{-y^a}$. This follows from the same product-and-log calculation. The uniform example has $c=a=1$. Different endpoint tails produce different scaling exponents; a finite endpoint by itself supplies neither $a$ nor this regularity condition.; {{cite:nist_extreme_value}} (§8.1.6.3)
 
 ## Assumptions and limits — Dependence and endpoint atoms change the calculation
 The product $F(x)^n$ requires independent observations with a common distribution. An atom at the upper endpoint changes how quickly the maximum reaches that endpoint. Dependent observations can require additional extreme-value conditions and a different effective clustering of exceedances. The exact uniform derivation is useful because its assumptions and finite-sample error can both be checked directly.{{cite:nist_extreme_value}} (§8.1.6.3, identically distributed extreme observations)
@@ -45,7 +45,7 @@ The same integrals recover $\E(Y_n)=n/(n+1)$. At $n=50$ this is $50/51\approx 0.
 The uniform tail is linear: $1-F(1-t)=t$ for $0<t<1$, so $c=a=1$ and $a_n=1/n$. A different endpoint shape uses a different power. Let $F(x)=1-(1-x)^2$ on $[0,1]$. Then $F(0)=0$, $F(1)=1$, and the density $2(1-x)$ is nonnegative and integrates to one. The endpoint tail is $1-F(1-t)=t^2$, so $c=1$ and $a=2$. The scale in the general formula is $a_n=n^{-1/2}$.
 
 For $0\le y<\sqrt n$,
-$$P\bigl((1-M_n)/\sqrt{1/n}>y\bigr)=\bigl(1-y^2/n\bigr)^n.$$
+$$\mathbb{P}\bigl((1-M_n)/\sqrt{1/n}>y\bigr)=\bigl(1-y^2/n\bigr)^n.$$
 The elementary limit $(1-y^2/n)^n\to e^{-y^2}$ is the survival function of a Weibull law with shape $2$ and scale $1$. At $n=100$ and $y=1$ the exact probability is $0.99^{100}\approx 0.366032$, and $e^{-1}\approx 0.367879$. At $y=2$ the exact probability is $0.96^{100}\approx 0.016870$, and $e^{-4}\approx 0.018316$. The approximation is already close, and the limit is not exponential. Shape $1$, the uniform case, is the special Weibull law that is exponential.
 
 The scale identity behind the general formula is algebraic. If $a_n=(cn)^{-1/a}$ with $c,a>0$, then
@@ -58,6 +58,6 @@ Write $Z_n=n(M_n-1)$ for the uniform sample. Then $Z_n=-Y_n$, and the limit of $
 The same endpoint geometry is not the only extreme-value type. An exponential tail, after centring at a multiple of $\log n$, produces the Gumbel limit $e^{-e^{-x}}$ on the whole line.{{cite:durrett2019}} (§3.2, Ex. 3.2.2(iii), p. 123) A Pareto tail of index $\alpha$, scaled by $n^{1/\alpha}$, produces the Fréchet limit $e^{-x^{-\alpha}}$ on the positive line.{{cite:durrett2019}} (§3.2, Ex. 3.2.2(i), p. 123) Those limits are unbounded on the side where the original tail is unbounded. The finite-endpoint limit is bounded on the side of the endpoint. A sample maximum can suggest which picture is plausible only after the tail, the endpoint, and the normalisation have been specified. A finite endpoint by itself does not choose $a$.
 
 ## Common misconceptions
-The limiting statement is about a moving threshold. For the uniform law, $P(M_n\le 0.99)$ equals $0.99^n$, which tends to zero. The event $\{Y_n>3\}$ is the event $\{M_n<1-3/n\}$, and the threshold $1-3/n$ moves toward $1$. At $n=50$ that threshold is $0.94$, and $0.94^{50}\approx 0.045331$. Treating $0.045331$ as the probability of falling short of a fixed level such as $0.5$ misreads the scaling.
+The limiting statement is about a moving threshold. For the uniform law, $\mathbb{P}(M_n\le 0.99)$ equals $0.99^n$, which tends to zero. The event $\{Y_n>3\}$ is the event $\{M_n<1-3/n\}$, and the threshold $1-3/n$ moves toward $1$. At $n=50$ that threshold is $0.94$, and $0.94^{50}\approx 0.045331$. Treating $0.045331$ as the probability of falling short of a fixed level such as $0.5$ misreads the scaling.
 
 Shape and type are also easy to swap. The uniform calculation has extreme-value shape $1$, and the gap limit is exponential. The quadratic-tail calculation has extreme-value shape $2$, and the gap limit has survival $e^{-y^2}$. Both are Weibull-type limits for the maximum. Neither calculation estimates a shape from data. Dependence, a hard measurement ceiling that is not the distributional endpoint, or a distribution that changes with the sample, all sit outside the independent identical-distribution product $F(x)^n$.
