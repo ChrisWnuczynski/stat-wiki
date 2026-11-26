@@ -10,13 +10,13 @@ The prediction target also includes exposure, sample size and the identity of an
 
 ## Properties — Two components of predictive variance
 If the necessary second moments exist, conditioning on the parameter gives
-$$\operatorname{Var}(\widetilde Y\mid D)=E\{\operatorname{Var}(\widetilde Y\mid\theta,D)\mid D\}+\operatorname{Var}\{E(\widetilde Y\mid\theta,D)\mid D\}.$$
-To verify the identity, write $E(\widetilde Y^2\mid\theta,D)=\operatorname{Var}(\widetilde Y\mid\theta,D)+[E(\widetilde Y\mid\theta,D)]^2$, average over the posterior and subtract the squared predictive mean. The first term describes variation of future observations at fixed parameters; the second describes uncertainty about their conditional mean.{{cite:goodfellow_bengio_courville2016}} (§3.8, expectation and variance)
+$$\operatorname{Var}(\widetilde Y\mid D)=\E\{\operatorname{Var}(\widetilde Y\mid\theta,D)\mid D\}+\operatorname{Var}\{\E(\widetilde Y\mid\theta,D)\mid D\}.$$
+To verify the identity, write $\E(\widetilde Y^2\mid\theta,D)=\operatorname{Var}(\widetilde Y\mid\theta,D)+[\E(\widetilde Y\mid\theta,D)]^2$, average over the posterior and subtract the squared predictive mean. The first term describes variation of future observations at fixed parameters; the second describes uncertainty about their conditional mean.{{cite:goodfellow_bengio_courville2016}} (§3.8, expectation and variance)
 
 This decomposition also explains why substituting the posterior mean parameter into the sampling distribution can misrepresent a prediction. A nonlinear mean function need not commute with posterior averaging, and even where it does, its plug-in predictive variance can omit parameter uncertainty. Exact integration, quadrature and nested simulation all target the same mixture when they implement the same model.{{cite:downey2020_thinkbayes2}} (Ch. 8, mixture construction)
 
 ## Worked example — Predict a batch, rather than its probability
-Suppose $\theta\mid D\sim\operatorname{Beta}(3,9)$ and $K\mid\theta,D\sim\operatorname{Binomial}(4,\theta)$ for a new four-item batch. The posterior mean is $E\theta=0.250$ and variance is $\operatorname{Var}\theta=3/208=0.014423$. Integrating the binomial mass gives
+Suppose $\theta\mid D\sim\operatorname{Beta}(3,9)$ and $K\mid\theta,D\sim\operatorname{Binomial}(4,\theta)$ for a new four-item batch. The posterior mean is $\E\theta=0.250$ and variance is $\operatorname{Var}\theta=3/208=0.014423$. Integrating the binomial mass gives
 $$P(K=k\mid D)=\binom4k\frac{B(3+k,9+4-k)}{B(3,9)},\quad k=0,\ldots,4.$$
 The predictive mean is $1.000$ and variance is $0.923077$. In contrast, a binomial distribution at the plug-in probability $0.25$ has variance $0.750$. The beta posterior and its conjugate update supply the ingredients, and the displayed predictive mass follows by integrating the beta density.{{cite:downey2020_thinkbayes2}} (Ch. 18, “Binomial Likelihood”)
 
@@ -25,7 +25,7 @@ The probability that every item is nondefective is $P(K=0\mid D)=0.362637$. Plug
 **Your turn.** Predict just one future binary item under the same posterior. Give its success probability and variance.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The predictive distribution is Bernoulli with success probability $E(\theta\mid D)=0.250$. Its variance is $0.25(1-0.25)=0.187500$. For one binary item, integrating the probability still yields a Bernoulli law.
+The predictive distribution is Bernoulli with success probability $\E(\theta\mid D)=0.250$. Its variance is $0.25(1-0.25)=0.187500$. For one binary item, integrating the probability still yields a Bernoulli law.
 :::
 
 ## Statistical use — Simulate both levels of uncertainty
@@ -44,7 +44,7 @@ P(K=3\mid D)&=0.065934,\\
 P(K=4\mid D)&=0.010989.
 \end{align*}
 $$
-They sum to one. The mean $\sum k\,P(K=k\mid D)=1.000$ equals $4E(\theta\mid D)=4\times0.250$, because the conditional binomial mean is linear in $\theta$ and the average passes inside. A plug-in binomial at $\theta=0.25$ has masses $0.316406$, $0.421875$, $0.210938$, $0.046875$, $0.003906$ for $k=0,\ldots,4$. The mixture puts more probability on $k=0$ and on $k=4$ than the plug-in does, which is the visible trace of uncertainty in $\theta$.{{cite:downey2020_thinkbayes2}} (Ch. 18, “Binomial Likelihood”)
+They sum to one. The mean $\sum k\,P(K=k\mid D)=1.000$ equals $4\E(\theta\mid D)=4\times0.250$, because the conditional binomial mean is linear in $\theta$ and the average passes inside. A plug-in binomial at $\theta=0.25$ has masses $0.316406$, $0.421875$, $0.210938$, $0.046875$, $0.003906$ for $k=0,\ldots,4$. The mixture puts more probability on $k=0$ and on $k=4$ than the plug-in does, which is the visible trace of uncertainty in $\theta$.{{cite:downey2020_thinkbayes2}} (Ch. 18, “Binomial Likelihood”)
 
 The variance decomposition accounts for the same spread. The conditional variance is $4\theta(1-\theta)$, and its posterior expectation is $0.692308$. The conditional mean is $4\theta$, and the posterior variance of that mean is $16\operatorname{Var}(\theta)=16\times0.014423=0.230769$. Adding these pieces gives $0.923077$, the predictive variance. The plug-in binomial variance $4\times0.25\times0.75=0.750$ sits near the first piece and leaves out the second. For a single future binary item the conditional variance is $\theta(1-\theta)$ and the conditional mean is $\theta$; after averaging, the predictive law is Bernoulli with success probability $0.250$ and variance $0.187500$. Two future items that share one draw of $\theta$ are dependent under the predictive law, because the covariance $\operatorname{Var}(\theta)$ is positive, while they are independent given $\theta$.{{cite:goodfellow_bengio_courville2016}} (§3.8, expectation and variance)
 
