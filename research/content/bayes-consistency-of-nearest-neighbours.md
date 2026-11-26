@@ -8,7 +8,7 @@ The metric is part of the hypothesis. Merely counting a fixed number of coordina
 
 ## Key results — Turn probability estimation into classification
 In binary classification, write $\eta(x)=\Pr(Y=1\mid X=x)$, and classify as one when an estimate $\widehat\eta(x)$ is at least $1/2$. If the estimated rule disagrees with a Bayes rule, the threshold $1/2$ lies between $\eta$ and $\widehat\eta$. The conditional excess error is then $|2\eta-1|\le2|\eta-\widehat\eta|$. Integrating proves the plug-in bound
-$$0\le E\{R(\widehat g)\}-R^*\le2E|\widehat\eta(X)-\eta(X)|.$$
+$$0\le \E\{R(\widehat g)\}-R^*\le2\E|\widehat\eta(X)-\eta(X)|.$$
 This shows why consistency of the local class-probability estimate is sufficient for Bayes-risk consistency. The geometric part of the nearest-neighbour theorem establishes the needed probability-estimation behaviour under the sample-size conditions.{{cite:cerou_guyader2006}} (§1, p. 341, excess-risk bound)
 
 ## Proof
@@ -38,7 +38,7 @@ One neighbour satisfies only the second condition. In the worked example every f
 
 ### Key results — The plug-in bound is an inequality, not a rate
 If a classifier predicts class one when $\widehat\eta(x)\ge 1/2$, and a Bayes rule predicts class one when $\eta(x)\ge 1/2$, the two rules disagree only when $1/2$ lies between $\eta(x)$ and $\widehat\eta(x)$. On that event the conditional excess error equals $|2\eta(x)-1|$, and that quantity is at most $2|\eta(x)-\widehat\eta(x)|$. Integrating gives
-$$0\le E\{R(\widehat g)\}-R^*\le 2E|\widehat\eta(X)-\eta(X)|.$$
+$$0\le \E\{R(\widehat g)\}-R^*\le 2\E|\widehat\eta(X)-\eta(X)|.$$
 At a point where $\eta=0.9$ and $\widehat\eta=0.3$, the decisions disagree. The conditional excess error is $|1.8-1|=0.8$, and the bound $2|0.9-0.3|=1.2$ sits above it. Where the two decisions agree, the excess error is zero even if $\widehat\eta$ is not exactly $\eta$. The factor $2$ is therefore a uniform majorant, not the excess error at every $x$.
 
 The finite-point argument in the proof is the case in which location noise eventually disappears for a simpler reason. If the feature space is a finite set of atoms, the strong law puts more than $k_n$ training points on each atom once $n$ is large, because $k_n/n\to 0$ keeps the neighbour count below the count of exact matches. The vote is then a binomial average of $k_n$ fresh labels from $\eta$ at that atom, and $k_n\to\infty$ makes the average consistent. The Euclidean theorem extends the same excess-risk bound to a continuous feature space by showing that the neighbours still concentrate.{{cite:cerou_guyader2006}} (§1, pp. 341–342, risk bound and consistency)
