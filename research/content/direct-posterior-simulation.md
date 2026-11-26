@@ -26,7 +26,7 @@ Replacing the variance marginal by its full conditional $p(v\mid\beta,D)$ and al
 ### A regression probability and its simulation error
 Use $n=10,p=2$, $\hat\beta=(1,2)^\top$, $C=\operatorname{diag}(1/10,1/40)$ and $SSE=16$. Direct draws use $v\sim\operatorname{InvGamma}(4,8)$ followed by $\beta\mid v,D\sim N_2(\hat\beta,vC)$. The slope marginal is $t_8(2,\sqrt{0.05})$, so
 $$
-P(\beta_1>1.5\mid D)=0.9721167.
+\mathbb{P}(\beta_1>1.5\mid D)=0.9721167.
 $$
 For $M=10{,}000$ independent pairs, averaging $\mathbf1\{\beta_1^{(m)}>1.5\}$ has standard deviation $\sqrt{q(1-q)/M}\approx0.001646$, where $q$ is that probability. This is Monte Carlo error conditional on the model and observed data, rather than uncertainty about which statistical model is appropriate.{{cite:prado_ferreira_west2021}} (§1.5.3.1, p. 21)
 
