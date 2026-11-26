@@ -4,7 +4,7 @@ House prices may vary with floor area, location and age at the same time. A simp
 A predictor need not be a measured continuous quantity. Indicator variables represent categories, and a product of columns represents an interaction. The model is called linear because its mean is linear in the coefficients, not because every relationship must be a straight line in an untransformed raw measurement.{{cite:dodge2008}} (pp. 364–365)
 
 ## Definition — One response and a fixed design matrix
-For $n$ responses and a full-column-rank $n\times p$ design matrix $X$, write $Y=X\beta+\varepsilon$ with $E(\varepsilon\mid X)=0$. The vector $\beta$ contains $p$ unknown coefficients, including an intercept when $X$ has a column of ones. Ordinary least squares minimizes $\lVert Y-Xb\rVert^2$. Differentiating gives the normal equations $X^\top X\widehat\beta=X^\top Y$, so
+For $n$ responses and a full-column-rank $n\times p$ design matrix $X$, write $Y=X\beta+\varepsilon$ with $\E(\varepsilon\mid X)=0$. The vector $\beta$ contains $p$ unknown coefficients, including an intercept when $X$ has a column of ones. Ordinary least squares minimizes $\lVert Y-Xb\rVert^2$. Differentiating gives the normal equations $X^\top X\widehat\beta=X^\top Y$, so
 $$\widehat\beta=(X^\top X)^{-1}X^\top Y.$$
 Full rank makes the coefficient estimate unique. The fitted vector is the orthogonal projection of $Y$ onto the column space of $X$.{{cite:dodge2008}} (p. 365)
 
