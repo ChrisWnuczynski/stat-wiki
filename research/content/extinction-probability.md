@@ -8,12 +8,12 @@ Offspring probabilities $1/4$, $0$ and $3/4$ have mean $3/2$. The generating fun
 Each individual has the same offspring law, independently of the others. If the mean number of offspring is below $1$, the expected generation size shrinks geometrically and the probability of still being alive tends to $0$. If the mean is above $1$ and there is a real chance of having no children, extinction is still possible, but it is no longer certain: its probability is a root of the offspring generating function, strictly below $1$. The deterministic law that always produces exactly one child has mean $1$ and never dies.{{cite:durrett2019}} (Thm. 4.3.10, p. 231){{cite:durrett2019}} (Thm. 4.3.12, p. 232)
 
 ## Definition — The smallest fixed point of the generating function
-Let $f(s)=\sum_k p_k s^k$ be the probability generating function of the offspring law, and let $Z_n$ be the size of generation $n$, with $Z_0=1$. Write $q_n=\mathrm{P}(Z_n=0)$. Then $q_{n+1}=f(q_n)$, the sequence increases, and its limit $q=\mathrm{P}(Z_n=0\text{ for some }n)$ satisfies $q=f(q)$. It is the smallest root in $[0,1]$.
+Let $f(s)=\sum_k p_k s^k$ be the probability generating function of the offspring law, and let $Z_n$ be the size of generation $n$, with $Z_0=1$. Write $q_n=\mathbb{P}(Z_n=0)$. Then $q_{n+1}=f(q_n)$, the sequence increases, and its limit $q=\mathbb{P}(Z_n=0\text{ for some }n)$ satisfies $q=f(q)$. It is the smallest root in $[0,1]$.
 
 ## Properties — Subcritical extinction, and the supercritical root
 ::: {.callout-note collapse="true" title="Proof"}
 ::: {.proof}
-The generation sizes satisfy $\E(Z_n)=m^n$ when $m=\E(\xi)$ is the offspring mean and $Z_0=1$. On $\{Z_n>0\}$ one has $Z_n\ge 1$, so $\mathrm{P}(Z_n>0)\le m^n$. If $m<1$ this bound tends to $0$, and extinction has probability $1$.{{cite:durrett2019}} (Thm. 4.3.10, p. 231)
+The generation sizes satisfy $\E(Z_n)=m^n$ when $m=\E(\xi)$ is the offspring mean and $Z_0=1$. On $\{Z_n>0\}$ one has $Z_n\ge 1$, so $\mathbb{P}(Z_n>0)\le m^n$. If $m<1$ this bound tends to $0$, and extinction has probability $1$.{{cite:durrett2019}} (Thm. 4.3.10, p. 231)
 
 Condition on the first generation. If it has size $k$, the process dies out if and only if $k$ independent copies die out, an event of probability $q^k$. Therefore $q=\sum_k p_k q^k=f(q)$. If $m>1$, then $f'(1)=m>1$ and $f''(s)>0$ on $(0,1)$ whenever some $p_k>0$ for a $k\ge 2$. So $f(s)<s$ on a left neighbourhood of $1$, while $f(0)=p_0>0$, and there is a root in $[0,1)$. Strict convexity makes it unique.{{cite:durrett2019}} (Thm. 4.3.12, p. 232)
 :::
@@ -28,7 +28,7 @@ $$
 
 The fixed-point equation $\frac34 s^2-s+\frac14=0$ is $3s^2-4s+1=0$, or $(3s-1)(s-1)=0$. The roots are $1/3$ and $1$. The extinction probability is the smaller one, $1/3$. Check: $f(1/3)=1/4+(3/4)(1/9)=1/3$.
 
-For a comparison, $p_0=p_1=1/2$ has mean $1/2<1$, so the bound $\mathrm{P}(Z_n>0)\le 2^{-n}$ forces extinction probability $1$. The generating function $f(s)=(1+s)/2$ has no root in $[0,1)$ other than the failure of the supercritical hypothesis: its only fixed point in $[0,1]$ is $1$.
+For a comparison, $p_0=p_1=1/2$ has mean $1/2<1$, so the bound $\mathbb{P}(Z_n>0)\le 2^{-n}$ forces extinction probability $1$. The generating function $f(s)=(1+s)/2$ has no root in $[0,1)$ other than the failure of the supercritical hypothesis: its only fixed point in $[0,1]$ is $1$.
 
 **Your turn.** Take $p_0=1/2$, $p_1=1/4$, $p_2=1/4$. Find the mean, and solve $f(s)=s$.
 
