@@ -20,7 +20,7 @@ There are one hundred successes in two hundred opportunities, so $\widehat p=0.5
 
 ## Interpretation — Grouping changes the fitted likelihood
 For the village table, $911/1200$ is the mean of the complete count values. Once all counts of four or more are merged, the multinomial likelihood is instead
-$$\ell(\lambda)=\sum_{j=0}^3O_j\log\{e^{-\lambda}\lambda^j/j!\}+15\log P_\lambda(X\ge4).$$
+$$\ell(\lambda)=\sum_{j=0}^3O_j\log\{e^{-\lambda}\lambda^j/j!\}+15\log \mathbb{P}_\lambda(X\ge4).$$
 Maximizing this expression gives $\widehat\lambda=0.7512$, fitted counts approximately $(566.13,425.31,159.75,40.00,8.80)$, and $T=7.7362$ on three degrees of freedom, with $p=0.05179$. The displayed figure uses the complete-data mean; the grouped fit is numerically close but its likelihood matches the theorem's premise. The count table is illustrative, with spatial independence and a common rate requiring a separate modelling justification.{{cite:nist_chi_square_gof2002}} (§1.3.5.15, maximum likelihood from observed bin counts)
 
 ## Assumptions and limits
