@@ -14,7 +14,7 @@ If $\mathcal F_1\subset\mathcal F_2$, then $\mathbb E\bigl(\mathbb E(Y\mid\mathc
 ## Proof
 The defining integral property says that for every event $A\in\mathcal G$,
 $$
-\int_A \mathbb E(Y\mid\mathcal G)\,d\mathrm P=\int_A Y\,d\mathrm P,
+\int_A \mathbb E(Y\mid\mathcal G)\,d\mathbb{P}=\int_A Y\,d\mathbb{P},
 $$
 when $Y$ is integrable. The whole sample space belongs to $\mathcal G$, so the integrals of $\mathbb E(Y\mid\mathcal G)$ and of $Y$ agree, which is $\mathbb E\bigl(\mathbb E(Y\mid\mathcal G)\bigr)=\mathbb E(Y)$.{{cite:durrett2019}} (eq. 4.1.5, p. 211)
 
