@@ -5,7 +5,7 @@ The distinction separates a computable summary from the purpose assigned to that
 Four independent coin tosses give $(1,0,1,1)$, with $1$ denoting a head. The number of heads is $3$, the sample proportion is $3/4$, and the sample variance with divisor $3$ is $1/4$. All three are statistics. Calling $3/4$ an estimate of the probability of a head adds an inferential purpose to a summary that can already be computed.{{cite:dodge2008}} (p. 517)
 
 ## Properties — Parameter-free formula, parameter-dependent law
-For Bernoulli observations with success probability $p$, $K=\sum_iX_i$ has the binomial law. Thus $K$ is a statistic although $P_p(K=k)$ depends on $p$. Requiring its law to be free of $p$ would impose the much stronger property of ancillarity. The parameter-free requirement concerns evaluation of the function, not its distribution.{{cite:dodge2008}} (pp. 44–45, 517)
+For Bernoulli observations with success probability $p$, $K=\sum_iX_i$ has the binomial law. Thus $K$ is a statistic although $\mathbb{P}_p(K=k)$ depends on $p$. Requiring its law to be free of $p$ would impose the much stronger property of ancillarity. The parameter-free requirement concerns evaluation of the function, not its distribution.{{cite:dodge2008}} (pp. 44–45, 517)
 
 An estimator need not be accurate, unbiased or unique. Under squared-error loss, its quality is measured by
 $$
