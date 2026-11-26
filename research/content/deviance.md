@@ -23,7 +23,7 @@ For a Poisson count, $\ell(\mu;y)=y\log\mu-\mu-\log(y!)$. The saturated mean is 
 
 For a normal observation with known variance $\sigma^2$, $\ell(\mu;y)$ differs from $-(y-\mu)^2/(2\sigma^2)$ by a term independent of $\mu$. The saturated choice $\mu=y$ gives $2(\ell_{\rm sat}-\ell_{\rm fit})=(y-\hat\mu)^2/\sigma^2$, hence unscaled $D=(y-\hat\mu)^2$. For a Gamma observation with shape $1/\phi$ and scale $\phi\mu$, the terms involving $\mu$ are $-(1/\phi)\{\log\mu+y/\mu\}$. Subtracting at $\tilde\mu=y$ gives $2(\ell_{\rm sat}-\ell_{\rm fit})=(2/\phi)\{-\log(y/\hat\mu)+(y-\hat\mu)/\hat\mu\}$, the Gamma formula after multiplying by $\phi$.{{cite:nelder_wedderburn1972}} (§2.3, p. 375, family deviances)
 
-Finally, if model $M_0$ is contained in $M_1$, $D_0-D_1=2\{(\ell_{\rm sat}-\ell_0)-(\ell_{\rm sat}-\ell_1)\}=2(\ell_1-\ell_0)$. The cancellation proves the exact identity for a common fixed dispersion; a chi-squared reference distribution, when appropriate, needs additional large-sample conditions and is not implied by this algebra.{{cite:nelder_wedderburn1972}} (§2.3, p. 375, family deviances)
+Finally, if model $M_0$ is contained in $M_1$ and both are fitted to the same observations and likelihood with common fixed dispersion $\phi$, $(D_0-D_1)/\phi=2\{(\ell_{\rm sat}-\ell_0)-(\ell_{\rm sat}-\ell_1)\}=2(\ell_1-\ell_0)$. Cancellation of the common saturated log likelihood proves this exact identity; an asymptotic chi-squared reference distribution, when appropriate, needs additional large-sample conditions and is not implied by this algebra.{{cite:mccullagh1992_glm_intro}} (p. 544, fixed-dispersion deviance){{cite:nelder_wedderburn1972}} (§2.3, p. 375, family deviances)
 :::
 :::
 
