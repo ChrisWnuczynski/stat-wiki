@@ -34,7 +34,7 @@ The event of infinitely many occurrences is $\limsup A_n$. The first lemma is th
 ## Proof
 ::: {.callout-note collapse="true" title="Proof"}
 ::: {.proof}
-Write $N=\sum_n 1_{A_n}$. If $\sum_n\mathrm{P}(A_n)<\infty$, then $\mathrm{E}(N)<\infty$, so $N<\infty$ with probability $1$. That is $\mathrm{P}(A_n\text{ infinitely often})=0$.{{cite:durrett2019}} (Thm. 2.3.1, p. 68)
+Write $N=\sum_n 1_{A_n}$. If $\sum_n\mathrm{P}(A_n)<\infty$, then $\E(N)<\infty$, so $N<\infty$ with probability $1$. That is $\mathrm{P}(A_n\text{ infinitely often})=0$.{{cite:durrett2019}} (Thm. 2.3.1, p. 68)
 
 For the second lemma, independence and $1-x\le e^{-x}$ give, for $N>M$,
 
