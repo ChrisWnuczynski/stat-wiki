@@ -12,7 +12,7 @@ When a finite space has $N$ equally likely elementary outcomes, an event contain
 
 ::: {.callout-note collapse="true" title="Proof"}
 ::: {.proof}
-Suppose $\Omega=\{\omega_1,\ldots,\omega_N\}$ and all singleton outcomes have the same probability $p$. Because the singletons partition $\Omega$, finite additivity and $P(\Omega)=1$ give $Np=1$, hence $p=1/N$. If $A$ contains $k$ of them, its disjoint-singleton decomposition gives $P(A)=kp=k/N$. The formula fails as a counting shortcut when the elementary outcomes have unequal probabilities.{{cite:siegrist2022_events}} (§2.2, Events; The Algebra of Events)
+Suppose $\Omega=\{\omega_1,\ldots,\omega_N\}$ and all singleton outcomes have the same probability $p$. Because the singletons partition $\Omega$, finite additivity and $\mathbb{P}(\Omega)=1$ give $Np=1$, hence $p=1/N$. If $A$ contains $k$ of them, its disjoint-singleton decomposition gives $\mathbb{P}(A)=kp=k/N$. The formula fails as a counting shortcut when the elementary outcomes have unequal probabilities.{{cite:siegrist2022_events}} (§2.2, Events; The Algebra of Events)
 :::
 :::
 
@@ -27,7 +27,7 @@ A bag has three labelled red balls and two labelled blue balls. Draw two without
 **Your turn.** For the same bag and draw, record only the number $R$ of red balls. What is its sample space, and what probabilities belong to its outcomes?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The possible values are $\{0,1,2\}$. Both blue has $2\cdot1=2$ ordered pairs, so $P(R=0)=2/20=0.1$. One of each colour has $12$ pairs, so $P(R=1)=12/20=0.6$. Both red has $3\cdot2=6$ pairs, so $P(R=2)=6/20=0.3$. The probabilities sum to one; the three counts are not equally likely.
+The possible values are $\{0,1,2\}$. Both blue has $2\cdot1=2$ ordered pairs, so $\mathbb{P}(R=0)=2/20=0.1$. One of each colour has $12$ pairs, so $\mathbb{P}(R=1)=12/20=0.6$. Both red has $3\cdot2=6$ pairs, so $\mathbb{P}(R=2)=6/20=0.3$. The probabilities sum to one; the three counts are not equally likely.
 :::
 
 ## Common misconceptions
