@@ -18,12 +18,12 @@ With ties, condition on the observed nonzero magnitudes and enumerate all $2^m$ 
 
 The conditional null mean and variance follow from the same signings. Each labelled rank $r_i$ enters $W_+$ with probability $1/2$, independently of the others, so
 $$
-\mathrm{E}(W_+ \mid r_1, \ldots, r_m) = \frac12 \sum_{i=1}^{m} r_i = \frac{m(m+1)}{4},
+\E(W_+ \mid r_1, \ldots, r_m) = \frac12 \sum_{i=1}^{m} r_i = \frac{m(m+1)}{4},
 $$
 $$
 \mathrm{Var}(W_+ \mid r_1, \ldots, r_m) = \frac14 \sum_{i=1}^{m} r_i^2.
 $$
-Without ties, the variance simplifies to $m(m+1)(2m+1)/24$. With ties, use the squared midranks instead. The summands $r_i I_i$ are independent conditional on the ranks, but generally not identically distributed because their rank weights differ. For $m > 20$ the critical value can be approximated by comparing $(W_+ - \mathrm{E} W_+)/\sqrt{\mathrm{Var} W_+}$ with a normal reference.{{cite:dodge2008}} (p. 572) For smaller $m$ the exact subset count is the probability, and the normal formula only describes where the observation sits.
+Without ties, the variance simplifies to $m(m+1)(2m+1)/24$. With ties, use the squared midranks instead. The summands $r_i I_i$ are independent conditional on the ranks, but generally not identically distributed because their rank weights differ. For $m > 20$ the critical value can be approximated by comparing $(W_+ - \E W_+)/\sqrt{\mathrm{Var} W_+}$ with a normal reference.{{cite:dodge2008}} (p. 572) For smaller $m$ the exact subset count is the probability, and the normal formula only describes where the observation sits.
 
 For example, differences $(1, 1, -2)$ have labelled midranks $(1.5, 1.5, 3)$ and observed $W_+ = 3$. The eight sign assignments give positive rank sums $0, 1.5, 1.5, 3, 3, 4.5, 4.5, 6$, listed with multiplicity. Five are at least $3$, so the exact upper-tail probability is $5/8$. The conditional variance is $(1.5^2 + 1.5^2 + 3^2)/4 = 3.375$, whereas the untied formula would give $3.5$.
 
@@ -59,7 +59,7 @@ Replace $-12$ by $-1/2$ and leave the other seven differences as they are. The s
 
 The normal approximation is a different object from either exact probability. For $m = 8$,
 $$
-\mathrm{E}(W_+) = 18, \qquad \mathrm{Var}(W_+) = 51.
+\E(W_+) = 18, \qquad \mathrm{Var}(W_+) = 51.
 $$
 The mean and the variance are those of the exact null, and the normal approximation is the reference intended for $m > 20$.{{cite:dodge2008}} (p. 572) The standardised value of $W_+ = 28$ is $10/\sqrt{51} \approx 1.400$, and the corresponding upper normal probability is about $0.0807$. The continuity correction that `wilcox.test` applies by default to this approximation compares $(27.5 - 18)/\sqrt{51} \approx 1.330$ with the same normal curve and gives about $0.0917$.{{cite:r_wilcox_test2026}} (Usage and Arguments, `correct`) Both approximations are smaller than the exact $25/256$. At $m = 8$ the subset count is the probability to report.
 
