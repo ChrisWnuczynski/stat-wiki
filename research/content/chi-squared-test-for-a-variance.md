@@ -32,7 +32,7 @@ Inverting the equal-tail test at level $5\%$ for these seven observations gives 
 
 ## Statistical use — Power and interval inversion
 For a lower-tail cutoff $c$, the power at a true variance $v$ is
-$$P_v(T\le c)=F_{\chi^2_{n-1}}\left(c\frac{\sigma_0^2}{v}\right).$$
+$$\mathbb{P}_v(T\le c)=F_{\chi^2_{n-1}}\left(c\frac{\sigma_0^2}{v}\right).$$
 This follows by writing $T=(v/\sigma_0^2)U$ with $U\sim\chi^2_{n-1}$. Smaller true variances increase the probability of rejection. Inverting the two-sided test yields the usual chi-squared confidence interval for variance.{{cite:nist_handbook2002}} (§1.3.5.8, confidence-interval formula)
 
 ### A composite null and its least favorable boundary
