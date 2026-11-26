@@ -19,7 +19,7 @@ $$
 Thus a collision probability near one half occurs around $n(n-1)=2m\log2$. The approximation applies when the individual ratios $j/m$ are small; it should be checked against the product near a decision threshold.{{cite:grinstead_snell1997}} (§3.1, ex. 19, pp. 90–91)
 
 ::: {.callout-note collapse="true" title="Derivation"}
-Let $I_{ab}$ indicate that draws $a$ and $b$ match, and put $C=\sum_{a<b}I_{ab}$. Each indicator has mean $1/m$, so linearity gives $E(C)=\binom n2/m$, without needing independence among indicators. Moreover $1_{\{C\ge1\}}\le C$, hence $P(C\ge1)\le E(C)$. The exponential approximation follows by using $\log(1-u)=-u+O(u^2)$ in the product; its log error is of order $n^3/m^2$. This derives both the expected pair count and its relationship to the collision probability.
+Let $I_{ab}$ indicate that draws $a$ and $b$ match, and put $C=\sum_{a<b}I_{ab}$. Each indicator has mean $1/m$, so linearity gives $\E(C)=\binom n2/m$, without needing independence among indicators. Moreover $1_{\{C\ge1\}}\le C$, hence $P(C\ge1)\le \E(C)$. The exponential approximation follows by using $\log(1-u)=-u+O(u^2)$ in the product; its log error is of order $n^3/m^2$. This derives both the expected pair count and its relationship to the collision probability.
 :::
 
 ### Why pair indicators are not a binomial count
