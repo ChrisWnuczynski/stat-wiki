@@ -14,14 +14,14 @@ months for radiotherapy, $13.5$ months for surgery, and $8.5$ months for no trea
 
 ## Intuition
 
-A loss $L(x,d)$ charges action $d$ when the outcome is $x$. If $x$ is still random given $d$, the charge that guides the action is the mean of $L$, not the loss in the most dramatic state and not the loss in the most probable state. A small probability of a large loss can outweigh a likely small loss. Computing the mean forces that tradeoff into the open. In a tree, the mean at a later node is computed with the information available there, and the earlier node averages those later means, weighted by the probability of reaching them. The same construction with a utility $U$ maximises $E[U(x)\mid d]$ instead of minimising a loss. The two agree when the loss is the negative of the utility, up to a constant that does not change the ranking.{{cite:gelman_bda2013}} (§9.1, p. 238; §9.3, p. 245)
+A loss $L(x,d)$ charges action $d$ when the outcome is $x$. If $x$ is still random given $d$, the charge that guides the action is the mean of $L$, not the loss in the most dramatic state and not the loss in the most probable state. A small probability of a large loss can outweigh a likely small loss. Computing the mean forces that tradeoff into the open. In a tree, the mean at a later node is computed with the information available there, and the earlier node averages those later means, weighted by the probability of reaching them. The same construction with a utility $U$ maximises $\E[U(x)\mid d]$ instead of minimising a loss. The two agree when the loss is the negative of the utility, up to a constant that does not change the ranking.{{cite:gelman_bda2013}} (§9.1, p. 238; §9.3, p. 245)
 
 ## Definition
 
-Decision analysis under uncertainty has four steps. List the decisions $d$ and the outcomes $x$. For each $d$, specify the distribution $p(x\mid d)$. The decision itself is not given a probability. Map outcomes to a utility $U(x)$, and choose the $d$ that maximises the expected utility $E[U(x)\mid d]$. In a tree the expectation at each decision node is conditional on the information available at that node. The expected loss of $d$ is this expectation with the sign flipped,
+Decision analysis under uncertainty has four steps. List the decisions $d$ and the outcomes $x$. For each $d$, specify the distribution $p(x\mid d)$. The decision itself is not given a probability. Map outcomes to a utility $U(x)$, and choose the $d$ that maximises the expected utility $\E[U(x)\mid d]$. In a tree the expectation at each decision node is conditional on the information available at that node. The expected loss of $d$ is this expectation with the sign flipped,
 
 $$
-E\bigl(L(x,d)\mid d\bigr)=\int L(x,d)\,p(x\mid d)\,dx,
+\E\bigl(L(x,d)\mid d\bigr)=\int L(x,d)\,p(x\mid d)\,dx,
 $$
 
 with a sum in place of the integral when $x$ is discrete, and with $L=-U$. The recommended action is the one with the lowest expected loss. The expectation for a branch that says "measure, then act" is the expected loss of the policy that will actually be followed after the measurement. It is not the expected loss of measuring and then ignoring the result.{{cite:gelman_bda2013}} (§9.1, pp. 237–238; §9.4, p. 253)
@@ -41,10 +41,10 @@ A quadratic loss on a parameter report selects one action, the mean, because the
 Suppose an action "treat" has loss $1$ if the condition is present and loss $8$ if it is absent, and an action "watch" has loss $10$ if present and loss $0$ if absent. At a base rate $p=0.2$,
 
 $$
-E(L\mid\text{treat})=0.2\times 1+0.8\times 8=6.6,
+\E(L\mid\text{treat})=0.2\times 1+0.8\times 8=6.6,
 $$
 $$
-E(L\mid\text{watch})=0.2\times 10+0.8\times 0=2.
+\E(L\mid\text{watch})=0.2\times 10+0.8\times 0=2.
 $$
 
 Watching has the smaller expected loss. The most probable state is "absent," and watching is also best in that state, but that coincidence is not the reason. The reason is the average. The losses are a utility with the sign flipped, so the same arithmetic maximises expected utility if every loss is multiplied by $-1$.{{cite:gelman_bda2013}} (§9.1, p. 238)
