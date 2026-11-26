@@ -49,6 +49,8 @@ Draw independent Bernoulli trials with success probability $p$ and record the at
 ## Worked example
 Let $p=0.2$. Then $\mathrm{P}(X=1)=0.2$, $\mathrm{P}(X=2)=0.8\cdot 0.2=0.16$, and $\mathrm{P}(X=3)=0.8^2\cdot 0.2=0.128$. These three masses sum to $0.488$. The chance of a wait longer than three trials is $0.512$. The mean is $5$ and the variance is $0.8/0.2^2=20$, so the standard deviation is $\sqrt{20}\approx 4.472$. A wait of ten trials is about $1.118$ standard deviations above the mean, and it is not rare: $\mathrm{P}(X>10)=0.8^{10}\approx 0.1074$.{{cite:dodge2008}} (pp. 226–227)
 
+In R, the geometric variable counts failures before the first success, so write $K=X-1$ when $X$ counts trials. For the strict tail, $\mathrm{P}(X>10)=\mathrm{P}(K>9)$ is `pgeom(9, .2, lower.tail = FALSE)` $\approx 0.1074$. For the inclusive tail, $\mathrm{P}(X\ge 10)=\mathrm{P}(K>8)$ is `pgeom(8, .2, lower.tail = FALSE)` $\approx 0.1342$. The argument `lower.tail = FALSE` returns the probability strictly above the supplied failure count ([R Geometric help](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/Geometric.html), Arguments, `x`, `q` and `lower.tail`; Details).
+
 The failure count has mean $4$ and the same variance $20$. Reporting a mean of $4$ for the trial of the first success would be the other convention.
 
 **Your turn.** Still with $p=0.2$, the first two trials have failed. Find the conditional probability that the wait exceeds five trials, and the conditional mean of the remaining number of trials.
