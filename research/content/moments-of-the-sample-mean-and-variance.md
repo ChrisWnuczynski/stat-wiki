@@ -46,5 +46,5 @@ The biased divisor-two variance has expectation $1/4$. This discrete population 
 They are $(1/2)/4=1/8$ and $(3/4)(1/2)=3/8$, respectively.
 :::
 
-## Connections
+## Related concepts
 These moments are the inputs on which the normal-sample laws rest. The [sample variance and standard deviation](sample-variance-and-standard-deviation.qmd) are the statistics whose expectations are computed here; under normality the scaled variance $(n-1)S^2/\sigma^2$ follows the [chi-squared distribution](chi-squared-distribution.qmd), and the joint behaviour of $\overline X$ and the scatter is the [sampling law of the normal mean and scatter](sampling-law-of-the-normal-mean-and-scatter.qmd). The moment identities themselves need only a finite variance; the distributional statements add the normal assumption.{{cite:siegrist2022_sample_variance}} (§6.5, “The Standard Sample Variance”)
