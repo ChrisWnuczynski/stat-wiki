@@ -47,7 +47,7 @@ A sample that includes a coded zero, from software that counts failures, is one 
 Draw independent Bernoulli trials with success probability $p$ and record the attempt number of the first success. The same draw minus one is the failure count. A generator that returns values in $\{0,1,2,\ldots\}$ is using the failure convention. Adding one converts it to the trial convention on this page. Using the returned zero as a trial count makes $\mathrm{P}(X=1)$ look like a point mass at an illegal value.
 
 ## Worked example
-Let $p=0.2$. Then $\mathrm{P}(X=1)=0.2$, $\mathrm{P}(X=2)=0.8\cdot 0.2=0.16$, and $\mathrm{P}(X=3)=0.8^2\cdot 0.2=0.128$. These three masses sum to $0.488$. The chance of a wait longer than three trials is $0.512$. The mean is $5$ and the variance is $0.8/0.2^2=20$, so the standard deviation is $\sqrt{20}\approx 4.472$. A wait of ten trials is one standard deviation above the mean, and it is not rare: $\mathrm{P}(X>10)=0.8^{10}\approx 0.1074$.{{cite:dodge2008}} (pp. 226–227)
+Let $p=0.2$. Then $\mathrm{P}(X=1)=0.2$, $\mathrm{P}(X=2)=0.8\cdot 0.2=0.16$, and $\mathrm{P}(X=3)=0.8^2\cdot 0.2=0.128$. These three masses sum to $0.488$. The chance of a wait longer than three trials is $0.512$. The mean is $5$ and the variance is $0.8/0.2^2=20$, so the standard deviation is $\sqrt{20}\approx 4.472$. A wait of ten trials is about $1.118$ standard deviations above the mean, and it is not rare: $\mathrm{P}(X>10)=0.8^{10}\approx 0.1074$.{{cite:dodge2008}} (pp. 226–227)
 
 The failure count has mean $4$ and the same variance $20$. Reporting a mean of $4$ for the trial of the first success would be the other convention.
 
