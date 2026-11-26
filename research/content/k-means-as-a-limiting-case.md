@@ -28,7 +28,7 @@ Equal weights give the displayed expression, but the unique-nearest-center limit
 
 ### Monotonicity at a fixed positive variance
 The likelihood check for finite-variance EM has a different objective from the limiting distortion. Let $q(u)=p(u\mid x,\theta_t)$ and let $L(\theta)=\log p(x\mid\theta)$ for the full observed sample. Jensen's inequality gives
-$$L(\theta)-L(\theta_t)=\log E_q\left[\frac{p(x,u\mid\theta)}{p(x,u\mid\theta_t)}\right]\ge E_q\log\frac{p(x,u\mid\theta)}{p(x,u\mid\theta_t)}=Q(\theta,\theta_t)-Q(\theta_t,\theta_t).$$
+$$L(\theta)-L(\theta_t)=\log \E_q\left[\frac{p(x,u\mid\theta)}{p(x,u\mid\theta_t)}\right]\ge \E_q\log\frac{p(x,u\mid\theta)}{p(x,u\mid\theta_t)}=Q(\theta,\theta_t)-Q(\theta_t,\theta_t).$$
 Consequently an M step that increases the expected complete-data log-likelihood cannot reduce the observed likelihood, provided the relevant supports and expectations are well-defined. This proves the monotonicity criterion for an exact E step without suggesting that the algorithm finds a global maximum. The expected complete-data objective fixes the current posterior weights during the M step.{{cite:holmes_huber2019_msmb}} (§4.2.2, eq. 4.8–4.9)
 
 ## Statistical use — What the limit is for
