@@ -20,6 +20,15 @@ function poissonCdf(k, lambda) {
   return total;
 }
 
+// Right-hand limit at zero of a density that behaves like C·x^(a−1) there.
+// It diverges for a < 1, equals C for a = 1 and vanishes for a > 1. The plot
+// clips Infinity at the top edge, as it does for betaPdf at its endpoints.
+function limitAtZero(a, logC) {
+  if (a < 1) return Infinity;
+  if (a === 1) return Math.exp(logC);
+  return 0;
+}
+
 function binomCdf(k, n, p) {
   if (!Number.isInteger(n) || n < 0) return NaN;
   if (k < 0) return 0;
@@ -137,8 +146,10 @@ export const FAMILIES = [
     ],
     domain: ({ shape, rate }) => [0, (shape + 4 * Math.sqrt(shape)) / rate],
     pmf(x, { shape, rate }) {
-      if (x <= 0) return 0;
-      return Math.exp(-rate * x + (shape - 1) * Math.log(x) + shape * Math.log(rate) - lgamma(shape));
+      if (x < 0) return 0;
+      const logC = shape * Math.log(rate) - lgamma(shape);
+      if (x === 0) return limitAtZero(shape, logC);
+      return Math.exp(-rate * x + (shape - 1) * Math.log(x) + logC);
     },
     cdf(x, { shape, rate }) { return x <= 0 ? 0 : gammaP(shape, rate * x); },
   },
@@ -161,10 +172,12 @@ export const FAMILIES = [
     params: [{ key: "df", label: "df", min: 1, max: 20, step: 1, value: 4 }],
     domain: ({ df }) => [0, df + 4 * Math.sqrt(2 * df)],
     pmf(x, { df }) {
-      if (x <= 0) return 0;
+      if (x < 0) return 0;
       const shape = df / 2;
       const rate = 0.5;
-      return Math.exp(-rate * x + (shape - 1) * Math.log(x) + shape * Math.log(rate) - lgamma(shape));
+      const logC = shape * Math.log(rate) - lgamma(shape);
+      if (x === 0) return limitAtZero(shape, logC);
+      return Math.exp(-rate * x + (shape - 1) * Math.log(x) + logC);
     },
     cdf(x, { df }) { return x <= 0 ? 0 : gammaP(df / 2, x / 2); },
   },
@@ -249,12 +262,12 @@ export const FAMILIES = [
     ],
     domain: ({ d1, d2 }) => [0, d2 > 2 ? 3 * d2 / (d2 - 2) : 8],
     pmf(x, { d1, d2 }) {
-      if (x <= 0) return 0;
+      if (x < 0) return 0;
       const a = d1 / 2;
       const b = d2 / 2;
-      const log = a * Math.log(d1 / d2) + (a - 1) * Math.log(x) - lgamma(a) - lgamma(b) + lgamma(a + b)
-        - (a + b) * Math.log1p((d1 * x) / d2);
-      return Math.exp(log);
+      const logC = a * Math.log(d1 / d2) - lgamma(a) - lgamma(b) + lgamma(a + b);
+      if (x === 0) return limitAtZero(a, logC);
+      return Math.exp(logC + (a - 1) * Math.log(x) - (a + b) * Math.log1p((d1 * x) / d2));
     },
     cdf(x, { d1, d2 }) {
       if (x <= 0) return 0;
