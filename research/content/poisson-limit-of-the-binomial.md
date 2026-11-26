@@ -23,7 +23,7 @@ The finite product tends to one, $\lambda_n^k\to\lambda^k$, and $(1-p_n)^{-k}\to
 $$
 n\log(1-p_n)=-np_n+O(np_n^2)\longrightarrow-\lambda,
 $$
-because $np_n^2=(np_n)p_n\to0$. Consequently $(1-p_n)^n\to e^{-\lambda}$, giving the displayed Poisson mass. At $\lambda=0$, $P(X_n\geq1)\leq E(X_n)=np_n\to0$, so the count tends to zero in probability. The limiting masses sum to one, giving convergence in distribution.{{cite:grinstead_snell1997}} (§5.1, p. 189);{{cite:durrett2019}} (§3.6.1, pp. 167–168)
+because $np_n^2=(np_n)p_n\to0$. Consequently $(1-p_n)^n\to e^{-\lambda}$, giving the displayed Poisson mass. At $\lambda=0$, $P(X_n\geq1)\leq \E(X_n)=np_n\to0$, so the count tends to zero in probability. The limiting masses sum to one, giving convergence in distribution.{{cite:grinstead_snell1997}} (§5.1, p. 189);{{cite:durrett2019}} (§3.6.1, pp. 167–168)
 
 ## Worked example
 For $n=100$ and $p=0.02$, the mean is two. The exact no-failure probability is
