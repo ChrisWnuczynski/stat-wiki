@@ -7,7 +7,7 @@ For independent $N(\mu,\sigma^2)$ observations with $n\ge2$ and positive varianc
 The upper-tailed procedure also controls size for a composite null $\mu\le\mu_0$: at a fixed positive scale, shifting the population mean down shifts the numerator down, so the largest rejection probability on that null occurs at its boundary. The equality null is the boundary distribution used to calculate the reference tail. This distinction makes the reported null and the chosen rejection region agree.
 
 ## Properties — A test, an interval and a power curve
-For observed statistic $t$, the two-sided $p$-value is $2P(t_{n-1}\ge|t|)$ and the upper-tailed $p$-value is $P(t_{n-1}\ge t)$. These probabilities describe observations at least as extreme as the observed statistic under the chosen null model. They are not probabilities that the mean equals the null value.{{cite:openintro2019}} (§7.1.5, one-sample t tests)
+For observed statistic $t$, the two-sided $p$-value is $2\mathbb{P}(t_{n-1}\ge|t|)$ and the upper-tailed $p$-value is $\mathbb{P}(t_{n-1}\ge t)$. These probabilities describe observations at least as extreme as the observed statistic under the chosen null model. They are not probabilities that the mean equals the null value.{{cite:openintro2019}} (§7.1.5, one-sample t tests)
 
 The two-sided level-$\alpha$ test and the $1-\alpha$ Student interval make identical decisions about a specified mean. Algebraically, $|\bar x-\mu_0|>cS/\sqrt n$ if and only if $\mu_0$ lies outside $\bar x\pm cS/\sqrt n$. A confidence interval adds the scale and range of values compatible with that procedure; the binary decision alone cannot distinguish a small precisely estimated departure from a large imprecise one.{{cite:nist_mean_limits2002}} (§1.3.5.2)
 
