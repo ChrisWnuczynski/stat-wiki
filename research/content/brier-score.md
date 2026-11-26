@@ -4,18 +4,18 @@ Two forecasters both classify an event as likely, with probabilities $0.51$ and 
 ## Properties — Why truthful probabilities minimise expected loss
 For $Y\sim\operatorname{Bernoulli}(p)$ and forecast $q\in[0,1]$,
 $$
-E(q-Y)^2=p(1-q)^2+(1-p)q^2=p(1-p)+(q-p)^2.
+\E(q-Y)^2=p(1-q)^2+(1-p)q^2=p(1-p)+(q-p)^2.
 $$
 The first term is outcome variation; the second is the excess loss from an inaccurate probability. It vanishes only at $q=p$. Thus the Brier loss is strictly proper: the unique probability forecast minimising expected loss is the true event probability. This is also the conditional-mean principle for squared-error prediction applied to an indicator.{{cite:gneiting_raftery2007_scoring}} (§3, Ex. 1, p. 363){{cite:pishro_nik2014}} (§9.1.5)
 
 Condition on available information $X$. The same calculation gives
-$E[(q(X)-Y)^2\mid X]=p(X)(1-p(X))+(q(X)-p(X))^2$.
+$\E[(q(X)-Y)^2\mid X]=p(X)(1-p(X))+(q(X)-p(X))^2$.
 Averaging proves that correct conditional probabilities minimise population Brier loss. A finite realised sample can still favour a less accurate forecaster through sampling variation. Strict propriety is an expected-loss property, rather than a guarantee about every short sequence of outcomes.{{cite:pishro_nik2014}} (§9.1.5, minimum mean squared error)
 
 For binary outcomes, $0\le(q-y)^2\le1$. Hard forecasts in $\{0,1\}$ have Brier loss equal to their misclassification indicator. Constant probability $1/2$ has loss $1/4$ on every case. The categorical version sums squared differences over all class indicators; with two classes that sum is twice the single-event binary convention. Scores must use the same convention for numerical comparison.{{cite:gneiting_raftery2007_scoring}} (§3, Ex. 1, p. 363)
 
 ## Interpretation — Calibration and useful discrimination
-A constant base-rate forecast can be calibrated yet fail to distinguish high-risk from low-risk cases. Its expected loss is $\bar p(1-\bar p)$. Conditioning on useful information replaces this by $E[p(X)(1-p(X))]$, reducing expected loss by $\operatorname{Var}(p(X))$. This follows from total variance for the binary outcome. Reporting inaccurate conditional probabilities adds $E[(q(X)-p(X))^2]$. The score therefore reflects both probability accuracy and the information used to separate risks.{{cite:pishro_nik2014}} (§9.1.5, variance decomposition)
+A constant base-rate forecast can be calibrated yet fail to distinguish high-risk from low-risk cases. Its expected loss is $\bar p(1-\bar p)$. Conditioning on useful information replaces this by $\E[p(X)(1-p(X))]$, reducing expected loss by $\operatorname{Var}(p(X))$. This follows from total variance for the binary outcome. Reporting inaccurate conditional probabilities adds $\E[(q(X)-p(X))^2]$. The score therefore reflects both probability accuracy and the information used to separate risks.{{cite:pishro_nik2014}} (§9.1.5, variance decomposition)
 
 For a rare event, a low average loss may result from forecasting a low base rate on every case. Compare forecasts against a relevant baseline on the same evaluation population. A probabilistic score and a cost-sensitive action address different targets: a change in action costs need not change the best probability report.{{cite:gneiting_raftery2007_scoring}} (§§2.2–2.3, pp. 361–362)
 
