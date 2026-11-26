@@ -14,7 +14,7 @@ $$\E(\theta_j\mid y_j,\alpha,\beta)=\frac{n_j}{n_j+\kappa}\frac{y_j}{n_j}+\frac\
 For fixed hyperparameters, smaller groups receive more weight on the population mean. This is an exact algebraic weighting identity, not a guarantee that the population mean is scientifically appropriate for every group.
 
 Integrating the likelihood instead gives the marginal count mass
-$$P(Y_j=y_j\mid\alpha,\beta)={n_j\choose y_j}\frac{B(\alpha+y_j,\beta+n_j-y_j)}{B(\alpha,\beta)}.$$
+$$\mathbb{P}(Y_j=y_j\mid\alpha,\beta)={n_j\choose y_j}\frac{B(\alpha+y_j,\beta+n_j-y_j)}{B(\alpha,\beta)}.$$
 The product across independent studies is the marginal likelihood for the hyperparameters. Maximising it is an empirical-Bayes procedure. A full Bayesian analysis places a hyperprior on $(\alpha,\beta)$ and averages conditional posteriors over their posterior uncertainty.{{cite:gelman_bda2013}} (§5.3, beta-binomial hierarchical posterior)
 
 ## Worked example — Historical fitting and the current study
