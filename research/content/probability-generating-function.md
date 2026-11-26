@@ -4,14 +4,14 @@ If one machine produces a random count and another independent machine produces 
 ## Definition — Probabilities as coefficients
 For a nonnegative integer-valued $N$, its probability generating function is
 $$
-G_N(z)=E(z^N)=\sum_{k=0}^\infty P(N=k)z^k,\qquad |z|\le1.
+G_N(z)=\E(z^N)=\sum_{k=0}^\infty P(N=k)z^k,\qquad |z|\le1.
 $$
 The series converges absolutely on the closed unit disc. Its coefficients recover the probabilities: $P(N=k)=G_N^{(k)}(0)/k!$. For a proper distribution, $G_N(1)=1$, and $G_N(0)=P(N=0)$ with the convention $0^0=1$.{{cite:grinstead_snell1997}} (§10.1, ordinary generating functions, pp. 369–370)
 
 ## Properties — Derivatives and independent totals
 The first two identities below give factorial moments as extended nonnegative values, possibly $+\infty$:
 $$
-E(N)=G_N'(1),\quad E\{N(N-1)\}=G_N''(1),\quad
+\E(N)=G_N'(1),\quad \E\{N(N-1)\}=G_N''(1),\quad
 \operatorname{Var}(N)=G_N''(1)+G_N'(1)-G_N'(1)^2.
 $$
 Here $G_N'(1)$ and $G_N''(1)$ denote the respective limits of the derivatives as $z\uparrow1$. The variance identity is an ordinary finite subtraction when the second moment is finite. If the mean is infinite, the displayed subtraction is indeterminate. Inside the unit disc, termwise differentiation is justified by the power-series representation.{{cite:grinstead_snell1997}} (§10.1, pp. 369–371)
@@ -21,7 +21,7 @@ If $N$ and $M$ are independent, $G_{N+M}=G_NG_M$. For $N$ independent of iid cou
 For a branching process started by one individual, let $q_j$ be the probability of extinction by generation $j$. Independent reproduction gives $q_0=0$ and $q_{j+1}=G(q_j)$. These probabilities increase to the eventual extinction probability $q$, and continuity gives $q=G(q)$. If $s\in[0,1]$ is any other fixed point, induction gives $q_j\le s$, hence $q\le s$. Thus extinction probability is the smallest fixed point in $[0,1]$.{{cite:grinstead_snell1997}} (§10.2, branching processes){{cite:durrett2019}} (§4.3.4, extinction-probability equation)
 
 ## Worked example
-Suppose $N$ has probabilities $0.2,0.5,0.3$ at $0,1,2$. Then $G_N(z)=0.2+0.5z+0.3z^2$, with $E(N)=1.1$ and $\operatorname{Var}(N)=0.49$. For two independent copies the product is
+Suppose $N$ has probabilities $0.2,0.5,0.3$ at $0,1,2$. Then $G_N(z)=0.2+0.5z+0.3z^2$, with $\E(N)=1.1$ and $\operatorname{Var}(N)=0.49$. For two independent copies the product is
 $$
 G_N(z)^2=0.04+0.20z+0.37z^2+0.30z^3+0.09z^4.
 $$
