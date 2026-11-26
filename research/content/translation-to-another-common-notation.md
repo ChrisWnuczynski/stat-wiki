@@ -8,7 +8,7 @@ For a Poisson variable with mean $\lambda>0$, the density is $e^{-\lambda}\lambd
 Where differentiation under the integral is justified,
 $$
 A(\eta)=\log\int h(x)e^{\eta^\top T(x)}\,dx,
-\qquad \nabla A(\eta)=E_\eta T(X),\quad
+\qquad \nabla A(\eta)=\E_\eta T(X),\quad
 \nabla^2 A(\eta)=\operatorname{Cov}_\eta T(X).
 $$
 The first derivative divides the integral of $T(x)$ times the unnormalised density by its normalising integral. Differentiating again subtracts the outer product of those means, giving covariance. A covariance matrix is positive semidefinite, so $A$ is convex on its natural domain; strict convexity needs a minimal representation.{{cite:wainwright_jordan2008}} (§3.5.1, prop. 3.1, pp. 62–63)
