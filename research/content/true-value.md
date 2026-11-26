@@ -12,7 +12,7 @@ The true value, also called the reference value, is the quantity of which an obs
 
 Accuracy includes the systematic offset between the average of the measured values and the true value, as well as the precision of the measurements around their own average.{{cite:nist_glossary2002}} (Glossary, "accuracy") Bias is the difference between the average or expected value of a distribution and the true value.{{cite:nist_glossary2002}} (Glossary, "bias")
 
-For an estimator $T$ of a parameter $\theta$, the parallel statement is $\mathrm{E}[T] = \theta + b(\theta)$. The true value of the parameter is $\theta$, and $b(\theta)$ is the bias. If $b(\theta) = 0$, then $T$ is unbiased for $\theta$. The mean of a large number of unbiased estimates lands on the parameter.{{cite:dodge2008}} (p. 41)
+For an estimator $T$ of a parameter $\theta$, the parallel statement is $\E[T] = \theta + b(\theta)$. The true value of the parameter is $\theta$, and $b(\theta)$ is the bias. If $b(\theta) = 0$, then $T$ is unbiased for $\theta$. The mean of a large number of unbiased estimates lands on the parameter.{{cite:dodge2008}} (p. 41)
 
 Repeat a measurement and the results scatter. The centre of that scatter is the procedure's own average. The true value is a different point: the quantity itself. If the centre of the scatter is not the true value, the procedure is biased, however tight the scatter is. Precision is the variability around the measurement process's average. Accuracy is the variability around the true value. A precise procedure can still miss the true value by a constant.{{cite:nist_glossary2002}} (Glossary, "precision"){{cite:nist_glossary2002}} (Glossary, "accuracy")
 
