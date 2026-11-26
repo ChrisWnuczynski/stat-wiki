@@ -16,7 +16,7 @@ The reversed exponential is a finite-endpoint extreme-value law of Weibull type.
 ## Worked example — Assess a finite-sample approximation
 With $n=50$ and $y=2$, the exact probability that the maximum lies below $0.96$ is $0.96^{50}\approx0.129886$. The limiting gap approximation is $e^{-2}\approx0.135335$, about $0.005449$ larger. These are probabilities of a gap *greater* than two after scaling, so a larger gap corresponds to a smaller maximum.
 
-For comparison, the probability that the maximum lies below $0.95$ is $0.95^{50}\approx0.076945$. The exact expected maximum is $n/(n+1)$, obtained by integrating its density $n x^{n-1}$. Hence $E(Y_n)=n/(n+1)$, which is $50/51\approx0.980392$ for this sample size and tends to the rate-one exponential mean.
+For comparison, the probability that the maximum lies below $0.95$ is $0.95^{50}\approx0.076945$. The exact expected maximum is $n/(n+1)$, obtained by integrating its density $n x^{n-1}$. Hence $\E(Y_n)=n/(n+1)$, which is $50/51\approx0.980392$ for this sample size and tends to the rate-one exponential mean.
 
 **Your turn.** At $n=100$, what is the exact probability that the scaled gap exceeds two, and what is its limiting approximation?
 
@@ -34,12 +34,12 @@ The normalisation also specifies the units of the conclusion. If $X_i$ is unifor
 
 ## Connections — The uniform maximum has an exact variance
 The density of $M_n$ on $(0,1)$ is $n x^{n-1}$. Integrating $x$ and $x^2$ against that density gives
-$$E(M_n)=\frac{n}{n+1},\qquad E(M_n^2)=\frac{n}{n+2}.$$
+$$\E(M_n)=\frac{n}{n+1},\qquad \E(M_n^2)=\frac{n}{n+2}.$$
 The variance is therefore
 $$\operatorname{Var}(M_n)=\frac{n}{(n+1)^2(n+2)}.$$
 The scaled gap is the linear image $Y_n=n(1-M_n)$, so $\operatorname{Var}(Y_n)=n^2\operatorname{Var}(M_n)$. At $n=50$ the maximum has variance $50/(51^2\cdot 52)=50/135252\approx 0.000370$, and the scaled gap has variance $125000/135252\approx 0.924201$. The limiting exponential law has variance $1$. The finite-sample gap variance is already close to that limit, while the unscaled maximum is concentrating at the endpoint: its variance is of order $1/n^2$.
 
-The same integrals recover $E(Y_n)=n/(n+1)$. At $n=50$ this is $50/51\approx 0.980392$, short of the exponential mean $1$ by $1/51$. Convergence of distribution functions at continuity points does not by itself prove convergence of means. Here the moments can be computed exactly, and they do converge. A heavier endpoint tail can change that rate.
+The same integrals recover $\E(Y_n)=n/(n+1)$. At $n=50$ this is $50/51\approx 0.980392$, short of the exponential mean $1$ by $1/51$. Convergence of distribution functions at continuity points does not by itself prove convergence of means. Here the moments can be computed exactly, and they do converge. A heavier endpoint tail can change that rate.
 
 ### Properties — A quadratic endpoint tail changes the scale
 The uniform tail is linear: $1-F(1-t)=t$ for $0<t<1$, so $c=a=1$ and $a_n=1/n$. A different endpoint shape uses a different power. Let $F(x)=1-(1-x)^2$ on $[0,1]$. Then $F(0)=0$, $F(1)=1$, and the density $2(1-x)$ is nonnegative and integrates to one. The endpoint tail is $1-F(1-t)=t^2$, so $c=1$ and $a=2$. The scale in the general formula is $a_n=n^{-1/2}$.
