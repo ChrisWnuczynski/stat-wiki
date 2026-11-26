@@ -4,6 +4,8 @@ A sampler has produced a long sequence of correlated states. Saving every fifth 
 ## Definition — Observing the chain at a coarser time scale
 Thinning by an integer $k\ge1$ replaces $X_1,X_2,\ldots$ by $X_k,X_{2k},\ldots$. For a homogeneous chain with transition matrix $P$, the sampled chain has transition matrix $P^k$. If $\pi P=\pi$, repeated multiplication gives $\pi P^k=\pi$: thinning preserves a stationary law. It changes dependence and the observation count, rather than correcting an unsuitable stationary distribution.{{cite:durrett2019}} (§§5.1 and 5.5)
 
+Preserving an invariant law does not preserve exploration from a single start: $\pi P^k=\pi$ is a statement about the law, not about a single run exploring the state space. Under deterministic two-state alternation on $\{0,1\}$, where $P$ swaps $0$ and $1$, the distribution $\pi=(1/2,1/2)$ is invariant for both $P$ and $P^2=I$. Starting at $X_0=0$, ordinary unthinned time averages of $\mathbf{1}\{X_t=1\}$ converge to $\pi(1)=1/2$, whereas saving every second draw ($X_2,X_4,\ldots$) leaves every saved draw at $0$ and gives a saved average of $0$, against $\pi(1)=1/2$: the thinned kernel $P^2=I$ is reducible and the sampled chain never leaves its starting state.
+
 ## Properties — Variance depends on all the autocorrelations
 Let $Y_t=g(X_t)$ be stationary with variance $\sigma_g^2$ and autocorrelations $\rho_h$. Expanding the variance of its average gives the finite-sample identity
 $$
