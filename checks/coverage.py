@@ -26,7 +26,7 @@ article = (ROOT / "articles" / (SLUG + ".qmd")).read_text(encoding="utf-8")
 worked_section = article.split("{#worked-example}", 1)[1].split("\n## ", 1)[0]
 worked_example, your_turn = worked_section.split("**Your turn.**", 1)
 
-assert f"E(K)={40*.95:.0f}" in worked_example
+assert rf"\mathbb{{E}}(K)={40*.95:.0f}" in worked_example
 assert f"{math.sqrt(.95*.05/40):.4f}" in worked_example
 assert f"100(0.1)={100*.1:.0f}" in your_turn
 assert f"={math.sqrt(.9*.1/100):.2f}" in your_turn

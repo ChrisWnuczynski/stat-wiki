@@ -19,7 +19,7 @@ for printed in (
     r"$|\Sigma|=35$", r"$1+(1/9)(5-2)=4/3$",
     r"$4-1^2/9=35/9$", r"\operatorname N(4/3,35/9)",
     r"$T=X_1+X_2\sim\operatorname N(3,4+9+2(1)=15)$",
-    r"$P(T>3)=1/2$", r"$1+(1/9)(-1-2)=2/3$",
+    r"$\mathbb{P}(T>3)=1/2$", r"$1+(1/9)(-1-2)=2/3$",
     r"\operatorname N(2/3,35/9)", r"$4+9-2(1)=11$",
     r"\operatorname N(-1,11)",
 ):

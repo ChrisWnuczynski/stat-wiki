@@ -5,7 +5,7 @@ Point masses $(1/2)^k$ on the positive integers sum to $1$. The events $A_n=\{1,
 Finite additivity says the probability of two disjoint events is the sum of their probabilities. Many of the events one actually cares about are limits: the event that a wait is finite, or that infinitely many of a sequence of events occur. Those are countable unions. Countable additivity is the axiom that the probability of a countable disjoint union equals the sum of the probabilities. From it, the empty event has probability zero, and the probability of an increasing sequence of events passes to the limit.{{cite:durrett2019}} (Thm. 1.1.1, pp. 1–2)
 
 ## Definition — Disjoint countable unions
-A probability $P$ on a sigma-algebra satisfies $\mathbb{P}(\Omega)=1$ and, for pairwise disjoint events $A_n$,
+A probability $\mathbb{P}$ on a sigma-algebra satisfies $\mathbb{P}(\Omega)=1$ and, for pairwise disjoint events $A_n$,
 $$
 \mathbb{P}\Bigl(\bigcup_{n=1}^{\infty} A_n\Bigr)=\sum_{n=1}^{\infty} \mathbb{P}(A_n).
 $$
@@ -28,7 +28,7 @@ Put mass $(1/2)^k$ on the positive integer $k$. The masses sum to $1$, so this i
 $$
 \mathbb{P}(A_n)=\sum_{k=1}^{n}\Bigl(\frac12\Bigr)^k=1-2^{-n}.
 $$
-In particular $\mathbb{P}(A_3)=7/8=0.875$ and $\mathbb{P}(A_4)=15/16=0.9375$. The limit is $1$, which is $P$ of the whole sample space.{{cite:durrett2019}} (Ex. 1.1.2, pp. 2–3; Thm. 1.1.1 (iii), p. 2)
+In particular $\mathbb{P}(A_3)=7/8=0.875$ and $\mathbb{P}(A_4)=15/16=0.9375$. The limit is $1$, which is $\mathbb{P}$ of the whole sample space.{{cite:durrett2019}} (Ex. 1.1.2, pp. 2–3; Thm. 1.1.1 (iii), p. 2)
 
 **Your turn.** Find $\mathbb{P}(A_5)$ and $\mathbb{P}(A_5\setminus A_3)$.
 

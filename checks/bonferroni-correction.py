@@ -26,9 +26,9 @@ def check_dependence_and_fdr(rendered):
     for claim in (
         "all $m$ nulls are true",
         "the error events are independent",
-        r"$\mathrm{P}(A_j)=\alpha/m$ for every $j$",
+        r"$\mathbb{P}(A_j)=\alpha/m$ for every $j$",
         r"the family-wise error is $1-(1-\alpha/m)^m$",
-        r"A level bound $\mathrm{P}(A_j)\le\alpha/m$ alone does not give this equality",
+        r"A level bound $\mathbb{P}(A_j)\le\alpha/m$ alone does not give this equality",
         "Pairwise positive association alone does not order the family-wise error against independence",
         "With valid true-null $p$-values",
         r"$\mathrm{FWER}\le\alpha$ under arbitrary dependence",
@@ -64,8 +64,8 @@ def check_dependence_and_fdr(rendered):
     assert independent == Fraction("0.0490702880859375")
     assert independent < fwer <= sum(marginals) == alpha
     for calculation in (
-        r"$\mathrm{P}(A_j)=0.01234+0.00016=0.0125$",
-        r"$\mathrm{P}(A_i\cap A_j)=0.00016>0.0125^2=0.00015625$",
+        r"$\mathbb{P}(A_j)=0.01234+0.00016=0.0125$",
+        r"$\mathbb{P}(A_i\cap A_j)=0.00016>0.0125^2=0.00015625$",
         r"$\mathrm{FWER}=4\times0.01234+0.00016=0.04952$",
         r"$1-(0.9875)^4\approx0.049070288$",
     ):
@@ -77,7 +77,7 @@ def check_dependence_and_fdr(rendered):
         r"$\mathrm{FDP}=V/R$ when $R>0$ and $0$ when $R=0$",
         r"$\mathrm{FDR}=\mathbb{E}(\mathrm{FDP})$",
         r"$\mathrm{FDP}\le\mathbf{1}_{\{V>0\}}$",
-        r"$\mathrm{FDR}\le\mathrm{P}(V>0)=\mathrm{FWER}\le\alpha$",
+        r"$\mathrm{FDR}\le\mathbb{P}(V>0)=\mathrm{FWER}\le\alpha$",
         "different error targets",
     ):
         assert claim in limits, f"limits missing: {claim}"

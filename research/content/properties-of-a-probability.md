@@ -4,7 +4,7 @@ A risk register lists several possible faults in a machine. The chance of at lea
 ## Statement
 
 **Begin with a probability measure.**
-On a sample space $\Omega$ with a sigma-algebra $\mathcal F$, a probability measure $P$ is nonnegative, satisfies $\mathbb{P}(\Omega)=1$, and is countably additive on pairwise disjoint measurable events. From these axioms follow
+On a sample space $\Omega$ with a sigma-algebra $\mathcal F$, a probability measure $\mathbb{P}$ is nonnegative, satisfies $\mathbb{P}(\Omega)=1$, and is countably additive on pairwise disjoint measurable events. From these axioms follow
 $$\mathbb{P}(\varnothing)=0,\qquad \mathbb{P}(A^c)=1-\mathbb{P}(A),\qquad 0\le \mathbb{P}(A)\le1.$$
 If $A\subseteq B$, then $\mathbb{P}(A)\le \mathbb{P}(B)$. For any two events,
 $$\mathbb{P}(A\cup B)=\mathbb{P}(A)+\mathbb{P}(B)-\mathbb{P}(A\cap B).$$

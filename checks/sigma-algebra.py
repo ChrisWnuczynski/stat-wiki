@@ -20,6 +20,6 @@ assert 2 ** 3 == 8
 assert 2 ** 4 == 16
 require(r"$2^3=8$")
 require(r"$2^4=16$")
-require(r"$\mathrm P(\{1\})=1/3$")
-require(r"$\mathrm P(\{2,3\})=2/3$")
+require(r"$\mathbb{P}(\{1\})=1/3$")
+require(r"$\mathbb{P}(\{2,3\})=2/3$")
 print("sigma-algebra checks passed")

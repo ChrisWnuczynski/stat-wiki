@@ -35,9 +35,9 @@ assert all(frozenset(e) in edges for e in [(1,3),(3,4),(4,5)])
 # Compare computed values with the worked example and hidden answer.
 assert f"Z=2(3)(3)={w.sum()}" in EXAMPLE
 joint=F(float(P(lambda s:s[0]==0 and s[2]==0))).limit_denominator()
-assert rf"P(X_1=0,X_3=0\mid X_2=0)={joint}" in EXAMPLE
+assert rf"\mathbb{{P}}(X_1=0,X_3=0\mid X_2=0)={joint}" in EXAMPLE
 marginal=F(float(sum(q for q,s in zip(p,states) if s[0]==s[2]))).limit_denominator()
-assert f"P(X_1=X_3)={marginal}" in EXAMPLE
+assert rf"\mathbb{{P}}(X_1=X_3)={marginal}" in EXAMPLE
 turn_joint=F(float(P(lambda s:s[0]==1 and s[2]==0))).limit_denominator()
 assert f"Conditional independence gives ${turn_joint}$" in ANSWER
 print("markov-graphs: numerical checks passed")
