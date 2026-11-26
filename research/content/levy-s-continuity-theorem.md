@@ -1,7 +1,7 @@
 ## Motivating example
 A normalized sum of many independent variables can have an awkward density or probability mass function. Its characteristic function is often easier: independence turns a convolution into a product, and normalization changes the argument. Lévy's continuity theorem converts a pointwise limit of those functions into convergence of probability laws, provided the limit is continuous at zero. That last condition prevents probability from escaping to arbitrarily distant regions.{{cite:durrett2019}} (§3.3.2, thm. 3.3.17, pp. 132–133)
 
-A characteristic function $\varphi_X(t)=E(e^{itX})$ always exists because the integrand has modulus one. Unlike an ordinary moment-generating function, it does not require exponential moments. It also determines the probability law uniquely, so it can identify a limit even for heavy-tailed variables.{{cite:grinstead_snell1997}} (§10.3, characteristic functions, pp. 397–401)
+A characteristic function $\varphi_X(t)=\E(e^{itX})$ always exists because the integrand has modulus one. Unlike an ordinary moment-generating function, it does not require exponential moments. It also determines the probability law uniquely, so it can identify a limit even for heavy-tailed variables.{{cite:grinstead_snell1997}} (§10.3, characteristic functions, pp. 397–401)
 
 ## Definition — Pointwise convergence plus continuity at zero
 Let $\varphi_n$ be characteristic functions of real-valued random variables. If $\varphi_n(t)\to\varphi(t)$ for every real $t$ and $\varphi$ is continuous at zero, there is a probability law with characteristic function $\varphi$, and the corresponding laws converge weakly to it. Conversely, weak convergence implies pointwise convergence of the characteristic functions to that of the weak limit. Weak convergence means convergence of distribution functions at every continuity point of the limiting distribution function.{{cite:durrett2019}} (§3.3.2, thm. 3.3.17)
@@ -11,7 +11,7 @@ The theorem asserts existence as well as convergence. A proposed pointwise limit
 ## Properties — Tightness is the central step
 ::: {.callout-note collapse="true" title="Proof"}
 For the forward direction, $e^{itx}$ is bounded and continuous in $x$, so weak convergence gives convergence of its real and imaginary expectations. For the converse, write $\operatorname{sinc}(z)=\sin(z)/z$, with value one at zero. Fubini gives
-$$\frac1h\int_{-h}^h[1-\operatorname{Re}\varphi_n(t)]\,dt=2E[1-\operatorname{sinc}(hX_n)].$$
+$$\frac1h\int_{-h}^h[1-\operatorname{Re}\varphi_n(t)]\,dt=2\E[1-\operatorname{sinc}(hX_n)].$$
 For $|hX_n|>2$, the expression $2[1-\operatorname{sinc}(hX_n)]$ is at least one. Consequently the integral bounds $P(|X_n|>2/h)$. Dominated convergence passes its limit through the finite $t$ integral. Continuity of $\varphi$ at zero makes the limiting bound arbitrarily small for sufficiently small $h$. This bounds the tails uniformly for sufficiently large indices; the finitely many earlier laws can also be enclosed in a larger bounded interval. The laws are therefore tight. Every subsequence has a weakly convergent further subsequence; the forward direction identifies its characteristic function as $\varphi$. Uniqueness of the law with that characteristic function makes all these limits identical, proving convergence of the full sequence.{{cite:durrett2019}} (§3.3.2, proof of thm. 3.3.17, pp. 132–133)
 :::
 
