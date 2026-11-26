@@ -2,7 +2,7 @@
 A running balance adds gains and losses. A small favorable average per transaction can eventually dominate ordinary random fluctuation, but that does not make short-term losses impossible. Separating the linear drift from the square-root spread helps decide which horizon matters. Variances of independent increments add, whereas their standard deviations do not.{{cite:dodge2008}} (p. 558, variance properties)
 
 ## Properties — Deriving the two scales
-Linearity gives $E(S_n)=x+\sum_iE(Y_i)=x+n\mu$. Expanding the centered square gives
+Linearity gives $\E(S_n)=x+\sum_iE(Y_i)=x+n\mu$. Expanding the centered square gives
 $$\operatorname{Var}(S_n)=\sum_i\operatorname{Var}(Y_i)+2\sum_{i<j}\operatorname{Cov}(Y_i,Y_j).$$
 Independent increments have zero cross-covariances, leaving $n\sigma^2$. Thus the drift-to-standard-deviation ratio, when $\mu\ne0$, is $\sqrt n\,|\mu|/\sigma$. This ratio grows even though the absolute standard deviation also grows. The same variance algebra applies to discrete and continuous increments with finite second moments.{{cite:dodge2008}} (p. 558)
 
