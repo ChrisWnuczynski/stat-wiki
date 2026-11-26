@@ -158,13 +158,14 @@ effect hidden by confounding of the opposite sign is the standard example
 Return to $A \rightarrow C \leftarrow Y$, with $A$ and $Y$ marginally
 independent, and now condition on $C$ — restrict to one level of it,
 stratify on it, match on it, or model it. Shrier and Platt’s homely version is rain and sprinklers, which both cause a wet field: conditional on the field being wet, knowing the sprinklers were off raises the probability that it rained {{cite:shrier_platt2008}} (Step 4). The child in such a structure is
-called a collider because the two arrows collide at the node, and
-conditioning on the child, or on an effect of the child, creates a
-conditional association between its parents {{cite:shrier_platt2008}} (Step 4).
+called a collider because the two arrows collide at the node
+{{cite:shrier_platt2008}} (Step 4). Conditioning on the collider, or on a
+descendant of it, removes that collider as a block on the path. The path
+is open only if no other block remains.
 
-Conditioning on a descendant of the collider does the same, usually more
-weakly: restricting to a level of a consequence of $C$ is partial
-information about $C$, and partial information opens the path partially.
+An open path permits association but does not guarantee it. The graphical
+rules do not rank the strength of any association induced by conditioning
+on the collider versus its descendant.
 Hernán and Robins add a medication caused by heart disease to their
 collider diagram: the two causes of heart disease are associated within
 levels of the medication too, because conditioning on a variable affected
