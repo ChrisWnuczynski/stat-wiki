@@ -3453,6 +3453,10 @@ PREVIEW_JS = r"""<div id="wiki-preview" role="tooltip" hidden></div>
     var left = Math.min(Math.max(8, r.left), window.innerWidth - w - 12);
     var top = r.bottom + 8;
     if (top + h > window.innerHeight - 8 && r.top - h - 8 > 8) top = r.top - h - 8;
+    // Neither side may have room for the whole card (a short viewport, or
+    // a link mid-page): clamp it inside the viewport instead of letting
+    // the tail run off the bottom. The body scrolls for the rest.
+    top = Math.min(Math.max(8, top), Math.max(8, window.innerHeight - h - 8));
     box.style.left = left + "px";
     box.style.top = top + "px";
   }

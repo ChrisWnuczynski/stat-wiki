@@ -371,6 +371,8 @@ a.term:hover {
   z-index: 2000;
   width: min(26rem, calc(100vw - 24px));
   max-height: 22rem;
+  max-height: min(22rem, calc(100vh - 16px));
+  max-height: min(22rem, calc(100dvh - 16px));
   overflow: hidden;
   background: var(--wiki-bg);
   border: 1px solid var(--wiki-border);
@@ -381,7 +383,21 @@ a.term:hover {
   line-height: 1.5;
 }
 
+/* The card is a flex column so the viewport cap lands on the body:
+   the title keeps its height and the body takes what is left. */
+#wiki-preview:not([hidden]) {
+  display: flex;
+  flex-direction: column;
+}
+
+#wiki-preview > div {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
 #wiki-preview .wp-title {
+  flex-shrink: 0;
   font-family: "Linux Libertine", Georgia, "Times New Roman", serif;
   font-size: 1.1rem;
   margin-bottom: 0.35rem;
@@ -399,9 +415,10 @@ a.term:hover {
 
 #wiki-preview .wp-body {
   max-height: 17.5rem;
-  overflow: hidden;
-  -webkit-mask-image: linear-gradient(to bottom, #000 80%, transparent);
-  mask-image: linear-gradient(to bottom, #000 80%, transparent);
+  min-height: 0;
+  overflow-y: auto;
+  /* No fade mask any more: the body scrolls, and the mask would wash
+     out the final lines exactly when they are scrolled into view. */
 }
 
 #wiki-preview p {
