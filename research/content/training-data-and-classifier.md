@@ -9,7 +9,7 @@ Write the random training sample as $D$ and the rule it produces as $g_D$. Under
 $$
 R(g_D\mid D)=P\{g_D(X)\ne Y\mid D\},
 $$
-where $(X,Y)$ is independent of $D$ and has the target law. The risk of the learning procedure is $E_D R(g_D\mid D)$. Apparent error instead evaluates $g_D$ on the pairs that determined it. Conditioning on $D$ fixes both the classifier and those pairs, so the apparent-error average cannot generally be treated as independent test observations. Decision trees are one concrete family of rules obtained by recursively partitioning predictor space.{{cite:loh2011_trees}} (p. 14, Introduction)
+where $(X,Y)$ is independent of $D$ and has the target law. The risk of the learning procedure is $\E_D R(g_D\mid D)$. Apparent error instead evaluates $g_D$ on the pairs that determined it. Conditioning on $D$ fixes both the classifier and those pairs, so the apparent-error average cannot generally be treated as independent test observations. Decision trees are one concrete family of rules obtained by recursively partitioning predictor space.{{cite:loh2011_trees}} (p. 14, Introduction)
 
 For a fixed $x$, conditional zero–one risk from choosing class $k$ is $1-P(Y=k\mid X=x)$. Minimising it chooses a class with largest posterior class probability. This derivation identifies the optimal population rule once those probabilities are known; training is the separate task of estimating a useful rule from finite observations. Classification and probability estimation are therefore related tasks with different outputs.{{cite:goodfellow_bengio_courville2016}} (§5.1.1, pp. 97–99)
 
