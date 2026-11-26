@@ -5,7 +5,7 @@ A screening programme may care about making any false declaration, or about the 
 ## Statement
 
 Let $V$ count rejected true null hypotheses and $R$ count all rejections in a fixed family. Define $Q=V/R$ when $R>0$ and $Q=0$ when $R=0$. Then
-$$\operatorname{FDR}=\E(Q)\le P(V\ge1)=\operatorname{FWER}.$$
+$$\operatorname{FDR}=\E(Q)\le \mathbb{P}(V\ge1)=\operatorname{FWER}.$$
 Thus any procedure controlling FWER at $\alpha$ also controls FDR at $\alpha$ at the same parameter configuration. Strong FWER control supplies this bound for every configuration of true and false nulls. Weak control under the complete null supplies only a complete-null statement.{{cite:benjamini_hochberg1995}} (§2.1, p.291)
 
 ## Proof
@@ -29,7 +29,7 @@ Every rejection is false, so the false-discovery proportion is one whenever any 
 ## Statistical use — A union-bound guarantee
 
 For $m$ tests with valid null p-values, Bonferroni rejects when $p_i\le\alpha/m$. If $I_0$ is the set of true nulls,
-$$P(V\ge1)\le\sum_{i\in I_0}P(p_i\le\alpha/m)
+$$\mathbb{P}(V\ge1)\le\sum_{i\in I_0}\mathbb{P}(p_i\le\alpha/m)
 \le |I_0|\alpha/m\le\alpha.$$
 The first step is the union bound, which follows from adding event indicators; no independence is required. With one hundred tests at $\alpha=0.05$, the cutoff is $0.0005$. The theorem then also gives FDR control.{{cite:grinstead_snell1997}} (§1.2, pp.20–23)
 
