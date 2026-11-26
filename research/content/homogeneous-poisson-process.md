@@ -15,7 +15,7 @@ The probability of no arrivals in $(s,s+h]$ is $e^{-\lambda h}$. Counts over adj
 
 ::: {.callout-note collapse="true" title="Proof"}
 ::: {.proof}
-The increment law gives $\Pr\{N(t+h)-N(t)=0\}=e^{-\lambda h}$ and $E\{N(t+h)-N(t)\}=\operatorname{Var}\{N(t+h)-N(t)\}=\lambda h$. Since $T_1>t$ exactly when $N(t)=0$, $\Pr(T_1>t)=e^{-\lambda t}$; differentiating its complement gives exponential density $\lambda e^{-\lambda t}$. Independent increments restart the same waiting calculation after each arrival, giving independent exponential gaps. For independent counts $A\sim\operatorname{Poisson}(\lambda_1h)$ and $B\sim\operatorname{Poisson}(\lambda_2h)$, multiply their probability-generating functions $e^{\lambda_1h(z-1)}$ and $e^{\lambda_2h(z-1)}$ to obtain the Poisson law of $A+B$ with mean $(\lambda_1+\lambda_2)h$.{{cite:dodge2008}} (p. 425, Poisson distribution)
+The increment law gives $\Pr\{N(t+h)-N(t)=0\}=e^{-\lambda h}$ and $\E\{N(t+h)-N(t)\}=\operatorname{Var}\{N(t+h)-N(t)\}=\lambda h$. Since $T_1>t$ exactly when $N(t)=0$, $\Pr(T_1>t)=e^{-\lambda t}$; differentiating its complement gives exponential density $\lambda e^{-\lambda t}$. Independent increments restart the same waiting calculation after each arrival, giving independent exponential gaps. For independent counts $A\sim\operatorname{Poisson}(\lambda_1h)$ and $B\sim\operatorname{Poisson}(\lambda_2h)$, multiply their probability-generating functions $e^{\lambda_1h(z-1)}$ and $e^{\lambda_2h(z-1)}$ to obtain the Poisson law of $A+B$ with mean $(\lambda_1+\lambda_2)h$.{{cite:dodge2008}} (p. 425, Poisson distribution)
 :::
 :::
 
