@@ -7,10 +7,10 @@ Under the standard rules, the prize is uniformly placed, the contestant picks a 
 The distinction resembles other selection problems: observing a possible outcome does not tell us its likelihood under each hidden state until the observation mechanism is specified. Bayes' formula combines prior probability and that likelihood, then normalizes over compatible states.{{cite:downey2020_thinkbayes2}} (Ch. 2, The Monty Hall Problem)
 
 ## Properties — A host with a preferred door
-Fix the contestant's choice as $A$ and let $q=P(\text{host opens }B\mid\text{prize at }A)$. If the prize is at $C$, the standard host must open $B$; if it is at $B$, the host cannot open $B$. Hence
-$$P(A\mid B\text{ opened})=\frac{q}{q+1},\qquad
-P(C\mid B\text{ opened})=\frac1{q+1}.$$
-The denominator comes from $P(B\text{ opened})=(q+1)/3$. At $q=1/2$ these are $1/3,2/3$. At $q=1$ they are $1/2,1/2$ for this observed branch. The unconditional switch success probability remains $2/3$, since the event that the first pick was wrong has not changed.{{cite:grinstead_snell1997}} (§4.1, conditional and unconditional formulations)
+Fix the contestant's choice as $A$ and let $q=\mathbb{P}(\text{host opens }B\mid\text{prize at }A)$. If the prize is at $C$, the standard host must open $B$; if it is at $B$, the host cannot open $B$. Hence
+$$\mathbb{P}(A\mid B\text{ opened})=\frac{q}{q+1},\qquad
+\mathbb{P}(C\mid B\text{ opened})=\frac1{q+1}.$$
+The denominator comes from $\mathbb{P}(B\text{ opened})=(q+1)/3$. At $q=1/2$ these are $1/3,2/3$. At $q=1$ they are $1/2,1/2$ for this observed branch. The unconditional switch success probability remains $2/3$, since the event that the first pick was wrong has not changed.{{cite:grinstead_snell1997}} (§4.1, conditional and unconditional formulations)
 
 More generally, if prior door probabilities are $a,b,c$ summing to one, the same observation has probability $aq+c$ and the posterior chance of winning by switching to $C$ is $c/(aq+c)$ when this denominator is positive. This follows by applying the product rule to the mutually exclusive states and dividing by their total. It also shows why a nonuniform prize placement can change the answer.
 
@@ -30,7 +30,7 @@ With $N$ equally likely doors, suppose a knowledgeable host always opens $N-2$ u
 
 ## Assumptions and limits — The likelihood of the opened door
 Fix the contestant's first choice as door $A$. Let the prize be uniformly placed, and let $q$ be the probability that a knowledgeable host opens $B$ when the prize is behind $A$ and both $B$ and $C$ are available. If the prize is behind $C$, the host must open $B$. If the prize is behind $B$, the host cannot open $B$. The law of total probability therefore gives
-$$P(\text{host opens }B)=\frac13 q+\frac13\cdot 0+\frac13\cdot 1=\frac{q+1}3.$$
+$$\mathbb{P}(\text{host opens }B)=\frac13 q+\frac13\cdot 0+\frac13\cdot 1=\frac{q+1}3.$$
 Bayes' formula then divides the joint probabilities by this margin. The posterior probability that the prize is behind $A$ is $q/(q+1)$, and the posterior probability that it is behind $C$ is $1/(q+1)$. At $q=1/2$ these are $1/3$ and $2/3$. At $q=1$, the host opens $B$ whenever the prize is behind $A$, and the two closed doors that remain after $B$ is opened are equally likely: both posteriors equal $1/2$. The unconditional always-switch strategy still wins with probability $2/3$, because it wins on the event that the first pick was wrong, an event of probability $2/3$ that does not depend on which door the host preferred.{{cite:grinstead_snell1997}} (§4.1, conditional and unconditional formulations)
 
 The same arithmetic accepts unequal prize probabilities $a,b,c$. The probability of the observed open door is $aq+c$, and the posterior probability of winning by switching to $C$ is $c/(aq+c)$ when the denominator is positive. A prize that is more often behind $C$ raises the value of switching. A prize that is more often behind the contestant's first choice lowers it. The three-door puzzle with $a=b=c=1/3$ is one point in that family.{{cite:grinstead_snell1997}} (§4.1, pp. 137–139)
