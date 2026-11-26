@@ -37,7 +37,7 @@ Suppose daily service requests are modelled with $\mu=3$ and $\nu=1$. Their vari
 **Your turn.** A count has $\mu=2$ and $\nu=2$. Find its variance and its probabilities of zero and one count in the mean–dispersion parameterisation.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The variance is $2+2^2/2=4$. Here $p=\nu/(\mu+\nu)=1/2$, so $P(X=0)=p^2=1/4$ and $P(X=1)=2p^2(1-p)=1/4$. Both probabilities are equal, but the distribution still has a long positive tail.
+The variance is $2+2^2/2=4$. Here $p=\nu/(\mu+\nu)=1/2$, so $\mathbb{P}(X=0)=p^2=1/4$ and $\mathbb{P}(X=1)=2p^2(1-p)=1/4$. Both probabilities are equal, but the distribution still has a long positive tail.
 :::
 
 ## Common misconceptions — “Negative” does not mean a negative count
