@@ -7,7 +7,7 @@ Several test scores may move together through a few latent abilities while each 
 A Gaussian factor model is
 $$X=\mu+\Lambda F+\epsilon,\qquad F\sim N_q(0,I_q),\quad
  \epsilon\sim N_p(0,\Psi),\quad F\perp\epsilon,$$
-where $\Psi$ is diagonal with nonnegative entries. Hence $E(X)=\mu$ and $\Sigma=\Lambda\Lambda^T+\Psi$. Off-diagonal covariances come from the factors; the diagonal residual matrix allows different noise levels for different coordinates. Probabilistic PCA uses the more restrictive $\Psi=\sigma^2I$.{{cite:deisenroth_faisal_ong2020}} (§10.7, p.346)
+where $\Psi$ is diagonal with nonnegative entries. Hence $\E(X)=\mu$ and $\Sigma=\Lambda\Lambda^T+\Psi$. Off-diagonal covariances come from the factors; the diagonal residual matrix allows different noise levels for different coordinates. Probabilistic PCA uses the more restrictive $\Psi=\sigma^2I$.{{cite:deisenroth_faisal_ong2020}} (§10.7, p.346)
 
 ## Properties — Rotation and identification
 
