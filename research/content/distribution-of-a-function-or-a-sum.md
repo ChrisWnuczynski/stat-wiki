@@ -13,7 +13,7 @@ Differentiate this CDF wherever it is absolutely continuous. For a differentiabl
 Let $X$ be uniform on $[-1,1]$ and let $Y=X^2$. For $0<y<1$,
 $$P(Y\le y)=P(-\sqrt y\le X\le\sqrt y)=\sqrt y,
 \qquad f_Y(y)=\frac1{2\sqrt y}.$$
-The CDF is zero below zero and one above one. Thus $P(Y\le1/4)=1/2$ and $E(Y)=1/3$. Using only $+\sqrt y$ would account for half the input interval. The density diverges near zero but its integral is one.{{cite:deisenroth_faisal_ong2020}} (§6.7.1, pp.215–216)
+The CDF is zero below zero and one above one. Thus $P(Y\le1/4)=1/2$ and $\E(Y)=1/3$. Using only $+\sqrt y$ would account for half the input interval. The density diverges near zero but its integral is one.{{cite:deisenroth_faisal_ong2020}} (§6.7.1, pp.215–216)
 
 **Your turn.** If $X\sim\operatorname{Exp}(1/2)$ and $Y=1+2X$, find the density and mean of $Y$.
 
@@ -49,5 +49,5 @@ For $X\sim\operatorname{Exp}(1/2)$ and $Y=1+2X$, substitute $x=(y-1)/2$ and mult
 ### [Two independent exponentials](../questions/ex-prob-independent-exponentials.qmd) {#self-check-ex-prob-independent-exponentials}
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The density $2e^{-x-2y}$ on the positive quadrant factors into exponential densities with rates one and two. Independence gives $E(XY)=1/2$. Also $\operatorname{Cov}(X+Y,X-Y)=\operatorname{Var}(X)-\operatorname{Var}(Y)=1-1/4=3/4$.
+The density $2e^{-x-2y}$ on the positive quadrant factors into exponential densities with rates one and two. Independence gives $\E(XY)=1/2$. Also $\operatorname{Cov}(X+Y,X-Y)=\operatorname{Var}(X)-\operatorname{Var}(Y)=1-1/4=3/4$.
 :::
