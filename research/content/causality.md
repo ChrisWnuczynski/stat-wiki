@@ -8,7 +8,7 @@ A patient dies five days after a heart transplant. That fact alone does not say 
 
 ## Definition
 
-For a binary treatment, write $Y^{a=1}$ for the outcome under treatment and $Y^{a=0}$ for the outcome under no treatment. The treatment has a causal effect on a person's outcome when $Y^{a=1}\neq Y^{a=0}$. In a population the average effect is present when the means differ, $\mathrm{E}[Y^{a=1}]\neq\mathrm{E}[Y^{a=0}]$. For a binary outcome the mean is a risk, so the average contrast is a difference of risks.{{cite:hernan_robins2020}} (pp. 4–5)
+For a binary treatment, write $Y^{a=1}$ for the outcome under treatment and $Y^{a=0}$ for the outcome under no treatment. The treatment has a causal effect on a person's outcome when $Y^{a=1}\neq Y^{a=0}$. In a population the average effect is present when the means differ, $\E[Y^{a=1}]\neq\E[Y^{a=0}]$. For a binary outcome the mean is a risk, so the average contrast is a difference of risks.{{cite:hernan_robins2020}} (pp. 4–5)
 
 One of the two potential outcomes matches the outcome that was actually seen. If the person received treatment $A=a$, the observed outcome equals $Y^{a}$. The other potential outcome is not seen. Individual effects are therefore not identified from the observed data: they are not a function of the outcomes that were recorded.{{cite:hernan_robins2020}} (p. 4)
 
