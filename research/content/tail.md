@@ -8,7 +8,7 @@ Cumulative SAT scores are described by a normal model with mean 1,100 and standa
 
 ## Definition
 
-For a random variable $X$ and a cutoff $c$, the upper-tail probability is $P(X>c)$ and the lower-tail probability is $P(X\le c)$. When $X$ is continuous these two probabilities add to 1. For a normal law the calculation is done on the standardised value $z=(c-\mu)/\sigma$, and the lower tail at $z$ is the area of the standard normal to the left of $z$. At $z=1$, that lower tail is 0.8413447.{{cite:openintro2019}} (Ch. 4, §4.1.3) An exponential law with parameter $\theta>0$ has an explicit upper tail. Its distribution function is $1-e^{-\theta x}$, so $P(X>x)=e^{-\theta x}$ for $x>0$. The mean is $1/\theta$.{{cite:dodge2008}} (p. 194)
+For a random variable $X$ and a cutoff $c$, the upper-tail probability is $\mathbb{P}(X>c)$ and the lower-tail probability is $\mathbb{P}(X\le c)$. When $X$ is continuous these two probabilities add to 1. For a normal law the calculation is done on the standardised value $z=(c-\mu)/\sigma$, and the lower tail at $z$ is the area of the standard normal to the left of $z$. At $z=1$, that lower tail is 0.8413447.{{cite:openintro2019}} (Ch. 4, §4.1.3) An exponential law with parameter $\theta>0$ has an explicit upper tail. Its distribution function is $1-e^{-\theta x}$, so $\mathbb{P}(X>x)=e^{-\theta x}$ for $x>0$. The mean is $1/\theta$.{{cite:dodge2008}} (p. 194)
 
 A long tail in a sample is a shape, not yet a probability. It is the direction in which a histogram decays slowly. Data that trail off to the right, and have a longer right tail, are right-skewed. Data that trail off to the left have a long left tail and are left-skewed. A symmetric histogram trails off in both directions together. Negative values of the skewness coefficient indicate data skewed left, meaning the left tail is long relative to the right tail. Positive values indicate data skewed right.{{cite:openintro2019}} (Ch. 2, §2.1.3){{cite:nist_skewness2002}} (§1.3.5.11, “Definition of Skewness”)
 
@@ -45,7 +45,7 @@ The normal upper tail is $1-0.8413447=0.1586553$. The unit-exponential upper tai
 
 ## Common misconceptions
 
-The lower tail at a cutoff is the proportion below it, and the upper tail is the proportion above it. Quoting 0.6736 as the chance of exceeding 1,190 swaps those two regions. A long right tail on a histogram is a description of shape. It is not the numerical value of $P(X>c)$ until a cutoff and a distribution, or an empirical proportion, have been chosen.{{cite:openintro2019}} (Ch. 2, §2.1.3; Ch. 4, §4.1.4)
+The lower tail at a cutoff is the proportion below it, and the upper tail is the proportion above it. Quoting 0.6736 as the chance of exceeding 1,190 swaps those two regions. A long right tail on a histogram is a description of shape. It is not the numerical value of $\mathbb{P}(X>c)$ until a cutoff and a distribution, or an empirical proportion, have been chosen.{{cite:openintro2019}} (Ch. 2, §2.1.3; Ch. 4, §4.1.4)
 
 Skewness and kurtosis also answer different questions. Negative skewness signs a long left tail, and positive skewness a long right tail. Kurtosis compares the heaviness of the tails with a normal curve, whose kurtosis is 3. A symmetric heavy-tailed distribution can have skewness near zero and kurtosis well above 3.{{cite:nist_skewness2002}} (§1.3.5.11)
 
