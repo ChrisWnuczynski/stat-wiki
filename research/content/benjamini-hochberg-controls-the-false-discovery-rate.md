@@ -3,14 +3,14 @@ When many hypotheses are screened, a researcher may be willing to tolerate some 
 
 ## Statement
 Order $m$ p-values as $p_{(1)}\le\cdots\le p_{(m)}$. For $0<q<1$, the linear step-up procedure takes $R=\max\{r:p_{(r)}\le qr/m\}$, or $R=0$ if the set is empty, and rejects the first $R$ hypotheses. If all p-values are mutually independent and every true-null p-value is super-uniform, then
-$$E\left\{\frac{V}{R\vee1}\right\}\le\frac{m_0}{m}q.$$
+$$\E\left\{\frac{V}{R\vee1}\right\}\le\frac{m_0}{m}q.$$
 For exactly uniform null p-values, the expectation equals $(m_0/m)q$. The number $m_0$ is the unknown count of true null hypotheses and $V$ counts their rejections.{{cite:blanchard_roquain2009}} (§2.3, Definition 4 and Theorem 6)
 
 ## Proof
 Fix a true null index $i$, and let $R_i^0$ be the rejection count when its p-value is replaced by zero. It depends only on the other p-values and is at least one. The step-up rule implies that $i$ is rejected precisely when $p_i\le qR_i^0/m$; on that event the rejection count equals $R_i^0$. Lowering an already rejected p-value cannot change feasibility at any larger step, since it was already below all those larger thresholds. Conversely, raising zero to a value below the $R_i^0$ threshold preserves that feasible step and cannot create a larger one.
 
 Conditional on the other p-values, independence and super-uniformity give
-$$E\left\{\frac{\mathbf1\{i\text{ rejected}\}}{R\vee1}\Bigm|p_{-i}\right\}=\frac{\Pr(p_i\le qR_i^0/m)}{R_i^0}\le\frac qm.$$
+$$\E\left\{\frac{\mathbf1\{i\text{ rejected}\}}{R\vee1}\Bigm|p_{-i}\right\}=\frac{\Pr(p_i\le qR_i^0/m)}{R_i^0}\le\frac qm.$$
 Summing this inequality over the $m_0$ true nulls proves the result. Exactly uniform null p-values turn each inequality into equality. The argument uses the joint independence assumption when conditioning on the other p-values.{{cite:blanchard_roquain2009}} (§2.3, Theorem 6; §6, independent-p-value arguments)
 
 ## Worked example
