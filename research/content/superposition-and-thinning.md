@@ -4,14 +4,14 @@ A service desk receives requests from two independent sources and then sends eac
 ## Properties — Add counts, then check increments
 Let $N_1,N_2$ be independent homogeneous Poisson processes with rates $\lambda_1,\lambda_2$. On an interval of length $t$, the probability generating function of their sum is
 $$
-E\{z^{N_1(t)+N_2(t)}\}=e^{\lambda_1t(z-1)}e^{\lambda_2t(z-1)}
+\E\{z^{N_1(t)+N_2(t)}\}=e^{\lambda_1t(z-1)}e^{\lambda_2t(z-1)}
 =e^{(\lambda_1+\lambda_2)t(z-1)}.
 $$
 Thus the summed count is Poisson with mean $(\lambda_1+\lambda_2)t$. Counts on disjoint intervals remain independent, since the summands on those intervals form independent groups. Together these properties prove that the superposition is a Poisson process, rather than merely giving the right one-time count distribution.{{cite:siegrist2022_poisson_splitting}} (§ “Superposition”, Two Processes)
 
 For thinning, independently mark every arrival with probability $r$, independently also of the arrival process. Write $A(t)$ for selected arrivals and $B(t)$ for the rest. Given $N(t)=n$, their joint generating function is $(rs+(1-r)u)^n$. Averaging over the Poisson total yields
 $$
-E\{s^{A(t)}u^{B(t)}\}=\exp\{\lambda rt(s-1)\}\exp\{\lambda(1-r)t(u-1)\}.
+\E\{s^{A(t)}u^{B(t)}\}=\exp\{\lambda rt(s-1)\}\exp\{\lambda(1-r)t(u-1)\}.
 $$
 The factorisation establishes independent Poisson counts of rates $r\lambda$ and $(1-r)\lambda$. Applying the same argument to disjoint intervals establishes independence of the two entire processes.{{cite:durrett2019}} (§3.7.2, Thm. 3.7.4, eq. 3.7.2, pp. 178–179)
 
