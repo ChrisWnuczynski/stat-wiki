@@ -13,7 +13,7 @@ Under regularity conditions, notably a likelihood continuous in the parameter an
 A parallel limit for sample proportions is the classical central limit theorem. When observations are independent and the sample is large enough that $np\ge 10$ and $n(1-p)\ge 10$, the sample proportion $\hat p$ is approximately normal with mean $p$ and standard error $\sqrt{p(1-p)/n}$. The de Moivre–Laplace theorem is the binomial case of that limit: a binomial count, written as a sum of Bernoulli trials, has a standardised version whose distribution function approaches the standard normal as $n$ grows. The approximation is
 
 $$
-P(X_n \ge x) \approx 1-\Phi\left(\frac{x-\tfrac12-np}{\sqrt{npq}}\right),
+\mathbb{P}(X_n \ge x) \approx 1-\Phi\left(\frac{x-\tfrac12-np}{\sqrt{npq}}\right),
 $$
 
 
