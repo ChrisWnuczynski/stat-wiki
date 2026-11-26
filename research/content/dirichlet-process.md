@@ -218,10 +218,10 @@ sampling independence holds given the shared random measure, and it
 is the integration over $G$ that makes the sequence dependent. The
 sequence is [exchangeable](exchangeability.qmd), so it can be
 described by its successive conditionals, which have a closed form. Blackwell and
-MacQueen define a Pólya sequence by $P(X_1 \in B) =
+MacQueen define a Pólya sequence by $\mathbb{P}(X_1 \in B) =
 \alpha(B)/\alpha(\mathcal{X})$ and
 
-$$P(X_{n+1} \in B \mid X_1, \dots, X_n) =
+$$\mathbb{P}(X_{n+1} \in B \mid X_1, \dots, X_n) =
 \frac{\alpha(B) + \sum_{i=1}^{n} \delta_{X_i}(B)}{\alpha(\mathcal{X}) + n}$$
 
 for every measurable set $B$, where $\delta_{x}(B)$ is one if $x \in B$
@@ -373,9 +373,9 @@ the atom count.
 customers are seated with three at one table and two at another. For
 the sixth customer the denominator is $\alpha + n = 2 + 5 = 7$, so
 
-$$P(\text{join the table of 3}) = \frac{3}{7} \approx 0.428571, \qquad
-P(\text{join the table of 2}) = \frac{2}{7} \approx 0.285714, \qquad
-P(\text{new table}) = \frac{2}{7} \approx 0.285714.$$
+$$\mathbb{P}(\text{join the table of 3}) = \frac{3}{7} \approx 0.428571, \qquad
+\mathbb{P}(\text{join the table of 2}) = \frac{2}{7} \approx 0.285714, \qquad
+\mathbb{P}(\text{new table}) = \frac{2}{7} \approx 0.285714.$$
 
 The probabilities sum to $3/7 + 2/7 + 2/7 = 1$. A new table is exactly
 as probable as joining the smaller table, because $\alpha = 2$ gives
@@ -434,7 +434,7 @@ four observations. The posterior mean is
 $$\E[G(A) \mid \text{data}] = \frac{3 \times \frac{1}{2} + 3}{7}
 = \frac{9}{14} \approx 0.642857.$$
 
-Predictively, $P(X_5 = 0.2 \mid \text{data}) = 3/7$, $P(X_5 = 0.7
+Predictively, $\mathbb{P}(X_5 = 0.2 \mid \text{data}) = 3/7$, $\mathbb{P}(X_5 = 0.7
 \mid \text{data}) = 1/7$, and the probability that a new value falls
 in $A$ is $(3/7)(1/2) = 3/14$; joining the atom in $A$ and drawing a new
 value in $A$ give $3/7 + 3/14 = 9/14$, agreeing with the posterior
