@@ -25,7 +25,7 @@ The efficiency is $2/3$, so procedure two needs approximately $3/2$ as many obse
 ## Assumptions and limits — Weak limits do not control rare large errors
 A centred asymptotic distribution alone does not ensure that finite-sample bias is smaller than $n^{-1/2}$ or that $n$ times mean squared error converges to its variance constant. Rare extreme values can be invisible to weak convergence but dominate moments. Moment comparisons need corresponding integrability conditions.{{cite:durrett2019}} (§3.4, p. 152)
 
-For example, $R_n=n\mathbf1\{U\le1/n\}$ with $U$ uniform on $(0,1)$ converges to zero in probability, yet $ER_n=1$ and $ER_n^2=n$. Adding $R_n$ to an asymptotically normal estimator leaves its weak limit unchanged even after multiplication by $\sqrt n$, since $P(R_n\ne0)=1/n\to0$. Its finite-sample bias need not disappear. The deterministic addition $1/n$ has a vanishing effect after multiplication by $\sqrt n$, although it changes finite-sample bias.
+For example, $R_n=n\mathbf1\{U\le1/n\}$ with $U$ uniform on $(0,1)$ converges to zero in probability, yet $\E R_n=1$ and $\E R_n^2=n$. Adding $R_n$ to an asymptotically normal estimator leaves its weak limit unchanged even after multiplication by $\sqrt n$, since $P(R_n\ne0)=1/n\to0$. Its finite-sample bias need not disappear. The deterministic addition $1/n$ has a vanishing effect after multiplication by $\sqrt n$, although it changes finite-sample bias.
 
 ## Check yourself
 
@@ -46,5 +46,5 @@ The leading sample-size ratio is $\pi/2$. The calculation gives $100.530965$, ro
 Compute the first two moments and probability limit of $R_n=n\mathbf1\{U\le1/n\}$.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-$ER_n=1$ and $ER_n^2=n$. For each positive $\varepsilon$ and sufficiently large $n$, $P(R_n>\varepsilon)=1/n\to0$. It therefore converges in probability but not in $L^1$ or $L^2$. For every $U>0$, it is eventually zero, so it also converges almost surely.
+$\E R_n=1$ and $\E R_n^2=n$. For each positive $\varepsilon$ and sufficiently large $n$, $P(R_n>\varepsilon)=1/n\to0$. It therefore converges in probability but not in $L^1$ or $L^2$. For every $U>0$, it is eventually zero, so it also converges almost surely.
 :::
