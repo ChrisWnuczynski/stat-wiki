@@ -6,7 +6,7 @@ Calls to a service centre become more frequent through the morning. A constant-r
 
 For a nonnegative locally integrable function $\lambda$, define $\Lambda(t)=\int_0^t\lambda(u)\,du$. The counting process starts at zero, has independent increments, and satisfies
 $$
-P\{N(t)-N(s)=k\}=e^{-m}\frac{m^k}{k!},\qquad
+\mathbb{P}\{N(t)-N(s)=k\}=e^{-m}\frac{m^k}{k!},\qquad
 m=\Lambda(t)-\Lambda(s),\quad 0\le s<t.
 $$
 In particular, the increment mean and variance both equal $m$. Equal calendar lengths can have different integrated intensities; equal integrated intensities have the same count law. Changes in $\lambda$ on sets of Lebesgue measure zero do not change this model.{{cite:siegrist_nhpp2022}} (§ “Definition and Basic Properties”){{cite:pishro_nik2014}} (§11.1.4)
