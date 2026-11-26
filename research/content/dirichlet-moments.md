@@ -6,7 +6,7 @@ A restaurant estimates the shares of orders in three categories. Knowing each ex
 
 Write $A=\sum_k\alpha_k$ and $m_k=\alpha_k/A$. For nonnegative integer powers $r_k$, with $r_+=\sum_k r_k$,
 $$
- E\!\left[\prod_kP_k^{r_k}\right]
+ \E\!\left[\prod_kP_k^{r_k}\right]
  =\frac{\Gamma(A)}{\Gamma(A+r_+)}
    \prod_k\frac{\Gamma(\alpha_k+r_k)}{\Gamma(\alpha_k)}.
 $$
@@ -34,12 +34,12 @@ Let $B(\alpha)=\prod_k\Gamma(\alpha_k)/\Gamma(A)$. Multiplication by $\prod_kp_k
 
 ## Worked example
 
-For $P\sim\operatorname{Dirichlet}(2,3,5)$, $A=10$ and $E(P)=(0.2,0.3,0.5)$. The variances are $(16,21,25)/1100$ and $\operatorname{Cov}(P_1,P_2)=-6/1100$. Consequently,
+For $P\sim\operatorname{Dirichlet}(2,3,5)$, $A=10$ and $\E(P)=(0.2,0.3,0.5)$. The variances are $(16,21,25)/1100$ and $\operatorname{Cov}(P_1,P_2)=-6/1100$. Consequently,
 $$
- E(P_1-P_2)=-0.1,\qquad
+ \E(P_1-P_2)=-0.1,\qquad
  \operatorname{Var}(P_1-P_2)=\frac{49}{1100}\approx0.04455.
 $$
-In contrast, $\operatorname{Var}(P_1+P_2)=25/1100=1/44$. The mixed moment $E(P_1^2P_2)=3/220$. Doubling the three parameters leaves the mean unchanged and multiplies every variance by $11/21$. These calculations use normaliser ratios rather than an independence approximation.{{cite:blei_ng_jordan2003}} (§3, p.996, Eq.1)
+In contrast, $\operatorname{Var}(P_1+P_2)=25/1100=1/44$. The mixed moment $\E(P_1^2P_2)=3/220$. Doubling the three parameters leaves the mean unchanged and multiplies every variance by $11/21$. These calculations use normaliser ratios rather than an independence approximation.{{cite:blei_ng_jordan2003}} (§3, p.996, Eq.1)
 
 **Your turn.** For $\operatorname{Dirichlet}(1,1,1)$, find the mean and variance of one share and the correlation between two different shares.
 
@@ -52,8 +52,8 @@ Each mean is $1/3$, each variance is $1/18$, and each cross-covariance is $-1/36
 ### Log probabilities
 
 The expected logarithm is a different summary from the logarithm of the expected probability:
-$$E(\log P_k)=\psi(\alpha_k)-\psi(A).$$
-Here $\psi$ is the derivative of $\log\Gamma$. Differentiating the log normaliser gives this identity. For the first share in the worked example it equals $-1.82897$, whereas $\log E(P_1)=\log(0.2)\approx-1.60944$. The inequality agrees with concavity of the logarithm.{{cite:blei_ng_jordan2003}} (§A.1, p.1018)
+$$\E(\log P_k)=\psi(\alpha_k)-\psi(A).$$
+Here $\psi$ is the derivative of $\log\Gamma$. Differentiating the log normaliser gives this identity. For the first share in the worked example it equals $-1.82897$, whereas $\log \E(P_1)=\log(0.2)\approx-1.60944$. The inequality agrees with concavity of the logarithm.{{cite:blei_ng_jordan2003}} (§A.1, p.1018)
 
 ## Statistical use
 
