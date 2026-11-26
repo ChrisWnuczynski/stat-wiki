@@ -10,7 +10,7 @@ Conditional independence of animals given a shared rate is different from margin
 Multiplying the binomial likelihood by the beta density gives kernel
 $$\theta_j^{\alpha+y_j-1}(1-\theta_j)^{\beta+n_j-y_j-1}.$$
 The conditional posterior is therefore $\operatorname{Beta}(\alpha+y_j,\beta+n_j-y_j)$. Its mean can be expressed as
-$$E(\theta_j\mid y_j,\alpha,\beta)=\frac{n_j}{n_j+\kappa}\frac{y_j}{n_j}+\frac\kappa{n_j+\kappa}m.$$
+$$\E(\theta_j\mid y_j,\alpha,\beta)=\frac{n_j}{n_j+\kappa}\frac{y_j}{n_j}+\frac\kappa{n_j+\kappa}m.$$
 For fixed hyperparameters, smaller groups receive more weight on the population mean. This is an exact algebraic weighting identity, not a guarantee that the population mean is scientifically appropriate for every group.
 
 Integrating the likelihood instead gives the marginal count mass
