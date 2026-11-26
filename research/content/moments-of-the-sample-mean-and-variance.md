@@ -30,6 +30,9 @@ $$
 $$
 Thus $S^2$ can be unbiased while itself having infinite variance. The second-moment and fourth-moment assumptions do different work.{{cite:siegrist2022_sample_variance}} (§6.5, “The Standard Sample Variance”, variance formula)
 
+## Common misconceptions
+Unbiasedness is a statement about the average over repeated samples, not about the sample in hand. $E(S^2)=\sigma^2$ does not make any one computed $S^2$ close to $\sigma^2$: in the discrete example worked in this article, $\operatorname{Var}(S^2)=3/8$ at $n=2$ against a mean of $1/2$, so individual values scatter widely around the parameter they estimate. The same caution applies to $\overline X$: $E(\overline X)=\mu$ locates the centre of its sampling distribution, while $\operatorname{Var}(\overline X)=\sigma^2/n$ measures how far a single sample mean typically falls from that centre.{{cite:siegrist2022_sample_variance}} (§6.5, “The Standard Sample Variance”)
+
 ## Worked example
 Let $X$ take $-1,0,1$ with probabilities $1/4,1/2,1/4$. Then $\mu=0$, $\sigma^2=1/2$, and $\mu_4=1/2$. With $n=2$, direct enumeration of the nine possible ordered sample pairs gives
 $$
@@ -42,3 +45,6 @@ The biased divisor-two variance has expectation $1/4$. This discrete population 
 ::: {.callout-tip collapse="true" title="Answer"}
 They are $(1/2)/4=1/8$ and $(3/4)(1/2)=3/8$, respectively.
 :::
+
+## Connections
+These moments are the inputs on which the normal-sample laws rest. The [sample variance and standard deviation](sample-variance-and-standard-deviation.qmd) are the statistics whose expectations are computed here; under normality the scaled variance $(n-1)S^2/\sigma^2$ follows the [chi-squared distribution](chi-squared-distribution.qmd), and the joint behaviour of $\overline X$ and the scatter is the [sampling law of the normal mean and scatter](sampling-law-of-the-normal-mean-and-scatter.qmd). The moment identities themselves need only a finite variance; the distributional statements add the normal assumption.{{cite:siegrist2022_sample_variance}} (§6.5, “The Standard Sample Variance”)
