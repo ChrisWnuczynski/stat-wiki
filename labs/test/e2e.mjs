@@ -256,6 +256,52 @@ try {
   assert.equal(await page.locator("#coverage [data-sample='0']").getAttribute("data-lower"), first);
   assert.match(await page.locator("#coverage .readout-line").textContent(), /Exact/);
 
+  step("the normal approximation is a bar at the final repetition, not a band over the path");
+  async function finalBand() {
+    return page.evaluate(() => {
+      const svg = document.querySelectorAll("#coverage svg")[1];
+      const marker = svg.querySelector("[data-final-band]");
+      // Grid lines run from the left edge of the frame to its right edge.
+      const right = Math.max(...[...svg.querySelectorAll("line")].filter((line) => !line.closest("[data-final-band]")).map((line) => Number(line.getAttribute("x2"))));
+      return {
+        rects: svg.querySelectorAll("rect[fill-opacity]").length,
+        count: marker ? Number(marker.dataset.finalBand) : null,
+        lower: marker ? Number(marker.dataset.lower) : null,
+        upper: marker ? Number(marker.dataset.upper) : null,
+        x: marker ? Number(marker.querySelector("line").getAttribute("x1")) : null,
+        right,
+        title: marker ? marker.querySelector("title").textContent : "",
+        legend: svg.closest("section").querySelector(".legend-row").textContent,
+        note: [...svg.closest("section").querySelectorAll(".graph-note")].map((node) => node.textContent).join(" "),
+      };
+    });
+  }
+  const intervals = page.getByLabel("Number of intervals", { exact: true });
+  await intervals.fill("200");
+  await page.waitForFunction(() => document.querySelectorAll("#coverage [data-sample]").length === 200);
+  const at200 = await finalBand();
+  assert.equal(at200.rects, 0, "no shaded band across the whole running trace");
+  assert.equal(at200.count, 200);
+  const halfWidth = 1.959963984540054 * Math.sqrt(0.95 * 0.05 / 200);
+  assert.ok(Math.abs(at200.lower - (0.95 - halfWidth)) < 1e-9 && Math.abs(at200.upper - (0.95 + halfWidth)) < 1e-9, JSON.stringify(at200));
+  assert.ok(Math.abs(at200.x - at200.right) < 0.5, `the bar sits at the last repetition: ${at200.x} vs ${at200.right}`);
+  assert.match(at200.title, /after 200 intervals.*Not a confidence interval/);
+  assert.match(at200.legend, /Normal approximation for the final fraction \(200 intervals\)/);
+  assert.match(at200.note, /bar at interval 200 is a normal approximation for the final hit fraction/);
+  await intervals.fill("1");
+  await page.waitForFunction(() => document.querySelectorAll("#coverage [data-sample]").length === 1);
+  const at1 = await finalBand();
+  assert.equal(at1.rects, 0);
+  assert.equal(at1.count, 1);
+  assert.ok(at1.lower > 0.5 && at1.upper === 1, JSON.stringify(at1));
+  await intervals.fill("0");
+  await page.locator("#coverage .graph-note", { hasText: "No intervals drawn." }).waitFor();
+  const at0 = await finalBand();
+  assert.equal(at0.count, null, "no bar without intervals");
+  assert.doesNotMatch(at0.legend, /Normal approximation/);
+  await intervals.fill("40");
+  await page.waitForFunction(() => document.querySelectorAll("#coverage [data-sample]").length === 40);
+
   step("no intervals is an empty figure, not a fake fraction");
   await page.getByLabel("Number of intervals", { exact: true }).fill("0");
   await page.locator("#coverage .graph-note", { hasText: "No intervals drawn." }).waitFor();

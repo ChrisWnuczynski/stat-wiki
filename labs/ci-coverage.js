@@ -19,7 +19,7 @@ import {
   validate,
 } from "./coverage-math.js";
 import { formatNumber } from "./stat-math.js";
-import { band, chartColors, createPlot, drawAxes, message, niceTicks, plotBox, rule, scaleLinear, stroke, svgEl } from "./svg-chart.js";
+import { chartColors, createPlot, drawAxes, message, niceTicks, plotBox, rule, scaleLinear, stroke, svgEl } from "./svg-chart.js";
 
 export function coveragePointTitle(method, point, open) {
   // Keep each breakpoint distinct from nearby cuts and the domain ends.
@@ -256,14 +256,16 @@ export function mount(root) {
       const mc = cachedMonteCarlo(cfg);
       reference = mc.coverage;
       referenceLabel = "Monte Carlo";
-      runningNote.textContent = `Monte Carlo, ${mc.reps} repetitions, standard error ${formatNumber(mc.se)}. The normal-theory interval is not exact for an exponential sample. The shaded band is a normal approximation to the realised fraction.`;
+      runningNote.textContent = `Monte Carlo, ${mc.reps} repetitions, standard error ${formatNumber(mc.se)}. The normal-theory interval is not exact for an exponential sample. The bar at the last interval is a normal approximation for the final hit fraction only, not a band for the whole path.`;
     } else {
       reference = exactMeanCoverage(cfg.n, cfg.level, cfg.method);
       referenceLabel = cfg.method === "t" ? "Exact" : "Exact under normality";
       const claim = cfg.method === "z-with-s"
         ? "z with s uses the normal quantile. Under normality the coverage is the t probability of that quantile, which is below the stated level."
         : "Under normality the t interval covers with probability exactly equal to the stated level.";
-      const extra = count === 0 ? " No intervals yet, so there is no running fraction." : " The shaded band is a normal approximation to the realised fraction, not a second confidence interval.";
+      const extra = count === 0
+        ? " No intervals yet, so there is no running fraction."
+        : ` The bar at interval ${count} is a normal approximation for the final hit fraction. It is not a confidence interval, and it does not describe the earlier points, which vary more.`;
       runningNote.textContent = claim + extra;
     }
     const fraction = drawn.fraction;
@@ -416,19 +418,31 @@ export function mount(root) {
         xFormat: (value) => String(Math.round(value)),
         yFormat: (value) => formatNumber(value),
       });
-      if (shade && Number.isFinite(shade.lower)) {
-        const top = yScale(Math.min(1, shade.upper));
-        const bottom = yScale(Math.max(0, shade.lower));
-        band(svg, box.left, top, box.innerWidth, Math.max(0, bottom - top), ink.posterior, 0.15);
-      }
       rule(svg, box.left, yScale(reference), box.left + box.innerWidth, yScale(reference), { stroke: ink.truth, width: 1.5, dash: "6 4" });
       if (series.length) stroke(svg, series.map((row) => [xScale(row.m), yScale(row.fraction)]), { stroke: ink.posterior, width: 2 });
+      // The normal approximation describes the fraction after all `count`
+      // intervals, so it is drawn at that repetition only, not across the path.
+      if (shade && Number.isFinite(shade.lower)) {
+        const lower = Math.max(0, shade.lower);
+        const upper = Math.min(1, shade.upper);
+        const x = xScale(count);
+        const top = yScale(upper);
+        const bottom = yScale(lower);
+        const marker = svgEl(svg, "g", { "data-final-band": String(count), "data-lower": String(lower), "data-upper": String(upper) });
+        rule(marker, x, top, x, bottom, { stroke: ink.posterior, width: 2 });
+        rule(marker, x - 5, top, x + 5, top, { stroke: ink.posterior, width: 2 });
+        rule(marker, x - 5, bottom, x + 5, bottom, { stroke: ink.posterior, width: 2 });
+        svgEl(marker, "title").textContent = `Normal approximation for the hit fraction after ${count} intervals: ${formatNumber(lower)} to ${formatNumber(upper)}. Not a confidence interval, and not a band for earlier points.`;
+      }
     });
-    const runLegend = markerLegend([
+    const runItems = [
       { text: "Running fraction", color: colors.posterior, kind: "line" },
       { text: referenceLabel, color: colors.truth, kind: "line", dash: "dashed" },
-      { text: "Normal approximation", color: colors.posterior, kind: "tick" },
-    ]);
+    ];
+    if (shade && Number.isFinite(shade.lower)) {
+      runItems.push({ text: `Normal approximation for the final fraction (${count} intervals)`, color: colors.posterior, kind: "tick" });
+    }
+    const runLegend = markerLegend(runItems);
     const oldRun = running.section.querySelector(".legend-row");
     if (oldRun) oldRun.remove();
     running.section.appendChild(runLegend);
