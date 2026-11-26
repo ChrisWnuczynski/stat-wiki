@@ -4,7 +4,7 @@ A test can control its false-positive probability and still rarely detect a prac
 ## Definition — A probability indexed by the data-generating parameter
 For a non-randomised test with rejection region $C$ and model $P_\theta$, define $\pi(\theta)=P_\theta(X\in C)$. On the null parameter set $\Theta_0$, this is a type-I error probability, and the test's size is $\sup_{\theta\in\Theta_0}\pi(\theta)$. On the alternative set, $1-\pi(\theta)$ is the type-II error probability at that parameter value. There is generally a whole function of false-negative probabilities, rather than one number independent of the alternative.
 
-A randomised test replaces the indicator of $C$ by a rejection probability $\varphi(X)\in[0,1]$, giving $\pi(\theta)=E_\theta\varphi(X)$. This definition includes deterministic rules as the special case $\varphi=\mathbf1_C$. Randomisation can sometimes attain a specified size exactly in a discrete problem; an ordinary discrete threshold may instead have size strictly below its nominal upper bound.
+A randomised test replaces the indicator of $C$ by a rejection probability $\varphi(X)\in[0,1]$, giving $\pi(\theta)=\E_\theta\varphi(X)$. This definition includes deterministic rules as the special case $\varphi=\mathbf1_C$. Randomisation can sometimes attain a specified size exactly in a discrete problem; an ordinary discrete threshold may instead have size strictly below its nominal upper bound.
 
 ## Properties — Fix the rule before comparing alternatives
 For an upper-tail normal-mean test with known scale, reject if $Z=\sqrt n(\bar X-\mu_0)/\sigma>z_{1-\alpha}$. At a true mean $\mu$, $Z$ has distribution $N(\delta,1)$, where $\delta=\sqrt n(\mu-\mu_0)/\sigma$. Thus
