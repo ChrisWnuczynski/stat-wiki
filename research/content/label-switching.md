@@ -15,7 +15,7 @@ when the components belong to the same parametric family and $f_j$ denotes that 
 
 If the prior is also permutation invariant, the posterior shares the likelihood symmetry. Label-specific posterior means can then collapse distinct groups into similar summaries. A chain that stays near one labelling can instead conceal the symmetry: stable traces of component-specific means alone do not establish that all relevant posterior regions were explored.{{cite:stephens2000}} (§§2–3, pp. 796–800)
 
-Useful targets include the predictive density, sorted means where that ordering has a scientific interpretation, and co-clustering probabilities $P(Z_i=Z_j\mid x)$. The last event survives every joint permutation of the allocations. Parameter ordering changes the representation; it does not create information separating two genuinely overlapping populations.{{cite:green2019_finite_mixtures}} (Ch. 1, §1.3.1, pp. 13–14){{cite:stephens2000}} (§§3–4, pp. 798–803)
+Useful targets include the predictive density, sorted means where that ordering has a scientific interpretation, and co-clustering probabilities $\mathbb{P}(Z_i=Z_j\mid x)$. The last event survives every joint permutation of the allocations. Parameter ordering changes the representation; it does not create information separating two genuinely overlapping populations.{{cite:green2019_finite_mixtures}} (Ch. 1, §1.3.1, pp. 13–14){{cite:stephens2000}} (§§3–4, pp. 798–803)
 
 ## Worked example
 
