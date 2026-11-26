@@ -55,13 +55,13 @@ $$
 Each of these sets is in $\mathcal S$, so $f$ is measurable. As a simple function, $f=2\cdot 1_{\{1\}}+7\cdot 1_{\{2,3\}}$, and
 
 $$
-E[f]=2\cdot\frac13+7\cdot\frac23=\frac{16}{3}.
+\E[f]=2\cdot\frac13+7\cdot\frac23=\frac{16}{3}.
 $$
 
 
 The indicator of $\{2\}$ is not measurable: $\{2\}$ is not in $\mathcal S$. A function with $g(2)=7$ and $g(3)=0$ fails for the same reason, since the inverse image of $(5,\infty)$ is $\{2\}$.{{cite:axler2020}} (p. 31, Def. 2.35 and the indicator){{cite:durrett2019}} (Ch. 1, §1.4, p. 18)
 
-**Your turn.** On the same probability space set $f(1)=5$ and $f(2)=f(3)=7$. Confirm that $f$ is measurable and find $E[f]$.
+**Your turn.** On the same probability space set $f(1)=5$ and $f(2)=f(3)=7$. Confirm that $f$ is measurable and find $\E[f]$.
 
 ::: {.callout-tip collapse="true" title="Answer"}
 The function is constant on $\{1\}$ and constant on $\{2,3\}$, so every threshold inverse image is $\varnothing$, $\{1\}$, $\{2,3\}$, or $X$. The expectation is $5\cdot(1/3)+7\cdot(2/3)=19/3$.
