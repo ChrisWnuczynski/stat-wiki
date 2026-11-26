@@ -14,9 +14,9 @@ When $p_Y(y)>0$, the conditional mass is $p_{X\mid Y}(x\mid y)=p(x,y)/p_Y(y)$. T
 
 Expectations of functions use the joint table directly:
 $$
-E\{g(X,Y)\}=\sum_x\sum_y g(x,y)p(x,y),
+\E\{g(X,Y)\}=\sum_x\sum_y g(x,y)p(x,y),
 $$
-provided the expectation exists. For finite support this is a finite weighted sum. It gives $E(XY)$ and hence $\operatorname{Cov}(X,Y)=E(XY)-E(X)E(Y)$. Zero covariance alone is a weaker restriction than factorisation of all joint masses.{{cite:grinstead_snell1997}} (§§6.1–6.2)
+provided the expectation exists. For finite support this is a finite weighted sum. It gives $\E(XY)$ and hence $\operatorname{Cov}(X,Y)=\E(XY)-\E(X)\E(Y)$. Zero covariance alone is a weaker restriction than factorisation of all joint masses.{{cite:grinstead_snell1997}} (§§6.1–6.2)
 
 ## Worked example
 Let $X$ and $Y$ be indicators with table
@@ -38,13 +38,13 @@ The equality event consists of $(0,0)$ and $(1,1)$ and has probability $0.1+0.4=
 :::
 
 ## Interpretation — A support constraint can expose dependence
-If a joint cell is zero but both corresponding marginal masses are positive, independence fails immediately. The pair cannot occur even though each coordinate value occurs separately. For example, let $X$ take $-1,0,1$ with probabilities $1/4,1/2,1/4$ and set $Y=X^2$. Symmetry gives $E(X)=E(XY)=0$, so covariance is zero, yet $Y$ is determined by $X$. Their joint support, rather than covariance, displays that dependence.{{cite:grinstead_snell1997}} (§4.1, independence; §6.2, covariance)
+If a joint cell is zero but both corresponding marginal masses are positive, independence fails immediately. The pair cannot occur even though each coordinate value occurs separately. For example, let $X$ take $-1,0,1$ with probabilities $1/4,1/2,1/4$ and set $Y=X^2$. Symmetry gives $\E(X)=\E(XY)=0$, so covariance is zero, yet $Y$ is determined by $X$. Their joint support, rather than covariance, displays that dependence.{{cite:grinstead_snell1997}} (§4.1, independence; §6.2, covariance)
 
 ## Check yourself
 Sum actual nonzero cells before simplifying.
 
 ### A larger joint table {#self-check-ex-prob-joint-table}
-[A joint table](../questions/ex-prob-joint-table.qmd): calculate its margins and $E(X^2Y)$.
+[A joint table](../questions/ex-prob-joint-table.qmd): calculate its margins and $\E(X^2Y)$.
 
 ::: {.callout-tip collapse="true" title="Answer"}
 The masses of $X=2,5,6$ are $0.2,0.2,0.6$. The masses of $Y=1,3,6,8$ are $0.2,0.3,0.2,0.3$. The zero mass at $(2,1)$ contradicts the product $0.2(0.2)$, so independence fails. Summing $x^2y$ times each cell gives $691/5=138.2$.
@@ -54,5 +54,5 @@ The masses of $X=2,5,6$ are $0.2,0.2,0.6$. The masses of $Y=1,3,6,8$ are $0.2,0.
 [Signs and their sum](../questions/ex-prob-sign-covariance.qmd): which transformed pairs have positive mass?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The pairs $(X,Y)=(1,2),(-1,0),(1,-2)$ have masses $1/16,6/16,9/16$. The middle cell combines two different sign outcomes. Hence $E(X)=1/4$, $E(Y)=-1$, and $E(XY)=-1$, giving covariance $-3/4$.
+The pairs $(X,Y)=(1,2),(-1,0),(1,-2)$ have masses $1/16,6/16,9/16$. The middle cell combines two different sign outcomes. Hence $\E(X)=1/4$, $\E(Y)=-1$, and $\E(XY)=-1$, giving covariance $-3/4$.
 :::
