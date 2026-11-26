@@ -56,6 +56,12 @@ jobs:
       - name: Check search ranking
         run: node --test search-rank.test.mjs
 
+      # The widget bundle inlines the committed katex_macros.json. Regenerate
+      # the table from build_wiki.py first, so a definition change cannot
+      # ship stale macros to Ask while the pages get the new ones.
+      - name: Generate the KaTeX macro table
+        run: python -c "import build_wiki; build_wiki.write_katex_macro_header()"
+
       # The Ask StatWiki launcher and chat, served from ask/widget/dist.
       - name: Build the Ask widget
         working-directory: ask/widget
@@ -311,6 +317,11 @@ jobs:
         with:
           version: 1.6.40
 
+      # build_wiki.py rewrites katex_macros.json, so this runs first: a stale
+      # committed table must fail here instead of being silently regenerated.
+      - name: Check the KaTeX macro table is current
+        run: python tools/check_katex_macros_fresh.py
+
       - name: Write the wiki pages
         run: python build_wiki.py
 
@@ -341,6 +352,14 @@ jobs:
         run: |
           npm ci
           npm test
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      # The widget build below inlines the committed katex_macros.json.
+      - name: Check the KaTeX macro table is current
+        run: python tools/check_katex_macros_fresh.py
 
       - name: Test the Ask widget
         working-directory: ask/widget
