@@ -1,7 +1,8 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { curve, familyById } from "./distribution-explorer-math.js";
-import { panelGeometry } from "./distribution-explorer.js";
+import { FAMILIES, curve, familyById } from "./distribution-explorer-math.js";
+import { mount, panelGeometry } from "./distribution-explorer.js";
+import { installLabDom, pressKey } from "./test/dom.mjs";
 
 function gaps(values) {
   return values.slice(1).map((value, index) => value - values[index]);
@@ -86,4 +87,66 @@ test("a discrete mass is stems and the distribution function is a step", () => {
 test("an empty series is not drawn", () => {
   assert.equal(panelGeometry({ xs: [], ys: [], width: 640, height: 320, yMax: 1, kind: "curve" }), null);
   assert.equal(panelGeometry({ xs: [0, 1], ys: [0, 1], width: 0, height: 320, yMax: 1, kind: "curve" }), null);
+});
+
+test("Shift-arrows accelerate parameter sliders by ten steps, keep twins synced and update the hint", (t) => {
+  const defaults = FAMILIES.map((family) => family.params.map((spec) => spec.value));
+  t.after(() => {
+    FAMILIES.forEach((family, i) => {
+      family.params.forEach((spec, j) => {
+        spec.value = defaults[i][j];
+      });
+    });
+  });
+  const { document, root, cleanup } = installLabDom(t);
+  cleanup(mount(root));
+
+  const hint = root.querySelector(".control-hint");
+  assert.ok(hint?.id);
+  assert.equal(hint.textContent, "Arrow keys move a focused slider. Shift changes μ by 1 and σ by 0.5.");
+
+  const muSlider = root.querySelector('input[aria-label="μ"]');
+  const muNumber = root.querySelector('input[aria-label="μ as a number"]');
+  const sigmaSlider = root.querySelector('input[aria-label="σ"]');
+  const sigmaNumber = root.querySelector('input[aria-label="σ as a number"]');
+  assert.equal(muSlider.getAttribute("aria-describedby"), hint.id);
+  assert.equal(sigmaSlider.getAttribute("aria-describedby"), hint.id);
+  assert.notEqual(muNumber.getAttribute("aria-describedby"), hint.id);
+
+  assert.equal(pressKey(muSlider, "ArrowRight").defaultPrevented, false);
+  assert.equal(pressKey(muSlider, "ArrowRight", { shiftKey: true, ctrlKey: true }).defaultPrevented, false);
+
+  assert.equal(pressKey(muSlider, "ArrowRight", { shiftKey: true }).defaultPrevented, true);
+  assert.equal(muSlider.value, "1");
+  assert.equal(muNumber.value, "1");
+  assert.match(root.querySelector(".readout-line").textContent, /μ 1, σ 1/);
+
+  // Invalid text on the numeric twin clears when Shift-arrow moves the slider.
+  sigmaNumber.value = "1.23";
+  sigmaNumber.dispatchEvent({ type: "input" });
+  assert.equal(sigmaNumber.getAttribute("aria-invalid"), "true");
+  assert.equal(pressKey(sigmaSlider, "ArrowUp", { shiftKey: true }).defaultPrevented, true);
+  assert.equal(sigmaSlider.value, "1.5");
+  assert.equal(sigmaNumber.value, "1.5");
+  assert.equal(sigmaNumber.getAttribute("aria-invalid"), null);
+
+  for (let i = 0; i < 6; i += 1) pressKey(sigmaSlider, "ArrowDown", { shiftKey: true });
+  assert.equal(sigmaSlider.value, "0.3");
+  assert.equal(sigmaNumber.value, "0.3");
+
+  const select = root.querySelector('select[aria-label="Distribution family"]');
+  select.value = "binomial";
+  select.dispatchEvent({ type: "change" });
+  assert.equal(document.getElementById(hint.id).textContent, "Arrow keys move a focused slider. Shift changes n by 10 and p by 0.1.");
+  const nSlider = root.querySelector('input[aria-label="n"]');
+  const pSlider = root.querySelector('input[aria-label="p"]');
+  const pNumber = root.querySelector('input[aria-label="p as a number"]');
+  assert.equal(nSlider.getAttribute("aria-describedby"), hint.id);
+  assert.equal(pSlider.getAttribute("aria-describedby"), hint.id);
+
+  pressKey(nSlider, "ArrowRight", { shiftKey: true });
+  assert.equal(nSlider.value, "20");
+  pressKey(pSlider, "ArrowLeft", { shiftKey: true });
+  assert.equal(pSlider.value, "0.2");
+  assert.equal(pNumber.value, "0.2");
 });

@@ -15,8 +15,22 @@ function field(labelText) {
 }
 
 let nextInputId = 0;
+let nextHintId = 0;
 
-function sliderPair(spec, onInput) {
+function shiftStepValue(slider, dir, multiple = 10) {
+  const min = Number(slider.min);
+  const max = Number(slider.max);
+  const step = Number(slider.step) || 1;
+  const current = Math.min(max, Math.max(min, Number(slider.value)));
+  const maxIndex = Math.max(0, Math.round((max - min) / step));
+  const index = Math.max(0, Math.min(maxIndex, Math.round((current - min) / step) + dir * multiple));
+  const text = String(slider.step || "1");
+  const dot = text.indexOf(".");
+  const decimals = dot < 0 ? 0 : text.length - dot - 1;
+  return Number(Math.min(max, Math.max(min, min + index * step)).toFixed(decimals));
+}
+
+function sliderPair(spec, onInput, hintId) {
   const label = field(spec.label);
   const wrap = document.createElement("span");
   wrap.className = "control-slider";
@@ -27,6 +41,7 @@ function sliderPair(spec, onInput) {
   slider.step = String(spec.step);
   slider.value = String(spec.value);
   slider.setAttribute("aria-label", spec.label);
+  if (hintId) slider.setAttribute("aria-describedby", hintId);
   const candidate = slider.cloneNode();
   const number = document.createElement("input");
   number.type = "number";
@@ -64,6 +79,14 @@ function sliderPair(spec, onInput) {
     onInput();
   };
   slider.addEventListener("input", () => sync(slider));
+  slider.addEventListener("keydown", (event) => {
+    if (!event.shiftKey || event.altKey || event.ctrlKey || event.metaKey) return;
+    if (event.key !== "ArrowLeft" && event.key !== "ArrowRight" && event.key !== "ArrowUp" && event.key !== "ArrowDown") return;
+    event.preventDefault();
+    const dir = event.key === "ArrowLeft" || event.key === "ArrowDown" ? -1 : 1;
+    slider.value = String(shiftStepValue(slider, dir));
+    sync(slider);
+  });
   number.addEventListener("input", () => sync(number));
   wrap.append(slider, number);
   // Keep the empty live region exposed without adding a row to the label's flex layout.
@@ -210,13 +233,18 @@ export function mount(root) {
   selectLabel.appendChild(select);
   form.appendChild(selectLabel);
 
+  const hint = document.createElement("p");
+  hint.id = `distribution-control-hint-${++nextHintId}`;
+  hint.className = "control-hint";
   let parameterControls = [];
   const renderParameters = () => {
     // Keep the native selector attached and focused throughout keyboard changes.
     for (const control of parameterControls) control.remove();
     const family = familyById(state.id);
-    parameterControls = family.params.map((spec) => sliderPair(spec, redraw));
-    form.append(...parameterControls);
+    const changes = family.params.map((spec) => `${spec.label} by ${Number((spec.step * 10).toPrecision(12))}`);
+    hint.textContent = `Arrow keys move a focused slider. Shift changes ${changes.join(" and ")}.`;
+    parameterControls = family.params.map((spec) => sliderPair(spec, redraw, hint.id));
+    form.append(...parameterControls, hint);
     redraw();
   };
   select.addEventListener("change", () => {
@@ -224,4 +252,8 @@ export function mount(root) {
     renderParameters();
   });
   renderParameters();
+  return () => {
+    densityPlot.destroy();
+    cdfPlot.destroy();
+  };
 }
