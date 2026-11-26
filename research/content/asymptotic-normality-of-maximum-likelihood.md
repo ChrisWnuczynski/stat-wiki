@@ -5,7 +5,7 @@ A regular consistent likelihood maximiser is locally controlled by the sum of in
 With $70$ successes in $200$ independent Bernoulli trials, the fitted probability is $0.35$. A normal approximation gives a standard error near $0.034$, but this approximation rests on an interior parameter and a regular likelihood. It cannot be transferred unchanged to an endpoint estimated by a sample maximum.{{cite:dodge2008}} (pp. 334–335, likelihood maximisation)
 
 ## Properties — Score, curvature and the local rate
-For scalar $\theta$, write $S_n=\ell_n'$ and $i(\theta_0)=E_{\theta_0}[(\partial_\theta\log f(X;\theta_0))^2]>0$. At a consistent interior score root, Taylor expansion gives
+For scalar $\theta$, write $S_n=\ell_n'$ and $i(\theta_0)=\E_{\theta_0}[(\partial_\theta\log f(X;\theta_0))^2]>0$. At a consistent interior score root, Taylor expansion gives
 $$
 0=S_n(\theta_0)+(\widehat\theta-\theta_0)S_n'(\theta_0)
  +\tfrac12(\widehat\theta-\theta_0)^2S_n''(\theta^*).
