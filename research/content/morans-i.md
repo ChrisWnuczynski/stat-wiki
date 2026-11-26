@@ -28,7 +28,7 @@ $$
 The denominator of the leading fraction is the sum of all weights. The fraction that follows is a weighted covariance of the values with their neighbours, divided by the variance of the values. Positive $I$ means clustering of similar values. Negative $I$ means that neighbours are dissimilar. Values usually fall between $-1$ and $1$, and the reference point under no spatial pattern is
 
 $$
-E[I]=-\frac{1}{n-1},
+\E[I]=-\frac{1}{n-1},
 $$
 
 
