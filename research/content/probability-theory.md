@@ -50,7 +50,7 @@ A discrete probability space may be infinite, provided the outcomes are countabl
 The interpretation of the number, as a symmetry, a frequency, or a degree of belief, is settled outside the axioms. Gelman's account of the mathematical definition is the one the theory uses: nonnegative, additive over mutually exclusive outcomes, and summing to $1$. Which story justified the number is a separate paragraph. Probability theory proceeds with the number.{{cite:gelman_bda2013}} (pp. 11–12)
 
 ## Worked example
-Take $\Omega=\{\mathrm{HH}, \mathrm{HT}, \mathrm{TH}, \mathrm{TT}\}$ with $P=1/4$ on each outcome. Let $A$ be "at least one head," so $A=\{\mathrm{HH}, \mathrm{HT}, \mathrm{TH}\}$ and $\mathbb{P}(A)=3/4$. Let $B$ be "the first coin is heads," so $B=\{\mathrm{HH}, \mathrm{HT}\}$ and $\mathbb{P}(B)=1/2$. Then $A\cap B=B$, and
+Take $\Omega=\{\mathrm{HH}, \mathrm{HT}, \mathrm{TH}, \mathrm{TT}\}$ with $\mathbb{P}=1/4$ on each outcome. Let $A$ be "at least one head," so $A=\{\mathrm{HH}, \mathrm{HT}, \mathrm{TH}\}$ and $\mathbb{P}(A)=3/4$. Let $B$ be "the first coin is heads," so $B=\{\mathrm{HH}, \mathrm{HT}\}$ and $\mathbb{P}(B)=1/2$. Then $A\cap B=B$, and
 
 $$
 \mathbb{P}(A\cup B)=\mathbb{P}(A)+\mathbb{P}(B)-\mathbb{P}(A\cap B)=\tfrac34+\tfrac12-\tfrac12=\tfrac34.
