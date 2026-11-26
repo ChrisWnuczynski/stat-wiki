@@ -50,7 +50,7 @@ $$\ell(\beta) = \sum_{i : \delta_i = 1} \left[ x_i^T \beta - \log \sum_{j \in R(
 
 Three consequences follow immediately, and each is worth stating exactly.
 
-First, $L(\beta)$ depends only on the *order* of the event times, through the risk sets, and not on the gaps between them. Stretching or compressing the time axis by any increasing transformation leaves every risk set unchanged and therefore leaves $L(\beta)$ unchanged.
+First, under censoring, the order of failures alone does not determine $L(\beta)$: the risk sets also depend on when censoring occurs relative to each failure {{cite:cox1972}} (p. 188; p. 191, eq. (12)). A common strictly increasing transformation of all observed event and censoring times preserves every order comparison and tie, so it leaves every risk set, and hence $L(\beta)$ for the fixed covariates considered here, unchanged. Rounding can introduce ties and change risk sets; moving a censoring time across a failure can likewise change $L(\beta)$.
 
 Second, $L(\beta)$ is called a *partial* likelihood because it is not the probability of the observed data: the factors condition on overlapping events, and the information about the spacing of event times — the information that would identify $h_0$ — has been deliberately discarded. It is nevertheless used as if it were a likelihood: the maximum partial likelihood estimator $\hat{\beta}$ maximises $\ell(\beta)$, and its standard errors and tests are obtained from the curvature of $\ell(\beta)$, as for an ordinary likelihood. That use was contested when Cox's paper was read, and its justification was worked out in later theory; in practice the analogy is treated as sound under the usual regularity conditions, including enough events and no separation.
 
