@@ -45,13 +45,13 @@ None is zero and the eight absolute values are distinct, so $m = 8$ and the rank
 
 The exact reference set is the $256$ subsets of $\{1,\ldots,8\}$. A subset sums to $28$ or more precisely when the ranks left out, the ones that would have been negative, sum to $8$ or less. There is $1$ such signing of negative-sum $0$, $1$ of sum $1$ and $1$ of sum $2$. The counts for negative sums $3$ through $8$ are $2, 2, 3, 4, 5$ and $6$. These add to $25$, so the exact one-sided probability is
 $$
-P(W_+ \ge 28) = \frac{25}{256} \approx 0.0977.
+\mathbb{P}(W_+ \ge 28) = \frac{25}{256} \approx 0.0977.
 $$
-The matching lower tail is $P(W_+ \le 8) = 25/256$ as well, and the two events are disjoint, so the two-sided probability is $50/256 \approx 0.195$. At a one-sided $5\%$ level the signed-rank test does not reject.
+The matching lower tail is $\mathbb{P}(W_+ \le 8) = 25/256$ as well, and the two events are disjoint, so the two-sided probability is $50/256 \approx 0.195$. At a one-sided $5\%$ level the signed-rank test does not reject.
 
 The sign test on the same differences keeps seven positive signs out of eight. Its one-sided probability is
 $$
-P(N_+ \ge 7) = \frac{\binom{8}{7}+\binom{8}{8}}{256} = \frac{9}{256} \approx 0.0352.
+\mathbb{P}(N_+ \ge 7) = \frac{\binom{8}{7}+\binom{8}{8}}{256} = \frac{9}{256} \approx 0.0352.
 $$
 At the same one-sided $5\%$ level the sign test does reject. The two procedures disagree because the fall of $12$ is one sign to the sign test and the rank $8$ to the signed-rank test.{{cite:dodge2008}} (p. 486)
 
@@ -65,9 +65,9 @@ The mean and the variance are those of the exact null, and the normal approximat
 
 The point estimate that accompanies the exact test is the median of the $m(m+1)/2 = 36$ averages $(D_i + D_j)/2$ with $1 \le i \le j \le m$. For these eight differences that median is $3.5$. With `conf.int = TRUE`, `wilcox.test` returns an estimate of the location parameter, and on these differences that estimate is this same median.{{cite:r_wilcox_test2026}} (Usage, Arguments `conf.int`, and Value)
 
-The exact interval is the set of shifts that the exact two-sided test does not reject. With $256$ equally likely signings, $P(W_+ \le 3) = 5/256$, and $5/256 \le 0.025$ while $P(W_+ \le 4) = 7/256 > 0.025$. The test that rejects only for $W_+ \le 3$ or $W_+ \ge 33$ therefore has two-sided size $10/256$. Inverting it on these differences gives the open interval from $-4.5$ to $6$, which are the $4$th and the $33$rd of the ordered pairwise averages. Every shift strictly between those endpoints leaves the untied positive rank sum between $4$ and $32$. Under a continuous symmetric law the coverage of that interval is
+The exact interval is the set of shifts that the exact two-sided test does not reject. With $256$ equally likely signings, $\mathbb{P}(W_+ \le 3) = 5/256$, and $5/256 \le 0.025$ while $\mathbb{P}(W_+ \le 4) = 7/256 > 0.025$. The test that rejects only for $W_+ \le 3$ or $W_+ \ge 33$ therefore has two-sided size $10/256$. Inverting it on these differences gives the open interval from $-4.5$ to $6$, which are the $4$th and the $33$rd of the ordered pairwise averages. Every shift strictly between those endpoints leaves the untied positive rank sum between $4$ and $32$. Under a continuous symmetric law the coverage of that interval is
 $$
-P(4 \le W_+ \le 32) = 1 - \frac{10}{256} = \frac{246}{256} \approx 0.9609,
+\mathbb{P}(4 \le W_+ \le 32) = 1 - \frac{10}{256} = \frac{246}{256} \approx 0.9609,
 $$
 rather than exactly $0.95$, because the exact test cannot spend probability in fractions finer than $1/256$.
 
