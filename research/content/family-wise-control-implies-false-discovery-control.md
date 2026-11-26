@@ -5,7 +5,7 @@ A screening programme may care about making any false declaration, or about the 
 ## Statement
 
 Let $V$ count rejected true null hypotheses and $R$ count all rejections in a fixed family. Define $Q=V/R$ when $R>0$ and $Q=0$ when $R=0$. Then
-$$\operatorname{FDR}=E(Q)\le P(V\ge1)=\operatorname{FWER}.$$
+$$\operatorname{FDR}=\E(Q)\le P(V\ge1)=\operatorname{FWER}.$$
 Thus any procedure controlling FWER at $\alpha$ also controls FDR at $\alpha$ at the same parameter configuration. Strong FWER control supplies this bound for every configuration of true and false nulls. Weak control under the complete null supplies only a complete-null statement.{{cite:benjamini_hochberg1995}} (§2.1, p.291)
 
 ## Proof
