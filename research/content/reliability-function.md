@@ -3,7 +3,7 @@ Two components each work with probability $0.9$. If both are essential, the syst
 
 ## Definition — Average a binary structure function
 Let $X_i\in\{0,1\}$ indicate whether component $i$ works and let $\varphi(x)\in\{0,1\}$ indicate whether the system works for state vector $x$. For independent components with $P(X_i=1)=p_i$,
-$$r(p)=E\varphi(X)=\sum_{x\in\{0,1\}^m}\varphi(x)\prod_i p_i^{x_i}(1-p_i)^{1-x_i}.$$
+$$r(p)=\E\varphi(X)=\sum_{x\in\{0,1\}^m}\varphi(x)\prod_i p_i^{x_i}(1-p_i)^{1-x_i}.$$
 This finite sum is a polynomial that is linear in each individual $p_i$ when the others are fixed. The independence assumption supplies the product weights. With dependent failures, marginal component reliabilities alone generally do not determine system reliability.
 
 For a series system, $\varphi(x)=\prod_i x_i$, so $r(p)=\prod_i p_i$. For a parallel system, failure means that every component fails, giving $r(p)=1-\prod_i(1-p_i)$. A series lifetime is the minimum component lifetime; under independent lifetimes its survival function is the product of component survival functions.{{cite:nist_series_model2002}} (§8.1.8.2)
