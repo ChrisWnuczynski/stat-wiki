@@ -16,7 +16,7 @@ The probability of a count $x\in\{0,1,2,\ldots\}$ is
 $$
 P(X=x)=\frac{\lambda^{x}}{(x!)^{\nu} Z(\lambda,\nu)},
 $$
-with $\lambda>0$ and $\nu\ge 0$, and with $\lambda<1$ when $\nu=0$ so that the series converges. The mean and the variance are the sums $\sum x\,P(X=x)$ and $\sum x^{2}P(X=x)-\bigl(\mathrm{E} X\bigr)^{2}$. At $\nu=1$ both equal $\lambda$. At the parameter pair in the worked example neither equals $\lambda$. At $\nu=0$ and $\lambda=1/2$ the series is geometric, the boundary case recorded with the distribution.{{cite:dodge2008}} (pp. 425–426)
+with $\lambda>0$ and $\nu\ge 0$, and with $\lambda<1$ when $\nu=0$ so that the series converges. The mean and the variance are the sums $\sum x\,P(X=x)$ and $\sum x^{2}P(X=x)-\bigl(\E X\bigr)^{2}$. At $\nu=1$ both equal $\lambda$. At the parameter pair in the worked example neither equals $\lambda$. At $\nu=0$ and $\lambda=1/2$ the series is geometric, the boundary case recorded with the distribution.{{cite:dodge2008}} (pp. 425–426)
 
 ## Worked example
 
@@ -35,7 +35,7 @@ The factor $(x!)^{2}$ in the denominator cuts off the right tail faster than $x!
 **Check yourself.** Why is a regression coefficient attached to $\log\lambda$ in this parameterisation not yet a statement about the mean count?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-Except at $\nu=1$, $\lambda$ is not $\mathrm{E}(X)$. In the worked example $\lambda=1$ and the mean is about $0.6978$. Multiplying $\lambda$ by a factor changes the mean by an amount that also depends on $\nu$, and that amount is not the same factor.
+Except at $\nu=1$, $\lambda$ is not $\E(X)$. In the worked example $\lambda=1$ and the mean is about $0.6978$. Multiplying $\lambda$ by a factor changes the mean by an amount that also depends on $\nu$, and that amount is not the same factor.
 :::
 
 ## Connections
