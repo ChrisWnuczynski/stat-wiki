@@ -8,7 +8,7 @@ At one particular value of $p$, many functions can have expectation zero: $T-4p$
 Let $T=T(X)$ be a statistic under a family $\{P_\theta:\theta\in\Omega\}$. It is **complete** if every measurable, integrable function $q$ that does not depend on $\theta$ satisfies
 
 $$\E_\theta\{q(T)\}=0\quad\text{for all }\theta\in\Omega
-\quad\Longrightarrow\quad P_\theta\{q(T)=0\}=1\quad\text{for all }\theta\in\Omega.$$
+\quad\Longrightarrow\quad \mathbb{P}_\theta\{q(T)=0\}=1\quad\text{for all }\theta\in\Omega.$$
 
 The almost-sure qualification allows $q$ to differ from zero on values that the model never produces. Completeness says nothing on its own about whether $T$ preserves the sample information: that separate requirement is sufficiency.{{cite:siegrist2022_sufficient_complete}} (§7.6, Complete Statistics)
 
@@ -23,7 +23,7 @@ Basu's theorem gives a second consequence: a complete sufficient statistic is in
 ::: {.proof}
 For Bernoulli observations, the likelihood is $p^T(1-p)^{n-T}$, so factorisation makes $T$ sufficient. If $E_pq(T)=0$ for every $p\in(0,1)$, division by $(1-p)^n$ gives $\sum_{t=0}^nq(t){n\choose t}z^t=0$ for every $z=p/(1-p)>0$. A polynomial that vanishes on an interval has every coefficient zero; hence $q(t)=0$ for all possible $t$. For Poisson observations, $T\sim\operatorname{Poisson}(n\theta)$ and $e^{n\theta}\E_\theta q(T)=\sum_{t\ge0}q(t)n^t\theta^t/t!$. If its expectation exists throughout an open interval and vanishes there, uniqueness of its power-series coefficients gives $q(t)=0$ for all $t$.
 
-If $h_1(T)$ and $h_2(T)$ are unbiased for the same target, their difference has zero expectation at every parameter, so completeness makes them equal almost surely. For any other unbiased estimator $W$, sufficiency makes $\E(W\mid T)$ a parameter-free statistic, unbiased for the same target. It therefore equals $h(T)$, while $\operatorname{Var}(W)=\operatorname{Var}\{\E(W\mid T)\}+\E\{\operatorname{Var}(W\mid T)\}\ge\operatorname{Var}\{h(T)\}$. For Basu's theorem, let $A$ be ancillary and $B$ any measurable set. Sufficiency makes $r(T)=P_\theta(A\in B\mid T)$ independent of $\theta$ as a function of $T$. Ancillarity makes $\E_\theta r(T)=P_\theta(A\in B)=c_B$ independent of $\theta$. Completeness forces $r(T)=c_B$ almost surely, which is independence for every $B$.{{cite:siegrist2022_sufficient_complete}} (§7.6, Complete Statistics, The Bernoulli Distribution, The Poisson Distribution and Ancillary Statistics)
+If $h_1(T)$ and $h_2(T)$ are unbiased for the same target, their difference has zero expectation at every parameter, so completeness makes them equal almost surely. For any other unbiased estimator $W$, sufficiency makes $\E(W\mid T)$ a parameter-free statistic, unbiased for the same target. It therefore equals $h(T)$, while $\operatorname{Var}(W)=\operatorname{Var}\{\E(W\mid T)\}+\E\{\operatorname{Var}(W\mid T)\}\ge\operatorname{Var}\{h(T)\}$. For Basu's theorem, let $A$ be ancillary and $B$ any measurable set. Sufficiency makes $r(T)=\mathbb{P}_\theta(A\in B\mid T)$ independent of $\theta$ as a function of $T$. Ancillarity makes $\E_\theta r(T)=\mathbb{P}_\theta(A\in B)=c_B$ independent of $\theta$. Completeness forces $r(T)=c_B$ almost surely, which is independence for every $B$.{{cite:siegrist2022_sufficient_complete}} (§7.6, Complete Statistics, The Bernoulli Distribution, The Poisson Distribution and Ancillary Statistics)
 :::
 :::
 
