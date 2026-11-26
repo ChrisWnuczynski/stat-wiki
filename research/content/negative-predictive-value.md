@@ -11,18 +11,18 @@ $$
 $$
 provided at least one result is negative. Its complement $FN/(TN+FN)$ is the false omission proportion. Specificity instead divides $TN$ by all actual negatives, including false positive tests; changing that denominator changes the conditional question.{{cite:lindholm2022_ml}} (§4.5, p. 87, Tbl. 4.1)
 
-Write $D$ for presence of the condition and $-$ for a negative result. At population prevalence $\pi=P(D)$, sensitivity $s=P(+\mid D)$ and specificity $c=P(-\mid D^c)$, Bayes' formula gives
+Write $D$ for presence of the condition and $-$ for a negative result. At population prevalence $\pi=\mathbb{P}(D)$, sensitivity $s=\mathbb{P}(+\mid D)$ and specificity $c=\mathbb{P}(-\mid D^c)$, Bayes' formula gives
 $$
-\mathrm{NPV}=P(D^c\mid-)=\frac{c(1-\pi)}{c(1-\pi)+(1-s)\pi}.
+\mathrm{NPV}=\mathbb{P}(D^c\mid-)=\frac{c(1-\pi)}{c(1-\pi)+(1-s)\pi}.
 $$
 The denominator is the total negative-result probability and must be positive. This calculation treats $s,c,\pi$ as specified probabilities; estimates introduce sampling uncertainty.{{cite:openintro2019}} (§3.2.3, conditional probability; §3.2.7, Bayes' theorem)
 
 ## Interpretation — Reassurance and evidence have different baselines
 The posterior odds of the condition after a negative result are
 $$
-\frac{P(D\mid-)}{P(D^c\mid-)}=\frac{\pi}{1-\pi}\frac{1-s}{c}.
+\frac{\mathbb{P}(D\mid-)}{\mathbb{P}(D^c\mid-)}=\frac{\pi}{1-\pi}\frac{1-s}{c}.
 $$
-When $c>0$, the negative likelihood ratio $(1-s)/c$ describes the multiplication of prior odds. A high NPV can partly reflect a low prior prevalence, even when the likelihood ratio provides little additional evidence. An uninformative test with $P(-\mid D)=P(-\mid D^c)>0$ leaves NPV equal to $1-\pi$.{{cite:openintro2019}} (§3.2.7, Bayes' theorem)
+When $c>0$, the negative likelihood ratio $(1-s)/c$ describes the multiplication of prior odds. A high NPV can partly reflect a low prior prevalence, even when the likelihood ratio provides little additional evidence. An uninformative test with $\mathbb{P}(-\mid D)=\mathbb{P}(-\mid D^c)>0$ leaves NPV equal to $1-\pi$.{{cite:openintro2019}} (§3.2.7, Bayes' theorem)
 
 For fixed $0<s<1$ and $c>0$, increasing prevalence decreases NPV. Direct differentiation of the displayed fraction gives
 $$
