@@ -8,7 +8,7 @@ If every label were known, a normal mixture's weights would be group proportions
 
 ## Definition — The optimization after expectation
 
-Given current parameter $\Psi^{(k)}$ and the function $Q(\Psi;\Psi^{(k)})=E_{\Psi^{(k)}}[\ell_C(\Psi;X,Z)\mid X]$ from the E step, an exact M step chooses $\Psi^{(k+1)}\in\arg\max_\Psi Q(\Psi;\Psi^{(k)})$ over the allowed parameter space. For a finite mixture, the responsibilities are the fixed conditional expectations of the hidden component indicators. A generalized EM step may merely increase $Q$ rather than find its maximum; the word *exact* matters when claiming a maximizer. Any constraints on weights, means, or covariance matrices must be respected in this optimization. {{cite:dempster_laird_rubin1977}} (§2, pp. 5–6, eq. 2.17; §3, generalized EM)
+Given current parameter $\Psi^{(k)}$ and the function $Q(\Psi;\Psi^{(k)})=\E_{\Psi^{(k)}}[\ell_C(\Psi;X,Z)\mid X]$ from the E step, an exact M step chooses $\Psi^{(k+1)}\in\arg\max_\Psi Q(\Psi;\Psi^{(k)})$ over the allowed parameter space. For a finite mixture, the responsibilities are the fixed conditional expectations of the hidden component indicators. A generalized EM step may merely increase $Q$ rather than find its maximum; the word *exact* matters when claiming a maximizer. Any constraints on weights, means, or covariance matrices must be respected in this optimization. {{cite:dempster_laird_rubin1977}} (§2, pp. 5–6, eq. 2.17; §3, generalized EM)
 
 ## Properties — Weighted likelihood updates
 
@@ -17,7 +17,7 @@ Write $N_h=\sum_i\tau_{ih}$ for component $h$'s effective count among $n$ observ
 ::: {.callout-note collapse="true" title="Proof"}
 The mixture-weight portion of $Q$ is $\sum_hN_h\log\pi_h$ subject to $\sum_h\pi_h=1$. A Lagrange multiplier gives $N_h/\pi_h=\lambda$, and summing $\pi_h=N_h/\lambda$ yields $\lambda=n$. For fixed positive definite covariance, the mean-dependent part is $-\frac12\sum_i\tau_{ih}(x_i-\mu_h)^\top\Sigma_h^{-1}(x_i-\mu_h)$. Its gradient vanishes when $\sum_i\tau_{ih}(x_i-\mu_h)=0$, giving the weighted mean. Maximizing in the precision matrix $\Theta_h=\Sigma_h^{-1}$ sets $N_h\Theta_h^{-1}=\sum_i\tau_{ih}(x_i-\mu_h)(x_i-\mu_h)^\top$, which gives the stated covariance update whenever that matrix is positive definite.
 
-The likelihood increase of a *complete* exact EM update follows from the same fixed conditional distribution. Let $q_k(z)=p(z\mid X,\Psi^{(k)})$. Jensen's inequality gives $\log p(X\mid\Psi)\geq E_{q_k}\log p(X,Z\mid\Psi)-E_{q_k}\log q_k(Z)$. At $\Psi=\Psi^{(k)}$ this is equality. The second term does not depend on candidate $\Psi$, so an M step that increases $Q$ cannot decrease the observed log likelihood. Equality or increase does not establish a global maximum. {{cite:dempster_laird_rubin1977}} (§§2–3, pp. 5–8)
+The likelihood increase of a *complete* exact EM update follows from the same fixed conditional distribution. Let $q_k(z)=p(z\mid X,\Psi^{(k)})$. Jensen's inequality gives $\log p(X\mid\Psi)\geq \E_{q_k}\log p(X,Z\mid\Psi)-\E_{q_k}\log q_k(Z)$. At $\Psi=\Psi^{(k)}$ this is equality. The second term does not depend on candidate $\Psi$, so an M step that increases $Q$ cannot decrease the observed log likelihood. Equality or increase does not establish a global maximum. {{cite:dempster_laird_rubin1977}} (§§2–3, pp. 5–8)
 :::
 
 ## Interpretation — What a parameter update says
