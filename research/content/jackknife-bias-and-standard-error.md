@@ -13,8 +13,8 @@ $$\widehat{\operatorname{se}}_J=\left\{\frac{n-1}{n}\sum_i(\widehat\theta_{(-i)}
 Equivalently, its square is the sample variance of the pseudovalues divided by $n$. The factor $(n-1)/n$ is essential: the leave-one-out statistics are highly dependent because most of their observations overlap. Treating them as independent repetitions and using their ordinary standard error would be incorrect.{{cite:efron1981}} (§5, eq. 5.1, pp. 592–593)
 
 ## Properties — Why a leading bias term cancels
-Suppose $E(T_n)=\theta+a/n+b/n^2+O(n^{-3})$, and each deletion has the same expectation as the statistic from $n-1$ independent observations. Then
-$$E(\widehat\theta_J)=nE(T_n)-(n-1)E(T_{n-1})=\theta+O(n^{-2}).$$
+Suppose $\E(T_n)=\theta+a/n+b/n^2+O(n^{-3})$, and each deletion has the same expectation as the statistic from $n-1$ independent observations. Then
+$$\E(\widehat\theta_J)=nE(T_n)-(n-1)\E(T_{n-1})=\theta+O(n^{-2}).$$
 The $a$ terms cancel exactly. This argument requires a compatible expansion and deletion procedure. It does not say that every statistic becomes exactly unbiased. A nonsmooth functional, such as an extreme order statistic, may behave poorly under ordinary delete-one resampling.{{cite:dodge2008}} (p. 272){{cite:efron1981}} (§5, pp. 592–593)
 
 For the sample mean, $\overline x_{(-i)}=(n\overline x-x_i)/(n-1)$, so the average deletion mean equals $\overline x$, the bias correction is zero and the pseudovalues equal the observations themselves. The jackknife standard error therefore reduces to $s/\sqrt n$, with $s^2$ using denominator $n-1$. This exact special case is a useful check of any implementation.
