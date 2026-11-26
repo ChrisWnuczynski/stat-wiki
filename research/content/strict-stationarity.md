@@ -22,7 +22,7 @@ Conversely, equal means and covariances do not determine an arbitrary joint dist
 ## Worked example
 Let observations at different times be independent. At even times let $X_t$ equal either $-1$ or $1$, each with probability $1/2$. At odd times let it equal $0$ with probability $1/2$, and each of $-\sqrt2,\sqrt2$ with probability $1/4$. At both parities,
 $$
-E(X_t)=0,\qquad E(X_t^2)=1.
+\E(X_t)=0,\qquad \E(X_t^2)=1.
 $$
 Independence makes $\operatorname{Cov}(X_t,X_{t+h})=0$ for $h\ne0$. These facts satisfy weak stationarity. Strict stationarity fails already for a block of length one:
 $$
@@ -33,7 +33,7 @@ No longer-block calculation can repair that difference. This example isolates th
 **Your turn.** Find the fourth moment at even and odd times. Which aspect of the law changes while the variance stays fixed?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-At even times $E(X_t^4)=1$. At odd times it is $(1/4)4+(1/4)4=2$. The fourth moments differ, recording a change in the shapes of the one-time distributions that their equal second moments do not reveal.
+At even times $\E(X_t^4)=1$. At odd times it is $(1/4)4+(1/4)4=2$. The fourth moments differ, recording a change in the shapes of the one-time distributions that their equal second moments do not reveal.
 :::
 
 ## Properties — Dependence can persist forever
