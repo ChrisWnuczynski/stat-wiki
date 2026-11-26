@@ -360,7 +360,7 @@ calculation {{cite:owen2013_mc}} (§9.3).
 
 ### A rare-event probability
 
-Let $Z$ be standard normal and estimate $\mu = P(Z > 3)$ by importance
+Let $Z$ be standard normal and estimate $\mu = \mathbb{P}(Z > 3)$ by importance
 sampling. The exact value is $\mu = 1 - \Phi(3) = 0.001349898$, where
 $\Phi$ is the standard normal distribution function. Under crude Monte Carlo — sampling from
 $p$, the $N(0,1)$ density itself — the per-draw contribution is a
