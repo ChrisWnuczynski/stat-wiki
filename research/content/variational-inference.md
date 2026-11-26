@@ -588,7 +588,7 @@ placing probabilities $0.3$, $0.3$ and $0.4$ on the three points
 $(-1, 0)$, $(1, 0)$ and $(0, 1)$: a product approximation whose reverse
 divergence is finite must sit on a single slice of constant $Y$, and
 the optimum chooses $Y = 0$, giving $\mathrm{Var}_q(X) = 1$ against
-$\mathrm{Var}_p(X) = 0.6$ and $P_q(|X| > 0.5) = 1$ against $0.6$ — a
+$\mathrm{Var}_p(X) = 0.6$ and $\mathbb{P}_q(|X| > 0.5) = 1$ against $0.6$ — a
 marginal variance and a tail probability *overstated*. Understated
 spread is the common failure, and the one to expect; it is not
 guaranteed.
