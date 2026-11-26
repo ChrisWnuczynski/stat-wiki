@@ -6,18 +6,18 @@ The model describes possible data under different parameter values. The null sel
 
 ## Properties — Calibration is a probability statement
 Write $\varphi(X)=1$ for rejection and zero otherwise. A level-$\alpha$ test satisfies $\sup_{\theta\in\Theta_0}\E_\theta\varphi(X)\le\alpha$. Its power at $\theta$ is $\E_\theta\varphi(X)$. For a simple continuous null with CDF $F_0$ and an upper-tail test, $p=1-F_0(T)$ is uniform under that null: for $0<u<1$,
-$$P_0(p\le u)=P_0\{T\ge F_0^{-1}(1-u)\}=u.$$
+$$\mathbb{P}_0(p\le u)=\mathbb{P}_0\{T\ge F_0^{-1}(1-u)\}=u.$$
 Therefore rejecting when $p\le\alpha$ has size $\alpha$. For discrete data, tail probabilities jump, so a nonrandomized test is often conservative. The critical region is defined through the null sampling distribution.{{cite:dodge2008}} (p. 452, “Rejection Region”)
 
 ## Worked example — A discrete upper tail
 Under $H_0:p=0.6$, the serve count is $X\sim\operatorname{Bin}(15,0.6)$. Against improvement, the observed count thirteen has $p$-value
-$$P_{0.6}(X\ge13)=\sum_{j=13}^{15}\binom{15}{j}0.6^j0.4^{15-j}=0.02711.$$
+$$\mathbb{P}_{0.6}(X\ge13)=\sum_{j=13}^{15}\binom{15}{j}0.6^j0.4^{15-j}=0.02711.$$
 The 5% rejection region is $X\ge13$, whose actual null probability is $0.02711$. Including twelve would raise it to $0.09050$, exceeding 5%. This demonstrates why choosing a nominal level need not produce that exact error probability. Independence and a common success probability across serves are the binomial model's substantive assumptions.{{cite:openintro2019}} (§6.1.3, tests for a proportion)
 
 **Your turn.** A fair coin is tossed five times and all tosses are heads. Find the one-sided $p$-value for excess heads. Would the rule reject at 5%?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The upper-tail probability is $P(X=5)=1/32=0.03125$. The one-sided rule rejects at 5%. A symmetric two-sided tail convention counts all heads and all tails, giving $2/32=0.0625$ and a different decision.
+The upper-tail probability is $\mathbb{P}(X=5)=1/32=0.03125$. The one-sided rule rejects at 5%. A symmetric two-sided tail convention counts all heads and all tails, giving $2/32=0.0625$ and a different decision.
 :::
 
 ## Statistical use — Distinguish evidence, decision and magnitude
