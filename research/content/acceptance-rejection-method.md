@@ -25,7 +25,7 @@ The acceptance probability is $1/2$ and the expected number of proposals is two.
 For the beta target with the tight bound $M=3/2$, what is the probability that the first proposal is accepted, and what is the probability that the first acceptance needs more than two proposals?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The acceptance probability is $1/M=2/3$, so the first proposal is accepted with probability $2/3$. The number of proposals is geometric, and $P(N>2)=(1-2/3)^2=1/9$.
+The acceptance probability is $1/M=2/3$, so the first proposal is accepted with probability $2/3$. The number of proposals is geometric, and $\mathbb{P}(N>2)=(1-2/3)^2=1/9$.
 :::
 
 ## Assumptions and limits — Tail control comes before tuning
@@ -37,7 +37,7 @@ The proposal draws candidates from a distribution one already knows how to sampl
 In the beta example, $f(x)=6x(1-x)$ on the unit interval has maximum $3/2$ at $x=1/2$. A uniform proposal and $M=3/2$ give an envelope that touches the target at the mode and lies above it elsewhere. The acceptance probability is $1/M=2/3$. A proposal at $x=1/4$ has height $f(1/4)=6\cdot(1/4)\cdot(3/4)=9/8$, so the threshold is $(9/8)/(3/2)=3/4$. A uniform $U=1/2$ falls below that threshold and is accepted. A uniform $U=0.8$ falls above it and is rejected. The same comparison with a looser envelope changes the threshold and the cost together.
 
 ### Properties — Cost is a geometric waiting time
-Let $N$ be the number of proposals until, and including, the first acceptance. Then $P(N=n)=(1-1/M)^{n-1}(1/M)$ for $n=1,2,\ldots$, the geometric law that counts the successful trial. The mean is $M$ and the variance is $M(M-1)$. For $M=3/2$ the mean is $3/2$ and the variance is $(3/2)(1/2)=3/4$. If each proposal spends two uniform draws, one for the candidate and one for the accept–reject decision, the expected number of uniforms per output is $2M$. At the tight bound this is $3$. At the looser bound $M=2$ it is $4$. At $M=4$ the expected number of proposals is $4$ and the expected number of uniforms is $8$.
+Let $N$ be the number of proposals until, and including, the first acceptance. Then $\mathbb{P}(N=n)=(1-1/M)^{n-1}(1/M)$ for $n=1,2,\ldots$, the geometric law that counts the successful trial. The mean is $M$ and the variance is $M(M-1)$. For $M=3/2$ the mean is $3/2$ and the variance is $(3/2)(1/2)=3/4$. If each proposal spends two uniform draws, one for the candidate and one for the accept–reject decision, the expected number of uniforms per output is $2M$. At the tight bound this is $3$. At the looser bound $M=2$ it is $4$. At $M=4$ the expected number of proposals is $4$ and the expected number of uniforms is $8$.
 
 An invalid envelope is not a special case of a loose one. If $f(x)>Mg(x)$ on a set of positive probability, the ratio $f/(Mg)$ exceeds one there. Replacing the ratio by one in the code accepts too rarely in that region, relative to the proof, and the output density is no longer $f$. A target that equals $2$ on $[0,1/2]$ and equals $0$ elsewhere cannot use a uniform proposal on $[0,1]$ with $M=1$: on $(0,1/2)$ the target height $2$ exceeds the envelope height $1$. The integral test catches this before any draw is generated. The supremum of $f/g$ is $2$, so $M=2$ is a valid envelope and the acceptance probability is $1/2$.
 
