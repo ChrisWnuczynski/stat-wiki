@@ -2,7 +2,7 @@
 At one feature value, three classes have conditional probabilities $(0.20,0.55,0.25)$. A rule must return one label. Under zero–one loss, class $2$ has error probability $0.45$, compared with $0.80$ and $0.75$ for classes $1$ and $3$. The optimal label follows from conditional expected loss, rather than from geometric distance alone.{{cite:rasmussen_williams2006}} (§3.1.1, p. 36)
 
 ## Intuition — Minimise before averaging over features
-Let $\tau_g(x)=P(Y=g\mid X=x)$ and $\delta(x)$ be a measurable class prediction. Under zero–one loss,
+Let $\tau_g(x)=\mathbb{P}(Y=g\mid X=x)$ and $\delta(x)$ be a measurable class prediction. Under zero–one loss,
 $$
 R(\delta\mid x)=\sum_g\mathbf1\{\delta(x)\ne g\}\tau_g(x)
 =1-\tau_{\delta(x)}(x).
@@ -25,7 +25,7 @@ Bayes risk describes irreducible error relative to the observed features, data-g
 ## Worked example
 
 ### Integrating local mistakes
-Suppose $P(X=A)=0.6$ and $P(X=B)=0.4$, with class probabilities $(0.20,0.55,0.25)$ at $A$ and $(0.40,0.40,0.20)$ at $B$. Predict class $2$ at $A$ and either class $1$ or $2$ at $B$. Then
+Suppose $\mathbb{P}(X=A)=0.6$ and $\mathbb{P}(X=B)=0.4$, with class probabilities $(0.20,0.55,0.25)$ at $A$ and $(0.40,0.40,0.20)$ at $B$. Predict class $2$ at $A$ and either class $1$ or $2$ at $B$. Then
 $$
 R^*=0.6(0.45)+0.4(0.60)=0.51.
 $$
