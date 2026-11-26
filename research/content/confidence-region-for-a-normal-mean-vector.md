@@ -13,7 +13,7 @@ n(\bar X-\mu_0)^\top S^{-1}(\bar X-\mu_0)
 $$
 where the last subscript denotes the lower-tail quantile. The finite-sample calibration comes from Hotelling's statistic and its central $F$ distribution under the true mean. Covariance-divisor conventions must be matched when converting the statistic to an $F$ variable.{{cite:pan_zhou2011_hotelling}} (§1, Remark 1, covariance divisor $n$ and corresponding $F$ scaling)
 
-The statement of coverage is $P_\mu\{\mu\in C(X_1,\ldots,X_n)\}=1-\alpha$. The random object is the region produced by a new sample. The fixed true mean is inside or outside the particular observed region; frequentist coverage does not itself assign that fixed mean a posterior distribution.{{cite:friendly_monette_fox2013}} (§4.6, joint confidence coverage)
+The statement of coverage is $\mathbb{P}_\mu\{\mu\in C(X_1,\ldots,X_n)\}=1-\alpha$. The random object is the region produced by a new sample. The fixed true mean is inside or outside the particular observed region; frequentist coverage does not itself assign that fixed mean a posterior distribution.{{cite:friendly_monette_fox2013}} (§4.6, joint confidence coverage)
 
 ## Interpretation — Principal axes show joint uncertainty
 Write $S=U\operatorname{diag}(\lambda_1,\ldots,\lambda_p)U^\top$ and let $c$ be the right-hand threshold for $T^2$. In principal coordinates $z=U^\top(\mu_0-\bar X)$, the region is
