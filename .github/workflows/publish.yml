@@ -66,8 +66,22 @@ jobs:
       - name: Write the wiki pages
         run: python build_wiki.py
 
+      - name: Restore and cache rendered site
+        uses: actions/cache@v4
+        with:
+          path: |
+            _site
+            .quarto
+            _build/incremental-manifest.json
+          key: quarto-site-v1-${{ runner.os }}-${{ github.ref_name }}-${{ github.sha }}
+          restore-keys: |
+            quarto-site-v1-${{ runner.os }}-${{ github.ref_name }}-
+            quarto-site-v1-${{ runner.os }}-main-
+
       - name: Render the site
-        run: quarto render
+        env:
+          STATWIKI_FORCE_FULL_RENDER: ${{ vars.STATWIKI_FORCE_FULL_RENDER || '' }}
+        run: python tools/incremental_render.py
 
       - id: upload
         uses: actions/upload-pages-artifact@v4
@@ -333,6 +347,9 @@ jobs:
 
       - name: Test the graph
         run: python -m unittest test_wiki_graph.py
+
+      - name: Test incremental render
+        run: python -m unittest test_incremental_render.py
 
   # Pull requests only: the Ask worker and harness tests, and the chat widget's
   # type check, unit tests and browser tests against a stand-in Worker.
