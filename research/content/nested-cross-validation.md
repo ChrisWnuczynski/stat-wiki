@@ -15,13 +15,13 @@ Split the sample into outer folds. For each outer fold, run the entire selection
 ## Properties — The expected minimum cannot exceed every candidate
 For scores $C_1,\ldots,C_K$ of $K$ candidates on the same sample,
 $$
-\mathrm{E}\bigl(\min_k C_k\bigr)\le \min_k \mathrm{E}(C_k).
+\E\bigl(\min_k C_k\bigr)\le \min_k \E(C_k).
 $$
 Reporting the minimum therefore estimates something no larger than the best candidate’s expected score, and strictly smaller unless one candidate is always the minimiser.
 
 ::: {.callout-note collapse="true" title="Proof"}
 ::: {.proof}
-For each fixed index $j$, $\min_k C_k\le C_j$, so $\mathrm{E}(\min_k C_k)\le \mathrm{E}(C_j)$. The left side does not depend on $j$, and the inequality holds for every $j$, so the left side is at most the smallest of the $\mathrm{E}(C_j)$. Equality holds for all sample sizes only if a single index achieves the minimum with probability one. A search that sometimes changes its mind makes the inequality strict.{{cite:cawley_talbot2010}} (§1, pp. 2079–2080)
+For each fixed index $j$, $\min_k C_k\le C_j$, so $\E(\min_k C_k)\le \E(C_j)$. The left side does not depend on $j$, and the inequality holds for every $j$, so the left side is at most the smallest of the $\E(C_j)$. Equality holds for all sample sizes only if a single index achieves the minimum with probability one. A search that sometimes changes its mind makes the inequality strict.{{cite:cawley_talbot2010}} (§1, pp. 2079–2080)
 :::
 :::
 
