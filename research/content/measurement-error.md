@@ -7,7 +7,7 @@ Classical additive error writes the observed value as $W=X+U$, with mean-zero $U
 Systematic calibration error, rounding, misclassification, and sampling variability describe different mechanisms. A constant calibration shift changes the mean. Random mean-zero additive error changes variance. For repeated readings of a fixed quantity, independence allows averaging to reduce the random component; a shared calibration shift survives averaging.{{cite:keogh2020_measurement_error}} (§§2.1, 4.2){{cite:grinstead_snell1997}} (§6.2, Thms. 6.7–6.9, pp. 259–260; §6.3, Thms. 6.14–6.16, p. 272)
 
 ## Properties — Deriving attenuation in one predictor
-In the simple model $Y=\alpha+\beta X+\varepsilon$, assume $X,U,\varepsilon$ are mutually independent, $E(U)=E(\varepsilon)=0$, and finite variances. The population regression slope using $W$ is
+In the simple model $Y=\alpha+\beta X+\varepsilon$, assume $X,U,\varepsilon$ are mutually independent, $\E(U)=\E(\varepsilon)=0$, and finite variances. The population regression slope using $W$ is
 $$
 \beta_W=\frac{\operatorname{Cov}(W,Y)}{\operatorname{Var}(W)}
 =\beta\frac{\sigma_X^2}{\sigma_X^2+\sigma_U^2}.
