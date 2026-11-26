@@ -4,9 +4,9 @@ If one machine produces a random count and another independent machine produces 
 ## Definition — Probabilities as coefficients
 For a nonnegative integer-valued $N$, its probability generating function is
 $$
-G_N(z)=\E(z^N)=\sum_{k=0}^\infty P(N=k)z^k,\qquad |z|\le1.
+G_N(z)=\E(z^N)=\sum_{k=0}^\infty \mathbb{P}(N=k)z^k,\qquad |z|\le1.
 $$
-The series converges absolutely on the closed unit disc. Its coefficients recover the probabilities: $P(N=k)=G_N^{(k)}(0)/k!$. For a proper distribution, $G_N(1)=1$, and $G_N(0)=P(N=0)$ with the convention $0^0=1$.{{cite:grinstead_snell1997}} (§10.1, ordinary generating functions, pp. 369–370)
+The series converges absolutely on the closed unit disc. Its coefficients recover the probabilities: $\mathbb{P}(N=k)=G_N^{(k)}(0)/k!$. For a proper distribution, $G_N(1)=1$, and $G_N(0)=\mathbb{P}(N=0)$ with the convention $0^0=1$.{{cite:grinstead_snell1997}} (§10.1, ordinary generating functions, pp. 369–370)
 
 ## Properties — Derivatives and independent totals
 The first two identities below give factorial moments as extended nonnegative values, possibly $+\infty$:
@@ -41,10 +41,10 @@ It is $G_N(0)^3=0.2^3=0.008$. A nonnegative sum is zero only when every summand 
 
 [Practice question](../questions/depth-mgf-bernoulli-sum.qmd)
 
-Let $X$ and $Y$ be independent Bernoulli variables with success probability $0.4$. Find the MGF of $S=X+Y$, its mean and variance, and $P(S=2)$. What part fails if $X=Y$ instead?
+Let $X$ and $Y$ be independent Bernoulli variables with success probability $0.4$. Find the MGF of $S=X+Y$, its mean and variance, and $\mathbb{P}(S=2)$. What part fails if $X=Y$ instead?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-One MGF is $0.6+0.4e^{t}$, so independence gives $M_S(t)=(0.6+0.4e^{t})^{2}$. The mean is $0.8$, variance $2(0.4)(0.6)=0.48$, and $P(S=2)=0.4^{2}=0.16$. If $X=Y$, the sum's MGF is $0.6+0.4e^{2t}$; the product rule and binomial law do not apply.
+One MGF is $0.6+0.4e^{t}$, so independence gives $M_S(t)=(0.6+0.4e^{t})^{2}$. The mean is $0.8$, variance $2(0.4)(0.6)=0.48$, and $\mathbb{P}(S=2)=0.4^{2}=0.16$. If $X=Y$, the sum's MGF is $0.6+0.4e^{2t}$; the product rule and binomial law do not apply.
 :::
 
 ### An offspring generating function {#self-check-ex-sp-critical-extinction}
