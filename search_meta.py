@@ -14,6 +14,8 @@
   and the alternatives to use if that name is taken.
 - sitemap.xml lists the home page at the site root, its canonical URL,
   rather than at index.html.
+- search.json drops the leading "Skip to main content" text that Quarto
+  indexes from _theme-body.html, while rendered pages keep the skip link.
 
 Google ignores a description repeated on many pages. Two pages that end up
 with the same one get their titles put in front; any still shared are
@@ -418,6 +420,52 @@ def home_page(text: str) -> str:
     return text.replace("</head>", website_data() + "\n</head>", 1)
 
 
+SKIP_LINK_PREFIX = re.compile(r"^\s*Skip to main content(?:\s+|$)")
+
+
+def strip_skip_link_text(text: str) -> str:
+    """Drop the leading skip-link label Quarto copies from _theme-body.html."""
+    return SKIP_LINK_PREFIX.sub("", text, count=1)
+
+
+def clean_search_index(site_dir: Path) -> int:
+    path = site_dir / "search.json"
+    if not path.is_file():
+        raise SystemExit("Missing search.json")
+    rows = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(rows, list):
+        raise SystemExit("search.json must contain a JSON array")
+    base_counts: dict[str, int] = {}
+    for row in rows:
+        if isinstance(row, dict):
+            base = str(row.get("href") or "").split("#", 1)[0]
+            if base:
+                base_counts[base] = base_counts.get(base, 0) + 1
+    changed = 0
+    kept: list = []
+    for row in rows:
+        if not isinstance(row, dict):
+            kept.append(row)
+            continue
+        text = row.get("text")
+        if isinstance(text, str):
+            cleaned = strip_skip_link_text(text)
+            if cleaned != text:
+                changed += 1
+                href = str(row.get("href") or "")
+                base = href.split("#", 1)[0]
+                if not cleaned.strip() and not row.get("section") and "#" not in href and base_counts.get(base, 0) > 1:
+                    base_counts[base] -= 1
+                    continue
+                row = {**row, "text": cleaned}
+            if SKIP_LINK_PREFIX.match(row["text"]):
+                raise SystemExit(f"search.json still begins with skip-link text: {row.get('href')}")
+        kept.append(row)
+    if changed:
+        path.write_text(json.dumps(kept, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    return changed
+
+
 def fix_sitemap(site_dir: Path) -> None:
     path = site_dir / "sitemap.xml"
     if not path.is_file():
@@ -448,7 +496,7 @@ def main(site_dir: Path = SITE_DIR) -> None:
     own: dict[str, int] = {}
     for path in pages:
         text = path.read_text(encoding="utf-8")
-        if "<title>Redirect</title>" in text and "var redirects" in text:
+        if "<title>Redirect</title>" in text and "var redirects" not in text:
             continue
         texts[path] = text
         mine = existing_description(text)
@@ -487,7 +535,8 @@ def main(site_dir: Path = SITE_DIR) -> None:
         if updated != text:
             path.write_text(updated, encoding="utf-8")
     fix_sitemap(site_dir)
-    print(f"Descriptions on {len(chosen) + 1} pages")
+    stripped = clean_search_index(site_dir)
+    print(f"Descriptions on {len(chosen) + 1} pages; stripped skip-link prefix from {stripped} search records")
 
 
 def _counts(values) -> dict[str, int]:

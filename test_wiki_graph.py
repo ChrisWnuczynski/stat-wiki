@@ -2267,5 +2267,8 @@ class SidebarTopicTests(unittest.TestCase):
         self.assertIsNone(fund[2])
 
 
+from test_search_meta import SearchIndexSkipLinkTests  # noqa: E402, F401
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -996,3 +996,57 @@ test("a normal multi-word query keeps its current top results", () => {
   );
 });
 
+test("documentsFromIndex and Quarto autocomplete strip leading Skip to main content", () => {
+  const raw = [
+    {
+      objectID: "search.html",
+      href: "search.html",
+      title: "Search",
+      section: "",
+      text: "Skip to main content\n\n\nPress Enter in the search box at the top to open this page.",
+    },
+    {
+      objectID: "files/figure.html",
+      href: "files/figure.html",
+      title: "Roughness penalty",
+      section: "",
+      text: "Skip to main content",
+    },
+    {
+      objectID: "files/figure.html#summary",
+      href: "files/figure.html#summary",
+      title: "Roughness penalty",
+      section: "Summary",
+      text: "Summary\nSmoothing spline curvature penalty across knots.",
+    },
+    {
+      objectID: "articles/accessibility.html",
+      href: "articles/accessibility.html",
+      title: "Keyboard navigation",
+      section: "",
+      text: "A page discussing how a Skip to main content link works.",
+    },
+  ];
+
+  const cleaned = documentsFromIndex(raw);
+  assert.equal(cleaned.length, 3);
+  assert.equal(cleaned[0].text, "Press Enter in the search box at the top to open this page.");
+  assert.equal(cleaned[1].href, "files/figure.html#summary");
+  assert.equal(cleaned[1].text, "Summary\nSmoothing spline curvature penalty across knots.");
+  assert.equal(cleaned[2].text, "A page discussing how a Skip to main content link works.");
+  assert.ok(cleaned.every((doc) => !doc.text.startsWith("Skip to main content")));
+
+  const penaltyHits = rankDocuments(cleaned, "roughness penalty");
+  assert.equal(penaltyHits.length, 1);
+  assert.match(penaltyHits[0].text, /Smoothing spline curvature penalty/);
+  assert.ok(!penaltyHits[0].text.includes("Skip to main content"));
+
+  const skipHits = rankDocuments(cleaned, "skip").map((doc) => doc.href);
+  assert.deepEqual(skipHits, ["articles/accessibility.html"]);
+
+  const augmented = augmentQuartoSearchItems(raw.slice(0, 1), "search", null, raw);
+  assert.equal(augmented[0].href, "search.html");
+  assert.ok(!augmented[0].text.startsWith("Skip to main content"));
+  assert.match(augmented[0].text, /^Press Enter in the search box/);
+});
+
