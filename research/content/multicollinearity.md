@@ -33,7 +33,7 @@ If $|r|=1$ the factor is infinite and the matrix is singular. That boundary is t
 
 ::: {.callout-note collapse="true" title="Proof"}
 ::: {.proof}
-Centre the predictors, so the intercept separates and the slope block is the $2\times 2$ matrix above. Its determinant is $S_{11}S_{22}-S_{12}^2=S_{11}S_{22}(1-r^2)$. The inverse has $S_{22}/\det$ in the $(1,1)$ position, hence
+Centre the predictors, so the intercept normal equation separates and the slope normal equations have the $2\times 2$ centred slope block $\begin{pmatrix}S_{11}&S_{12}\\ S_{12}&S_{22}\end{pmatrix}$. Its determinant is $S_{11}S_{22}-S_{12}^2=S_{11}S_{22}(1-r^2)$. The inverse has $S_{22}/\det$ in the $(1,1)$ position, hence
 
 $$
 \operatorname{Var}(b_1)=\sigma^2\frac{S_{22}}{S_{11}S_{22}(1-r^2)}=\frac{\sigma^2}{S_{11}(1-r^2)}
@@ -71,7 +71,7 @@ The partial slope is not the simple slope. In the example the simple slope is $0
 A finite inflation factor is not a unique substantive decomposition. The fit with $b_1=-1.5$ and $b_2=1$ is the least-squares fit. A ridge penalty, or a decision to drop one predictor, is a different estimator. The singular copy of the design shows the boundary where even least squares stops returning one vector.{{cite:dodge2008}} (p. 96, the exact case)
 
 ## Connections
-[Simple linear regression](simple-linear-regression.qmd) is the one-predictor case, where there is no second column to be collinear with and the inflation factor is $1$. The [least-squares line](least-squares-line.qmd) is that fit. Exact collinearity is the singular end of the same normal equations. A penalty that shrinks slopes, such as a ridge penalty, changes the estimator; it is not the least-squares solution whose variance the factor describes.{{cite:dodge2008}} (p. 96, least squares under collinearity)
+[Simple linear regression](simple-linear-regression.qmd) is the one-predictor case, where there is no second column to be collinear with and the inflation factor is $1$; the [least-squares line](least-squares-line.qmd) is that fit, while [multiple linear regression](multiple-linear-regression.qmd) develops partial slopes across several columns. Exact collinearity is the singular boundary of the same normal equations, and a shrinkage penalty such as [ridge regression](ridge-regression.qmd) changes the estimator rather than the least-squares variance that the inflation factor describes.{{cite:dodge2008}} (p. 96, least squares under collinearity)
 
 ## History
 Mathematical collinearity is an exact linear combination, statistical collinearity is an approximate one, and multicollinearity is the name for the strong-correlation case in a regression. The exact case leaves least-squares estimators undefined as a unique solution. The approximate case leaves them defined and able to show considerable variance. A separate entry repeats the approximate definition: a variable almost equal to a linear combination of the others, sometimes met when explanatory variables are strongly correlated.{{cite:dodge2008}} (pp. 96, 362)
