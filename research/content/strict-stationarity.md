@@ -26,7 +26,7 @@ $$
 $$
 Independence makes $\operatorname{Cov}(X_t,X_{t+h})=0$ for $h\ne0$. These facts satisfy weak stationarity. Strict stationarity fails already for a block of length one:
 $$
-P(X_{2t}=0)=0,\qquad P(X_{2t+1}=0)=1/2.
+\mathbb{P}(X_{2t}=0)=0,\qquad \mathbb{P}(X_{2t+1}=0)=1/2.
 $$
 No longer-block calculation can repair that difference. This example isolates the distinction between invariance of moments and invariance of the full distribution.{{cite:pishro_nik2014}} (§10.1.4, stationarity definitions)
 
@@ -39,7 +39,7 @@ At even times $\E(X_t^4)=1$. At odd times it is $(1/4)4+(1/4)4=2$. The fourth mo
 ## Properties — Dependence can persist forever
 A stationary Markov chain need not have independent coordinates. For example, start a deterministic alternating chain on $\{0,1\}$ with a fair random starting state. The two possible infinite paths have equal probability, and shifting time swaps them. The process is strictly stationary even though its next state is determined by its current state.{{cite:durrett2019}} (§6.1, Ex. 6.1.2, pp. 331–332)
 
-An even stronger dependence example is $X_t=Z$ for every $t$, with one Bernoulli draw $Z$ shared across all times. Every shifted block is literally the same random vector, so stationarity holds. Yet the sample mean is $Z$ for every sample size. For $P(Z=1)=1/2$, it stays either zero or one instead of approaching the ensemble mean $1/2$. Strict stationarity therefore supplies no general independence or averaging guarantee. Such guarantees need additional conditions, such as ergodicity.{{cite:durrett2019}} (§6.1, stationary sequences and measure-preserving transformations)
+An even stronger dependence example is $X_t=Z$ for every $t$, with one Bernoulli draw $Z$ shared across all times. Every shifted block is literally the same random vector, so stationarity holds. Yet the sample mean is $Z$ for every sample size. For $\mathbb{P}(Z=1)=1/2$, it stays either zero or one instead of approaching the ensemble mean $1/2$. Strict stationarity therefore supplies no general independence or averaging guarantee. Such guarantees need additional conditions, such as ergodicity.{{cite:durrett2019}} (§6.1, stationary sequences and measure-preserving transformations)
 
 ## Check yourself
 Identify whether the question compares distributions or only moments.
