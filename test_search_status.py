@@ -77,8 +77,9 @@ class SearchStatusTests(unittest.TestCase):
                     page.wait_for_function(
                         "() => document.getElementById('home-search-note').textContent === 'No pages match.'"
                     )
-                    box.press("Enter")
                     self.assertEqual(note.inner_text(), "No pages match.")
+                    box.press("Enter")
+                    page.wait_for_url("**/search.html?q=zzzznotapage")
 
                     page.goto(base + "search.html", wait_until="load")
                     field = page.locator("#site-search-q")
