@@ -8,7 +8,7 @@ The intensity has units of points per unit area, so the mean count $\Lambda(A)$ 
 
 ## Properties — Void probabilities describe nearest-point distances
 At a fixed deterministic origin, let $R$ be the distance to the nearest point of an unbounded homogeneous planar process. The event $R>r$ is the event of no point in the radius-$r$ disk. Therefore
-$$P(R>r)=e^{-\lambda\pi r^2},\quad F_R(r)=1-e^{-\lambda\pi r^2},\quad r\ge0.$$
+$$\mathbb{P}(R>r)=e^{-\lambda\pi r^2},\quad F_R(r)=1-e^{-\lambda\pi r^2},\quad r\ge0.$$
 Differentiating gives density $2\lambda\pi r e^{-\lambda\pi r^2}$. The median solves $\lambda\pi r^2=\log2$, giving $r_{0.5}=\sqrt{\log2/(\lambda\pi)}$. This derivation uses the fixed origin and the disk's area, rather than a one-dimensional exponential gap formula.
 
 For overlapping windows, $N(A)=N(A\setminus B)+N(A\cap B)$ and similarly for $B$. Disjoint-region independence then gives $\operatorname{Cov}\{N(A),N(B)\}=\Lambda(A\cap B)$. Counts in overlapping windows generally correlate even though disjoint windows are independent. Geometry determines which part of the random count they share.
