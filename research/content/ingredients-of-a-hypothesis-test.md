@@ -5,7 +5,7 @@ A tennis player has thirteen successful serves out of fifteen after coaching, ag
 The model describes possible data under different parameter values. The null selects a subset of those values, and the alternative determines the departures the test should detect. A significance level specifies the maximum intended false-rejection probability under the null. It is not a probability that the null is true. The test's critical region implements the decision rule.{{cite:dodge2008}} (p. 250, mathematical aspects of hypothesis testing)
 
 ## Properties — Calibration is a probability statement
-Write $\varphi(X)=1$ for rejection and zero otherwise. A level-$\alpha$ test satisfies $\sup_{\theta\in\Theta_0}E_\theta\varphi(X)\le\alpha$. Its power at $\theta$ is $E_\theta\varphi(X)$. For a simple continuous null with CDF $F_0$ and an upper-tail test, $p=1-F_0(T)$ is uniform under that null: for $0<u<1$,
+Write $\varphi(X)=1$ for rejection and zero otherwise. A level-$\alpha$ test satisfies $\sup_{\theta\in\Theta_0}\E_\theta\varphi(X)\le\alpha$. Its power at $\theta$ is $\E_\theta\varphi(X)$. For a simple continuous null with CDF $F_0$ and an upper-tail test, $p=1-F_0(T)$ is uniform under that null: for $0<u<1$,
 $$P_0(p\le u)=P_0\{T\ge F_0^{-1}(1-u)\}=u.$$
 Therefore rejecting when $p\le\alpha$ has size $\alpha$. For discrete data, tail probabilities jump, so a nonrandomized test is often conservative. The critical region is defined through the null sampling distribution.{{cite:dodge2008}} (p. 452, “Rejection Region”)
 
