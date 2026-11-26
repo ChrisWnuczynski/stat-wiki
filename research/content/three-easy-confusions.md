@@ -54,9 +54,9 @@ A sampling statement fixes $(\beta,v)$ and moves $Y$. Under Gaussian iid errors 
 ## Interpretation — A marginal variance is an average of conditional variances
 For the worked summaries, $v\mid y\sim\operatorname{IG}(4.5,9)$ has mean $9/(4.5-1)=18/7=2.571429$. With $c_{jj}=1/4$, the conditional variance of the coefficient at a fixed $v$ is $v/4$. Averaging over the marginal posterior of $v$ gives
 $$
-\operatorname{Var}(\beta_j\mid y)=E(v\mid y)\,c_{jj}=\frac{18}{7}\cdot\frac14=\frac{9}{14}=0.642857.
+\operatorname{Var}(\beta_j\mid y)=\E(v\mid y)\,c_{jj}=\frac{18}{7}\cdot\frac14=\frac{9}{14}=0.642857.
 $$
-The same number comes from the marginal $t_9$ description. The scale of that $t$ law satisfies $\mathrm{scale}^2=(1/2)$, because $(\mathrm{SSE}/9)c_{jj}=(18/9)(1/4)=1/2$, and a $t$ random variable on $9$ degrees of freedom has variance $\mathrm{scale}^2\cdot9/(9-2)=(1/2)\cdot9/7=9/14$. The scale and the standard deviation answer different questions. At the posterior mean of $v$ the conditional standard deviation is $\sqrt{(18/7)/4}=\sqrt{9/14}=0.801784$. The standard deviation of the marginal posterior is the same number here only because $E(v)c_{jj}$ equals the $t$ variance; the scale $\sqrt{1/2}=0.707107$ is smaller.{{cite:bernardo2005_reference}} (§3.8, ex. 16; §3.11, ex. 21)
+The same number comes from the marginal $t_9$ description. The scale of that $t$ law satisfies $\mathrm{scale}^2=(1/2)$, because $(\mathrm{SSE}/9)c_{jj}=(18/9)(1/4)=1/2$, and a $t$ random variable on $9$ degrees of freedom has variance $\mathrm{scale}^2\cdot9/(9-2)=(1/2)\cdot9/7=9/14$. The scale and the standard deviation answer different questions. At the posterior mean of $v$ the conditional standard deviation is $\sqrt{(18/7)/4}=\sqrt{9/14}=0.801784$. The standard deviation of the marginal posterior is the same number here only because $\E(v)c_{jj}$ equals the $t$ variance; the scale $\sqrt{1/2}=0.707107$ is smaller.{{cite:bernardo2005_reference}} (§3.8, ex. 16; §3.11, ex. 21)
 
 The plug-in that freezes $v$ at the residual estimate $s^2=2$ gives conditional standard deviation $\sqrt{2/4}=\sqrt{1/2}=0.707107$. That calculation reports the spread of $\beta_j$ given a fixed variance. It omits the posterior uncertainty in $v$, which is exactly the gap between $0.707107$ and $0.801784$ in this example.
 
