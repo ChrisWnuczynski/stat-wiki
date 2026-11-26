@@ -6303,6 +6303,67 @@ def write_check_gaps(slugs: list[str]) -> None:
     path.write_bytes(text.replace("\n", newline).encode("utf-8"))
 
 
+_SNIPPET_CITE_ATOM = r"(?:<sup\b[^>]*>.*?</sup>|\{\{cite:[^}]+\}\})"
+_SNIPPET_CITE_LOCATOR = r"\((?:[^()\n]|\([^()\n]*\))*\)"
+_SNIPPET_CITE_UNCLOSED = r"\([^\n)]*\Z"
+_SNIPPET_CITE_ITEM = (
+    rf"{_SNIPPET_CITE_ATOM}(?:[ \t]*{_SNIPPET_CITE_LOCATOR})*(?:[ \t]*{_SNIPPET_CITE_UNCLOSED})?"
+)
+_SNIPPET_CITE_CLUSTER_RE = re.compile(
+    rf"[ \t]*{_SNIPPET_CITE_ITEM}(?:[ \t]*[;,]?[ \t]*{_SNIPPET_CITE_ITEM})*[ \t]*",
+    re.S | re.I,
+)
+_SNIPPET_CITE_UNCLOSED_RE = re.compile(
+    rf"{_SNIPPET_CITE_ATOM}(?:[ \t]*{_SNIPPET_CITE_LOCATOR})*[ \t]*{_SNIPPET_CITE_UNCLOSED}",
+    re.S | re.I,
+)
+
+
+def _strip_snippet_citations(text: str) -> str:
+    if "<sup" not in text.lower() and "{{cite:" not in text:
+        return text
+    had_unclosed = bool(_SNIPPET_CITE_UNCLOSED_RE.search(text))
+    cleaned = text
+    while True:
+        match = _SNIPPET_CITE_CLUSTER_RE.search(cleaned)
+        if not match:
+            break
+        before = cleaned[: match.start()]
+        after = cleaned[match.end() :]
+        if before.endswith("..") and not before.endswith("..."):
+            before = before[:-1]
+        if before and before[-1] in ".,;:!?" and after and after[0] in ".,;:!?":
+            if before[-1] in ",;:" and after[0] in ".?!":
+                before = before[:-1]
+            else:
+                after = after[1:].lstrip(" \t")
+        odd_quotes = before.count('"') % 2 == 1
+        opening_before = not before or before.endswith(("\n", "(", "[", "{", "“", "‘")) or (odd_quotes and before.endswith('"'))
+        closing_after = not after or after[0] in "\n.,;:!?)]}”’" or (odd_quotes and after.startswith('"'))
+        cleaned = before + ("" if opening_before or closing_after else " ") + after
+    cleaned = re.sub(r"([.?!])\s+…\Z", r"\1", cleaned)
+    cleaned = re.sub(r"[,;:]\s+(?=…\Z)", " ", cleaned)
+    if had_unclosed:
+        stripped = cleaned.rstrip()
+        if stripped and not stripped.endswith((".", "?", "…")):
+            cleaned = stripped.rstrip(",;:") + " …"
+    return cleaned
+
+
+def clean_snippet(text: str) -> str:
+    text = _strip_snippet_citations(text)
+    text = re.sub(r"!?\[([^\]]*)\]\([^)]*\)(\{[^}]*\})?", r"\1", text)
+    text = re.sub(r"\[\^[^\]]+\]", "", text)
+
+    def eq_number(ident: str | None) -> str:
+        n = EQ_NUMBERS.get(ident or "")
+        return f"equation ({n})" if n else "a displayed equation"
+
+    text = re.sub(r"\\eqref\{([^{}]+)\}", lambda m: eq_number(EQ_LABELS.get(m.group(1), (None,))[0]), text)
+    text = re.sub(r"@(eq-[\w-]+)", lambda m: eq_number(m.group(1)), text)
+    return cell(" ".join(text.split()))
+
+
 def write_glossary(questions: list[dict]) -> None:
     page = WIKI / "reference" / "glossary.qmd"
     # Named objects are articles: one row each, pointing at the article.
@@ -6367,17 +6428,6 @@ def write_glossary(questions: list[dict]) -> None:
                 "keep_links": True,
             }
         )
-
-    def clean_snippet(text: str) -> str:
-        text = re.sub(r"!?\[([^\]]*)\]\([^)]*\)(\{[^}]*\})?", r"\1", text)
-        text = re.sub(r"\[\^[^\]]+\]", "", text)
-        def eq_number(ident: str | None) -> str:
-            n = EQ_NUMBERS.get(ident or "")
-            return f"equation ({n})" if n else "a displayed equation"
-
-        text = re.sub(r"\\eqref\{([^{}]+)\}", lambda m: eq_number(EQ_LABELS.get(m.group(1), (None,))[0]), text)
-        text = re.sub(r"@(eq-[\w-]+)", lambda m: eq_number(m.group(1)), text)
-        return cell(" ".join(text.split()))
 
     def sort_key(entry: dict) -> str:
         term = re.sub(r"^(the|a|an)\s+", "", entry["term"].lower())
