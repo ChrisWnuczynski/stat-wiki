@@ -13,16 +13,16 @@ It is simple because truncation makes its range finite. Increasing $m$ raises th
 
 Define the nonnegative integral as the supremum of expectations of simple variables between zero and $X$. Monotone convergence then identifies this supremum with the limit of expectations along any increasing simple approximation. Choosing a particular discretisation supplies a computational route, while the supremum definition expresses why the resulting expectation is intrinsic.{{cite:durrett2019}} (§1.4, pp. 21–22, nonnegative integral; §1.5, monotone convergence)
 
-A signed variable needs more care. Put $X^+=\max(X,0)$ and $X^-=\max(-X,0)$. A finite expectation requires $E|X|<\infty$, equivalently both nonnegative parts have finite expectation. If precisely one part is infinite, an extended expectation can be defined with the corresponding sign. If both are infinite, cancellation is undefined; symmetry of the distribution does not make the expectation zero.
+A signed variable needs more care. Put $X^+=\max(X,0)$ and $X^-=\max(-X,0)$. A finite expectation requires $\E|X|<\infty$, equivalently both nonnegative parts have finite expectation. If precisely one part is infinite, an extended expectation can be defined with the corresponding sign. If both are infinite, cancellation is undefined; symmetry of the distribution does not make the expectation zero.
 
 ## Worked example — A payout and a continuous limit
 Suppose mutually exclusive loss events have probabilities $0.7,0.2,0.1$ and payouts $0,100,500$. The expected payout is $0(0.7)+100(0.2)+500(0.1)=70$. Paying an administrative amount of $10$ in every outcome raises expectation to $80$. This follows directly by adding the same constant on each piece of the partition.
 
 For a continuous example let $U$ be uniform on $[0,1]$ and define $T_m=2^{-m}\lfloor2^mU\rfloor$. The endpoint $U=1$ has probability zero and makes no contribution. Each of $2^m$ grid values $k/2^m$, $k=0,\ldots,2^m-1$, has probability $2^{-m}$. Therefore
-$$ET_m=2^{-2m}\sum_{k=0}^{2^m-1}k=\frac12-2^{-m-1}.$$
-The values for $m=1,2,3$ are $0.25,0.375,0.4375$, increasing towards $EU=1/2$. This computes the continuous expectation from finite sums alone.{{cite:durrett2019}} (§1.6, pp. 28–29, expectation as integration)
+$$\E T_m=2^{-2m}\sum_{k=0}^{2^m-1}k=\frac12-2^{-m-1}.$$
+The values for $m=1,2,3$ are $0.25,0.375,0.4375$, increasing towards $\E U=1/2$. This computes the continuous expectation from finite sums alone.{{cite:durrett2019}} (§1.6, pp. 28–29, expectation as integration)
 
-**Your turn.** A simple variable is $S=2\,1_A+5\,1_B$ with disjoint events of probabilities $0.3$ and $0.2$ and value zero elsewhere. Compute $ES$ and $E(S+4)$.
+**Your turn.** A simple variable is $S=2\,1_A+5\,1_B$ with disjoint events of probabilities $0.3$ and $0.2$ and value zero elsewhere. Compute $\E S$ and $\E(S+4)$.
 
 ::: {.callout-tip collapse="true" title="Answer"}
 The expectation is $2(0.3)+5(0.2)=1.6$. The complement has probability $0.5$; adding four everywhere raises expectation by $4$, giving $5.6$.
