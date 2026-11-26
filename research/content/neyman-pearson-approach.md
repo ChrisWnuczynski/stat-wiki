@@ -4,7 +4,7 @@ A manufacturer can tolerate at most a specified false-alarm probability when dec
 
 ## Definition — A constrained decision rule
 
-A test function $\phi(x)\in[0,1]$ gives the probability of rejecting after observing $x$. An ordinary rejection region corresponds to an indicator function; values strictly between zero and one allow randomisation. For parameter $\theta$, its power is $\beta(\theta)=E_\theta\phi(X)$. A level-$\alpha$ test satisfies
+A test function $\phi(x)\in[0,1]$ gives the probability of rejecting after observing $x$. An ordinary rejection region corresponds to an indicator function; values strictly between zero and one allow randomisation. For parameter $\theta$, its power is $\beta(\theta)=\E_\theta\phi(X)$. A level-$\alpha$ test satisfies
 $$
 \sup_{\theta\in\Theta_0}\beta(\theta)\le\alpha.
 $$
@@ -16,7 +16,7 @@ For two specified densities $f_0,f_1$, choose rejection where $f_1/f_0$ is large
 
 ::: {.callout-note collapse="true" title="Proof"}
 ::: {.proof}
-For a threshold $c\ge0$, take $\phi_*=1$ where $f_1>cf_0$, zero where $f_1<cf_0$, and a suitable value on equality. Then $(\phi_* -\phi)(f_1-cf_0)\ge0$ pointwise. Integrating shows $E_1\phi_*-E_1\phi\ge c(E_0\phi_*-E_0\phi)\ge0$. Thus the likelihood-ratio rule has at least as much power. Where both densities vanish the test decision affects neither probability.{{cite:siegrist2022_lrt}} (§9.5, The Neyman-Pearson Lemma)
+For a threshold $c\ge0$, take $\phi_*=1$ where $f_1>cf_0$, zero where $f_1<cf_0$, and a suitable value on equality. Then $(\phi_* -\phi)(f_1-cf_0)\ge0$ pointwise. Integrating shows $\E_1\phi_*-\E_1\phi\ge c(\E_0\phi_*-\E_0\phi)\ge0$. Thus the likelihood-ratio rule has at least as much power. Where both densities vanish the test decision affects neither probability.{{cite:siegrist2022_lrt}} (§9.5, The Neyman-Pearson Lemma)
 :::
 :::
 
