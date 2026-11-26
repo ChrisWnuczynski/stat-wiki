@@ -15,7 +15,7 @@ The quantile function inverts the distribution function in closed form: the $p$-
 ## Worked example
 For a standard Cauchy random variable, $F(5)-F(-5)=2\arctan(5)/\pi$. Therefore
 $$
-P(|X|>5)=1-\frac{2\arctan(5)}{\pi}\approx 0.1257.
+\mathbb{P}(|X|>5)=1-\frac{2\arctan(5)}{\pi}\approx 0.1257.
 $$
 About one observation in eight falls outside $[-5,5]$, even though half the probability already sits in $[-1,1]$. The standard normal law puts far less probability that far out: its probability outside $[-5,5]$ is about $5.7\times10^{-7}$. The comparison is specific to the standard normal law — a normal law centred at zero with standard deviation $10$ assigns probability $0.617$ to the same region, more than the Cauchy law itself. The Cauchy calculation uses only the distribution function; it does not require a mean.
 
