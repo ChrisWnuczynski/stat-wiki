@@ -14,7 +14,7 @@ For $n$ fixed participants, let $Y_i(1)$ and $Y_i(0)$ denote outcomes under the 
 $$
 \tau=\frac1n\sum_i\{Y_i(1)-Y_i(0)\}.
 $$
-To verify its unbiasedness, write the treated mean as $n_1^{-1}\sum_i A_iY_i(1)$. Each indicator has expectation $n_1/n$, so its expectation is the population average of the fixed $Y_i(1)$ values. The same calculation for controls gives the average of $Y_i(0)$, and subtraction gives $E(\widehat\tau)=\tau$. This calculation averages over assignments; it does not make the two observed groups identical.{{cite:openintro2019}} (§1.4.1, randomisation)
+To verify its unbiasedness, write the treated mean as $n_1^{-1}\sum_i A_iY_i(1)$. Each indicator has expectation $n_1/n$, so its expectation is the population average of the fixed $Y_i(1)$ values. The same calculation for controls gives the average of $Y_i(0)$, and subtraction gives $\E(\widehat\tau)=\tau$. This calculation averages over assignments; it does not make the two observed groups identical.{{cite:openintro2019}} (§1.4.1, randomisation)
 
 The same argument shows that a pre-treatment covariate's difference in group means has expectation zero. A particular allocation can nevertheless produce a substantial imbalance. Recording prognostic covariates supports precision, description of participants and assessment of applicability. Reporting baseline characteristics and the numbers analysed remains informative after randomisation.{{cite:schulz_altman_moher2010}} (p. 2, Tbl. 1, items 15–17)
 
