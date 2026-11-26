@@ -12,7 +12,7 @@ A direct argument proves optimality. For any fixed $\delta\ne0$, draw the straig
 ## Worked example
 At $\alpha=0.05$, $c=1.95996$. Under $\delta=1$, the two-sided power is
 $$
-P_1(Z>c)+P_1(Z<-c)=1-\Phi(c-1)+\Phi(-c-1)=0.17008.
+\mathbb{P}_1(Z>c)+\mathbb{P}_1(Z<-c)=1-\Phi(c-1)+\Phi(-c-1)=0.17008.
 $$
 A right-tail rule uses $z_{0.95}=1.64485$ and has power $0.25951$ at $\delta=1$, but only $0.00409$ at $\delta=-1$. Its higher power in one direction comes with failure of the unbiasedness requirement in the other.
 
