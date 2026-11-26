@@ -10,7 +10,7 @@ Propriety is tied to the likelihood, parameter space and observed data, not to t
 
 ## Intuition — Why the normal mean can work
 
-For independent $X_i\sim N(\mu,\sigma^2)$ with known $\sigma^2>0$, the likelihood in $\mu$ is proportional to $\exp\{-\sum_i(x_i-\mu)^2/(2\sigma^2)\}$. With $w(\mu)=1$ and at least one observation, completing the square yields $\mu\mid x\sim N(\bar x,\sigma^2/n)$. The likelihood supplies Gaussian decay at both ends of the real line. If there are no observations, the weight remains flat and there is no posterior probability distribution. When the variance is unknown too, then the normalising integral requires a nonconstant sample and adequate sample size.
+For independent $X_i\sim N(\mu,\sigma^2)$ with known $\sigma^2>0$, the likelihood in $\mu$ is proportional to $\exp\{-\sum_i(x_i-\mu)^2/(2\sigma^2)\}$. With $w(\mu)=1$ and at least one observation, completing the square yields $\mu\mid x\sim N(\bar x,\sigma^2/n)$. The likelihood supplies Gaussian decay at both ends of the real line. If there are no observations, the weight remains flat and there is no posterior probability distribution. When the variance $v=\sigma^2>0$ is unknown too and $(\mu,v)$ has the joint weight $w(\mu,v)=1/v$, flat in $\mu$ on $\mathbb R$, the normalising integral requires a nonconstant sample and adequate sample size.
 
 This calculation does not make a flat prior uniquely neutral. A density constant in $\mu$ is generally not constant after a nonlinear change of parameter, because a Jacobian enters the transformed density. Jeffreys' information-based rule was designed to behave coherently under one-to-one reparameterisations, but it can itself be improper and still requires a propriety check.
 

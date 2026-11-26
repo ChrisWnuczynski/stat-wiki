@@ -16,7 +16,7 @@ For any nonnegative lifetime, $\mathbb ET=\int_0^\infty S(t)\,dt$, with infinite
 
 ::: {.callout-note collapse="true" title="Proof"}
 ::: {.proof}
-For $t\ge s$, the event $\{T>t\}$ is contained in $\{T>s\}$; division by $\Pr(T>s)$ proves the conditional-survival ratio. With a density, $F'(t)=f(t)$ almost everywhere and $S=1-F$, so $S'=-f$ and $-\frac{d}{dt}\log S=f/S=h$. Integrating from zero to $t$ proves the hazard representation when $S(0)=1$. Finally $T=\int_0^\infty\mathbf1\{T>t\}\,dt$ for each nonnegative $T$; Tonelli's theorem gives $\mathbb ET=\int_0^\infty\Pr(T>t)\,dt$, including the case where both sides are infinite. The first two identities need their stated continuity and positivity conditions; the last does not require a density.
+For $t\ge s$, the event $\{T>t\}$ is contained in $\{T>s\}$; division by $\Pr(T>s)$ proves the conditional-survival ratio. With a density, $F'(t)=f(t)$ almost everywhere and $S=1-F$, so $S'=-f$ and $-\frac{d}{dt}\log S=f/S=h$. Integrating from zero to $t$ proves the hazard representation when $S(0)=1$. Finally $T=\int_0^\infty\mathbf1\{T>t\}\,dt$ for each nonnegative $T$; Tonelli's theorem gives $\mathbb ET=\int_0^\infty\Pr(T>t)\,dt$, including the case where both sides are infinite. The conditional-survival ratio requires only $t\ge s$ and $S(s)>0$, not continuity; the density-based hazard representation uses the stated density, positive-survival and $S(0)=1$ conditions; the last does not require a density.
 :::
 :::
 

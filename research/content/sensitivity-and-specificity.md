@@ -13,6 +13,7 @@ Let prevalence be $\pi=\Pr(D)$. The positive predictive value is
 $$\Pr(D\mid T+)=\frac{\pi\mathrm{Se}}{\pi\mathrm{Se}+(1-\pi)(1-\mathrm{Sp})},$$
 when the denominator is positive. This follows by dividing the joint true-positive probability by the total positive probability. Similarly,
 $$\Pr(D^c\mid T-)=\frac{(1-\pi)\mathrm{Sp}}{(1-\pi)\mathrm{Sp}+\pi(1-\mathrm{Se})}.$$
+The negative predictive value is defined only when its denominator, the probability of a negative result, is positive.
 These identities are applications of Bayes' rule, not definitions of sensitivity or specificity. A population with different prevalence can have different predictive values even if the two conditional test rates transfer exactly.{{cite:openintro2019}} (§3.2.8, pp. 104–106, Bayes' theorem){{cite:gelman_bda2013}} (Ch. 1, p. 8)
 
 For a threshold on a score, call a case positive when its score is at least the cut. On a fixed sample, raising the cut from $a$ to $b>a$ changes exactly the cases with scores in $[a,b)$ from positive to negative. Sensitivity is therefore non-increasing and specificity is non-decreasing, provided the corresponding reference class is present. The particular balance should reflect the intended use and the consequences of the two error types.

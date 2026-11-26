@@ -288,6 +288,61 @@ export function limitingFrom(matrix, start, chain) {
   return asProbability(mix);
 }
 
+// The closed classes a path from `start` can enter; a finite chain enters at
+// least one. Whether the distribution from this start settles depends on
+// these classes only, not on a periodic class the start cannot reach.
+export function closedClassesFrom(matrix, start, chain) {
+  if (chain.error) return null;
+  const seen = Array(matrix.length).fill(false);
+  seen[start] = true;
+  const stack = [start];
+  while (stack.length) {
+    const i = stack.pop();
+    for (let j = 0; j < matrix.length; j++) {
+      if (matrix[i][j] > 0 && !seen[j]) {
+        seen[j] = true;
+        stack.push(j);
+      }
+    }
+  }
+  return chain.classes.filter((item) => item.closed && seen[item.states[0]]);
+}
+
+// The note under the distribution plot. `several` is true when the start can
+// enter more than one closed class, so the dashed limit is an average over
+// paths rather than where any one path's occupation settles.
+export function convergenceNote(matrix, start, chain) {
+  const reachable = closedClassesFrom(matrix, start, chain);
+  if (!reachable || !reachable.length) return null;
+  const several = reachable.length > 1;
+  const home = reachable.find((item) => item.states.includes(start));
+  const occupationText = several
+    ? "The dashed lines are the expected long-run occupation from this start, averaged over paths; one path's occupation settles on the stationary distribution of the closed class it enters."
+    : "The occupation fraction still settles on the dashed line.";
+  if (home && home.period > 1) {
+    return {
+      several,
+      text: `The start is in a closed class with period ${home.period}, so the distribution cycles and does not settle, and its total variation does not go to 0. ${occupationText}`,
+    };
+  }
+  if (reachable.some((item) => item.period > 1)) {
+    return {
+      several,
+      text: `A closed class with period above 1 is reachable from this start, so the distribution can fail to settle and its total variation need not go to 0. ${occupationText}`,
+    };
+  }
+  if (several) {
+    return {
+      several,
+      text: "Solid lines are the exact distribution, which settles on the dashed lines. Dashed lines are the expected long-run occupation from this start, averaged over paths. Dotted lines are this path's occupation, which settles on the stationary distribution of the closed class the path enters, not on the dashed lines.",
+    };
+  }
+  return {
+    several,
+    text: "Solid lines are the exact distribution. Dashed lines are the long-run probability from this start. Dotted lines are this path's occupation.",
+  };
+}
+
 function checkPath(matrix, start, steps) {
   const problem = validateMatrix(matrix);
   if (problem) return { error: problem };

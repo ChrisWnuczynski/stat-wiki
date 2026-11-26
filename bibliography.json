@@ -13077,6 +13077,20 @@
         "id": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/GammaDist.html"
       }
     },
+    "r_stats_poisson2026": {
+      "authors": [
+        "R Core Team"
+      ],
+      "year": 2026,
+      "title": "R Documentation: The Poisson Distribution",
+      "kind": "book",
+      "publisher": "R Foundation for Statistical Computing",
+      "url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/Poisson.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/Poisson.html"
+      }
+    },
     "chen_chen2008_ebic": {
       "authors": [
         "Chen, J.",

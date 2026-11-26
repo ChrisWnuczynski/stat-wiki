@@ -2203,6 +2203,31 @@ def copy_for_article(text: str, source: Path, article_path: Path) -> str:
     return text.strip()
 
 
+HEADING_LINE = re.compile(r"^(#{1,6}) ", flags=re.M)
+
+
+def lift_headings(text: str, top: int = 2) -> str:
+    """Raise every heading by one shared step so the shallowest is level `top`.
+
+    A question page's worked answer sits in a callout whose "## Worked answer"
+    becomes the callout title, not a heading. The answer's own sub-parts come
+    from \\subsubsection* as level 3, so without this the page would go from
+    its h1 straight to h3. Relative levels inside the answer are kept, and code
+    is left alone, so a "#" comment in an R block is not a heading.
+    """
+    levels: list[int] = []
+
+    def collect(segment: str) -> str:
+        levels.extend(len(m.group(1)) for m in HEADING_LINE.finditer(segment))
+        return segment
+
+    protect_code(text, collect)
+    if not levels or min(levels) <= top:
+        return text
+    shift = min(levels) - top
+    return protect_code(text, lambda segment: HEADING_LINE.sub(lambda m: "#" * (len(m.group(1)) - shift) + " ", segment))
+
+
 def demote_headings(text: str) -> str:
     """One level down, so a copied answer's headings sit under its example's title."""
     return protect_code(text, lambda s: re.sub(r"^(#{2,5}) ", r"#\1 ", s, flags=re.M))
@@ -3795,7 +3820,7 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
             q["prepared_answer"] = answer_body
             blocks += [
                 (False, "answer-open", "\n\n:::::::: {#worked-answer .callout-tip collapse=\"true\"}\n## Worked answer\n\n"),
-                (True, "answer", answer_body),
+                (True, "answer", lift_headings(answer_body)),
                 (False, "answer-close", "\n::::::::\n"),
             ]
         elif group == "book":
