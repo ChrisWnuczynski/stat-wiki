@@ -7,14 +7,14 @@ Several binary outcomes are observed for each patient. A Bernoulli model describ
 ## Definition — A GLM conditional on latent effects
 For group $j$, suppose responses are conditionally independent given a latent vector $b_j$, with an exponential-family response distribution and
 $$
-g\{E(Y_{ji}\mid b_j,x_{ji},z_{ji})\}=x_{ji}^\top\beta+z_{ji}^\top b_j,
+g\{\E(Y_{ji}\mid b_j,x_{ji},z_{ji})\}=x_{ji}^\top\beta+z_{ji}^\top b_j,
 \qquad b_j\stackrel{\mathrm{iid}}\sim N(0,\Sigma).
 $$
 The covariance matrix $\Sigma$ must be positive semidefinite. A random intercept uses a constant coordinate in $z$; random slopes use predictor values as further coordinates. The normal distribution describes the latent coefficients on the link scale. The response can be Bernoulli, Poisson, Gaussian or another specified family. Normal random effects do not make a binary outcome normally distributed.{{cite:bolker2009_glmm}} (pp. 127–130, Box 2){{cite:nelder_wedderburn1972}} (§§1.1–1.3, pp. 371–372)
 
-Conditioning clarifies the two sources of variation. For a Poisson log-link model, $\operatorname{Var}(Y\mid b)=E(Y\mid b)$. After mixing over $b$, the variance generally exceeds the marginal mean because the conditional mean itself varies. The analogous mixture identity applies to any response with finite second moments:
+Conditioning clarifies the two sources of variation. For a Poisson log-link model, $\operatorname{Var}(Y\mid b)=\E(Y\mid b)$. After mixing over $b$, the variance generally exceeds the marginal mean because the conditional mean itself varies. The analogous mixture identity applies to any response with finite second moments:
 $$
-\operatorname{Var}(Y)=E\{\operatorname{Var}(Y\mid b)\}+\operatorname{Var}\{E(Y\mid b)\}.
+\operatorname{Var}(Y)=\E\{\operatorname{Var}(Y\mid b)\}+\operatorname{Var}\{\E(Y\mid b)\}.
 $$
 It is the mixture distribution that determines the marginal response law.{{cite:wuthrich_merz2022_glm}} (§5.3.5, pp. 155–156, eqs. 5.36–5.37)
 
@@ -35,7 +35,7 @@ Let two counts in the same group be conditionally independent with
 $$
 Y_1,Y_2\mid b\sim\operatorname{Poisson}(2e^b),\qquad b\sim N(0,1/2).
 $$
-For a centred normal variable of variance $s^2$, completing the square in its density gives $E(e^{tb})=e^{t^2s^2/2}$. Thus the group with $b=0$ has conditional mean $2$, while the marginal mean is
+For a centred normal variable of variance $s^2$, completing the square in its density gives $\E(e^{tb})=e^{t^2s^2/2}$. Thus the group with $b=0$ has conditional mean $2$, while the marginal mean is
 $$
 m=2e^{1/4}\approx2.568051.
 $$
