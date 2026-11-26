@@ -34,7 +34,7 @@ A sufficient statistic permits the improvement, but does not by itself establish
 
 [Practice question](../questions/ex-inf-poisson-umvu.qmd)
 
-For four Poisson observations with total five, estimate $P(X_1=1)$ without bias.
+For four Poisson observations with total five, estimate $\mathbb{P}(X_1=1)$ without bias.
 
 ::: {.callout-tip collapse="true" title="Answer"}
 Conditionally $X_1\mid S=5$ is binomial with parameters $5,1/4$. Its probability at one is $5(1/4)(3/4)^4=405/1024=0.395508$. The plug-in estimate is $(5/4)e^{-5/4}=0.358131$.
