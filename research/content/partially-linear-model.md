@@ -4,7 +4,7 @@ A treatment comparison may need a coefficient that can be reported per unit, whi
 ## Definition — A coefficient beside a function
 For an identity link, write
 $$
-Y=X^\top\beta+f(Z)+\varepsilon,\qquad E(\varepsilon\mid X,Z)=0.
+Y=X^\top\beta+f(Z)+\varepsilon,\qquad \E(\varepsilon\mid X,Z)=0.
 $$
 For a generalised response, the corresponding additive predictor is $g(\mu)=X^\top\beta+f(Z)$. The first model concerns the conditional mean directly; the second concerns it through the specified link. The response family and link must be stated along with the predictor.{{cite:hastie_tibshirani1986}} (§1, semiparametric additive models, p. 298){{cite:nelder_wedderburn1972}} (§§1.1–1.3, pp. 371–372)
 
