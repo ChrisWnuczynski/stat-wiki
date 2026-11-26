@@ -12,7 +12,7 @@ If $G$ is species and $X$ is a vector of flower measurements, the pooled covaria
 
 ::: {.callout-note collapse="true" title="Proof"}
 ::: {.proof}
-Write $m=E(X)$ and $m_G=E(X\mid G)$. Since $X-m=(X-m_G)+(m_G-m)$, expand $(X-m)(X-m)^\top$. Conditional on $G$, the cross terms vanish because $E(X-m_G\mid G)=0$. Taking expectations leaves $E\{\operatorname{Cov}(X\mid G)\}+E\{(m_G-m)(m_G-m)^\top\}$, and the final term is $\operatorname{Cov}\{E(X\mid G)\}$. The identity requires finite second moments but no Gaussian assumption.
+Write $m=\E(X)$ and $m_G=\E(X\mid G)$. Since $X-m=(X-m_G)+(m_G-m)$, expand $(X-m)(X-m)^\top$. Conditional on $G$, the cross terms vanish because $\E(X-m_G\mid G)=0$. Taking expectations leaves $\E\{\operatorname{Cov}(X\mid G)\}+\E\{(m_G-m)(m_G-m)^\top\}$, and the final term is $\operatorname{Cov}\{\E(X\mid G)\}$. The identity requires finite second moments but no Gaussian assumption.
 :::
 :::
 
