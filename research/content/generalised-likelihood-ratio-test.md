@@ -30,7 +30,7 @@ The identity $\sum_i(x_i-\mu_0)^2=\sum_i(x_i-\bar x)^2+n(\bar x-\mu_0)^2$ follow
 
 ## Worked example
 
-Suppose $n=16$, $\sigma=2$, $\bar x=1$, and the null mean is zero. Then $Z=2$, $D=4$, and $\Lambda=e^{-2}\approx0.1353$. The two-sided tail probability is $P(|Z|\ge2)\approx0.04550$. A level-$0.05$ test rejects. The ratio $0.1353$ and the tail probability $0.04550$ answer different questions: the first compares maximised likelihoods at the observed sample, and the second counts samples at least this discrepant under the null.{{cite:siegrist2022_lrt}} (§9.5, Normal Distribution)
+Suppose $n=16$, $\sigma=2$, $\bar x=1$, and the null mean is zero. Then $Z=2$, $D=4$, and $\Lambda=e^{-2}\approx0.1353$. The two-sided tail probability is $\mathbb{P}(|Z|\ge2)\approx0.04550$. A level-$0.05$ test rejects. The ratio $0.1353$ and the tail probability $0.04550$ answer different questions: the first compares maximised likelihoods at the observed sample, and the second counts samples at least this discrepant under the null.{{cite:siegrist2022_lrt}} (§9.5, Normal Distribution)
 
 **Your turn.** Keep $n$ and $\sigma$ fixed but set $\bar x=0.5$. Compute $D$ and $\Lambda$.
 
