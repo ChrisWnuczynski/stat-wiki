@@ -13,7 +13,7 @@ Let $f(s)=\sum_k p_k s^k$ be the probability generating function of the offsprin
 ## Properties — Subcritical extinction, and the supercritical root
 ::: {.callout-note collapse="true" title="Proof"}
 ::: {.proof}
-The generation sizes satisfy $\mathrm{E}(Z_n)=m^n$ when $m=\mathrm{E}(\xi)$ is the offspring mean and $Z_0=1$. On $\{Z_n>0\}$ one has $Z_n\ge 1$, so $\mathrm{P}(Z_n>0)\le m^n$. If $m<1$ this bound tends to $0$, and extinction has probability $1$.{{cite:durrett2019}} (Thm. 4.3.10, p. 231)
+The generation sizes satisfy $\E(Z_n)=m^n$ when $m=\E(\xi)$ is the offspring mean and $Z_0=1$. On $\{Z_n>0\}$ one has $Z_n\ge 1$, so $\mathrm{P}(Z_n>0)\le m^n$. If $m<1$ this bound tends to $0$, and extinction has probability $1$.{{cite:durrett2019}} (Thm. 4.3.10, p. 231)
 
 Condition on the first generation. If it has size $k$, the process dies out if and only if $k$ independent copies die out, an event of probability $q^k$. Therefore $q=\sum_k p_k q^k=f(q)$. If $m>1$, then $f'(1)=m>1$ and $f''(s)>0$ on $(0,1)$ whenever some $p_k>0$ for a $k\ge 2$. So $f(s)<s$ on a left neighbourhood of $1$, while $f(0)=p_0>0$, and there is a root in $[0,1)$. Strict convexity makes it unique.{{cite:durrett2019}} (Thm. 4.3.12, p. 232)
 :::
