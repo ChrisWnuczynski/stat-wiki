@@ -11,7 +11,7 @@ p_{\rm upper}=\sum_{k=x}^{n}\binom nkp_0^k(1-p_0)^{n-k}.
 $$
 The lower-tail alternative sums from zero through $x$. The null distribution supplies the probabilities; selecting a tail after seeing which direction is favourable changes the testing procedure.{{cite:dodge2008}} (p. 47, one-sided hypotheses);{{cite:grinstead_snell1997}} (§§3.2, 5.1, binomial probabilities)
 
-An upper-tail critical value $c$ is the smallest integer for which $P_{p_0}(X\geq c)\leq\alpha$. Reject for counts at least $c$. Because the count is discrete, the actual null rejection probability can be strictly smaller than $\alpha$. An exact binomial calculation uses the specified sampling distribution without a normal approximation; it does not mean that every attainable rejection probability equals the nominal level.{{cite:dodge2008}} (pp. 47–48)
+An upper-tail critical value $c$ is the smallest integer for which $\mathbb{P}_{p_0}(X\geq c)\leq\alpha$. Reject for counts at least $c$. Because the count is discrete, the actual null rejection probability can be strictly smaller than $\alpha$. An exact binomial calculation uses the specified sampling distribution without a normal approximation; it does not mean that every attainable rejection probability equals the nominal level.{{cite:dodge2008}} (pp. 47–48)
 
 ## Properties — The rejection probability is a function of the true rate
 For a fixed rejection threshold, its power at success probability $p$ is
@@ -25,7 +25,7 @@ For the symmetric null $p_0=1/2$, an equal-tail two-sided test pairs a large cou
 ## Worked example
 Let $n=10$, $p_0=1/2$, and test against $p>1/2$. For nine observed successes,
 $$
-P_{1/2}(X\geq9)=\frac{\binom{10}{9}+\binom{10}{10}}{2^{10}}
+\mathbb{P}_{1/2}(X\geq9)=\frac{\binom{10}{9}+\binom{10}{10}}{2^{10}}
 =\frac{11}{1024}=0.0107421875.
 $$
 For eight successes the tail is $56/1024=0.0546875$. Thus the five-percent upper-tail test rejects from nine onwards, and its actual size is only $11/1024$. The jump across the requested level comes from the mass at eight.{{cite:grinstead_snell1997}} (§5.1);{{cite:dodge2008}} (pp. 47–48)
@@ -35,7 +35,7 @@ Under a two-sided doubled-tail convention, nine successes gives $22/1024=0.02148
 **Your turn.** For the same ten trials, calculate the lower-tail $p$-value when one success is observed.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-Symmetry under $p_0=1/2$ gives $P(X\leq1)=P(X\geq9)=11/1024$. The matched two-sided value is $22/1024$.
+Symmetry under $p_0=1/2$ gives $\mathbb{P}(X\leq1)=\mathbb{P}(X\geq9)=11/1024$. The matched two-sided value is $22/1024$.
 :::
 
 ## Check yourself
