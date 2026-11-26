@@ -10,13 +10,13 @@ Let $\tau_g(x)=P(Y=g\mid X=x)$ for classes $g=1,\ldots,G$. With zero–one loss,
 ## Properties — Why the rule is optimal
 Conditional on $X=x$, predicting class $a$ incurs error probability $1-\tau_a(x)$ under zero–one loss. Choosing the largest $\tau_a(x)$ minimizes this quantity. The smallest achievable population error, the *Bayes risk*, is
 $$
-R^*=E\!\left[1-\max_g\tau_g(X)\right].
+R^*=\E\!\left[1-\max_g\tau_g(X)\right].
 $$
 It is positive wherever classes overlap with nonzero probability: even perfect knowledge of the joint distribution cannot reveal a random class label with certainty. For two classes, the conditional error is $\min\{\tau_1(x),1-\tau_1(x)\}$, and the decision boundary lies where the two posterior probabilities tie.{{cite:james_islr2013}} (§2.2.3, pp. 38–39, eq. 2.11)
 
 ::: {.callout-note collapse="true" title="Proof"}
 ::: {.proof}
-For any measurable rule $a(x)$, its zero–one risk is $R(a)=E[P\{a(X)\ne Y\mid X\}]=E[1-\tau_{a(X)}(X)]$. Pointwise, $\tau_{a(x)}(x)\le\max_g\tau_g(x)$, so $R(a)\ge E[1-\max_g\tau_g(X)]$. Taking $a=B$ attains equality. For a general loss matrix $L(a,g)$, the same conditioning gives $R(a)=E[\sum_g L(a(X),g)\tau_g(X)]$; choosing the action with the smallest sum at each $x$ attains the minimum. In two classes, if deciding class $1$ when truth is $2$ costs $c_{12}$ and deciding class $2$ when truth is $1$ costs $c_{21}$, the risks are $c_{12}\tau_2(x)$ and $c_{21}\tau_1(x)$ respectively. This establishes the unequal-cost comparison.{{cite:james_islr2013}} (§2.2.3, pp. 37–39, zero–one rule and risk)
+For any measurable rule $a(x)$, its zero–one risk is $R(a)=\E[P\{a(X)\ne Y\mid X\}]=\E[1-\tau_{a(X)}(X)]$. Pointwise, $\tau_{a(x)}(x)\le\max_g\tau_g(x)$, so $R(a)\ge \E[1-\max_g\tau_g(X)]$. Taking $a=B$ attains equality. For a general loss matrix $L(a,g)$, the same conditioning gives $R(a)=\E[\sum_g L(a(X),g)\tau_g(X)]$; choosing the action with the smallest sum at each $x$ attains the minimum. In two classes, if deciding class $1$ when truth is $2$ costs $c_{12}$ and deciding class $2$ when truth is $1$ costs $c_{21}$, the risks are $c_{12}\tau_2(x)$ and $c_{21}\tau_1(x)$ respectively. This establishes the unequal-cost comparison.{{cite:james_islr2013}} (§2.2.3, pp. 37–39, zero–one rule and risk)
 :::
 :::
 
