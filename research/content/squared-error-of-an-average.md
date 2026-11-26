@@ -27,7 +27,7 @@ The ensemble and every member have squared error $1.000$. Their disagreement ter
 :::
 
 ## Statistical use — Pointwise disagreement and expected ensemble risk
-For random member errors $e_t=f_t(X)-Y$, averaging also gives $E[(T^{-1}\sum_te_t)^2]=T^{-2}\sum_{s,t}E(e_se_t)$ when the second moments exist. Under a common zero error mean, common variance $v$ and common covariance $c$, this reduces to $v/T+(T-1)c/T$. The cross-covariances describe shared errors; adding more highly correlated models cannot remove them merely by increasing $T$.{{cite:goodfellow_bengio_courville2016}} (§7.11, eqs. 7.50–7.51)
+For random member errors $e_t=f_t(X)-Y$, averaging also gives $\E[(T^{-1}\sum_te_t)^2]=T^{-2}\sum_{s,t}\E(e_se_t)$ when the second moments exist. Under a common zero error mean, common variance $v$ and common covariance $c$, this reduces to $v/T+(T-1)c/T$. The cross-covariances describe shared errors; adding more highly correlated models cannot remove them merely by increasing $T$.{{cite:goodfellow_bengio_courville2016}} (§7.11, eqs. 7.50–7.51)
 
 For $v=4$, $c=1$ and $T=10$, the expected squared error is $1.300$. If the errors were uncorrelated with the same variance, it would be $0.400$. These are comparisons under explicitly specified joint error moments, rather than numerical predictions for every fitted ensemble. Bias can also contribute when the zero-mean assumption is dropped; the general cross-product formula remains the reliable starting point.{{cite:goodfellow_bengio_courville2016}} (§7.11, correlated and uncorrelated model errors)
 
