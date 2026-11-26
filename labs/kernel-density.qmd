@@ -15,6 +15,12 @@ The estimate does not use the true density. Both errors do.
 
 The page opens on a mixture with two modes. Before moving $h$, predict what a very small bandwidth does to the curve, and what a large bandwidth does to those modes. Then predict whether this sample's integrated squared error will lie on top of the mean integrated squared error.
 
+```{=html}
+<div data-lab-page hidden></div>
+```
+
+{{< include _kde-figure.qmd >}}
+
 ## The estimate these controls change
 
 $$
@@ -34,12 +40,6 @@ $$
 $$
 
 with $s$ the sample standard deviation using divisor $n-1$, and the quartiles from R's default quantile (type 7). The formula needs that minimum to be positive. If $\min(s, \mathrm{IQR}/1.34)$ is zero, `bw.nrd0` does not use zero: it takes the first positive scale among $s$, $|x_1|$ — the absolute value of the first observation — and $1$, and puts that in place of the minimum. A sample of $0, 0, 0, 0, 1$ has $\mathrm{IQR} = 0$, so the formula as written gives $0$; the fallback takes $s$ instead, and the bandwidth is $0.9\,s\,n^{-1/5} \approx 0.2917$, not zero. The constant is $0.9$, which is `bw.nrd0`, not the $1.06$ of `bw.nrd`. It is a normal-reference rule, not the minimiser of either error below.<sup id="cite_ref-3" class="cite-ref" data-cite-key="silverman1986"><a href="#cite_note-3" title="Silverman (1986) — Density Estimation for Statistics and Data Analysis">[3]</a></sup> A kernel with compact support, such as the Epanechnikov kernel, is a different bump, and a Sheather–Jones plug-in is a different bandwidth rule. Neither is what this page computes.<sup id="cite_ref-4" class="cite-ref" data-cite-key="epanechnikov1969"><a href="#cite_note-4" title="Epanechnikov (1969) — Non-Parametric Estimation of a Multivariate Probability Density">[4]</a></sup><sup id="cite_ref-5" class="cite-ref" data-cite-key="sheather_jones1991"><a href="#cite_note-5" title="Sheather &amp; Jones (1991) — A Reliable Data-Based Bandwidth Selection Method for Kernel Density Estimation">[5]</a></sup> The generator that builds the sample is not R's generator. The seed reproduces this page, not an R session.
-
-```{=html}
-<div data-lab-page hidden></div>
-```
-
-{{< include _kde-figure.qmd >}}
 
 ## What the picture is showing
 
