@@ -14,7 +14,7 @@ Let $T$ be the time from a well-defined origin (for example, hospital admission,
 
 The defining property is preclusion, not delay. If $D = 2$ and $T = t$, then the subject does not experience cause $1$ at any later time: the event of interest is not merely unobserved after $t$, it is impossible after $t$. In clinical oncology, for example, cancer-related mortality may be of primary interest, but deaths from other causes can prevent its occurrence {{cite:zhang2017}} (§ "Introduction"). This is what distinguishes a competing event from right-censoring. A censored subject is one whose event time is unknown but who, in the usual modelling, is treated as if the event could still occur after the censoring time; a subject who has had a competing event is known never to experience the event of interest. Censoring can still occur alongside competing risks — a subject may be lost to follow-up, or the study may end, before any event — and that ordinary censoring is a separate matter from the competing events themselves.
 
-Two consequences follow at once. First, the probability that cause $k$ has occurred by time $t$ depends on the hazards of *all* the causes, not only on the hazard of cause $k$, because subjects are removed from the event-free pool by competing events as well. Second, there is no single survival function $S(t) = P(T > t)$ for cause $k$ alone that plays the role it plays when there is only one kind of event: $S(t)$ is the probability of being free of *every* event by time $t$, and $1 - S(t)$ is the probability of having had *any* event by time $t$, not the probability of having had cause $k$.
+Two consequences follow at once. First, the probability that cause $k$ has occurred by time $t$ depends on the hazards of *all* the causes, not only on the hazard of cause $k$, because subjects are removed from the event-free pool by competing events as well. Second, there is no single survival function $S(t) = \mathbb{P}(T > t)$ for cause $k$ alone that plays the role it plays when there is only one kind of event: $S(t)$ is the probability of being free of *every* event by time $t$, and $1 - S(t)$ is the probability of having had *any* event by time $t$, not the probability of having had cause $k$.
 
 ### Why $1 - \widehat{S}_{KM}$ is wrong here
 
@@ -28,11 +28,11 @@ A useful diagnostic follows. If $1 - \widehat{S}_{KM}$ is computed separately fo
 
 The quantity that replaces $1 - S(t)$ when events compete is the cumulative incidence function (CIF). For cause $k$, the CIF, written $F_k(t)$, is the probability that the first event has occurred by time $t$ *and* that it was of kind $k$:
 
-$$F_k(t) = P(T \le t, D = k).$$
+$$F_k(t) = \mathbb{P}(T \le t, D = k).$$
 
 The CIF is a subdistribution function, so $0 \le F_k(t) \le 1$, it is non-decreasing in $t$, and unlike the distribution function of a finite event time it need not approach $1$ as $t$ grows: if competing events claim a substantial share of subjects, $F_k(t)$ plateaus below $1$, because those subjects can never experience cause $k$.
 
-The CIFs for the different causes add up exactly to the cumulative incidence of *any* event. Writing $S(t) = P(T > t)$ for the probability of remaining free of every event,
+The CIFs for the different causes add up exactly to the cumulative incidence of *any* event. Writing $S(t) = \mathbb{P}(T > t)$ for the probability of remaining free of every event,
 
 $$\sum_{k=1}^{K} F_k(t) = 1 - S(t),$$
 
@@ -56,7 +56,7 @@ Regression in the presence of competing risks comes in two families, because the
 
 The **cause-specific hazard** for cause $k$, written $h_k(t)$, is the instantaneous rate of cause $k$ among subjects who are currently event-free:
 
-$$h_k(t) = \lim_{dt \to 0} \frac{P(t \le T < t + dt, D = k \mid T \ge t)}{dt}.$$
+$$h_k(t) = \lim_{dt \to 0} \frac{\mathbb{P}(t \le T < t + dt, D = k \mid T \ge t)}{dt}.$$
 
 The conditioning event $T \ge t$ means "has experienced no event of any kind before $t$". A cause-specific hazard model — most commonly a Cox proportional hazards model fitted by treating failures from other causes as censored at their event times — estimates how covariates change this rate {{cite:zhang2017}} (§ "Cause-specific hazard regression"). Its coefficients are log hazard ratios among the event-free. Because the CIF depends on all the cause-specific hazards through the integral above, a covariate's effect on the cause-specific hazard does not translate directly into an effect on the CIF: a covariate pattern associated with a lower competing hazard, for example, leaves a larger event-free proportion to experience the event of interest, and can raise its CIF while leaving its cause-specific hazard unchanged. Cause-specific models can therefore inform aetiological questions — "does this factor change the rate at which cause $k$ strikes, among those still free of all events?" — as Austin, Lee and Fine put it, the cause-specific family estimates the effect of covariates on the rate of occurrence in subjects who are currently event free, and may be better suited to aetiologic questions {{cite:austin_lee_fine2016}} (p. 604). Such associations are not automatically causal effects; causal interpretation requires assumptions about confounding, selection and the intervention being considered.
 
@@ -178,7 +178,7 @@ The naive figure is larger, by $8/15 - 17/40 = 13/120 \approx 0.108$. As a check
 
 - [Kaplan–Meier estimator](kaplan-meier-estimator.qmd) — the product-limit estimator of the survival function; its complement $1 - \hat{S}(t)$ is the right estimate of cumulative incidence only when there are no competing events.
 - [Cox proportional hazards model](cox-proportional-hazards-model.qmd) — the model fitted for cause-specific hazards by treating competing events as censored, and the related weighted estimating equation used by the Fine–Gray model.
-- [Survival function](survival-function.qmd) — $S(t) = P(T > t)$, the probability of being free of every event; the CIFs sum to $1 - S(t)$.
+- [Survival function](survival-function.qmd) — $S(t) = \mathbb{P}(T > t)$, the probability of being free of every event; the CIFs sum to $1 - S(t)$.
 - [Hazard rate](hazard-rate.qmd) — the instantaneous rate whose cause-specific versions $h_k(t)$ drive the CIF through the integral $F_k(t) = \int_0^t S(s) h_k(s) \, ds$.
 - [Censoring statistics](censoring-statistics.qmd) — genuine loss of follow-up requires a censoring assumption. Coding competing events as censored is valid for estimating a cause-specific hazard, but interpreting the complement of the resulting Kaplan–Meier curve as cumulative incidence is not.
 - [Survival analysis](survival-analysis.qmd) — the wider setting: time-to-event data, censoring, and regression, of which competing risks is the case with several mutually exclusive first events.
