@@ -8,7 +8,7 @@ A fair coin tossed $100$ times has mean $50$ and standard deviation $5$. The cha
 Three different limits are easy to mix. The weak law says that the probability of an error larger than a fixed $\varepsilon$ tends to zero. The strong law says that, on almost every sequence, the error itself eventually stays small. The central limit theorem says that the error, multiplied by $\sqrt{n}$, settles on a normal shape. The first is a probability at each $n$. The second is a path. The third is a distributional approximation, and it needs a finite positive variance that the strong law does not.{{cite:durrett2019}} (Thm. 2.4.1, p. 76; Thm. 3.4.1, p. 144){{cite:dodge2008}} (pp. 66 and 298–299)
 
 ## Definition
-Let $X_1,X_2,\ldots$ be independent and identically distributed with mean $\mu$, and write $S_n=X_1+\cdots+X_n$. If $\mathrm{E}|X_1|<\infty$, then $S_n/n\to\mu$ almost surely. If also $\mathrm{Var}(X_1)=\sigma^2<\infty$, then for every $\varepsilon>0$,
+Let $X_1,X_2,\ldots$ be independent and identically distributed with mean $\mu$, and write $S_n=X_1+\cdots+X_n$. If $\E|X_1|<\infty$, then $S_n/n\to\mu$ almost surely. If also $\mathrm{Var}(X_1)=\sigma^2<\infty$, then for every $\varepsilon>0$,
 $$
 \mathrm{P}(|S_n/n-\mu|>\varepsilon)\le\frac{\sigma^2}{n\varepsilon^2}\to 0.
 $$
@@ -71,7 +71,7 @@ A continuity correction is not a change to the theorem. It is a way of reading a
 ## Assumptions and limits — Infinite variance, and dependence
 If the variance is infinite, $(S_n-n\mu)/(\sigma\sqrt{n})$ is not defined, and the normal limit in the identical-summand theorem does not apply. A symmetric stable law with index below $2$ is the classical replacement: the sum grows like $n^{1/\alpha}$ rather than $\sqrt{n}$. The strong law can still hold, because it asks only for an absolute mean.
 
-Dependence breaks the product of characteristic functions that the identical-summand proof uses. A sequence of copies of one variable, $X_n=X$ for every $n$, has average $X$, which does not settle on $\mathrm{E} X$ unless $X$ is constant. The hypotheses are not decorative.
+Dependence breaks the product of characteristic functions that the identical-summand proof uses. A sequence of copies of one variable, $X_n=X$ for every $n$, has average $X$, which does not settle on $\E X$ unless $X$ is constant. The hypotheses are not decorative.
 
 Lindeberg's theorem extends the normal limit to summands that are not identically distributed, under a condition that no one summand dominates the variance. Identical distribution is a convenient special case, not the last word.{{cite:durrett2019}} (Thm. 3.4.10, p. 148)
 
