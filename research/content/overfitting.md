@@ -18,11 +18,11 @@ The bias–variance decomposition makes the tension precise for squared error. A
 
 Suppose models $\mathcal F_1\subseteq\mathcal F_2$ are fitted by global minimization of one training loss. Then $\min_{f\in\mathcal F_2}L_D(f)\le\min_{f\in\mathcal F_1}L_D(f)$. The larger search can imitate every smaller-model fit. This result says nothing about which model wins on unseen data, and it can fail for a particular training *algorithm* that does not reach either minimum.{{cite:james_islr2013}} (Ch. 2, §2.2.1, pp. 31–33)
 
-For squared error, if $Y_0=f(x_0)+\varepsilon_0$ with mean-zero new noise independent of the training data, then $\operatorname{E}\{Y_0-\hat f_D(x_0)\}^2=\{f(x_0)-\operatorname{E}\hat f_D(x_0)\}^2+\operatorname{Var}\{\hat f_D(x_0)\}+\operatorname{Var}(\varepsilon_0)$. The expectation is over both training samples and the fresh response at $x_0$. A single observed train–test gap is not itself this expectation. {{cite:james_islr2013}} (Ch. 2, §2.2.2, pp. 34–35, equation 2.7)
+For squared error, if $Y_0=f(x_0)+\varepsilon_0$ with mean-zero new noise independent of the training data, then $\E\{Y_0-\hat f_D(x_0)\}^2=\{f(x_0)-\E\hat f_D(x_0)\}^2+\operatorname{Var}\{\hat f_D(x_0)\}+\operatorname{Var}(\varepsilon_0)$. The expectation is over both training samples and the fresh response at $x_0$. A single observed train–test gap is not itself this expectation. {{cite:james_islr2013}} (Ch. 2, §2.2.2, pp. 34–35, equation 2.7)
 
 ::: {.callout-note collapse="true" title="Proof"}
 ::: {.proof}
-Set inclusion gives $\min_{f\in\mathcal F_2}L_D(f)\le L_D(g)$ for every $g\in\mathcal F_1$; taking the minimum over $g$ proves the training-loss inequality. For prediction error, write $m=\operatorname{E}_D\hat f_D(x_0)$ and decompose
+Set inclusion gives $\min_{f\in\mathcal F_2}L_D(f)\le L_D(g)$ for every $g\in\mathcal F_1$; taking the minimum over $g$ proves the training-loss inequality. For prediction error, write $m=\E_D\hat f_D(x_0)$ and decompose
 $$
 Y_0-\hat f_D(x_0)=\{f(x_0)-m\}+\{m-\hat f_D(x_0)\}+\varepsilon_0.
 $$
