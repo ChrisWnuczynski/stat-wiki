@@ -2,10 +2,10 @@
 A quality-control alarm has two ways to be wrong: interrupt a sound process or miss a faulty one. If missing a fault costs nine times as much as a false alarm, demanding a posterior fault probability above one half is unnecessarily strict under that loss model. The best action minimizes expected cost, even when it is not the most probable class.{{cite:elkan2001_costs}} (§1, eq. 1)
 
 ## Definition
-Use rows for true classes and columns for predicted classes: $c_{gh}$ is the loss when truth is $g$ and action is $h$. Let $\tau_g(x)=P(Y=g\mid X=x)$. The conditional expected loss of action $h$ is $R(h\mid x)=\sum_g c_{gh}\tau_g(x)$. A Bayes action minimizes this finite sum. Some references transpose the loss matrix, so explicitly identifying true and predicted indices prevents reversed thresholds. The calculation is an expectation over possible truths after observing $x$.{{cite:grinstead_snell1997}} (§6.1, expected value as a probability-weighted sum)
+Use rows for true classes and columns for predicted classes: $c_{gh}$ is the loss when truth is $g$ and action is $h$. Let $\tau_g(x)=\mathbb{P}(Y=g\mid X=x)$. The conditional expected loss of action $h$ is $R(h\mid x)=\sum_g c_{gh}\tau_g(x)$. A Bayes action minimizes this finite sum. Some references transpose the loss matrix, so explicitly identifying true and predicted indices prevents reversed thresholds. The calculation is an expectation over possible truths after observing $x$.{{cite:grinstead_snell1997}} (§6.1, expected value as a probability-weighted sum)
 
 ## Properties — Deriving the binary cutoff
-For correct decisions costing zero, let $C_{\mathrm{FN}}$ be the cost of predicting zero when truth is one, and $C_{\mathrm{FP}}$ the cost of predicting one when truth is zero. If $p=P(Y=1\mid x)$, predicting one costs $(1-p)C_{\mathrm{FP}}$, while predicting zero costs $pC_{\mathrm{FN}}$. Thus predict one precisely when
+For correct decisions costing zero, let $C_{\mathrm{FN}}$ be the cost of predicting zero when truth is one, and $C_{\mathrm{FP}}$ the cost of predicting one when truth is zero. If $p=\mathbb{P}(Y=1\mid x)$, predicting one costs $(1-p)C_{\mathrm{FP}}$, while predicting zero costs $pC_{\mathrm{FN}}$. Thus predict one precisely when
 $$p>\frac{C_{\mathrm{FP}}}{C_{\mathrm{FP}}+C_{\mathrm{FN}}}.$$
 At equality both actions have the same conditional risk. This derivation also clarifies the index convention used in the two-class comparison below.{{cite:elkan2001_costs}} (§1, decisions based on a cost matrix)
 
