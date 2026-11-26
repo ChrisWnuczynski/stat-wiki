@@ -23,7 +23,7 @@ The [fallacy of the transposed conditional](fallacy-of-the-transposed-conditiona
 With sensitivity $1-\beta$ and false-positive rate $\alpha$, the positive predictive value is
 
 $$
-P(\text{present}\mid\text{positive})=\frac{p(1-\beta)}{p(1-\beta)+(1-p)\alpha}.
+\mathbb{P}(\text{present}\mid\text{positive})=\frac{p(1-\beta)}{p(1-\beta)+(1-p)\alpha}.
 $$
 
 
