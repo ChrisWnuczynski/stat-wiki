@@ -22,7 +22,7 @@ Let $X_1,X_2,X_3$ be independent Bernoulli variables with success probability $0
 **Your turn.** In this model, sum the probabilities of $(1,1,0)$ and $(1,1,1)$. Which two-coordinate event results?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The probabilities are $0.063$ and $0.027$. Their sum is $0.09=P(X_1=1,X_2=1)$.
+The probabilities are $0.063$ and $0.027$. Their sum is $0.09=\mathbb{P}(X_1=1,X_2=1)$.
 :::
 
 ## Check yourself
@@ -31,10 +31,10 @@ The probabilities are $0.063$ and $0.027$. Their sum is $0.09=P(X_1=1,X_2=1)$.
 
 [Practice question](../questions/ex-sp-bernoulli-pairs.qmd)
 
-Construct two pairs $(X,Y)$ with Bernoulli$(1/2)$ margins, one independent and one dependent. Compare $\mathrm{P}(X=Y)$.
+Construct two pairs $(X,Y)$ with Bernoulli$(1/2)$ margins, one independent and one dependent. Compare $\mathbb{P}(X=Y)$.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-Let $X$ and $Y$ be independent Bernoulli$(1/2)$. Then $\mathrm{P}(X=Y)=1/2$. The pair $(X,X)$ has the same margins, and $\mathrm{P}(X=X)=1$.
+Let $X$ and $Y$ be independent Bernoulli$(1/2)$. Then $\mathbb{P}(X=Y)=1/2$. The pair $(X,X)$ has the same margins, and $\mathbb{P}(X=X)=1$.
 :::
 
 ### Which events distinguish two outcomes? {#self-check-exr-measurable-coarse-space}
