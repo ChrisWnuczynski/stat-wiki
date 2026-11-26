@@ -9,11 +9,11 @@ In a factorized model, clique potentials need not sum or integrate to one. Their
 ## Worked example — A positive binary chain
 Let $X_1,X_2,X_3\in\{0,1\}$ and set
 $$p(x_1,x_2,x_3)=Z^{-1}2^{\mathbf1\{x_1=x_2\}}2^{\mathbf1\{x_2=x_3\}}.$$
-The graph is the chain $1-2-3$. For either fixed middle value, summing each neighboring factor gives $3$, hence $Z=2(3)(3)=18$. Given $X_2=0$, each endpoint independently equals zero with probability $2/3$. Thus $P(X_1=0,X_3=0\mid X_2=0)=4/9$, the product of its two conditional marginals. The same factorization holds at $X_2=1$. Marginally, $P(X_1=X_3)=5/9$, exceeding $1/2$: conditional independence has not removed the association induced by the shared middle variable.{{cite:wainwright_jordan2008}} (§§2.1.2–2.2)
+The graph is the chain $1-2-3$. For either fixed middle value, summing each neighboring factor gives $3$, hence $Z=2(3)(3)=18$. Given $X_2=0$, each endpoint independently equals zero with probability $2/3$. Thus $\mathbb{P}(X_1=0,X_3=0\mid X_2=0)=4/9$, the product of its two conditional marginals. The same factorization holds at $X_2=1$. Marginally, $\mathbb{P}(X_1=X_3)=5/9$, exceeding $1/2$: conditional independence has not removed the association induced by the shared middle variable.{{cite:wainwright_jordan2008}} (§§2.1.2–2.2)
 
 The six-vertex example has maximal cliques $\{1,2,3\}$, $\{2,3,4\}$ and $\{4,5,6\}$. Removing vertex 4 disconnects the first three vertices from 5 and 6, so their subvectors are independent given $X_4$ under the global property. Removing only vertex 2 does not separate 1 from 5: the path $1-3-4-5$ remains.
 
-**Your turn.** For the binary chain, compute $P(X_1=1,X_3=0\mid X_2=0)$ and explain its product form.
+**Your turn.** For the binary chain, compute $\mathbb{P}(X_1=1,X_3=0\mid X_2=0)$ and explain its product form.
 
 ::: {.callout-tip collapse="true" title="Answer"}
 The first endpoint equals one with probability $1/3$ and the last equals zero with probability $2/3$. Conditional independence gives $2/9$. Directly the unnormalized weight is $1\cdot2=2$ and the fixed-middle normalizer is $9$.
@@ -35,7 +35,7 @@ Thus $X\perp(W,Y)\mid Z$. The displayed density characterizations follow by mult
 :::
 
 ## Statistical use — Reading a fitted graph
-An absent edge is a conditional-independence restriction in the model. In the binary chain the absent edge is $1-3$, and the conditional probability factors: given $X_2=0$, $P(X_1=0,X_3=0)=4/9=(2/3)(2/3)$. The marginal probability $P(X_1=X_3)=5/9$ is larger than $1/2$, so the endpoints remain associated until the middle variable is conditioned on. A data analysis that reports only the marginal correlation between instruments $1$ and $3$ answers the marginal question. A data analysis that reports the partial association given instrument $2$ answers the graphical one. Both numbers can be computed from the same joint distribution. They are not substitutes.{{cite:wainwright_jordan2008}} (§§2.1.2–2.2)
+An absent edge is a conditional-independence restriction in the model. In the binary chain the absent edge is $1-3$, and the conditional probability factors: given $X_2=0$, $\mathbb{P}(X_1=0,X_3=0)=4/9=(2/3)(2/3)$. The marginal probability $\mathbb{P}(X_1=X_3)=5/9$ is larger than $1/2$, so the endpoints remain associated until the middle variable is conditioned on. A data analysis that reports only the marginal correlation between instruments $1$ and $3$ answers the marginal question. A data analysis that reports the partial association given instrument $2$ answers the graphical one. Both numbers can be computed from the same joint distribution. They are not substitutes.{{cite:wainwright_jordan2008}} (§§2.1.2–2.2)
 
 A separator is a conditioning set that blocks every path. In the six-vertex graph, vertex $4$ meets every path from $\{1,2,3\}$ to $\{5,6\}$, so the global Markov property gives independence of those blocks given $X_4$. Vertex $2$ does not meet the path $1-3-4-5$, so the same property does not give independence of vertex $1$ and vertex $5$ given only $X_2$. The extra vertices in a pairwise conditioning set, all variables other than the two endpoints, are a sufficient conditioning set for an absent edge. Separation can certify a smaller one. Using the smaller set is valid under the global property. Using a set that leaves a path is a different claim.{{cite:wainwright_jordan2008}} (§2.2)
 
