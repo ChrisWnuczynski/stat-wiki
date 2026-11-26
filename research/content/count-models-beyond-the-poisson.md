@@ -10,7 +10,7 @@ For a Poisson random variable the probability function $e^{-\mu}\mu^{x}/x!$ has 
 ## Definition — Extra variance from a random rate, and two other accounts
 Let $Y\mid\lambda\sim\mathrm{Poisson}(\lambda)$ and let $\lambda$ be a positive random variable with mean $\mu$ and variance $\tau$. Then
 $$
-\mathrm{E}(Y)=\mu,\qquad \operatorname{Var}(Y)=\mu+\tau.
+\E(Y)=\mu,\qquad \operatorname{Var}(Y)=\mu+\tau.
 $$
 One useful choice, not the only one, takes $\tau=\mu^{2}/\nu$ for a concentration $\nu>0$, so the variance is $\mu+\mu^{2}/\nu$. A gamma mixture with constant index produces that quadratic variance.{{cite:mccullagh_nelder1989}} (§6.2.3, p. 199; p. 352){{cite:ver_hoef_boveng2007}} (p. 2767, eq. 2) A quasi-Poisson description instead multiplies the variance by a constant $\phi$ and does not, by itself, name a distribution one can simulate.{{cite:mccullagh_nelder1989}} (§9.1, pp. 323–324){{cite:ver_hoef_boveng2007}} (p. 2767) The [Conway–Maxwell–Poisson distribution](conway-maxwell-poisson-distribution.qmd) is a third route. Its probability function is proportional to $\lambda^{y}/(y!)^{\nu}$. At $\nu=1$ it is Poisson. For $\nu>1$ the factorials in the denominator grow faster and the counts concentrate; for $0\le\nu<1$ they spread out. In that scaling $\lambda$ is not the mean.
 
@@ -19,9 +19,9 @@ The variance addition does not need a gamma mixing distribution. Any non-degener
 
 ::: {.callout-note collapse="true" title="Proof"}
 ::: {.proof}
-Condition on $\lambda$. Then $\mathrm{E}(Y\mid\lambda)=\lambda$ and $\operatorname{Var}(Y\mid\lambda)=\lambda$, because a Poisson random variable has variance equal to its mean.{{cite:mccullagh_nelder1989}} (§6.2.1, p. 195) The law of total expectation gives $\mathrm{E}(Y)=\mathrm{E}(\lambda)=\mu$. The law of total variance gives
+Condition on $\lambda$. Then $\E(Y\mid\lambda)=\lambda$ and $\operatorname{Var}(Y\mid\lambda)=\lambda$, because a Poisson random variable has variance equal to its mean.{{cite:mccullagh_nelder1989}} (§6.2.1, p. 195) The law of total expectation gives $\E(Y)=\E(\lambda)=\mu$. The law of total variance gives
 $$
-\operatorname{Var}(Y)=\mathrm{E}\bigl(\operatorname{Var}(Y\mid\lambda)\bigr)+\operatorname{Var}\bigl(\mathrm{E}(Y\mid\lambda)\bigr)=\mathrm{E}(\lambda)+\operatorname{Var}(\lambda)=\mu+\tau.
+\operatorname{Var}(Y)=\E\bigl(\operatorname{Var}(Y\mid\lambda)\bigr)+\operatorname{Var}\bigl(\E(Y\mid\lambda)\bigr)=\E(\lambda)+\operatorname{Var}(\lambda)=\mu+\tau.
 $$
 If $\tau>0$, then $\operatorname{Var}(Y)>\mu$. If $\lambda$ is almost surely constant, $\tau=0$ and the Poisson variance returns. A gamma law for $\lambda$ is one choice that makes $\tau=\mu^{2}/\nu$; the inequality itself uses only that a variance is nonnegative.{{cite:mccullagh_nelder1989}} (§6.2.3, p. 198)
 :::
@@ -76,7 +76,7 @@ The mean rate is $3$. The rate variance is $\bigl((1-3)^{2}+(5-3)^{2}\bigr)/2=4$
 A sample of counts has mean $4$ and variance $2$. Which of a Poisson model, a negative-binomial model, and a Conway–Maxwell–Poisson model with $\nu>1$ can represent that pair of moments, and why do the other two fail?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The Poisson model forces the variance to equal $4$. The negative binomial forces the variance to exceed $4$. Only the Conway–Maxwell–Poisson law with $\nu>1$ is built to be tighter than the Poisson with a comparable mean. Whether a particular $(\lambda,\nu)$ hits variance $2$ at mean $4$ is a numerical question about the normalising series, but the other two families are algebraically incapable of the inequality $\operatorname{Var}(Y)<\mathrm{E}(Y)$.
+The Poisson model forces the variance to equal $4$. The negative binomial forces the variance to exceed $4$. Only the Conway–Maxwell–Poisson law with $\nu>1$ is built to be tighter than the Poisson with a comparable mean. Whether a particular $(\lambda,\nu)$ hits variance $2$ at mean $4$ is a numerical question about the normalising series, but the other two families are algebraically incapable of the inequality $\operatorname{Var}(Y)<\E(Y)$.
 :::
 
 ## History — From a constant chance to a varying liability
