@@ -35,6 +35,8 @@ import shutil
 import subprocess
 import sys
 import time
+from collections.abc import Iterable
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -706,6 +708,124 @@ def _remove_file_and_empty_parents(target: Path, stop_dir: Path) -> None:
         parent = parent.parent
 
 
+def _search_entry_page_path(entry: dict[str, Any]) -> str:
+    raw = str(entry.get("href") or entry.get("objectID") or "")
+    return raw.split("#", 1)[0].split("?", 1)[0].lstrip("/")
+
+
+def quarto_output_page_order(renderable_qmds: Iterable[str]) -> list[str]:
+    """Reproduce Quarto 1.6.40's deterministic ``defaultPandocRenderer`` page
+    ordering (``renderedFiles.push(file); renderedFiles.reverse()`` across
+    sorted project inputs, excluding ``404.html``).
+    """
+    order: list[str] = []
+    for rel_qmd in renderable_qmds:
+        order.append(rel_qmd[:-4] + ".html")
+        order.reverse()
+    return [rel_html for rel_html in order if rel_html != "404.html"]
+
+
+def _qmd_iso_lastmod(path: Path) -> str:
+    ms = path.stat().st_mtime_ns // 1_000_000
+    dt = datetime.fromtimestamp(ms / 1000.0, tz=timezone.utc)
+    return f"{dt:%Y-%m-%dT%H:%M:%S}.{ms % 1000:03d}Z"
+
+
+def canonicalize_search_and_sitemap(
+    root: Path,
+    site_dir: Path,
+    site_url: str,
+    renderable_qmds: list[str],
+) -> None:
+    """Order ``_site/search.json`` and ``_site/sitemap.xml`` identically to a
+    clean full ``quarto render`` of the current workspace tree.
+    """
+    expected_pages = quarto_output_page_order(renderable_qmds)
+
+    search_json = site_dir / "search.json"
+    if search_json.is_file():
+        raw_search = search_json.read_text(encoding="utf-8")
+        entries = json.loads(raw_search)
+        by_page: dict[str, list[dict[str, Any]]] = {}
+        for entry in entries:
+            by_page.setdefault(_search_entry_page_path(entry), []).append(entry)
+        ordered_entries: list[dict[str, Any]] = []
+        for rel_html in expected_pages:
+            if rel_html in by_page:
+                ordered_entries.extend(by_page.pop(rel_html))
+        for leftover in by_page.values():
+            ordered_entries.extend(leftover)
+        # Quarto's Deno writer calls JSON.stringify(docs, undefined, 2) with no trailing newline.
+        formatted_search = json.dumps(ordered_entries, ensure_ascii=False, indent=2)
+        if formatted_search != raw_search:
+            search_json.write_text(formatted_search, encoding="utf-8")
+
+    sitemap_xml = site_dir / "sitemap.xml"
+    if sitemap_xml.is_file():
+        raw_sm = sitemap_xml.read_text(encoding="utf-8")
+        base = site_url.rstrip("/") + "/"
+        url_blocks = re.findall(r"<url>\s*(.*?)\s*</url>", raw_sm, flags=re.S)
+        if url_blocks:
+            has_lastmod = any("<lastmod>" in blk for blk in url_blocks)
+            blocks_by_rel: dict[str, tuple[str, str]] = {}
+            extra_blocks: list[str] = []
+            for blk in url_blocks:
+                loc_m = re.search(r"<loc>(.*?)</loc>", blk, flags=re.S)
+                if not loc_m:
+                    continue
+                loc = html.unescape(loc_m.group(1).strip())
+                if loc in (base, base + "index.html"):
+                    rel_html = "index.html"
+                    canon_loc = base
+                elif loc.startswith(base):
+                    rel_html = loc[len(base) :]
+                    canon_loc = loc
+                else:
+                    extra_blocks.append(f"  <url>\n    {blk}\n  </url>")
+                    continue
+                blocks_by_rel[rel_html] = (canon_loc, blk)
+
+            out_lines = [
+                '<?xml version="1.0" encoding="UTF-8"?>',
+                '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+            ]
+            for rel_html in expected_pages:
+                if rel_html not in blocks_by_rel:
+                    continue
+                canon_loc, orig_blk = blocks_by_rel.pop(rel_html)
+                escaped_loc = html.escape(canon_loc, quote=False)
+                if has_lastmod:
+                    qmd_path = root / (rel_html[:-5] + ".qmd")
+                    if qmd_path.is_file():
+                        lastmod = _qmd_iso_lastmod(qmd_path)
+                    else:
+                        lm_m = re.search(r"<lastmod>(.*?)</lastmod>", orig_blk, flags=re.S)
+                        lastmod = lm_m.group(1).strip() if lm_m else _qmd_iso_lastmod(site_dir / rel_html)
+                    out_lines.append("  <url>")
+                    out_lines.append(f"    <loc>{escaped_loc}</loc>")
+                    out_lines.append(f"    <lastmod>{lastmod}</lastmod>")
+                    out_lines.append("  </url>")
+                else:
+                    out_lines.append("  <url>")
+                    out_lines.append(f"    <loc>{escaped_loc}</loc>")
+                    out_lines.append("  </url>")
+
+            for canon_loc, orig_blk in blocks_by_rel.values():
+                escaped_loc = html.escape(canon_loc, quote=False)
+                lm_m = re.search(r"<lastmod>(.*?)</lastmod>", orig_blk, flags=re.S)
+                out_lines.append("  <url>")
+                out_lines.append(f"    <loc>{escaped_loc}</loc>")
+                if has_lastmod and lm_m:
+                    out_lines.append(f"    <lastmod>{lm_m.group(1).strip()}</lastmod>")
+                out_lines.append("  </url>")
+
+            out_lines.extend(extra_blocks)
+            out_lines.append("</urlset>")
+            formatted_sm = "\n".join(out_lines) + "\n"
+            if formatted_sm != raw_sm:
+                sitemap_xml.write_text(formatted_sm, encoding="utf-8")
+
+
 def prune_deleted_artifacts(
     site_dir: Path,
     quarto_dir: Path,
@@ -715,10 +835,13 @@ def prune_deleted_artifacts(
     curr_qmds: dict[str, dict[str, Any]],
     deleted_resources: set[str],
     curr_resources: dict[str, str],
+    rerendered_qmds: Iterable[str] = (),
 ) -> bool:
     """Remove stale outputs for deleted ``.qmd`` files, dropped frontmatter
-    ``aliases``, and deleted static resources. Returns True if anything was
-    pruned from ``_site/``.
+    ``aliases``, and deleted static resources, and drop all ``search.json``
+    entries (including ``#section`` fragments) for pages about to be
+    rerendered so renamed or deleted headings never linger. Returns True if
+    anything was pruned from ``_site/``.
     """
     pruned_any = False
 
@@ -761,23 +884,28 @@ def prune_deleted_artifacts(
                 _remove_file_and_empty_parents(target, site_dir)
                 pruned_any = True
 
-    if deleted_htmls:
+    rerendered_htmls = {rel_qmd[:-4] + ".html" for rel_qmd in rerendered_qmds}
+    search_drop_htmls = deleted_htmls | rerendered_htmls
+    if search_drop_htmls:
         search_json = site_dir / "search.json"
         if search_json.is_file():
             entries = json.loads(search_json.read_text(encoding="utf-8"))
             filtered = [
                 entry
                 for entry in entries
-                if str(entry.get("href") or "").split("#", 1)[0].lstrip("/") not in deleted_htmls
-                and str(entry.get("objectID") or "").split("#", 1)[0].lstrip("/") not in deleted_htmls
+                if str(entry.get("href") or "").split("#", 1)[0].split("?", 1)[0].lstrip("/")
+                not in search_drop_htmls
+                and str(entry.get("objectID") or "").split("#", 1)[0].split("?", 1)[0].lstrip("/")
+                not in search_drop_htmls
             ]
             if len(filtered) != len(entries):
                 search_json.write_text(
-                    json.dumps(filtered, ensure_ascii=False, indent=2) + "\n",
+                    json.dumps(filtered, ensure_ascii=False, indent=2),
                     encoding="utf-8",
                 )
                 pruned_any = True
 
+    if deleted_htmls:
         sitemap_xml = site_dir / "sitemap.xml"
         if sitemap_xml.is_file():
             sm_text = sitemap_xml.read_text(encoding="utf-8")
@@ -1056,6 +1184,7 @@ def run_incremental_render(
             curr_qmds,
             deleted_resources,
             curr_resources,
+            rerendered_qmds=rendered_qmds,
         )
 
         if rendered_qmds:
@@ -1081,6 +1210,7 @@ def run_incremental_render(
                     quarto_yml_path.write_bytes(quarto_yml_bytes)
 
             subprocess.run([quarto_bin, "render", rendered_qmds[-1]], cwd=root, check=True)
+            canonicalize_search_and_sitemap(root, site_dir, config["site_url"], renderable_qmds)
 
             after_stats = _snapshot_html_stats(site_dir)
             touched_html = {

@@ -160,6 +160,73 @@ class IncrementalRenderUnitTests(unittest.TestCase):
             neighbors = ir._sidebar_title_neighbors(prev_qmds, curr_qmds, cfg["sidebar_qmds"])
             self.assertEqual(neighbors, {"index.qmd", "a.qmd", "c.qmd"})
 
+    def test_prune_deleted_artifacts_drops_rerendered_page_fragments(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            site = root / "_site"
+            quarto_dir = root / ".quarto"
+            (site / "articles").mkdir(parents=True)
+            (site / "questions").mkdir(parents=True)
+            (site / "articles/beta.html").write_text("<html></html>", encoding="utf-8")
+            (site / "questions/old-q.html").write_text("<html></html>", encoding="utf-8")
+            (site / "search.json").write_text(
+                json.dumps(
+                    [
+                        {"objectID": "articles/alpha.html", "href": "articles/alpha.html"},
+                        {"objectID": "articles/beta.html", "href": "articles/beta.html"},
+                        {
+                            "objectID": "articles/beta.html#original-heading",
+                            "href": "articles/beta.html#original-heading",
+                        },
+                        {
+                            "objectID": "articles/beta.html#obsolete-heading",
+                            "href": "articles/beta.html#obsolete-heading",
+                        },
+                        {"objectID": "questions/old-q.html", "href": "questions/old-q.html"},
+                    ],
+                    indent=2,
+                ),
+                encoding="utf-8",
+            )
+            (site / "sitemap.xml").write_text(
+                '<?xml version="1.0" encoding="UTF-8"?>\n'
+                '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+                "  <url>\n    <loc>https://www.statwiki.io/articles/beta.html</loc>\n  </url>\n"
+                "  <url>\n    <loc>https://www.statwiki.io/questions/old-q.html</loc>\n  </url>\n"
+                "</urlset>\n",
+                encoding="utf-8",
+            )
+
+            prev_qmds = {
+                "articles/alpha.qmd": {"aliases": []},
+                "articles/beta.qmd": {"aliases": []},
+                "questions/old-q.qmd": {"aliases": []},
+            }
+            curr_qmds = {
+                "articles/alpha.qmd": {"aliases": []},
+                "articles/beta.qmd": {"aliases": []},
+            }
+            ir.prune_deleted_artifacts(
+                site,
+                quarto_dir,
+                "https://www.statwiki.io",
+                {"questions/old-q.qmd"},
+                prev_qmds,
+                curr_qmds,
+                set(),
+                {},
+                rerendered_qmds={"articles/beta.qmd"},
+            )
+
+            remaining = json.loads((site / "search.json").read_text(encoding="utf-8"))
+            self.assertEqual([e["objectID"] for e in remaining], ["articles/alpha.html"])
+            self.assertTrue((site / "articles/beta.html").is_file())
+            self.assertFalse((site / "questions/old-q.html").exists())
+            self.assertEqual(
+                _sitemap_locs((site / "sitemap.xml").read_text(encoding="utf-8")),
+                ["https://www.statwiki.io/articles/beta.html"],
+            )
+
 
 @unittest.skipUnless(shutil.which("quarto"), "Quarto CLI is required for end-to-end equivalence tests")
 class IncrementalRenderEquivalenceTests(unittest.TestCase):
@@ -381,28 +448,87 @@ format:
         warm_hashes = _tree_hashes(proj / "_site")
         self.assertEqual(set(clean_hashes), set(warm_hashes), "File set mismatch between clean and warm _site")
 
-        for rel in sorted(clean_hashes):
-            if rel in {"search.json", "sitemap.xml"}:
-                continue
-            self.assertEqual(
-                clean_hashes[rel],
-                warm_hashes[rel],
-                f"Byte mismatch in {rel} between clean and warm render",
-            )
-
-        clean_search = {
-            e["objectID"]: e
+        clean_search = [
+            e["objectID"]
             for e in json.loads((clean_site / "search.json").read_text(encoding="utf-8"))
-        }
-        warm_search = {
-            e["objectID"]: e
+        ]
+        warm_search = [
+            e["objectID"]
             for e in json.loads((proj / "_site" / "search.json").read_text(encoding="utf-8"))
-        }
-        self.assertEqual(clean_search, warm_search, "search.json entries differ between clean and warm render")
+        ]
+        self.assertEqual(
+            warm_search,
+            clean_search,
+            "search.json objectID list differs between warm and clean render",
+        )
 
         clean_locs = _sitemap_locs((clean_site / "sitemap.xml").read_text(encoding="utf-8"))
         warm_locs = _sitemap_locs((proj / "_site" / "sitemap.xml").read_text(encoding="utf-8"))
         self.assertEqual(clean_locs, warm_locs, "sitemap.xml <loc> URLs differ between clean and warm render")
+
+        for rel in sorted(clean_hashes):
+            self.assertEqual(
+                warm_hashes[rel],
+                clean_hashes[rel],
+                f"Byte mismatch in {rel} between warm and clean render",
+            )
+
+    def test_rerendered_page_h2_rename_and_delete_matches_clean_bytes(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            outer = Path(tmp)
+            proj = outer / "wiki"
+            scratch = outer / "scratch"
+            scratch.mkdir()
+            self._create_mini_statwiki(proj)
+
+            (proj / "articles/beta.qmd").write_text(
+                "---\ntitle: Beta concept\n---\n"
+                "**Beta concept.** Opening definition of the beta family on the unit interval.\n\n"
+                "## Original heading\n\n"
+                "First section body before renaming the heading.\n\n"
+                "## Obsolete heading\n\n"
+                "Second section body that will be deleted outright.\n\n"
+                "## Kept heading\n\n"
+                "Third section body that remains in place.\n",
+                encoding="utf-8",
+            )
+
+            s1 = ir.run_incremental_render(proj)
+            self.assertEqual(s1["mode"], "full")
+            initial_ids = [
+                e["objectID"]
+                for e in json.loads((proj / "_site" / "search.json").read_text(encoding="utf-8"))
+            ]
+            self.assertIn("articles/beta.html#original-heading", initial_ids)
+            self.assertIn("articles/beta.html#obsolete-heading", initial_ids)
+            self.assertIn("articles/beta.html#kept-heading", initial_ids)
+
+            # Rename one H2 ("Original heading" -> "Renamed heading") and delete
+            # another H2 ("Obsolete heading") with nothing replacing it.
+            (proj / "articles/beta.qmd").write_text(
+                "---\ntitle: Beta concept\n---\n"
+                "**Beta concept.** Opening definition of the beta family on the unit interval.\n\n"
+                "## Renamed heading\n\n"
+                "First section body after renaming the heading.\n\n"
+                "## Kept heading\n\n"
+                "Third section body that remains in place.\n",
+                encoding="utf-8",
+            )
+
+            s2 = ir.run_incremental_render(proj)
+            self.assertEqual(s2["mode"], "incremental")
+            self.assertEqual(s2["rendered_qmds"], ["articles/beta.qmd"])
+
+            warm_ids = [
+                e["objectID"]
+                for e in json.loads((proj / "_site" / "search.json").read_text(encoding="utf-8"))
+            ]
+            self.assertNotIn("articles/beta.html#original-heading", warm_ids)
+            self.assertNotIn("articles/beta.html#obsolete-heading", warm_ids)
+            self.assertIn("articles/beta.html#renamed-heading", warm_ids)
+            self.assertIn("articles/beta.html#kept-heading", warm_ids)
+
+            self._assert_equivalent_to_clean_render(proj, scratch)
 
     def test_clean_vs_warm_equivalence_across_modes(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
