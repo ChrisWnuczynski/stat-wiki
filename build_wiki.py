@@ -1881,12 +1881,13 @@ RANDOM_AND_FILTER_JS = """<script>
     if (document.body) searchObserver.observe(document.body, { childList: true });
   }
   watchSearch();
-  // Highlight the top-bar section for this page's folder.
+  // Highlight the top-bar section for this page's folder. sidebar_share.py
+  // writes the same marks into the page for readers without JavaScript.
   var here = window.location.pathname.replace(/\\\\/g, "/");
   var section = /\\/labs\\//.test(here) ? "labs/index.html"
-    : /\\/notes\\//.test(here) ? "notes/index.html"
+    : /\\/notes\\/|\\/articles\\//.test(here) ? "notes/index.html"
     : /\\/questions\\//.test(here) ? "questions/index.html"
-    : /\\/reference\\/glossary|\\/articles\\//.test(here) ? "reference/glossary.html"
+    : /\\/reference\\/glossary/.test(here) ? "reference/glossary.html"
     : /\\/reference\\//.test(here) ? "reference/index.html"
     : "index.html";
   document.querySelectorAll("#navbarCollapse .nav-link").forEach(function (link) {
@@ -1897,11 +1898,22 @@ RANDOM_AND_FILTER_JS = """<script>
   });
   var menuName = /\\/questions\\//.test(here) ? "Question bank"
     : /\\/labs\\//.test(here) ? "Laboratories"
+    : /\\/articles\\//.test(here) ? "Study"
     : /\\/reference\\//.test(here) && !/\\/reference\\/glossary/.test(here) ? "Reference"
     : "";
   if (menuName) {
     document.querySelectorAll("#navbarCollapse .nav-link").forEach(function (link) {
       if ((link.textContent || "").trim().indexOf(menuName) === 0) link.classList.add("active");
+    });
+  }
+  // An article belongs to Topics, in the Study menu. Topics is the current
+  // section, not the current page, so it is aria-current="true".
+  if (/\\/articles\\//.test(here)) {
+    document.querySelectorAll("#navbarCollapse .dropdown-item").forEach(function (link) {
+      var target = (link.getAttribute("href") || "").replace(/^(\\.\\.\\/|\\.\\/)+/, "");
+      if (target !== "notes/index.html") return;
+      link.classList.add("active");
+      link.setAttribute("aria-current", "true");
     });
   }
   window.wikiFilter = function (text) {
@@ -5757,7 +5769,7 @@ def self_check_section(article: dict, qmap: dict) -> str:
         answer = demote_headings(copy_for_article(q["prepared_answer"], q["path"], path))
         parts.append(
             f"\n### {q['title']} {{#self-check-{qid}}}\n\n"
-            f"[Question-bank page]({href(path, q['path'])})\n\n"
+            f"[Question-bank page: {q['title']}]({href(path, q['path'])})\n\n"
             f"{body}\n\n"
             f":::::::::: {{.statwiki-generated-check-answer}}\n\n"
             f":::::::: {{.callout-tip collapse=\"true\" title=\"Answer\"}}\n\n"
@@ -6117,7 +6129,7 @@ def _render_bank_check(article: dict, question: dict) -> str:
     answer = demote_headings(copy_for_article(question["prepared_answer"], question["path"], path))
     return (
         f"\n### {question['title']} {{#self-check-{question['id']}}}\n\n"
-        f"[Question-bank page]({href(path, question['path'])})\n\n"
+        f"[Question-bank page: {question['title']}]({href(path, question['path'])})\n\n"
         f"{body}\n\n"
         f":::::::::: {{.statwiki-generated-check-answer}}\n\n"
         f":::::::: {{.callout-tip collapse=\"true\" title=\"Answer\"}}\n\n"
@@ -7337,21 +7349,21 @@ def write_indexes(notes, chapters, final_notes, questions, by_source, by_topic) 
             "The on-ramp: what a measurement is, how it is collected, and the first claims made from it.",
             len(fundamental_links),
             fundamental_links[:4],
-            f"[See all]({href(home, fundamentals_page)}){{.library-more}}",
+            f"[See all fundamentals]({href(home, fundamentals_page)}){{.library-more}}",
         ),
         library_card(
             "History",
             "A chronological narrative of probability and statistics, with a timeline of the dated steps.",
             1,
             [("History of statistics", WIKI / "history.qmd")],
-            f"[See all]({href(home, WIKI / 'history.qmd')}){{.library-more}}",
+            f"[See the whole history]({href(home, WIKI / 'history.qmd')}){{.library-more}}",
         ),
         library_card(
             "Probability distributions",
             "Every named distribution, grouped into discrete, continuous, multivariate, and family relationships.",
             len(distribution_links),
             distribution_links[:4],
-            f"[See all]({href(home, distributions_page)}){{.library-more}}",
+            f"[See all distributions]({href(home, distributions_page)}){{.library-more}}",
         ),
     ]
     applications_page = WIKI / "notes" / "applications.qmd"
@@ -7368,12 +7380,12 @@ def write_indexes(notes, chapters, final_notes, questions, by_source, by_topic) 
             "Fields of statistics, and the methods that are used in those fields.",
             len(application_links),
             application_links[:4],
-            f"[See all]({href(home, applications_page)}){{.library-more}}",
+            f"[See all applications]({href(home, applications_page)}){{.library-more}}",
         )
     )
     for part, members in parts.items():
         total = part_totals[part]
-        more = f"[See all]({href(home, WIKI / 'notes' / 'index.qmd')}#{slug(part)}){{.library-more}}"
+        more = f"[See all topics in {part}]({href(home, WIKI / 'notes' / 'index.qmd')}#{slug(part)}){{.library-more}}"
         if total:
             noun = "question" if total == 1 else "questions"
             more += f" · [{total} {noun} →]({href(home, by_topic_path)}#{slug(part)}){{.library-more}}"
@@ -7397,7 +7409,7 @@ def write_indexes(notes, chapters, final_notes, questions, by_source, by_topic) 
             "The closing guide and the two examination halves.",
             len(final_notes),
             final_links,
-            f"[See all]({href(home, WIKI / 'notes' / 'index.qmd')}#final-preparation){{.library-more}}",
+            f"[See all final-preparation notes]({href(home, WIKI / 'notes' / 'index.qmd')}#final-preparation){{.library-more}}",
         )
     )
     cards.append(
@@ -7410,7 +7422,7 @@ def write_indexes(notes, chapters, final_notes, questions, by_source, by_topic) 
                 ("By topic", by_topic_path),
                 ("Random question", random_path),
             ],
-            f"[See all]({href(home, q_index)}){{.library-more}}",
+            f"[See all questions]({href(home, q_index)}){{.library-more}}",
         )
     )
     reference_links = [
@@ -7426,7 +7438,7 @@ def write_indexes(notes, chapters, final_notes, questions, by_source, by_topic) 
             "Lookup pages: a glossary, distributions, notation, and formulas.",
             len(reference_links) - 1,
             reference_links[1:],
-            f"[See all]({href(home, reference_links[0][1])}){{.library-more}}",
+            f"[See all reference pages]({href(home, reference_links[0][1])}){{.library-more}}",
         )
     )
     lab_links = [
@@ -7442,7 +7454,7 @@ def write_indexes(notes, chapters, final_notes, questions, by_source, by_topic) 
             "Interactive pages where the population is known, so the error is visible.",
             len(lab_links),
             lab_links,
-            f"[See all]({href(home, WIKI / 'labs' / 'index.qmd')}){{.library-more}}",
+            f"[See all laboratories]({href(home, WIKI / 'labs' / 'index.qmd')}){{.library-more}}",
         )
     )
     library = ":::: {.library}\n" + "\n".join(cards) + "::::\n"
