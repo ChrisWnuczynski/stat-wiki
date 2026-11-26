@@ -34,7 +34,7 @@ $Y = \min(T, C)$, together with an indicator $\delta$ that records whether
 the event was observed ($\delta = 1$ when $T \le C$) or the observation was
 censored ($\delta = 0$ when $T > C$) {{cite:james_islr2021}} (eq. 11.1).
 The target is the [survival function](survival-function.qmd)
-$S(t) = P(T > t)$, the probability of surviving beyond time $t$
+$S(t) = \mathbb{P}(T > t)$, the probability of surviving beyond time $t$
 {{cite:james_islr2021}} (eq. 11.2).
 
 The difficulty is that a censored observation is not an event time and not
@@ -430,7 +430,7 @@ enough to be uninformative, which is itself a finding worth reporting.
 
 ## Connections
 
-- [Survival function](survival-function.qmd) — the target $S(t) = P(T > t)$
+- [Survival function](survival-function.qmd) — the target $S(t) = \mathbb{P}(T > t)$
   that the Kaplan–Meier estimator estimates.
 - [Hazard rate](hazard-rate.qmd) — the instantaneous event rate; the
   Kaplan–Meier curve and the Nelson–Aalen cumulative hazard estimate are two
