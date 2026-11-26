@@ -84,6 +84,53 @@ class CitationTests(unittest.TestCase):
         self.assertIn('href="#cite_note-1"', row)
         self.assertIn('id="cite_note-1"', linker.render_references_section())
 
+    def test_adjacent_citation_semicolons_collapse_cleanly(self) -> None:
+        # Basic, tight, and spaced semicolons between adjacent markers collapse.
+        for sep in ("; ", ";", " ; ", ";\n"):
+            with self.subTest(sep=sep):
+                linker = citations.PageCitationLinker(("fisher1922", "student1908"), self.works)
+                out = linker.process_text(f"Claim.{{{{cite:fisher1922}}}}{sep}{{{{cite:student1908}}}}")
+                self.assertNotIn(";", out)
+                self.assertRegex(out, r"Claim\.<sup\b[^>]*>.*?\[1\]</a></sup><sup\b[^>]*>.*?\[2\]</a></sup>$")
+
+        # Locators and order are preserved across two or more adjacent citations, and round-trip.
+        located = citations.PageCitationLinker(("dodge2008", "openintro2019", "gauss1809"), self.works)
+        text = (
+            "The denominator is the untied count.{{cite:dodge2008}} (p. 486); "
+            "{{cite:openintro2019}} (§4.3, “Binomial distribution”) "
+            "Three sources agree{{cite:dodge2008}} (p. 1); {{cite:openintro2019}} (p. 2); {{cite:gauss1809}} (p. 3)."
+        )
+        rendered = located.process_text(text)
+        visible = re.sub(r"<sup\b[^>]*>.*?</sup>", lambda m: re.search(r"\[\d+\]", m.group(0)).group(0), rendered)
+        self.assertEqual(
+            visible,
+            "The denominator is the untied count.[1][2] Three sources agree.[1][2][3]",
+        )
+        self.assertIn('data-locator="p. 486"', rendered)
+        self.assertIn('data-locator="§4.3, “Binomial distribution”"', rendered)
+        self.assertIn('data-locator="p. 3"', rendered)
+        refs = located.render_references_section()
+        self.assertIn("(p. 486)", refs)
+        self.assertIn("(§4.3, “Binomial distribution”)", refs)
+        self.assertIn("(p. 3)", refs)
+        again = citations.PageCitationLinker(("dodge2008", "openintro2019", "gauss1809"), self.works)
+        self.assertEqual(again.process_text(rendered), rendered)
+        self.assertEqual(again.render_references_section(), refs)
+
+        # Legitimate prose semicolons after single or non-adjacent citations stay intact.
+        prose = (
+            "First clause{{cite:welch1947}} (pp. 28–35); "
+            "second clause{{cite:satterthwaite1946}} (pp. 110–114)."
+        )
+        prose_linker = citations.PageCitationLinker(("welch1947", "satterthwaite1946"), self.works)
+        prose_out = prose_linker.process_text(prose)
+        prose_visible = re.sub(
+            r"<sup\b[^>]*>.*?</sup>",
+            lambda m: re.search(r"\[\d+\]", m.group(0)).group(0),
+            prose_out,
+        )
+        self.assertEqual(prose_visible, "First clause;[1] second clause.[2]")
+
     def test_bibliography_schema_and_provenance(self) -> None:
         errors = verify_citations.validate_schema(self.bib)
         self.assertEqual(errors, [])
