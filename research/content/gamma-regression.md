@@ -9,7 +9,7 @@ For independent positive responses, write
 $$
 Y_i\sim\operatorname{Gamma}\left(\text{shape}=\phi^{-1},\ \text{scale}=\phi\mu_i\right),\qquad\phi>0.
 $$
-Then $E(Y_i)=\mu_i$ and $\operatorname{Var}(Y_i)=\phi\mu_i^2$. A common dispersion gives a common coefficient of variation $\sqrt\phi$. This uses the scale convention; the corresponding rate is $1/(\phi\mu_i)$. Stating the convention prevents a reciprocal parameter from changing the model.{{cite:wuthrich_merz2022_glm}} (§5.3.7, pp. 168–169, eqs. 5.43–5.44)
+Then $\E(Y_i)=\mu_i$ and $\operatorname{Var}(Y_i)=\phi\mu_i^2$. A common dispersion gives a common coefficient of variation $\sqrt\phi$. This uses the scale convention; the corresponding rate is $1/(\phi\mu_i)$. Stating the convention prevents a reciprocal parameter from changing the model.{{cite:wuthrich_merz2022_glm}} (§5.3.7, pp. 168–169, eqs. 5.43–5.44)
 
 The gamma exponential-family canonical parameter is $-1/\mu$. An inverse link $1/\mu$ is often described as canonical after absorbing its constant sign into the coefficients. The log link, $\log\mu_i=x_i^\top\beta$, is not canonical, but automatically ensures a positive fitted mean for every finite predictor vector. Neither choice asserts that $\log Y_i$ is normally distributed.{{cite:nelder_wedderburn1972}} (§3.4, p. 380){{cite:wuthrich_merz2022_glm}} (§5.3.7, p. 167)
 
@@ -63,5 +63,5 @@ For $\sigma(\eta)=(1+e^{-\eta})^{-1}$, differentiation gives $\sigma'(\eta)=e^{-
 [The biased variance estimator](../questions/ex-inf-variance-bias.qmd): distinguish an estimator's scale from its bias.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-Since $E(s^2)=\sigma^2$, $E(((n-1)/n)s^2)=(n-1)\sigma^2/n$. Its bias is $-\sigma^2/n$. Changing a residual divisor affects estimation of dispersion, even when the fitted mean coefficients stay the same.
+Since $\E(s^2)=\sigma^2$, $\E(((n-1)/n)s^2)=(n-1)\sigma^2/n$. Its bias is $-\sigma^2/n$. Changing a residual divisor affects estimation of dispersion, even when the fitted mean coefficients stay the same.
 :::
