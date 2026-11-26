@@ -15,7 +15,7 @@ Holding $p$ fixed while taking $n$ large is a different regime: the binomial mea
 ## Proof
 Put $\lambda_n=np_n$. For $\lambda>0$ and fixed $k$, the binomial mass factors as
 $$
-P(X_n=k)=\frac{\lambda_n^k}{k!}
+\mathbb{P}(X_n=k)=\frac{\lambda_n^k}{k!}
 \left\{\prod_{j=0}^{k-1}\left(1-\frac jn\right)\right\}
 (1-p_n)^n(1-p_n)^{-k}.
 $$
@@ -23,12 +23,12 @@ The finite product tends to one, $\lambda_n^k\to\lambda^k$, and $(1-p_n)^{-k}\to
 $$
 n\log(1-p_n)=-np_n+O(np_n^2)\longrightarrow-\lambda,
 $$
-because $np_n^2=(np_n)p_n\to0$. Consequently $(1-p_n)^n\to e^{-\lambda}$, giving the displayed Poisson mass. At $\lambda=0$, $P(X_n\geq1)\leq \E(X_n)=np_n\to0$, so the count tends to zero in probability. The limiting masses sum to one, giving convergence in distribution.{{cite:grinstead_snell1997}} (§5.1, p. 189);{{cite:durrett2019}} (§3.6.1, pp. 167–168)
+because $np_n^2=(np_n)p_n\to0$. Consequently $(1-p_n)^n\to e^{-\lambda}$, giving the displayed Poisson mass. At $\lambda=0$, $\mathbb{P}(X_n\geq1)\leq \E(X_n)=np_n\to0$, so the count tends to zero in probability. The limiting masses sum to one, giving convergence in distribution.{{cite:grinstead_snell1997}} (§5.1, p. 189);{{cite:durrett2019}} (§3.6.1, pp. 167–168)
 
 ## Worked example
 For $n=100$ and $p=0.02$, the mean is two. The exact no-failure probability is
 $$
-P(X=0)=0.98^{100}\approx0.132620,
+\mathbb{P}(X=0)=0.98^{100}\approx0.132620,
 $$
 whereas the Poisson approximation gives $e^{-2}\approx0.135335$. For exactly three failures, the exact binomial probability is approximately $0.182276$, compared with $e^{-2}2^3/3!\approx0.180447$. The differences have opposite signs, so the approximation is not a uniform upper or lower bound on every individual mass.{{cite:grinstead_snell1997}} (§5.1, p. 189)
 
