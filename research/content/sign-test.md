@@ -13,7 +13,7 @@ Discarding magnitudes protects the sign count from a single arbitrarily large ob
 
 ## Worked example — Ten increases among twelve untied pairs
 Suppose ten of twelve differences are positive. The one-sided null tail is
-$$P(N_+\ge10)=\frac{\binom{12}{10}+\binom{12}{11}+\binom{12}{12}}{2^{12}}=\frac{79}{4096}\approx0.019287.$$
+$$\mathbb{P}(N_+\ge10)=\frac{\binom{12}{10}+\binom{12}{11}+\binom{12}{12}}{2^{12}}=\frac{79}{4096}\approx0.019287.$$
 The symmetric two-sided probability is $158/4096\approx0.038574$. These compare the count of increases with its balanced-sign reference. They do not quantify the typical size of an increase.
 
 If the same twelve untied pairs came from fourteen recorded pairs with two exact ties, the calculations still use twelve. Replacing twelve by fourteen would treat the discarded ties as random negative outcomes and answer a different question.
@@ -38,7 +38,7 @@ Ties are pairs that contribute neither bit. Conditioning on the untied pairs tre
 ### Properties — The null mean and the discrete tail
 Under independent fair signs, $N_+$ is binomial with mean $m/2$ and variance $m/4$. For $m=12$ the mean is $6$ and the variance is $3$. Ten positive signs sit $(10-6)/\sqrt 3\approx 2.309$ null standard deviations above the mean. The exact upper tail is still the binomial sum, not the normal approximation to that sum. The normal figure is a description of where the observation sits. The reported probability $0.019287$ comes from $\binom{12}{10}+\binom{12}{11}+\binom{12}{12}=66+12+1=79$ favourable outcomes out of $4096$.
 
-For a smaller count, five untied pairs and a positive-direction alternative, $P(N_+\ge 4)=(5+1)/32=3/16=0.1875$. The attainable one-sided probabilities on five trials are the partial binomial sums divided by $32$. They jump. A nominal $5\%$ test cannot have type I error exactly $0.05$ unless randomisation is added on the boundary. Doubling a one-sided tail for a two-sided report has to be capped at one, because the two tails of a discrete symmetric law can overlap at the centre.
+For a smaller count, five untied pairs and a positive-direction alternative, $\mathbb{P}(N_+\ge 4)=(5+1)/32=3/16=0.1875$. The attainable one-sided probabilities on five trials are the partial binomial sums divided by $32$. They jump. A nominal $5\%$ test cannot have type I error exactly $0.05$ unless randomisation is added on the boundary. Doubling a one-sided tail for a two-sided report has to be capped at one, because the two tails of a discrete symmetric law can overlap at the centre.
 
 ## Common misconceptions
 A nonrejection is sometimes read as evidence that the median difference is zero. With few untied pairs the null distribution is wide: eight positive signs out of twelve still have one-sided tail $794/4096\approx 0.193848$. Failing to reject at a conventional level is what that wide distribution does with a moderate count. It is not a measurement of how close the median is to zero. A confidence set for a shift, or a report of the observed differences themselves, carries the magnitude information the test discarded.
