@@ -32,11 +32,11 @@ $$
 $$
 The average $\overline Z_n$ therefore satisfies $\E|\overline Z_n|^4=O(n^{-2})$. For $\varepsilon>0$,
 $$
-\mathrm{P}(|\overline Z_n|>\varepsilon)\le\frac{\E|\overline Z_n|^4}{\varepsilon^4},
+\mathbb{P}(|\overline Z_n|>\varepsilon)\le\frac{\E|\overline Z_n|^4}{\varepsilon^4},
 $$
 and the right-hand side sums over $n$. The first Borel–Cantelli lemma gives, for each fixed $\varepsilon>0$, only finitely many exceedances, with probability $1$. Intersecting the countably many probability-$1$ sets for $\varepsilon=1/m$ yields $\overline Z_n\to 0$ almost surely.
 
-The finite-mean case, without a fourth moment, is the truncation argument in the same section. The truncation $Y_k=X_k 1_{|X_k|\le k}$ changes only finitely many terms almost surely, because $\sum\mathrm{P}(|X_k|>k)\le\E|X_1|<\infty$. The variances of the truncated variables satisfy $\sum\mathrm{Var}(Y_k)/k^2<\infty$, and a geometric subsequence plus monotonicity of the positive and negative parts upgrades convergence along that subsequence to convergence along every $n$.{{cite:durrett2019}} (Thm. 2.4.1, pp. 76–78)
+The finite-mean case, without a fourth moment, is the truncation argument in the same section. The truncation $Y_k=X_k 1_{|X_k|\le k}$ changes only finitely many terms almost surely, because $\sum\mathbb{P}(|X_k|>k)\le\E|X_1|<\infty$. The variances of the truncated variables satisfy $\sum\mathrm{Var}(Y_k)/k^2<\infty$, and a geometric subsequence plus monotonicity of the positive and negative parts upgrades convergence along that subsequence to convergence along every $n$.{{cite:durrett2019}} (Thm. 2.4.1, pp. 76–78)
 :::
 :::
 
@@ -62,7 +62,7 @@ Bernoulli's 1713 argument treated a relative frequency in repeated trials. The B
 ## Worked example
 Let $Y_i$ be $1$ or $0$ with equal probability $1/2$, and let $\overline Y_n$ be the proportion of ones. Then $\mu=1/2$, $\sigma^2=1/4$, and the centred fourth moment is $\mu_4=(1/2)^4=1/16$. At $n=100$ and $\varepsilon=0.1$,
 $$
-\mathrm{P}(|\overline Y_{100}-1/2|>0.1)\le\frac{1/4}{100\cdot 0.01}=0.25
+\mathbb{P}(|\overline Y_{100}-1/2|>0.1)\le\frac{1/4}{100\cdot 0.01}=0.25
 $$
 by Chebyshev. The fourth-moment identity gives
 $$
