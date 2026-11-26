@@ -14,7 +14,7 @@ If $S_n\to\Sigma$ in probability, continuity of matrix inversion at a positive d
 The proof needs neither independence between $\bar X$ and $S_n$ nor Gaussian observations. Those stronger normal-sample properties underlie the exact $F$ law. Dimension must stay fixed: increasing $p$ changes the limiting problem and may make $S_n$ singular.{{cite:nist_hotelling2002}} (§6.5.4.3, normality and sample-size conditions)
 
 ## Worked example
-With $p=2$ and $T^2=6$, the limiting upper-tail probability is $P(\chi_2^2\ge6)=e^{-3}=0.04979$. For $n=20$, the exact normal-sample transform is $F=18\cdot6/38=2.8421$, whose $F_{2,18}$ tail is $0.08459$. With $n=200$, the corresponding exact tail is $0.05282$. Thus the limiting test rejects at $5\%$ while both finite-sample comparisons do not. The difference narrows as covariance estimation becomes more precise.{{cite:nist_hotelling2002}} (§6.5.4.3, displayed $F$ law)
+With $p=2$ and $T^2=6$, the limiting upper-tail probability is $\mathbb{P}(\chi_2^2\ge6)=e^{-3}=0.04979$. For $n=20$, the exact normal-sample transform is $F=18\cdot6/38=2.8421$, whose $F_{2,18}$ tail is $0.08459$. With $n=200$, the corresponding exact tail is $0.05282$. Thus the limiting test rejects at $5\%$ while both finite-sample comparisons do not. The difference narrows as covariance estimation becomes more precise.{{cite:nist_hotelling2002}} (§6.5.4.3, displayed $F$ law)
 
 **Your turn.** For one component, express $T^2$ in terms of the ordinary one-sample $t$. What is its limiting law?
 
