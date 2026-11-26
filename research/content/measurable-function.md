@@ -40,7 +40,7 @@ A sample measurement, a sample mean, and a test statistic are used as random var
 
 ## Worked example
 
-Let $X=\{1,2,3\}$ and let $\mathcal S=\{\varnothing,\{1\},\{2,3\},X\}$, with $P(\{1\})=1/3$ and $P(\{2,3\})=2/3$. Define $f(1)=2$ and $f(2)=f(3)=7$. For any threshold $a$,
+Let $X=\{1,2,3\}$ and let $\mathcal S=\{\varnothing,\{1\},\{2,3\},X\}$, with $\mathbb{P}(\{1\})=1/3$ and $\mathbb{P}(\{2,3\})=2/3$. Define $f(1)=2$ and $f(2)=f(3)=7$. For any threshold $a$,
 
 $$
 f^{-1}((a,\infty))=
