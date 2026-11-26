@@ -12,7 +12,7 @@ The distinction between a probability and a conditional risk is useful. Provided
 
 When $T$ has a density $f$ and $S(t)>0$, the hazard is $h(t)=f(t)/S(t)$. It is a rate per unit time, obtained as the limit of $\Pr(t<T\le t+\Delta\mid T>t)/\Delta$ as $\Delta$ decreases to zero. It need not lie below one; treating it as a probability is a unit error. Differentiating $\log S(t)$ where appropriate gives $h(t)=-S'(t)/S(t)$ and hence $S(t)=\exp\{-\int_0^t h(u)\,du\}$ if $S(0)=1$. The integral is the cumulative hazard. These equalities connect a displayed survival curve to the changing risk among those still under observation. {{cite:cox1972}} (pp. 188–189, §§1–2)
 
-For a nonnegative lifetime, $\mathbb ET=\int_0^\infty S(t)\,dt$ whenever the mean is finite. To see why, write each realized lifetime as the area under the indicator $\mathbf1\{T>t\}$ and exchange expectation and integration. This identity shows why a single survival probability, however high, does not by itself determine mean lifetime: the whole curve matters. The system-survival figure illustrates curves that cross. {{cite:kaplan_meier1958}} (pp. 467–468, §2.3)
+For any nonnegative lifetime, $\mathbb ET=\int_0^\infty S(t)\,dt$, with infinite mean when the area diverges. To see why, write each realized lifetime as the area under the indicator $\mathbf1\{T>t\}$ and exchange expectation and integration. This identity shows why a single survival probability, however high, does not by itself determine mean lifetime: the whole curve matters. The system-survival figure illustrates curves that cross. {{cite:kaplan_meier1958}} (pp. 467–468, §2.3)
 
 ::: {.callout-note collapse="true" title="Proof"}
 ::: {.proof}

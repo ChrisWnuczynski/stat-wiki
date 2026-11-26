@@ -539,10 +539,13 @@ to treat any divergences as grounds for suspecting the estimates, not as
 wasted iterations to be ignored {{cite:betancourt2017_hmc}} (§6.2, p. 45).
 
 **"NUTS has no tuning parameters, so no checking is needed."** NUTS removes
-the need to set $L$ by hand and adapts $\varepsilon$, but it retains a mass
-matrix, a target acceptance statistic for the adaptation, and maximum
-limits on the doubling; and its output requires the same convergence and
-divergence checks as any HMC run {{cite:hoffman_gelman2014}} (§3, Algorithm 6, p. 1611).
+the need to set $L$ by hand, and dual averaging adapts $\varepsilon$ using
+a target acceptance statistic $\delta$ supplied as an input
+{{cite:hoffman_gelman2014}} (§3, Algorithm 6, p. 1611). Both NUTS and HMC
+can benefit from a suitable mass matrix {{cite:hoffman_gelman2014}} (§5, p. 1619).
+Automatic tuning does not remove the need to check the run: divergent
+transitions are grounds for suspecting the estimates
+{{cite:betancourt2017_hmc}} (§6.2, p. 45).
 
 **"HMC handles any posterior, including discrete parameters."** It does
 not. The state space must be continuous and the log density differentiable

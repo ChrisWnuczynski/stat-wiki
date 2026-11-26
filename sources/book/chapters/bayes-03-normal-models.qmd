@@ -430,7 +430,7 @@ Starting from \eqref{eq:joint-normal-post}, retain every term involving $\mu$ an
 **Applied problems.**
 
 ::: {#ex-applied-normal-invchisq .exercise}
-## Normal--inverse-$\chi^2$ conjugacy
+## Normal–inverse-chi-squared conjugacy
 
 A pair $(r,s)$ has a normal--inverse-$\chi^2$ distribution, written $(r,s)\sim N\text{-}\chi^{-2}(\alpha,\beta,\gamma,\delta)$, if
 

@@ -8,15 +8,15 @@ The normal, chi-squared, $t$ and $F$ laws used below are defined in [Statistical
 
 ## From a standard error to an interval
 
-A company introduced new safety measures. In the 50 months since, lost working hours averaged 91 per month, with bias-corrected sample standard deviation 14.1. In the 50 months before, they averaged 108, with standard deviation 14.3. The estimate of the change in mean is $91-108=-17$ hours per month. How accurate is it?
+Consider a hypothetical comparison of rod lengths from two production methods. Two independent groups of 25 rods have sample means 94 mm for method 1 and 100 mm for method 2, with sample standard deviations 8 mm and 6 mm respectively. Each sample variance uses the divisor $n-1$. The estimate of the difference in mean lengths is $94-100=-6$ mm. How accurate is it?
 
-Model the two runs of months as independent samples, with means $\mu_1$ and $\mu_2$ and a common variance $\sigma^2$. The estimator $\overline X_1-\overline X_2$ is unbiased for $\mu_1-\mu_2$, with variance{{cite:grinstead_snell1997}} (Ch. 6, §6.2, Ex. 23)
+Model the two groups of rod lengths as independent normal samples, with means $\mu_1$ and $\mu_2$ and a common variance $\sigma^2$. The estimator $\overline X_1-\overline X_2$ is unbiased for $\mu_1-\mu_2$, with variance{{cite:grinstead_snell1997}} (Ch. 6, §6.2, Ex. 23)
 
 $$
-\Var(\overline X_1-\overline X_2)=\frac{\sigma^2}{50}+\frac{\sigma^2}{50}=\frac{\sigma^2}{25}.
+\Var(\overline X_1-\overline X_2)=\frac{\sigma^2}{25}+\frac{\sigma^2}{25}=\frac{2\sigma^2}{25}.
 $$
 
-Estimating $\sigma^2$ by the pooled variance $s_p^2=(49\times14.1^2+49\times14.3^2)/98=14.20^2$ gives a standard error of $14.20/5=2.84$. A common way to report this is $-17\pm2.84$, or $-17\pm2\times2.84$.{{cite:nist_mean_limits2002}} (§1.3.5.2)
+Estimating $\sigma^2$ by the pooled variance $s_p^2=(24\times8^2+24\times6^2)/48=50$ gives a standard error of $\sqrt{50(1/25+1/25)}=2$ mm. A common way to report this is $-6\pm2$, or $-6\pm2\times2$.{{cite:nist_mean_limits2002}} (§1.3.5.2)
 
 What probability goes with "estimate plus or minus a standard error"? Take the simplest case, $X_1,\ldots,X_n$ independent and $\Normal(\mu,1)$. Then $\sqrt n(\overline X-\mu)$ is standard normal, and
 
@@ -211,13 +211,13 @@ $$
 \overline X_1-\overline X_2\pm t_{n_1+n_2-2;\,1-\alpha/2}\;s_p\sqrt{\frac1{n_1}+\frac1{n_2}}.
 $$
 
-For the safety measures, $n_1=n_2=50$, the estimate is $-17$, the standard error is $2.84$, and $t_{98;0.975}=1.984$. The 95% interval is
+For the hypothetical rod lengths, $n_1=n_2=25$, the estimate is $-6$ mm, the standard error is $2$ mm, and $t_{48;0.975}\approx2.011$. Under the common-variance normal model, the 95% interval is
 
 $$
--17\pm1.984\times2.84=-17\pm5.64=(-22.6,\ -11.4).
+-6\pm t_{48;0.975}\times2\approx(-10.02,\ -1.98)\text{ mm}.
 $$
 
-It lies wholly below zero. The interval $-17\pm2.84$, one standard error each side, would have coverage of only about 68%.
+It lies wholly below zero. The interval $-6\pm2$ mm, one standard error each side, would have coverage $\Pr(-1<T_{48}<1)\approx0.6777$, or about 67.77%, under the same model.
 
 ### A ratio of variances
 
@@ -242,7 +242,7 @@ $$
 \left(\frac{1}{F_{n_1-1,n_2-1;\,1-\alpha/2}}\,\frac{s_1^2}{s_2^2},\ \ F_{n_2-1,n_1-1;\,1-\alpha/2}\,\frac{s_1^2}{s_2^2}\right).
 $$
 
-For the safety measures, $s_1^2/s_2^2=14.1^2/14.3^2=0.972$ and $F_{49,49;0.975}=1.762$, so the 95% interval for $\sigma_1^2/\sigma_2^2$ is $(0.552,\ 1.713)$. The interval includes both 1 and substantially unequal ratios, so this sample does not settle whether pooling is appropriate.{{cite:siegrist2022_normals}} (§6.08, “Ratios of Sample Variances”)
+For the hypothetical rod lengths, $s_1^2/s_2^2=8^2/6^2\approx1.778$ and $F_{24,24;0.975}\approx2.269$. Using the unrounded values gives the equal-tail 95% interval $(0.783,\ 4.034)$ for $\sigma_1^2/\sigma_2^2$. The interval includes both 1 and substantially unequal ratios, so this sample does not settle whether pooling is appropriate.{{cite:siegrist2022_normals}} (§6.08, “Ratios of Sample Variances”)
 
 ## A proportion
 

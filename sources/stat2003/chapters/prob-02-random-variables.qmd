@@ -568,7 +568,7 @@ A random variable takes the values $0$, $2$ and $5$ with probabilities $1/2$, $1
 :::
 
 ::: {#ex-prob-second-moment .exercise}
-## Recovering the second moment
+## Finding the second moment from the mean and variance
 
 A random variable has expectation $2$ and variance $1$. Find $\E X^2$.
 
@@ -639,7 +639,7 @@ A component has an exponential lifetime with expectation 2 years.
 :::
 
 ::: {#ex-prob-normal-variance .exercise}
-## Why a normal variance is $\sigma^2$
+## Deriving the variance of a normal random variable
 
 Let $X$ be standard normal. Show that $\Var(X)=1$, and deduce $\Var(Y)=\sigma^2$ for $Y\sim\Normal(\mu,\sigma^2)$.
 

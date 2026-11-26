@@ -547,7 +547,7 @@ Show that the two-component parameter vectors $(\pi,\mu_1,\sigma_1^2,\mu_2,\sigm
 :::
 
 ::: {#ex-sl-05-7 .exercise}
-## Mixtures versus $K$-means
+## Gaussian mixtures versus k-means
 
 Two analysts cluster the same two-dimensional data. One fits $K$-means. The other fits a three-component Gaussian mixture with unrestricted component covariance matrices.
 

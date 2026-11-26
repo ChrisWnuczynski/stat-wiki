@@ -42,7 +42,7 @@ $$
 
 If the prior odds rise to $R=10^{-2}$, the same test has $\mathrm{PPV}=0.99/(0.99+1)=0.497$. Prevalence, not the second decimal place of the sensitivity, is what moves the PPV in a rare condition.
 
-![Positive predictive value against prevalence for two tests. Even with sensitivity and specificity both $0.99$, a prevalence of $0.005$ leaves the PPV near $0.09$. The curve climbs only as the condition becomes common enough for true positives to outnumber false positives.](../figures/inf-ppv-prevalence.pdf){#fig-inf-ppv-prevalence}
+![Positive predictive value against prevalence for two tests. Even with sensitivity and specificity both $0.99$, a prevalence of $0.005$ gives a PPV of only about $0.33$; with sensitivity and specificity both $0.95$ it is about $0.087$. Both curves climb from the lowest prevalences, well before true positives outnumber false positives.](../figures/inf-ppv-prevalence.pdf){#fig-inf-ppv-prevalence}
 
 The threshold that defines a positive test trades sensitivity against specificity. A low threshold catches more cases and raises $1-\beta$, and it also raises $\alpha$. A screening programme that must not miss a case sets the threshold so that the sensitivity is close to one, accepts a large $\alpha$, and applies a second, more specific test only to the positives. The PPV of the first test is then deliberately allowed to be modest. The PPV of the two-test sequence is the quantity that matters, and it is computed from the joint event "both tests positive".
 

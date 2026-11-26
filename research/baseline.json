@@ -3467,6 +3467,18 @@
     "words": 2911,
     "figures": 0
   },
+  "kolmogorov-smirnov-test": {
+    "words": 5535,
+    "figures": 0
+  },
+  "welch-s-anova": {
+    "words": 4639,
+    "figures": 0
+  },
+  "anderson-darling-test": {
+    "words": 4566,
+    "figures": 0
+  },
   "variational-inference": {
     "words": 5689,
     "figures": 0
@@ -3481,6 +3493,22 @@
   },
   "dirichlet-process": {
     "words": 5832,
+    "figures": 0
+  },
+  "propensity-score": {
+    "words": 6017,
+    "figures": 0
+  },
+  "potential-outcomes": {
+    "words": 5425,
+    "figures": 0
+  },
+  "causal-diagram": {
+    "words": 5838,
+    "figures": 0
+  },
+  "mediation-analysis": {
+    "words": 6403,
     "figures": 0
   },
   "kaplan-meier-estimator": {

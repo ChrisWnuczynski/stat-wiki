@@ -223,7 +223,7 @@ $$
 
 ## Chapter 3: Conjugate analysis for normal models {#chapter-3-conjugate-analysis-for-normal-models .unnumbered}
 
-[]{#sol-applied-normal-invchisq} **[Normal--inverse-$\chi^2$ conjugacy](#ex-applied-normal-invchisq).**
+[]{#sol-applied-normal-invchisq} **[Normal–inverse-chi-squared conjugacy](#ex-applied-normal-invchisq).**
 
 **Question.** A pair $(r,s)$ has a normal--inverse-$\chi^2$ distribution, written $(r,s)\sim N\text{-}\chi^{-2}(\alpha,\beta,\gamma,\delta)$, if 
 

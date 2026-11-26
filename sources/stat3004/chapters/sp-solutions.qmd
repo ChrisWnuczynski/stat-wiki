@@ -245,7 +245,7 @@ $$
 
 ## Chapter 12
 
-[]{#sol-sp-uniform-max} **[The expected maximum of $n$ uniforms](#ex-sp-uniform-max).**
+[]{#sol-sp-uniform-max} **[Expected maximum of independent uniform draws](#ex-sp-uniform-max).**
 
 On $[0,1]$, $F_{M_n}(x)=x^n$, so the density is $n x^{n-1}$. Therefore
 

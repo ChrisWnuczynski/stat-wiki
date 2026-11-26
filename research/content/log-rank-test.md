@@ -10,13 +10,17 @@ which is equivalent to $S_1(t) = S_2(t)$ for all $t$. The test is built by layin
 
 ## Motivating example — Two glioma survival curves
 
-Bland and Altman illustrate the test with 51 adults with recurrent malignant gliomas, 20 with astrocytoma and 31 with glioblastoma, followed until death or censoring {{cite:bland_altman2004}} (p. 1073). The two Kaplan–Meier curves differ, but the gap is wider at some times than at others and eventually disappears, so no single time point gives a fair summary of the difference. The log-rank test instead accumulates the comparison over the whole follow-up period. Summing over all event times, the observed numbers of deaths were $14$ in the astrocytoma group and $28$ in the glioblastoma group, against $22.48$ and $19.52$ expected if there were truly no difference between the groups. Their chi-squared statistic is
+Bland and Altman illustrate the test with 51 adults with recurrent malignant gliomas, 20 with astrocytoma and 31 with glioblastoma, followed until death or censoring {{cite:bland_altman2004}} (p. 1073). The two Kaplan–Meier curves differ, but the gap is wider at some times than at others and eventually disappears, so no single time point gives a fair summary of the difference. The log-rank test instead accumulates the comparison over the whole follow-up period. Summing over all event times, the observed numbers of deaths were $14$ in the astrocytoma group and $28$ in the glioblastoma group, against $22.48$ and $19.52$ expected if there were truly no difference between the groups. For historical context, their published expected-count shortcut is
 
 $$\frac{(14 - 22.48)^2}{22.48} + \frac{(28 - 19.52)^2}{19.52} = 6.88,$$
 
-on $1$ degree of freedom, giving $P < 0.01$: strong evidence against equal survival in the two groups {{cite:bland_altman2004}} (p. 1073).
+as reported by Bland and Altman {{cite:bland_altman2004}} (p. 1073). This shortcut $\sum (O-E)^2/E$, summed over groups, does not generally have the same chi-squared null reference as the standard log-rank statistic.
 
-Two cautions belong with this example. First, the calculation above uses the simplified form $\sum (O - E)^2 / E$, summed over groups. The construction in the next section uses the related but distinct form $(O - E)^2 / V$, where $V$ is the variance of the observed count under the null; the two statistics are not identical, though both are approximately chi-squared on $1$ degree of freedom under $H_0$. This article uses the $(O - E)^2 / V$ form throughout, except when quoting Bland and Altman. Second, the test says nothing about *how much* better one group fares. For that, Bland and Altman point to the hazard ratio and the Cox model {{cite:bland_altman2004}} (p. 1073).
+For inference here, use the standard risk-set variance derived by Cox {{cite:cox1972}} (§7, p. 193, eqs. (25)–(27)) and defined in the next section. Recomputing the $36$ distinct event-time risk sets from Bland and Altman's Table 1 gives $O_1=14$, an expected count $E_1\approx22.48116$, and a sum of conditional hypergeometric variances $V\approx9.59503$. Subjects censored at an event time are included in that risk set but are not counted as events. Thus
+
+$$Z^2=\frac{(O_1-E_1)^2}{V}\approx7.49659.$$
+
+The large-sample $\chi^2_1$ reference gives an approximate $p$-value of $0.00618$, providing evidence against equal survival in the two groups. The test says nothing about *how much* better one group fares. For that, Bland and Altman point to the hazard ratio and the Cox model {{cite:bland_altman2004}} (p. 1073).
 
 ## Definition — One $2 \times 2$ table at every event time
 

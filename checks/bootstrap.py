@@ -63,6 +63,9 @@ for formula in (
 # its own folded answer, so hiding the derivation does not swallow either one.
 assert '#def-sl-09-bootstrap-error' in visible_definition
 assert r'=0.368\,' in visible_definition and r'+0.632\,' in visible_definition
-self_check = page.split('### The $0.632$ rule {#self-check-ex-sl-09-3}', 1)[1]
+self_check_headings = list(re.finditer(
+    r'^### [^\n]+ \{#self-check-ex-sl-09-3\}$', page, re.M))
+assert len(self_check_headings) == 1, 'Expected exactly one bootstrap self-check heading'
+self_check = page[self_check_headings[0].end():].split('\n## ', 1)[0]
 assert 'collapse="true" title="Answer"' in self_check.split('\n### ', 1)[0]
 print("bootstrap enumeration, inclusion numbers and structure passed")

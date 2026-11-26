@@ -206,7 +206,7 @@ $\Pr(X>5)=e^{-(1/10)\cdot 5}=e^{-1/2}\approx 0.607$.
 
 $\E X=0\cdot(1/2)+2\cdot(1/3)+5\cdot(1/6)=4/6+5/6=3/2$.
 
-[]{#sol-prob-second-moment} **[Recovering the second moment](#ex-prob-second-moment).**
+[]{#sol-prob-second-moment} **[Finding the second moment from the mean and variance](#ex-prob-second-moment).**
 
 $\E X^2=\Var(X)+(\E X)^2=1+4=5$.
 
@@ -242,7 +242,7 @@ The mean is 2, so the rate is $\lambda=1/2$.
 
 (b) Memorylessness gives $\Pr(X>10\given X>7)=\Pr(X>3)=e^{-3/2}\approx 0.223$.
 
-[]{#sol-prob-normal-variance} **[Why a normal variance is $\sigma^2$](#ex-prob-normal-variance).**
+[]{#sol-prob-normal-variance} **[Deriving the variance of a normal random variable](#ex-prob-normal-variance).**
 
 The standard normal density satisfies $\varphi'(x)=-x\varphi(x)$, and $\E X=0$, so $\Var(X)=\E X^2$. Integrate by parts with $u=x$ and $\dd v=x\varphi(x)\,\dd x$, so $v=-\varphi(x)$. The boundary term $x\varphi(x)$ vanishes at both infinities, and
 
@@ -682,7 +682,7 @@ $$
 
 for $|k|\le n$ with $n+k$ even, and $0$ otherwise. $X_n=2K-n$ has the same parity as $n$, so an odd number of steps can never end at $0$.
 
-[]{#sol-prob-k-out-of-n} **[Structure of a $k$-out-of-$n$ system](#ex-prob-k-out-of-n).**
+[]{#sol-prob-k-out-of-n} **[Structure of a system with a minimum number of working components](#ex-prob-k-out-of-n).**
 
 $$
 \varphi(\mathbf x)=\begin{cases}1,&\sum_{i=1}^nx_i\ge k,\\0,&\text{otherwise}.\end{cases}

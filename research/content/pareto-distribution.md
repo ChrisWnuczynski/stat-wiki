@@ -23,7 +23,23 @@ The median of the unit-minimum law solves $(1/m)^\alpha=1/2$, so $m=2^{1/\alpha}
 ::: {.proof}
 Integrate $\alpha x_m^\alpha u^{-\alpha-1}$ from $x$ to infinity, for $x\ge x_m$ and $\alpha>0$. The antiderivative is $-x_m^\alpha u^{-\alpha}$, and the boundary term at infinity vanishes, leaving $(x_m/x)^\alpha$.{{cite:siegrist2022_exponential}} (§14.2, related laws and transformations)
 
-For the mean, write $\mathbb E(X)=\int_{x_m}^\infty\Pr(X>t)\,dt$ plus the lower endpoint contribution already accounted for by starting the integral at $x_m$ when the support begins there: $\mathbb E(X)=x_m+\int_{x_m}^\infty(x_m/t)^\alpha\,dt$. The integral equals $x_m/(\alpha-1)$ when $\alpha>1$ and diverges when $\alpha\le 1$. Adding $x_m$ gives $\alpha x_m/(\alpha-1)$. The second-moment integral $\mathbb E(X^2)=2\int_{x_m}^\infty t\Pr(X>t)\,dt$ converges only for $\alpha>2$, and substituting the survival produces the variance formula. At $\alpha=2.5$ and $x_m=1$, $\alpha/(\alpha-1)=5/3$ and $\alpha/[(\alpha-1)^2(\alpha-2)]=2.5/(2.25\times 0.5)=20/9$.
+Since $\Pr(X>t)=1$ for $0\le t<x_m$, the layer-cake formula for the mean gives
+
+$$
+\mathbb{E}[X]=\int_0^\infty\Pr(X>t)\,dt
+=x_m+\int_{x_m}^\infty(x_m/t)^\alpha\,dt.
+$$
+
+The integral above $x_m$ equals $x_m/(\alpha-1)$ when $\alpha>1$ and diverges when $\alpha\le 1$. Adding the contribution $x_m$ from $0\le t<x_m$ gives $\alpha x_m/(\alpha-1)$.
+
+Similarly, the second moment includes $2\int_0^{x_m}t\,dt=x_m^2$:
+
+$$
+\mathbb{E}[X^2]=2\int_0^\infty t\Pr(X>t)\,dt
+=x_m^2+2\int_{x_m}^\infty t(x_m/t)^\alpha\,dt.
+$$
+
+For $\alpha>2$, the integral term above $x_m$ is $2x_m^2/(\alpha-2)$, so $\mathbb{E}[X^2]=\alpha x_m^2/(\alpha-2)$. For $\alpha\le 2$, it diverges. When $\alpha>2$, subtracting $(\mathbb{E}[X])^2$ gives the variance formula. At $\alpha=2.5$ and $x_m=1$, $\alpha/(\alpha-1)=5/3$ and $\alpha/[(\alpha-1)^2(\alpha-2)]=2.5/(2.25\times 0.5)=20/9$.
 :::
 :::
 

@@ -724,7 +724,7 @@ when the null mean is true. When $p=1$ the statistic is the square of the ordina
 ## Exercises
 
 ::: {#ex-sl-02-1 .exercise}
-## Where the $n-1$ comes from
+## Why sample covariance uses one fewer degree of freedom
 
 Show that
 
@@ -799,7 +799,7 @@ $|A+\mathbf{d}\mathbf{d}^\top|=|A|\,(1+\mathbf{d}^\top A^{-1}\mathbf{d})$.
 :::
 
 ::: {#ex-sl-02-5 .exercise}
-## A small $T^2$ test
+## A small-sample Hotelling test
 
 Six subjects give $\bar{\mathbf{x}}=(2,1)^\top$ and
 

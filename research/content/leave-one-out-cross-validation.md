@@ -5,7 +5,7 @@ Leave-one-out cross-validation scores each observation with a fit that did not u
 A line fitted to three points looks accurate if one scores it on those same three points. Each point pulled the line toward itself, so the residuals are smaller than the errors the line would make on a new draw at the same $x$. Leaving one point out, refitting, and scoring only that point removes the pull of the point being scored. Doing this once for every point uses the whole sample without scoring a point on a fit that contained it.{{cite:hastie_esl2009}} (Ch. 7, §7.10.1, eq. 7.48, pp. 241–243)
 
 ## Intuition — Almost the same training set, every time
-With $n$ observations the $i$th training set has size $n-1$. The fit being assessed is therefore close, in training size, to the fit one will eventually compute on all $n$ points. That is why the leave-one-out estimate has little bias from using a smaller training set, relative to five- or ten-fold cross-validation. The cost is dependence and computation. Two training sets of size $n-1$ share $n-2$ observations, so the $n$ held-out errors are not $n$ independent experiments. A binomial standard error that treats them as independent coin tosses overstates how much fresh information the average contains. The procedure also refits the model $n$ times, unless the fitting method has an algebraic shortcut.{{cite:hastie_esl2009}} (Ch. 7, §7.10.1, pp. 242–244)
+With $n$ observations the $i$th training set has size $n-1$. The fit being assessed is therefore close, in training size, to the fit one will eventually compute on all $n$ points. That is why the leave-one-out estimate has little bias from using a smaller training set, relative to five- or ten-fold cross-validation. The cost is potential dependence and computation. Two training sets of size $n-1$ share $n-2$ observations, which can make the held-out errors dependent. For zero–one losses with a common marginal error rate $p$, the binomial variance $p(1-p)/n$ omits cross-loss covariances and can be too large or too small.{{cite:bengio_grandvalet2004}} (§3, p. 1096, Eq. (7)) The procedure also refits the model $n$ times, unless the fitting method has an algebraic shortcut.{{cite:hastie_esl2009}} (Ch. 7, §7.10.1, pp. 242–244)
 
 ## Definition
 Let $\kappa(i)=i$ and let $\hat f^{-i}$ be the fit computed with observation $i$ removed. For a loss $L$, the leave-one-out estimate of prediction error is
@@ -46,7 +46,7 @@ The leave-one-out residual is $0.4/(1-0.2)=0.5$. If the leverage is $1$, the cas
 :::
 
 ## Common misconceptions
-The $n$ leave-one-out errors are not independent Bernoulli trials, even when the loss is zero–one. Neighbouring training sets share almost every observation. A small leave-one-out average is not the error of a procedure that was allowed to pick the tuning constant with the smallest average: the minimum over several constants is an optimistic report of the search. Leave-one-out is not automatically more accurate than ten-fold cross-validation. It is nearly unbiased for the expected prediction error and can be highly variable, because the $n$ training sets are so similar.{{cite:hastie_esl2009}} (Ch. 7, §7.10.1, pp. 242–244)
+The $n$ leave-one-out errors need not be independent Bernoulli trials, even when the loss is zero–one. Neighbouring training sets share almost every observation, which can induce dependence without guaranteeing it. A small leave-one-out average is not the error of a procedure that was allowed to pick the tuning constant with the smallest average: the minimum over several constants is an optimistic report of the search. Leave-one-out is not automatically more accurate than ten-fold cross-validation. It is nearly unbiased for the expected prediction error and can be highly variable, because the $n$ training sets are so similar.{{cite:hastie_esl2009}} (Ch. 7, §7.10.1, pp. 242–244)
 
 The shortcut $e_i/(1-S_{ii})$ is for linear fitting methods, those with $\hat y=Sy$ and $S$ free of $y$. A tree, a nearest-neighbour rule, or a neural network refit does not inherit that one-line formula.
 
@@ -77,10 +77,10 @@ Each ordinary residual scores a point on a line that used that point. Each leave
 
 ### A shared training set {#self-check-loo-dependence}
 
-Two leave-one-out training sets from a sample of size $20$ each omit a different row. How many training rows do they share, and why does that block a binomial standard error for the average of the $20$ errors?
+Two leave-one-out training sets from a sample of size $20$ each omit a different row. How many training rows do they share, and why is an independent-error variance for the average of the $20$ zero–one losses not generally justified?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-They share $18$ rows. The $20$ held-out errors are functions of heavily overlapping fits, so they are dependent. A binomial variance $p(1-p)/20$ would treat them as independent indicators and would overstate the precision of the average.
+They share $18$ rows. The $20$ held-out errors are functions of heavily overlapping fits, so they can be dependent. If each has marginal error rate $p$, the binomial variance $p(1-p)/20$ omits cross-loss covariances and can either overstate or understate the variance of the average.
 :::
 
 ## History

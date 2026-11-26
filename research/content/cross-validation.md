@@ -41,7 +41,7 @@ Choose folds according to the unit that a later prediction will encounter. Obser
 For a fixed tuning value, a cross-validation score can compare candidate procedures. If tuning values are selected by that score, assess the whole selection rule with an outer loop or a truly unused test set. Report the number and construction of folds, the loss, the amount of data used for fitting in each fold, and whether preprocessing was repeated. This lets a reader tell what prediction problem the score addresses.{{cite:stone1974}} (pp. 111–115) {{cite:cawley_talbot2010}} (§5.3, p. 2102)
 
 ## Worked example
-Suppose a classifier is assessed on eleven observations in three folds of sizes four, four, and three. It makes one error in the first fold, none in the second, and one in the third. The pooled error is $2/11\approx0.1818$. Averaging the three fold rates without weighting gives $(1/4+0+1/3)/3=7/36\approx0.1944$. The pooled value answers the error per held-out observation; the unweighted value answers the error per fold.{{cite:hastie_esl2009}} (Ch. 7, §7.10.1, pp. 242–243)
+Suppose a classifier is assessed on eleven observations in three folds of sizes four, four, and three. It makes no errors in the first fold, one in the second, and two in the third. The pooled error is $3/11\approx0.2727$. Averaging the three fold rates without weighting gives $(0+1/4+2/3)/3=11/36\approx0.3056$. The pooled value answers the error per held-out observation; the unweighted value answers the error per fold.{{cite:hastie_esl2009}} (Ch. 7, §7.10.1, pp. 242–243)
 
 **Your turn.** Keep fold sizes $4,4,3$, but suppose the error counts are $1,1,0$. Compute the pooled error and the unweighted average of fold rates.
 

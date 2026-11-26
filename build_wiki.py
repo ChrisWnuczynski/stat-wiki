@@ -291,7 +291,7 @@ def read_macro_argument(text: str, j: int) -> tuple[str, int] | None:
     return text[k], k + 1
 
 
-def expand_once(text: str) -> str:
+def expand_once(text: str, only: frozenset[str] | None = None) -> str:
     out: list[str] = []
     i = 0
     n = len(text)
@@ -308,14 +308,14 @@ def expand_once(text: str) -> str:
         while j < n and text[j].isalpha():
             j += 1
         name = text[i + 1 : j]
-        if name in ONE_ARG:
+        if name in ONE_ARG and (only is None or name in only):
             arg = read_macro_argument(text, j)
             if arg is not None:
                 body, k = arg
                 out.append(ONE_ARG[name](body))
                 i = k
                 continue
-        if name in ZERO_ARG:
+        if name in ZERO_ARG and (only is None or name in only):
             out.append(ZERO_ARG[name])
             i = j
             continue
@@ -337,10 +337,10 @@ def protect_code(text: str, fn) -> str:
     return "".join(built)
 
 
-def expand_macros(text: str) -> str:
+def expand_macros(text: str, only: frozenset[str] | None = None) -> str:
     def run(segment: str) -> str:
         for _ in range(8):
-            nxt = expand_once(segment)
+            nxt = expand_once(segment, only)
             if nxt == segment:
                 return segment
             segment = nxt
@@ -4558,9 +4558,15 @@ def read_research_content(path: Path, allowed: set[str]) -> tuple[dict[str, str]
         key, separator, title = heading_spec.partition(" — ")
         if key not in allowed or key in researched or not prose or (separator and not title.strip()):
             raise ValueError(f"{path}: unknown, repeated or empty section {heading_spec!r}")
-        researched[key] = prose
+        # \E, \Var, and \Cov are not KaTeX commands, so a raw copy is painted red.
+        # The rest of the shorthand stays: \Pr is already a KaTeX operator, and
+        # the page checks still look for the command as it was written.
+        researched[key] = expand_macros(prose, only=frozenset({"E", "Var", "Cov"}))
         if separator:
-            display_titles[key] = tex_math.convert_tex_delimiters(title.strip())
+            display_titles[key] = expand_macros(
+                tex_math.convert_tex_delimiters(title.strip()),
+                only=frozenset({"E", "Var", "Cov"}),
+            )
     if not researched:
         raise ValueError(f"{path}: no sections")
     return researched, display_titles
