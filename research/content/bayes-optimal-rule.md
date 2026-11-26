@@ -12,8 +12,8 @@ The smallest conditional risk is $1-\max_g\tau_g(x)$. If posteriors are $(0.40,0
 ## Proof
 For every $x$, $\tau_{\delta(x)}(x)\le\max_g\tau_g(x)$. Taking expectations of the resulting conditional-risk inequality yields
 $$
-R(\delta)=E[1-\tau_{\delta(X)}(X)]\ge
-E[1-\max_g\tau_g(X)]=R^*.
+R(\delta)=\E[1-\tau_{\delta(X)}(X)]\ge
+\E[1-\max_g\tau_g(X)]=R^*.
 $$
 Equality holds exactly when the nonnegative difference $\max_g\tau_g(X)-\tau_{\delta(X)}(X)$ is zero almost surely. Thus a rule is Bayes-optimal when it selects a true maximiser except on a feature set of probability zero. This argument assumes a finite class set and measurable conditional probabilities and decisions.{{cite:rasmussen_williams2006}} (§3.1.1, p. 36)
 
