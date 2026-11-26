@@ -35,11 +35,11 @@ If the same experimental conditions are judged exchangeable, the joint distribut
 For the two-point coin, the joint probabilities of a success are
 
 $$
-P(\theta=0.2,\, y=1)=\tfrac12\cdot 0.2=0.1, \qquad P(\theta=0.8,\, y=1)=\tfrac12\cdot 0.8=0.4.
+\mathbb{P}(\theta=0.2,\, y=1)=\tfrac12\cdot 0.2=0.1, \qquad \mathbb{P}(\theta=0.8,\, y=1)=\tfrac12\cdot 0.8=0.4.
 $$
 
 
-They sum to $P(y=1)=0.5$. The posterior probabilities are $0.1/0.5=1/5$ and $0.4/0.5=4/5$. The division uses the marginal probability of the data. It is not part of writing the joint distribution down.{{cite:gelman_bda2013}} (pp. 6–7)
+They sum to $\mathbb{P}(y=1)=0.5$. The posterior probabilities are $0.1/0.5=1/5$ and $0.4/0.5=4/5$. The division uses the marginal probability of the data. It is not part of writing the joint distribution down.{{cite:gelman_bda2013}} (pp. 6–7)
 
 ## Worked example
 
