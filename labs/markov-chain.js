@@ -2,7 +2,7 @@
 // in markov-math.js.
 
 import { controlRow, graphFrame, installLabChrome, markerLegend, readoutLine } from "./lab-chrome.js";
-import { analyse, DEFAULTS, distributionPath, limitingFrom, MAX_STATES, MIN_STATES, normaliseRows, occupation, PRESETS, simulate, tv, validateMatrix } from "./markov-math.js";
+import { analyse, convergenceNote, DEFAULTS, distributionPath, limitingFrom, MAX_STATES, MIN_STATES, normaliseRows, occupation, PRESETS, simulate, tv, validateMatrix } from "./markov-math.js";
 import { formatNumber } from "./stat-math.js";
 import { chartColors, createPlot, drawAxes, message, niceTicks, plotBox, plotClip, rule, scaleLinear, stroke, svgEl } from "./svg-chart.js";
 
@@ -246,9 +246,8 @@ export function mount(root) {
     pathNote.textContent = stepsValue > PATH_LIMIT
       ? `The path shows the first ${PATH_LIMIT} of ${stepsValue} steps.`
       : stepsValue === 0 ? "No steps yet: the chain is still at the start." : "";
-    distNote.textContent = chain.settles
-      ? "Solid lines are the exact distribution. Dashed lines are the long-run probability from this start. Dotted lines are this path's occupation."
-      : "The closed class is periodic, so the distribution alternates and its total variation does not go to 0. The occupation fraction still settles on the dashed line.";
+    const outlook = convergenceNote(matrix, startValue, chain);
+    distNote.textContent = outlook ? outlook.text : "";
     const colors = chartColors();
     plotA.setLabel(`Path of ${shownSteps} steps from ${labels[startValue]}`);
     plotA.draw(({ svg, width, height, colors: ink }) => {
@@ -291,7 +290,7 @@ export function mount(root) {
     });
     const legendItems = labels.map((label, state) => ({ text: label, color: colors.states[state % colors.states.length], kind: "line" }));
     legendItems.push(
-      { text: "Long-run from this start", color: colors.text, kind: "line", dash: "dashed" },
+      { text: outlook && outlook.several ? "Expected long-run occupation" : "Long-run from this start", color: colors.text, kind: "line", dash: "dashed" },
       { text: "This path's occupation", color: colors.text, kind: "line", dash: "dotted" },
     );
     const legend = markerLegend(legendItems);

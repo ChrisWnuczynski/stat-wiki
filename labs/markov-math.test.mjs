@@ -173,3 +173,82 @@ test("a matrix that is not stochastic is refused and can be rescaled", () => {
   assert.match(markov.simulate(0, 5, markov.PRESETS[1].matrix, 1).error, /starting state/);
   assert.match(markov.distributionPath(0, markov.PRESETS[1].matrix, -1).error, /steps/);
 });
+
+test("the convergence note depends on the closed classes the start can reach", () => {
+  // State 1 is absorbing; states 2 and 3 form a two-cycle that state 1 cannot reach.
+  const matrix = [
+    [1, 0, 0],
+    [0, 0, 1],
+    [0, 1, 0],
+  ];
+  const chain = markov.analyse(matrix);
+  assert.equal(chain.settles, false, "the matrix as a whole has a periodic closed class");
+
+  // From state 1 the distribution never moves, so total variation is exactly 0.
+  const fromOne = markov.convergenceNote(matrix, 0, chain);
+  assert.deepEqual(markov.closedClassesFrom(matrix, 0, chain).map((item) => item.states), [[0]]);
+  assert.equal(fromOne.several, false);
+  assert.doesNotMatch(fromOne.text, /period|alternat|cycle|fail to settle|does not settle/);
+  const targetOne = markov.limitingFrom(matrix, 0, chain);
+  const pathOne = markov.distributionPath(0, matrix, 7);
+  for (let t = 0; t <= 7; t++) assert.equal(markov.tv(pathOne.distributions[t], targetOne), 0, `start 1, step ${t}`);
+
+  // From state 2 the distribution alternates between 2 and 3, total variation 0.5.
+  const fromTwo = markov.convergenceNote(matrix, 1, chain);
+  assert.deepEqual(markov.closedClassesFrom(matrix, 1, chain).map((item) => item.states), [[1, 2]]);
+  assert.match(fromTwo.text, /period 2/);
+  assert.match(fromTwo.text, /does not settle/);
+  const targetTwo = markov.limitingFrom(matrix, 1, chain);
+  const pathTwo = markov.distributionPath(1, matrix, 7);
+  for (let t = 0; t <= 7; t++) close(markov.tv(pathTwo.distributions[t], targetTwo), 0.5, 1e-12, `start 2, step ${t}`);
+});
+
+test("a periodic class reachable from a transient start can, but need not, stop convergence", () => {
+  // From state 1, half the mass enters each state of a two-cycle at step 1.
+  const split = [
+    [0, 0.5, 0.5],
+    [0, 0, 1],
+    [0, 1, 0],
+  ];
+  const chain = markov.analyse(split);
+  const note = markov.convergenceNote(split, 0, chain);
+  assert.match(note.text, /can fail to settle/);
+  assert.doesNotMatch(note.text, /does not settle/);
+  const target = markov.limitingFrom(split, 0, chain);
+  const path = markov.distributionPath(0, split, 6);
+  for (let t = 1; t <= 6; t++) close(markov.tv(path.distributions[t], target), 0, 1e-12, `split entry settles at step ${t}`);
+
+  // From state 1, all the mass enters state 2 at step 1, so it alternates.
+  const single = [
+    [0, 1, 0],
+    [0, 0, 1],
+    [0, 1, 0],
+  ];
+  const singleChain = markov.analyse(single);
+  assert.match(markov.convergenceNote(single, 0, singleChain).text, /can fail to settle/);
+  const singleTarget = markov.limitingFrom(single, 0, singleChain);
+  const singlePath = markov.distributionPath(0, single, 6);
+  for (let t = 1; t <= 6; t++) close(markov.tv(singlePath.distributions[t], singleTarget), 0.5, 1e-12, `single entry step ${t}`);
+});
+
+test("every preset gets the note that fits its default start", () => {
+  const expectations = {
+    stepping: { several: false, text: /^Solid lines are the exact distribution\. Dashed lines are the long-run probability/ },
+    weather: { several: false, text: /^Solid lines are the exact distribution\. Dashed lines are the long-run probability/ },
+    cycle: { several: false, text: /period 2, so the distribution cycles and does not settle/ },
+    sticky: { several: false, text: /^Solid lines are the exact distribution\. Dashed lines are the long-run probability/ },
+    reducible: { several: true, text: /expected long-run occupation from this start, averaged over paths/ },
+  };
+  for (const preset of markov.PRESETS) {
+    const chain = markov.analyse(preset.matrix);
+    const note = markov.convergenceNote(preset.matrix, preset.start, chain);
+    const expected = expectations[preset.id];
+    assert.ok(expected, `no expectation for preset ${preset.id}`);
+    assert.equal(note.several, expected.several, `${preset.id} several`);
+    assert.match(note.text, expected.text, `${preset.id} note`);
+  }
+  // Inside one of the two closed classes there is only one class to reach.
+  const reducible = markov.PRESETS.find((item) => item.id === "reducible");
+  const chain = markov.analyse(reducible.matrix);
+  assert.equal(markov.convergenceNote(reducible.matrix, 3, chain).several, false);
+});
