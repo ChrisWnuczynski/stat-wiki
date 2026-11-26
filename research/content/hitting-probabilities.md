@@ -7,7 +7,7 @@ A gambler can leave with a target fortune or lose the available stake. The immed
 ## Definition — Harmonic values between two boundaries
 Let $A$ and $B$ be disjoint target sets and $T_C=\inf\{n\geq0:X_n\in C\}$. For a time-homogeneous Markov chain,
 $$
-h_i=P_i(T_A<T_B)
+h_i=\mathbb{P}_i(T_A<T_B)
 $$
 satisfies $h_i=1$ on $A$, $h_i=0$ on $B$, and $h_i=\sum_jP_{ij}h_j$ elsewhere. The equation averages the eventual success probabilities after one transition. The convention $n\geq0$ means a chain starting inside a target has already hit it.{{cite:pishro_nik2014}} (§11.2.5, absorption probabilities)
 
