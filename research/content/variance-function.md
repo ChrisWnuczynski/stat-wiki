@@ -4,7 +4,7 @@ If the mean number of arrivals in an hour rises from $2$ to $6$, a Poisson model
 
 ## Definition
 
-Write $\mu_i=\operatorname{E}(Y_i\mid\boldsymbol{x}_i)$ for the conditional mean at predictor setting $\boldsymbol{x}_i$. A generalized linear model specifies
+Write $\mu_i=\E(Y_i\mid\boldsymbol{x}_i)$ for the conditional mean at predictor setting $\boldsymbol{x}_i$. A generalized linear model specifies
 $$
 \operatorname{Var}(Y_i\mid\boldsymbol{x}_i)=\phi V(\mu_i)/w_i,
 $$
@@ -26,7 +26,7 @@ The variance relation also controls precision in estimating the mean curve. For 
 
 ::: {.callout-note collapse="true" title="Proof"}
 ::: {.proof}
-Assume differentiation can pass under the integral. Normalization gives $1=\int f(y;\theta,\phi)\,dy$. Differentiating with respect to $\theta$ yields $0=\operatorname{E}[(Y-b'(\theta))/\phi]$, so $\operatorname{E}Y=b'(\theta)$. Differentiating once more, or differentiating that expectation using the score, gives $d\operatorname{E}Y/d\theta=\operatorname{Var}(Y)/\phi=b''(\theta)$. Hence $\operatorname{Var}(Y)=\phi b''(\theta)$. For a Gamma response with shape $1/\phi$ and rate $1/(\phi\mu)$, the elementary Gamma mean and variance formulas give $\operatorname{E}Y=\mu$ and $\operatorname{Var}(Y)=\phi\mu^2$; therefore $V(\mu)=\mu^2$. The same calculation for a Bernoulli indicator gives $\operatorname{E}Y=\mu$ and $\operatorname{Var}(Y)=\mu-\mu^2=\mu(1-\mu)${{cite:nelder_wedderburn1972}} (§§1.1, 2.1–2.2, pp. 371–374).
+Assume differentiation can pass under the integral. Normalization gives $1=\int f(y;\theta,\phi)\,dy$. Differentiating with respect to $\theta$ yields $0=\E[(Y-b'(\theta))/\phi]$, so $\E Y=b'(\theta)$. Differentiating once more, or differentiating that expectation using the score, gives $d\E Y/d\theta=\operatorname{Var}(Y)/\phi=b''(\theta)$. Hence $\operatorname{Var}(Y)=\phi b''(\theta)$. For a Gamma response with shape $1/\phi$ and rate $1/(\phi\mu)$, the elementary Gamma mean and variance formulas give $\E Y=\mu$ and $\operatorname{Var}(Y)=\phi\mu^2$; therefore $V(\mu)=\mu^2$. The same calculation for a Bernoulli indicator gives $\E Y=\mu$ and $\operatorname{Var}(Y)=\mu-\mu^2=\mu(1-\mu)${{cite:nelder_wedderburn1972}} (§§1.1, 2.1–2.2, pp. 371–374).
 :::
 :::
 
