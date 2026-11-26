@@ -2,7 +2,7 @@
 Daily returns may alternate in sign while unusually large magnitudes persist for several days. A model for the conditional mean can miss this pattern. ARCH and GARCH model the conditional variance, allowing yesterday's squared shock to change today's uncertainty even when returns themselves have little linear correlation.{{cite:engle2001_garch101}} (§ “ARCH/GARCH Models”)
 
 ## Definition — A predictable variance and a new shock
-Write $r_t=\sqrt{h_t}Z_t$, where $h_t$ is determined by information available before time $t$, and the innovations have conditional mean zero and variance one. Then $E(r_t\mid\mathcal F_{t-1})=0$ and $\operatorname{Var}(r_t\mid\mathcal F_{t-1})=h_t$. A conditional mean model may be subtracted before applying this construction to its residuals.{{cite:engle2001_garch101}} (§ “ARCH/GARCH Models”)
+Write $r_t=\sqrt{h_t}Z_t$, where $h_t$ is determined by information available before time $t$, and the innovations have conditional mean zero and variance one. Then $\E(r_t\mid\mathcal F_{t-1})=0$ and $\operatorname{Var}(r_t\mid\mathcal F_{t-1})=h_t$. A conditional mean model may be subtracted before applying this construction to its residuals.{{cite:engle2001_garch101}} (§ “ARCH/GARCH Models”)
 
 An ARCH(1) recursion is $h_t=\omega+\alpha r_{t-1}^2$. GARCH(1,1) adds persistence in the variance itself:
 $$
@@ -23,7 +23,7 @@ The returns form a martingale-difference sequence under the conditional-mean ass
 ## Worked example — Forecasting the fading effect of a shock
 Let $\omega=0.02$, $\alpha=0.10$ and $\beta=0.85$. The stationary variance is $0.4$. If today's variance is $0.4$ and today's return is two, tomorrow's variance is $0.02+0.10(4)+0.85(0.4)=0.76$.
 
-Put $m_j=E_t(h_{t+j})$. The first forecast is known at time $t$, and for $j\ge1$ the tower property gives $m_{j+1}=\omega+(\alpha+\beta)m_j$. Subtracting $v$ and iterating proves
+Put $m_j=\E_t(h_{t+j})$. The first forecast is known at time $t$, and for $j\ge1$ the tower property gives $m_{j+1}=\omega+(\alpha+\beta)m_j$. Subtracting $v$ and iterating proves
 $$
 m_j=v+(\alpha+\beta)^{j-1}(m_1-v).
 $$
