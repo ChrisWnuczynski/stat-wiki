@@ -18,15 +18,15 @@ For the whole strip $D=(0,1)\times(0,\infty)$ the constant-density integral is i
 ## Worked example
 Under this rectangular uniform law, $U$ and $V$ are independent and $T=\alpha+\beta=V^{-2}$. Hence
 $$
-E(T)=\int_1^2v^{-2}\,dv=\tfrac12,
+\E(T)=\int_1^2v^{-2}\,dv=\tfrac12,
 \qquad P(T\ge1/2)=P(V\le\sqrt2)=\sqrt2-1=0.41421.
 $$
 This prior gives a uniform mean fraction $U$ but a nonuniform concentration $T$. The distinction can also be seen from $f_T(t)=\tfrac12t^{-3/2}$ on $[1/4,1]$, obtained by one-dimensional change of variables.{{cite:durrett2019}} (§1.2, exer. 1.2.5, p. 14)
 
-**Your turn.** Restrict instead to $0<u<1$ and $2\le v\le4$. Find the constant density in $(u,v)$, the range of $t$, and $E(t)$.
+**Your turn.** Restrict instead to $0<u<1$ and $2\le v\le4$. Find the constant density in $(u,v)$, the range of $t$, and $\E(t)$.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The rectangle has area $2$, so its density is $1/2$. The range is $1/16\le t\le1/4$, and $E(t)=\tfrac12\int_2^4v^{-2}\,dv=1/8$.
+The rectangle has area $2$, so its density is $1/2$. The range is $1/16\le t\le1/4$, and $\E(t)=\tfrac12\int_2^4v^{-2}\,dv=1/8$.
 :::
 
 ## Assumptions and limits
@@ -51,7 +51,7 @@ The factor $e^u$ is the local stretching of length. The limits $\log2$ and $\log
 ## Intuition — Probability is assigned to sets
 Uniformity means that sets of equal volume inside $D$ receive equal probability, and sets outside $D$ receive probability zero. Changing coordinates changes which sets have equal volume. Logarithmic coordinates stretch large $x$ and compress small $x$, so a law that was flat in $x$ is tilted in $u$. The rectangular law in $(u,v)$ is flat in those coordinates and becomes the curved density $\tfrac12 t^{-5/2}$ in the concentration coordinate $t=\alpha+\beta$. Both descriptions are the same probability measure written in different variables.
 
-The expectation calculation in the worked example is the average of $t=v^{-2}$ against the uniform law of $v$ on $[1,2]$. Because $v$ is uniform there, $E(T)=\int_1^2 v^{-2}\,dv=1/2$. The probability $P(T\ge1/2)=P(V\le\sqrt2)=\sqrt2-1=0.414214$ uses the same flat density of $v$: the event is an interval of $v$-length $\sqrt2-1$, and the whole $v$-interval has length $1$, so the probability equals that length. A reader who starts from the curved density of $T$ recovers the same probability by integrating $\tfrac12 t^{-3/2}$ from $1/2$ to $1$.
+The expectation calculation in the worked example is the average of $t=v^{-2}$ against the uniform law of $v$ on $[1,2]$. Because $v$ is uniform there, $\E(T)=\int_1^2 v^{-2}\,dv=1/2$. The probability $P(T\ge1/2)=P(V\le\sqrt2)=\sqrt2-1=0.414214$ uses the same flat density of $v$: the event is an interval of $v$-length $\sqrt2-1$, and the whole $v$-interval has length $1$, so the probability equals that length. A reader who starts from the curved density of $T$ recovers the same probability by integrating $\tfrac12 t^{-3/2}$ from $1/2$ to $1$.
 
 ## Common misconceptions
 An improper flat weight is sometimes described as “the uniform distribution on the whole space.” A probability distribution integrates to one. The constant function on $(0,\infty)$, or on the strip $(0,1)\times(0,\infty)$, integrates to infinity. It can still be a useful prior weight when the posterior integral is finite, and that finiteness is a property of the weight together with the likelihood. The name “uniform” fits the proper laws whose domains have finite volume.
