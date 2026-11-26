@@ -9,9 +9,9 @@ If $T$ is complete and sufficient and $\delta(T)$ is unbiased for $g(\theta)$ wi
 ## Properties — Why completeness supplies uniqueness
 ::: {.callout-note collapse="true" title="Proof"}
 ::: {.proof}
-Let $U$ be any competing unbiased estimator. Sufficiency makes $V(T)=E(U\mid T)$ a statistic independent of the unknown parameter in its definition. The tower property gives $E[V(T)]=g(\theta)$. Thus $E[V(T)-\delta(T)]=0$ throughout the model, and completeness gives $V(T)=\delta(T)$ almost surely. Finally,
+Let $U$ be any competing unbiased estimator. Sufficiency makes $V(T)=\E(U\mid T)$ a statistic independent of the unknown parameter in its definition. The tower property gives $\E[V(T)]=g(\theta)$. Thus $\E[V(T)-\delta(T)]=0$ throughout the model, and completeness gives $V(T)=\delta(T)$ almost surely. Finally,
 $$
-\operatorname{Var}(U)=\operatorname{Var}\{V(T)\}+E\{\operatorname{Var}(U\mid T)\}\ge\operatorname{Var}\{\delta(T)\}.
+\operatorname{Var}(U)=\operatorname{Var}\{V(T)\}+\E\{\operatorname{Var}(U\mid T)\}\ge\operatorname{Var}\{\delta(T)\}.
 $$
 Equality forces $U=V(T)$ almost surely. This proves both optimality and uniqueness among finite-variance unbiased estimators.{{cite:siegrist2022_sufficient_complete}} (§7.6, Rao–Blackwell and Lehmann–Scheffé theorems)
 :::
@@ -21,9 +21,9 @@ A complete sufficient statistic also gives a minimal sufficient reduction in the
 
 ::: {.callout-note collapse="true" title="Proof"}
 ::: {.proof}
-Let $U$ be any sufficient statistic and $f(T)$ any bounded measurable function. Put $g(U)=E_\theta[f(T)\mid U]$ and $h(T)=E_\theta[g(U)\mid T]$. Sufficiency supplies versions of both functions independent of $\theta$. Iterated expectation gives $E_\theta[h(T)-f(T)]=0$ for every parameter value. Completeness forces $h(T)=f(T)$ almost surely. Conditional Jensen's inequality now gives
+Let $U$ be any sufficient statistic and $f(T)$ any bounded measurable function. Put $g(U)=\E_\theta[f(T)\mid U]$ and $h(T)=\E_\theta[g(U)\mid T]$. Sufficiency supplies versions of both functions independent of $\theta$. Iterated expectation gives $\E_\theta[h(T)-f(T)]=0$ for every parameter value. Completeness forces $h(T)=f(T)$ almost surely. Conditional Jensen's inequality now gives
 $$
-E_\theta[f(T)^2]=E_\theta[h(T)^2]\le E_\theta[g(U)^2]\le E_\theta[f(T)^2].
+\E_\theta[f(T)^2]=\E_\theta[h(T)^2]\le \E_\theta[g(U)^2]\le \E_\theta[f(T)^2].
 $$
 Equality in the last conditional-variance inequality forces $f(T)=g(U)$ almost surely. Apply this to indicators from a countable generating class of the statistic's standard Borel value space. Every such indicator is a function of $U$, so $T$ is measurable with respect to $U$, up to null sets. This is minimal sufficiency. The same total-variance identity underlies the Rao–Blackwell proof.{{cite:siegrist2022_sufficient_complete}} (§7.6, Rao–Blackwell theorem and its conditional-variance proof)
 :::
@@ -34,16 +34,16 @@ For binomial counts, allowing the success probability to range over an interval 
 ## Worked example
 Let $X_1,X_2,X_3$ be independent Bernoulli$(p)$ variables and $T=X_1+X_2+X_3$. Conditional on $T=t$, all locations of the $t$ successes are equally likely. The chance that both the first and second positions succeed is
 $$
-E(X_1X_2\mid T=t)=\frac{t(t-1)}{3\cdot2}.
+\E(X_1X_2\mid T=t)=\frac{t(t-1)}{3\cdot2}.
 $$
 Consequently $\delta(T)=T(T-1)/6$ is unbiased for $p^2$. At $T=2$ it equals $1/3$; at $T=3$ it equals $1$. Since $T$ is complete and sufficient for $0<p<1$, this is the unique UMVU estimator.{{cite:siegrist2022_sufficient_complete}} (§7.6, Bernoulli-distribution application){{cite:dasgupta2011_exponential_family}} (§18.4, Ex. 18.17, p. 512)
 
 At $p=1/2$, $\operatorname{Var}(X_1X_2)=3/16$, whereas $\operatorname{Var}\{\delta(T)\}=5/48$. The latter is smaller by $1/12$. This calculation concerns repeated samples, not the precision of a particular observed value of $T$.
 
-**Your turn.** Find $E\{T(T-1)\}$ and use it to verify unbiasedness without conditioning.
+**Your turn.** Find $\E\{T(T-1)\}$ and use it to verify unbiasedness without conditioning.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-There are six ordered pairs of distinct trials. Each pair succeeds with probability $p^2$, so $E\{T(T-1)\}=6p^2$ and $E\{T(T-1)/6\}=p^2$.
+There are six ordered pairs of distinct trials. Each pair succeeds with probability $p^2$, so $\E\{T(T-1)\}=6p^2$ and $\E\{T(T-1)/6\}=p^2$.
 :::
 
 ## Check yourself
