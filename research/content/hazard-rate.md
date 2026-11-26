@@ -4,14 +4,14 @@ A device that has survived a year is a different risk population from a newly in
 
 ## Definition — Conditional risk per unit time
 
-For an absolutely continuous nonnegative lifetime, write $S(t)=P(T>t)$. At a point where the density and the relevant derivative exist, with $S(t)>0$,
+For an absolutely continuous nonnegative lifetime, write $S(t)=\mathbb{P}(T>t)$. At a point where the density and the relevant derivative exist, with $S(t)>0$,
 $$
-h(t)=\lim_{\Delta\downarrow0}\frac{P(t<T\le t+\Delta\mid T>t)}{\Delta}
+h(t)=\lim_{\Delta\downarrow0}\frac{\mathbb{P}(t<T\le t+\Delta\mid T>t)}{\Delta}
 =\frac{f(t)}{S(t)}.
 $$
 Hazard has units of inverse time and may exceed one. The probability over a finite interval is instead
 $$
-P(t<T\le t+\Delta\mid T>t)
+\mathbb{P}(t<T\le t+\Delta\mid T>t)
 =1-\exp\{-H(t+\Delta)+H(t)\},
 \quad H(t)=\int_0^t h(u)\,du.
 $$
@@ -41,12 +41,12 @@ It is $S(2)/S(1)=e^{-4}/e^{-1}=e^{-3}\approx0.04979$. It is a conditional surviv
 
 ### [Survival from the hazard](../questions/ex-prob-hazard-survival.qmd) {#self-check-ex-prob-hazard-survival}
 
-Why is the integration constant zero in $\log S(t)=-H(t)$? Use this relation to find $P(T\le1)$ when $h(t)=2t$, and determine the hazard of a Weibull lifetime with shape $k=1$ and scale $a>0$.
+Why is the integration constant zero in $\log S(t)=-H(t)$? Use this relation to find $\mathbb{P}(T\le1)$ when $h(t)=2t$, and determine the hazard of a Weibull lifetime with shape $k=1$ and scale $a>0$.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-An absolutely continuous nonnegative lifetime has $P(T=0)=0$, so $S(0)=1$ and $\log S(0)=0$. An atom at zero would require its own initial survival factor.
+An absolutely continuous nonnegative lifetime has $\mathbb{P}(T=0)=0$, so $S(0)=1$ and $\log S(0)=0$. An atom at zero would require its own initial survival factor.
 
-For $h(t)=2t$, the cumulative hazard to 1 is 1, so $P(T\le1)=1-e^{-1}\approx 0.632121$. The Weibull hazard is $kt^{k-1}/a^k$; at $k=1$ this is the constant $1/a$.
+For $h(t)=2t$, the cumulative hazard to 1 is 1, so $\mathbb{P}(T\le1)=1-e^{-1}\approx 0.632121$. The Weibull hazard is $kt^{k-1}/a^k$; at $k=1$ this is the constant $1/a$.
 :::
 
 ### [Five years of a component](../questions/ex-prob-component-five-years.qmd) {#self-check-ex-prob-component-five-years}
