@@ -1547,6 +1547,154 @@ main,
   color: inherit;
 }
 
+/* Dark-mode code blocks and Pandoc syntax tokens. Keep code on the dark panel
+   surface and clear 4.5:1 WCAG AA contrast whether or not Quarto's alternate
+   stylesheet has loaded. Light mode is untouched. */
+body.quarto-dark {
+  --quarto-hl-al-color: #ff8086;
+  --quarto-hl-an-color: #a2a9b1;
+  --quarto-hl-at-color: #7fd1d8;
+  --quarto-hl-bn-color: #f2be79;
+  --quarto-hl-bu-color: #eaecf0;
+  --quarto-hl-cf-color: #ff9e80;
+  --quarto-hl-ch-color: #8fd19e;
+  --quarto-hl-cn-color: #f6c977;
+  --quarto-hl-co-color: #a2a9b1;
+  --quarto-hl-cv-color: #a2a9b1;
+  --quarto-hl-do-color: #a2a9b1;
+  --quarto-hl-dt-color: #79c0ff;
+  --quarto-hl-dv-color: #f2be79;
+  --quarto-hl-er-color: #ff8086;
+  --quarto-hl-ex-color: #eaecf0;
+  --quarto-hl-fl-color: #f2be79;
+  --quarto-hl-fu-color: #8fb0ff;
+  --quarto-hl-im-color: #79c0ff;
+  --quarto-hl-in-color: #a2a9b1;
+  --quarto-hl-kw-color: #ff9e80;
+  --quarto-hl-op-color: #c9d6ea;
+  --quarto-hl-ot-color: #c9d6ea;
+  --quarto-hl-pp-color: #e3b341;
+  --quarto-hl-re-color: #79c0ff;
+  --quarto-hl-sc-color: #c9d6ea;
+  --quarto-hl-ss-color: #8fd19e;
+  --quarto-hl-st-color: #8fd19e;
+  --quarto-hl-va-color: #eaecf0;
+  --quarto-hl-vs-color: #8fd19e;
+  --quarto-hl-wa-color: #e3b341;
+}
+
+body.quarto-dark div.sourceCode,
+body.quarto-dark pre.sourceCode,
+body.quarto-dark div.sourceCode pre.sourceCode {
+  background-color: var(--wiki-panel);
+  border-color: var(--wiki-rule);
+  color: var(--wiki-text);
+}
+
+body.quarto-dark div.sourceCode pre.sourceCode {
+  background-color: transparent;
+}
+
+body.quarto-dark :not(pre) > code.sourceCode {
+  background-color: var(--wiki-panel);
+  border: 1px solid var(--wiki-panel-head);
+  color: var(--wiki-text);
+}
+
+body.quarto-dark pre:not([class]) {
+  color: var(--wiki-text);
+}
+
+body.quarto-dark pre > code.sourceCode > span,
+body.quarto-dark code.sourceCode > span,
+body.quarto-dark .sourceCode code span {
+  color: var(--wiki-text);
+}
+
+body.quarto-dark .sourceCode span.bu,
+body.quarto-dark .sourceCode span.ex,
+body.quarto-dark .sourceCode span.va {
+  color: #eaecf0;
+}
+
+body.quarto-dark .sourceCode span.an,
+body.quarto-dark .sourceCode span.co,
+body.quarto-dark .sourceCode span.cv,
+body.quarto-dark .sourceCode span.do,
+body.quarto-dark .sourceCode span.in {
+  color: #a2a9b1;
+}
+
+body.quarto-dark .sourceCode span.cf,
+body.quarto-dark .sourceCode span.kw {
+  color: #ff9e80;
+}
+
+body.quarto-dark .sourceCode span.fu {
+  color: #8fb0ff;
+}
+
+body.quarto-dark .sourceCode span.at {
+  color: #7fd1d8;
+}
+
+body.quarto-dark .sourceCode span.dt,
+body.quarto-dark .sourceCode span.im,
+body.quarto-dark .sourceCode span.re {
+  color: #79c0ff;
+  background-color: transparent;
+}
+
+body.quarto-dark .sourceCode span.bn,
+body.quarto-dark .sourceCode span.dv,
+body.quarto-dark .sourceCode span.fl {
+  color: #f2be79;
+}
+
+body.quarto-dark .sourceCode span.cn {
+  color: #f6c977;
+}
+
+body.quarto-dark .sourceCode span.ch,
+body.quarto-dark .sourceCode span.ss,
+body.quarto-dark .sourceCode span.st,
+body.quarto-dark .sourceCode span.vs {
+  color: #8fd19e;
+}
+
+body.quarto-dark .sourceCode span.op,
+body.quarto-dark .sourceCode span.ot,
+body.quarto-dark .sourceCode span.sc {
+  color: #c9d6ea;
+}
+
+body.quarto-dark .sourceCode span.pp,
+body.quarto-dark .sourceCode span.wa {
+  color: #e3b341;
+}
+
+body.quarto-dark .sourceCode span.al,
+body.quarto-dark .sourceCode span.er {
+  color: #ff8086;
+  background-color: transparent;
+}
+
+body.quarto-dark pre.sourceCode:hover > .code-copy-button > .bi::before {
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="rgb(234, 236, 240)" viewBox="0 0 16 16"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/></svg>');
+}
+
+body.quarto-dark pre.sourceCode:hover > .code-copy-button-checked > .bi::before {
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="rgb(234, 236, 240)" viewBox="0 0 16 16"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg>');
+}
+
+body.quarto-dark pre.sourceCode:hover > .code-copy-button:hover > .bi::before {
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="rgb(176, 194, 242)" viewBox="0 0 16 16"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/></svg>');
+}
+
+body.quarto-dark pre.sourceCode:hover > .code-copy-button-checked:hover > .bi::before {
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="rgb(176, 194, 242)" viewBox="0 0 16 16"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg>');
+}
+
 /* The top bar is the same height in both themes, so switching theme does
    not move the page. The dark theme pads it twice as much by default.
    Keep the StatWiki brand unclipped. Five navbar items collapse below
