@@ -12,7 +12,7 @@ R=\sqrt{-2\log U},\qquad\Theta=2\pi V,
 $$
 Then $Z_1$ and $Z_2$ are independent standard normal variables. The inputs must be independent: giving the two transformations correlated inputs need not produce the desired joint distribution. The logarithm also requires a positive value of $U$.{{cite:grinstead_snell1997}} (§5.2, p. 213)
 
-The squared radius $R^2=-2\log U$ has survival probability $P(R^2>s)=e^{-s/2}$ for $s\geq0$. Its mean is two. Independently, the angle is uniform on a full circle. The circular geometry is the reason a single radius can participate in both outputs without making the resulting normal coordinates dependent.{{cite:siegrist2022_normal_distribution}} (§5.6, Distribution Functions, polar-coordinate normalisation)
+The squared radius $R^2=-2\log U$ has survival probability $\mathbb{P}(R^2>s)=e^{-s/2}$ for $s\geq0$. Its mean is two. Independently, the angle is uniform on a full circle. The circular geometry is the reason a single radius can participate in both outputs without making the resulting normal coordinates dependent.{{cite:siegrist2022_normal_distribution}} (§5.6, Distribution Functions, polar-coordinate normalisation)
 
 ## Properties — Factorisation proves independence
 The radius has density $re^{-r^2/2}$ on $r>0$, and the independent angle has density $1/(2\pi)$ on $[0,2\pi)$. The polar-to-Cartesian Jacobian has absolute determinant $r$. Dividing their joint density by that factor gives
@@ -25,7 +25,7 @@ The factorisation establishes independence as well as both marginal normal distr
 
 ::: {.callout-note collapse="true" title="Proof"}
 ::: {.proof}
-For $r>0$, $P(R\leq r)=P(U\geq e^{-r^2/2})=1-e^{-r^2/2}$, so differentiating gives the radial density. Independence of $U$ and $V$ gives independence of $R$ and $\Theta$. The Jacobian matrix of $(r\cos\theta,r\sin\theta)$ has determinant $r(\cos^2\theta+\sin^2\theta)=r$. Applying the density transformation gives the product of two standard normal densities displayed above.
+For $r>0$, $\mathbb{P}(R\leq r)=\mathbb{P}(U\geq e^{-r^2/2})=1-e^{-r^2/2}$, so differentiating gives the radial density. Independence of $U$ and $V$ gives independence of $R$ and $\Theta$. The Jacobian matrix of $(r\cos\theta,r\sin\theta)$ has determinant $r(\cos^2\theta+\sin^2\theta)=r$. Applying the density transformation gives the product of two standard normal densities displayed above.
 :::
 :::
 
