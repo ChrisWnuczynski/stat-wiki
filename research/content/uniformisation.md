@@ -30,8 +30,8 @@ The choice $3$ is invalid because the state of exit rate $4$ would have diagonal
 
 ## Statistical use — A certified truncation error
 Approximating the mixture by terms $0\le n\le M$ leaves a nonnegative error in each entry bounded by
-$$P\{N>M\},\qquad N\sim\operatorname{Poisson}(\gamma t),$$
-because every entry of every $R^n$ is at most one. Each truncated row sums exactly to $P(N\le M)$. Thus the missing row mass is a computable error certificate. With $\gamma t=5$ and $M=20$, the bound is approximately $8.1093\times10^{-8}$.{{cite:durrett2019}} (§3.7, Poisson probability mass function)
+$$\mathbb{P}\{N>M\},\qquad N\sim\operatorname{Poisson}(\gamma t),$$
+because every entry of every $R^n$ is at most one. Each truncated row sums exactly to $\mathbb{P}(N\le M)$. Thus the missing row mass is a computable error certificate. With $\gamma t=5$ and $M=20$, the bound is approximately $8.1093\times10^{-8}$.{{cite:durrett2019}} (§3.7, Poisson probability mass function)
 
 Choosing a needlessly large $\gamma$ increases the expected number of clock events, $\gamma t$, and usually the number of powers needed. Choosing a smaller value than the largest exit rate destroys stochasticity. For a finite chain, the largest exit rate is a natural starting choice; another value may be convenient when it simplifies the powers, as $\gamma=5$ does in the worked example.
 
