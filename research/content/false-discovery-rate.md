@@ -8,12 +8,12 @@ Four sorted $p$-values are $0.001$, $0.04$, $0.06$ and $0.8$. At level $0.1$ the
 Family-wise control asks for a small probability of even one false rejection. That demand grows stricter as the list of tests grows. The false discovery rate asks a different question: among the hypotheses actually declared significant, what fraction are null, on average? A long list may contain many false rejections and still have a small proportion of them, so control of the rate is a weaker demand than control of the family-wise error, and it leaves more power for the non-null hypotheses.{{cite:hastie_esl2009}} (p. 687)
 
 ## Definition — The ratio, with an empty list counted as zero
-Let $V$ be the number of true nulls that are rejected and $R$ the number of rejections. The false discovery proportion is $V/R$ when $R>0$, and $0$ when $R=0$. The false discovery rate is the expectation of that proportion. Hastie, Tibshirani and Friedman write the same target as $\E(V/R)$ for the genes called significant. The empty-list convention matters when a procedure often rejects nothing, because conditioning on $R>0$ drops the factor $\mathrm{P}(R>0)$.{{cite:hastie_esl2009}} (p. 687, eq. 18.43)
+Let $V$ be the number of true nulls that are rejected and $R$ the number of rejections. The false discovery proportion is $V/R$ when $R>0$, and $0$ when $R=0$. The false discovery rate is the expectation of that proportion. Hastie, Tibshirani and Friedman write the same target as $\E(V/R)$ for the genes called significant. The empty-list convention matters when a procedure often rejects nothing, because conditioning on $R>0$ drops the factor $\mathbb{P}(R>0)$.{{cite:hastie_esl2009}} (p. 687, eq. 18.43)
 
 ## Properties — Family-wise control is the stronger demand
 ::: {.callout-note collapse="true" title="Proof"}
 ::: {.proof}
-Let $Q=V/R$ when $R>0$ and $Q=0$ when $R=0$. If $V=0$, then $Q=0$. If $V\ge 1$, then $Q=V/R\le 1$. So $Q\le 1_{\{V\ge 1\}}$ and $\E(Q)\le\mathrm{P}(V\ge 1)$. When every null is true, $V=R$, so $Q$ is $0$ or $1$ and the two sides agree.{{cite:hastie_esl2009}} (p. 687)
+Let $Q=V/R$ when $R>0$ and $Q=0$ when $R=0$. If $V=0$, then $Q=0$. If $V\ge 1$, then $Q=V/R\le 1$. So $Q\le 1_{\{V\ge 1\}}$ and $\E(Q)\le\mathbb{P}(V\ge 1)$. When every null is true, $V=R$, so $Q$ is $0$ or $1$ and the two sides agree.{{cite:hastie_esl2009}} (p. 687)
 :::
 :::
 
