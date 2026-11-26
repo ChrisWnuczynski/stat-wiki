@@ -9,7 +9,7 @@ $$\sqrt n(\widehat p-p)\ \Rightarrow\ N_K(0,\Sigma).$$
 The Gaussian can be singular. If every $p_k>0$, the covariance has rank $K-1$ and its null space is the span of the all-ones vector. If some probabilities are zero, the corresponding counts are zero almost surely and the rank can be smaller. The number of categories is fixed in this statement.{{cite:durrett2019}} (§3.10, thm. 3.10.7, ex. 3.10.9)
 
 ## Proof
-Represent trial $i$ by a one-hot vector $Z_i$, which equals coordinate vector $e_k$ with probability $p_k$. Then $E(Z_i)=p$, $E(Z_{ij}Z_{ik})=0$ for distinct categories and $E(Z_{ik}^2)=p_k$. Consequently $\operatorname{Cov}(Z_i)=\operatorname{diag}(p)-pp^\top$. The count vector is $\sum_iZ_i$, so the vector central limit theorem gives the displayed limit.{{cite:durrett2019}} (§3.10, thm. 3.10.7 and its proof, pp. 200–201)
+Represent trial $i$ by a one-hot vector $Z_i$, which equals coordinate vector $e_k$ with probability $p_k$. Then $\E(Z_i)=p$, $\E(Z_{ij}Z_{ik})=0$ for distinct categories and $\E(Z_{ik}^2)=p_k$. Consequently $\operatorname{Cov}(Z_i)=\operatorname{diag}(p)-pp^\top$. The count vector is $\sum_iZ_i$, so the vector central limit theorem gives the displayed limit.{{cite:durrett2019}} (§3.10, thm. 3.10.7 and its proof, pp. 200–201)
 
 More explicitly, for every fixed contrast vector $a$, the scalar variable $a^\top Z_i$ is bounded and has variance $a^\top\Sigma a$. The scalar central limit theorem applies to its sample mean. The Cramér–Wold device combines all of these scalar conclusions into the joint vector conclusion, including zero-variance directions. This avoids requiring an invertible covariance matrix in the theorem.{{cite:durrett2019}} (§3.10, thm. 3.10.6)
 
