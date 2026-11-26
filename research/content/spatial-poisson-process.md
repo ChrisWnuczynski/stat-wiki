@@ -4,7 +4,7 @@ A sheet of material may contain isolated defects scattered across its surface. A
 ## Definition — Specify a random counting measure
 For a measurable region $A\subset\mathbb R^2$ of finite area $|A|$, a homogeneous Poisson process with intensity $\lambda>0$ has count $N(A)\sim\operatorname{Poisson}(\lambda|A|)$. Counts on pairwise disjoint regions are independent. An inhomogeneous intensity function $\lambda(x)$ replaces $\lambda|A|$ by $\Lambda(A)=\int_A\lambda(x)\,dx$. The independence condition remains part of the model; Poisson marginal counts in individual chosen windows alone do not specify it.
 
-The intensity has units of points per unit area, so the mean count $\Lambda(A)$ is dimensionless. For a Poisson variable, its mean and variance equal this parameter. Thus $E[N(A)]=\operatorname{Var}[N(A)]=\Lambda(A)$. The count law is a familiar discrete distribution; the spatial process adds consistency of those counts across regions and the independent-increment requirement.{{cite:dodge2008}} (pp. 425–426, Poisson Distribution)
+The intensity has units of points per unit area, so the mean count $\Lambda(A)$ is dimensionless. For a Poisson variable, its mean and variance equal this parameter. Thus $\E[N(A)]=\operatorname{Var}[N(A)]=\Lambda(A)$. The count law is a familiar discrete distribution; the spatial process adds consistency of those counts across regions and the independent-increment requirement.{{cite:dodge2008}} (pp. 425–426, Poisson Distribution)
 
 ## Properties — Void probabilities describe nearest-point distances
 At a fixed deterministic origin, let $R$ be the distance to the nearest point of an unbounded homogeneous planar process. The event $R>r$ is the event of no point in the radius-$r$ disk. Therefore
@@ -25,7 +25,7 @@ The median is proportional to $\lambda^{-1/2}$, so it is multiplied by $1/\sqrt2
 :::
 
 ## Statistical use — Thinning preserves a Poisson model under independence
-If every point is independently detected with probability $q$, the observed process has intensity $q\lambda$. Conditional on $N(A)=n$, its detected count is binomial with parameters $n,q$. Averaging its probability-generating function gives $E[(1-q+qs)^{N(A)}]=\exp\{\Lambda(A)q(s-1)\}$, a Poisson generating function. Independent marking across points and disjoint regions supplies the corresponding process property.
+If every point is independently detected with probability $q$, the observed process has intensity $q\lambda$. Conditional on $N(A)=n$, its detected count is binomial with parameters $n,q$. Averaging its probability-generating function gives $\E[(1-q+qs)^{N(A)}]=\exp\{\Lambda(A)q(s-1)\}$, a Poisson generating function. Independent marking across points and disjoint regions supplies the corresponding process property.
 
 A low observed intensity can consequently reflect sparse events or poor detection. The count process alone does not distinguish those mechanisms. Spatial variation in detection probability gives observed intensity $q(x)\lambda(x)$, so a gradient in recorded points need not be a gradient in the underlying events. Detection assumptions belong beside the intensity model when it is used for an inspection or survey.
 
