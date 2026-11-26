@@ -39,7 +39,7 @@ Thirty minutes is half an hour, so $\Pr(X>1/2)=e^{-4(1/2)}=e^{-2}\approx0.13534$
 A waiting time has rate $\lambda=1/2$. Given that it has already lasted 1 time unit, what is the probability it lasts at least 3 further units, and what is the median waiting time from the start?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-Memorylessness gives $P(X>4\mid X>1)=P(X>3)=e^{-3/2}\approx 0.22313$. The median from the start is $(\log 2)/(1/2)=2\log 2\approx 1.386294$.
+Memorylessness gives $\mathbb{P}(X>4\mid X>1)=\mathbb{P}(X>3)=e^{-3/2}\approx 0.22313$. The median from the start is $(\log 2)/(1/2)=2\log 2\approx 1.386294$.
 :::
 
 ## Common misconceptions
