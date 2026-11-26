@@ -41,7 +41,7 @@ Suppose the rate equals $2$ or $6$ with equal probability $1/2$. The mean rate i
 $$
 \frac{(2-4)^{2}+(6-4)^{2}}{2}=4.
 $$
-A Poisson count at a random rate of this kind has mean $4$ and variance $4+4=8$. A Poisson random variable with the same mean would have variance $4$, and $P(Y=0)=e^{-4}\approx 0.0183$. The mixture probability of a zero is the average of two Poisson probabilities,
+A Poisson count at a random rate of this kind has mean $4$ and variance $4+4=8$. A Poisson random variable with the same mean would have variance $4$, and $\mathbb{P}(Y=0)=e^{-4}\approx 0.0183$. The mixture probability of a zero is the average of two Poisson probabilities,
 $$
 \frac{e^{-2}+e^{-6}}{2}\approx 0.0689,
 $$
