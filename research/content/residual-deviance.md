@@ -16,7 +16,7 @@ $$
 
 under a unit-dispersion convention.{{cite:nelder_wedderburn1972}} (§2.3, pp. 375–376) Where a dispersion parameter $\phi$ is separated from the likelihood, software commonly reports an unscaled $D$ whose likelihood-ratio scale is $D/\phi$. The associated residual degrees of freedom are usually $n-p$ for $n$ independent observations and a full-rank design with $p$ estimated regression coefficients. “Usually” matters: weights, grouped observations, smoothers and rank deficiency change the accounting.
 
-The *null deviance* uses an intercept-only fit in place of the stated predictor model. Residual deviance uses the actual fitted model. They share the saturated reference when fitted to the same responses under the same family and likelihood convention. These names specify two comparisons with the same saturated benchmark, not two unrelated diagnostics.
+The *null deviance* uses a baseline fit without fitted covariate effects in place of the stated predictor model. In R's `glm`, that baseline retains any offsets and includes an intercept only if the original model has one, reducing to an intercept-only fit when an intercept and no varying offsets are present.{{cite:rstats_glm2026}} (Sec. Value, null.deviance) Residual deviance uses the actual fitted model. They share the saturated reference when fitted to the same responses under the same family and likelihood convention. These names specify two comparisons with the same saturated benchmark, not two unrelated diagnostics.
 
 ## Properties
 
@@ -81,7 +81,7 @@ Residual deviance is not the sum of raw residuals, which can cancel, nor is it a
 
 ## Connections
 
-[Null deviance](null-deviance.qmd) uses an intercept-only fit, while [scaled deviance](scaled-deviance.qmd) accounts for dispersion. A [deviance residual](deviance-residual.qmd) attributes signed contributions to observations. [Analysis of deviance](analysis-of-deviance.qmd) organizes nested-model differences, and a [likelihood-ratio test](likelihood-ratio-test.qmd) supplies a reference distribution when its assumptions apply. An [Akaike information criterion](akaike-information-criterion.qmd) adds a complexity charge for comparing fitted likelihood models.
+[Null deviance](null-deviance.qmd) uses a baseline fit without fitted covariate effects, retaining any offsets and including an intercept only if the model has one, while [scaled deviance](scaled-deviance.qmd) accounts for dispersion. A [deviance residual](deviance-residual.qmd) attributes signed contributions to observations. [Analysis of deviance](analysis-of-deviance.qmd) organizes nested-model differences, and a [likelihood-ratio test](likelihood-ratio-test.qmd) supplies a reference distribution when its assumptions apply. An [Akaike information criterion](akaike-information-criterion.qmd) adds a complexity charge for comparing fitted likelihood models.
 
 ## History
 
