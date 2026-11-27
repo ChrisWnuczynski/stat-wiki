@@ -15,7 +15,7 @@ $$
 Both describe performance conditional on the actual state. A zero denominator means the relevant rate cannot be estimated from that evaluation sample.{{cite:yerushalmy1947}} (p. 1435)
 
 ## Interpretation — Changing the denominator changes the question
-Positive predictive value, also called precision in classification, is $TP/(TP+FP)$. It conditions on a positive prediction. Sensitivity conditions on an actual positive instead. Their numerators agree, but their denominators count different groups. Reversing a conditional probability requires the marginal frequencies as well as the conditional rates.{{cite:grinstead_snell1997}} (§4.1, Bayes' formula)
+Positive predictive value, also called precision in classification, is $TP/(TP+FP)$. This ratio is defined only when the predicted-positive column total $TP+FP$ is positive. It conditions on a positive prediction. Sensitivity conditions on an actual positive instead. Their numerators agree, but their denominators count different groups. Reversing a conditional probability requires the marginal frequencies as well as the conditional rates.{{cite:grinstead_snell1997}} (§4.1, Bayes' formula)
 
 Let $\pi$ be the population prevalence of the positive class, with sensitivity $s$ and specificity $c$. The positive predictive value is
 $$
