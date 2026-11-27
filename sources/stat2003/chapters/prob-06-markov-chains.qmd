@@ -9,7 +9,7 @@ Using a chain as a device for sampling from a target distribution is a different
 ::: {#def-finite-state-markov-chain .definition}
 ## Finite-state Markov chain
 
-Let $E$ be a finite set of states and let $X_0,X_1,X_2,\ldots$ take values in $E$. The process is a Markov chain when, for every $n$ and every choice of states,
+Let $E$ be a finite set of states and let $X_0,X_1,X_2,\ldots$ take values in $E$. The process is a Markov chain when, for every $n$ and every choice of states whose joint conditioning history has positive probability,
 
 $$
 \Pr(X_{n+1}=j\given X_n=i, X_{n-1}=i_{n-1},\ldots,X_0=i_0)=\Pr(X_{n+1}=j\given X_n=i).
