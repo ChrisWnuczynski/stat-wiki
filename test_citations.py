@@ -84,6 +84,67 @@ class CitationTests(unittest.TestCase):
         self.assertIn('href="#cite_note-1"', row)
         self.assertIn('id="cite_note-1"', linker.render_references_section())
 
+    def test_clean_snippet_strips_citation_superscripts_and_markers(self) -> None:
+        cases = [
+            (
+                '`USAccDeaths` is a monthly count, ending in December 1978.'
+                '<sup id="cite_ref-1" class="cite-ref" data-cite-key="brockwell_davis1991">'
+                '<a href="#cite_note-1" title="Brockwell &amp; Davis (1991)">[1]</a></sup>'
+                '<sup id="cite_ref-2" class="cite-ref" data-cite-key="hyndman_athanasopoulos2021">'
+                '<a href="#cite_note-2" title="Hyndman &amp; Athanasopoulos (2021)">[2]</a></sup> …',
+                "`USAccDeaths` is a monthly count, ending in December 1978.",
+            ),
+            (
+                'Claim<sup class="cite-ref">[1](#cite_note-1)</sup>'
+                '<sup class="cite-ref">[2](#cite_note-2)</sup> with a [term link](variance.qmd){.term}.',
+                "Claim with a term link.",
+            ),
+            (
+                "Training data with $y_i\\in\\{-1,+1\\}$"
+                "{{cite:freund_schapire1997}}{{cite:freund_schapire1995}}{{cite:hastie_esl2009}}.",
+                "Training data with $y_i\\in\\{-1,+1\\}$.",
+            ),
+            (
+                "A result {{cite:gauss1809}} (p. 12); {{cite:fisher1922}} ([§2](https://example.com), pp. 309–316).",
+                "A result.",
+            ),
+            (
+                "Built to estimate the bias {{cite:dodge2008}} (pp. 271–272) and the standard error {{cite:efron1979}} (§5, pp.",
+                "Built to estimate the bias and the standard error …",
+            ),
+            (
+                "The $1$-nearest-neighbour rule predicts the label of the closest training point."
+                "{{cite:cover_hart1967}} (pp. 21–22, nearest-neighbour rule).",
+                "The $1$-nearest-neighbour rule predicts the label of the closest training point.",
+            ),
+            (
+                "The negative predictive value is the probability the condition is absent given a negative test,"
+                "{{cite:lindholm2022_ml}} (§4.5, p. 87, Tbl. 4.1){{cite:openintro2019}} (§3.2.7, Bayes' theorem) …",
+                "The negative predictive value is the probability the condition is absent given a negative test …",
+            ),
+            (
+                "Suppose $f$ is zero outside $[a,b]$[^note] and $|x|$ is bounded.",
+                "Suppose $f$ is zero outside $[a,b]$ and $\\|x\\|$ is bounded.",
+            ),
+        ]
+        for raw, expected in cases:
+            with self.subTest(raw=raw):
+                self.assertEqual(build_wiki.clean_snippet(raw), expected)
+
+    def test_built_glossary_snippets_contain_no_citation_superscripts(self) -> None:
+        glossary = ROOT / "reference" / "glossary.qmd"
+        if not glossary.is_file():
+            self.skipTest("Generated glossary is not built yet")
+        text = glossary.read_text(encoding="utf-8")
+        self.assertNotIn('class="cite-ref"', text)
+        self.assertNotIn("{{cite:", text)
+        for line in text.splitlines():
+            if not line.startswith("| ["):
+                continue
+            meaning = re.split(r"(?<!\\)\|", line)[2].strip()
+            self.assertIsNone(re.search(r"\[\d+\]", meaning), line)
+            self.assertIsNone(re.search(r"\((?:§|Ch\.|Thm\.|pp?\.|Glossary)\b", meaning), line)
+
     def test_bibliography_schema_and_provenance(self) -> None:
         errors = verify_citations.validate_schema(self.bib)
         self.assertEqual(errors, [])
