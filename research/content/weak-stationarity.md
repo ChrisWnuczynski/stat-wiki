@@ -16,7 +16,7 @@ Strict stationarity is stronger in general: it requires every finite-dimensional
 
 ## Properties
 
-For any weakly stationary series, $|\gamma(h)|\leq\gamma(0)$ by Cauchy–Schwarz, so autocorrelations lie between $-1$ and $1$. The variance of a difference is $\operatorname{Var}(X_t-X_{t-h})=2\{\gamma(0)-\gamma(h)\}$. A positive autocovariance makes nearby values move together and reduces the variation of their difference; a negative one has the opposite effect.{{cite:shumway_stoffer2017}} (§1.4, p. 23)
+For any weakly stationary series, $|\gamma(h)|\leq\gamma(0)$ by Cauchy–Schwarz, so autocorrelations lie between $-1$ and $1$ when the marginal variance $\gamma(0)$ is positive. The variance of a difference is $\operatorname{Var}(X_t-X_{t-h})=2\{\gamma(0)-\gamma(h)\}$. A positive autocovariance makes nearby values move together and reduces the variation of their difference; a negative one has the opposite effect.{{cite:shumway_stoffer2017}} (§1.4, p. 23)
 
 ::: {.callout-note collapse="true" title="Proof"}
 ::: {.proof}
