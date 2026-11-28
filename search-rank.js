@@ -1139,14 +1139,14 @@ export function rankDocuments(docs, query, meta = null) {
       bestSectionChunk !== null &&
       bestSectionScore > rootChunkScore;
 
-    let chosenText = String(
-      (showSection
-        ? bestSectionChunk
-        : group.rootChunk && String(group.rootChunk.text || "").trim()
-        ? group.rootChunk
-        : bestChunk
-      )?.text || ""
-    );
+    let chosenChunk = showSection
+      ? bestSectionChunk
+      : group.rootChunk && String(group.rootChunk.text || "").trim()
+      ? group.rootChunk
+      : String(bestChunk?.text || "").trim()
+      ? bestChunk
+      : group.chunks.find((c) => String(c?.text || "").trim()) || bestChunk;
+    let chosenText = String(chosenChunk?.text || "");
     if (!chosenText && disambigNote) {
       chosenText = disambigNote;
     }
@@ -1222,12 +1222,42 @@ export function rankDocuments(docs, query, meta = null) {
 // conversational questions ("what is a p value"), comparisons ("mean vs median"),
 // and disambiguations ("mean", "kernel") always appear in the live dropdown
 // even when Fuse.js returns 0 results or misses the canonical target.
+const SKIP_LINK_PREFIX = /^\s*Skip to main content(?:\s+|$)/;
+
+function cleanIndexDocs(list) {
+  if (!Array.isArray(list) || !list.length) return [];
+  const baseCounts = new Map();
+  for (const doc of list) {
+    if (doc && doc.href) {
+      const base = canonicalHref(doc.href);
+      baseCounts.set(base, (baseCounts.get(base) || 0) + 1);
+    }
+  }
+  const out = [];
+  for (const doc of list) {
+    if (!doc || typeof doc !== "object" || typeof doc.text !== "string" || !SKIP_LINK_PREFIX.test(doc.text)) {
+      out.push(doc);
+      continue;
+    }
+    const cleaned = doc.text.replace(SKIP_LINK_PREFIX, "");
+    const href = String(doc.href || "");
+    const base = canonicalHref(href);
+    if (!cleaned.trim() && !doc.section && !href.includes("#") && (baseCounts.get(base) || 0) > 1) {
+      baseCounts.set(base, baseCounts.get(base) - 1);
+      continue;
+    }
+    out.push({ ...doc, text: cleaned });
+  }
+  return out;
+}
+
 export function augmentQuartoSearchItems(fuseItems, query, meta = null, allDocs = null, limit = 25) {
   const q = String(query || "").trim();
   if (!q) return [];
-  const pool = Array.isArray(allDocs) && allDocs.length ? allDocs : fuseItems || [];
+  const rawPool = Array.isArray(allDocs) && allDocs.length ? allDocs : fuseItems || [];
+  const pool = cleanIndexDocs(rawPool);
   const ranked = rankDocuments(pool, q, meta);
-  if (!ranked.length) return fuseItems || [];
+  if (!ranked.length) return cleanIndexDocs(fuseItems || []);
 
   const out = [];
   for (const doc of ranked.slice(0, limit)) {
@@ -1258,10 +1288,14 @@ export function resultsPageHref(query) {
 }
 
 export function documentsFromIndex(payload) {
-  if (Array.isArray(payload)) return payload;
-  if (payload && Array.isArray(payload.docs)) return payload.docs;
-  if (payload && Array.isArray(payload.items)) return payload.items;
-  return [];
+  const list = Array.isArray(payload)
+    ? payload
+    : payload && Array.isArray(payload.docs)
+    ? payload.docs
+    : payload && Array.isArray(payload.items)
+    ? payload.items
+    : [];
+  return cleanIndexDocs(list);
 }
 
 if (typeof window !== "undefined") {
