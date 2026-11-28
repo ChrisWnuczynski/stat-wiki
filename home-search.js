@@ -7,6 +7,9 @@ const list = document.getElementById("home-search-results");
 const note = document.getElementById("home-search-note");
 
 if (form && input && list && note) {
+  note.setAttribute("role", "status");
+  note.setAttribute("aria-live", "polite");
+  note.setAttribute("aria-atomic", "true");
   const desktop = window.matchMedia("(min-width: 992px)");
   let docs = null;
   let meta = null;

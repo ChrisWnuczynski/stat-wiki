@@ -355,6 +355,7 @@ def expand_macros(text: str, only: frozenset[str] | None = None) -> str:
 # silently drift.
 KATEX_NATIVE = frozenset({"R", "Pr", "argmax", "argmin"})
 KATEX_MACRO_HEADER = "_katex-macros.html"
+KATEX_MACROS_JSON = "katex_macros.json"
 
 
 def katex_macro_definitions() -> dict[str, str]:
@@ -420,6 +421,8 @@ def write_katex_macro_header() -> None:
         if json.dumps(key) not in text or json.dumps(body) not in text:
             raise SystemExit(f"The KaTeX header dropped {key}")
     (WIKI / KATEX_MACRO_HEADER).write_text(text, encoding="utf-8")
+    # The pre-render and the Ask reader load this file. It is the same table.
+    (WIKI / KATEX_MACROS_JSON).write_text(katex_macros_json_text(), encoding="utf-8")
 
 
 def _unprotected_regions(text: str) -> list[tuple[int, int]]:
@@ -3368,9 +3371,19 @@ PREVIEW_JS = r"""<div id="wiki-preview" role="tooltip" hidden></div>
 
   function renderMath(root) {
     root.querySelectorAll("span.math").forEach(function (el) {
+      // Build-time rendering already left MathML in the span. Rendering again
+      // would parse the MathML text and wipe the accessible copy.
+      if (el.querySelector(".katex, math")) return;
       var tex = el.textContent.trim().replace(/^\\[\(\[]/, "").replace(/\\[\)\]]$/, "");
       try {
-        window.katex.render(tex, el, { displayMode: el.classList.contains("display"), throwOnError: false });
+        window.katex.render(tex, el, {
+          displayMode: el.classList.contains("display"),
+          throwOnError: false,
+          output: "htmlAndMathml",
+          strict: "ignore",
+          // A new object on every formula. KaTeX writes \gdef into the table it is given.
+          macros: /*__KATEX_MACROS__*/{}
+        });
       } catch (e) {}
     });
   }
@@ -6852,7 +6865,7 @@ Press Enter in the search box at the top to open this page. Each page appears on
   <button type="submit">Search</button>
 </form>
 <div id="site-search-exact" class="search-exact" hidden></div>
-<p id="site-search-note"></p>
+<p id="site-search-note" role="status" aria-live="polite" aria-atomic="true"></p>
 <ol id="site-search-results"></ol>
 <script type="module">
 import {
@@ -6869,6 +6882,9 @@ const form = document.getElementById("site-search");
 const input = document.getElementById("site-search-q");
 const exactBox = document.getElementById("site-search-exact");
 const note = document.getElementById("site-search-note");
+note.setAttribute("role", "status");
+note.setAttribute("aria-live", "polite");
+note.setAttribute("aria-atomic", "true");
 const list = document.getElementById("site-search-results");
 const params = new URLSearchParams(location.search);
 const hashParams = new URLSearchParams(location.hash.startsWith("#") ? location.hash.slice(1) : "");
@@ -7493,7 +7509,7 @@ toc: false
   <label class="home-search-label" for="home-search-q">Search</label>
   <input id="home-search-q" class="home-search-input" type="search" name="q" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Concepts, chapters, questions" role="combobox" aria-autocomplete="list" aria-controls="home-search-results" aria-expanded="false">
 </form>
-<p id="home-search-note" class="home-search-note"></p>
+<p id="home-search-note" class="home-search-note" role="status" aria-live="polite" aria-atomic="true"></p>
 <ul id="home-search-results" class="home-search-results" role="listbox" hidden></ul>
 <script type="module" src="home-search.js"></script>
 ```
@@ -8318,15 +8334,28 @@ SIDEBAR_JS = """
 """
 
 
+def katex_macros_json_text() -> str:
+    """The shared shorthand table, sorted, for katex_macros.json."""
+    return json.dumps(katex_macro_definitions(), ensure_ascii=False, indent=2, sort_keys=True) + "\n"
+
+
+def katex_macros_literal() -> str:
+    """The same table as a JavaScript object literal for the hover preview."""
+    return json.dumps(katex_macro_definitions(), ensure_ascii=False, sort_keys=True)
+
+
 def write_config(chapters, final_notes, questions) -> None:
     share = WIKI / SHARE_IMAGE
     width, height = png_size(share)
     if (width, height) != (SHARE_WIDTH, SHARE_HEIGHT):
         raise SystemExit(f"{SHARE_IMAGE} must be {SHARE_WIDTH} by {SHARE_HEIGHT}, not {width} by {height}")
 
+    preview_js = PREVIEW_JS.replace("/*__KATEX_MACROS__*/{}", katex_macros_literal(), 1)
+    if "/*__KATEX_MACROS__*/{}" in preview_js:
+        raise SystemExit("The hover preview did not receive the KaTeX macros")
     (WIKI / "_random.html").write_text(
         RANDOM_AND_FILTER_JS
-        + PREVIEW_JS
+        + preview_js
         + FILE_LINK_JS
         + SIDEBAR_JS
         + ASK_JS

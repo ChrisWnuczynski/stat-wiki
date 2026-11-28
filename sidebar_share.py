@@ -15,6 +15,7 @@ from __future__ import annotations
 import json
 import os
 import re
+import subprocess
 import sys
 from html.parser import HTMLParser
 from pathlib import Path
@@ -457,6 +458,22 @@ def main() -> None:
     print(
         f"Shared sidebar on {changed} pages; "
         f"{pages} HTML pages, median {median} bytes, _site {total} bytes"
+    )
+    # Search descriptions are already written: this script runs after
+    # search_meta.py. Table captions and build-time maths run here so the
+    # post-render list stays clear of the page-chrome accessibility edit.
+    apply_template_accessibility(SITE_DIR)
+
+
+def apply_template_accessibility(site: Path) -> None:
+    """Row headers, captions, and KaTeX HTML plus MathML for one rendered site."""
+    import table_a11y
+
+    table_a11y.main(site)
+    subprocess.run(
+        ["node", str(ROOT / "tools" / "prerender_math.mjs"), "--site", str(site)],
+        cwd=ROOT,
+        check=True,
     )
 
 

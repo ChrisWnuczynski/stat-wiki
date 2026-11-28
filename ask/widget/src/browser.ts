@@ -4,7 +4,15 @@
 import DOMPurify from "dompurify"
 import MarkdownIt from "markdown-it"
 
+import katexMacros from "../../../katex_macros.json"
+
 import { ANCHOR, dashProse, extractMath, escapeHtml, linkCitations, mapOutsideCode, MATH_TOKEN, normalizeDelimiters, safePage, type MathPiece, type Msg } from "./text.ts"
+
+// One table, generated from build_wiki.katex_macro_definitions(). KaTeX writes
+// \gdef into the object it is given, so every formula gets a copy.
+function katexMacrosForFormula(): Record<string, string> {
+  return { ...katexMacros }
+}
 
 type Katex = {
   render(tex: string, el: HTMLElement, options: Record<string, unknown>): void
@@ -100,7 +108,14 @@ function mathHtml(piece: MathPiece | undefined, katex: Katex | null): string {
   if (!piece) return ""
   if (katex) {
     try {
-      return katex.renderToString(piece.tex, { displayMode: piece.display, throwOnError: false, trust: false, strict: "ignore" })
+      return katex.renderToString(piece.tex, {
+        displayMode: piece.display,
+        throwOnError: false,
+        trust: false,
+        strict: "ignore",
+        output: "htmlAndMathml",
+        macros: katexMacrosForFormula(),
+      })
     } catch {
       // Fall through to the source.
     }
@@ -213,13 +228,28 @@ export async function loadPassage(href: string): Promise<Passage> {
   return { title, url: target.href, node }
 }
 
-/** Render the page's own maths spans, as the hover previews do. */
+/** Render only spans that are still TeX.
+
+A prerendered formula is already a `.katex` tree with MathML inside `span.math`.
+Its text is the spoken form plus the TeX annotation, so handing that text back
+to KaTeX replaces the formula and reads it twice. Spans that already contain
+KaTeX or MathML are left untouched. A raw span is typeset once, with MathML.
+*/
 export function renderPageMath(root: HTMLElement, katex: Katex | null): void {
   if (!katex) return
   root.querySelectorAll<HTMLElement>("span.math").forEach((el) => {
+    if (el.querySelector(".katex, math")) return
     const tex = (el.textContent ?? "").trim().replace(/^\\[([]/, "").replace(/\\[)\]]$/, "")
+    if (!tex) return
     try {
-      katex.render(tex, el, { displayMode: el.classList.contains("display"), throwOnError: false })
+      katex.render(tex, el, {
+        displayMode: el.classList.contains("display"),
+        throwOnError: false,
+        trust: false,
+        strict: "ignore",
+        output: "htmlAndMathml",
+        macros: katexMacrosForFormula(),
+      })
     } catch {
       // Leave the source.
     }

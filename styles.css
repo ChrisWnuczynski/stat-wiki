@@ -312,6 +312,12 @@ code, pre, kbd, samp, .sourceCode {
   font-weight: 600;
 }
 
+/* Row headers used to be ordinary cells. The column-header fill stays on thead. */
+.qtable tbody th[scope="row"] {
+  background: transparent;
+  font-weight: 400;
+}
+
 .qtable th,
 .qtable td {
   border: 1px solid var(--wiki-rule);
@@ -497,7 +503,8 @@ a.term:hover {
   display: none;
 }
 
-.infobox td {
+.infobox td,
+.infobox tbody th[scope="row"] {
   border: 0 !important;
   border-top: 1px solid var(--wiki-rule) !important;
   padding: 0.28rem 0.3rem !important;
@@ -514,7 +521,8 @@ a.term:hover {
   hyphens: manual;
 }
 
-.infobox td:first-child {
+.infobox td:first-child,
+.infobox tbody th[scope="row"] {
   font-weight: 600;
   width: 8.75rem;
   min-width: 8.75rem;
@@ -705,7 +713,8 @@ a.box-article:hover {
   text-align: left;
 }
 
-.qtable.glossary td:first-child {
+.qtable.glossary td:first-child,
+.qtable.glossary tbody th[scope="row"] {
   width: 15rem;
 }
 
@@ -959,6 +968,24 @@ nav#TOC h2#toc-title {
 #quarto-document-content table {
   display: block;
   overflow-x: auto;
+}
+
+/* A generated caption names the table for assistive technology. The heading
+   or infobox title is already on the page, so the caption takes no space. */
+caption.a11y-caption {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+tbody th[scope="row"] {
+  font-weight: 400;
 }
 
 .qtable table {
