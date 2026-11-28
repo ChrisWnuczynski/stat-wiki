@@ -20,7 +20,7 @@ The range alone cannot distinguish a central pile from a divided sample. The sam
 ## Worked example — Two batches with the same span
 Consider batch A, $2,4,6,8,10$, and batch B, $2,2,6,10,10$. Both have mean and median $6$, and both have range $8$. Their sums of squared deviations from the mean are $40$ and $64$, so their sample variances are $10$ and $16$. Their standard deviations are approximately $3.162$ and $4$. Equal ranges do not imply equal standard deviations because squared deviations use the interior observations as well as the endpoints.{{cite:nist_handbook2002}} (§1.3.5.6, variance versus range)
 
-Under the interpolated quartile positions $1+(n-1)p$, batch A has quartiles $4$ and $8$, hence interquartile range $4$. Batch B has quartiles $2$ and $10$, hence interquartile range $8$. In these small samples the central half is already close to the endpoints, which makes reporting the data themselves particularly useful.
+Under the interpolated quartile positions $1+(n-1)p$, batch A has quartiles $4$ and $8$, hence interquartile range $4$. Batch B has quartiles $2$ and $10$, hence interquartile range $8$. That $1+(n-1)p$ position rule is Hyndman–Fan type 7, R's default [sample quantile](sample-quantile.qmd) convention, whereas [five-number summary and boxplot](five-number-summary-and-boxplot.qmd) uses the $p(n+1)$ rule, which is type 6.{{cite:r_stats_quantile}} (Details, Type 6 and Type 7) In these small samples the central half is already close to the endpoints, which makes reporting the data themselves particularly useful.
 
 **Your turn.** Start with $3,5,8,12$. Append $7$, then append $20$. Find the range after each addition. What happens to all three ranges if every measurement is converted by $y=100-2x$?
 
