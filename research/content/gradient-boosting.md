@@ -6,9 +6,9 @@ A small regression tree may leave a systematic pattern in its prediction errors.
 
 Let $F_{m-1}$ denote the current score and let $L(y,F)$ be differentiable in its second argument. Compute pseudo-responses
 $$r_{im}=-\left.\frac{\partial L(y_i,F)}{\partial F}\right|_{F=F_{m-1}(x_i)}.$$
-Fit a base learner $h_m$ to these values, often by least squares, select a step $\gamma_m$ by minimising $\sum_iL(y_i,F_{m-1}(x_i)+\gamma h_m(x_i))$, and update
+Fit a base learner $h_m$ to these values, often by least squares, select a finite step $\gamma_m$—by minimising $\sum_iL(y_i,F_{m-1}(x_i)+\gamma h_m(x_i))$ when a finite minimiser exists—and update
 $$F_m(x)=F_{m-1}(x)+\nu\gamma_m h_m(x),\qquad0<\nu\le1.$$
-The fitted learner approximates a direction available in function space. It need not reproduce the negative gradient exactly at every observation.{{cite:natekin_knoll2013}} (§2.4, Algorithm1; §4.2)
+The fitted learner approximates a direction available in function space. It need not reproduce the negative gradient exactly at every observation.{{cite:natekin_knoll2013}} (§2.4, Algorithm1; §4.2) The line objective need not have a finite minimiser over $\gamma\in\mathbb R$ (for example under Bernoulli log loss), so a bounded search or another finite step rule is needed when its infimum is unattained.
 
 ## Properties — The loss determines the pseudo-response
 
