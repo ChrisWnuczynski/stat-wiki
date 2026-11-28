@@ -12,7 +12,7 @@ Let $D$ be the event that the condition is present and let $T+$ be a positive te
 $$
 \mathrm{PPV}=\Pr(D\mid T+)=\frac{ps}{ps+(1-p)(1-c)}.
 $$
-The numerator is the joint probability of a true positive. The second term in the denominator is the joint probability of a false positive.{{cite:pishro_nik2014}} (§5.1, conditional probability)
+This conditional probability is defined only when its denominator $\Pr(T+)$ is positive. The numerator is the joint probability of a true positive. The second term in the denominator is the joint probability of a false positive.{{cite:pishro_nik2014}} (§5.1, conditional probability)
 
 ::: {.callout-note collapse="true" title="Proof"}
 ::: {.proof}
