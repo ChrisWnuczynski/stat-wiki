@@ -11,18 +11,18 @@ Write two changes: how the outcome moved in the treated group, and how it moved 
 Let $A$ be treatment, $Y$ the outcome after treatment is available, and $C$ a pre-treatment measurement of the outcome, a negative outcome control. The effect of treatment on the treated, on the additive scale, is identified by
 
 $$
-\mathrm{E}[Y^{1}-Y^{0}\mid A=1]
-= \bigl(\mathrm{E}[Y\mid A=1]-\mathrm{E}[Y\mid A=0]\bigr)
-- \bigl(\mathrm{E}[C\mid A=1]-\mathrm{E}[C\mid A=0]\bigr)
+\E[Y^{1}-Y^{0}\mid A=1]
+= \bigl(\E[Y\mid A=1]-\E[Y\mid A=0]\bigr)
+- \bigl(\E[C\mid A=1]-\E[C\mid A=0]\bigr)
 $$
 
 
 when the additive confounding is the same for $C$ and for the untreated potential outcome $Y^{0}$. That common confounding is the assumption of additive equi-confounding.{{cite:hernan_robins2020}} (Ch. 7, Technical Point 7.3, p. 106)
 
-The pre-treatment contrast $\mathrm{E}[C\mid A=1]-\mathrm{E}[C\mid A=0]$ is not a causal effect of $A$ on $C$. It is a measure of confounding, because $A$ does not cause a measurement taken before $A$ existed.{{cite:hernan_robins2020}} (Ch. 7, Technical Point 7.3, p. 106)
+The pre-treatment contrast $\E[C\mid A=1]-\E[C\mid A=0]$ is not a causal effect of $A$ on $C$. It is a measure of confounding, because $A$ does not cause a measurement taken before $A$ existed.{{cite:hernan_robins2020}} (Ch. 7, Technical Point 7.3, p. 106)
 
 ## Statistical use
-The same number can be computed as a difference of changes. The change in the treated group is $\mathrm{E}[Y\mid A=1]-\mathrm{E}[C\mid A=1]$. The change in the comparison group is $\mathrm{E}[Y\mid A=0]-\mathrm{E}[C\mid A=0]$. Subtracting those changes reproduces the display above.{{cite:hernan_robins2020}} (Ch. 7, Technical Point 7.3, p. 106)
+The same number can be computed as a difference of changes. The change in the treated group is $\E[Y\mid A=1]-\E[C\mid A=1]$. The change in the comparison group is $\E[Y\mid A=0]-\E[C\mid A=0]$. Subtracting those changes reproduces the display above.{{cite:hernan_robins2020}} (Ch. 7, Technical Point 7.3, p. 106)
 
 Difference in differences is used when conditional exchangeability given the measured covariates is not believed, and a pre-treatment outcome is available to stand in for the unmeasured common causes. It sits with instrumental-variable estimation as a method that trades one unverifiable assumption for another. The target it identifies, under additive equi-confounding, is the average effect in the treated, not automatically the average effect in the whole population. Measured covariates can be adjusted for at the same time, by parametric or semiparametric versions of the same contrast.{{cite:hernan_robins2020}} (Ch. 7, §7.6, pp. 104–106)
 

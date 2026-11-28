@@ -7,7 +7,7 @@ When many related means are estimated, a prior centre and spread can determine h
 Suppose $X_i\mid\theta_i\sim N(\theta_i,s_i^2)$ and $\theta_i\mid m,\tau^2\sim N(m,\tau^2)$. Integrating out $\theta_i$ gives $X_i\mid m,\tau^2\sim N(m,s_i^2+\tau^2)$. Marginal maximum likelihood is one way to estimate $(m,\tau^2)$; other empirical-Bayes procedures estimate the mixing distribution more generally. The normal-means shrinkage calculation uses information across coordinates to estimate prior-scale features.{{cite:efron_morris1975}} (§1, p.312, Eqs.1.8–1.9)
 
 With the hyperparameters fixed, completion of the square gives
-$$E(\theta_i\mid X_i)=m+B_i(X_i-m),\quad
+$$\E(\theta_i\mid X_i)=m+B_i(X_i-m),\quad
  B_i=\frac{\tau^2}{\tau^2+s_i^2},\qquad
  V_i=\frac{\tau^2s_i^2}{\tau^2+s_i^2}.$$
 Small sampling variance gives a weight near one; a narrow prior gives stronger shrinkage. The precision-addition argument is the same Gaussian conjugacy calculation used for a fixed normal prior.{{cite:deisenroth_faisal_ong2020}} (§6.6.1, pp.208–210, Table6.2)
@@ -30,8 +30,8 @@ Substituting fitted hyperparameters produces a conditional posterior. A hierarch
 
 The law of total variance separates the consequences:
 $$\operatorname{Var}(\theta\mid X)=
- E\{\operatorname{Var}(\theta\mid X,\eta)\mid X\}
- +\operatorname{Var}\{E(\theta\mid X,\eta)\mid X\}.$$
+ \E\{\operatorname{Var}(\theta\mid X,\eta)\mid X\}
+ +\operatorname{Var}\{\E(\theta\mid X,\eta)\mid X\}.$$
 For an equal mixture of $N(5,1)$ and $N(9,1)$, the mean is seven and the variance is $1+4=5$. Reporting only a within-component variance of one omits the between-component contribution. This calculation illustrates uncertainty propagation; it does not impose a universal ordering between every fitted interval and every hierarchical interval.{{cite:deisenroth_faisal_ong2020}} (§6.5.3, pp.202–203, Thm.6.12)
 
 ## Statistical use — Unequal information across groups

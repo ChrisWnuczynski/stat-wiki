@@ -30,13 +30,13 @@ An iid sample is exchangeable because multiplication is unchanged by reordering.
 For an infinitely exchangeable sequence of zero–one variables, de Finetti's representation gives a probability distribution $F$ on $[0,1]$ such that
 
 $$
-P(X_1=x_1,\ldots,X_n=x_n)=\int_0^1\prod_{i=1}^n t^{x_i}(1-t)^{1-x_i}\,dF(t).
+\mathbb{P}(X_1=x_1,\ldots,X_n=x_n)=\int_0^1\prod_{i=1}^n t^{x_i}(1-t)^{1-x_i}\,dF(t).
 $$
 
 The sequence is therefore conditionally iid Bernoulli given a latent success probability $t$. Unconditionally the observations generally depend on one another. This representation requires an *infinite* exchangeable sequence, or a finite vector extendible consistently to all lengths; a symmetric vector of a fixed size alone does not qualify.{{cite:gelman_bda2013}} (Ch. 5, §5.2, p. 105)
 
 ::: {.callout-note collapse="true" title="Proof"}
-Suppose $X_i\mid\Theta=t$ are iid Bernoulli$(t)$ and $\Theta$ has distribution $F$. For a vector containing $s$ ones, its conditional probability is $t^s(1-t)^{n-s}$, which is unchanged by any permutation. Integration over $F$ preserves that equality, proving exchangeability. Moreover, $E(X_i)=E(\Theta)$ and, for $i\ne j$, $E(X_iX_j)=E(\Theta^2)$; hence $\operatorname{Cov}(X_i,X_j)=\operatorname{Var}(\Theta)\ge0$. For the two-ball draw without replacement, $E(X_i)=1/2$ and $E(X_1X_2)=0$, giving covariance $-1/4$. That finite exchangeable pair cannot arise from an iid Bernoulli mixture. This proves the forward mixture implication and the finite counterexample; the converse representation for infinite sequences requires the separate limiting argument.{{cite:gelman_bda2013}} (Ch. 5, §5.2, p. 105)
+Suppose $X_i\mid\Theta=t$ are iid Bernoulli$(t)$ and $\Theta$ has distribution $F$. For a vector containing $s$ ones, its conditional probability is $t^s(1-t)^{n-s}$, which is unchanged by any permutation. Integration over $F$ preserves that equality, proving exchangeability. Moreover, $\E(X_i)=\E(\Theta)$ and, for $i\ne j$, $\E(X_iX_j)=\E(\Theta^2)$; hence $\operatorname{Cov}(X_i,X_j)=\operatorname{Var}(\Theta)\ge0$. For the two-ball draw without replacement, $\E(X_i)=1/2$ and $\E(X_1X_2)=0$, giving covariance $-1/4$. That finite exchangeable pair cannot arise from an iid Bernoulli mixture. This proves the forward mixture implication and the finite counterexample; the converse representation for infinite sequences requires the separate limiting argument.{{cite:gelman_bda2013}} (Ch. 5, §5.2, p. 105)
 :::
 
 ## Statistical use — Borrowing strength carefully
@@ -47,12 +47,12 @@ The distinction between latent parameters and observations also matters in repea
 If all historical rat studies came from laboratory A while the new study came from laboratory B, lab membership distinguishes the new rate before any tumour count is observed. If risk changes over calendar time, permuting years discards a meaningful order. If larger studies were deliberately assigned to high-risk strains, $n_j$ itself can reveal information about $\theta_j$. In each case an unqualified exchangeable-rate prior can overpool unlike studies; use strata, covariates or separate hierarchies. A fixed finite collection may also be exchangeable without an iid-mixture representation, as the negatively dependent two-ball example shows.{{cite:gelman_bda2013}} (Ch. 5, §§5.1–5.2, pp. 103–106)
 
 ## Worked example
-Suppose a common success probability $\Theta$ has a $\operatorname{Beta}(2,3)$ distribution and $X_1,X_2$ are Bernoulli trials conditional on $\Theta$. Then $E\Theta=2/5=0.4$ and $E\Theta^2=2(3)/(5\cdot6)=0.2$. The ordered probabilities are $P(1,1)=0.2$, $P(1,0)=P(0,1)=E[\Theta(1-\Theta)]=0.2$, and $P(0,0)=0.4$. The two middle sequences have equal probability, confirming exchangeability; yet $\operatorname{Cov}(X_1,X_2)=0.2-0.4^2=0.04$, confirming dependence. After observing a success, the predictive probability of another success is $3/6=0.5$; after a failure it is $2/6=1/3\approx0.333333$. The first result changes the prediction because it updates the common latent probability.{{cite:gelman_bda2013}} (Ch. 5, §§5.1–5.2)
+Suppose a common success probability $\Theta$ has a $\operatorname{Beta}(2,3)$ distribution and $X_1,X_2$ are Bernoulli trials conditional on $\Theta$. Then $\E\Theta=2/5=0.4$ and $\E\Theta^2=2(3)/(5\cdot6)=0.2$. The ordered probabilities are $\mathbb{P}(1,1)=0.2$, $\mathbb{P}(1,0)=\mathbb{P}(0,1)=\E[\Theta(1-\Theta)]=0.2$, and $\mathbb{P}(0,0)=0.4$. The two middle sequences have equal probability, confirming exchangeability; yet $\operatorname{Cov}(X_1,X_2)=0.2-0.4^2=0.04$, confirming dependence. After observing a success, the predictive probability of another success is $3/6=0.5$; after a failure it is $2/6=1/3\approx0.333333$. The first result changes the prediction because it updates the common latent probability.{{cite:gelman_bda2013}} (Ch. 5, §§5.1–5.2)
 
 **Your turn.** A bag contains exactly one red and one blue ball. Draw both without replacement and mark red by $1$. Find the two ordered probabilities, each marginal mean and the covariance. Is this pair exchangeable? Could it be two draws from a mixture of iid Bernoulli laws?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The outcomes $(1,0)$ and $(0,1)$ each have probability $1/2$. Each marginal mean is $1/2$, while $E(X_1X_2)=0$, so the covariance is $0-(1/2)^2=-1/4$. Swapping the labels exchanges the two equally likely outcomes, hence the pair is exchangeable. An iid Bernoulli mixture has covariance $\operatorname{Var}(\Theta)\ge0$, so it cannot produce this pair.
+The outcomes $(1,0)$ and $(0,1)$ each have probability $1/2$. Each marginal mean is $1/2$, while $\E(X_1X_2)=0$, so the covariance is $0-(1/2)^2=-1/4$. Swapping the labels exchanges the two equally likely outcomes, hence the pair is exchangeable. An iid Bernoulli mixture has covariance $\operatorname{Var}(\Theta)\ge0$, so it cannot produce this pair.
 :::
 
 ## Common misconceptions

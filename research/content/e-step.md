@@ -11,13 +11,13 @@ Imagine that the component labels were visible. A labelled observation would con
 Let $X$ denote observed data, $Z$ the missing labels, and $\ell_C(\Psi;X,Z)$ the complete-data log likelihood. At iteration $k$ the E step computes
 
 $$
-Q(\Psi;\Psi^{(k)})=E_{\Psi^{(k)}}\{\ell_C(\Psi;X,Z)\mid X\}.
+Q(\Psi;\Psi^{(k)})=\E_{\Psi^{(k)}}\{\ell_C(\Psi;X,Z)\mid X\}.
 $$
 
 For independent observations from a finite mixture, $Z_{ih}$ is one if observation $i$ belongs to component $h$, and zero otherwise. If its current weight and density are $\pi_h^{(k)}$ and $f_h(x_i;\theta_h^{(k)})$, the *responsibility* is
 
 $$
-\tau_{ih}^{(k)}=E_{\Psi^{(k)}}(Z_{ih}\mid x_i)
+\tau_{ih}^{(k)}=\E_{\Psi^{(k)}}(Z_{ih}\mid x_i)
 =\frac{\pi_h^{(k)}f_h(x_i;\theta_h^{(k)})}
 {\sum_{m=1}^{H}\pi_m^{(k)}f_m(x_i;\theta_m^{(k)})}.
 $$

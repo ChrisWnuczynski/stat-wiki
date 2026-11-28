@@ -10,12 +10,12 @@ From $n$ observed cases, draw $n$ cases independently with replacement to form e
 
 Condition on the observed training data $D$. If independently generated bootstrap fits have predictions $F_1(x),\ldots,F_B(x)$ with conditional mean $m_D$ and variance $v_D$, then
 $$
-E(\bar F_B\mid D)=m_D,\qquad
+\E(\bar F_B\mid D)=m_D,\qquad
 \operatorname{Var}(\bar F_B\mid D)=v_D/B.
 $$
 That reduction concerns Monte Carlo variation from generating a finite ensemble. Across new training datasets, the infinite-ensemble prediction $m_D$ still varies. By total variance,
 $$
-\operatorname{Var}(\bar F_B)=\operatorname{Var}(m_D)+E(v_D)/B.
+\operatorname{Var}(\bar F_B)=\operatorname{Var}(m_D)+\E(v_D)/B.
 $$
 Adding trees removes the second contribution, not the sampling variation of $m_D$. The bootstrap approximation to ideal repeated-sample aggregation can also change bias, so bias preservation is not a general guarantee of bagging.{{cite:breiman1996_bagging}} (§4)
 

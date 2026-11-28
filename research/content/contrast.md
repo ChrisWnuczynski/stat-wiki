@@ -24,7 +24,7 @@ Two estimated contrasts with coefficient vectors $c$ and $d$ have covariance $\s
 
 ::: {.callout-note collapse="true" title="Proof"}
 ::: {.proof}
-Linearity gives $E(\widehat C)=\sum_jc_jE(\overline Y_{\cdot j})=C$. Independent groups have $\operatorname{Var}(\overline Y_{\cdot j})=\sigma^2/n_j$, so variance and covariance of weighted sums give $\operatorname{Var}(\widehat C)=\sigma^2\sum_j c_j^2/n_j$ and $\operatorname{Cov}(\widehat C,\widehat D)=\sigma^2\sum_j c_jd_j/n_j$. If all treatment means rise by $a$, the contrast rises by $a\sum_jc_j=0$, proving its common-shift invariance.
+Linearity gives $\E(\widehat C)=\sum_jc_jE(\overline Y_{\cdot j})=C$. Independent groups have $\operatorname{Var}(\overline Y_{\cdot j})=\sigma^2/n_j$, so variance and covariance of weighted sums give $\operatorname{Var}(\widehat C)=\sigma^2\sum_j c_j^2/n_j$ and $\operatorname{Cov}(\widehat C,\widehat D)=\sigma^2\sum_j c_jd_j/n_j$. If all treatment means rise by $a$, the contrast rises by $a\sum_jc_j=0$, proving its common-shift invariance.
 
 For normal independent errors, the group means are jointly normal and independent of the pooled within-group sum of squares. Under $C=0$, dividing $\widehat C/\{\sigma\sqrt{\sum c_j^2/n_j}\}$ by the independent square root of $\mathrm{MSE}/\sigma^2$ gives $t_{N-k}$; squaring gives $F_{1,N-k}$. The argument assumes the coefficients are fixed independently of the responses used in the test. {{cite:nist_contrasts2002}} (§7.4.3.6, group-mean variance and contrast interval)
 :::

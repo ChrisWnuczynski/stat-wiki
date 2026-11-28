@@ -18,7 +18,7 @@ The average effect in that population is zero. The null hypothesis of no average
 For a binary treatment, write $Y^{a=1}$ for the outcome that would be seen under treatment and $Y^{a=0}$ for the outcome under the comparison. An average causal effect is present when the population means differ,
 
 $$
-\mathrm{E}[Y^{a=1}] \neq \mathrm{E}[Y^{a=0}].
+\E[Y^{a=1}] \neq \E[Y^{a=0}].
 $$
 
 

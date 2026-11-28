@@ -7,7 +7,7 @@ A gambler stops when their fortune reaches zero or a target. The chance of succe
 ## Definition — Stop at either boundary
 Let $X_n$ move up one with probability $p\in(0,1)$ and down one with probability $q=1-p$. On the finite interval $\{0,\ldots,d\}$, with integer $d\ge2$, define
 $$
-T=\inf\{n\ge0:X_n\in\{0,d\}\},\qquad e_x=E(T\mid X_0=x).
+T=\inf\{n\ge0:X_n\in\{0,d\}\},\qquad e_x=\E(T\mid X_0=x).
 $$
 A start at an absorbing boundary gives $e_0=e_d=0$. At an interior state,
 $$
@@ -15,7 +15,7 @@ e_x=1+pe_{x+1}+qe_{x-1}.
 $$
 The initial one counts the first transition, including a transition that ends the game.{{cite:durrett2012_essentials}} (§1.9, first-step equations, Ex. 1.49)
 
-The finite mean follows without assuming the formula. From any interior state, $d$ consecutive upward steps cause absorption with probability at least $p^d>0$. Applying that bound in blocks of $d$ steps gives $P(T>md)\le(1-p^d)^m$. Summing this geometric tail bounds $E(T)$. The same reasoning guarantees eventual absorption.{{cite:grinstead_snell1997}} (§11.2, absorbing chains and expected absorption time)
+The finite mean follows without assuming the formula. From any interior state, $d$ consecutive upward steps cause absorption with probability at least $p^d>0$. Applying that bound in blocks of $d$ steps gives $\mathbb{P}(T>md)\le(1-p^d)^m$. Summing this geometric tail bounds $\E(T)$. The same reasoning guarantees eventual absorption.{{cite:grinstead_snell1997}} (§11.2, absorbing chains and expected absorption time)
 
 ## Properties — A quadratic for a fair walk
 For $p=q=1/2$, the recurrence becomes
@@ -29,7 +29,7 @@ $$
 The duration grows quadratically when starting position and interval width are enlarged by the same integer factor.{{cite:durrett2012_essentials}} (§1.9, Ex. 1.49, pp. 52–53)
 
 ## Interpretation — Success probability enters the biased formula
-Let $h_x=P_x(X_T=d)$. The same first-step reasoning, now without charging a step, gives $h_x=ph_{x+1}+qh_{x-1}$, $h_0=0,h_d=1$. For $p\ne q$, putting $r=q/p$ gives
+Let $h_x=\mathbb{P}_x(X_T=d)$. The same first-step reasoning, now without charging a step, gives $h_x=ph_{x+1}+qh_{x-1}$, $h_0=0,h_d=1$. For $p\ne q$, putting $r=q/p$ gives
 $$
 h_x=\frac{1-r^x}{1-r^d},\qquad
  e_x=\frac{x-dh_x}{q-p}.

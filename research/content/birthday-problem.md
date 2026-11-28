@@ -7,19 +7,19 @@ Birthdays provide a model for repeated random labels: hash values, identificatio
 ## Properties — Counting and approximating the complement
 For $0\le n\le m$,
 $$
-P(\text{collision})=1-\frac{m!}{(m-n)!m^n}.
+\mathbb{P}(\text{collision})=1-\frac{m!}{(m-n)!m^n}.
 $$
 For $n>m$ the probability is one. The numerator counts ordered distinct labels; choosing an unordered set would require multiplying $\binom mn$ by $n!$. Using $\binom mn$ alone would compare an unordered count against an ordered sample space.{{cite:dodge2008}} (pp. 98–99, combinations and combinatory analysis)
 
 Writing the product on a logarithmic scale explains the square-root threshold:
 $$
-\log P(\text{no collision})=\sum_{j=0}^{n-1}\log(1-j/m)
+\log \mathbb{P}(\text{no collision})=\sum_{j=0}^{n-1}\log(1-j/m)
 \approx-\frac{n(n-1)}{2m}.
 $$
 Thus a collision probability near one half occurs around $n(n-1)=2m\log2$. The approximation applies when the individual ratios $j/m$ are small; it should be checked against the product near a decision threshold.{{cite:grinstead_snell1997}} (§3.1, ex. 19, pp. 90–91)
 
 ::: {.callout-note collapse="true" title="Derivation"}
-Let $I_{ab}$ indicate that draws $a$ and $b$ match, and put $C=\sum_{a<b}I_{ab}$. Each indicator has mean $1/m$, so linearity gives $E(C)=\binom n2/m$, without needing independence among indicators. Moreover $1_{\{C\ge1\}}\le C$, hence $P(C\ge1)\le E(C)$. The exponential approximation follows by using $\log(1-u)=-u+O(u^2)$ in the product; its log error is of order $n^3/m^2$. This derives both the expected pair count and its relationship to the collision probability.
+Let $I_{ab}$ indicate that draws $a$ and $b$ match, and put $C=\sum_{a<b}I_{ab}$. Each indicator has mean $1/m$, so linearity gives $\E(C)=\binom n2/m$, without needing independence among indicators. Moreover $1_{\{C\ge1\}}\le C$, hence $\mathbb{P}(C\ge1)\le \E(C)$. The exponential approximation follows by using $\log(1-u)=-u+O(u^2)$ in the product; its log error is of order $n^3/m^2$. This derives both the expected pair count and its relationship to the collision probability.
 :::
 
 ### Why pair indicators are not a binomial count

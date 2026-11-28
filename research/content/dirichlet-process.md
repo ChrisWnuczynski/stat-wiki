@@ -118,10 +118,10 @@ two-component Dirichlet vector is a beta distribution. The Dirichlet
 moments recorded by Ferguson {{cite:ferguson1973}} (§2, p. 212), applied
 to this marginal, give
 
-$$E[G(A)] = G_0(A), \qquad
+$$\E[G(A)] = G_0(A), \qquad
 \mathrm{Var}(G(A)) = \frac{G_0(A)(1 - G_0(A))}{\alpha + 1}.$$
 
-The expectation is Ferguson's Proposition 1: $E[P(A)] = \alpha(A)/\alpha(\mathcal{X})$ {{cite:ferguson1973}} (Proposition 1, pp. 214–215). The variance formula is exact: the prior mean of $G(A)$
+The expectation is Ferguson's Proposition 1: $\E[P(A)] = \alpha(A)/\alpha(\mathcal{X})$ {{cite:ferguson1973}} (Proposition 1, pp. 214–215). The variance formula is exact: the prior mean of $G(A)$
 does not depend on $\alpha$, and its variance is the largest possible
 for a probability with that mean, $G_0(A)(1 - G_0(A))$, divided by
 $\alpha + 1$. As $\alpha$ grows, $G$ concentrates around $G_0$; as
@@ -201,10 +201,10 @@ off a fraction $V_2$; that piece, of length $\pi_2 = V_2(1 - V_1)$, is
 the weight of $\theta_2$. Continue indefinitely. The mass remaining
 after $K$ breaks, $\prod_{j \leq K} (1 - V_j)$, tends to zero with
 probability one, so the weights sum to one. The expected weights are
-exact: $E[V_k] = 1/(1 + \alpha)$ and independence gives $E[\pi_k] =
+exact: $\E[V_k] = 1/(1 + \alpha)$ and independence gives $\E[\pi_k] =
 \frac{1}{1 + \alpha} \left(\frac{\alpha}{1 + \alpha}\right)^{k-1}$,
-a geometric sequence; for $\alpha = 2$, $E[\pi_1] = 1/3$ and
-$E[\pi_2] = 2/9$. Large $\alpha$ spreads mass over many atoms; small
+a geometric sequence; for $\alpha = 2$, $\E[\pi_1] = 1/3$ and
+$\E[\pi_2] = 2/9$. Large $\alpha$ spreads mass over many atoms; small
 $\alpha$ makes the first few breaks large, so a draw is dominated by a
 handful of atoms.
 
@@ -218,10 +218,10 @@ sampling independence holds given the shared random measure, and it
 is the integration over $G$ that makes the sequence dependent. The
 sequence is [exchangeable](exchangeability.qmd), so it can be
 described by its successive conditionals, which have a closed form. Blackwell and
-MacQueen define a Pólya sequence by $P(X_1 \in B) =
+MacQueen define a Pólya sequence by $\mathbb{P}(X_1 \in B) =
 \alpha(B)/\alpha(\mathcal{X})$ and
 
-$$P(X_{n+1} \in B \mid X_1, \dots, X_n) =
+$$\mathbb{P}(X_{n+1} \in B \mid X_1, \dots, X_n) =
 \frac{\alpha(B) + \sum_{i=1}^{n} \delta_{X_i}(B)}{\alpha(\mathcal{X}) + n}$$
 
 for every measurable set $B$, where $\delta_{x}(B)$ is one if $x \in B$
@@ -315,7 +315,7 @@ weighted average of $G_0$ and the empirical distribution, with weights
 $\alpha/(\alpha + n)$ and $n/(\alpha + n)$, so every prior result
 transfers. In particular,
 
-$$E[G(A) \mid X_1, \dots, X_n] =
+$$\E[G(A) \mid X_1, \dots, X_n] =
 \frac{\alpha G_0(A) + \#\{i : X_i \in A\}}{\alpha + n},$$
 
 which is also the predictive probability that a further draw falls in
@@ -373,9 +373,9 @@ the atom count.
 customers are seated with three at one table and two at another. For
 the sixth customer the denominator is $\alpha + n = 2 + 5 = 7$, so
 
-$$P(\text{join the table of 3}) = \frac{3}{7} \approx 0.428571, \qquad
-P(\text{join the table of 2}) = \frac{2}{7} \approx 0.285714, \qquad
-P(\text{new table}) = \frac{2}{7} \approx 0.285714.$$
+$$\mathbb{P}(\text{join the table of 3}) = \frac{3}{7} \approx 0.428571, \qquad
+\mathbb{P}(\text{join the table of 2}) = \frac{2}{7} \approx 0.285714, \qquad
+\mathbb{P}(\text{new table}) = \frac{2}{7} \approx 0.285714.$$
 
 The probabilities sum to $3/7 + 2/7 + 2/7 = 1$. A new table is exactly
 as probable as joining the smaller table, because $\alpha = 2$ gives
@@ -387,7 +387,7 @@ not the data pattern, sets the rate at which new clusters open.
 tables after $n$ customers. Summing the indicators of new tables,
 each with probability $\alpha/(\alpha + i - 1)$ at step $i$, gives
 
-$$E[K_n] = \sum_{i=1}^{n} \frac{\alpha}{\alpha + i - 1},$$
+$$\E[K_n] = \sum_{i=1}^{n} \frac{\alpha}{\alpha + i - 1},$$
 
 Antoniak's formula for the expected number of tables
 {{cite:antoniak1974}} (§4, pp. 1160–1161). When $G_0$ is nonatomic,
@@ -399,14 +399,14 @@ For $\alpha = 2$ and $n = 5$ this is $2/2 + 2/3 + 2/4 + 2/5 + 2/6 =
 29/10 = 2.9$ exactly. For $\alpha = 1$ the terms simplify to $1/i$, and
 for $n = 10$,
 
-$$E[K_{10}] = \sum_{i=1}^{10} \frac{1}{i} = H_{10} =
+$$\E[K_{10}] = \sum_{i=1}^{10} \frac{1}{i} = H_{10} =
 \frac{7381}{2520} \approx 2.928968,$$
 
 where $H_{10}$ is the tenth harmonic number. Ten draws under $\alpha = 1$ thus produce, on average, fewer than
 three tables — and, when $G_0$ is nonatomic, fewer than three
 distinct values: the discreteness of $G$ is the typical behaviour
 of the model, not a tail event. The expectation grows only logarithmically in $n$ — Escobar and
-West give the approximation $E[K_n] \approx \alpha
+West give the approximation $\E[K_n] \approx \alpha
 \log\left(\frac{\alpha + n}{\alpha}\right)$, which for $\alpha = 1$
 and $n = 10$ gives $\log 11 \approx 2.397895$, below the exact
 $2.928968$ at this small $n$ {{cite:escobar_west1995}} (p. 578) — yet
@@ -431,10 +431,10 @@ according to $G_0$.
 Take $A = [0, 0.5]$, so $G_0(A) = 1/2$ and $A$ contains three of the
 four observations. The posterior mean is
 
-$$E[G(A) \mid \text{data}] = \frac{3 \times \frac{1}{2} + 3}{7}
+$$\E[G(A) \mid \text{data}] = \frac{3 \times \frac{1}{2} + 3}{7}
 = \frac{9}{14} \approx 0.642857.$$
 
-Predictively, $P(X_5 = 0.2 \mid \text{data}) = 3/7$, $P(X_5 = 0.7
+Predictively, $\mathbb{P}(X_5 = 0.2 \mid \text{data}) = 3/7$, $\mathbb{P}(X_5 = 0.7
 \mid \text{data}) = 1/7$, and the probability that a new value falls
 in $A$ is $(3/7)(1/2) = 3/14$; joining the atom in $A$ and drawing a new
 value in $A$ give $3/7 + 3/14 = 9/14$, agreeing with the posterior
@@ -510,7 +510,7 @@ component is $1/(1 + \alpha)$ {{cite:neal2000_dpmm}} (p. 252).
 
 Escobar and West give the canonical instance, a mixture of normals for
 density estimation: $G$ over mean–variance pairs follows a Dirichlet
-process with $E[G] = G_0$, where $G_0$ is a normal/inverse-gamma prior,
+process with $\E[G] = G_0$, where $G_0$ is a normal/inverse-gamma prior,
 conjugate to the normal kernel, and $\alpha$ is a precision parameter
 for the concentration of $G$ about $G_0$ {{cite:escobar_west1995}} (§2, p. 578). The predictive density is a data-adaptive kernel estimate
 with component parameters shrunk towards the prior, inheriting a kernel
@@ -570,7 +570,7 @@ point masses, whatever $G_0$ is. Smooth densities arise only after the
 draw is convolved with a continuous kernel, in a mixture.
 
 **"$G_0$ is the distribution the data came from."** $G_0$ is the prior
-mean, $E[G(A)] = G_0(A)$. A draw $G$ differs from $G_0$ in every
+mean, $\E[G(A)] = G_0(A)$. A draw $G$ differs from $G_0$ in every
 realisation, by an amount governed by $\alpha$; confusing the mean
 with a draw understates the spread by exactly the variance $G_0(A)(1 -
 G_0(A))/(\alpha + 1)$.

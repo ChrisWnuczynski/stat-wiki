@@ -10,7 +10,7 @@ The distinction matters because two errors have different causes. Starting-state
 **Direct posterior simulation** differs: drawing fresh independent pairs from a known factorisation produces a new target draw each time, so there is no initial segment to discard. Ordinary MCMC output may remain dependent after burn-in. For a chain $X_0,X_1,\ldots,X_T$ targeting a stationary distribution $\pi$, choose a nonnegative integer $B<T$ and retain $X_{B+1},\ldots,X_T$ for a Monte Carlo summary. The initial segment $X_0,\ldots,X_B$ is discarded as burn-in under this indexing convention. For an integrable function $h$, the retained average is
 $$
 \widehat{\mu}_{B,T}=\frac{1}{T-B}\sum_{t=B+1}^{T}h(X_t),
-\qquad \mu=\operatorname{E}_{\pi}\{h(X)\}.
+\qquad \mu=\E_{\pi}\{h(X)\}.
 $$
 The number $B$ is a computational choice, not a property of the target distribution. Other software may count the initial state differently, so the relevant record is which draws were retained. Burn-in should be accompanied by an assessment of whether the sampler explored the target well enough for the desired summary.{{cite:geyer1992}} (§3.7, p. 480){{cite:gelman_rubin1992}} (§1.3, pp. 458–459)
 
