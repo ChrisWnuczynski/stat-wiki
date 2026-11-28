@@ -5,7 +5,7 @@ An ARIMA model differences a wandering series until the changes look stationary,
 A random walk observed at $12$ has point forecasts equal to $12$ at every horizon when there is no drift. Differencing white noise of variance $4$ produces a series of variance $8$ and lag-$1$ autocorrelation $-1/2$.
 
 ## Intuition — Integration is the undo button for differencing
-A series with a trend or a changing level does not have one fixed mean, so a stationary autoregression is the wrong model for the levels. Differencing, $y'_t=y_t-y_{t-1}$, removes a shift in level. An ARIMA model then puts an autoregressive moving-average structure on the differenced series. The word integrated means that the forecast of the differences is added back up to a forecast of the level.{{cite:hyndman_athanasopoulos2021}} (§9.1, differencing; §9.5, the meaning of integrated)
+A series with a trend or a changing level does not have one fixed mean, so a stationary autoregression is the wrong model for the levels. First differencing, $y'_t=y_t-y_{t-1}$, passes from levels to consecutive changes to help stabilise the mean, though it turns a permanent step shift in level into a one-time pulse rather than removing it. An ARIMA model then puts an autoregressive moving-average structure on the differenced series. The word integrated means that the forecast of the differences is added back up to a forecast of the level.{{cite:hyndman_athanasopoulos2021}} (§9.1, differencing; §9.5, the meaning of integrated)
 
 ## Definition — Orders for autoregression, differences and moving average
 An ARIMA$(p,d,q)$ model differences the series $d$ times and then uses $p$ autoregressive terms and $q$ moving-average terms. With $y'_t$ the differenced series,
