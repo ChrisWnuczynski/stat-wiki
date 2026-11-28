@@ -9,13 +9,14 @@ The finite-state definition, the Chapman–Kolmogorov product, simulation from a
 ::: {#def-sp-dtmc .definition}
 ## Discrete-time Markov chain
 
-A process $X_0,X_1,\ldots$ on a finite or countable state space $S$ is a discrete-time Markov chain when
+A process $X_0,X_1,\ldots$ on a finite or countable state space $S$ is a discrete-time Markov chain when, for every $n$ and every choice of states whose joint conditioning history has positive probability,
 
 $$
-\Pr(X_{n+1}=j\given X_n=i,X_{n-1},\ldots,X_0)=\Pr(X_{n+1}=j\given X_n=i)=p_{ij}
+\Pr(X_{n+1}=j\given X_n=i,X_{n-1}=i_{n-1},\ldots,X_0=i_0)=\Pr(X_{n+1}=j\given X_n=i)=p_{ij}.
 $$
+{{cite:levin_peres2017}} (§1.1, pp. 2–4)
 
-for every $n$ and every choice of states.{{cite:levin_peres2017}} (§1.1, pp. 2–4) The chain is time-homogeneous when $p_{ij}$ does not depend on $n$. The transition matrix $P=(p_{ij})$ has non-negative entries, and every row sums to $1$.{{cite:levin_peres2017}} (§1.1, pp. 2–4)
+The chain is time-homogeneous when $p_{ij}$ does not depend on $n$. The transition matrix $P=(p_{ij})$ has non-negative entries, and every row sums to $1$.{{cite:levin_peres2017}} (§1.1, pp. 2–4)
 
 :::
 
