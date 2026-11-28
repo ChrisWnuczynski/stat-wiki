@@ -2089,6 +2089,7 @@ _CITE_SUP_KEY_RE = re.compile(
 )
 _EXPLICIT_CITE_RE = re.compile(r"\{\{cite:([a-z0-9_,\s]+)\}\}")
 _AFTER_CITE_PUNCT_RE = re.compile(r"^[.,;:!?]+")
+_ADJACENT_CITE_SEP_RE = re.compile(r"^[ \t]*;+[ \t]*(?:\r?\n[ \t]*)?$")
 _LOCATOR_MATH_RE = re.compile(r"\$\$([^$]+?)\$\$|\$([^$]+?)\$", re.S)
 
 
@@ -2731,23 +2732,54 @@ class PageCitationLinker:
         if not events:
             return seg
 
+        def _consume_locator(end_pos: int) -> tuple[str, int]:
+            embedded = _EMBEDDED_LOCATOR_RE.match(seg[end_pos:])
+            if embedded:
+                return (
+                    base64.urlsafe_b64decode(embedded.group(1).encode()).decode(),
+                    end_pos + embedded.end(),
+                )
+            return _following_locator(seg, end_pos)
+
         events.sort(key=lambda item: item[0])
         out: list[str] = []
         pos = 0
-        for start, end, mode, keys in events:
+        idx = 0
+        n_events = len(events)
+        while idx < n_events:
+            start, end, mode, keys = events[idx]
+            idx += 1
             if start < pos:
                 continue
             out.append(seg[pos:start])
             if mode == "drop":
                 pos = end
                 continue
-            embedded = _EMBEDDED_LOCATOR_RE.match(seg[end:])
-            if embedded:
-                locator = base64.urlsafe_b64decode(embedded.group(1).encode()).decode()
-                end += embedded.end()
-            else:
-                locator, end = _following_locator(seg, end)
-            sups = self.cite_sups(keys, locator)
+            locator, end = _consume_locator(end)
+            sups_parts = [self.cite_sups(keys, locator)]
+            while idx < n_events:
+                next_start, next_end, next_mode, next_keys = events[idx]
+                if next_start < end:
+                    idx += 1
+                    continue
+                if not _ADJACENT_CITE_SEP_RE.match(seg[end:next_start]):
+                    break
+                if next_mode == "drop":
+                    if (
+                        idx + 1 < n_events
+                        and events[idx + 1][0] == next_end
+                        and events[idx + 1][2] != "drop"
+                    ):
+                        idx += 1
+                        _, next_end, next_mode, next_keys = events[idx]
+                        idx += 1
+                    else:
+                        break
+                else:
+                    idx += 1
+                next_locator, end = _consume_locator(next_end)
+                sups_parts.append(self.cite_sups(next_keys, next_locator))
+            sups = "".join(sups_parts)
             # The author-year words are not printed beside the number. Punctuation stays
             # before the superscript: "the claim.{{cite:key}}" and "(Author, 1998)." both
             # render as "the claim.[n]". A following "(p. 12)" is kept on the note.
