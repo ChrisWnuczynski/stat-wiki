@@ -8450,6 +8450,20 @@
         "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/08:_Set_Estimation/8.01:_Introduction_to_Set_Estimation"
       }
     },
+    "siegrist2022_student_t": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes, §5.10: The Student t Distribution",
+      "kind": "book",
+      "publisher": "Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/05:_Special_Distributions/5.10:_The_Student_t_Distribution",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/05:_Special_Distributions/5.10:_The_Student_t_Distribution"
+      }
+    },
     "siegrist2022_sufficient_complete": {
       "authors": [
         "Siegrist, K."
