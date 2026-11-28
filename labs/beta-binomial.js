@@ -49,6 +49,21 @@ function button(text) {
   return node;
 }
 
+let nextHintId = 0;
+
+function shiftStepValue(slider, dir, multiple = 10) {
+  const min = Number(slider.min);
+  const max = Number(slider.max);
+  const step = Number(slider.step) || 1;
+  const current = Math.min(max, Math.max(min, Number(slider.value)));
+  const maxIndex = Math.max(0, Math.round((max - min) / step));
+  const index = Math.max(0, Math.min(maxIndex, Math.round((current - min) / step) + dir * multiple));
+  const text = String(slider.step || "1");
+  const dot = text.indexOf(".");
+  const decimals = dot < 0 ? 0 : text.length - dot - 1;
+  return Number(Math.min(max, Math.max(min, min + index * step)).toFixed(decimals));
+}
+
 function readNumber(input) {
   if (input.value.trim() === "") return Number.NaN;
   return Number(input.value);
@@ -91,8 +106,9 @@ export function mount(root) {
   const restore = button("Reset");
   actions.append(head, tail, toss, restore);
   const hint = document.createElement("p");
+  hint.id = `beta-binomial-control-hint-${++nextHintId}`;
   hint.className = "control-hint";
-  hint.textContent = "Toss i of this seed is the same draw however the tosses are batched. + head and + tail are edits, not draws. The generator is not R's.";
+  hint.textContent = "Toss i of this seed is the same draw however the tosses are batched. + head and + tail are edits, not draws. The generator is not R's. Arrow keys move a focused slider. Shift changes α and β by 1, n, x and m by 10, and the true probability by 0.1.";
   const note = document.createElement("p");
   note.className = "control-note";
   note.setAttribute("role", "status");
@@ -254,8 +270,17 @@ export function mount(root) {
   }
 
   for (const pair of [alpha, beta, n, x, truth, future]) {
+    pair.slider.setAttribute("aria-describedby", hint.id);
     pair.slider.addEventListener("input", () => {
       pair.number.value = pair.slider.value;
+      render();
+    });
+    pair.slider.addEventListener("keydown", (event) => {
+      if (!event.shiftKey || event.altKey || event.ctrlKey || event.metaKey) return;
+      if (event.key !== "ArrowLeft" && event.key !== "ArrowRight" && event.key !== "ArrowUp" && event.key !== "ArrowDown") return;
+      event.preventDefault();
+      const dir = event.key === "ArrowLeft" || event.key === "ArrowDown" ? -1 : 1;
+      pair.show(shiftStepValue(pair.slider, dir));
       render();
     });
     pair.number.addEventListener("input", () => {

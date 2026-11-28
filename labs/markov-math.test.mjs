@@ -7,7 +7,9 @@ import { dirname, join } from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
 import * as markov from "./markov-math.js";
+import { mount } from "./markov-chain.js";
 import { mulberry32 } from "./stat-math.js";
+import { installLabDom, pressKey } from "./test/dom.mjs";
 
 const root = dirname(fileURLToPath(import.meta.url));
 const reference = JSON.parse(readFileSync(join(root, "fixtures", "stats-reference.json"), "utf8"));
@@ -251,4 +253,62 @@ test("every preset gets the note that fits its default start", () => {
   const reducible = markov.PRESETS.find((item) => item.id === "reducible");
   const chain = markov.analyse(reducible.matrix);
   assert.equal(markov.convergenceNote(reducible.matrix, 3, chain).several, false);
+});
+
+test("Steps slider has a synced numeric twin, Shift-arrow acceleration, and range validation", (t) => {
+  const { root, cleanup } = installLabDom(t);
+  cleanup(mount(root));
+
+  assert.equal(root.querySelector("output"), null);
+  const hint = root.querySelector(".control-hint");
+  assert.ok(hint?.id);
+  assert.match(hint.textContent, /Arrow keys move a focused slider\. Shift changes Steps by 10\./);
+
+  const stepsSlider = root.querySelector('input[aria-label="Steps"]');
+  const stepsNumber = root.querySelector('input[aria-label="Steps as a number"]');
+  assert.ok(stepsSlider && stepsNumber);
+  assert.equal(stepsSlider.type, "range");
+  assert.equal(stepsNumber.type, "number");
+  assert.equal(stepsSlider.min, "0");
+  assert.equal(stepsSlider.max, "400");
+  assert.equal(stepsNumber.min, "0");
+  assert.equal(stepsNumber.max, "400");
+  assert.equal(stepsSlider.value, "60");
+  assert.equal(stepsNumber.value, "60");
+  assert.equal(stepsSlider.getAttribute("aria-describedby"), hint.id);
+
+  assert.equal(pressKey(stepsSlider, "ArrowRight").defaultPrevented, false);
+  assert.equal(pressKey(stepsSlider, "ArrowRight", { shiftKey: true }).defaultPrevented, true);
+  assert.equal(stepsSlider.value, "70");
+  assert.equal(stepsNumber.value, "70");
+
+  stepsNumber.value = "0";
+  stepsNumber.dispatchEvent({ type: "input" });
+  assert.equal(stepsSlider.value, "0");
+  assert.match(root.querySelector(".graph-note").textContent, /No steps yet/);
+
+  for (const invalid of ["", "-1", "2.5", "401"]) {
+    stepsNumber.value = invalid;
+    stepsNumber.dispatchEvent({ type: "input" });
+    assert.equal(stepsSlider.value, "0");
+    assert.match(root.querySelector(".control-note").textContent, /whole number from 0 to 400/);
+    assert.match(root.querySelector("svg").textContent, /Not drawn/);
+  }
+
+  // Shift-arrow on the slider recovers from an invalid numeric edit and clamps at 400.
+  pressKey(stepsSlider, "ArrowRight", { shiftKey: true });
+  assert.equal(stepsSlider.value, "10");
+  assert.equal(stepsNumber.value, "10");
+  assert.equal(root.querySelector(".control-note").textContent, "");
+
+  stepsNumber.value = "395";
+  stepsNumber.dispatchEvent({ type: "input" });
+  pressKey(stepsSlider, "ArrowRight", { shiftKey: true });
+  assert.equal(stepsSlider.value, "400");
+  assert.equal(stepsNumber.value, "400");
+
+  const reset = root.querySelectorAll("button").find((btn) => btn.textContent === "Reset");
+  reset.click();
+  assert.equal(stepsSlider.value, "60");
+  assert.equal(stepsNumber.value, "60");
 });

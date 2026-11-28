@@ -6,7 +6,9 @@ import { dirname, join } from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
 import * as beta from "./beta-binomial-math.js";
+import { mount } from "./beta-binomial.js";
 import { betaBinomPmf, betaPdf } from "./stat-math.js";
+import { installLabDom, pressKey } from "./test/dom.mjs";
 
 const root = dirname(fileURLToPath(import.meta.url));
 const reference = JSON.parse(readFileSync(join(root, "fixtures", "stats-reference.json"), "utf8"));
@@ -132,4 +134,60 @@ test("one predictive probability matches the beta-binomial mass", () => {
   const predicted = beta.prediction({ alpha: 2, beta: 2, n: 10, x: 8 }, 5);
   assert.equal(predicted.rows[4].predictive, betaBinomPmf(4, 5, 10, 4));
   assert.ok(predicted.predictiveVariance > predicted.plugInVariance);
+});
+
+test("Shift-arrows accelerate every Beta-Binomial slider and keep numeric twins in step", (t) => {
+  const { root, cleanup } = installLabDom(t);
+  cleanup(mount(root));
+
+  const hint = root.querySelector(".control-hint");
+  assert.ok(hint?.id);
+  assert.match(hint.textContent, /Arrow keys move a focused slider\. Shift changes α and β by 1, n, x and m by 10, and the true probability by 0\.1\./);
+
+  const labels = ["Prior heads α", "Prior tails β", "Tosses n", "Heads x", "True probability", "Future tosses m"];
+  for (const label of labels) {
+    const slider = root.querySelector(`input[aria-label="${label}"]`);
+    assert.equal(slider.getAttribute("aria-describedby"), hint.id, label);
+  }
+
+  const alphaSlider = root.querySelector('input[aria-label="Prior heads α"]');
+  const alphaNumber = root.querySelector('input[aria-label="Prior heads α as a number"]');
+  assert.equal(pressKey(alphaSlider, "ArrowRight", { shiftKey: true }).defaultPrevented, true);
+  assert.equal(alphaSlider.value, "6");
+  assert.equal(alphaNumber.value, "6");
+  for (let i = 0; i < 10; i += 1) pressKey(alphaSlider, "ArrowLeft", { shiftKey: true });
+  assert.equal(alphaSlider.value, "0.1");
+  assert.equal(alphaNumber.value, "0.1");
+
+  const nSlider = root.querySelector('input[aria-label="Tosses n"]');
+  const nNumber = root.querySelector('input[aria-label="Tosses n as a number"]');
+  const xSlider = root.querySelector('input[aria-label="Heads x"]');
+  const xNumber = root.querySelector('input[aria-label="Heads x as a number"]');
+  pressKey(nSlider, "ArrowRight", { shiftKey: true });
+  assert.equal(nSlider.value, "20");
+  assert.equal(nNumber.value, "20");
+  pressKey(xSlider, "ArrowRight", { shiftKey: true });
+  assert.equal(xSlider.value, "13");
+  assert.equal(xNumber.value, "13");
+  // Stepping n down clamps x to the new toss count.
+  pressKey(nSlider, "ArrowLeft", { shiftKey: true });
+  assert.equal(nSlider.value, "10");
+  assert.equal(xSlider.value, "10");
+  assert.equal(xNumber.value, "10");
+
+  const truthSlider = root.querySelector('input[aria-label="True probability"]');
+  const truthNumber = root.querySelector('input[aria-label="True probability as a number"]');
+  pressKey(truthSlider, "ArrowLeft", { shiftKey: true });
+  assert.equal(truthSlider.value, "0.2");
+  assert.equal(truthNumber.value, "0.2");
+
+  const futureSlider = root.querySelector('input[aria-label="Future tosses m"]');
+  const futureNumber = root.querySelector('input[aria-label="Future tosses m as a number"]');
+  pressKey(futureSlider, "ArrowUp", { shiftKey: true });
+  assert.equal(futureSlider.value, "15");
+  assert.equal(futureNumber.value, "15");
+  pressKey(futureSlider, "ArrowDown", { shiftKey: true });
+  pressKey(futureSlider, "ArrowDown", { shiftKey: true });
+  assert.equal(futureSlider.value, "1");
+  assert.equal(futureNumber.value, "1");
 });

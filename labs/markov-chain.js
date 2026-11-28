@@ -7,6 +7,21 @@ import { formatNumber } from "./stat-math.js";
 import { chartColors, createPlot, drawAxes, message, niceTicks, plotBox, plotClip, rule, scaleLinear, stroke, svgEl } from "./svg-chart.js";
 
 const PATH_LIMIT = 120;
+const STEPS_MAX = 400;
+let nextHintId = 0;
+
+function shiftStepValue(slider, dir, multiple = 10) {
+  const min = Number(slider.min);
+  const max = Number(slider.max);
+  const step = Number(slider.step) || 1;
+  const current = Math.min(max, Math.max(min, Number(slider.value)));
+  const maxIndex = Math.max(0, Math.round((max - min) / step));
+  const index = Math.max(0, Math.min(maxIndex, Math.round((current - min) / step) + dir * multiple));
+  const text = String(slider.step || "1");
+  const dot = text.indexOf(".");
+  const decimals = dot < 0 ? 0 : text.length - dot - 1;
+  return Number(Math.min(max, Math.max(min, min + index * step)).toFixed(decimals));
+}
 
 function button(label) {
   const node = document.createElement("button");
@@ -69,6 +84,10 @@ export function mount(root) {
   const start = document.createElement("select");
   start.setAttribute("aria-label", "Starting state");
   startLabel.appendChild(start);
+  const hint = document.createElement("p");
+  hint.id = `markov-control-hint-${++nextHintId}`;
+  hint.className = "control-hint";
+  hint.textContent = "Each row is the distribution of the next state. A blank cell is not zero. The path uses this seed and is not R's generator. Arrow keys move a focused slider. Shift changes Steps by 10.";
   const stepsLabel = document.createElement("label");
   stepsLabel.className = "control-field control-field-wide";
   const stepsName = document.createElement("span");
@@ -78,14 +97,24 @@ export function mount(root) {
   const steps = document.createElement("input");
   steps.type = "range";
   steps.min = "0";
-  steps.max = "400";
+  steps.max = String(STEPS_MAX);
   steps.step = "1";
   steps.value = String(DEFAULTS.steps);
   steps.setAttribute("aria-label", "Steps");
-  const stepsOut = document.createElement("output");
-  stepsOut.textContent = String(DEFAULTS.steps);
-  stepsWrap.append(steps, stepsOut);
+  steps.setAttribute("aria-describedby", hint.id);
+  const stepsNumber = document.createElement("input");
+  stepsNumber.type = "number";
+  stepsNumber.min = "0";
+  stepsNumber.max = String(STEPS_MAX);
+  stepsNumber.step = "1";
+  stepsNumber.value = String(DEFAULTS.steps);
+  stepsNumber.setAttribute("aria-label", "Steps as a number");
+  stepsWrap.append(steps, stepsNumber);
   stepsLabel.append(stepsName, stepsWrap);
+  const showSteps = (next) => {
+    steps.value = String(next);
+    stepsNumber.value = String(next);
+  };
   const seedLabel = document.createElement("label");
   seedLabel.className = "control-field control-field-fixed";
   seedLabel.append(document.createTextNode("Seed"));
@@ -101,9 +130,6 @@ export function mount(root) {
   const newer = button("New path");
   const restore = button("Reset");
   actions.append(normalise, newer, restore);
-  const hint = document.createElement("p");
-  hint.className = "control-hint";
-  hint.textContent = "Each row is the distribution of the next state. A blank cell is not zero. The path uses this seed and is not R's generator.";
   const note = document.createElement("p");
   note.className = "control-note";
   note.setAttribute("role", "status");
@@ -189,13 +215,14 @@ export function mount(root) {
   function render() {
     showSums();
     paintPresets();
-    const stepsValue = Number(steps.value);
-    stepsOut.textContent = String(stepsValue);
+    const stepsValue = readNumber(stepsNumber);
     const seedValue = readNumber(seed);
     const startValue = Number(start.value);
     const problem = validateMatrix(matrix)
       || (!Number.isInteger(seedValue) ? "The seed must be a whole number." : null)
-      || (!Number.isInteger(stepsValue) || stepsValue < 0 ? "The number of steps must be a whole number." : null);
+      || (!Number.isInteger(stepsValue) || stepsValue < 0 || stepsValue > STEPS_MAX
+        ? `The number of steps must be a whole number from 0 to ${STEPS_MAX}.`
+        : null);
     if (problem) {
       note.textContent = problem;
       readout.replaceChildren();
@@ -328,7 +355,23 @@ export function mount(root) {
     render();
   });
   start.addEventListener("change", render);
-  steps.addEventListener("input", render);
+  steps.addEventListener("input", () => {
+    stepsNumber.value = steps.value;
+    render();
+  });
+  steps.addEventListener("keydown", (event) => {
+    if (!event.shiftKey || event.altKey || event.ctrlKey || event.metaKey) return;
+    if (event.key !== "ArrowLeft" && event.key !== "ArrowRight" && event.key !== "ArrowUp" && event.key !== "ArrowDown") return;
+    event.preventDefault();
+    const dir = event.key === "ArrowLeft" || event.key === "ArrowDown" ? -1 : 1;
+    showSteps(shiftStepValue(steps, dir));
+    render();
+  });
+  stepsNumber.addEventListener("input", () => {
+    const next = readNumber(stepsNumber);
+    if (Number.isInteger(next) && next >= 0 && next <= STEPS_MAX) steps.value = String(next);
+    render();
+  });
   seed.addEventListener("input", render);
   normalise.addEventListener("click", () => {
     const scaled = normaliseRows(matrix.map((row) => row.map((value) => (Number.isFinite(value) ? value : 0))));
@@ -346,7 +389,7 @@ export function mount(root) {
   });
   restore.addEventListener("click", () => {
     const preset = PRESETS.find((item) => item.id === DEFAULTS.preset);
-    steps.value = String(DEFAULTS.steps);
+    showSteps(DEFAULTS.steps);
     seed.value = String(DEFAULTS.seed);
     applyMatrix(preset.matrix, preset.states, preset.id, preset.start);
     render();
