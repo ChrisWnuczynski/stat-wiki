@@ -14,7 +14,7 @@ Global balance for a transition matrix $P$ and a probability row $\pi$ is $\pi=\
 On the three-cycle the net flow around the cycle is $1/3$ per step and the net flow on each reverse edge is 0. Global balance cannot see that, because at each vertex the incoming $1/3$ equals the outgoing $1/3$. Detailed balance sees it immediately. On a birth–death chain the state graph is a path. The only way to balance an edge is to match it with its reverse, so the local equations are detailed balance, and solving them solves global balance at the same time.{{cite:durrett2019}} (p. 301, birth–death chains)
 
 ## Properties — What each equation guarantees
-Detailed balance implies global balance, and global balance is stationarity. Global balance does not imply detailed balance, by the cycle. If $\pi_i>0$ for every $i$ that the chain can sit on, detailed balance forces every positive edge to have a positive reverse edge. A doubly stochastic matrix has the uniform vector as a stationary distribution, because each column sums to 1. Doubly stochastic is not detailed balance. The cycle matrix is a permutation matrix, hence doubly stochastic, and it is not reversible.{{cite:durrett2019}} (p. 300, a stationary measure need not be reversible)
+Detailed balance implies global balance, and global balance is stationarity. Global balance does not imply detailed balance, by the cycle. If $\pi_i>0$ for every $i$ that the chain can sit on, detailed balance forces every positive edge to have a positive reverse edge. A finite doubly stochastic matrix has the uniform vector as a stationary distribution, because each column sums to 1. Doubly stochastic is not detailed balance. The cycle matrix is a permutation matrix, hence doubly stochastic, and it is not reversible.{{cite:durrett2019}} (p. 300, a stationary measure need not be reversible)
 
 ::: {.callout-note collapse="true" title="Proof"}
 ::: {.proof}
@@ -64,7 +64,7 @@ At state 1 the incoming mass is $\pi_3 p_{31}=1/3$ and $\pi_1=1/3$, so the globa
 
 ### Doubly stochastic matrices {#self-check-ex-sp-doubly-stochastic}
 
-Why does every doubly stochastic matrix have the uniform distribution as a stationary distribution, and why is that not detailed balance?
+Why does every finite doubly stochastic matrix have the uniform distribution as a stationary distribution, and why is that not detailed balance?
 
 [Exercise](../questions/ex-sp-doubly-stochastic.qmd)
 
