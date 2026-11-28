@@ -55,7 +55,7 @@ class GeneratedAnswerProvenanceTests(unittest.TestCase):
     def test_real_fences_headings_and_original_comparison_key(self):
         original = (
             "\n### A question {#self-check-answer-fixture-q1}\n\n"
-            "[Question-bank page](../questions/answer-fixture-q1.qmd)\n\n"
+            "[Question-bank page: A question](../questions/answer-fixture-q1.qmd)\n\n"
             "Compute the margin.\n\n"
             ':::::::: {.callout-tip collapse="true" title="Answer"}\n\n'
             + self.question["prepared_answer"].replace("## Reasoning", "### Reasoning")
@@ -306,8 +306,9 @@ format:
                         sibling = page.locator("#self-check-depth-hinge-loss-q2 .callout-collapse")
                         self.assertFalse(sibling.is_visible())
                         self.assertEqual(page.locator("#self-check-depth-hinge-loss-q1").count(), 1)
+                        # The link names its question, not just "Question-bank page" (STA-197).
                         link = page.locator("#self-check-depth-hinge-loss-q1").get_by_role(
-                            "link", name="Question-bank page", exact=True)
+                            "link", name=re.compile(r"^Question-bank page: What is the hinge at margin"))
                         self.assertEqual(link.count(), 1)
                         self.assertEqual(link.evaluate("el => new URL(el.href).pathname"),
                                          "/questions/depth-hinge-loss-q1.html")

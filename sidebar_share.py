@@ -223,6 +223,70 @@ def mark_current(html: str, page: Path) -> str:
     return re.sub(r"<a\b[^>]*>", repl, html)
 
 
+TOPICS_KEY = "notes/"  # href_key of notes/index.html, the Topics item in the Study menu
+
+
+def orient_navbar(html: str, page: Path) -> str:
+    """Mark the top bar for this page in the static HTML.
+
+    Quarto marks a top-bar link current when the sidebar links to the same
+    page. The sidebar starts with "Main page", so every page came out with
+    "Main page" marked as the current page. Keep ``aria-current="page"`` only
+    on a link to this page. An article belongs to Topics, in the Study menu:
+    Topics gets ``aria-current="true"``, the current section rather than this
+    page, and the menu that holds it is highlighted. The page script in
+    build_wiki.py applies the same marks when JavaScript runs.
+    """
+    collapse = html.find('id="navbarCollapse"')
+    if collapse < 0:
+        return html
+    ul = html.find("<ul", collapse)
+    if ul < 0:
+        return html
+    inner_start, inner_end, _outer = _match_pair(html, ul, "ul", "ul")
+    current = page_key(page)
+    in_topics = current.startswith("articles/")
+
+    def link_href(tag: str) -> str:
+        match = re.search(r'href="([^"]*)"', tag)
+        href = match.group(1) if match else ""
+        return "" if href.startswith("#") else href
+
+    def mark_item(item: str) -> str:
+        holds_topics = in_topics and any(
+            href_key(href) == TOPICS_KEY
+            for href in re.findall(r'<a\b[^>]*\bclass="[^"]*\bdropdown-item\b[^"]*"[^>]*\bhref="([^"]*)"', item)
+        )
+
+        def repl(match: re.Match[str]) -> str:
+            tag = match.group(0)
+            classes = _class_tokens(tag)
+            if not classes & {"nav-link", "dropdown-item"}:
+                return tag
+            tag = re.sub(r'\s+aria-current="[^"]*"', "", tag)
+            if "dropdown-toggle" in classes:
+                return _set_class(tag, "active", holds_topics)
+            href = link_href(tag)
+            exact = bool(href) and href_key(href) == current
+            section = in_topics and "dropdown-item" in classes and bool(href) and href_key(href) == TOPICS_KEY
+            tag = _set_class(tag, "active", exact or section)
+            if exact or section:
+                tag = tag[:-1] + (' aria-current="page">' if exact else ' aria-current="true">')
+            return tag
+
+        return re.sub(r"<a\b[^>]*>", repl, item)
+
+    inner = html[inner_start:inner_end]
+    pieces: list[str] = []
+    last = 0
+    for start, end in top_elements(inner, "li"):
+        pieces.append(inner[last:start])
+        pieces.append(mark_item(inner[start:end]))
+        last = end
+    pieces.append(inner[last:])
+    return html[:inner_start] + "".join(pieces) + html[inner_end:]
+
+
 def crumb_text(item: str) -> str:
     text = re.sub(r"<[^>]+>", "", item)
     return re.sub(r"\s+", " ", text).strip()
@@ -450,6 +514,7 @@ def main() -> None:
         updated = text[:start] + menu + text[end:]
         updated = strip_bucket_crumbs(updated)
         updated = insert_loader(updated, path)
+        updated = orient_navbar(updated, path)
         if updated != text:
             path.write_text(updated, encoding="utf-8")
             changed += 1
