@@ -5,21 +5,21 @@ Markov's inequality turns a mean into an upper bound on the probability of a ver
 A job has mean length $10$ minutes. With nothing else known, the chance it lasts at least an hour is at most $10/60=1/6$. The bound is often loose. If the variance is also known to be $25$, Chebyshev's inequality cuts the same tail to $25/50^2=0.01$. The improvement spends a second moment that Markov's inequality never sees.{{cite:durrett2019}} (Thm. 1.6.4, pp. 29–30)
 
 ## Intuition
-On the event $\{X\ge a\}$ a nonnegative $X$ is at least $a$, and elsewhere it is at least $0$. So $X\ge a\,1_{\{X\ge a\}}$. Taking expectations gives $a\,\mathrm{P}(X\ge a)\le\mathrm{E} X$. The argument throws away all information except the mean and the threshold. That is why the bound survives for every distribution with that mean, and why it is rarely sharp for a smooth density.
+On the event $\{X\ge a\}$ a nonnegative $X$ is at least $a$, and elsewhere it is at least $0$. So $X\ge a\,1_{\{X\ge a\}}$. Taking expectations gives $a\,\mathbb{P}(X\ge a)\le\E X$. The argument throws away all information except the mean and the threshold. That is why the bound survives for every distribution with that mean, and why it is rarely sharp for a smooth density.
 
 Durrett states a more general comparison and remarks that some authors call the general form Markov's inequality, keeping the name Chebyshev for the second-moment case. The form on this page is the general comparison with $\varphi(x)=x$ and $A=[a,\infty)$.{{cite:durrett2019}} (Thm. 1.6.4 and the remark on p. 30)
 
 ## Definition
 Let $X\ge 0$ and $a>0$. Then
 $$
-\mathrm{P}(X\ge a)\le\frac{\mathrm{E} X}{a},
+\mathbb{P}(X\ge a)\le\frac{\E X}{a},
 $$
-whenever the mean exists and is finite. If $a\le\mathrm{E} X$ the right-hand side is at least $1$ and the bound says nothing. If the mean is infinite the inequality is not on offer.
+whenever the mean exists and is finite. If $a\le\E X$ the right-hand side is at least $1$ and the bound says nothing. If the mean is infinite the inequality is not on offer.
 
-Applied to $(X-\mathrm{E} X)^2$ at level $\varepsilon^2$, the same argument is Chebyshev's inequality $\mathrm{P}(|X-\mathrm{E} X|\ge\varepsilon)\le\mathrm{Var}(X)/\varepsilon^2$.
+Applied to $(X-\E X)^2$ at level $\varepsilon^2$, the same argument is Chebyshev's inequality $\mathbb{P}(|X-\E X|\ge\varepsilon)\le\mathrm{Var}(X)/\varepsilon^2$.
 
 ## Interpretation — A bound, and when it is sharp
-For a nonnegative $X$ with fixed finite mean $\mu$ and threshold $a>0$, the sharp upper bound on $\mathrm{P}(X\ge a)$ is $\min\{1,\mu/a\}$, combining Markov's inequality with the fact that a probability is at most $1$. When $\mu\le a$, equality in Markov's inequality holds for a two-point law that puts mass $p=\mu/a$ at $a$ and mass $1-p$ at $0$. Then $\E X=ap=\mu$ and $\mathrm{P}(X\ge a)=p$, so the ratio is exactly $p$. Any distribution that spreads the mass strictly between $0$ and $a$, or above $a$, makes Markov's inequality strict. When $\mu\ge a$, the constant $X=\mu$ attains probability $1$. The sharp probability bound is therefore a worst-case statement over all nonnegative laws with a given mean, not a typical tail for a named family.
+For a nonnegative $X$ with fixed finite mean $\mu$ and threshold $a>0$, the sharp upper bound on $\mathbb{P}(X\ge a)$ is $\min\{1,\mu/a\}$, combining Markov's inequality with the fact that a probability is at most $1$. When $\mu\le a$, equality in Markov's inequality holds for a two-point law that puts mass $p=\mu/a$ at $a$ and mass $1-p$ at $0$. Then $\E X=ap=\mu$ and $\mathbb{P}(X\ge a)=p$, so the ratio is exactly $p$. Any distribution that spreads the mass strictly between $0$ and $a$, or above $a$, makes Markov's inequality strict. When $\mu\ge a$, the constant $X=\mu$ attains probability $1$. The sharp probability bound is therefore a worst-case statement over all nonnegative laws with a given mean, not a typical tail for a named family.
 
 For an exponential lifetime with mean $10$, the exact chance of lasting at least $60$ minutes is $e^{-6}\approx 0.002479$. Markov's $1/6\approx 0.1667$ is about $67$ times larger. The bound is valid and, for planning a hard deadline, much more conservative than the exponential calculation. Using it when the exponential model is justified throws away the memoryless structure.
 
@@ -28,64 +28,64 @@ The comparison extends from $X$ itself to a nonnegative function of $X$.
 
 ::: {.callout-note collapse="true" title="Proof"}
 ::: {.proof}
-Let $X\ge 0$ and $a>0$. On $\{X\ge a\}$, the indicator expression satisfies $a\,1_{\{X\ge a\}}=a\le X$; elsewhere it is $0\le X$. Hence $X\ge a\,1_{\{X\ge a\}}$. The comparison is strict when $X>a$: for example, when $X=2a$, the left-hand side is $2a$ and the right-hand side is $a$. Taking expectations and using monotonicity yields $a\,\mathrm{P}(X\ge a)\le\mathrm{E} X$.{{cite:durrett2019}} (Thm. 1.6.4)
+Let $X\ge 0$ and $a>0$. On $\{X\ge a\}$, the indicator expression satisfies $a\,1_{\{X\ge a\}}=a\le X$; elsewhere it is $0\le X$. Hence $X\ge a\,1_{\{X\ge a\}}$. The comparison is strict when $X>a$: for example, when $X=2a$, the left-hand side is $2a$ and the right-hand side is $a$. Taking expectations and using monotonicity yields $a\,\mathbb{P}(X\ge a)\le\E X$.{{cite:durrett2019}} (Thm. 1.6.4)
 
-Durrett's general form replaces $X$ by $\varphi(X)$ for $\varphi\ge 0$ and replaces $a$ by the infimum of $\varphi$ on a set $A$. The proof is the same comparison of $\varphi(X)$ with that infimum times the indicator of $\{X\in A\}$. Chebyshev's inequality is $\varphi(x)=x^2$ and $A=\{|x|\ge\varepsilon\}$, after centring. The second-moment form $\varepsilon^2\mathrm{P}(|X|\ge\varepsilon)\le\mathrm{E} X^2$ is the case recorded as (1.6.1) in that section.{{cite:durrett2019}} (Thm. 1.6.4, pp. 29–30)
+Durrett's general form replaces $X$ by $\varphi(X)$ for $\varphi\ge 0$ and replaces $a$ by the infimum of $\varphi$ on a set $A$. The proof is the same comparison of $\varphi(X)$ with that infimum times the indicator of $\{X\in A\}$. Chebyshev's inequality is $\varphi(x)=x^2$ and $A=\{|x|\ge\varepsilon\}$, after centring. The second-moment form $\varepsilon^2\mathbb{P}(|X|\ge\varepsilon)\le\E X^2$ is the case recorded as (1.6.1) in that section.{{cite:durrett2019}} (Thm. 1.6.4, pp. 29–30)
 
-For the exponential check, a rate-$1/10$ law has survival $e^{-t/10}$, so $\mathrm{P}(X\ge 60)=e^{-6}$.
+For the exponential check, a rate-$1/10$ law has survival $e^{-t/10}$, so $\mathbb{P}(X\ge 60)=e^{-6}$.
 :::
 :::
 
 ## Statistical use — From a moment to a probability
-The inequality is the step from an $L^1$ or $L^p$ bound to convergence in probability. If $\mathrm{E}|X_n-X|\to 0$, then $\mathrm{P}(|X_n-X|>\varepsilon)\le\mathrm{E}|X_n-X|/\varepsilon\to 0$. A finite-variance weak law is the same step applied to the square of the centred average: the variance of the average is $\sigma^2/n$, and Chebyshev sends the tail to zero. The bound does not need independence beyond whatever was used to compute the mean or the variance. It also does not prove an almost-sure limit, because a bound of order $1/n$ need not be summable.
+The inequality is the step from an $L^1$ or $L^p$ bound to convergence in probability. If $\E|X_n-X|\to 0$, then $\mathbb{P}(|X_n-X|>\varepsilon)\le\E|X_n-X|/\varepsilon\to 0$. A finite-variance weak law is the same step applied to the square of the centred average: the variance of the average is $\sigma^2/n$, and Chebyshev sends the tail to zero. The bound does not need independence beyond whatever was used to compute the mean or the variance. It also does not prove an almost-sure limit, because a bound of order $1/n$ need not be summable.
 
 In a risk calculation the bound is a guarantee that holds uniformly over every nonnegative distribution with the stated mean. It is the right tool when the distribution is unknown and a hard upper limit is required. It is a poor summary of a tail one has already modelled.
 
 ## Worked example
-Suppose $X\ge 0$ has mean $4$. Then $\mathrm{P}(X\ge 20)\le 4/20=0.2$. If in addition $\mathrm{Var}(X)=9$, Chebyshev's inequality gives
+Suppose $X\ge 0$ has mean $4$. Then $\mathbb{P}(X\ge 20)\le 4/20=0.2$. If in addition $\mathrm{Var}(X)=9$, Chebyshev's inequality gives
 $$
-\mathrm{P}(X\ge 20)=\mathrm{P}(X-4\ge 16)\le\frac{9}{16^2}=\frac{9}{256}\approx 0.0352.
+\mathbb{P}(X\ge 20)=\mathbb{P}(X-4\ge 16)\le\frac{9}{16^2}=\frac{9}{256}\approx 0.0352.
 $$
 The second bound is about six times smaller. It can fail if the variance is not $9$: a Pareto-type law with mean $4$ and an infinite variance still obeys the Markov bound $0.2$, and Chebyshev's inequality does not apply.
 
-Equality in the Markov bound is attained by $X=20$ with probability $0.2$ and $X=0$ otherwise. The mean is $4$, and $\mathrm{P}(X\ge 20)=0.2$.
+Equality in the Markov bound is attained by $X=20$ with probability $0.2$ and $X=0$ otherwise. The mean is $4$, and $\mathbb{P}(X\ge 20)=0.2$.
 
-A Poisson count with mean $2$ shows the other extreme. Markov's inequality still says $\mathrm{P}(X\ge 10)\le 2/10=0.2$. The Poisson tail is about $0.000046$. The bound is valid, and it is thousands of times the probability that the Poisson model actually assigns. Replacing the Poisson calculation by $0.2$ would badly overstate the chance of ten or more events.{{cite:durrett2019}} (Thm. 1.6.4)
+A Poisson count with mean $2$ shows the other extreme. Markov's inequality still says $\mathbb{P}(X\ge 10)\le 2/10=0.2$. The Poisson tail is about $0.000046$. The bound is valid, and it is thousands of times the probability that the Poisson model actually assigns. Replacing the Poisson calculation by $0.2$ would badly overstate the chance of ten or more events.{{cite:durrett2019}} (Thm. 1.6.4)
 
-**Your turn.** A nonnegative loss has mean $6$. Bound $\mathrm{P}(X\ge 15)$ and $\mathrm{P}(X\ge 4)$.
+**Your turn.** A nonnegative loss has mean $6$. Bound $\mathbb{P}(X\ge 15)$ and $\mathbb{P}(X\ge 4)$.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-$\mathrm{P}(X\ge 15)\le 6/15=0.4$. The threshold $4$ is below the mean, and $6/4=1.5$ exceeds $1$, so Markov's inequality gives no information. The probability is at most $1$ for a trivial reason that does not use the mean.
+$\mathbb{P}(X\ge 15)\le 6/15=0.4$. The threshold $4$ is below the mean, and $6/4=1.5$ exceeds $1$, so Markov's inequality gives no information. The probability is at most $1$ for a trivial reason that does not use the mean.
 :::
 
 ## Common misconceptions
 The inequality does not require independence, identical distribution, or a variance. Adding those assumptions can sharpen the bound, as Chebyshev does, but they are not hidden hypotheses of Markov's inequality.
 
-The bound is one-sided and uses nonnegativity. Applying $\mathrm{E} X/a$ to a signed variable, or to a lower tail $\mathrm{P}(X\le a)$, is a different claim and can be false. A variable that is $-100$ with probability $0.5$ and $100$ with probability $0.5$ has mean $0$, and $\mathrm{P}(X\ge 100)=0.5$, while a naive ratio $0/100$ would say the tail is $0$.
+The bound is one-sided and uses nonnegativity. Applying $\E X/a$ to a signed variable, or to a lower tail $\mathbb{P}(X\le a)$, is a different claim and can be false. A variable that is $-100$ with probability $0.5$ and $100$ with probability $0.5$ has mean $0$, and $\mathbb{P}(X\ge 100)=0.5$, while a naive ratio $0/100$ would say the tail is $0$.
 
 A bound of $1/6$ is not an estimate of the probability. For the exponential law with the same mean the probability is about $0.0025$. Quoting $1/6$ as if it were the chance of a long job overstates the tail by a large factor whenever the true law is much lighter than the two-point equality case.
 
 ## Assumptions and limits — Where the mean is not enough
-If $\mathrm{E} X=\infty$, the finite-mean statement does not apply; interpreting the ratio in the extended real numbers gives only the vacuous bound $\mathrm{P}(X\ge a)\le\infty$. Nevertheless, if $X$ is finite almost surely, the events $\{X\ge n\}$ decrease to an event of probability zero. By continuity from above, $\mathrm{P}(X\ge n)\to 0$, and monotonicity of the tail gives $\mathrm{P}(X\ge a)\to 0$ as $a\to\infty$. This limit requires no finite-moment assumption.
+If $\E X=\infty$, the finite-mean statement does not apply; interpreting the ratio in the extended real numbers gives only the vacuous bound $\mathbb{P}(X\ge a)\le\infty$. Nevertheless, if $X$ is finite almost surely, the events $\{X\ge n\}$ decrease to an event of probability zero. By continuity from above, $\mathbb{P}(X\ge n)\to 0$, and monotonicity of the tail gives $\mathbb{P}(X\ge a)\to 0$ as $a\to\infty$. This limit requires no finite-moment assumption.
 
 At any fixed positive threshold, an infinite mean alone supplies no uniform upper bound smaller than $1$. To see this, fix $b>0$, let $U\sim\operatorname{Uniform}(0,1)$, and set $X=b/U$. This variable is finite almost surely, but
 $$
-\mathrm{E} X=b\int_0^1\frac{1}{u}\,du=\infty.
+\E X=b\int_0^1\frac{1}{u}\,du=\infty.
 $$
 For $a>0$, its tail is
 $$
-\mathrm{P}(X\ge a)=\mathrm{P}(U\le b/a)=\min\{1,b/a\}.
+\mathbb{P}(X\ge a)=\mathbb{P}(U\le b/a)=\min\{1,b/a\}.
 $$
-In particular, $\mathrm{P}(X\ge b)=1$ and $\mathrm{P}(X\ge 2b)=1/2$, while the tail tends to zero as the threshold increases. Because $b$ can be any positive number, the tail at a prescribed positive threshold can equal $1$ even for a variable that is finite almost surely. This absence of a uniform bound at a fixed threshold is compatible with a vanishing tail for each fixed distribution.
+In particular, $\mathbb{P}(X\ge b)=1$ and $\mathbb{P}(X\ge 2b)=1/2$, while the tail tends to zero as the threshold increases. Because $b$ can be any positive number, the tail at a prescribed positive threshold can equal $1$ even for a variable that is finite almost surely. This absence of a uniform bound at a fixed threshold is compatible with a vanishing tail for each fixed distribution.
 
-If $a\le\mathrm{E} X$, the ratio is at least $1$ and the bound is vacuous. A mean of $6$ says nothing about $\mathrm{P}(X\ge 4)$ through this inequality, even though that event may be likely or unlikely.
+If $a\le\E X$, the ratio is at least $1$ and the bound is vacuous. A mean of $6$ says nothing about $\mathbb{P}(X\ge 4)$ through this inequality, even though that event may be likely or unlikely.
 
 The passage from $L^1$ convergence to convergence in probability uses the inequality at every $n$. It does not upgrade the conclusion to almost-sure convergence. The strong law needs a summable series or a truncation argument, not a single Markov bound.
 
-Chebyshev's refinement is unavailable when the variance is infinite. A nonnegative law with finite mean and infinite variance is a concrete case: Markov still caps $\mathrm{P}(X\ge a)$, and the second-moment bound cannot be formed.
+Chebyshev's refinement is unavailable when the variance is infinite. A nonnegative law with finite mean and infinite variance is a concrete case: Markov still caps $\mathbb{P}(X\ge a)$, and the second-moment bound cannot be formed.
 
 ## Connections
 [Chebyshev's inequality](chebyshev-s-inequality.qmd) is Markov's inequality applied to a squared deviation. The [weak law](law-of-large-numbers.qmd) is the Chebyshev bound on an average whose variance tends to zero. The [strong law](strong-law.qmd) needs a stronger argument, because these bounds need not be summable. Convergence in $L^1$ implies [convergence in probability](modes-of-convergence.qmd) by the inequality on this page, and the converse is false.{{cite:durrett2019}} (Thm. 1.6.4, pp. 29–30)
 
 ## History
-The comparison of a nonnegative variable with a threshold times an indicator is the form proved as the general moment inequality in Durrett, who attaches Chebyshev's name to that general statement and notes that other authors call it Markov's inequality. The second-moment special case, under the name Bienaymé–Chebyshev, is $\mathrm{P}(|X-\mu|\ge\varepsilon)\le\sigma^2/\varepsilon^2$.{{cite:durrett2019}} (Thm. 1.6.4, pp. 29–30){{cite:dodge2008}} (p. 298)
+The comparison of a nonnegative variable with a threshold times an indicator is the form proved as the general moment inequality in Durrett, who attaches Chebyshev's name to that general statement and notes that other authors call it Markov's inequality. The second-moment special case, under the name Bienaymé–Chebyshev, is $\mathbb{P}(|X-\mu|\ge\varepsilon)\le\sigma^2/\varepsilon^2$.{{cite:durrett2019}} (Thm. 1.6.4, pp. 29–30){{cite:dodge2008}} (p. 298)

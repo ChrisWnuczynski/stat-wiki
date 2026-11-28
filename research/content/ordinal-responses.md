@@ -11,11 +11,11 @@ Collapsing “severe” with “mild” is a coarser question than asking whethe
 For ordered categories $1,\ldots,K$ and covariate value $x$,
 
 $$
-\operatorname{logit}\mathrm{P}(Y\ge k\mid x)=\beta_{0k}+x\beta,
+\operatorname{logit}\mathbb{P}(Y\ge k\mid x)=\beta_{0k}+x\beta,
 \qquad k=2,\ldots,K,
 $$
 
-with $\beta_{02}\ge\beta_{03}\ge\cdots\ge\beta_{0K}$. Category probabilities are consecutive differences of these tails, and $\mathrm{P}(Y\ge 1)=1$. {{cite:nelder_wedderburn1972}} (§3.3, p. 379)
+with $\beta_{02}\ge\beta_{03}\ge\cdots\ge\beta_{0K}$. Category probabilities are consecutive differences of these tails, and $\mathbb{P}(Y\ge 1)=1$. {{cite:nelder_wedderburn1972}} (§3.3, p. 379)
 
 ## Properties — The odds multiplier does not depend on the cut
 ::: {.callout-note collapse="true" title="Proof"}
@@ -28,25 +28,25 @@ The odds of $\{Y\ge k\}$ are $\exp(\beta_{0k}+x\beta)$. Replacing $x$ by $x+1$ m
 Take $\beta_{02}=1.2$, $\beta_{03}=0.2$ and $\beta=-1/2$. At $x=2$,
 
 $$
-\operatorname{logit}\mathrm{P}(Y\ge 2)=1.2-1=0.2,
+\operatorname{logit}\mathbb{P}(Y\ge 2)=1.2-1=0.2,
 \qquad
-\operatorname{logit}\mathrm{P}(Y\ge 3)=0.2-1=-0.8.
+\operatorname{logit}\mathbb{P}(Y\ge 3)=0.2-1=-0.8.
 $$
 
-The tails are $\mathrm{P}(Y\ge 2)\approx 0.5498$ and $\mathrm{P}(Y\ge 3)\approx 0.3100$. The category probabilities are
+The tails are $\mathbb{P}(Y\ge 2)\approx 0.5498$ and $\mathbb{P}(Y\ge 3)\approx 0.3100$. The category probabilities are
 
 $$
-\mathrm{P}(Y=1)\approx 0.4502,\qquad
-\mathrm{P}(Y=2)\approx 0.2398,\qquad
-\mathrm{P}(Y=3)\approx 0.3100,
+\mathbb{P}(Y=1)\approx 0.4502,\qquad
+\mathbb{P}(Y=2)\approx 0.2398,\qquad
+\mathbb{P}(Y=3)\approx 0.3100,
 $$
 
-and these three numbers sum to $1$. A unit increase in $x$ multiplies both cumulative odds by $e^{-1/2}\approx 0.6065$. {{cite:nelder_wedderburn1972}} (§3.3, p. 379) The intercept gap $1.2-0.2=1$ does not depend on $x$, so the ordering $\mathrm{P}(Y\ge 2)\ge\mathrm{P}(Y\ge 3)$ is kept at every $x$.
+and these three numbers sum to $1$. A unit increase in $x$ multiplies both cumulative odds by $e^{-1/2}\approx 0.6065$. {{cite:nelder_wedderburn1972}} (§3.3, p. 379) The intercept gap $1.2-0.2=1$ does not depend on $x$, so the ordering $\mathbb{P}(Y\ge 2)\ge\mathbb{P}(Y\ge 3)$ is kept at every $x$.
 
 **Your turn.** Keep the same intercepts and slope, and evaluate the two logits at $x=0$. Which tail is larger?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The logits are $1.2$ and $0.2$. Both tails are the expit of those numbers, and $1.2>0.2$ so $\mathrm{P}(Y\ge 2)>\mathrm{P}(Y\ge 3)$. The shared slope has not yet moved either logit.
+The logits are $1.2$ and $0.2$. Both tails are the expit of those numbers, and $1.2>0.2$ so $\mathbb{P}(Y\ge 2)>\mathbb{P}(Y\ge 3)$. The shared slope has not yet moved either logit.
 :::
 
 ## Connections — Nominal labels, binary logit, and collapsing

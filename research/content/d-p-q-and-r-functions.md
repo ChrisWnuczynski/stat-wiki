@@ -2,15 +2,15 @@
 A count of three successes prompts several different questions: the probability of exactly three, the probability of at most three, a cutoff leaving 90% of counts below it, or a simulated sample of counts. These questions use a mass function, distribution function, quantile function and random generator respectively. R assigns a common naming convention to them.
 
 ## Definition
-For any real random variable, the cumulative distribution function is $F(x)=P(X\le x)$. For a discrete variable, the mass at $x$ is $P(X=x)$; for a continuous density, the mass at one point is zero and interval probabilities come from integration. A density can exceed one because its units are reciprocal measurement units. Probability is an area or a summed mass, not a density height.{{cite:grinstead_snell1997}} (§2.2, continuous density functions)
+For any real random variable, the cumulative distribution function is $F(x)=\mathbb{P}(X\le x)$. For a discrete variable, the mass at $x$ is $\mathbb{P}(X=x)$; for a continuous density, the mass at one point is zero and interval probabilities come from integration. A density can exceed one because its units are reciprocal measurement units. Probability is an area or a summed mass, not a density height.{{cite:grinstead_snell1997}} (§2.2, continuous density functions)
 
 ## Properties — Inverse probabilities need an inequality
 For $0<u<1$, define a quantile as $q(u)=\inf\{x:F(x)\ge u\}$. When $F$ is continuous and strictly increasing, $F(q(u))=u$. A discrete CDF has jumps, so equality need not hold: $F(q(u))$ can be greater than $u$. R's binomial quantile uses the smallest integer reaching the requested cumulative probability.
 
-The identity $P(a<X\le b)=F(b)-F(a)$ follows because $\{X\le b\}$ is the disjoint union of $\{X\le a\}$ and $\{a<X\le b\}$. For integer-valued $X$, an inclusive lower bound needs the previous integer: $P(a\le X\le b)=F(b)-F(a-1)$. This is why `pbinom(5,10,0.4)-pbinom(2,10,0.4)` covers counts three through five.{{cite:openintro2019}} (§4.3.1, binomial probability model)
+The identity $\mathbb{P}(a<X\le b)=F(b)-F(a)$ follows because $\{X\le b\}$ is the disjoint union of $\{X\le a\}$ and $\{a<X\le b\}$. For integer-valued $X$, an inclusive lower bound needs the previous integer: $\mathbb{P}(a\le X\le b)=F(b)-F(a-1)$. This is why `pbinom(5,10,0.4)-pbinom(2,10,0.4)` covers counts three through five.{{cite:openintro2019}} (§4.3.1, binomial probability model)
 
 ## Worked example — A binomial lookup chain
-For $X\sim\operatorname{Bin}(10,0.4)$, direct summation gives $P(X=3)=0.21499$ and $P(X\le3)=0.38228$. The 90th percentile is 6: $P(X\le5)=0.83376<0.9$, while $P(X\le6)=0.94524\ge0.9$. These values distinguish mass, accumulated mass and a count-valued quantile. The binomial formula follows from counting which trials succeed and multiplying their independent probabilities.{{cite:openintro2019}} (§4.3.1)
+For $X\sim\operatorname{Bin}(10,0.4)$, direct summation gives $\mathbb{P}(X=3)=0.21499$ and $\mathbb{P}(X\le3)=0.38228$. The 90th percentile is 6: $\mathbb{P}(X\le5)=0.83376<0.9$, while $\mathbb{P}(X\le6)=0.94524\ge0.9$. These values distinguish mass, accumulated mass and a count-valued quantile. The binomial formula follows from counting which trials succeed and multiplying their independent probabilities.{{cite:openintro2019}} (§4.3.1)
 
 **Your turn.** For a fair die, find the mass at 4, the CDF at 4, and the 75th percentile under the smallest-value convention.
 

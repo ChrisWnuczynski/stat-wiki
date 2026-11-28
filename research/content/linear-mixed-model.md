@@ -24,7 +24,7 @@ The marginal covariance $ZGZ^\top+R$ is positive semidefinite when $G$ and $R$ a
 
 ::: {.callout-note collapse="true" title="Proof"}
 ::: {.proof}
-Since $E(b)=E(\varepsilon)=0$, $E(Y)=X\beta$. Independence gives $\operatorname{Cov}(Y)=\operatorname{Cov}(Zb)+\operatorname{Cov}(\varepsilon)=ZGZ^\top+R$. For the random-intercept form, distinct readings $j\ne k$ on group $i$ share only $b_i$, so $\operatorname{Cov}(Y_{ij},Y_{ik})=\operatorname{Var}(b_i)=\tau^2$; each variance is $\tau^2+\sigma^2$. The ratio gives the stated correlation. With $b_{0i}+t b_{1i}$, bilinearity of covariance gives the time-dependent expression above.{{cite:bates_lme4_2015}} (§1.1 and §2.2, Gaussian mixed-model structure)
+Since $\E(b)=\E(\varepsilon)=0$, $\E(Y)=X\beta$. Independence gives $\operatorname{Cov}(Y)=\operatorname{Cov}(Zb)+\operatorname{Cov}(\varepsilon)=ZGZ^\top+R$. For the random-intercept form, distinct readings $j\ne k$ on group $i$ share only $b_i$, so $\operatorname{Cov}(Y_{ij},Y_{ik})=\operatorname{Var}(b_i)=\tau^2$; each variance is $\tau^2+\sigma^2$. The ratio gives the stated correlation. With $b_{0i}+t b_{1i}$, bilinearity of covariance gives the time-dependent expression above.{{cite:bates_lme4_2015}} (§1.1 and §2.2, Gaussian mixed-model structure)
 :::
 :::
 

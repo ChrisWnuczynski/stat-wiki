@@ -15,7 +15,7 @@ The fourth power makes a deviation of 4 count as much as 256 deviations of 1, be
 For a random variable with mean $\mu$, a finite fourth central moment and positive standard deviation $\sigma$, the population coefficient of kurtosis is the standardised fourth central moment
 
 $$
-\beta_2=\frac{\mu_4}{\sigma^4},\qquad \mu_4=\mathrm{E}(X-\mu)^4.
+\beta_2=\frac{\mu_4}{\sigma^4},\qquad \mu_4=\E(X-\mu)^4.
 $$
 
 

@@ -36,8 +36,8 @@ Little's law uses a long-run arrival rate and a mean time in the system. Its gen
 ## Worked example
 Suppose $\lambda=12$ customers per hour and each service has rate $\mu=4$ per hour. A mean service lasts $1/4$ hour and the equilibrium occupancy is Poisson with mean $3$. Consequently,
 $$
-P(N=0)=e^{-3}\approx0.049787,\qquad
-P(N\ge5)=1-e^{-3}\sum_{k=0}^4\frac{3^k}{k!}\approx0.184737.
+\mathbb{P}(N=0)=e^{-3}\approx0.049787,\qquad
+\mathbb{P}(N\ge5)=1-e^{-3}\sum_{k=0}^4\frac{3^k}{k!}\approx0.184737.
 $$
 The system has at least five simultaneous services about $18.47\%$ of equilibrium time. These probabilities describe occupancy, not the probability of having to wait, which remains zero. The mean time in the system is $3/12=1/4$ hour.{{cite:durrett2012_essentials}} (§4.3, Ex. 4.16, p. 132){{cite:shortle2018_queueing}} (Ch. 1, Thm. 1.1)
 
@@ -52,7 +52,7 @@ The mean occupancy becomes $24/4=6$ and the empty probability is $e^{-6}\approx0
 [An M/M/∞ system](../questions/ex-sp-mminf-numbers.qmd): calculate its occupancy and sojourn measures.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-With $\lambda=6$ and $\mu=2$, $N$ is Poisson with mean $3$. Thus $P(N=0)=e^{-3}\approx0.049787$, $P(N\ge4)=1-e^{-3}(1+3+9/2+27/6)\approx0.352768$, and $W=1/2$ hour. There is no waiting before service.
+With $\lambda=6$ and $\mu=2$, $N$ is Poisson with mean $3$. Thus $\mathbb{P}(N=0)=e^{-3}\approx0.049787$, $\mathbb{P}(N\ge4)=1-e^{-3}(1+3+9/2+27/6)\approx0.352768$, and $W=1/2$ hour. There is no waiting before service.
 :::
 
 ### Balancing neighbouring states {#self-check-ex-sp-birth-death-pi}

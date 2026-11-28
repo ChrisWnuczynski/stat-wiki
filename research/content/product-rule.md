@@ -5,21 +5,21 @@ The product rule prices a chain of events by multiplying the probability of the 
 An urn holds $5$ black balls and $5$ white balls. Three black balls drawn in order without replacement have probabilities $5/10$, $4/9$ and $3/8$, and the product is $1/12$.
 
 ## Intuition — Each factor is the chance of the next step given the steps so far
-The two-event identity $\mathrm{P}(A\cap B)=\mathrm{P}(A)\,\mathrm{P}(B\mid A)$ is the definition of conditional probability, rearranged. A third event multiplies by one more conditional probability, given both of the earlier events. The intermediate intersections cancel, so the joint probability is a product and not a sum. Independence is the special case in which every conditional probability equals the matching marginal. Using a marginal in place of a conditional that is smaller is how the product overstates a joint event. {{cite:grinstead_snell1997}} (p. 152, Exercise 16)
+The two-event identity $\mathbb{P}(A\cap B)=\mathbb{P}(A)\,\mathbb{P}(B\mid A)$ is the definition of conditional probability, rearranged. A third event multiplies by one more conditional probability, given both of the earlier events. The intermediate intersections cancel, so the joint probability is a product and not a sum. Independence is the special case in which every conditional probability equals the matching marginal. Using a marginal in place of a conditional that is smaller is how the product overstates a joint event. {{cite:grinstead_snell1997}} (p. 152, Exercise 16)
 
 ## Statement
-**The chain for n events.** If $\mathrm{P}(A_1\cap\cdots\cap A_{n-1})>0$, then
+**The chain for n events.** If $\mathbb{P}(A_1\cap\cdots\cap A_{n-1})>0$, then
 
 $$
-\mathrm{P}(A_1\cap\cdots\cap A_n)
-=\mathrm{P}(A_1)\,\mathrm{P}(A_2\mid A_1)\cdots\mathrm{P}(A_n\mid A_1\cap\cdots\cap A_{n-1}).
+\mathbb{P}(A_1\cap\cdots\cap A_n)
+=\mathbb{P}(A_1)\,\mathbb{P}(A_2\mid A_1)\cdots\mathbb{P}(A_n\mid A_1\cap\cdots\cap A_{n-1}).
 $$
 
 
 Whenever $A$, $B$ and $A\cap B$ have positive probability,
 
 $$
-\mathrm{P}(A\cap B\cap C)=\mathrm{P}(A)\,\mathrm{P}(B\mid A)\,\mathrm{P}(C\mid A\cap B).
+\mathbb{P}(A\cap B\cap C)=\mathbb{P}(A)\,\mathbb{P}(B\mid A)\,\mathbb{P}(C\mid A\cap B).
 $$
 
 

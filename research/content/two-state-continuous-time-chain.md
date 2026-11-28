@@ -2,7 +2,7 @@
 A repairable device alternates between working, state $0$, and failed, state $1$. Its failure clock runs at rate $\alpha$ while it works, and its repair clock runs at rate $\beta$ while it is failed. Counting transitions gives an alternating sequence, but observing the device at a fixed elapsed time weights states by how long the device spends in them. The transition probabilities combine these random holding times with the alternating moves.
 
 ## Definition
-For positive rates, the mean working spell is $1/\alpha$ and the mean failed spell is $1/\beta$.{{cite:durrett2019}} (§3.7, pp. 174–175, exponential waiting times and Poisson processes) A rate has inverse-time units. It gives $P(X(h)=1\mid X(0)=0)=\alpha h+o(h)$ as $h\downarrow0$, rather than a finite-time probability equal to $\alpha$. The generator has rows summing to zero because the short-time probabilities in each row must sum to one.
+For positive rates, the mean working spell is $1/\alpha$ and the mean failed spell is $1/\beta$.{{cite:durrett2019}} (§3.7, pp. 174–175, exponential waiting times and Poisson processes) A rate has inverse-time units. It gives $\mathbb{P}(X(h)=1\mid X(0)=0)=\alpha h+o(h)$ as $h\downarrow0$, rather than a finite-time probability equal to $\alpha$. The generator has rows summing to zero because the short-time probabilities in each row must sum to one.
 
 ## Properties — Solve both rows of the transition matrix
 Put $c=\alpha+\beta$. The forward equation for the probability of state $1$ is $u'=\alpha-cu$. For any initial probability $u(0)=u_0$, multiplying by the integrating factor $e^{ct}$ gives
@@ -30,7 +30,7 @@ The stationary probability is $1/(1+4)=0.2$. At the specified time, $e^{-5t}=1/2
 
 ## Interpretation — Why alternating jumps do not create periodic observations
 The embedded jump chain moves to the other state at every jump, so it alternates deterministically. When $\alpha=\beta=r$, the jump times form a rate-$r$ Poisson process. Starting at zero, state one means an odd number of jumps. The Poisson generating function gives
-$$P\{N(t)\text{ odd}\}=\tfrac12(1-e^{-2rt}),$$
+$$\mathbb{P}\{N(t)\text{ odd}\}=\tfrac12(1-e^{-2rt}),$$
 which approaches one half smoothly. For unequal rates the jump count is no longer a single homogeneous Poisson count, but the solved matrix still approaches its stationary law. Random time, rather than an alternating jump index, determines the observation.{{cite:durrett2019}} (§3.7, Poisson-process counting law)
 
 ## Assumptions and limits

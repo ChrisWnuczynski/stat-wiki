@@ -353,7 +353,7 @@ under exposure $a$ is the outcome under exposure $a$ with the mediator at
 the value it naturally takes under $a$. The decomposition of the total
 effect into natural direct and indirect parts uses exactly this equality.
 **Treatment positivity.** Each exposure level must occur with positive
-probability for every covariate pattern in the population: $0 < P(A = a
+probability for every covariate pattern in the population: $0 < \mathbb{P}(A = a
 \mid C = c) < 1$ for both levels $a$ and every $c$ that occurs. Failure
 here does not make the contrasts undefined: the counterfactual contrast
 for units of that type is a perfectly definite quantity, but it is not
@@ -420,7 +420,7 @@ step, not by the regression. The correct adjustment is
 treatment-specific standardisation, the g-formula for this setting: for
 each exposure level $a$ separately, average the outcome mean $\E[Y \mid
 A = a, M = m, L, C]$ over the distribution of $L$ under that same
-exposure level, $P(L \mid A = a, C)$, then average the result over the
+exposure level, $\mathbb{P}(L \mid A = a, C)$, then average the result over the
 target population's distribution of the baseline covariates $C$, and
 contrast the two standardised means only afterwards. Each arm keeps its
 own $L$ distribution, because under the intervention that sets $A = a$

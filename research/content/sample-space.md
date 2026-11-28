@@ -5,14 +5,14 @@ Drawing two balls from a bag can be recorded as an ordered pair of labelled ball
 An outcome is one complete result at the chosen level of detail, while an event is a collection of outcomes. For a die whose face is recorded, $\Omega=\{1,2,3,4,5,6\}$ and “even” is the event $\{2,4,6\}$. If only parity is recorded, the sample space can instead be $\{\text{even},\text{odd}\}$. Those two spaces describe the same experiment at different resolutions; neither carries probabilities until a model supplies them.{{cite:siegrist2022_events}} (§2.2, The Set of Outcomes; Events)
 
 ## Definition
-A probability model adds a collection $\mathcal F$ of admissible events and a probability measure $P$ to the outcome set $\Omega$. On a finite sample space one commonly takes every subset as an event. For a continuous space, a sigma-algebra of measurable subsets is needed so that complements and countable unions of events are events; arbitrary subsets need not be measurable. The triple $(\Omega,\mathcal F,P)$ is a probability space, while “sample space” often refers just to $\Omega$ in elementary discussion.{{cite:siegrist2022_events}} (§2.2, Sample Spaces; Events)
+A probability model adds a collection $\mathcal F$ of admissible events and a probability measure $\mathbb{P}$ to the outcome set $\Omega$. On a finite sample space one commonly takes every subset as an event. For a continuous space, a sigma-algebra of measurable subsets is needed so that complements and countable unions of events are events; arbitrary subsets need not be measurable. The triple $(\Omega,\mathcal F,\mathbb{P})$ is a probability space, while “sample space” often refers just to $\Omega$ in elementary discussion.{{cite:siegrist2022_events}} (§2.2, Sample Spaces; Events)
 
 ## Properties
 When a finite space has $N$ equally likely elementary outcomes, an event containing $k$ outcomes has probability $k/N$. The equal-likelihood condition is part of the model, not a consequence of the set notation. The four counting rules listed above require us to decide whether order matters and whether replacement occurs. For two ordered draws without replacement from $m$ labelled objects there are $m(m-1)$ possible pairs; recording an unordered pair gives $\binom m2$ possibilities instead.{{cite:siegrist2022_events}} (§2.2, Sample Spaces; Examples and Applications)
 
 ::: {.callout-note collapse="true" title="Proof"}
 ::: {.proof}
-Suppose $\Omega=\{\omega_1,\ldots,\omega_N\}$ and all singleton outcomes have the same probability $p$. Because the singletons partition $\Omega$, finite additivity and $P(\Omega)=1$ give $Np=1$, hence $p=1/N$. If $A$ contains $k$ of them, its disjoint-singleton decomposition gives $P(A)=kp=k/N$. The formula fails as a counting shortcut when the elementary outcomes have unequal probabilities.{{cite:siegrist2022_events}} (§2.2, Events; The Algebra of Events)
+Suppose $\Omega=\{\omega_1,\ldots,\omega_N\}$ and all singleton outcomes have the same probability $p$. Because the singletons partition $\Omega$, finite additivity and $\mathbb{P}(\Omega)=1$ give $Np=1$, hence $p=1/N$. If $A$ contains $k$ of them, its disjoint-singleton decomposition gives $\mathbb{P}(A)=kp=k/N$. The formula fails as a counting shortcut when the elementary outcomes have unequal probabilities.{{cite:siegrist2022_events}} (§2.2, Events; The Algebra of Events)
 :::
 :::
 
@@ -27,7 +27,7 @@ A bag has three labelled red balls and two labelled blue balls. Draw two without
 **Your turn.** For the same bag and draw, record only the number $R$ of red balls. What is its sample space, and what probabilities belong to its outcomes?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The possible values are $\{0,1,2\}$. Both blue has $2\cdot1=2$ ordered pairs, so $P(R=0)=2/20=0.1$. One of each colour has $12$ pairs, so $P(R=1)=12/20=0.6$. Both red has $3\cdot2=6$ pairs, so $P(R=2)=6/20=0.3$. The probabilities sum to one; the three counts are not equally likely.
+The possible values are $\{0,1,2\}$. Both blue has $2\cdot1=2$ ordered pairs, so $\mathbb{P}(R=0)=2/20=0.1$. One of each colour has $12$ pairs, so $\mathbb{P}(R=1)=12/20=0.6$. Both red has $3\cdot2=6$ pairs, so $\mathbb{P}(R=2)=6/20=0.3$. The probabilities sum to one; the three counts are not equally likely.
 :::
 
 ## Common misconceptions

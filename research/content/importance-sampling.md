@@ -29,14 +29,14 @@ reference measure (Lebesgue measure for a continuous variable, counting
 measure for a discrete one), and let $h$ be a real-valued function. The
 target is
 
-$$\mu = E_p[h(X)] = \int h(x) p(x)\, dx,$$
+$$\mu = \E_p[h(X)] = \int h(x) p(x)\, dx,$$
 
 where $E_p$ denotes expectation under $p$ and the integral is over the
 whole space of possible values of $X$. Let $q$ be a second density, the
 proposal. Wherever $q(x) > 0$, the integrand can be multiplied and divided
 by $q(x)$ without changing its value:
 
-$$\mu = \int h(x) \frac{p(x)}{q(x)} q(x)\, dx = E_q[h(X) w(X)],$$
+$$\mu = \int h(x) \frac{p(x)}{q(x)} q(x)\, dx = \E_q[h(X) w(X)],$$
 
 where $E_q$ denotes expectation under $q$ and
 $w(x) = p(x)/q(x)$ is the importance weight at $x$. The identity is exact; no approximation has been made. What has changed
@@ -70,14 +70,14 @@ $q$. The importance sampling estimator is
 $$\widehat{\mu} = \frac{1}{N} \sum_{i=1}^{N} h(x_i) w(x_i).$$
 
 It is exactly unbiased, not merely approximately: each term has expectation
-$E_q[h(X) w(X)] = \mu$ by the identity above, provided the support
-condition holds and $E_p[|h(X)|]$ is finite. Hastings writes the estimator
+$\E_q[h(X) w(X)] = \mu$ by the identity above, provided the support
+condition holds and $\E_p[|h(X)|]$ is finite. Hastings writes the estimator
 in exactly this form, as the average of $h(x_i) p(x_i)/q(x_i)$ over a sample
 drawn from $q$ {{cite:hastings1970}} (§1, p. 97). By the strong law of large numbers $\widehat{\mu}$ converges to
 $\mu$ with probability one as $N \to \infty$, and by the central
 limit theorem its error is approximately normal with variance given
 in the next section, whenever the second moment
-$E_q[h(X)^2 w(X)^2]$ is finite. That moment condition belongs to
+$\E_q[h(X)^2 w(X)^2]$ is finite. That moment condition belongs to
 this estimator. The self-normalised ratio form has its own central
 limit theorem, with a different, centred moment condition, stated
 in its section below; neither condition covers both estimators.
@@ -96,7 +96,7 @@ Unbiasedness says nothing about precision. Because the terms
 $h(x_i) w(x_i)$ are independent draws from $q$, the exact variance of the
 estimator, when it is finite, is
 
-$$\text{Var}_q(\widehat{\mu}) = \frac{1}{N}\left( \int \frac{h(x)^2 p(x)^2}{q(x)}\, dx - \mu^2 \right) = \frac{1}{N}\left( E_q[h(X)^2 w(X)^2] - \mu^2 \right).$$
+$$\text{Var}_q(\widehat{\mu}) = \frac{1}{N}\left( \int \frac{h(x)^2 p(x)^2}{q(x)}\, dx - \mu^2 \right) = \frac{1}{N}\left( \E_q[h(X)^2 w(X)^2] - \mu^2 \right).$$
 
 Owen writes the per-draw variance in this form and draws the two practical
 conclusions from it: the numerator rewards a proposal close to
@@ -109,23 +109,23 @@ others.
 
 The benchmark case $h \equiv 1$, for which $\mu = 1$ exactly, isolates the
 role of the weights. The per-draw variance is then
-$E_q[(w(X) - 1)^2] = E_q[w(X)^2] - 1$, since $E_q[w(X)] = \int p(x)\, dx = 1$.
-Tokdar and Kass give this as $\text{Var}(\widehat{\mu}_f) = E_q[(w(X)-1)^2]/m$
+$\E_q[(w(X) - 1)^2] = \E_q[w(X)^2] - 1$, since $\E_q[w(X)] = \int p(x)\, dx = 1$.
+Tokdar and Kass give this as $\text{Var}(\widehat{\mu}_f) = \E_q[(w(X)-1)^2]/m$
 for a sample of size $m$ when the function is identically $1$
 {{cite:tokdar_kass2010}} (p. 54, eq. (5)). The quantity
-$E_q[w(X)^2] - 1$ is the chi-squared divergence between $p$ and $q$,
+$\E_q[w(X)^2] - 1$ is the chi-squared divergence between $p$ and $q$,
 
 $$D_{\chi^2}(p \, \| \, q) = \int \frac{(p(x) - q(x))^2}{q(x)}\, dx = \int \frac{p(x)^2}{q(x)}\, dx - 1,$$
 
 so the difficulty of estimating even a constant under $p$ by sampling from
 $q$ is exactly a divergence between the two densities. For a general $h$
-the relevant second moment is $E_q[h(X)^2 w(X)^2]$, which can be much
+the relevant second moment is $\E_q[h(X)^2 w(X)^2]$, which can be much
 smaller than the worst case suggested by the divergence when $h$ is small
 where the weights are large — the first worked example below turns on
 exactly this point — or much larger, when $h$ is large where the weights
 are large. A small chi-squared divergence is a guarantee for all $h$ that
 are nearly constant under $p$; Tokdar and Kass use the same quantity,
-written $cv^2 = E_q[(w(X)-1)^2]$, as the efficiency criterion to be
+written $cv^2 = \E_q[(w(X)-1)^2]$, as the efficiency criterion to be
 minimised when choosing among parametric proposals
 {{cite:tokdar_kass2010}} (pp. 55–56, eq. (6)).
 
@@ -147,7 +147,7 @@ density must be computable at the drawn points; and its shape must follow
 $|h| p$ closely enough that the weights do not vary wildly. The precise
 form of the third requirement is a moment condition, not a tail
 comparison: the variance is finite exactly when
-$E_q[h(X)^2 w(X)^2] = \int h(x)^2 p(x)^2/q(x)\, dx$ is finite. Tail
+$\E_q[h(X)^2 w(X)^2] = \int h(x)^2 p(x)^2/q(x)\, dx$ is finite. Tail
 thickness is a heuristic for that integral, no more. A proposal with
 thinner tails than the target can still satisfy it: for $h \equiv 1$,
 a $N(0,1)$ target and a $N(0, 3/4)$ proposal, $p^2/q$ is proportional
@@ -166,7 +166,7 @@ of the Laplace approximation. Tokdar and Kass describe this construction,
 with the mode found by minimising $-\log p(x)$ and the scale from the
 inverse Hessian there, and record the usual preference for the Student
 version: its heavier tails give greater assurance that
-$E_q[w(X)^2]$ is finite {{cite:tokdar_kass2010}} (p. 55). Owen likewise
+$\E_q[w(X)^2]$ is finite {{cite:tokdar_kass2010}} (p. 55). Owen likewise
 recommends a $t$ distribution rather than a normal for safety when a
 Gaussian proposal is built from a mode and a Hessian
 {{cite:owen2013_mc}} (§9.7).
@@ -184,16 +184,16 @@ itself — as $q_\alpha = \alpha_1 q_1 + \alpha_2 q_2$ with
 $\alpha_1 + \alpha_2 = 1$ and, for example, $\alpha_1 = 1/10$. Because
 $q_\alpha(x) \ge \alpha_1 p(x)$ everywhere, the weight satisfies
 $w(x) \le 1/\alpha_1$ for all $x$: the weights are bounded, and the second
-moment of the weights themselves, $E_q[w(X)^2]$, is at most $1/\alpha_1$.
+moment of the weights themselves, $\E_q[w(X)^2]$, is at most $1/\alpha_1$.
 That bound is a statement about the weights, and it secures finite
 variance for the plain estimator of a bounded integrand — in particular
 for the constant $1$, the normalising-constant problem. It does not by
-itself control $E_q[w(X)^2 h(X)^2]$ for an unbounded $h$: with $p = q$
+itself control $\E_q[w(X)^2 h(X)^2]$ for an unbounded $h$: with $p = q$
 uniform on $(0,1)$ the weights are identically $1$, yet $h(x) = x^{-3/4}$
-has finite mean $4$ while $E_q[w(X)^2 h(X)^2] = \int_0^1 x^{-3/2}\, dx$
+has finite mean $4$ while $\E_q[w(X)^2 h(X)^2] = \int_0^1 x^{-3/2}\, dx$
 is infinite, so that estimator has infinite variance despite perfectly
 bounded weights. The finite-variance condition remains the moment
-condition on the product, $E_q[w(X)^2 h(X)^2] < \infty$; bounded weights
+condition on the product, $\E_q[w(X)^2 h(X)^2] < \infty$; bounded weights
 are a way to meet it for bounded $h$, not a substitute for it. The price
 of the insurance is spending a fraction $\alpha_1$ of the draws on the
 safe component. Owen presents defensive mixtures, attributed there to
@@ -228,7 +228,7 @@ condition of the first section, the numerator could still target
 $Z\mu$ while the denominator targets the integral of $\tilde{p}$
 over just the part of the space $q$ reaches, and the ratio would
 converge to a wrong value. Impose the strong condition from the
-start. Both $\mu = E_p[h(X)]$ and $1$ are then expectations that
+start. Both $\mu = \E_p[h(X)]$ and $1$ are then expectations that
 the unnormalised weights can estimate: applied to $h$, the plain
 estimator with $\tilde{w}$ in place of $w$ estimates $Z\mu$;
 applied to the constant function $1$, it estimates $Z$. Dividing
@@ -265,7 +265,7 @@ denominator — the delta method — produces a formal first-order bias
 term of order $1/N$, with a coefficient depending on the covariance,
 under $q$, of $\tilde{w}(X)$ and $\tilde{w}(X) h(X)$; but that term
 is an asymptotic approximation, and the second moments it needs —
-$E_q[\tilde{w}(X)^2]$ and $E_q[\tilde{w}(X)^2 h(X)^2]$ finite, with
+$\E_q[\tilde{w}(X)^2]$ and $\E_q[\tilde{w}(X)^2 h(X)^2]$ finite, with
 $Z > 0$ — do not by themselves make the bias genuinely of order
 $1/N$. They do not even guarantee that the bias exists: take $q$
 uniform on $(0,1)$, $\tilde{w}(x) \propto e^{-1/x}$ and
@@ -284,30 +284,30 @@ converges to $\mu$ with probability one {{cite:tokdar_kass2010}} (p. 54).
 Third, its large-sample variance is not the plain estimator's variance.
 The delta method gives the approximation
 
-$$\text{Var}_q(\widetilde{\mu}) \approx \frac{1}{N} E_q\left[ w(X)^2 (h(X) - \mu)^2 \right],$$
+$$\text{Var}_q(\widetilde{\mu}) \approx \frac{1}{N} \E_q\left[ w(X)^2 (h(X) - \mu)^2 \right],$$
 
 in which the weights multiply the centred values $h(X) - \mu$
 rather than $h(X)$ itself; Owen obtains this expression by Taylor
 expansion of the ratio {{cite:owen2013_mc}} (§9.2). The central
 limit theorem for the ratio is therefore stated with the centred
-moment condition: when $E_q[w(X)^2 (h(X) - \mu)^2]$ is finite,
+moment condition: when $\E_q[w(X)^2 (h(X) - \mu)^2]$ is finite,
 $\sqrt{N}(\widetilde{\mu} - \mu)$ is approximately normal with
-variance $E_q[w(X)^2 (h(X) - \mu)^2]$ — the centred moment itself.
+variance $\E_q[w(X)^2 (h(X) - \mu)^2]$ — the centred moment itself.
 The factor $1/N$ belongs to the variance of $\widetilde{\mu}$, not
 to the variance of its root-$N$ scaling. This is a condition on the
 centred product $w(X)(h(X) - \mu)$, distinct from the plain
-estimator's condition $E_q[h(X)^2 w(X)^2] < \infty$, and neither
+estimator's condition $\E_q[h(X)^2 w(X)^2] < \infty$, and neither
 should be quoted as sufficient for both estimators. One consequence is that the optimal
 proposal also changes: for the self-normalised estimator it is
 proportional to $p(x) |h(x) - \mu|$, not to $p(x) |h(x)|$, so zero
 variance is unattainable even in the benchmark sense — the best proposal
-still leaves variance of the order of $E_p[|h(X) - \mu|]^2 / N$
+still leaves variance of the order of $\E_p[|h(X) - \mu|]^2 / N$
 {{cite:owen2013_mc}} (§9.2).
 
 The denominator of the ratio is an estimate in its own right. The average
 unnormalised weight, $(1/N) \sum_i \tilde{w}(x_i)$, is an unbiased and
 consistent estimate of $Z$, because
-$E_q[\tilde{w}(X)] = \int \tilde{p}(x)\, dx = Z$. In the Bayesian setting
+$\E_q[\tilde{w}(X)] = \int \tilde{p}(x)\, dx = Z$. In the Bayesian setting
 $Z$ is the marginal likelihood, the quantity that enters Bayes factors
 between models; importance sampling therefore supplies, from one set of
 draws, both posterior expectations (through the ratio) and an estimate of
@@ -360,7 +360,7 @@ calculation {{cite:owen2013_mc}} (§9.3).
 
 ### A rare-event probability
 
-Let $Z$ be standard normal and estimate $\mu = P(Z > 3)$ by importance
+Let $Z$ be standard normal and estimate $\mu = \mathbb{P}(Z > 3)$ by importance
 sampling. The exact value is $\mu = 1 - \Phi(3) = 0.001349898$, where
 $\Phi$ is the standard normal distribution function. Under crude Monte Carlo — sampling from
 $p$, the $N(0,1)$ density itself — the per-draw contribution is a
@@ -386,7 +386,7 @@ $w(X) \mathbf{1}\{X > 3\}$ under $q$ also has an exact closed form.
 Squaring the target density and dividing by the proposal density gives
 $\phi(x)^2/\phi(x-3) = e^{9} \phi(x+3)$, so
 
-$$E_q\left[w(X)^2 \mathbf{1}\{X > 3\}\right] = e^{9} \int_3^{\infty} \phi(x+3)\, dx = e^{9} \left(1 - \Phi(6)\right) = 8103.083928 \times 9.865876 \times 10^{-10} \approx 7.994402 \times 10^{-6}.$$
+$$\E_q\left[w(X)^2 \mathbf{1}\{X > 3\}\right] = e^{9} \int_3^{\infty} \phi(x+3)\, dx = e^{9} \left(1 - \Phi(6)\right) = 8103.083928 \times 9.865876 \times 10^{-10} \approx 7.994402 \times 10^{-6}.$$
 
 The per-draw variance is therefore exactly this second moment minus
 $\mu^2$:
@@ -402,14 +402,14 @@ proposal. Both figures are exact consequences of the two per-draw
 variances, not simulation results.
 
 The example also disciplines the chi-squared discussion in 'Variance:
-the weights decide everything' above. For this pair, $E_q[w(X)^2] = e^{9} \approx 8103.08$, so the
+the weights decide everything' above. For this pair, $\E_q[w(X)^2] = e^{9} \approx 8103.08$, so the
 chi-squared divergence $D_{\chi^2}(p \, \| \, q) = e^9 - 1 \approx
-8102.08$ is enormous: estimating the constant $1 = E_p[1]$ from $N(3,1)$
+8102.08$ is enormous: estimating the constant $1 = \E_p[1]$ from $N(3,1)$
 draws would be very poor, because draws far below $3$ carry weights like
 $e^{9/2} \approx 90$ and larger. The rare-event estimate is nevertheless
 excellent, because $h(x) = \mathbf{1}\{x > 3\}$ is zero exactly where the
 weights explode, and the second moment that governs it,
-$E_q[w(X)^2 h(X)^2]$, is the small number computed above. A divergence is
+$\E_q[w(X)^2 h(X)^2]$, is the small number computed above. A divergence is
 a property of the pair of densities; the variance of an estimate is a
 property of the triple $(p, q, h)$.
 
@@ -501,7 +501,7 @@ $q(x) > 0$ wherever $|h(x)| p(x)$ is nonzero, and, for the self-normalised
 estimator, wherever $p(x) > 0$. Both densities must be evaluable at the
 drawn points, the target up to the constant the setting allows. For the
 variance formulas and the normal approximation to the error, the second
-moment $E_q[h(X)^2 w(X)^2]$ must be finite; unbiasedness and consistency
+moment $\E_q[h(X)^2 w(X)^2]$ must be finite; unbiasedness and consistency
 do not need it, which is why an estimate can be consistent, apparently
 stable over long runs, and still have infinite variance — the sample
 variance then understates the true variability, because the draws that
@@ -557,7 +557,7 @@ unless the proposal is very close to the target.
 Every draw comes from the proposal $q$; the target $p$ enters only through
 the weights. The output is a weighted sample, and treating the draws as an
 unweighted sample from $p$ — averaging the $h(x_i)$ without weights, for
-instance — estimates $E_q[h(X)]$, not $E_p[h(X)]$.
+instance — estimates $\E_q[h(X)]$, not $\E_p[h(X)]$.
 
 **"An unbiased estimator cannot be badly wrong."** The plain estimator is
 exactly unbiased under the support condition, including when its variance
@@ -686,12 +686,12 @@ is the degeneracy the effective sample size is reporting.
 :::
 
 3. Let $p$ be the $N(0,1)$ density and $q$ the $N(0, s^2)$ density. For
-which values of $s$ is $E_q[w(X)^2]$ finite? What happens for $s = 0.6$,
+which values of $s$ is $\E_q[w(X)^2]$ finite? What happens for $s = 0.6$,
 and why does no finite sample reveal the problem directly?
 
 ::: {.callout-tip collapse="true" title="Answer"}
 
-The integrand of $E_q[w(X)^2] = \int p(x)^2/q(x)\, dx$ is proportional to
+The integrand of $\E_q[w(X)^2] = \int p(x)^2/q(x)\, dx$ is proportional to
 $\exp(-x^2 + x^2/(2s^2))$, which is integrable exactly when the exponent's
 coefficient is negative: $-1 + 1/(2s^2) < 0$, that is, $s^2 > 1/2$, or
 $s > 1/\sqrt{2} \approx 0.707$. For $s = 0.6$ the second moment is

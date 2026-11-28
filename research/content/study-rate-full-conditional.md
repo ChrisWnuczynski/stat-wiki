@@ -7,7 +7,7 @@ Assume $n_j$ is a nonnegative integer, $0\le y_j\le n_j$, and $\alpha,\beta>0$. 
 ## Intuition — Conditioning removes one layer of uncertainty
 Write $s=\alpha+\beta$ and $m=\alpha/s$. For a study with $n_j>0$, its conditional posterior mean is
 $$
-E(\theta_j\mid\alpha,\beta,y)
+\E(\theta_j\mid\alpha,\beta,y)
 =\frac{y_j+sm}{n_j+s}
 =\frac{n_j}{n_j+s}\frac{y_j}{n_j}
  +\frac{s}{n_j+s}m.

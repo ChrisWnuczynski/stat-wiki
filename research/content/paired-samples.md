@@ -2,14 +2,14 @@
 A laboratory compares two instruments on the same set of specimens. Differences among specimens may be much larger than the systematic difference between instruments. Matching the two readings for each specimen preserves the comparison of interest and prevents specimen-to-specimen variation from obscuring it. The pairing is determined by the design, rather than by sorting two unrelated samples into a convenient order.{{cite:openintro2019}} (§7.2.1, paired observations)
 
 ## Definition — The independent units are the pairs
-Write the measurements on pair $i$ as $(X_i,Y_i)$ and define a consistently ordered difference $D_i=X_i-Y_i$. A paired analysis treats the vectors for different pairs as independent while allowing dependence between the two measurements within a pair. Its mean target is $\delta=E(D)=E(X)-E(Y)$. Equal marginal means alone do not imply that the paired measurements are independent.{{cite:dodge2008}} (p. 409, Paired Student’s T-Test)
+Write the measurements on pair $i$ as $(X_i,Y_i)$ and define a consistently ordered difference $D_i=X_i-Y_i$. A paired analysis treats the vectors for different pairs as independent while allowing dependence between the two measurements within a pair. Its mean target is $\delta=\E(D)=\E(X)-\E(Y)$. Equal marginal means alone do not imply that the paired measurements are independent.{{cite:dodge2008}} (p. 409, Paired Student’s T-Test)
 
 For a paired $t$ test assume that the differences themselves form an independent normal sample with positive variance. With $n$ complete pairs, use $T=(\bar D-\delta_0)/(S_D/\sqrt n)$ and a $t_{n-1}$ reference under $H_0:\delta=\delta_0$. Normal marginal distributions for $X$ and $Y$ are not a replacement for checking the distribution of $D$; a sufficient condition is joint normality within each pair.{{cite:openintro2019}} (§7.2.2, inference for paired data){{cite:dodge2008}} (p. 409, mathematical aspects)
 
 ## Properties — Covariance determines the gain from matching
 The identity
 $$\operatorname{Var}(D)=\sigma_X^2+\sigma_Y^2-2\operatorname{Cov}(X,Y)$$
-follows by expanding $E[(X-EX-Y+EY)^2]$. For independent pairs, $\operatorname{Var}(\bar D)=\operatorname{Var}(D)/n$. Positive within-pair covariance reduces the variance relative to the sum of the marginal variances. Negative covariance can increase it. Thus pairing is not an algebraic promise of a smaller standard error; its benefit depends on matching units that share relevant variation.{{cite:nist_two_sample_t2002}} (§1.3.5.3, paired and unpaired data)
+follows by expanding $\E[(X-\E X-Y+\E Y)^2]$. For independent pairs, $\operatorname{Var}(\bar D)=\operatorname{Var}(D)/n$. Positive within-pair covariance reduces the variance relative to the sum of the marginal variances. Negative covariance can increase it. Thus pairing is not an algebraic promise of a smaller standard error; its benefit depends on matching units that share relevant variation.{{cite:nist_two_sample_t2002}} (§1.3.5.3, paired and unpaired data)
 
 A common subject-level model makes this concrete: $X_i=a_i+\tau+e_{i1}$ and $Y_i=a_i+e_{i2}$. Subtracting removes $a_i$, giving $D_i=\tau+e_{i1}-e_{i2}$. Large variation in $a_i$ need not inflate the paired standard error. This cancellation is an explicit model calculation, not a justification for ignoring order, carryover or time effects in a crossover experiment.
 

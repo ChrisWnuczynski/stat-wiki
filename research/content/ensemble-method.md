@@ -15,14 +15,14 @@ Let $f_1,\ldots,f_T$ be predictors fitted using a specified training procedure. 
 Suppose, at a fixed $x$, the $T$ members have errors with common variance $\sigma^2$ and common pairwise correlation $\rho$. Their mean error has variance
 
 $$
-\operatorname{Var}(\bar f(x)-E\bar f(x))
+\operatorname{Var}(\bar f(x)-\E\bar f(x))
 =\sigma^2\left[\rho+\frac{1-\rho}{T}\right].
 $$
 
 With independent errors ($\rho=0$), the variance is $\sigma^2/T$. With perfectly correlated errors ($\rho=1$), it stays $\sigma^2$ regardless of how many identical members are added. If $\rho>0$, the limiting variance as $T$ grows is $\rho\sigma^2$. This stylized calculation explains why a random forest tries to keep individual trees useful while reducing their correlation. It does not describe the zero-one loss of a classification vote or remove bias shared by all members. {{cite:breiman1996_bagging}} (§4, pp. 131–132){{cite:breiman2001_rf}} (§§2, 6, strength and correlation)
 
 ::: {.callout-note collapse="true" title="Proof"}
-Write $E_t=f_t(x)-E f_t(x)$. Then $\operatorname{Var}(T^{-1}\sum_tE_t)=T^{-2}[\sum_t\operatorname{Var}(E_t)+2\sum_{s<t}\operatorname{Cov}(E_s,E_t)]$. There are $T$ variance terms, each $\sigma^2$, and $T(T-1)/2$ covariance pairs, each $\rho\sigma^2$. Hence the variance is $T^{-2}[T\sigma^2+T(T-1)\rho\sigma^2]=\sigma^2[\rho+(1-\rho)/T]$. This is an identity under the stated equal-variance, equal-correlation assumptions; it makes no claim about bias or classification error.
+Write $E_t=f_t(x)-\E f_t(x)$. Then $\operatorname{Var}(T^{-1}\sum_tE_t)=T^{-2}[\sum_t\operatorname{Var}(E_t)+2\sum_{s<t}\operatorname{Cov}(E_s,E_t)]$. There are $T$ variance terms, each $\sigma^2$, and $T(T-1)/2$ covariance pairs, each $\rho\sigma^2$. Hence the variance is $T^{-2}[T\sigma^2+T(T-1)\rho\sigma^2]=\sigma^2[\rho+(1-\rho)/T]$. This is an identity under the stated equal-variance, equal-correlation assumptions; it makes no claim about bias or classification error.
 :::
 
 ## Interpretation — A change of scale, not a guarantee

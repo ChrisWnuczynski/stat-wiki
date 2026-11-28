@@ -4,13 +4,13 @@ Two fair coins have four equally probable ordered outcomes, yet the number of he
 
 ## Statement
 
-For a finite sample space $\Omega$ with $N\ge1$ equally probable elementary outcomes, $P(A)=|A|/N$. Conditional on a nonempty event $B$, every outcome in $B$ still has probability $1/|B|$, hence
-$$P(A\mid B)=\frac{|A\cap B|}{|B|}.$$
+For a finite sample space $\Omega$ with $N\ge1$ equally probable elementary outcomes, $\mathbb{P}(A)=|A|/N$. Conditional on a nonempty event $B$, every outcome in $B$ still has probability $1/|B|$, hence
+$$\mathbb{P}(A\mid B)=\frac{|A\cap B|}{|B|}.$$
 The word elementary matters: an event that collects several elementary outcomes receives the sum of their probabilities.{{cite:grinstead_snell1997}} (§1.2, pp.25–26)
 
 ## Proof
 
-Every singleton has a common probability $p$. Finite additivity and $P(\Omega)=1$ give $Np=1$, so $p=1/N$. The disjoint union of the singletons in $A$ gives $P(A)=|A|/N$. Dividing $P(A\cap B)$ by $P(B)>0$ gives the conditional counting formula.{{cite:grinstead_snell1997}} (§1.2, pp.25–26)
+Every singleton has a common probability $p$. Finite additivity and $\mathbb{P}(\Omega)=1$ give $Np=1$, so $p=1/N$. The disjoint union of the singletons in $A$ gives $\mathbb{P}(A)=|A|/N$. Dividing $\mathbb{P}(A\cap B)$ by $\mathbb{P}(B)>0$ gives the conditional counting formula.{{cite:grinstead_snell1997}} (§1.2, pp.25–26)
 
 ## Intuition — Probability follows the elementary outcomes
 

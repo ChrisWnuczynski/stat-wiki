@@ -19,14 +19,14 @@ The same skeleton covers a coin, a card draw, and a roulette wheel. It does not 
 For a payoff that takes values $x_i$ with probabilities $p_i$,
 
 $$
-E[X]=\sum_i x_i p_i,
+\E[X]=\sum_i x_i p_i,
 $$
 
 
 when the sum is finite. In the euro game
 
 $$
-E[X]=-3\cdot\frac{1}{6}+1\cdot\frac{3}{6}+2\cdot\frac{2}{6}=\frac{-3+3+4}{6}=\frac{2}{3}.
+\E[X]=-3\cdot\frac{1}{6}+1\cdot\frac{3}{6}+2\cdot\frac{2}{6}=\frac{-3+3+4}{6}=\frac{2}{3}.
 $$
 
 
@@ -35,11 +35,11 @@ The player gains, on average, two-thirds of a euro per throw. That is a property
 A fair six-sided die, scored by the face itself, has
 
 $$
-E[X]=\frac{1+2+3+4+5+6}{6}=\frac{21}{6}=\frac{7}{2}.
+\E[X]=\frac{1+2+3+4+5+6}{6}=\frac{21}{6}=\frac{7}{2}.
 $$
 
 
-Linearity holds whether or not the payoffs are independent: $E[X+Y]=E[X]+E[Y]$, and $E[aX+b]=aE[X]+b$. If $X$ and $Y$ are independent, the expectation of the product factors as well. A constant shift of the payoff shifts the expectation by the same constant, which is why a game that is favourable by $c$ becomes fair when the stake is raised by $c$. {{cite:dodge2008}} (p. 190)
+Linearity holds whether or not the payoffs are independent: $\E[X+Y]=\E[X]+\E[Y]$, and $\E[aX+b]=aE[X]+b$. If $X$ and $Y$ are independent, the expectation of the product factors as well. A constant shift of the payoff shifts the expectation by the same constant, which is why a game that is favourable by $c$ becomes fair when the stake is raised by $c$. {{cite:dodge2008}} (p. 190)
 
 A fair game, in this arithmetic, is one whose expected payoff is zero. A positive expectation is favourable to the player who receives the payoff. Repeating an independent play adds the expectations. It does not make the next play equal the expectation.
 

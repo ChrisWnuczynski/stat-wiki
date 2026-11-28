@@ -10,7 +10,7 @@ A decision problem, in the Bayesian account used for applied decision analysis, 
 1. A set of decisions $d$ and a set of outcomes $x$. Outcomes may be money, years of life, or a vector of several attributes. The outcome can include quantities that will eventually be observed and parameters that will not.
 2. A probability distribution of the outcome given each decision, written $p(x\mid d)$. The decision itself is not assigned a probability. Every probability in the problem is conditional on the action under consideration.
 3. A utility $U(x)$ that scores outcomes on one numerical scale, or a loss that scores them as a cost. With several attributes the score has to weigh them against each other, as quality-adjusted life years do when a month of treatment discomfort is subtracted. The loss function is that score written so that a worse outcome has a larger number.
-4. The expected utility $E\bigl(U(x)\mid d\bigr)$, or the expected loss if the score is a cost, computed for each $d$. The preferred decision maximises expected utility or minimises expected loss. In a tree of several decisions the expectation at each node uses only the information available at that node.
+4. The expected utility $\E\bigl(U(x)\mid d\bigr)$, or the expected loss if the score is a cost, computed for each $d$. The preferred decision maximises expected utility or minimises expected loss. In a tree of several decisions the expectation at each node uses only the information available at that node.
 
 A full analysis does all four steps. Many applications stop after the first two and leave the weighing of outcomes to the person who must act.{{cite:gelman_bda2013}} (Ch. 9, §9.1, pp. 237–239)
 

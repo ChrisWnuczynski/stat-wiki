@@ -15,7 +15,7 @@ The factor $1-n/N$ reflects the reduced uncertainty from observing a substantial
 
 ::: {.callout-note collapse="true" title="Proof"}
 ::: {.proof}
-Write $I_i$ for the indicator that unit $i$ is sampled and $f=n/N$. The combinatorial probabilities give $E(I_i)=f$, $\operatorname{Var}(I_i)=f(1-f)$ and, for distinct units, $\operatorname{Cov}(I_i,I_j)=-f(1-f)/(N-1)$. Since $\bar y=n^{-1}\sum_iI_i y_i$, linearity gives $E(\bar y)=\bar Y$. Substituting the indicator variances and covariances into the variance of this sum, and using $\sum_i(y_i-\bar Y)=0$, gives $(1-f)S^2/n$. This is a design calculation: the population values themselves remain fixed.
+Write $I_i$ for the indicator that unit $i$ is sampled and $f=n/N$. The combinatorial probabilities give $\E(I_i)=f$, $\operatorname{Var}(I_i)=f(1-f)$ and, for distinct units, $\operatorname{Cov}(I_i,I_j)=-f(1-f)/(N-1)$. Since $\bar y=n^{-1}\sum_iI_i y_i$, linearity gives $\E(\bar y)=\bar Y$. Substituting the indicator variances and covariances into the variance of this sum, and using $\sum_i(y_i-\bar Y)=0$, gives $(1-f)S^2/n$. This is a design calculation: the population values themselves remain fixed.
 :::
 :::
 

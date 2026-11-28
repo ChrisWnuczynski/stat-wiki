@@ -14,9 +14,9 @@ For a Poisson variable, $h(x)=1/x!$, $\eta=\log\lambda$, and $A(\eta)=e^\eta$. F
 ## Properties — Moments from normalisation
 At an interior parameter value where differentiation is valid,
 $$
-A'(\eta)=E_\eta(X),\qquad A''(\eta)=\operatorname{Var}_\eta(X).
+A'(\eta)=\E_\eta(X),\qquad A''(\eta)=\operatorname{Var}_\eta(X).
 $$
-Differentiate $\int f_\eta(x)d\nu(x)=1$ to obtain $E(X-A')=0$. Differentiating again yields $E\{(X-A')^2-A''\}=0$. Thus the second derivative is nonnegative and $A$ is convex. For a nondegenerate family it is strictly positive, making the mean increase with the natural parameter.{{cite:dasgupta2011_exponential_family}} (§18.2.2, Thm. 18.3){{cite:nelder_wedderburn1972}} (§1.1, eqs. 3–6, p. 371)
+Differentiate $\int f_\eta(x)d\nu(x)=1$ to obtain $\E(X-A')=0$. Differentiating again yields $\E\{(X-A')^2-A''\}=0$. Thus the second derivative is nonnegative and $A$ is convex. For a nondegenerate family it is strictly positive, making the mean increase with the natural parameter.{{cite:dasgupta2011_exponential_family}} (§18.2.2, Thm. 18.3){{cite:nelder_wedderburn1972}} (§1.1, eqs. 3–6, p. 371)
 
 For $n$ independent observations the log likelihood is $\eta\sum_i x_i-nA(\eta)$ plus a data-only term. The score is $\sum_i x_i-nA'(\eta)$ and its derivative is $-nA''(\eta)$. A finite stationary point therefore matches the model mean to the sample mean and maximises this concave log likelihood. The mean can lie at a boundary where no finite stationary point exists.{{cite:nelder_wedderburn1972}} (§§1.1, 2.2, pp. 371, 374)
 

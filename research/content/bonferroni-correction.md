@@ -5,9 +5,9 @@ The Bonferroni correction runs each test at the family level divided by the numb
 Four independent tests, each with true-null rejection probability exactly $0.05$, have family-wise error $1-(0.95)^4\approx 0.1855$ when all four nulls are true. That is more than three times the nominal $0.05$. Splitting the level into four pieces, $0.05/4=0.0125$, brings the union bound back to $0.05$. If each true-null rejection probability is exactly $0.0125$, the independent error is $1-(0.9875)^4\approx 0.0491$, just under the cap.{{cite:hastie_esl2009}} (§18.7, p. 686)
 
 ## Intuition
-Let $A_j$ be the event that test $j$ falsely rejects a true null. Valid true-null $p$-values satisfy $\mathrm{P}(p_j\le t)\le t$ for every $t\in[0,1]$, so testing at level $\alpha/m$ gives $\mathrm{P}(A_j)\le\alpha/m$. The event of at least one false rejection is the union of the $A_j$. A union is no more probable than the sum of the pieces, so
+Let $A_j$ be the event that test $j$ falsely rejects a true null. Valid true-null $p$-values satisfy $\mathbb{P}(p_j\le t)\le t$ for every $t\in[0,1]$, so testing at level $\alpha/m$ gives $\mathbb{P}(A_j)\le\alpha/m$. The event of at least one false rejection is the union of the $A_j$. A union is no more probable than the sum of the pieces, so
 $$
-\mathrm{P}\Bigl(\bigcup_{j=1}^{m} A_j\Bigr)\le\sum_{j=1}^{m}\mathrm{P}(A_j)\le\alpha.
+\mathbb{P}\Bigl(\bigcup_{j=1}^{m} A_j\Bigr)\le\sum_{j=1}^{m}\mathbb{P}(A_j)\le\alpha.
 $$
 The argument never asks whether the tests are independent. Under arbitrary dependence the union is at most the sum. This compares the union with a bound, not with its probability under independence.{{cite:hastie_esl2009}} (§18.7, p. 686)
 
@@ -15,20 +15,20 @@ The argument never asks whether the tests are independent. Under arbitrary depen
 To keep the family-wise error rate at most $\alpha$ across $m$ tests, test each null at level $\alpha/m$. Equivalently, multiply each $p$-value by $m$ and compare with $\alpha$, capping the product at $1$. Hastie, Tibshirani and Friedman state the same rule as: reject $H_{0j}$ when $p_j<\alpha/M$.{{cite:hastie_esl2009}} (§18.7, p. 686)
 
 ## Interpretation — The cap is not the exact error
-When all $m$ nulls are true, the error events are independent, and $\mathrm{P}(A_j)=\alpha/m$ for every $j$, the family-wise error is $1-(1-\alpha/m)^m$, which is strictly less than $\alpha$ for $m>1$ and $\alpha\in(0,1)$. A level bound $\mathrm{P}(A_j)\le\alpha/m$ alone does not give this equality: the actual marginal rejection probabilities must attain the threshold. For $m=4$ and $\alpha=0.05$ the exact value is about $0.0491$, while the union bound says $0.05$. The gap grows as $m$ increases: $1-(1-\alpha/m)^m$ tends to $1-e^{-\alpha}$, and $1-e^{-0.05}\approx 0.0488$, still under $0.05$, but each individual test has become very strict.
+When all $m$ nulls are true, the error events are independent, and $\mathbb{P}(A_j)=\alpha/m$ for every $j$, the family-wise error is $1-(1-\alpha/m)^m$, which is strictly less than $\alpha$ for $m>1$ and $\alpha\in(0,1)$. A level bound $\mathbb{P}(A_j)\le\alpha/m$ alone does not give this equality: the actual marginal rejection probabilities must attain the threshold. For $m=4$ and $\alpha=0.05$ the exact value is about $0.0491$, while the union bound says $0.05$. The gap grows as $m$ increases: $1-(1-\alpha/m)^m$ tends to $1-e^{-\alpha}$, and $1-e^{-0.05}\approx 0.0488$, still under $0.05$, but each individual test has become very strict.
 
-Pairwise positive association alone does not order the family-wise error against independence. With four true nulls and $\alpha=0.05$, assign probability $0.01234$ to each of the four singleton-rejection outcomes, $0.00016$ to the outcome where all four reject, and $0.95048$ to no rejections. All other outcomes have probability zero. Each marginal is $\mathrm{P}(A_j)=0.01234+0.00016=0.0125$, and each pair has $\mathrm{P}(A_i\cap A_j)=0.00016>0.0125^2=0.00015625$. Yet $\mathrm{FWER}=4\times0.01234+0.00016=0.04952$, above the independent value $1-(0.9875)^4\approx0.049070288$ and still below $0.05$. With valid true-null $p$-values, the union bound remains $\mathrm{FWER}\le\alpha$ under arbitrary dependence.
+Pairwise positive association alone does not order the family-wise error against independence. With four true nulls and $\alpha=0.05$, assign probability $0.01234$ to each of the four singleton-rejection outcomes, $0.00016$ to the outcome where all four reject, and $0.95048$ to no rejections. All other outcomes have probability zero. Each marginal is $\mathbb{P}(A_j)=0.01234+0.00016=0.0125$, and each pair has $\mathbb{P}(A_i\cap A_j)=0.00016>0.0125^2=0.00015625$. Yet $\mathrm{FWER}=4\times0.01234+0.00016=0.04952$, above the independent value $1-(0.9875)^4\approx0.049070288$ and still below $0.05$. With valid true-null $p$-values, the union bound remains $\mathrm{FWER}\le\alpha$ under arbitrary dependence.
 
 ## Properties
 The union bound and the independent formula are the two numbers a user needs.
 
 ::: {.callout-note collapse="true" title="Proof"}
 ::: {.proof}
-If $\mathrm{P}(A_j)\le\alpha/m$, subadditivity gives $\mathrm{P}(\cup_j A_j)\le\sum_j\mathrm{P}(A_j)\le\alpha$.{{cite:durrett2019}} (Thm. 1.1.1(ii))
+If $\mathbb{P}(A_j)\le\alpha/m$, subadditivity gives $\mathbb{P}(\cup_j A_j)\le\sum_j\mathbb{P}(A_j)\le\alpha$.{{cite:durrett2019}} (Thm. 1.1.1(ii))
 
-If all $m$ nulls are true, the $A_j$ are independent and $\mathrm{P}(A_j)=\alpha/m$ for every $j$, then
+If all $m$ nulls are true, the $A_j$ are independent and $\mathbb{P}(A_j)=\alpha/m$ for every $j$, then
 $$
-\mathrm{P}(\cup_j A_j)=1-\prod_{j=1}^{m}(1-\alpha/m)=1-(1-\alpha/m)^m.
+\mathbb{P}(\cup_j A_j)=1-\prod_{j=1}^{m}(1-\alpha/m)=1-(1-\alpha/m)^m.
 $$
 For $\alpha=0.05$ and $m=4$, $1-0.0125=0.9875$ and $0.9875^4=0.9509297119140625$, so the error is $1-0.9875^4\approx 0.04907$, which rounds to $0.0491$. Without the correction, an exact rejection probability of $0.05$ for each true null gives $1-0.95^4=0.18549375$, which rounds to $0.1855$.
 
@@ -64,7 +64,7 @@ Splitting $\alpha$ into $m$ equal pieces is not the only split that the union bo
 ## Assumptions and limits — A valid bound can still be useless
 With $m=1000$ and $\alpha=0.05$, each test uses level $0.00005$. A real signal with a raw $p$-value of $0.001$ has adjusted value $1$ and is not rejected. The family-wise guarantee still holds. The procedure has spent almost all of its level on tests that were never going to reject, which is the sense in which the method is conservative for large $m$.{{cite:hastie_esl2009}} (§18.7, p. 686)
 
-Let $V$ count false rejections and $R$ count all rejections. The realised false-discovery proportion is $\mathrm{FDP}=V/R$ when $R>0$ and $0$ when $R=0$; the false discovery rate is its expectation, $\mathrm{FDR}=\mathbb{E}(\mathrm{FDP})$. Since $\mathrm{FDP}\le\mathbf{1}_{\{V>0\}}$, taking expectations gives $\mathrm{FDR}\le\mathrm{P}(V>0)=\mathrm{FWER}\le\alpha$ for Bonferroni with valid true-null $p$-values. FDR and FWER are different error targets, but controlling FWER also bounds FDR. Neither bound guarantees that a realised list of rejections contains no false discoveries.
+Let $V$ count false rejections and $R$ count all rejections. The realised false-discovery proportion is $\mathrm{FDP}=V/R$ when $R>0$ and $0$ when $R=0$; the false discovery rate is its expectation, $\mathrm{FDR}=\mathbb{E}(\mathrm{FDP})$. Since $\mathrm{FDP}\le\mathbf{1}_{\{V>0\}}$, taking expectations gives $\mathrm{FDR}\le\mathbb{P}(V>0)=\mathrm{FWER}\le\alpha$ for Bonferroni with valid true-null $p$-values. FDR and FWER are different error targets, but controlling FWER also bounds FDR. Neither bound guarantees that a realised list of rejections contains no false discoveries.
 
 If the set of tests is chosen after looking at the data, $m$ is no longer the number that entered the bound. Adding unreported comparisons, or dropping tests that did not reject, changes the family the inequality was applied to.
 

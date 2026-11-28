@@ -21,7 +21,7 @@ where $\Phi$ is the standard normal cumulative distribution function.{{cite:neld
 
 If a scalar predictor has coefficient $\beta_1$, increasing it by one unit shifts the normal score by $\beta_1$. Its effect on probability varies with the starting score: $\partial p/\partial x=\beta_1\varphi(\eta)$, where $\varphi$ is the standard normal density. The density is largest at $\eta=0$, so an equal score shift changes probability most near one half and less near either extreme. This is why a coefficient cannot be reported as a constant percentage-point effect.
 
-The model has a latent-variable interpretation. Let $Z_i=x_i^\top\beta+\varepsilon_i$, with $\varepsilon_i\sim N(0,1)$, and observe $Y_i=1$ when $Z_i>0$. Then $P(Y_i=1\mid x_i)=\Phi(x_i^\top\beta)$. Fixing the error variance to one sets the scale: binary data alone cannot separately identify a common multiplier on both the coefficients and an unknown latent-error standard deviation. The threshold story is one interpretation of the fitted probabilities, not proof that an actual unrecorded normal variable exists.
+The model has a latent-variable interpretation. Let $Z_i=x_i^\top\beta+\varepsilon_i$, with $\varepsilon_i\sim N(0,1)$, and observe $Y_i=1$ when $Z_i>0$. Then $\mathbb{P}(Y_i=1\mid x_i)=\Phi(x_i^\top\beta)$. Fixing the error variance to one sets the scale: binary data alone cannot separately identify a common multiplier on both the coefficients and an unknown latent-error standard deviation. The threshold story is one interpretation of the fitted probabilities, not proof that an actual unrecorded normal variable exists.
 
 ## Properties — Central slope, and why a logit rescaling is only local
 
@@ -31,7 +31,7 @@ At the centre, the standard probit inverse link has slope $\varphi(0)=1/\sqrt{2\
 
 ::: {.callout-note collapse="true" title="Proof"}
 ::: {.proof}
-The latent threshold model gives $P(Z_i>0\mid x_i)=P(\varepsilon_i>-\eta_i)=1-\Phi(-\eta_i)=\Phi(\eta_i)$ by symmetry of the standard normal law. Differentiating $p(x)=\Phi(\beta_0+\beta_1x)$ yields $p'(x)=\beta_1\varphi(\eta)$ by the chain rule. Because $\varphi(\eta)=e^{-\eta^2/2}/\sqrt{2\pi}$, it is positive, maximal at zero and decreases as $|\eta|$ grows. Normal symmetry yields $\Phi(-\eta)=1-\Phi(\eta)$, and $\Phi(0)=1/2$ gives the half-probability equation. For the slope comparison, the logistic function $\sigma(\eta)$ has $\sigma'(0)=1/4$, while $\frac{d}{d\eta}\Phi(c\eta)|_{\eta=0}=c/\sqrt{2\pi}$; equality gives $c=\sqrt{2\pi}/4=\sqrt{\pi/8}$. These statements establish the link interpretation without requiring a particular fitting algorithm.
+The latent threshold model gives $\mathbb{P}(Z_i>0\mid x_i)=\mathbb{P}(\varepsilon_i>-\eta_i)=1-\Phi(-\eta_i)=\Phi(\eta_i)$ by symmetry of the standard normal law. Differentiating $p(x)=\Phi(\beta_0+\beta_1x)$ yields $p'(x)=\beta_1\varphi(\eta)$ by the chain rule. Because $\varphi(\eta)=e^{-\eta^2/2}/\sqrt{2\pi}$, it is positive, maximal at zero and decreases as $|\eta|$ grows. Normal symmetry yields $\Phi(-\eta)=1-\Phi(\eta)$, and $\Phi(0)=1/2$ gives the half-probability equation. For the slope comparison, the logistic function $\sigma(\eta)$ has $\sigma'(0)=1/4$, while $\frac{d}{d\eta}\Phi(c\eta)|_{\eta=0}=c/\sqrt{2\pi}$; equality gives $c=\sqrt{2\pi}/4=\sqrt{\pi/8}$. These statements establish the link interpretation without requiring a particular fitting algorithm.
 :::
 :::
 

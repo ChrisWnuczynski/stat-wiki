@@ -2,7 +2,7 @@
 A Poisson regression may predict 5 expected events at one predictor value and 10 at another. A log link represents this change by adding a coefficient on the log-mean scale, then exponentiating to obtain the mean ratio. This interpretation concerns the conditional mean response and does not require transforming the observed count itself.{{cite:wuthrich_merz2022_glm}} (§5.2.2, ex. 5.13, multiplicative model)
 
 ## Definition — Exponentiate the complete contrast
-Suppose $\log\mu(x)=\beta_0+\beta_1x_1+\cdots+\beta_qx_q$, where $\mu(x)=E(Y\mid x)>0$. Holding the other predictors fixed and changing $x_j$ by $h$ gives
+Suppose $\log\mu(x)=\beta_0+\beta_1x_1+\cdots+\beta_qx_q$, where $\mu(x)=\E(Y\mid x)>0$. Holding the other predictors fixed and changing $x_j$ by $h$ gives
 $$\log\frac{\mu(x+h e_j)}{\mu(x)}=h\beta_j,\qquad\frac{\mu(x+h e_j)}{\mu(x)}=e^{h\beta_j}.$$
 The formula follows by subtracting the two linear predictors; the intercept and the unchanged predictors cancel. A one-unit increase therefore multiplies the mean by $e^{\beta_j}$, and its percentage change is $100(e^{\beta_j}-1)$, rather than exactly $100\beta_j$.{{cite:wuthrich_merz2022_glm}} (§5.2.2, ex. 5.13)
 

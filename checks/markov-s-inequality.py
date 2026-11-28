@@ -54,15 +54,15 @@ assert "the two sides agree on" not in proof
 limits = body.split("{#assumptions-and-limits}", 1)[1].split("\n## ", 1)[0]
 for required in (
     "finite almost surely", "continuity from above",
-    r"\mathrm{P}(X\ge a)\to 0", "fixed positive threshold",
+    r"\mathbb{P}(X\ge a)\to 0", "fixed positive threshold",
     "uniform upper bound smaller than $1$", "$b>0$", "$X=b/U$",
     r"U\sim\operatorname{Uniform}(0,1)",
-    r"\mathrm{E} X=b\int_0^1\frac{1}{u}\,du=\infty",
-    r"\mathrm{P}(X\ge a)=\mathrm{P}(U\le b/a)=\min\{1,b/a\}",
-    r"\mathrm{P}(X\ge b)=1", r"\mathrm{P}(X\ge 2b)=1/2",
+    r"\mathbb{E} X=b\int_0^1\frac{1}{u}\,du=\infty",
+    r"\mathbb{P}(X\ge a)=\mathbb{P}(U\le b/a)=\min\{1,b/a\}",
+    r"\mathbb{P}(X\ge b)=1", r"\mathbb{P}(X\ge 2b)=1/2",
 ):
     assert required in limits, required
-assert r"\mathrm{P}(X\ge a)=1$ for every finite $a$" not in limits
+assert r"\mathbb{P}(X\ge a)=1$ for every finite $a$" not in limits
 
 assert round(1 - sum(math.exp(-2) * 2 ** k / math.factorial(k) for k in range(10)), 6) == 0.000046
 for printed in ("1/6", "0.01", "0.2", "0.0352", "0.4", "1.5", "0.002479", "0.1667", "0.000046"):

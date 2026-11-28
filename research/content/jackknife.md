@@ -21,11 +21,11 @@ The pseudovalues are generally dependent; writing the formula as a variance of t
 ## Properties — What the expansion must control
 Suppose an iid-sample statistic has the regular expectation expansion
 $$
-E(\widehat\theta_n)=\theta+\frac an+\frac b{n^2}+O(n^{-3}).
+\E(\widehat\theta_n)=\theta+\frac an+\frac b{n^2}+O(n^{-3}).
 $$
 Each deletion has the distribution of the statistic at sample size $n-1$. Thus
 $$
-E(\widehat\theta_J)=nE(\widehat\theta_n)-(n-1)E(\widehat\theta_{n-1})=\theta+O(n^{-2}).
+\E(\widehat\theta_J)=nE(\widehat\theta_n)-(n-1)\E(\widehat\theta_{n-1})=\theta+O(n^{-2}).
 $$
 The constant $a$ cancels exactly. The displayed remainder control matters: a bare $o(n^{-1})$ remainder, multiplied by $n$ in this difference, does not itself establish second-order bias. Nor does removing leading bias necessarily reduce mean squared error, since variance may increase.{{cite:dodge2008}} (pp. 271–272){{cite:efron1979}} (§5, pp. 12–14)
 
@@ -39,7 +39,7 @@ For data $(1,2,4,5)$, let $\widehat\theta=\bar x^2=9$. The four deleted means ar
 $$
 3\left(\frac{167}{18}-9\right)=\frac56,
 $$
-and the corrected estimate is $49/6\approx8.166667$. In this example the correction has a direct interpretation. If the data are iid with finite variance, $E(\bar X^2)=\mu^2+\sigma^2/n$, and the unbiased sample variance estimates $\sigma^2$. Algebra gives $\widehat\theta_J=\bar x^2-s^2/n$. Here $s^2=10/3$, recovering the same correction.{{cite:dodge2008}} (pp. 271–272)
+and the corrected estimate is $49/6\approx8.166667$. In this example the correction has a direct interpretation. If the data are iid with finite variance, $\E(\bar X^2)=\mu^2+\sigma^2/n$, and the unbiased sample variance estimates $\sigma^2$. Algebra gives $\widehat\theta_J=\bar x^2-s^2/n$. Here $s^2=10/3$, recovering the same correction.{{cite:dodge2008}} (pp. 271–272)
 
 For the sample mean itself, the deleted estimates average $\bar x$ and the jackknife bias estimate is zero. Substitution into the variance formula gives $s^2/n=5/6$, hence standard error $\sqrt{5/6}\approx0.912871$. The nonlinear statistic and the mean respond differently to deletion despite using the same observations.{{cite:efron1979}} (§5, pp. 13–14)
 

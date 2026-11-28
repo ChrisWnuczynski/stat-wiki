@@ -2,7 +2,7 @@
 
 The log-rank test, also called the Mantel–Cox test, is a non-parametric test for comparing the survival distributions of two or more groups. It is the standard companion to the Kaplan–Meier curve: where the Kaplan–Meier estimator draws one survival curve per group, the log-rank test asks whether the curves differ by more than chance alone. It compares the groups' whole survival experience, from the start of follow-up to its end, rather than survival at any single chosen time point.
 
-Let $T$ denote a subject's true event time, for example time to death or relapse, and let $S(t) = P(T > t)$ be the survival function and $h(t)$ the hazard function, the instantaneous event rate among subjects still at risk at time $t$. For two groups, labelled $1$ and $2$, the null hypothesis of the log-rank test is
+Let $T$ denote a subject's true event time, for example time to death or relapse, and let $S(t) = \mathbb{P}(T > t)$ be the survival function and $h(t)$ the hazard function, the instantaneous event rate among subjects still at risk at time $t$. For two groups, labelled $1$ and $2$, the null hypothesis of the log-rank test is
 
 $$H_0: h_1(t) = h_2(t) \quad \text{for all } t,$$
 

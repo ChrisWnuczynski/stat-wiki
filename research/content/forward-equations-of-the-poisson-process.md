@@ -3,8 +3,8 @@ A detector counts arrivals over time. Rather than specifying only the total coun
 
 ## Properties — A complete short-interval argument
 Put $\Delta_h=N(t+h)-N(t)$. Independence and stationarity of increments give
-$$p_n(t+h)=\sum_{j=0}^np_{n-j}(t)P(\Delta_h=j).$$
-For fixed $n$, substitute $P(\Delta_h=0)=1-\lambda h+o(h)$, $P(\Delta_h=1)=\lambda h+o(h)$ and $P(\Delta_h\ge2)=o(h)$. The sum has finitely many terms, so after subtracting $p_n(t)$, dividing by $h$ and taking the limit, only the terms for zero and one new arrivals survive. This yields $p_n'=\lambda p_{n-1}-\lambda p_n$, with $p_{-1}=0$. The construction is a pure-birth specialization of the Kolmogorov forward equation.{{cite:durrett2012_essentials}} (§4.2, eq. 4.9–4.11, pp. 124–125)
+$$p_n(t+h)=\sum_{j=0}^np_{n-j}(t)\mathbb{P}(\Delta_h=j).$$
+For fixed $n$, substitute $\mathbb{P}(\Delta_h=0)=1-\lambda h+o(h)$, $\mathbb{P}(\Delta_h=1)=\lambda h+o(h)$ and $\mathbb{P}(\Delta_h\ge2)=o(h)$. The sum has finitely many terms, so after subtracting $p_n(t)$, dividing by $h$ and taking the limit, only the terms for zero and one new arrivals survive. This yields $p_n'=\lambda p_{n-1}-\lambda p_n$, with $p_{-1}=0$. The construction is a pure-birth specialization of the Kolmogorov forward equation.{{cite:durrett2012_essentials}} (§4.2, eq. 4.9–4.11, pp. 124–125)
 
 Multiplying by $e^{\lambda t}$ gives $(e^{\lambda t}p_n(t))'=\lambda e^{\lambda t}p_{n-1}(t)$. Starting with $p_0=e^{-\lambda t}$ and integrating inductively from zero gives
 $$p_n(t)=e^{-\lambda t}\frac{(\lambda t)^n}{n!}.$$
@@ -20,7 +20,7 @@ Here $\lambda t=1.5$, so $p_1=1.5e^{-1.5}=0.33470$. Its derivative is $3(p_0-p_1
 :::
 
 ### A generating function solves the entire system
-For $0\le z\le1$, define $G(z,t)=\sum_{n\ge0}p_n(t)z^n$. Substituting the Poisson solution gives $G(z,t)=e^{\lambda t(z-1)}$. It also satisfies $\partial G/\partial t=\lambda(z-1)G$ with $G(z,0)=1$, combining the forward equations into a single differential equation. Differentiating in $z$ at one gives $E\{N(t)\}=\lambda t$ and $E\{N(t)(N(t)-1)\}=(\lambda t)^2$. Since $N^2=N(N-1)+N$, the variance is also $\lambda t$. These moments are consequences of the full distribution; equality of the mean and variance alone does not establish independent increments. The factorial-moment identities are useful diagnostics for the Poisson count law.{{cite:durrett2012_essentials}} (§2.2, thm. 2.3, p. 81)
+For $0\le z\le1$, define $G(z,t)=\sum_{n\ge0}p_n(t)z^n$. Substituting the Poisson solution gives $G(z,t)=e^{\lambda t(z-1)}$. It also satisfies $\partial G/\partial t=\lambda(z-1)G$ with $G(z,0)=1$, combining the forward equations into a single differential equation. Differentiating in $z$ at one gives $\E\{N(t)\}=\lambda t$ and $\E\{N(t)(N(t)-1)\}=(\lambda t)^2$. Since $N^2=N(N-1)+N$, the variance is also $\lambda t$. These moments are consequences of the full distribution; equality of the mean and variance alone does not establish independent increments. The factorial-moment identities are useful diagnostics for the Poisson count law.{{cite:durrett2012_essentials}} (§2.2, thm. 2.3, p. 81)
 
 ## Connections — Counts and waiting times
 The no-arrival probability $p_0(t)=e^{-\lambda t}$ is also the survival probability of the first waiting time. Independent exponential interarrival times reconstruct the Poisson count process. Their sums give the arrival epochs, so distributional statements about counts can be converted into statements about waiting times. The rate has units of events per time and $\lambda t$ is dimensionless.{{cite:durrett2012_essentials}} (§2.2, lem. 2.2, pp. 80–81)
@@ -37,7 +37,7 @@ Probability of count $n$ increases when an arrival occurs in count $n-1$, and it
 Fix a short extra interval of length $h$. The chance of no arrival in that interval is about $1-\lambda h$, the chance of one arrival is about $\lambda h$, and the chance of two or more is much smaller than $h$. Count $n$ at the later time is therefore reached in two ordinary ways: the process was already at $n$ and nothing arrived, or it was at $n-1$ and one arrival occurred. Subtracting the probability at the earlier time, dividing by $h$, and letting $h$ shrink leaves the derivative $\lambda p_{n-1}-\lambda p_n$. The index $n-1$ appears because the process only jumps upward. A term in $p_{n+1}$ would describe a downward jump, which this model does not have.{{cite:durrett2012_essentials}} (§4.2, eq. 4.9–4.11, pp. 124–125)
 
 ## Definition
-Let $p_n(t)=P\{N(t)=n\}$ for $n=0,1,2,\ldots$, with $p_{-1}=0$. The homogeneous Poisson process of rate $\lambda>0$ satisfies
+Let $p_n(t)=\mathbb{P}\{N(t)=n\}$ for $n=0,1,2,\ldots$, with $p_{-1}=0$. The homogeneous Poisson process of rate $\lambda>0$ satisfies
 $$
 p_0'(t)=-\lambda p_0(t),\qquad p_n'(t)=\lambda p_{n-1}(t)-\lambda p_n(t)\quad(n\ge 1),
 $$

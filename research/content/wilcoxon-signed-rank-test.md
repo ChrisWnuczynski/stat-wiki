@@ -18,12 +18,12 @@ With ties, condition on the observed nonzero magnitudes and enumerate all $2^m$ 
 
 The conditional null mean and variance follow from the same signings. Each labelled rank $r_i$ enters $W_+$ with probability $1/2$, independently of the others, so
 $$
-\mathrm{E}(W_+ \mid r_1, \ldots, r_m) = \frac12 \sum_{i=1}^{m} r_i = \frac{m(m+1)}{4},
+\E(W_+ \mid r_1, \ldots, r_m) = \frac12 \sum_{i=1}^{m} r_i = \frac{m(m+1)}{4},
 $$
 $$
 \mathrm{Var}(W_+ \mid r_1, \ldots, r_m) = \frac14 \sum_{i=1}^{m} r_i^2.
 $$
-Without ties, the variance simplifies to $m(m+1)(2m+1)/24$. With ties, use the squared midranks instead. The summands $r_i I_i$ are independent conditional on the ranks, but generally not identically distributed because their rank weights differ. For $m > 20$ the critical value can be approximated by comparing $(W_+ - \mathrm{E} W_+)/\sqrt{\mathrm{Var} W_+}$ with a normal reference.{{cite:dodge2008}} (p. 572) For smaller $m$ the exact subset count is the probability, and the normal formula only describes where the observation sits.
+Without ties, the variance simplifies to $m(m+1)(2m+1)/24$. With ties, use the squared midranks instead. The summands $r_i I_i$ are independent conditional on the ranks, but generally not identically distributed because their rank weights differ. For $m > 20$ the critical value can be approximated by comparing $(W_+ - \E W_+)/\sqrt{\mathrm{Var} W_+}$ with a normal reference.{{cite:dodge2008}} (p. 572) For smaller $m$ the exact subset count is the probability, and the normal formula only describes where the observation sits.
 
 For example, differences $(1, 1, -2)$ have labelled midranks $(1.5, 1.5, 3)$ and observed $W_+ = 3$. The eight sign assignments give positive rank sums $0, 1.5, 1.5, 3, 3, 4.5, 4.5, 6$, listed with multiplicity. Five are at least $3$, so the exact upper-tail probability is $5/8$. The conditional variance is $(1.5^2 + 1.5^2 + 3^2)/4 = 3.375$, whereas the untied formula would give $3.5$.
 
@@ -45,13 +45,13 @@ None is zero and the eight absolute values are distinct, so $m = 8$ and the rank
 
 The exact reference set is the $256$ subsets of $\{1,\ldots,8\}$. A subset sums to $28$ or more precisely when the ranks left out, the ones that would have been negative, sum to $8$ or less. There is $1$ such signing of negative-sum $0$, $1$ of sum $1$ and $1$ of sum $2$. The counts for negative sums $3$ through $8$ are $2, 2, 3, 4, 5$ and $6$. These add to $25$, so the exact one-sided probability is
 $$
-P(W_+ \ge 28) = \frac{25}{256} \approx 0.0977.
+\mathbb{P}(W_+ \ge 28) = \frac{25}{256} \approx 0.0977.
 $$
-The matching lower tail is $P(W_+ \le 8) = 25/256$ as well, and the two events are disjoint, so the two-sided probability is $50/256 \approx 0.195$. At a one-sided $5\%$ level the signed-rank test does not reject.
+The matching lower tail is $\mathbb{P}(W_+ \le 8) = 25/256$ as well, and the two events are disjoint, so the two-sided probability is $50/256 \approx 0.195$. At a one-sided $5\%$ level the signed-rank test does not reject.
 
 The sign test on the same differences keeps seven positive signs out of eight. Its one-sided probability is
 $$
-P(N_+ \ge 7) = \frac{\binom{8}{7}+\binom{8}{8}}{256} = \frac{9}{256} \approx 0.0352.
+\mathbb{P}(N_+ \ge 7) = \frac{\binom{8}{7}+\binom{8}{8}}{256} = \frac{9}{256} \approx 0.0352.
 $$
 At the same one-sided $5\%$ level the sign test does reject. The two procedures disagree because the fall of $12$ is one sign to the sign test and the rank $8$ to the signed-rank test.{{cite:dodge2008}} (p. 486)
 
@@ -59,15 +59,15 @@ Replace $-12$ by $-1/2$ and leave the other seven differences as they are. The s
 
 The normal approximation is a different object from either exact probability. For $m = 8$,
 $$
-\mathrm{E}(W_+) = 18, \qquad \mathrm{Var}(W_+) = 51.
+\E(W_+) = 18, \qquad \mathrm{Var}(W_+) = 51.
 $$
 The mean and the variance are those of the exact null, and the normal approximation is the reference intended for $m > 20$.{{cite:dodge2008}} (p. 572) The standardised value of $W_+ = 28$ is $10/\sqrt{51} \approx 1.400$, and the corresponding upper normal probability is about $0.0807$. The continuity correction that `wilcox.test` applies by default to this approximation compares $(27.5 - 18)/\sqrt{51} \approx 1.330$ with the same normal curve and gives about $0.0917$.{{cite:r_wilcox_test2026}} (Usage and Arguments, `correct`) Both approximations are smaller than the exact $25/256$. At $m = 8$ the subset count is the probability to report.
 
 The point estimate that accompanies the exact test is the median of the $m(m+1)/2 = 36$ averages $(D_i + D_j)/2$ with $1 \le i \le j \le m$. For these eight differences that median is $3.5$. With `conf.int = TRUE`, `wilcox.test` returns an estimate of the location parameter, and on these differences that estimate is this same median.{{cite:r_wilcox_test2026}} (Usage, Arguments `conf.int`, and Value)
 
-The exact interval is the set of shifts that the exact two-sided test does not reject. With $256$ equally likely signings, $P(W_+ \le 3) = 5/256$, and $5/256 \le 0.025$ while $P(W_+ \le 4) = 7/256 > 0.025$. The test that rejects only for $W_+ \le 3$ or $W_+ \ge 33$ therefore has two-sided size $10/256$. Inverting it on these differences gives the open interval from $-4.5$ to $6$, which are the $4$th and the $33$rd of the ordered pairwise averages. Every shift strictly between those endpoints leaves the untied positive rank sum between $4$ and $32$. Under a continuous symmetric law the coverage of that interval is
+The exact interval is the set of shifts that the exact two-sided test does not reject. With $256$ equally likely signings, $\mathbb{P}(W_+ \le 3) = 5/256$, and $5/256 \le 0.025$ while $\mathbb{P}(W_+ \le 4) = 7/256 > 0.025$. The test that rejects only for $W_+ \le 3$ or $W_+ \ge 33$ therefore has two-sided size $10/256$. Inverting it on these differences gives the open interval from $-4.5$ to $6$, which are the $4$th and the $33$rd of the ordered pairwise averages. Every shift strictly between those endpoints leaves the untied positive rank sum between $4$ and $32$. Under a continuous symmetric law the coverage of that interval is
 $$
-P(4 \le W_+ \le 32) = 1 - \frac{10}{256} = \frac{246}{256} \approx 0.9609,
+\mathbb{P}(4 \le W_+ \le 32) = 1 - \frac{10}{256} = \frac{246}{256} \approx 0.9609,
 $$
 rather than exactly $0.95$, because the exact test cannot spend probability in fractions finer than $1/256$.
 

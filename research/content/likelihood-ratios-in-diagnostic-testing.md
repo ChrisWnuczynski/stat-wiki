@@ -15,7 +15,7 @@ Bayes’ theorem in odds form is a product. The posterior odds of one state agai
 In diagnostic testing, $\omega_1$ is “condition present,” $\omega_2$ is “condition absent,” and $y$ is the test result. For a positive result, $p(y\mid\omega_1)$ is the sensitivity and $p(y\mid\omega_2)$ is the false-positive rate, one minus the specificity. Their quotient is the positive likelihood ratio. For a negative result the numerator is the false-negative rate and the denominator is the specificity. The posterior odds are
 
 $$
-\frac{P(\omega_1\mid y)}{P(\omega_2\mid y)}=\frac{P(\omega_1)}{P(\omega_2)}\cdot\frac{p(y\mid\omega_1)}{p(y\mid\omega_2)}.
+\frac{\mathbb{P}(\omega_1\mid y)}{\mathbb{P}(\omega_2\mid y)}=\frac{\mathbb{P}(\omega_1)}{\mathbb{P}(\omega_2)}\cdot\frac{p(y\mid\omega_1)}{p(y\mid\omega_2)}.
 $$
 
 

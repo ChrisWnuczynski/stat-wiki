@@ -28,7 +28,7 @@ For independent true-null tests with exact uniform p-values, no rejection at thr
 
 ## Interpretation — What the guarantee says
 
-If a procedure controls FWER at $0.05$ under its assumptions, then across repeated studies of the same design and data-generating configuration, no more than $5\%$ of studies will make even one false rejection in the stated family. It does not say that every reported rejection has a $5\%$ chance of being false, nor that $5\%$ of rejections are false. Those are different quantities. The false discovery rate, $E\{V/\max(R,1)\}$ for $R$ total rejections, averages the *proportion* of false discoveries; when every null is true, that proportion is one whenever anything is rejected, so FDR and FWER coincide in that special configuration.{{cite:benjamini_hochberg1995}} (§2, pp. 291–292, FWER and FDR)
+If a procedure controls FWER at $0.05$ under its assumptions, then across repeated studies of the same design and data-generating configuration, no more than $5\%$ of studies will make even one false rejection in the stated family. It does not say that every reported rejection has a $5\%$ chance of being false, nor that $5\%$ of rejections are false. Those are different quantities. The false discovery rate, $\E\{V/\max(R,1)\}$ for $R$ total rejections, averages the *proportion* of false discoveries; when every null is true, that proportion is one whenever anything is rejected, so FDR and FWER coincide in that special configuration.{{cite:benjamini_hochberg1995}} (§2, pp. 291–292, FWER and FDR)
 
 ## Statistical use — Define the family before looking
 

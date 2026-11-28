@@ -25,7 +25,7 @@ Durrett’s closure under countable intersections is the complement form of clos
 :::
 
 ## Worked example
-Assign $\mathrm P(\{1\})=1/3$ and $\mathrm P(\{2,3\})=2/3$, with $\mathrm P(\emptyset)=0$ and $\mathrm P(\Omega)=1$. This is a probability on $\sigma(\{\{1\}\})$. It does not assign a probability to $\{2\}$ alone, because $\{2\}$ is not in the sigma-algebra. Splitting $\{2,3\}$ into $\{2\}$ and $\{3\}$ would be a different, finer family.
+Assign $\mathbb{P}(\{1\})=1/3$ and $\mathbb{P}(\{2,3\})=2/3$, with $\mathbb{P}(\emptyset)=0$ and $\mathbb{P}(\Omega)=1$. This is a probability on $\sigma(\{\{1\}\})$. It does not assign a probability to $\{2\}$ alone, because $\{2\}$ is not in the sigma-algebra. Splitting $\{2,3\}$ into $\{2\}$ and $\{3\}$ would be a different, finer family.
 
 **Your turn.** On $\Omega=\{1,2,3,4\}$, let $A=\{1,2\}$ and $B=\{1\}$. List the nonempty atoms of $\sigma(A,B)$ and say how many sets the sigma-algebra contains.
 
@@ -34,7 +34,7 @@ The atoms are $A\cap B=\{1\}$, $A\cap B^c=\{2\}$, and $A^c\cap B^c=\{3,4\}$. The
 :::
 
 ## Connections — Random variables and countable additivity
-A [random variable](random-variable.qmd) is a function whose inverse images of Borel sets lie in $\mathcal F$. That requirement is empty unless $\mathcal F$ is a sigma-algebra. Countable additivity, continuity along monotone sequences, and the [Borel–Cantelli lemmas](borel-cantelli-lemmas.qmd) are statements about events in $\mathcal F$.{{cite:durrett2019}} (Thm. 1.1.1, pp. 1–2) The [probability space](probability-space.qmd) is the triple $(\Omega,\mathcal F,\mathrm P)$.
+A [random variable](random-variable.qmd) is a function whose inverse images of Borel sets lie in $\mathcal F$. That requirement is empty unless $\mathcal F$ is a sigma-algebra. Countable additivity, continuity along monotone sequences, and the [Borel–Cantelli lemmas](borel-cantelli-lemmas.qmd) are statements about events in $\mathcal F$.{{cite:durrett2019}} (Thm. 1.1.1, pp. 1–2) The [probability space](probability-space.qmd) is the triple $(\Omega,\mathcal F,\mathbb{P})$.
 
 ## Check yourself
 
@@ -48,8 +48,8 @@ The atoms are $\{2\}$, $\{1\}$, $\{3\}$, and $\{4\}$. Every singleton is an atom
 
 ### Continuity from above {#self-check-ex-sp-continuity-above}
 
-If $A_n\downarrow A$, why does $\mathrm P(A_n)\downarrow\mathrm P(A)$?
+If $A_n\downarrow A$, why does $\mathbb{P}(A_n)\downarrow\mathbb{P}(A)$?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The complements satisfy $A_n^c\uparrow A^c$. Continuity from below gives $\mathrm P(A_n^c)\uparrow\mathrm P(A^c)$. Subtract from $1$ to obtain $\mathrm P(A_n)\downarrow\mathrm P(A)$. The complements are events because $\mathcal F$ is a sigma-algebra., pp. 1–2)
+The complements satisfy $A_n^c\uparrow A^c$. Continuity from below gives $\mathbb{P}(A_n^c)\uparrow\mathbb{P}(A^c)$. Subtract from $1$ to obtain $\mathbb{P}(A_n)\downarrow\mathbb{P}(A)$. The complements are events because $\mathcal F$ is a sigma-algebra., pp. 1–2)
 :::

@@ -16,7 +16,7 @@ For a weakly stationary series, the lag-$k$ partial autocorrelation $\phi_{kk}$ 
 Let $X_t=\phi X_{t-1}+\varepsilon_t$ with $|\phi|<1$ and $\varepsilon_t$ uncorrelated with the past, mean zero, and variance constant. Then $\rho_1=\phi$ and $\rho_2=\phi^2$. Regress $X_t$ and $X_{t-2}$ on $X_{t-1}$. The residuals are $X_t-\phi X_{t-1}=\varepsilon_t$ and $X_{t-2}-\phi X_{t-1}$. Their covariance is
 
 $$
-\mathrm{E}(\varepsilon_t X_{t-2})-\phi\,\mathrm{E}(\varepsilon_t X_{t-1})=0,
+\E(\varepsilon_t X_{t-2})-\phi\,\E(\varepsilon_t X_{t-1})=0,
 $$
 
 because $\varepsilon_t$ is uncorrelated with both earlier values. The residual correlation is $0$, so $\phi_{22}=0$. The same cancellation applies at every lag beyond $1$.

@@ -36,7 +36,7 @@ A chi-square reference with one degree of freedom gives an approximate upper-tai
 **Your turn.** Test $H_0:p=0.5$ after $14$ heads in $20$ independent tosses. Compute $G^2$ using $\widehat p=0.7$ and compare the one-degree chi-square tail with the exact two-sided binomial tail. Which is below $0.05$?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-$G^2=2\{14\log(0.7/0.5)+6\log(0.3/0.5)\}=3.2913$. The chi-square tail is about $0.06965$. The exact tail $P(K\le6\text{ or }K\ge14)=0.11532$ under $K\sim\operatorname{Binomial}(20,0.5)$. Neither is below $0.05$, so neither version rejects at that level.
+$G^2=2\{14\log(0.7/0.5)+6\log(0.3/0.5)\}=3.2913$. The chi-square tail is about $0.06965$. The exact tail $\mathbb{P}(K\le6\text{ or }K\ge14)=0.11532$ under $K\sim\operatorname{Binomial}(20,0.5)$. Neither is below $0.05$, so neither version rejects at that level.
 :::
 
 ## Common misconceptions

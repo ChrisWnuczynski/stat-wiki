@@ -14,7 +14,7 @@ In standard-deviation units its displacement is $\rho$ times the observed displa
 
 Put $U=X-\mu_X$ and $V=Y-\mu_Y$. For a candidate slope $b$,
 $$
-E(V-bU)^2=\sigma_Y^2-2b\rho\sigma_X\sigma_Y+b^2\sigma_X^2.
+\E(V-bU)^2=\sigma_Y^2-2b\rho\sigma_X\sigma_Y+b^2\sigma_X^2.
 $$
 Completing the square gives its unique minimum at $b=\rho\sigma_Y/\sigma_X$, with residual mean square $\sigma_Y^2(1-\rho^2)$. Joint normality additionally makes this linear predictor the conditional mean; the least-squares minimisation itself only needs finite second moments.{{cite:grinstead_snell1997}} (§6.3, Exercises 17–21, pp. 281–282)
 
@@ -22,7 +22,7 @@ Regressing in the opposite direction gives slope $\rho\sigma_X/\sigma_Y$. The pr
 
 ## Worked example
 
-Consider standardised initial and follow-up scores with correlation $0.6$, modelled as jointly normal. An initial score two standard deviations below average, $X=-2$, predicts follow-up mean $E(Y\mid X=-2)=0.6(-2)=-1.2$. The predicted improvement is $0.8$ standard deviations even with no intervention effect. The conditional standard deviation is $\sqrt{1-0.6^2}=0.8$, so individual follow-up scores still vary substantially around that mean.
+Consider standardised initial and follow-up scores with correlation $0.6$, modelled as jointly normal. An initial score two standard deviations below average, $X=-2$, predicts follow-up mean $\E(Y\mid X=-2)=0.6(-2)=-1.2$. The predicted improvement is $0.8$ standard deviations even with no intervention effect. The conditional standard deviation is $\sqrt{1-0.6^2}=0.8$, so individual follow-up scores still vary substantially around that mean.
 
 For the height illustration with means $67$ and $68$ inches, equal standard deviations $2.7$ inches and correlation $0.5$, a father at $71$ inches predicts a son at $68+0.5(71-67)=70$ inches. A father at $63$ inches predicts $66$ inches. The deviations from the two means are halved; neither statement says all children of tall parents are shorter than their parents. These calculations apply the least-squares prediction formula.{{cite:grinstead_snell1997}} (§6.3, Exercises 21, 24, pp. 282–283)
 

@@ -23,9 +23,9 @@ The fraction is not an extra definition. It is what the residual correlation equ
 ::: {.proof}
 Standardise $X$, $Y$ and $Z$ to mean $0$ and variance $1$, so that correlations and covariances agree. The least-squares coefficient of $Z$ in the regression of $X$ is $r_{xz}$, and the residual $X-r_{xz}Z$ has variance $1-r_{xz}^{2}$. Likewise $Y-r_{yz}Z$ has variance $1-r_{yz}^{2}$. Their covariance is
 $$
-\mathrm{E}\bigl((X-r_{xz}Z)(Y-r_{yz}Z)\bigr)=r_{xy}-r_{xz}r_{yz},
+\E\bigl((X-r_{xz}Z)(Y-r_{yz}Z)\bigr)=r_{xy}-r_{xz}r_{yz},
 $$
-because $\mathrm{E}(XZ)=r_{xz}$, $\mathrm{E}(YZ)=r_{yz}$ and $\mathrm{E}(Z^{2})=1$. Dividing the covariance by the square root of the product of the residual variances is the displayed formula. If $r_{xz}=r_{yz}=0$, the fraction collapses to $r_{xy}$.{{cite:dodge2008}} (p. 413)
+because $\E(XZ)=r_{xz}$, $\E(YZ)=r_{yz}$ and $\E(Z^{2})=1$. Dividing the covariance by the square root of the product of the residual variances is the displayed formula. If $r_{xz}=r_{yz}=0$, the fraction collapses to $r_{xy}$.{{cite:dodge2008}} (p. 413)
 
 For a non-degenerate normal vector the conditional covariance of coordinates $j$ and $k$ given the rest is the inverse of the corresponding $2\times 2$ precision block. That block has diagonal entries $K_{jj}$ and $K_{kk}$ and off-diagonal $K_{jk}$, so its determinant is $K_{jj}K_{kk}-K_{jk}^{2}$ and the off-diagonal of the inverse is $-K_{jk}$ over the determinant. The two conditional variances are $K_{kk}$ and $K_{jj}$ over the same determinant. Their correlation therefore simplifies to $-K_{jk}/\sqrt{K_{jj}K_{kk}}$.
 :::

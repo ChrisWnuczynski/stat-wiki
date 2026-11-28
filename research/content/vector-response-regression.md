@@ -5,7 +5,7 @@ The independent sampling unit can contribute several dependent measurements. A m
 At each independently sampled habitat, record presence of two species. Regressing each presence indicator on rainfall estimates how each marginal probability changes. Predicting whether both species occur at the same habitat additionally needs an association specification. Repeated responses from one unit cannot automatically be treated as independent observations.{{cite:liang_zeger1986}} (§1, p. 14)
 
 ## Properties — The feasible joint probabilities
-Let $p_1=P(Y_1=1)$, $p_2=P(Y_2=1)$ and $q=P(Y_1=Y_2=1)$. The four joint probabilities are
+Let $p_1=\mathbb{P}(Y_1=1)$, $p_2=\mathbb{P}(Y_2=1)$ and $q=\mathbb{P}(Y_1=Y_2=1)$. The four joint probabilities are
 $$
 q,\quad p_1-q,\quad p_2-q,\quad 1-p_1-p_2+q.
 $$

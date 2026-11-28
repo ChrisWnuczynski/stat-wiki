@@ -24,7 +24,7 @@ Gelman’s statement of the same inversion in odds form is short. The posterior 
 Take $\theta$ uniform on $[0,1]$, so $f(\theta)=1$, and let $y$ successes occur in $n$ independent Bernoulli trials. The likelihood is $\theta^y(1-\theta)^{n-y}$. The posterior density is proportional to that likelihood. For one success in one trial the kernel is $\theta$, and $\int_0^1\theta\,d\theta=1/2$, so the posterior density is $2\theta$. Then
 
 $$
-P(\theta>1/2\mid y=1)=\int_{1/2}^1 2\theta\,d\theta=1-\left(\frac{1}{2}\right)^2=\frac{3}{4}.
+\mathbb{P}(\theta>1/2\mid y=1)=\int_{1/2}^1 2\theta\,d\theta=1-\left(\frac{1}{2}\right)^2=\frac{3}{4}.
 $$
 
 
@@ -33,7 +33,7 @@ The marginal probability of the success, the denominator in Bayes’ theorem, is
 For a single failure the kernel is $1-\theta$, the posterior density is $2(1-\theta)$, and
 
 $$
-P(\theta>1/2\mid y=0)=\int_{1/2}^1 2(1-\theta)\,d\theta=\frac{1}{4}.
+\mathbb{P}(\theta>1/2\mid y=0)=\int_{1/2}^1 2(1-\theta)\,d\theta=\frac{1}{4}.
 $$
 
 
@@ -45,7 +45,7 @@ The hemophilia example in Gelman is the same inversion with a discrete unknown. 
 
 One trial, one success, $\theta$ uniform on $[0,1]$. The posterior density is $2\theta$. The probability that the chance exceeds one half is $3/4$. The direct probability of a success when the chance equals one half remains $1/2$. Those are different probabilities. The first is about $\theta$ after the data. The second is about the data at a fixed $\theta$. {{cite:dodge2008}} (p. 33) {{cite:gelman_bda2013}} (Ch. 1, §1.3, p. 8)
 
-**Your turn.** The single trial is a failure, so the posterior density is $2(1-\theta)$. Find $P(\theta>1/2\mid y=0)$.
+**Your turn.** The single trial is a failure, so the posterior density is $2(1-\theta)$. Find $\mathbb{P}(\theta>1/2\mid y=0)$.
 
 ::: {.callout-tip collapse="true" title="Answer"}
 The integral is $\int_{1/2}^1 2(1-\theta)\,d\theta=\bigl[2\theta-\theta^2\bigr]_{1/2}^1=(2-1)-(1-1/4)=1/4$.

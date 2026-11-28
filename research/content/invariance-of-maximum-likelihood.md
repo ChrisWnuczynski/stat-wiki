@@ -40,7 +40,7 @@ It is $0.4/60=1/150$ per minute. Invariance respects the units of the transforma
 
 ## Related concepts — Maximisation and expectation
 
-Invariance does not say $E[g(\widehat\theta)]=g(E\widehat\theta)$, and it does not preserve unbiasedness. The proof is an ordering argument about the observed likelihood, containing no averaging over repeated samples. Nor does a parameter transformation add a Jacobian to an ordinary likelihood: the probability model for the observed data is unchanged. Jacobians arise when transforming a density with respect to the variable being integrated.{{cite:siegrist_mle2022}} (§ “Extending the Method and the Invariance Property”)
+Invariance does not say $\E[g(\widehat\theta)]=g(\E\widehat\theta)$, and it does not preserve unbiasedness. The proof is an ordering argument about the observed likelihood, containing no averaging over repeated samples. Nor does a parameter transformation add a Jacobian to an ordinary likelihood: the probability model for the observed data is unchanged. Jacobians arise when transforming a density with respect to the variable being integrated.{{cite:siegrist_mle2022}} (§ “Extending the Method and the Invariance Property”)
 
 ## History
 

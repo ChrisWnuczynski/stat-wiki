@@ -4,8 +4,8 @@ A taste test records which of two drinks is preferred without measuring either d
 ## Definition — Preferences between two items
 For items $i$ and $j$ with log abilities $\lambda_i$ and $\lambda_j$, the Bradley–Terry model specifies
 $$
-P(i\text{ beats }j)=\frac{e^{\lambda_i}}{e^{\lambda_i}+e^{\lambda_j}},\qquad
-\log\frac{P(i\text{ beats }j)}{P(j\text{ beats }i)}=\lambda_i-\lambda_j.
+\mathbb{P}(i\text{ beats }j)=\frac{e^{\lambda_i}}{e^{\lambda_i}+e^{\lambda_j}},\qquad
+\log\frac{\mathbb{P}(i\text{ beats }j)}{\mathbb{P}(j\text{ beats }i)}=\lambda_i-\lambda_j.
 $$
 The model is for contests without ties. A pair of matched numerical measurements, analysed through their difference, is a different type of paired-data analysis.{{cite:turner_firth2012_bradley_terry}} (§1, eq. 1, pp. 1–2)
 

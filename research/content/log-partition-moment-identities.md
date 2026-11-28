@@ -7,12 +7,12 @@ For example, the Bernoulli family can be parameterized by log odds rather than b
 Write a regular exponential-family density relative to a measure $\nu$ as
 $$p_\eta(x)=h(x)\exp\{\eta^\top T(x)-A(\eta)\},\qquad A(\eta)=\log\int h(x)e^{\eta^\top T(x)}\,d\nu(x).$$
 At an interior natural parameter where differentiation under the integral is valid,
-$$\nabla A(\eta)=E_\eta[T(X)],\qquad\nabla^2A(\eta)=\operatorname{Cov}_\eta[T(X)].$$
+$$\nabla A(\eta)=\E_\eta[T(X)],\qquad\nabla^2A(\eta)=\operatorname{Cov}_\eta[T(X)].$$
 The support and base measure are fixed as $\eta$ varies. Differentiating with respect to a transformed parameter generally introduces chain-rule factors and does not give these same expressions without adjustment.{{cite:wainwright_jordan2008}} (§§3.2, 3.5.1, eqs. 3.5–3.7, 3.41)
 
 ## Proof
 Put $Z(\eta)=e^{A(\eta)}$. Differentiating $Z$ gives $\partial_j Z=\int T_j(x)h(x)e^{\eta^\top T(x)}d\nu(x)$. Division by $Z$ converts that integral to an expectation under $p_\eta$. For the second derivative,
-$$\partial_{jk}A=\frac{\partial_{jk}Z}{Z}-\frac{(\partial_jZ)(\partial_kZ)}{Z^2}=E(T_jT_k)-E(T_j)E(T_k).$$
+$$\partial_{jk}A=\frac{\partial_{jk}Z}{Z}-\frac{(\partial_jZ)(\partial_kZ)}{Z^2}=\E(T_jT_k)-\E(T_j)\E(T_k).$$
 The quotient rule is responsible for the subtraction of the product of means. At a regular interior parameter, an exponential-moment bound from a small neighboring parameter region justifies the required differentiation and moments.{{cite:wainwright_jordan2008}} (§3.5.1, proof of prop. 3.1)
 
 The Hessian is positive semidefinite because $a^\top\nabla^2A\,a=\operatorname{Var}(a^\top T)\ge0$. It is positive definite precisely when no nonzero linear combination of the sufficient statistics is constant almost surely. Such a minimal representation removes a parameter redundancy. A zero curvature direction can therefore reflect a redundant statistic rather than an absence of data.{{cite:wainwright_jordan2008}} (§3.5.1, prop. 3.1(b))
@@ -20,7 +20,7 @@ The Hessian is positive semidefinite because $a^\top\nabla^2A\,a=\operatorname{V
 ## Key results — Likelihood scores inherit the same geometry
 For independent observations with common parameter, the log likelihood is $\eta^\top\sum_iT(x_i)-nA(\eta)$ plus a constant. Its score is $\sum_iT(x_i)-n\nabla A(\eta)$, and its Hessian is $-n\nabla^2A(\eta)$. A finite interior maximum therefore matches the modeled mean sufficient statistic to the observed average. Concavity follows from the covariance identity. Boundary samples can prevent a finite solution even though the likelihood remains concave.{{cite:wainwright_jordan2008}} (§3.4.2, eq. 3.38, pp. 60–61)
 
-For a one-parameter exponential-dispersion model with log density $\{y\theta-b(\theta)\}/a(\phi)+c(y,\phi)$, the corresponding identities are $E(Y)=b'(\theta)$ and $\operatorname{Var}(Y)=a(\phi)b''(\theta)$. The dispersion factor appears because the natural parameter for $Y$ is $\theta/a(\phi)$. Keeping that factor explicit avoids confusing a log-partition derivative with a response variance in a different parameterization.{{cite:nelder_wedderburn1972}} (§1.1, p. 371, eqs. 3–6)
+For a one-parameter exponential-dispersion model with log density $\{y\theta-b(\theta)\}/a(\phi)+c(y,\phi)$, the corresponding identities are $\E(Y)=b'(\theta)$ and $\operatorname{Var}(Y)=a(\phi)b''(\theta)$. The dispersion factor appears because the natural parameter for $Y$ is $\theta/a(\phi)$. Keeping that factor explicit avoids confusing a log-partition derivative with a response variance in a different parameterization.{{cite:nelder_wedderburn1972}} (§1.1, p. 371, eqs. 3–6)
 
 ## Worked example
 ### Bernoulli log odds

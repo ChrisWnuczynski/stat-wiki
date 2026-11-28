@@ -10,8 +10,8 @@ Two explanations of a binary outcome are open: explanation $A$ with prior probab
 For a discrete unknown $\theta$ and observed data $y$,
 
 $$
-P(\theta=\theta_j\mid y)
-=\frac{p(y\mid\theta_j)\,P(\theta=\theta_j)}{\sum_i p(y\mid\theta_i)\,P(\theta=\theta_i)},
+\mathbb{P}(\theta=\theta_j\mid y)
+=\frac{p(y\mid\theta_j)\,\mathbb{P}(\theta=\theta_j)}{\sum_i p(y\mid\theta_i)\,\mathbb{P}(\theta=\theta_i)},
 $$
 
 
@@ -39,8 +39,8 @@ That number is the posterior probability of one point in a two-point parameter. 
 The ratio of two posterior probabilities equals the prior odds times the likelihood ratio. The marginal probability of the data cancels, so
 
 $$
-\frac{P(\theta=\theta_1\mid y)}{P(\theta=\theta_2\mid y)}
-=\frac{P(\theta=\theta_1)}{P(\theta=\theta_2)}\cdot\frac{p(y\mid\theta_1)}{p(y\mid\theta_2)}.
+\frac{\mathbb{P}(\theta=\theta_1\mid y)}{\mathbb{P}(\theta=\theta_2\mid y)}
+=\frac{\mathbb{P}(\theta=\theta_1)}{\mathbb{P}(\theta=\theta_2)}\cdot\frac{p(y\mid\theta_1)}{p(y\mid\theta_2)}.
 $$
 
 
@@ -49,7 +49,7 @@ If the prior probability of a region is zero, the posterior probability of that 
 A continuous posterior assigns probability zero to any single point, even at a point where the density is positive. The probability of a set with positive length can still be large. An equal-tailed posterior interval chooses its endpoints so that the tails hold a stated mass. A fixed region such as $\{\theta\le 1/2\}$ does the opposite: the region is chosen first and the mass is read off. Those two summaries answer different questions, and only the second is a hypothesis probability.{{cite:gelman_bda2013}} (pp. 7–8){{cite:dodge2008}} (p. 33)
 
 ## Worked example
-Prior probabilities are $P(A)=1/4$ and $P(B)=3/4$. The sampling probabilities of the observed sample are $1/2$ under $A$ and $1/6$ under $B$. The unnormalised weights are
+Prior probabilities are $\mathbb{P}(A)=1/4$ and $\mathbb{P}(B)=3/4$. The sampling probabilities of the observed sample are $1/2$ under $A$ and $1/6$ under $B$. The unnormalised weights are
 
 $$
 \tfrac14\cdot\tfrac12=\tfrac18, \qquad \tfrac34\cdot\tfrac16=\tfrac18.
@@ -58,7 +58,7 @@ $$
 
 The marginal probability of the sample is $1/8+1/8=1/4$. The posterior probability of $A$ is $(1/8)/(1/4)=1/2$. The likelihood ratio in favour of $A$ is $(1/2)/(1/6)=3$, and the prior odds of $A$ against $B$ are $(1/4)/(3/4)=1/3$, so the posterior odds are $1$, which is the same probability $1/2$. The data have moved the probability of $\{A\}$ from $1/4$ to $1/2$. Naming $A$ as a hypothesis would then call $1/2$ a posterior hypothesis probability. Without that naming, $1/2$ is only the posterior probability of the set.{{cite:gelman_bda2013}} (pp. 7–8)
 
-**Your turn.** Keep the sampling probabilities $1/2$ and $1/6$, and replace the prior by $P(A)=P(B)=1/2$. What is the posterior probability of $A$?
+**Your turn.** Keep the sampling probabilities $1/2$ and $1/6$, and replace the prior by $\mathbb{P}(A)=\mathbb{P}(B)=1/2$. What is the posterior probability of $A$?
 
 ::: {.callout-tip collapse="true" title="Answer"}
 The unnormalised weights are $(1/2)\cdot(1/2)=1/4$ and $(1/2)\cdot(1/6)=1/12$. Their sum is $1/3$, so the posterior probability of $A$ is $(1/4)/(1/3)=3/4$.

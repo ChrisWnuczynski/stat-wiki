@@ -8,7 +8,7 @@ The observational unit and the target population should be specified before desc
 
 ## Interpretation — Conditioning changes the comparison
 For binary exposure $A$, outcome $Y$ and risk stratum $Z$, the crude risk is
-$$P(Y=1\mid A=a)=\sum_z P(Y=1\mid A=a,Z=z)P(Z=z\mid A=a).$$
+$$\mathbb{P}(Y=1\mid A=a)=\sum_z \mathbb{P}(Y=1\mid A=a,Z=z)\mathbb{P}(Z=z\mid A=a).$$
 The weights can differ by exposure group. Consequently a crude risk difference need not have the same sign as every stratum-specific risk difference. This follows from summing over the observed strata, without requiring a causal model. Confounding is a reason to investigate the difference in weights and the process that produced it; a regression coefficient alone cannot establish that the relevant confounders have been measured.{{cite:openintro2019}} (§1.3.4, confounding)
 
 A standardised descriptive risk uses a common specified set of non-negative weights $w_z$ summing to one: $R_a^{\mathrm{std}}=\sum_z w_zP(Y=1\mid A=a,Z=z)$. The interpretation is the model's comparison at that common stratum mix. Calling it a treatment effect additionally requires that the within-stratum comparison identifies what treatment assignment would change. In particular, recording a covariate does not ensure adequate overlap between treatment groups or remove measurement error in that covariate.

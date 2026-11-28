@@ -25,7 +25,7 @@ $$
 SS_B=3\{(2-11/3)^2+(3-11/3)^2+(6-11/3)^2\}=26,
 \quad SS_E=2+2+2=6.
 $$
-The total sum of squares is $32$. With $k-1=2$ and $N-k=6$, $F=(26/2)/(6/6)=13$, and $P(F_{2,6}\ge13)=0.0065918$. The evidence concerns equality of the three means under the model. It does not by itself establish a mechanism connecting treatment to outcome.{{cite:taback2022_design}} (§§5.3.6–5.3.7)
+The total sum of squares is $32$. With $k-1=2$ and $N-k=6$, $F=(26/2)/(6/6)=13$, and $\mathbb{P}(F_{2,6}\ge13)=0.0065918$. The evidence concerns equality of the three means under the model. It does not by itself establish a mechanism connecting treatment to outcome.{{cite:taback2022_design}} (§§5.3.6–5.3.7)
 
 **Your turn.** Add $10$ to every observation. What happens to the sums of squares and the test?
 

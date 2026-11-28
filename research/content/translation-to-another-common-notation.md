@@ -8,7 +8,7 @@ For a Poisson variable with mean $\lambda>0$, the density is $e^{-\lambda}\lambd
 Where differentiation under the integral is justified,
 $$
 A(\eta)=\log\int h(x)e^{\eta^\top T(x)}\,dx,
-\qquad \nabla A(\eta)=E_\eta T(X),\quad
+\qquad \nabla A(\eta)=\E_\eta T(X),\quad
 \nabla^2 A(\eta)=\operatorname{Cov}_\eta T(X).
 $$
 The first derivative divides the integral of $T(x)$ times the unnormalised density by its normalising integral. Differentiating again subtracts the outer product of those means, giving covariance. A covariance matrix is positive semidefinite, so $A$ is convex on its natural domain; strict convexity needs a minimal representation.{{cite:wainwright_jordan2008}} (§3.5.1, prop. 3.1, pp. 62–63)
@@ -44,10 +44,10 @@ because $e^{\eta}=\lambda$. The variance remains $A''(\eta)=\lambda$ when it is 
 
 The same distinction appears for a centred normal factor. Let $L(v)=\tfrac12\log(2\pi v)$ for $v>0$. Then $L''(v)=-1/(2v^2)$. At $v=4$, $L''(4)=-1/32=-0.03125$. The value $4$ is a variance. The value $-0.03125$ is a second derivative in that variance coordinate. The two numbers come from different operations.{{cite:wainwright_jordan2008}} (§3.5.1, prop. 3.1, pp. 62–63)
 
-**Your turn.** For Poisson mean $2$, identify $\eta$, $A$ and $P(X=0)$.
+**Your turn.** For Poisson mean $2$, identify $\eta$, $A$ and $\mathbb{P}(X=0)$.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-$\eta=\log2$, $A=2$, and $P(X=0)=e^{-2}=0.13534$.
+$\eta=\log2$, $A=2$, and $\mathbb{P}(X=0)=e^{-2}=0.13534$.
 :::
 
 ## Definition — Match the normaliser before differentiating
