@@ -7470,7 +7470,13 @@ def write_indexes(notes, chapters, final_notes, questions, by_source, by_topic) 
             f"[See all]({href(home, WIKI / 'labs' / 'index.qmd')}){{.library-more}}",
         )
     )
-    library = ":::: {.library}\n" + "\n".join(cards) + "::::\n"
+    # The cards' h3 titles need an h2 above them, or the page jumps from its h1
+    # straight to h3. The grid already shows the grouping, so the heading is
+    # for screen-reader navigation only.
+    library = (
+        '```{=html}\n<h2 class="visually-hidden">Browse the wiki</h2>\n```\n\n'
+        ":::: {.library}\n" + "\n".join(cards) + "::::\n"
+    )
     starter = "\n".join(
         f"{i}. [{notes[name]['title']}]({href(home, notes[name]['path'])})"
         for i, name in enumerate(chapter_guides.STARTER, 1)
@@ -8343,12 +8349,14 @@ project:
   output-dir: _site
   # Quarto's alias pages are redirects. Give each one a canonical link after render.
   # Then write each page's search description and the home page's title and
-  # site name, and check the share tags.
+  # site name, and check the share tags. Last, correct the navbar toggle's role
+  # and make the skip-link target focusable.
   post-render:
     - canonical_redirects.py
     - search_meta.py
     - share_preview.py
     - sidebar_share.py
+    - page_a11y.py
   # Render the generated pages only, not the course files copied into sources/.
   render:
     - "*.qmd"
