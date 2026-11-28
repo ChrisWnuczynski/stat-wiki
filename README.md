@@ -60,6 +60,46 @@ checks the private Dodge source outside the repository and stops with a clear
 error when the index, extracted pages, or PDF are missing. Set
 `STATWIKI_DODGE_DIR` if the source is in another directory.
 
+### Full validation setup
+
+The quick start above is enough to build and preview pages, but the full
+check suite — `python -m unittest discover` plus every script in `checks/` —
+needs more. Several page checks shell out to R, and the browser tests and
+`tools/visual_check.py` need Playwright's Chromium. Without them the suite
+fails partway with missing-tool errors instead of real failures. CI pins the
+exact versions in `.github/workflows/publish.yml`; match them locally:
+
+- Python 3.12 with `matplotlib==3.10.8`, `scipy==1.17.0`, `sympy==1.14.0`
+  and `scikit-learn==1.6.1`.
+- R 4.5.0 with the packages the page checks use: `mgcv` 1.9.3, `rpart`
+  4.1.24, `proxy` 0.4.27, `e1071` 1.7.13 and `gee` 4.13.25. The workflow
+  installs them from the CRAN archive and asserts those versions.
+- Quarto 1.6.40, the exact version CI uses, so pages render the same way.
+- Node 22 for the `labs/`, `webr/` and search `node --test` suites and the
+  Ask widget.
+- Playwright with Chromium, in two separate flavours. CI installs
+  Chromium only for the Ask widget's browser tests, using Node
+  Playwright 1.63.0 from the widget lockfile (`npx playwright install
+  --with-deps chromium` in `ask/widget`); it does not pin or install
+  Python Playwright. The Python Playwright used by the browser tests
+  and `tools/visual_check.py` is a local requirement: `pip install
+  playwright`, then `python -m playwright install --with-deps
+  chromium`. The `--with-deps` step matters on Linux — it installs
+  Chromium's system libraries, without which the browser download
+  succeeds but `chromium.launch()` fails on a fresh host.
+- Poppler (`poppler-utils`: `pdfinfo`, `pdftocairo`) and `fonts-liberation`.
+
+Run this preflight before the full suite; it fails fast with a clear message
+when a piece is missing:
+
+```
+Rscript -e 'for (p in c("mgcv", "rpart", "e1071", "gee", "proxy")) if (!requireNamespace(p, quietly = TRUE)) stop("missing R package: ", p); cat("R packages OK\n")'
+python -c "from playwright.sync_api import sync_playwright; p = sync_playwright().start(); b = p.chromium.launch(); print('Chromium OK', b.version); b.close(); p.stop()"
+```
+
+The commands to run before every push are listed in
+[AGENTS.md](AGENTS.md) under "Before every push".
+
 ## Desktop app
 
 `_app/launch_wiki.pyw` opens the local `_site` folder in its own window, and works offline. After changes made elsewhere, refresh it with:
